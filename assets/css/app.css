@@ -123,6 +123,7 @@
 .map-bg {
   background: #1a237e;
 }
+
 .copyright {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.3);
@@ -149,6 +150,10 @@
 .application-icon-r {
   width: 400px;
   height: 100%;
+}
+.application-div {
+  width: 100%;
+  position: relative;
 }
 .application-img {
   width: 100%;
