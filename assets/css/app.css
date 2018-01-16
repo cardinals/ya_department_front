@@ -259,8 +259,9 @@
 .navbar {
   position: relative;
   min-height: 50px;
-  background-color: #252628;
+  background-color: #424242;
   border-radius: 0;
+  border:1px solid #000;
   z-index: 10;
 }
 .container-fixed {
@@ -347,13 +348,12 @@
           transition: all 0.4s ease-in-out;
   width: 240px;
   min-height: 100%;
-  padding-top: 57px;
   position: absolute;
   z-index: 9;
   top: 0;
   left: 0;
-  background-color: #3e3f43;
-  padding-top: 110px;
+  background-color: #0277bd;
+  padding-top: 52px;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
@@ -367,7 +367,7 @@
 .el-menu {
   border-radius: 0;
   color: #d6d6d7;
-  background-color: #3e3f43;
+  background-color: #0277bd;
 }
 .el-menu-item,
 .el-submenu__title {
@@ -380,21 +380,21 @@
 .el-submenu .el-menu-item:hover,
 .el-submenu__title:hover,
 .el-submenu .el-menu:focus {
-  background-color: #494b50;
+  background-color: #01579b;
   color: #d6d6d7;
 }
 .el-submenu .el-menu,
 .el-submenu.is-opened > a {
-  background-color: #252628;
+  background-color: #0277bd;
 }
 .menu-toggle-btn {
   background-color: #FFF;
-  border: 1px solid #252628;
+  border: 1px solid #0277bd;
   border-right: 0;
   width: 26px;
   height: 26px;
   line-height: 26px;
-  top: 70px;
+  bottom: 10px;
   right: 0;
   border-radius: 3px 0 0 3px;
   color: #575759;
@@ -402,6 +402,7 @@
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
+  z-index:9999;
 }
 .menu-toggle-btn:hover {
   text-decoration: none;
@@ -414,7 +415,7 @@
   color: #d6d6d7;
 }
 .el-submenu.is-active .el-submenu__title {
-  background-color: #20a0ff;
+  background-color: #01579b;
 }
 .main-box {
   padding-left: 240px;
