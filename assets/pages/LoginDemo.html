@@ -4,30 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css" type="text/css" />
+    <title>Login</title>
+    <!--<link rel="stylesheet" href="../css/login.css" type="text/css" />-->
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 先引入 Vue -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style type="text/css">
+        #app{
+
+        }
+        h1{
+            font-size:20px
+        }
+        .content{
+            float: right;
+            margin-right: 15%;
+        }
+        .footer{
+            clear: both;
+            display: block;
+            text-align: center; 
+            margin: 0 auto;
+            position: absolute;
+            bottom: 10px;
+            width: 99%;
+        }
+        #footer-content{
+            font-size: 13px;
+        }
+        .content_wrapper{
+            margin:0 auto;
+        }
+        .login_container{
+            border: 1px solid hsl(0, 3%, 55%);
+            border-radius:5px;
+            float: right;
+            width: 300px;
+            height: 300px;
+            margin-top:25%;
+        }
+        .inputstyle{
+            margin:0 auto;
+        }
+        .login-item{
+            margin: 20px auto;
+            text-align:center;
+        }
+        .login-icon{
+            vertical-align: bottom;
+        }
+        .login-button {
+            height: 40px;
+            background-color: #3D5AFE;
+            margin-top: 10px;
+            border-radius: 3px;
+            border: 0;
+            color: #FFF;
+            width: 93%;
+            font-size: 18px;
+        }
+        #loginform{
+            text-align: center;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        .login-title{
+            text-align: center;
+            padding: 20px;
+            background-color: rgb(24, 25, 32);
+            color: #fff;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="app" style="background-image:url('../static/img/login.png');background-size:cover">
         <div class="header">
             <h1>{{title}}</h1>
         </div>
-        <div class="content" style="background-image:url('../static/img/login.png');background-size:cover">
+        <div class="content">
             <div class="content_wrapper">
             <div class="login_container">
-                <form id="loginform" autocomplete="off" name="loginform" style="margin:0px">
-                <p><h4>用户名：</h4></p>
-                <p><input type="text" class="inputstyle" v-model="username"></p>
-                <p><h4>密码：</h4></p>
-                <p><input type="password" class="inputstyle" v-model="psw" v-on:keyup.enter="login()"></p>
-                <p><h4>验证码：</h4></p>
-                <p><img v-bind:src="src"  width="90" height="30">
-                <input type="password" v-model="yzm"></p>
-                <div class="buttons">
-                    <input type="button" class="button" id="login_button" value="立即登录" @click="login()">
-                    <input type="button" class="button" id="reset_button" value="清空" @click="reset()">
+                <div class="login-title">
+                    <span>USER LOGIN</span>
+                </div>
+                <form id="loginform" autocomplete="off" name="loginform">
+                <div class="login-item username rel" style="margin-left: -10px">
+                    <div class="login-line">
+                        <img src="../images/icon-user.png" class="login-icon">
+                        <input type="text" class="inputstyle" v-model="username" placeholder="用户名">
+                    </div>
+                    <!-- /login-line -->
+                </div>
+                 <!-- /login-item -->
+                <div class="login-item password rel">
+                    <div class="login-line">
+                        <img src="../images/icon-password.png" class="login-icon">
+                        <input class="inputstyle" v-model="password" type="text" placeholder="密码" v-on:keyup.enter="login()">
+                    </div>
+                    <!-- /login-line -->
+                </div>
+                 <!-- /login-item -->
+                <div class="login-item verify rel" style="margin-left: 50px">
+                    <div class="login-line fix">
+                        <div class="l">
+                            <img class="login-icon" src="../images/icon-verficode.png">
+                            <input class="inputstyle" v-model="verficode" type="text" placeholder="验证码">
+                            <img v-bind:src="src" style="vertical-align: bottom" width="50" height="20">
+                        </div>
+                    </div>
+                    <!-- /login-line -->
+                </div>
+                <!-- /login-item -->
+                <div class="login-button-box tr">
+                    <button class="login-button" type="submit" style="text-align:center;" @click="login()">登&nbsp;&nbsp;录</button>
                 </div>
                 </form>
             </div>
@@ -35,76 +129,73 @@
             </div>
         </div>
         <div class="footer">
-            <p>公安部沈阳消防研究所&nbsp;&copy;&nbsp;Copyright&nbsp;&copy;&nbsp;{{author}} - 2018 All rights reserved</p>
+            <p id="footer-content">公安部沈阳消防研究所&nbsp;&copy;&nbsp;Copyright&nbsp;&copy;&nbsp;{{author}} - 2018 All rights reserved</p>
         </div>
     </div>
-    <!-- 先引入 Vue -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script>
-        export default {
+        new Vue({
             name: "HelloWorld",
-            data() {
-            return {
+            el:'#app',
+            data:{
                 username: "",
                 psw: "",
                 yzm: "",
+                title:"数字化预案系统",
+                author:"wf",
                 src: "http://10.119.119.175:8004/imageCode",
                 users: [
-                {
-                    username: "zhangsan",
-                    password: "123456",
-                    userimg: "user.jpg",
-                    words: "世界那么大我想去看看。"
-                },
-                {
-                    username: "lisi",
-                    password: "123456",
-                    userimg: "user01.jpg",
-                    words: "雨过天晴的美好。"
-                },
-                {
-                    username: "admin",
-                    password: "123456",
-                    userimg: "user02.jpg",
-                    words: "下大雨了，怎么办啊。"
-                }
+                    {
+                        username: "zhangsan",
+                        password: "123456",
+                        userimg: "user.jpg",
+                        words: "世界那么大我想去看看。"
+                    },
+                    {
+                        username: "lisi",
+                        password: "123456",
+                        userimg: "user01.jpg",
+                        words: "雨过天晴的美好。"
+                    },
+                    {
+                        username: "admin",
+                        password: "123456",
+                        userimg: "user02.jpg",
+                        words: "下大雨了，怎么办啊。"
+                    }
                 ]
-            };
             },
             methods: {
-            login: function() {
-                var flag = false;
-                for (var i = 0, len = this.users.length; i < len; i++) {
-                if (
-                    this.users[i].username === this.username &&
-                    this.users[i].password === this.psw
-                ) {
-                    flag = true;
-                    //this.$router.push({ path: "overview" });
-                    window.location.href='/#/overview';
-                    break;
+                login: function() {
+                    var flag = false;
+                    for (var i = 0, len = this.users.length; i < len; i++) {
+                    if (
+                        this.users[i].username === this.username &&
+                        this.users[i].password === this.psw
+                    ) {
+                        flag = true;
+                        //this.$router.push({ path: "overview" });
+                        window.location.href='overview.html';
+                        break;
+                    }
+                    }
+                    if (!flag) {
+                    alert("输入的账号或密码不正确！");
+                    }
+                },
+                reset: function() {
+                    this.username = "";
+                    this.psw = "";
                 }
-                }
-                if (!flag) {
-                alert("输入的账号或密码不正确！");
-                }
-            },
-            reset: function() {
-                this.username = "";
-                this.psw = "";
-            }
             },
             computed: {
-            author() {
-                return this.$store.state.author;
-            },
-            title() {
-                return this.$store.state.title;
+                author() {
+                    return this.$store.state.author;
+                },
+                title() {
+                    return this.$store.state.title;
+                }
             }
-            }
-        };
+        })
     </script>
 </body>
 </html>
