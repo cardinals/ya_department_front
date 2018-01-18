@@ -104,7 +104,7 @@
                 <div class="login-item password rel">
                     <div class="login-line">
                         <img src="../images/icon-password.png" class="login-icon">
-                        <input class="inputstyle" v-model="password" type="text" placeholder="密码" v-on:keyup.enter="login()">
+                        <input class="inputstyle" v-model="psw" type="password" placeholder="密码" v-on:keyup.enter="login()">
                     </div>
                     <!-- /login-line -->
                 </div>
@@ -121,7 +121,7 @@
                 </div>
                 <!-- /login-item -->
                 <div class="login-button-box tr">
-                    <button class="login-button" type="submit" style="text-align:center;" @click="login()">登&nbsp;&nbsp;录</button>
+                    <input type="button" class="login-button" id="login_button" style="text-align:center;" value="登  录" @click="login()">
                 </div>
                 </form>
             </div>
