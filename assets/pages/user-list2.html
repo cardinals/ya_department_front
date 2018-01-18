@@ -8,6 +8,45 @@
 	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
 	<link rel="stylesheet" type="text/css" href="../css/element.css">
 	<link rel="stylesheet" type="text/css" href="../css/app.css">
+	<style>  
+		.black_overlay{  
+			display: none;  
+			position: absolute;  
+			top: 0%;  
+			left: 0%;  
+			width: 100%;  
+			height: 100%;  
+			background-color: black;  
+			z-index:1001;  
+			-moz-opacity: 0.8;  
+			opacity:.80;  
+			filter: alpha(opacity=80);  
+		}  
+		.white_content {  
+			display: none;  
+			position: absolute;  
+			top: 10%;  
+			left: 10%;  
+			width: 80%;  
+			height: 80%;  
+			border: 16px solid lightblue;  
+			background-color: white;  
+			z-index:1002;  
+			overflow: auto;  
+		}  
+		.white_content_small {  
+			display: none;  
+			position: absolute;  
+			top: 20%;  
+			left: 30%;  
+			width: 40%;  
+			height: 50%;  
+			border: 16px solid lightblue;  
+			background-color: white;  
+			z-index:1002;  
+			overflow: auto;  
+		}  
+	</style>  
 	<script src="../lib/element.js"></script>
 </head>
 
@@ -159,28 +198,28 @@
 						<div class="el-row">
 							<div class="el-col el-col-10">
 								<div class="el-form-item">
-								<label class="el-form-item__label">技术类型</label>
-								<div class="el-form-item__content">
-								<div class="el-select">
-								<div class="el-input el-input--suffix"> 
-									<select  style="width:200px;" class="el-input__inner">
-									<span class="el-input__suffix">
-										<span class="el-input__suffix-inner">
-											<i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
-											<!---->
-										</span>
-											<!---->
-									</span>
-										<option value="1" class="el-select-dropdown__item">通讯</option>  
-										<option value="2" class="el-select-dropdown__item">政务</option>  
-										<option value="3" class="el-select-dropdown__item">人力</option>  
-										<option value="4" class="el-select-dropdown__item">勤务</option>  
-									</select>  
+									<label class="el-form-item__label">技术类型</label>
+									<div class="el-form-item__content">
+										<div class="el-select">
+											<div class="el-input el-input--suffix">
+												<select style="width:200px;" class="el-input__inner">
+													<span class="el-input__suffix">
+														<span class="el-input__suffix-inner">
+															<i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+															<!---->
+														</span>
+														<!---->
+													</span>
+													<option value="1" class="el-select-dropdown__item">通讯</option>
+													<option value="2" class="el-select-dropdown__item">政务</option>
+													<option value="3" class="el-select-dropdown__item">人力</option>
+													<option value="4" class="el-select-dropdown__item">勤务</option>
+												</select>
+											</div>
+										</div>
+									</div>
 								</div>
-								</div>
-								</div> 
-								</div>
-							</div>  
+							</div>
 							<div class="el-col el-col-2">&nbsp;</div>
 							<div class="el-col el-col-10">
 								<div class="el-form-item">
@@ -188,7 +227,7 @@
 									<div class="el-form-item__content">
 										<div class="el-select">
 											<!---->
-											<div class="el-input el-input--suffix">
+											<div class="el-input el-input--suffix is-focus">
 												<!---->
 												<input autocomplete="off" placeholder="直属单位" size="" readonly="readonly" rows="2" class="el-input__inner" type="">
 												<!---->
@@ -246,12 +285,12 @@
 						<div class="el-form-item">
 							<!---->
 							<div class="el-form-item__content">
-								<button type="button" class="el-button el-button--primary" @click="searchClick">
+								<button type="button" class="el-button el-button--primary" onclick="searchClick()">
 									<!---->
 									<i class="search"></i>
 									<span>查询</span>
 								</button>
-								<button type="button" class="el-button el-button--success">
+								<button type="button" class="el-button el-button--success" onclick="addClick()">
 									<!---->
 									<i class="plus"></i>
 									<span>新增</span>
@@ -263,17 +302,16 @@
 				</form>
 
 
-				<div class="el-table el-table--fit el-table--border el-table--enable-row-hover el-table--enable-row-transition"
-				 style="width: 100%;">
+				<div class="el-table el-table--fit el-table--border el-table--enable-row-hover el-table--enable-row-transition" style="width: 100%;">
 					<div class="hidden-columns">
-						<div ></div>
-						<div ></div>
 						<div></div>
-						<div ></div>
-						<div ></div>
-						<div ></div>
-						<div ></div>
-						<div ></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
 					</div>
 					<div class="el-table__header-wrapper">
 						<table class="el-table__header" style="width: 1022px;" cellspacing="0" cellpadding="0" border="0">
@@ -920,25 +958,131 @@
 							</div>页</span>
 					</div>
 				</div>
+				<input id="Button1" type="button" value="点击弹出层" onclick="ShowDiv('MyDiv','fade')" />  
+				<!--弹出层时背景层DIV-->  
+				<div id="fade" class="black_overlay">  
+				</div>  
+				  
 
-
-
-				<div class="el-dialog" style="margin-top: 15vh;">
+				<div id="MyDiv" class="el-dialog" style="margin-top: 15vh; display: none;  
+				position: absolute;  
+				top: 20%;  
+				left: 50%;  
+				width: 60%;  
+				height: 60%;  
+				z-index:1002;  
+				overflow: auto;  ">
 					<div class="el-dialog__header">
 						<span class="el-dialog__title">编辑</span>
 						<button type="button" aria-label="Close" class="el-dialog__headerbtn">
 							<i class="el-dialog__close el-icon el-icon-close"></i>
 						</button>
 					</div>
-					<!---->
+					<div class="el-dialog__body">
+						<form data-v-3ac1b215="" class="el-form">
+							<div data-v-3ac1b215="" class="el-row">
+								<div data-v-3ac1b215="" class="el-col el-col-8">
+									<div data-v-3ac1b215="" class="el-form-item is-success is-required">
+										<label for="realname" class="el-form-item__label" style="width: 80px;">姓名</label>
+										<div class="el-form-item__content" style="margin-left: 80px;">
+											<div data-v-3ac1b215="" class="el-input">
+												<!---->
+												<input autocomplete="off" rows="2" validateevent="true" class="el-input__inner" type="text">
+												<!---->
+												<!---->
+												<!---->
+											</div>
+											<!---->
+										</div>
+									</div>
+								</div>
+								<div data-v-3ac1b215="" class="el-col el-col-8">
+									<div data-v-3ac1b215="" class="el-form-item">
+										<label class="el-form-item__label" style="width: 80px;">性别</label>
+										<div class="el-form-item__content" style="margin-left: 80px;">
+											<div data-v-3ac1b215="" role="radiogroup" class="el-radio-group">
+												<label data-v-3ac1b215="" role="radio" tabindex="0" class="el-radio radio is-checked" aria-checked="true">
+													<span class="el-radio__input is-checked">
+														<span class="el-radio__inner"></span>
+														<input tabindex="-1" class="el-radio__original" name="sex" value="1" type="radio">
+													</span>
+													<span class="el-radio__label">男
+														<!---->
+													</span>
+												</label>
+												<label data-v-3ac1b215="" role="radio" tabindex="-1" class="el-radio radio">
+													<span class="el-radio__input">
+														<span class="el-radio__inner"></span>
+														<input tabindex="-1" class="el-radio__original" name="sex" value="0" type="radio">
+													</span>
+													<span class="el-radio__label">女
+														<!---->
+													</span>
+												</label>
+											</div>
+											<!---->
+										</div>
+									</div>
+								</div>
+							</div>
+							<div data-v-3ac1b215="" class="el-row">
+								<div data-v-3ac1b215="" class="el-col el-col-10">
+									<div data-v-3ac1b215="" class="el-form-item">
+										<label class="el-form-item__label" style="width: 80px;">生日</label>
+										<div class="el-form-item__content" style="margin-left: 80px;">
+											<div data-v-3ac1b215="" class="el-date-editor el-input el-input--prefix el-input--suffix el-date-editor--date">
+												<!---->
+												<input autocomplete="off" placeholder="选择日期" size="" name="" id="" rows="2" prefixicon="el-icon-date" class="el-input__inner"
+												 type="date" value="">
+												
+												<!---->
+											</div>
+											<!---->
+										</div>
+									</div>
+								</div>
+								<div data-v-3ac1b215="" class="el-col el-col-2">&nbsp;</div>
+								<div data-v-3ac1b215="" class="el-col el-col-8">
+									<div data-v-3ac1b215="" class="el-form-item">
+										<label class="el-form-item__label" style="width: 80px;">部门名称</label>
+										<div class="el-form-item__content" style="margin-left: 80px;">
+											<div data-v-3ac1b215="" class="el-select">
+												<!---->
+												<div class="el-input el-input--suffix">
+													<!---->
+													<input autocomplete="off" placeholder="部门名称" size="" readonly="readonly" rows="2" class="el-input__inner" type="text">
+													<!---->
+													<span class="el-input__suffix">
+														<span class="el-input__suffix-inner">
+															<i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+															<!---->
+														</span>
+														<!---->
+													</span>
+													<!---->
+												</div>
+												<div class="resize-triggers">
+													<div class="expand-trigger">
+														<div style="width: 118px; height: 42px;"></div>
+													</div>
+													<div class="contract-trigger"></div>
+												</div>
+											</div>
+											<!---->
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
 					<div class="el-dialog__footer">
-						<div class="dialog-footer">
-							<button type="button" class="el-button el-button--default">
+						<div data-v-3ac1b215="" class="dialog-footer">
+							<button data-v-3ac1b215="" type="button" class="el-button el-button--default">
 								<!---->
 								<!---->
 								<span>取消</span>
 							</button>
-							<button type="button" class="el-button el-button--primary">
+							<button data-v-3ac1b215="" type="button" class="el-button el-button--primary">
 								<!---->
 								<!---->
 								<span>提交</span>
@@ -957,6 +1101,28 @@
 	<script src="../lib/vue.min.js"></script>
 	<script src="../lib/element.js"></script>
 	<script>
+		//表格查询事件
+		function searchClick() {
+			alert("搜索");
+			//var _self = this;
+			//_self.loadingData(); //重新加载数据
+		};
+		//弹出隐藏层  
+		function ShowDiv(show_div,bg_div){  
+			document.getElementById(show_div).style.display='block';  
+			document.getElementById(bg_div).style.display='block' ;  
+			var bgdiv = document.getElementById(bg_div);  
+			bgdiv.style.width = document.body.scrollWidth;   
+			// bgdiv.style.height = $(document).height();  
+			$("#"+bg_div).height($(document).height());  
+		};  
+		//关闭弹出层  
+		function CloseDiv(show_div,bg_div)  
+		{  
+			document.getElementById(show_div).style.display='none';  
+			document.getElementById(bg_div).style.display='none';  
+		};  
+
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
 		});
@@ -1080,13 +1246,7 @@
 					if (this.hasChildren()) {
 						this.open = !this.open;
 					}
-				},
-				 //表格查询事件
-				 searchClick: function() {
-					alert("搜索");
-					//var _self = this;
-					//_self.loadingData(); //重新加载数据
-					}
+				}
 			}
 
 		});
