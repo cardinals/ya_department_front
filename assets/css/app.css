@@ -160,14 +160,16 @@
 }
 .icon1 {
   background-image: url('../images/icon-1.png');
+  background-size:55px 55px;
 }
 .icon2 {
   background-image: url('../images/icon-2.png');
+  background-size:55px 55px;
 }
 .p38 {
   padding-left: 38%;
   background-repeat: no-repeat;
-  background-position: 20% center;
+  background-position: 17% center;
   justify-content: left;
 }
 .application-text {

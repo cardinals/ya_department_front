@@ -33,19 +33,22 @@
 								mapType: 'china',
 								hoverable: true,
 								roam: false,
+								//图形样式
 								itemStyle: {
+									//默认样式
 									normal: {
 										areaStyle: {
 											color: '#122735'
 										},
-										borderColor:'#7282B1'
+										borderColor: '#7282B1'
 									},
+									//强调样式（悬浮时样式）
 									emphasis: {
 										areaStyle: {
 											color: '#122735'
 										},
-										borderColor:'#7282B1',
-										borderWidth:'2'
+										borderColor: '#7282B1',
+										borderWidth: '2'
 									}
 								},
 								data: [],
@@ -492,9 +495,11 @@
 											type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 										}
 									},
+									color: ['red', 'orange', 'yellow', 'lightgreen'],
 									legend: {
 										x: 'center',
 										y: '5%',
+										itemWidth: 18,
 										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
 										textStyle: {
 											color: 'white'
@@ -510,7 +515,7 @@
 									xAxis: [
 										{
 											type: 'category',
-											data : ['二维预案','三维预案'],
+											data: ['二维预案', '三维预案'],
 											axisLine: {
 												lineStyle: {
 													color: 'white'
@@ -542,18 +547,21 @@
 										{
 											name: '地下建筑',
 											type: 'bar',
+											barWidth: '40%',
 											stack: '预案',
 											data: [1310, 679]
 										},
 										{
 											name: '大型综合体',
 											type: 'bar',
+											barWidth: '40%',
 											stack: '预案',
 											data: [1234, 548]
 										},
 										{
 											name: '化工园区',
 											type: 'bar',
+											barWidth: '40%',
 											stack: '预案',
 											data: [1135, 135]
 										}
@@ -575,10 +583,13 @@
 										trigger: 'item',
 										formatter: "{a} <br/>{b}: {c} ({d}%)"
 									},
+									color: ['red', 'orange', 'yellow', 'lightgreen'],
 									legend: {
 										orient: 'vertical',
 										x: '60%',
 										y: 'center',
+										itemGap: 16,
+										itemWidth: 18,
 										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
 										textStyle: {
 											color: 'white'
@@ -590,7 +601,7 @@
 											name: '三维预案',
 											type: 'pie',
 											center: ['35%', '50%'],
-											radius: [0, '50%'],
+											radius: [0, '42%'],
 											label: {
 												normal: {
 													show: false
@@ -607,7 +618,7 @@
 											name: '二维预案',
 											type: 'pie',
 											center: ['35%', '50%'],
-											radius: ['60%', '85%'],
+											radius: ['56%', '75%'],
 											label: {
 												normal: {
 													show: false
