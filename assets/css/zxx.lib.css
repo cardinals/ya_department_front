@@ -45,3 +45,4 @@
 .tcollapse {border-collapse:collapse;}
 a:focus {outline:none; text-decoration:none; color:inherit;}
 
+.flex{display: -webkit-box; display: -webkit-flex; display: -moz-box; display: -moz-flex; display: -ms-flexbox; display: flex; align-items: center; justify-content: center;}
