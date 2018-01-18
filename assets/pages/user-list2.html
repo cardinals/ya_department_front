@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
 	<title>运营拍档</title>
 	<link rel="stylesheet" type="text/css" href="../css/reset.css">
@@ -7,21 +8,27 @@
 	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
 	<link rel="stylesheet" type="text/css" href="../css/element.css">
 	<link rel="stylesheet" type="text/css" href="../css/app.css">
+	<script src="../lib/element.js"></script>
 </head>
+
 <body class="fw f14">
 	<div class="header-box navbar">
 		<div class="container">
 			<div class="navbar-header">
-				<button class="navbar-toggle collapsed" id="oscar-nav-btn" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+				<button class="navbar-toggle collapsed" id="oscar-nav-btn" type="button" data-toggle="collapse" data-target="#bs-navbar"
+				 aria-controls="bs-navbar" aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
 				<a href="../" class="navbar-brand">
-					<div class="logo2"><!-- 运营拍档 --></div>
+					<div class="logo2">
+						<!-- 运营拍档 -->
+					</div>
 				</a>
-			</div><!-- /navbar-header -->
+			</div>
+			<!-- /navbar-header -->
 			<nav class="navbar-collapse collapse" id="bs-nav">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
@@ -46,7 +53,8 @@
 									<span class="glyphicon glyphicon-off"></span>
 									<span class="ml5">退出</span>
 								</div>
-							</div><!-- /dada -->
+							</div>
+							<!-- /dada -->
 						</a>
 					</li>
 				</ul>
@@ -60,22 +68,890 @@
 					<span class="glyphicon glyphicon-off"></span>
 					<span class="ml5">退出</span>
 				</div>
-			</div><!-- /dada -->
-		</div><!-- /container -->
-	</div><!-- /header-box -->
+			</div>
+			<!-- /dada -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /header-box -->
 
 	<div class="left-sidebar">
 		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
 		<div id="menu-box">
 			<big-tree default-active="2-1"></big-tree>
 		</div>
-	</div><!-- /left-sidebar -->
+	</div>
+	<!-- /left-sidebar -->
 
 	<div class="main-box">
 		<div class="main-container">
-			asdfasdfasdf
-		</div><!-- main-container -->
-	</div><!-- /main-box -->
+			<div id="tableView">
+				<form class="el-form demo-form-inline">
+					<div>
+						<div class="el-row">
+							<div class="el-col el-col-10">
+								<div class="el-form-item">
+									<label class="el-form-item__label">ID</label>
+									<div class="el-form-item__content">
+										<div class="el-input">
+											<!---->
+											<input autocomplete="off" placeholder="ID" rows="2" validateevent="true" class="el-input__inner" type="text">
+											<!---->
+											<!---->
+											<!---->
+										</div>
+										<!---->
+									</div>
+								</div>
+							</div>
+
+							<div class="el-col el-col-2">&nbsp;</div>
+							<div class="el-col el-col-10">
+								<div class="el-form-item">
+									<label class="el-form-item__label">在职年份</label>
+									<div class="el-form-item__content">
+										<div class="el-input">
+											<!---->
+											<input autocomplete="off" placeholder="在职年份" rows="2" validateevent="true" class="el-input__inner" type="text">
+											<!---->
+											<!---->
+											<!---->
+										</div>
+										<!---->
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="el-row">
+							<div class="el-col el-col-10">
+								<div class="el-form-item">
+									<label class="el-form-item__label">职位</label>
+									<div class="el-form-item__content">
+										<div class="el-input">
+											<!---->
+											<input autocomplete="off" placeholder="职位" rows="2" validateevent="true" class="el-input__inner" type="text">
+											<!---->
+											<!---->
+											<!---->
+										</div>
+										<!---->
+									</div>
+								</div>
+							</div>
+							<div class="el-col el-col-2">&nbsp;</div>
+							<div class="el-col el-col-10">
+								<div class="el-form-item">
+									<label class="el-form-item__label">姓名</label>
+									<div class="el-form-item__content">
+										<div class="el-input">
+											<!---->
+											<input autocomplete="off" placeholder="姓名" rows="2" validateevent="true" class="el-input__inner" type="text">
+											<!---->
+											<!---->
+											<!---->
+										</div>
+										<!---->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="el-row">
+							<div class="el-col el-col-10">
+								<div class="el-form-item">
+								<label class="el-form-item__label">技术类型</label>
+								<div class="el-form-item__content">
+								<div class="el-select">
+								<div class="el-input el-input--suffix"> 
+									<select  style="width:200px;" class="el-input__inner">
+									<span class="el-input__suffix">
+										<span class="el-input__suffix-inner">
+											<i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+											<!---->
+										</span>
+											<!---->
+									</span>
+										<option value="1" class="el-select-dropdown__item">通讯</option>  
+										<option value="2" class="el-select-dropdown__item">政务</option>  
+										<option value="3" class="el-select-dropdown__item">人力</option>  
+										<option value="4" class="el-select-dropdown__item">勤务</option>  
+									</select>  
+								</div>
+								</div>
+								</div> 
+								</div>
+							</div>  
+							<div class="el-col el-col-2">&nbsp;</div>
+							<div class="el-col el-col-10">
+								<div class="el-form-item">
+									<label class="el-form-item__label">直属单位</label>
+									<div class="el-form-item__content">
+										<div class="el-select">
+											<!---->
+											<div class="el-input el-input--suffix">
+												<!---->
+												<input autocomplete="off" placeholder="直属单位" size="" readonly="readonly" rows="2" class="el-input__inner" type="">
+												<!---->
+												<span class="el-input__suffix">
+													<span class="el-input__suffix-inner">
+														<i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+														<!---->
+													</span>
+													<!---->
+												</span>
+												<!---->
+											</div>
+											<div class="el-select-dropdown el-popper" style="display: none; min-width: 193px;">
+												<div class="el-scrollbar" style="">
+													<div class="el-select-dropdown__wrap el-scrollbar__wrap" style="margin-bottom: -17px; margin-right: -17px;">
+														<ul class="el-scrollbar__view el-select-dropdown__list" style="position: relative;">
+															<!---->
+															<li class="el-select-dropdown__item">
+																<span>单位1</span>
+															</li>
+															<li class="el-select-dropdown__item">
+																<span>单位2</span>
+															</li>
+															<div class="resize-triggers">
+																<div class="expand-trigger">
+																	<div style="width: 1px; height: 1px;"></div>
+																</div>
+																<div class="contract-trigger"></div>
+															</div>
+														</ul>
+													</div>
+													<div class="el-scrollbar__bar is-horizontal">
+														<div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div>
+													</div>
+													<div class="el-scrollbar__bar is-vertical">
+														<div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div>
+													</div>
+												</div>
+												<!---->
+											</div>
+											<div class="resize-triggers">
+												<div class="expand-trigger">
+													<div style="width: 194px; height: 42px;"></div>
+												</div>
+												<div class="contract-trigger"></div>
+											</div>
+										</div>
+										<!---->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div align="right">
+						<div class="el-form-item">
+							<!---->
+							<div class="el-form-item__content">
+								<button type="button" class="el-button el-button--primary" @click="searchClick">
+									<!---->
+									<i class="search"></i>
+									<span>查询</span>
+								</button>
+								<button type="button" class="el-button el-button--success">
+									<!---->
+									<i class="plus"></i>
+									<span>新增</span>
+								</button>
+								<!---->
+							</div>
+						</div>
+					</div>
+				</form>
+
+
+				<div class="el-table el-table--fit el-table--border el-table--enable-row-hover el-table--enable-row-transition"
+				 style="width: 100%;">
+					<div class="hidden-columns">
+						<div ></div>
+						<div ></div>
+						<div></div>
+						<div ></div>
+						<div ></div>
+						<div ></div>
+						<div ></div>
+						<div ></div>
+					</div>
+					<div class="el-table__header-wrapper">
+						<table class="el-table__header" style="width: 1022px;" cellspacing="0" cellpadding="0" border="0">
+							<colgroup>
+								<col name="el-table_1_column_1" width="35">
+								<col name="el-table_1_column_2" width="35">
+								<col name="el-table_1_column_3" width="120">
+								<col name="el-table_1_column_4" width="150">
+								<col name="el-table_1_column_5" width="120">
+								<col name="el-table_1_column_6" width="300">
+								<col name="el-table_1_column_7" width="120">
+								<col name="el-table_1_column_8" width="142">
+								<col name="gutter" width="">
+							</colgroup>
+							<thead class="has-gutter">
+								<tr class="">
+									<th colspan="1" rowspan="1" class="el-table_1_column_1   el-table-column--selection  is-leaf">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</th>
+									<th colspan="1" rowspan="1" class="el-table_1_column_2     is-leaf">
+										<div class="cell">序号</div>
+									</th>
+									<th colspan="1" rowspan="1" class="el-table_1_column_3     is-leaf">
+										<div class="cell">真实姓名</div>
+									</th>
+									<th colspan="1" rowspan="1" class="el-table_1_column_4     is-leaf">
+										<div class="cell">生日</div>
+									</th>
+									<th colspan="1" rowspan="1" class="el-table_1_column_5     is-leaf">
+										<div class="cell">性别</div>
+									</th>
+									<th colspan="1" rowspan="1" class="el-table_1_column_6     is-leaf">
+										<div class="cell">部门名称</div>
+									</th>
+									<th colspan="1" rowspan="1" class="el-table_1_column_7     is-leaf">
+										<div class="cell">职务</div>
+									</th>
+									<th colspan="1" rowspan="1" class="el-table_1_column_8     is-leaf">
+										<div class="cell">操作</div>
+									</th>
+									<th class="gutter" style="width: 0px;"></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="el-table__body-wrapper is-scroll-left">
+						<table class="el-table__body" style="width: 1022px;" cellspacing="0" cellpadding="0" border="0">
+							<colgroup>
+								<col name="el-table_1_column_1" width="35">
+								<col name="el-table_1_column_2" width="35">
+								<col name="el-table_1_column_3" width="120">
+								<col name="el-table_1_column_4" width="150">
+								<col name="el-table_1_column_5" width="120">
+								<col name="el-table_1_column_6" width="300">
+								<col name="el-table_1_column_7" width="120">
+								<col name="el-table_1_column_8" width="142">
+							</colgroup>
+							<tbody>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>1</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-03</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门1</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>2</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-01</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门2</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>3</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-03</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门1</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>4</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-01</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门2</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>5</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-03</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门1</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>6</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-01</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门2</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>7</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-03</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门1</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>8</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-01</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门2</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>9</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-03</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门1</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<tr class="el-table__row">
+									<td class="el-table_1_column_1  el-table-column--selection">
+										<div class="cell">
+											<label role="checkbox" class="el-checkbox">
+												<span aria-checked="mixed" class="el-checkbox__input">
+													<span class="el-checkbox__inner"></span>
+													<input class="el-checkbox__original" value="" type="checkbox">
+												</span>
+												<!---->
+											</label>
+										</div>
+									</td>
+									<td class="el-table_1_column_2  ">
+										<div class="cell">
+											<div>10</div>
+										</div>
+									</td>
+									<td class="el-table_1_column_3  ">
+										<div class="cell">王小虎</div>
+									</td>
+									<td class="el-table_1_column_4  ">
+										<div class="cell">2016-05-01</div>
+									</td>
+									<td class="el-table_1_column_5  ">
+										<div class="cell">男</div>
+									</td>
+									<td class="el-table_1_column_6  ">
+										<div class="cell">部门2</div>
+									</td>
+									<td class="el-table_1_column_7  ">
+										<div class="cell">员工</div>
+									</td>
+									<td class="el-table_1_column_8  ">
+										<div class="cell">
+											<button type="button" class="el-button el-button--success el-button--small is-plain">
+												<!---->
+												<i class="edit"></i>
+												<span>编辑</span>
+											</button>
+											<button type="button" class="el-button el-button--danger el-button--small is-plain">
+												<!---->
+												<i class="delete"></i>
+												<span>删除</span>
+											</button>
+										</div>
+									</td>
+								</tr>
+								<!---->
+							</tbody>
+						</table>
+						<!---->
+						<!---->
+					</div>
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<div class="el-table__column-resize-proxy" style="display: none;"></div>
+				</div>
+
+
+
+				<div class="el-col el-col-6">
+					<button type="button" class="el-button el-button--danger el-button--small is-plain">
+						<!---->
+						<i class="delete"></i>
+						<span>删除所选</span>
+					</button>
+				</div>
+				<div class="el-col el-col-18">
+					<div class="el-pagination" style="float: right;">
+						<span class="el-pagination__total">共 800 条</span>
+						<span class="el-pagination__sizes">
+							<div class="el-select">
+								<!---->
+								<div class="el-input el-input--suffix">
+									<!---->
+									<input autocomplete="off" placeholder="请选择" size="" readonly="readonly" rows="2" class="el-input__inner" type="text">
+									<!---->
+									<span class="el-input__suffix">
+										<span class="el-input__suffix-inner">
+											<i class="el-select__caret el-input__icon el-icon-arrow-up"></i>
+											<!---->
+										</span>
+										<!---->
+									</span>
+									<!---->
+								</div>
+								<div class="el-select-dropdown el-popper  is-arrow-fixed" style="display: none; min-width: 110px;">
+									<div class="el-scrollbar" style="">
+										<div class="el-select-dropdown__wrap el-scrollbar__wrap" style="margin-bottom: -17px; margin-right: -17px;">
+											<ul class="el-scrollbar__view el-select-dropdown__list" style="position: relative;">
+												<!---->
+												<li class="el-select-dropdown__item selected">
+													<span>10条/页</span>
+												</li>
+												<li class="el-select-dropdown__item">
+													<span>20条/页</span>
+												</li>
+												<li class="el-select-dropdown__item">
+													<span>30条/页</span>
+												</li>
+												<li class="el-select-dropdown__item">
+													<span>50条/页</span>
+												</li>
+												<div class="resize-triggers">
+													<div class="expand-trigger">
+														<div style="width: 1px; height: 1px;"></div>
+													</div>
+													<div class="contract-trigger"></div>
+												</div>
+											</ul>
+										</div>
+										<div class="el-scrollbar__bar is-horizontal">
+											<div class="el-scrollbar__thumb" style="transform: translateX(0%);"></div>
+										</div>
+										<div class="el-scrollbar__bar is-vertical">
+											<div class="el-scrollbar__thumb" style="transform: translateY(0%);"></div>
+										</div>
+									</div>
+									<!---->
+								</div>
+								<div class="resize-triggers">
+									<div class="expand-trigger">
+										<div style="width: 111px; height: 29px;"></div>
+									</div>
+									<div class="contract-trigger"></div>
+								</div>
+							</div>
+						</span>
+						<button type="button" class="btn-prev disabled">
+							<i class="el-icon el-icon-arrow-left"></i>
+						</button>
+						<ul class="el-pager">
+							<li class="number active">1</li>
+							<!---->
+							<li class="number">2</li>
+							<li class="number">3</li>
+							<li class="number">4</li>
+							<li class="number">5</li>
+							<li class="number">6</li>
+							<li class="el-icon more btn-quicknext el-icon-more"></li>
+							<li class="number">80</li>
+						</ul>
+						<button type="button" class="btn-next">
+							<i class="el-icon el-icon-arrow-right"></i>
+						</button>
+						<span class="el-pagination__jump">前往
+							<div class="el-input el-pagination__editor is-in-pagination">
+								<!---->
+								<input autocomplete="off" rows="2" max="80" min="1" validateevent="true" class="el-input__inner" type="number">
+								<!---->
+								<!---->
+								<!---->
+							</div>页</span>
+					</div>
+				</div>
+
+
+
+				<div class="el-dialog" style="margin-top: 15vh;">
+					<div class="el-dialog__header">
+						<span class="el-dialog__title">编辑</span>
+						<button type="button" aria-label="Close" class="el-dialog__headerbtn">
+							<i class="el-dialog__close el-icon el-icon-close"></i>
+						</button>
+					</div>
+					<!---->
+					<div class="el-dialog__footer">
+						<div class="dialog-footer">
+							<button type="button" class="el-button el-button--default">
+								<!---->
+								<!---->
+								<span>取消</span>
+							</button>
+							<button type="button" class="el-button el-button--primary">
+								<!---->
+								<!---->
+								<span>提交</span>
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- main-container -->
+	</div>
+	<!-- /main-box -->
 
 	<script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
@@ -93,13 +969,13 @@
 				left.removeClass('damin').css('left', '0');
 				main.css('padding-left', '240px');
 				setTimeout(function () {
-					$this.removeClass('menu-toggle-bg').css({"right": "0", "transform": "rotateY(0)"});
+					$this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
 				}, 300);
 			} else {
 				left.addClass('damin').css('left', '-240px');
 				main.css('padding-left', 0);
 				setTimeout(function () {
-					$this.addClass('menu-toggle-bg').css({"right": "-26px", "transform": "rotateY(180deg)"});
+					$this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
 				}, 300);
 			}
 		});
@@ -116,7 +992,7 @@
 				'children': [
 					{ 'index': '2-1', 'menuName': '用户管理', 'url': 'http://www.bing.com' },
 					{ 'index': '2-2', 'menuName': '角色管理', 'url': 'http://www.baidu.com' },
-					{ 'index': '2-3', 'menuName': '权限管理', 'url': 'http://www.xcar.com.cn'}
+					{ 'index': '2-3', 'menuName': '权限管理', 'url': 'http://www.xcar.com.cn' }
 				]
 			},
 			{
@@ -204,7 +1080,13 @@
 					if (this.hasChildren()) {
 						this.open = !this.open;
 					}
-				}
+				},
+				 //表格查询事件
+				 searchClick: function() {
+					alert("搜索");
+					//var _self = this;
+					//_self.loadingData(); //重新加载数据
+					}
 			}
 
 		});
@@ -232,7 +1114,7 @@
 
 			props: ['defaultActive'],
 
-			created: function () {},
+			created: function () { },
 
 			data: function () {
 				return {
@@ -252,4 +1134,5 @@
 
 	</script>
 </body>
+
 </html>
