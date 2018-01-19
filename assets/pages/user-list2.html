@@ -275,51 +275,11 @@
 	<script src="../lib/vue.min.js"></script>
 	<script src="../lib/element.js"></script>
 	<script>
-		//表格查询事件
-		function searchClick() {
-			alert("搜索");
-			//var _self = this;
-			//_self.loadingData(); //重新加载数据
-		};
-		
-		//弹出隐藏层  
-		function ShowDiv(show_div,bg_div){  
-			document.getElementById(show_div).style.display='block';  
-			document.getElementById(bg_div).style.display='block' ;  
-			var bgdiv = document.getElementById(bg_div);  
-			bgdiv.style.width = document.body.scrollWidth;   
-			// bgdiv.style.height = $(document).height();  
-			$("#"+bg_div).height($(document).height());  
-		};  
-		//关闭弹出层  
-		function CloseDiv(show_div,bg_div)  
-		{  
-			document.getElementById(show_div).style.display='none';  
-			document.getElementById(bg_div).style.display='none';  
-		};  
-
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
 		});
 
-		$('#menu-toggle-btn').click(function () {
-			var left = $('.left-sidebar'),
-				main = $('.main-box'),
-				$this = $(this);
-			if (left.hasClass('damin')) {
-				left.removeClass('damin').css('left', '0');
-				main.css('padding-left', '240px');
-				setTimeout(function () {
-					$this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
-				}, 300);
-			} else {
-				left.addClass('damin').css('left', '-240px');
-				main.css('padding-left', 0);
-				setTimeout(function () {
-					$this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
-				}, 300);
-			}
-		});
+		
 
 		var myData = [
 			{
@@ -693,6 +653,25 @@
 			   }
 			}
 		  })
+		  
+		  $('#menu-toggle-btn').click(function () {
+			var left = $('.left-sidebar'),
+				main = $('.main-box'),
+				$this = $(this);
+			if (left.hasClass('damin')) {
+				left.removeClass('damin').css('left', '0');
+				main.css('padding-left', '240px');
+				setTimeout(function () {
+					$this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
+				}, 300);
+			} else {
+				left.addClass('damin').css('left', '-240px');
+				main.css('padding-left', 0);
+				setTimeout(function () {
+					$this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
+				}, 300);
+			}
+		});
 	</script>
 </body>
 
