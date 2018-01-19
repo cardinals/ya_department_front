@@ -2,12 +2,13 @@
 <html>
 
 <head>
+	<meta chartset='utf-8'>
 	<title>运营拍档</title>
 	<link rel="stylesheet" type="text/css" href="../css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
 	<link rel="stylesheet" type="text/css" href="../css/element.css">
-	<link rel="stylesheet" type="text/css" href="../css/app.css">		
+	<link rel="stylesheet" type="text/css" href="../css/app.css">
 </head>
 
 <body class="fw f14">
@@ -172,7 +173,8 @@
 							</el-table-column>  
 							<el-table-column  
 								prop="birth"  
-								label="生日"  
+								label="生日"
+								sortable   
 								width="150">  
 							</el-table-column> 
 							<el-table-column  
@@ -273,7 +275,7 @@
 
 	<script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
-	<script src="../lib/element.js"></script>
+	<script src="../lib/element.js" charset="utf-8"></script>
 	<script>
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
