@@ -5,9 +5,9 @@
  * @date     : 2013-09-25
  ****************/
 /*css reset*/
-html {font-size: 62.5%;/*10 ÷ 16 × 100% = 62.5%*/ text-shadow:none !important;}
+html {font-size: 62.5%;/*10 ÷ 16 × 100% = 62.5%*/ text-shadow:none !important;overflow:hidden;height:100%;}
 body,nav,dl,dt,dd,p,h1,h2,h3,h4,ul,ol,li,input,button,textarea,footer{margin:0;padding:0}
-body{background:#FFF; overflow-x:hidden;}
+body{background:#FFF; overflow-x:hidden;height:100%;}
 form{display:inline}
 ul,ol{list-style:none}
 a{text-decoration:none;color:#1a1a1a}

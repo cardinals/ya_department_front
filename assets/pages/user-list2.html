@@ -89,7 +89,7 @@
 				<div class="main-container">
 					<div id="tableView">
 						<el-row> 
-							<el-form class="el-form demo-form-inline">
+							<el-form :label-position="labelPosition" class="el-form demo-form-inline">
 								<div>
 									<el-row>
 									<el-col :span="10">
@@ -159,7 +159,16 @@
 			
 							<el-table-column  
 							type="selection"  
-							width="35">  
+							width="45">  
+							</el-table-column>
+							<el-table-column  
+								label="操作"
+								width="100"
+								>  
+							<template slot-scope="scope">  
+								<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button><br>  
+								<el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>  
+							</template>  
 							</el-table-column>  
 							<el-table-column 
 								type="index" 
@@ -191,14 +200,12 @@
 								prop="position"  
 								label="职务"  
 								width="120">  
-							</el-table-column>  
+							</el-table-column>
 							<el-table-column  
-								label="操作">  
-							<template slot-scope="scope">  
-								<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>  
-								<el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>  
-							</template>  
-							</el-table-column>  
+								prop="jobtype"  
+								label="合同/临时"  
+								width="120">  
+							</el-table-column>     
 						</el-table>
 								<!---->
 								<!---->
@@ -555,6 +562,7 @@
 			  },
 			   //显示加载中样式
 			   loading: false,
+			   labelPosition: 'top',
 			    //多选值
 				multipleSelection: [],
 				//当前页
@@ -586,70 +594,80 @@
 				 birth: "2016-05-03",
 				 sex: "男",
 				 deptname: "部门1",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-01",
 				 sex: "男",
 				 deptname: "部门2",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-03",
 				 sex: "男",
 				 deptname: "部门1",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-01",
 				 sex: "男",
 				 deptname: "部门2",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-03",
 				 sex: "男",
 				 deptname: "部门1",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-01",
 				 sex: "男",
 				 deptname: "部门2",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-03",
 				 sex: "男",
 				 deptname: "部门1",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-01",
 				 sex: "男",
 				 deptname: "部门2",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-03",
 				 sex: "男",
 				 deptname: "部门1",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   },
 			   {
 				 realname: "王小虎",
 				 birth: "2016-05-01",
 				 sex: "男",
 				 deptname: "部门2",
-				 position: "员工"
+				 position: "员工",
+				 jobtype:"合同"
 			   }
 			 ],
 			   }
