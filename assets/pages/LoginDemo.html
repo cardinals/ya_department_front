@@ -7,15 +7,13 @@
     <title>Login</title>
     <!--<link rel="stylesheet" href="../css/login.css" type="text/css" />-->
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../css/element.css">
     <!-- 先引入 Vue -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="../lib/vue.js"></script>
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="../lib/element.js"></script>
     <style type="text/css">
-        #app{
-
-        }
         h1{
             font-size:20px
         }
@@ -58,7 +56,7 @@
         }
         .login-button {
             height: 40px;
-            background-color: #3D5AFE;
+            background-color: #5498E9;
             margin-top: 10px;
             border-radius: 3px;
             border: 0;
@@ -66,15 +64,16 @@
             width: 93%;
             font-size: 18px;
         }
-        #loginform{
+        #login-form{
             text-align: center;
             margin: 0 auto;
             padding: 10px;
+            background-color: #F2F7FD;
         }
         .login-title{
             text-align: center;
             padding: 20px;
-            background-color: rgb(24, 25, 32);
+            background-color: #343841;
             color: #fff;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
@@ -82,7 +81,7 @@
     </style>
 </head>
 <body>
-    <div class="container" id="app" style="background-image:url('../static/img/login.png');background-size:cover">
+    <div class="container" id="app" style="background-size:cover">
         <div class="header">
             <h1>{{title}}</h1>
         </div>
@@ -92,8 +91,8 @@
                 <div class="login-title">
                     <span>USER LOGIN</span>
                 </div>
-                <form id="loginform" autocomplete="off" name="loginform">
-                <div class="login-item username rel" style="margin-left: -10px">
+                <form id="login-form" autocomplete="off" name="login-form">
+                <div class="login-item username rel">
                     <div class="login-line">
                         <img src="../images/icon-user.png" class="login-icon">
                         <input type="text" class="inputstyle" v-model="username" placeholder="用户名">
@@ -104,12 +103,12 @@
                 <div class="login-item password rel">
                     <div class="login-line">
                         <img src="../images/icon-password.png" class="login-icon">
-                        <input class="inputstyle" v-model="psw" type="password" placeholder="密码" v-on:keyup.enter="login()">
+                        <input class="inputstyle" v-model="password" type="password" placeholder="密码" v-on:keyup.enter="login()">
                     </div>
                     <!-- /login-line -->
                 </div>
                  <!-- /login-item -->
-                <div class="login-item verify rel" style="margin-left: 50px">
+                <div class="login-item verify rel">
                     <div class="login-line fix">
                         <div class="l">
                             <img class="login-icon" src="../images/icon-verficode.png">
@@ -120,7 +119,7 @@
                     <!-- /login-line -->
                 </div>
                 <!-- /login-item -->
-                <div class="login-button-box tr">
+                <div class="login-button-box">
                     <input type="button" class="login-button" id="login_button" style="text-align:center;" value="登  录" @click="login()">
                 </div>
                 </form>
@@ -138,8 +137,8 @@
             el:'#app',
             data:{
                 username: "",
-                psw: "",
-                yzm: "",
+                password: "",
+                verficode: "",
                 title:"数字化预案系统",
                 author:"wf",
                 src: "http://10.119.119.175:8004/imageCode",
@@ -170,7 +169,7 @@
                     for (var i = 0, len = this.users.length; i < len; i++) {
                     if (
                         this.users[i].username === this.username &&
-                        this.users[i].password === this.psw
+                        this.users[i].password === this.password
                     ) {
                         flag = true;
                         //this.$router.push({ path: "overview" });
@@ -184,15 +183,7 @@
                 },
                 reset: function() {
                     this.username = "";
-                    this.psw = "";
-                }
-            },
-            computed: {
-                author() {
-                    return this.$store.state.author;
-                },
-                title() {
-                    return this.$store.state.title;
+                    this.password = "";
                 }
             }
         })

@@ -473,7 +473,9 @@
   background-color: #01579b;
 }
 .main-box {
+  height: 600px;
   padding-left: 240px;
+  overflow:auto;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
