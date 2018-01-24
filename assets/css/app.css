@@ -312,11 +312,6 @@
   border-radius: 0;
   border:1px solid #000;
   z-index: 10;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:50px;
 }
 .container-fixed {
   margin-right: auto;
@@ -412,7 +407,6 @@
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
-  position: fixed;
 }
 @media (max-width: 768px) {
   .left-sidebar {
@@ -480,8 +474,6 @@
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
-  height:100%;
-  margin:50px auto;
 }
 .main-container {
   padding: 20px;
