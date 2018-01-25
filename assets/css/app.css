@@ -14,8 +14,8 @@
 }
 .logo2 {
   background: url('../images/LOGO2.png') no-repeat;
-  width: 124px;
-  height: 30px;
+  width: 360px;
+  height: 48px;
 }
 .logo-box {
   background: url('../images/LOGO.png') no-repeat;
@@ -126,7 +126,19 @@
 .map-bg2 {
   background: #162c3c;
 }
-
+.map-menu {
+  width: 240px;
+  height: 100%;
+  margin: 0;
+  float: left;
+  background-color: #0277bd;
+}
+.map-main {
+  width: 960px;
+  height: 100%;
+  margin: 0;
+  float: right;
+}
 .copyright {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.3);
@@ -344,10 +356,7 @@
 .navbar-brand {
   float: left;
   height: 50px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0px;
   font-size: 18px;
   line-height: 20px;
 }

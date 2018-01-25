@@ -1,0 +1,195 @@
+.sync-left {
+  float: left;
+  left: 0;
+  width: 160px;
+  height: 100%;
+  background: #050f33;
+  border-right: 1px solid #330066;
+}
+.sync-main {
+  float: right;
+  width: 1040px;
+  height: 100%;
+  margin: 0;
+  background-image: url("../images/sync-img.png");
+  background-size: 100% 100%;
+}
+.sync-box {
+  background: #050f33;
+  width: 100%;
+  height: 120px;
+  border-bottom: 1px solid #330066;
+}
+.sync-contain {
+  width: 100px;
+  height: 120px;
+}
+.sync-icon {
+  margin: 20px;
+  margin-top: 20px;
+}
+.sync-lebal {
+  position: relative;
+  top: -25px;
+  color: #77bafe;
+  font-family: "微软雅黑";
+}
+.sync-txts-normal {
+  float: left;
+  font-family: "微软雅黑";
+  font-size: 40px;
+  color: #00ffff;
+  margin-left: 100px;
+  margin-top: -90px
+}
+.sync-txts-attention  {
+  float: left;
+  font-family: "微软雅黑";
+  font-size: 40px;
+  color: #f9885c;
+  margin-left: 100px;
+  margin-top: -90px
+}
+.sync-province-box {
+  float: left;
+  width: 80px;
+  height: 80px;
+  position: fixed;
+}
+.sync-province-icon {
+    width: 48px;
+    height: 48px;
+  margin: 16px;
+  margin-top: 16px;
+}
+.sync-province-lebal {
+    position: relative;
+    font-size: 13px;
+    top: -30px;
+    color: #77bafe;
+    font-family: "微软雅黑";
+}
+#province1 {
+    top: 144px;
+    left: 257px;
+}
+#province2 {
+    top: 182px;
+    left: 397px;
+}
+#province3 {
+    top: 217px;
+    left: 257px;
+}
+#province4 {
+    top: 251px;
+    left: 397px;
+}
+#province5 {
+    top: 289px;
+    left: 257px;
+}
+#province6 {
+    top: 144px;
+    left: 1108px;
+}
+#province7 {
+    top: 182px;
+    left: 968px;
+}
+#province8 {
+    top: 217px;
+    left: 1108px;
+}
+#province9 {
+    top: 251px;
+    left: 968px;
+}
+#province10 {
+    top: 289px;
+    left: 1108px;
+}
+#province11 {
+    top: 346px;
+    left: 326px;
+}
+#province12 {
+    top: 346px;
+    left: 398px;
+}
+#province13 {
+    top: 346px;
+    left: 469px;
+}
+#province14 {
+    top: 346px;
+    left: 898px;
+}
+#province15 {
+    top: 346px;
+    left: 970px;
+}
+#province16 {
+    top: 346px;
+    left: 1039px;
+}
+#province17 {
+    top: 397px;
+    left: 398px;
+}
+#province18 {
+    top: 397px;
+    left: 469px;
+}
+#province19 {
+    top: 397px;
+    left: 541px;
+}
+#province20 {
+    top: 397px;
+    left: 611px;
+}
+#province21 {
+    top: 397px;
+    left: 683px;
+}
+#province22 {
+    top: 397px;
+    left: 756px;
+}
+#province23 {
+    top: 397px;
+    left: 826px;
+}
+#province24 {
+    top: 397px;
+    left: 898px;
+}
+#province25 {
+    top: 397px;
+    left: 970px;
+}
+#province26 {
+    top: 448px;
+    left: 330px;
+}
+#province27 {
+    top: 448px;
+    left: 398px;
+}
+#province28 {
+    top: 448px;
+    left: 469px;
+}
+#province29 {
+    top: 448px;
+    left: 898px;
+}
+#province30 {
+    top: 448px;
+    left: 970px;
+}
+#province31 {
+    top: 448px;
+    left: 1039px;
+}
