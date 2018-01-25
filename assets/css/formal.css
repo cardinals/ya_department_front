@@ -1,0 +1,23 @@
+@charset "utf-8";
+/****************
+ * @description : css reset
+ * @author   : db
+ * @date     : 2018-01-19
+ ****************/
+/*css reset*/
+html{overflow:hidden;height:100%;}
+body{height:100%;}
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:50px;
+}
+.left-sidebar {
+    position: fixed;
+}
+.main-box {
+    height:100%;
+    margin:50px auto;
+}

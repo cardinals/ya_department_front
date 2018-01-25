@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
 	<link rel="stylesheet" type="text/css" href="../css/element.css">
 	<link rel="stylesheet" type="text/css" href="../css/app.css">
+	<link rel="stylesheet" type="text/css" href="../css/formal.css">
 </head>
 
 <body class="fw f14">
@@ -89,53 +90,54 @@
 				<div class="main-container">
 					<div id="tableView">
 						<el-row> 
-							<el-form :label-position="labelPosition" class="el-form demo-form-inline">
+							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
 								<div>
-									<el-row>
-									<el-col :span="10">
-									<el-form-item label="ID">  
-										<el-input v-model="searchForm.id" placeholder="ID"></el-input>  
-									</el-form-item>
-									</el-col>
-									<el-col :span="2">&nbsp;</el-col>
-									<el-col :span="10">
-									<el-form-item label="工作年限">
-										<el-input v-model="searchForm.worklife" placeholder="工作年限"></el-input> 
-									</el-form-item>
-									</el-col>
+									<el-row gutter="41">
+										<el-col :span="7">
+											<el-form-item label="姓名">  
+												<el-input size="mini" v-model="searchForm.realname" placeholder="姓名"></el-input>  
+											</el-form-item>
+										</el-col>
+										<el-col :span="7">
+											<el-form-item label="职务">
+												<el-input size="mini" v-model="searchForm.position" placeholder="职务"></el-input>
+											</el-form-item>
+										</el-col>
+										<!--<el-col :span="7">
+										<el-form-item label="性别">
+											<el-radio-group  v-model="searchForm.sex">  
+												<el-radio class="radio" :label="1">男</el-radio>  
+												<el-radio class="radio" :label="0">女</el-radio>  
+											</el-radio-group> 
+										</el-form-item>
+										</el-col>
+										<el-col :span="7">
+										<el-form-item label="职务">
+											<el-input v-model="searchForm.position" placeholder="职务"></el-input>
+										</el-form-item>
+										</el-col>
 									</el-row>
-									<el-row>
-									<el-col :span="10">
-									<el-form-item label="职位">
-										<el-input v-model="searchForm.position" placeholder="职位"></el-input>
-									</el-form-item>
-									</el-col>
-									<el-col :span="2">&nbsp;</el-col>
-									<el-col :span="10">
-									<el-form-item label="姓名">  
-										<el-input v-model="searchForm.realname" placeholder="姓名"></el-input>  
-									</el-form-item>
-									</el-col>
-									</el-row>
-									<el-row>
-									<el-col :span="10">
+									<el-row gutter="41">
+									<el-col :span="7">
+										<el-form-item label="生日"> <el-date-picker v-model="searchForm.birth" placeholder="生日" style="width: 172px"></el-date-picker> </el-form-item>
+									</el-col>-->				
+									<el-col :span="7">
 									<el-form-item label="部门名称">  
-										<el-select v-model="searchForm.deptname" placeholder="部门名称">  
-											<el-option label="部门1" value="dept1"></el-option>  
-											<el-option label="部门2" value="dept2"></el-option>  
+										<el-select size="mini" v-model="searchForm.deptname" placeholder="部门名称" style="width: 172px">  
+											<el-option label="部门1" value="部门1"></el-option>  
+											<el-option label="部门2" value="部门2"></el-option>  
 										</el-select>  
 									</el-form-item>
 									</el-col>
-									<el-col :span="2">&nbsp;</el-col>
-									<el-col :span="10">
-									<el-form-item label="直属单位">
-										<el-select v-model="searchForm.DRUS" placeholder="直属单位">
-											<el-option label="单位1" value="drus1"></el-option>
-											<el-option label="单位2" value="drus2"></el-option>
+									<!--<el-col :span="7">
+									<el-form-item label="合同/临时">
+										<el-select v-model="searchForm.jobtype" placeholder="合同/临时" style="width: 172px">
+											<el-option label="单位1" value="单位1"></el-option>
+											<el-option label="单位2" value="单位2"></el-option>
 										</el-select>
 									</el-form-item>
-									</el-col>
-									</el-row> 
+									</el-col>-->
+								</el-row> 
 								</div>
 								<div align="right">
 									<el-form-item>  
@@ -151,61 +153,63 @@
 
 						<el-table
 								border
+								id="table"
 								:data="tableData"
 								v-loading.body="loading"  
 								border  
 								@selection-change="selectionChange"  
-								style="width: 100%">
+								style="width: 100%"
+								>
 			
 							<el-table-column  
 							type="selection"  
 							width="45">  
 							</el-table-column>
-							<el-table-column  
-								label="操作"
-								width="100"
-								>  
-							<template slot-scope="scope">  
-								<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button><br>  
-								<el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>  
-							</template>  
-							</el-table-column>  
 							<el-table-column 
 								type="index" 
 								label="序号"
-								width="35">
+								width="172">
 							</el-table-column> 
 							<el-table-column  
 								prop="realname"  
 								label="真实姓名"  
-								width="120">  
+								width="172">  
 							</el-table-column>  
 							<el-table-column  
 								prop="birth"  
 								label="生日"
 								sortable   
-								width="150">  
+								width="172">  
 							</el-table-column> 
 							<el-table-column  
 								prop="sex"  
 								label="性别"  
-								width="120">  
+								width="172">  
 							</el-table-column>  
 							<el-table-column  
 								prop="deptname"  
 								label="部门名称"  
-								width="300">  
+								width="172">  
 							</el-table-column>  
 							<el-table-column  
 								prop="position"  
 								label="职务"  
-								width="120">  
+								width="172">  
 							</el-table-column>
 							<el-table-column  
 								prop="jobtype"  
 								label="合同/临时"  
-								width="120">  
-							</el-table-column>     
+								width="172">  
+							</el-table-column>
+							<el-table-column  
+								label="操作"
+								width="172"
+								>  
+							<template slot-scope="scope">  
+								<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.$index, scope.row)">编辑</el-button>  
+								<el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.$index, scope.row)">删除</el-button>  
+							</template>  
+							</el-table-column>       
 						</el-table>
 								<!---->
 								<!---->
@@ -230,6 +234,47 @@
 									</el-pagination>  
 								</el-col>  
 							</el-row> 
+							<!--新建界面-->  
+							<el-dialog title="新建用户" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">  
+								<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+									<el-row>
+									<el-col :span="8">            
+										<el-form-item label="姓名">  
+										<el-input v-model="addForm.realname" auto-complete="off"></el-input>  
+										</el-form-item>
+									</el-col>
+									<el-col :span="8">
+										<el-form-item label="性别">  
+											<el-radio-group v-model="addForm.sex">  
+												<el-radio class="radio" :label="1">男</el-radio>  
+												<el-radio class="radio" :label="0">女</el-radio>  
+											</el-radio-group>  
+										</el-form-item>
+									</el-col>
+									</el-row> 
+									<el-row>
+									<el-col :span="10">
+										<el-form-item label="生日">  
+											<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" v-model="addForm.birth" format="yyyy-MM-dd"
+											value-format="yyyy-MM-dd"></el-date-picker>{{addForm.birth}}  
+										</el-form-item>
+									</el-col>
+									<el-col :span="2">&nbsp;</el-col>
+									<el-col :span="8">
+										<el-form-item label="部门名称">  
+											<el-select v-model="addForm.deptname" placeholder="部门名称">  
+											<el-option label="部门1" value="部门1"></el-option>  
+											<el-option label="部门2" value="部门2"></el-option>  
+										</el-select>   
+										</el-form-item>
+									</el-col>
+									</el-row> 
+								</el-form>  
+								<div slot="footer" class="dialog-footer">  
+									<el-button @click.native="closeDialog(addForm)">取消</el-button>  
+									<el-button type="primary" @click.native="addSubmit(addForm)">提交</el-button>  
+								</div>  
+							</el-dialog> 
 
 							<!--编辑界面-->  
 							<el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">  
@@ -245,22 +290,23 @@
 										<el-radio-group v-model="editForm.sex">  
 											<el-radio class="radio" :label="1">男</el-radio>  
 											<el-radio class="radio" :label="0">女</el-radio>  
-										</el-radio-group>  
+										</el-radio-group>
 									</el-form-item>
 								</el-col>
 								</el-row> 
 								<el-row>
 								<el-col :span="10">
 									<el-form-item label="生日">  
-										<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>  
+										<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" format="yyyy-MM-dd"
+										value-format="yyyy-MM-dd" v-model="editForm.birth"></el-date-picker>  
 									</el-form-item>
 								</el-col>
 								<el-col :span="2">&nbsp;</el-col>
 								<el-col :span="8">
 									<el-form-item label="部门名称">  
-										<el-select v-model="searchForm.chgdept" placeholder="部门名称">  
-										<el-option label="部门1" value="dept1"></el-option>  
-										<el-option label="部门2" value="dept2"></el-option>  
+										<el-select v-model="editForm.deptname" placeholder="部门名称">  
+										<el-option label="部门1" value="部门1"></el-option>  
+										<el-option label="部门2" value="部门2"></el-option>  
 									</el-select>   
 									</el-form-item>
 								</el-col>
@@ -268,7 +314,7 @@
 							</el-form>  
 					<div slot="footer" class="dialog-footer">  
 						<el-button @click.native="editFormVisible = false">取消</el-button>  
-						<el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>  
+						<el-button type="primary" @click.native="editSubmit(editForm)">提交</el-button>  
 					</div>  
 				</el-dialog> 
 					</div>
@@ -282,7 +328,7 @@
 
 	<script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
-	<script src="../lib/element.js" charset="utf-8"></script>
+	<script src="../lib/elementUI.js" charset="utf-8"></script>
 	<script>
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
@@ -298,7 +344,7 @@
 			},
 			{
 				'index': '2',
-				'menuName': '基础管理',
+				'menuName': '系统管理',
 				'children': [
 					{ 'index': '2-1', 'menuName': '用户管理', 'url': 'http://www.bing.com' },
 					{ 'index': '2-2', 'menuName': '角色管理', 'url': 'http://www.baidu.com' },
@@ -434,119 +480,6 @@
 		});
 		new Vue({
 			el: '#app',
-			methods:{
-				//新建事件
-				addClick: function() {
-      var _self = this;
-      this.editFormVisible = true;
-      //_self.loadingData();//重新加载数据
-    },
-	 //表格查询事件
-    searchClick: function() {
-      alert("搜索");
-      var _self = this;
-      _self.loadingData(); //重新加载数据
-    },
-	//表格勾选事件
-    selectionChange: function(val) {
-      for (var i = 0; i < val.length; i++) {
-        var row = val[i];
-      }
-      this.multipleSelection = val;
-      console.info(val);
-    },//表格重新加载数据
-    loadingData: function() {
-      var _self = this;
-      _self.loading = true;
-      setTimeout(function() {
-        console.info("加载数据成功");
-        _self.loading = false;
-      }, 300);
-    },
-    //表格编辑事件
-    editClick: function(row) {
-      this.editFormVisible = true;
-      this.editForm = Object.assign({}, row);
-    },
-    //表格删除事件
-    deleteClick: function(row) {
-      var _self = this;
-      this.$confirm("确认删除" + row.realname + "吗?", "提示", {
-        type: "warning"
-      })
-        .then(function() {
-          _self.$message({
-            message: row.realname + "删除成功",
-            type: "success"
-          });
-          _self.loadingData(); //重新加载数据
-        })
-        .catch(function(e) {
-          if (e != "cancel") console.log("出现错误：" + e);
-        });
-    },
-    //新建事件
-    addClick: function() {
-      var _self = this;
-      this.editFormVisible = true;
-      //_self.loadingData();//重新加载数据
-    },//表格勾选事件
-    selectionChange: function(val) {
-      for (var i = 0; i < val.length; i++) {
-        var row = val[i];
-      }
-      this.multipleSelection = val;
-      console.info(val);
-    },
-    //删除所选，批量删除
-    removeSelection: function() {
-      var _self = this;
-      var multipleSelection = this.multipleSelection;
-      if (multipleSelection.length < 1) {
-        _self.$message({
-          message: "请至少选中一条记录",
-          type: "error"
-        });
-        return;
-      }
-      var ids = "";
-      for (var i = 0; i < multipleSelection.length; i++) {
-        var row = multipleSelection[i];
-        ids += row.realname + ",";
-      }
-      this.$confirm("确认删除" + ids + "吗?", "提示", {
-        type: "warning"
-      })
-        .then(function() {
-          _self.$message({
-            message: ids + "删除成功",
-            type: "success"
-          });
-          _self.loadingData(); //重新加载数据
-        })
-        .catch(function(e) {
-          if (e != "cancel") console.log("出现错误：" + e);
-        });
-    },
-    //分页大小修改事件
-    pageSizeChange: function(val) {
-      console.log("每页 " + val + " 条");
-      this.pageSize = val;
-      var _self = this;
-      _self.loadingData(); //重新加载数据
-    },
-    //当前页修改事件
-    currentPageChange: function(val) {
-      this.currentPage = val;
-      console.log("当前页: " + val);
-      var _self = this;
-      _self.loadingData(); //重新加载数据
-    },
-    //保存点击事件
-    editSubmit: function() {
-      console.info(this.editForm);
-    }
-			},
 			data: function() {
 			  return { visible: false,
 			  awa:"",
@@ -555,24 +488,49 @@
 				id: "",
 				realname: "",
 				deptname:'',
+				birth:"",
+				sex:"",
 				state: "",
 				position:"",
 				worklife:"",
+				position:"",
+				jobtype:"",
 				DRUS:""
 			  },
+			   rowdata:'',
 			   //显示加载中样式
 			   loading: false,
-			   labelPosition: 'top',
+			   labelPosition: 'right',
 			    //多选值
 				multipleSelection: [],
 				//当前页
 				currentPage: 1,
 				//分页大小
-				pageSize: 100,
+				pageSize: 10,
 				//总记录数
-				total: 800,
+				total: 10,
+				//行数据保存
+				rowdata:{
+
+				},
+				//序号
+				indexData:0,
 				//删除的弹出框
 				deleteVisible: false,
+				//新建页面是否显示
+				addFormVisible:false,
+				addLoading:false,
+				addFormRules:{
+					realname: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+				},
+				addForm:{
+					id: 0,
+						realname: "",
+						sex: -1,
+						age: 0,
+						birth: new Date(),
+						deptname: ""
+				},
 				//编辑界面是否显示
 				editFormVisible: false,
 				editLoading: false,
@@ -585,7 +543,7 @@
 					realname: "",
 					sex: -1,
 					age: 0,
-					birth: "",
+					birth: '',
 					deptname: ""
 				},
 			   tableData: [
@@ -604,75 +562,175 @@
 				 deptname: "部门2",
 				 position: "员工",
 				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-03",
-				 sex: "男",
-				 deptname: "部门1",
-				 position: "员工",
-				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-01",
-				 sex: "男",
-				 deptname: "部门2",
-				 position: "员工",
-				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-03",
-				 sex: "男",
-				 deptname: "部门1",
-				 position: "员工",
-				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-01",
-				 sex: "男",
-				 deptname: "部门2",
-				 position: "员工",
-				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-03",
-				 sex: "男",
-				 deptname: "部门1",
-				 position: "员工",
-				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-01",
-				 sex: "男",
-				 deptname: "部门2",
-				 position: "员工",
-				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-03",
-				 sex: "男",
-				 deptname: "部门1",
-				 position: "员工",
-				 jobtype:"合同"
-			   },
-			   {
-				 realname: "王小虎",
-				 birth: "2016-05-01",
-				 sex: "男",
-				 deptname: "部门2",
-				 position: "员工",
-				 jobtype:"合同"
 			   }
 			 ],
 			   }
+			},
+			methods:{
+			//表格查询事件
+			searchClick: function() {
+			var tableObject ={};
+			var searchData=[];
+			var _self = this;
+			
+			for(var i = 0;i<this.tableData.length;i++){
+				searchData.push(this.tableData[i]);
+				if((this.tableData[i].realname != this.searchForm.realname&&this.searchForm.realname!=""))//&&(tableObject.birth == this.searchForm.birth&&this.searchForm.birth!="")
+				//&&(tableObject.position == this.searchForm.position&&this.searchForm.position!="")&&(tableObject.deptname == this.searchForm.deptname&&this.searchForm.deptname!="")
+				//&&(tableObject.jobtype == this.searchForm.jobtype&&this.searchForm.jobtype!=""))//&&(tableObject.sex == (searchForm.sex==0?"女":"男")))
+				{
+					this.tableData.splice(i,1);
+				}
+				
+				
 			}
-		  })
+			
+				
+			
+			
+			
+			//_self.tableData.filter((item)=>{return item.realname == _self.searchForm.realname	});
+			_self.loadingData(); //重新加载数据
+			},
+			//表格勾选事件
+			selectionChange: function(val) {
+			for (var i = 0; i < val.length; i++) {
+				var row = val[i];
+			}
+			this.multipleSelection = val;
+			console.info(val);
+			},
+			//时间格式
+			dateChangebirthday(val) {  
+				console.log(val);  
+				this.addForm.birth = val;
+				this.editForm.birth = val;  
+			},
+			//表格重新加载数据
+			loadingData: function() {
+			var _self = this;
+			_self.loading = true;
+			setTimeout(function() {
+				console.info("加载数据成功");
+				_self.loading = false;
+			}, 300);
+			},
+			//表格删除事件
+			deleteClick: function(index,row) {
+			var _self = this;
+			this.$confirm("确认删除" + row.realname + "吗?", "提示", {
+				type: "warning",
+				confirmButtonText: '确定',
+				cancelButtonText: '取消'
+			})
+				.then(function() {
+				_self.tableData.splice(index,1);
+				_self.$message({
+					message: row.realname + "删除成功",
+					type: "success"
+				});
+				_self.loadingData(); //重新加载数据
+				})
+				.catch(function(e) {
+				if (e != "cancel") console.log("出现错误：" + e);
+				});
+			},
+			//新建事件
+			addClick: function() {
+			var _self = this;
+			_self.addFormVisible = true;
+			
+			},
+			//删除所选，批量删除
+			removeSelection: function() {
+			var _self = this;
+			var multipleSelection = this.multipleSelection;
+			if (multipleSelection.length < 1) {
+				_self.$message({
+				message: "请至少选中一条记录",
+				type: "error"
+				});
+				return;
+			}
+			var ids = "";
+			for (var i = 0; i < multipleSelection.length; i++) {
+				var row = multipleSelection[i];
+				ids += row.realname + ",";
+			}
+			this.$confirm("确认删除" + ids + "吗?", "提示", {
+				type: "warning"
+			})
+				.then(function() {
+				_self.$message({
+					message: ids + "删除成功",
+					type: "success"
+				});
+				_self.loadingData(); //重新加载数据
+				})
+				.catch(function(e) {
+				if (e != "cancel") console.log("出现错误：" + e);
+				});
+			},
+			//分页大小修改事件
+			pageSizeChange: function(val) {
+			console.log("每页 " + val + " 条");
+			this.pageSize = val;
+			var _self = this;
+			_self.loadingData(); //重新加载数据
+			},
+			//当前页修改事件
+			currentPageChange: function(val) {
+			this.currentPage = val;
+			console.log("当前页: " + val);
+			var _self = this;
+			_self.loadingData(); //重新加载数据
+			},
+			//表格编辑事件
+			editClick: function(index,row) {
+			this.editFormVisible = true;
+			this.indexData = index;
+			this.editForm = Object.assign({}, row);
+			this.editForm.sex=(row.sex == "男"?1:0);
+			},
+			//保存点击事件
+			editSubmit: function(val) {
+			var _self = this;
+			this.tableData[this.indexData].realname = val.realname;
+			this.tableData[this.indexData].birth = val.birth;
+			this.tableData[this.indexData].sex = (val.sex == 0?"女":"男");
+			this.tableData[this.indexData].deptname = val.deptname;
+			this.editFormVisible = false;
+			_self.loadingData();//重新加载数据
+			console.info(this.editForm);
+			},
+			//新建提交点击事件
+			addSubmit: function(val) {
+				var _self=this;
+				this.tableData.unshift({
+					realname: val.realname,
+					birth: val.birth,
+					sex: (val.sex == 0?"女":"男"),
+					deptname:val.deptname
+				});
+				this.addFormVisible = false;
+				_self.loadingData();//重新加载数据
+				val.realname = "";
+				val.birth = "";
+				val.sex = "";
+				val.deptname ="";
+				console.info(this.addForm);
+				
+			},
+			closeDialog:function(val){
+				this.addFormVisible = false;
+				val.realname = "";
+				val.birth = "";
+				val.sex = "";
+				val.deptname ="";
+			}
+		},
+			
+	})
 		  
 		  $('#menu-toggle-btn').click(function () {
 			var left = $('.left-sidebar'),
