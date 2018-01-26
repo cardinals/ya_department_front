@@ -322,7 +322,8 @@
   min-height: 50px;
   background-color: #424242;
   border-radius: 0;
-  border:1px solid #000;
+  border-bottom:1px solid #000;
+  border-right:1px solid #000;
   z-index: 10;
 }
 .container-fixed {
@@ -411,7 +412,7 @@
   top: 0;
   left: 0;
   background-color: #0277bd;
-  padding-top: 52px;
+  padding-top: 50px;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
