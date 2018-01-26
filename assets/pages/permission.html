@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
 	<meta chartset='utf-8'>
-	<title>用户管理</title>
+	<title>权限管理</title>
 	<link rel="stylesheet" type="text/css" href="../css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
@@ -90,53 +90,25 @@
 				<div class="main-container">
 					<div id="tableView">
 						<el-row> 
-							<el-form  label-width="70px" :inline="true" class="el-form demo-form-inline">
-
-									<el-row>
-										<el-col :span="12">
-											<el-form-item label="用户名">  
-												<el-input size="mini" v-model="searchForm.username" placeholder="姓名"></el-input>  
-											</el-form-item>
-										</el-col>
-										<el-col :span="12">
-											<el-form-item label="真实姓名" class="right-search">
-												<el-input size="mini" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
-											</el-form-item>
-										</el-col>
-										<!--<el-col :span="7">
-										<el-form-item label="性别">
-											<el-radio-group  v-model="searchForm.sex">  
-												<el-radio class="radio" :label="1">男</el-radio>  
-												<el-radio class="radio" :label="0">女</el-radio>  
-											</el-radio-group> 
+							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row gutter="40">
+									<el-col :span="12">
+										<el-form-item label="权限描述">  
+											<el-select size="mini" v-model="searchForm.permissioninfo" placeholder="权限描述">  
+												<el-option label="新增" value="新增"></el-option>  
+												<el-option label="删除" value="删除"></el-option>  
+											</el-select>  
 										</el-form-item>
-										</el-col>
-										<el-col :span="7">
-										<el-form-item label="职务">
-											<el-input v-model="searchForm.position" placeholder="职务"></el-input>
+									</el-col>
+									<el-col :span="12">
+										<el-form-item label="创建时间" class="right-search"> 
+											<el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
+											value-format="yyyy-MM-dd" size="mini" v-model="searchForm.begintime" placeholder="开始时间" style="width: 170px"></el-date-picker>
+											~
+											<el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd"
+											value-format="yyyy-MM-dd" size="mini" v-model="searchForm.endtime" placeholder="结束时间" style="width: 170px"></el-date-picker>
 										</el-form-item>
-										</el-col>
-									</el-row>
-									<el-row gutter="41">
-									<el-col :span="7">
-										<el-form-item label="生日"> <el-date-picker v-model="searchForm.birth" placeholder="生日" style="width: 172px"></el-date-picker> </el-form-item>
-									</el-col>				
-									<el-col :span="7">
-									<el-form-item label="部门名称">  
-										<el-select size="mini" v-model="searchForm.deptname" placeholder="部门名称" style="width: 172px">  
-											<el-option label="部门1" value="部门1"></el-option>  
-											<el-option label="部门2" value="部门2"></el-option>  
-										</el-select>  
-									</el-form-item>
-									</el-col>-->
-									<!--<el-col :span="7">
-									<el-form-item label="合同/临时">
-										<el-select v-model="searchForm.jobtype" placeholder="合同/临时" style="width: 172px">
-											<el-option label="单位1" value="单位1"></el-option>
-											<el-option label="单位2" value="单位2"></el-option>
-										</el-select>
-									</el-form-item>
-									</el-col>-->
+									</el-col>
 								</el-row> 
 								<div>
 									<el-form>
@@ -185,57 +157,40 @@
 								align="center">
 							</el-table-column>
 							<el-table-column  
-								prop="username"  
-								label="用户名"  
+								prop="permissionname"  
+								label="权限名称"  
 								width="100"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
-								prop="realname"  
-								label="真实姓名"  
-								width="100"
-								align="center">  
+								prop="permissioninfo"  
+								label="权限描述"  
+								width="265"
+								align="left">  
 							</el-table-column>  
 							<el-table-column  
-								prop="birth"  
-								label="生日" 
-								width="122"
+								prop="create_name"  
+								label="创建人" 
+								width="93"
 								align="center">  
 							</el-table-column> 
 							<el-table-column  
-								prop="sex"  
-								label="性别"  
-								width="65"
+								prop="create_time"  
+								label="创建时间"  
+								width="132"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
-								prop="phone"  
-								label="手机号"  
-								width="165"
+								prop="alter_name"  
+								label="修改人"  
+								width="140"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
-								prop="email"  
-								label="邮箱"  
-								width="189"
+								prop="alter_time"  
+								label="修改时间"  
+								width="132"
 								align="center">  
-							</el-table-column>
-							<el-table-column  
-								prop="role"  
-								label="角色"  
-								width="120"
-								align="center">
-								<template slot-scope="scope">  
-										<el-popover
-											ref="popover2"
-											placement="bottom"
-											title="角色"
-											width="200"
-											trigger="click"
-											content="安保处长,执勤队长,后勤委员,政委">
-										</el-popover>
-										<el-button v-popover:popover2>查看角色</el-button>
-								</template>	  
 							</el-table-column>
 							<!-- <el-table-column  
 								label="操作"
@@ -254,7 +209,7 @@
 
 
 						<!--列表底部工具条和分页符-->  
-						<el-row style="margin-top: 20px" type="flex" justify="end">  
+						<el-row style="margin-top: 3px" type="flex" justify="end">   
 								<el-col :span="18" >  
 									<el-pagination  
 											style="float: right"  
@@ -274,44 +229,42 @@
 								<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 									<el-row>
 										<el-col :span="8">            
-											<el-form-item label="用户名" prop="username">  
-											<el-input v-model="addForm.username" auto-complete="off" style="width:180px"></el-input>  
+											<el-form-item label="权限名称" prop="permissionname">  
+											<el-input v-model="addForm.permissionname" auto-complete="off" placeholder="权限名称" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
 										<el-col :span="8">            
-											<el-form-item label="真实姓名" prop="realname">  
-											<el-input v-model="addForm.realname" auto-complete="off" style="width:180px"></el-input>  
+											<el-form-item label="权限描述" prop="permissioninfo">  
+											<el-input v-model="addForm.permissioninfo" auto-complete="off" placeholder="权限描述" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 									</el-row> 
 									<el-row>
 										<el-col :span="8">
-											<el-form-item label="生日">  
-												<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" v-model="addForm.birth" style="width:180px"></el-date-picker>  
-											</el-form-item>
+                                            <el-form-item label="创建人" prop="create_name">  
+                                                <el-input v-model="addForm.create_name" auto-complete="off" placeholder="创建人" style="width:180px"></el-input>  
+                                            </el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
 										<el-col :span="8">
-											<el-form-item label="性别">  
-												<el-radio-group v-model="addForm.sex">  
-													<el-radio class="radio" :label="1">男</el-radio>  
-													<el-radio class="radio" :label="0">女</el-radio>  
-												</el-radio-group>
-											</el-form-item>
+											<el-form-item label="创建时间">  
+												<el-date-picker type="date" placeholder="选择日期" @change="createdateChange" format="yyyy-MM-dd"
+												value-format="yyyy-MM-dd" v-model="addForm.create_time" style="width:180px"></el-date-picker>  
+                                            </el-form-item>
 										</el-col>
 									</el-row>
 									<el-row>
 										<el-col :span="8">            
-											<el-form-item label="手机号" prop="phone">  
-											<el-input v-model="addForm.phone" auto-complete="off" style="width:180px"></el-input>  
+											<el-form-item label="修改人" prop="alter_name">  
+											<el-input v-model="addForm.alter_name" auto-complete="off" placeholder="修改人" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
 										<el-col :span="8">            
-											<el-form-item label="邮箱" prop="email">  
-											<el-input v-model="addForm.email" auto-complete="off" style="width:180px"></el-input>  
+											<el-form-item label="修改时间" prop="alter_time">  
+                                                <el-date-picker type="date" placeholder="选择日期" @change="alterdateChange" format="yyyy-MM-dd"
+												value-format="yyyy-MM-dd" v-model="addForm.alter_time" style="width:180px"></el-date-picker>
 											</el-form-item>
 										</el-col>
 									</el-row>   
@@ -326,49 +279,46 @@
 							<el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">  
 							<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 								<el-row>
-								<el-col :span="8">            
-									<el-form-item label="用户名" prop="username">  
-										<el-input v-model="editForm.username" auto-complete="off" style="width:180px"></el-input>  
-									</el-form-item>
-								</el-col>
-								<el-col :span="4">&nbsp;</el-col>
-								<el-col :span="8">            
-									<el-form-item label="真实姓名" prop="realname">  
-										<el-input v-model="editForm.realname" auto-complete="off" style="width:180px"></el-input>  
-									</el-form-item>
-								</el-col>
-								
-								</el-row> 
-								<el-row>
-								<el-col :span="8">
-									<el-form-item label="生日">  
-										<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" format="yyyy-MM-dd"
-										value-format="yyyy-MM-dd" v-model="editForm.birth" style="width:180px"></el-date-picker>  
-									</el-form-item>
-								</el-col>
-								<el-col :span="4">&nbsp;</el-col>
-								<el-col :span="8">
-									<el-form-item label="性别">  
-										<el-radio-group v-model="editForm.sex">  
-											<el-radio class="radio" :label="1">男</el-radio>  
-											<el-radio class="radio" :label="0">女</el-radio>  
-										</el-radio-group>
-									</el-form-item>
-								</el-col>
-								</el-row>
-								<el-row>
-									<el-col :span="8">            
-										<el-form-item label="手机号" prop="phone">  
-										<el-input v-model="editForm.phone" auto-complete="off" style="width:180px"></el-input>  
-										</el-form-item>
-									</el-col>
-									<el-col :span="4">&nbsp;</el-col>
-									<el-col :span="8">            
-										<el-form-item label="邮箱" prop="email">  
-										<el-input v-model="editForm.email" auto-complete="off" style="width:180px"></el-input>  
-										</el-form-item>
-									</el-col>
-								</el-row>  
+                                    <el-col :span="8">            
+                                        <el-form-item label="权限名称" prop="permissionname">  
+                                        <el-input v-model="editForm.permissionname" auto-complete="off" placeholder="权限名称" style="width:180px"></el-input>  
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="4">&nbsp;</el-col>
+                                    <el-col :span="8">            
+                                        <el-form-item label="权限描述" prop="permissioninfo">  
+                                        <el-input v-model="editForm.permissioninfo" auto-complete="off" placeholder="权限描述" style="width:180px"></el-input>  
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row> 
+                                <el-row>
+                                    <el-col :span="8">
+                                        <el-form-item label="创建人" prop="create_name">  
+                                            <el-input v-model="editForm.create_name" auto-complete="off" placeholder="创建人" style="width:180px"></el-input>  
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="4">&nbsp;</el-col>
+                                    <el-col :span="8">
+                                        <el-form-item label="创建时间">  
+                                            <el-date-picker type="date" placeholder="选择日期" @change="createdateChange" format="yyyy-MM-dd"
+                                            value-format="yyyy-MM-dd" v-model="editForm.create_time" style="width:180px"></el-date-picker>  
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="8">            
+                                        <el-form-item label="修改人" prop="alter_name">  
+                                        <el-input v-model="editForm.alter_name" auto-complete="off" placeholder="修改人" style="width:180px"></el-input>  
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :span="4">&nbsp;</el-col>
+                                    <el-col :span="8">            
+                                        <el-form-item label="修改时间" prop="alter_time">  
+                                            <el-date-picker type="date" placeholder="选择日期" @change="alterdateChange" format="yyyy-MM-dd"
+                                            value-format="yyyy-MM-dd" v-model="editForm.alter_time" style="width:180px"></el-date-picker>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>  
 							</el-form>  
 					<div slot="footer" class="dialog-footer">  
 						<el-button @click.native="editFormVisible = false">取消</el-button>  
@@ -534,96 +484,91 @@
 				id: "",
 				username:"",
 				realname: "",
-				deptname:'',
-				birth:"",
-				sex:"",
-				state: "",
-				position:"",
-				worklife:"",
-				position:"",
-				jobtype:"",
-				DRUS:""
+                rolename:"",
+                permissioninfo:"",
+                begintime:"",
+                endtime:"",
 			  },
 			  tableData: [
 				{
-					username:"刘备",
-					realname: "刘树田",
-					birth: "2016-05-03",
-					sex: "男",
-					phone: "13242452511",
-					email: "liushutian@syfri.com",
+					permissionname:"管理员",
+					permissioninfo: "新增",
+                    create_name:"乱世",
+					create_time: "2018-01-03",
+                    alter_name:"诸葛亮",
+					alter_time: "2020-01-01",
 				},
 			   	{
-					username:"孙权",
-					realname: "孙宝书",
-					birth: "2016-01-02",
-					sex: "男",
-					phone: "13242124124",
-					email: "sunbaoshu@syfri.com",
+					permissionname:"刘备",
+					permissioninfo: "删除",
+                    create_name:"乱世",
+					create_time: "2024-05-03",
+                    alter_name:"诸葛亮",
+					alter_time: "2020-01-01",
 				},
 				{
-					username:"曹操",
-					realname: "曹茶",
-					birth: "1996-02-16",
-					sex: "男",
-					phone: "13932425651",
-					email: "caocha@syfri.com",
+					permissionname:"曹操",
+					permissioninfo: "魏国主公",
+                    create_name:"乱世",
+					create_time: "2084-05-03",
+                    alter_name:"郭嘉",
+					alter_time: "2020-01-01",
 				},
 				{
-				username:"东波",
-				realname: "刘海柱",
-				birth: "1991-11-14",
-				sex: "男",
-				phone: "13987654212",
-				email: "liuhaizhu@syfri.com",
+                    permissionname:"孙权",
+					permissioninfo: "吴国主公",
+                    create_name:"乱世",
+					create_time: "2004-05-03",
+                    alter_name:"陆逊",
+					alter_time: "1990-01-01",
 				},
 				{
-					username:"雪欧",
-					realname: "张辽",
-					birth: "2016-05-03",
-					sex: "女",
-					phone: "13987654321",
-					email: "zhangliao@syfri.com",
+					permissionname:"司马炎",
+					permissioninfo: "西晋主公",
+                    create_name:"太平",
+					create_time: "1984-05-03",
+                    alter_name:"司马昭",
+					alter_time: "2020-01-01",
 				},
 				{
-				username:"芹菜",
-				realname: "孙尚",
-				birth: "1989-10-09",
-				sex: "女",
-				phone: "13687994241",
-				email: "sunshang@syfri.com",
+                    permissionname:"司马伦",
+					permissioninfo: "八王之一",
+                    create_name:"乱世",
+					create_time: "1884-05-03",
+                    alter_name:"八王之乱",
+					alter_time: "2020-01-01",
 				},
 				{
-					username:"汗冰",
-					realname: "艾希",
-					birth: "1993-08-12",
-					sex: "女",
-					phone: "13742141412",
-					email: "aixi@syfri.com",
+					permissionname:"曹丕",
+					permissioninfo: "魏国皇帝",
+                    create_name:"乱世",
+					create_time: "1784-05-03",
+                    alter_name:"司马懿",
+					alter_time: "1920-01-01",
 				},
 				{
-				username:"牛熊",
-				realname: "牛大力",
-				birth: "1986-07-25",
-				sex: "男",
-				phone: "13242452511",
-				email: "niudali@syfri.com",
+                    permissionname:"曹叡",
+					permissioninfo: "魏国皇帝",
+                    create_name:"乱世",
+					create_time: "1684-05-03",
+                    alter_name:"曹真",
+					alter_time: "1220-01-01",
 				},
 				{
-					username:"子上",
-					realname: "司马昭",
-					birth: "1997-03-28",
-					sex: "男",
-					phone: "13389852376",
-					email: "simazhao@syfri.com",
+					permissionname:"曹芳",
+					permissioninfo: "魏国皇帝",
+                    create_name:"乱世",
+					create_time: "1384-05-03",
+                    alter_name:"曹爽",
+					alter_time: "2520-01-01",
 				},
 				{
-				username:"子元",
-				realname: "司马师",
-				birth: "1993-07-31",
-				sex: "男",
-				phone: "13967854323",
-				email: "simashi@syfri.com",
+                    permissionname:"刘禅",
+					permissioninfo: "蜀国皇帝",
+                    create_name:"乱世",
+					create_time: "1984-05-03",
+                    alter_name:"姜维",
+					alter_time: "1020-01-01",
 				}
 			 ],
 			   rowdata:'',
@@ -652,16 +597,16 @@
 				addFormVisible:false,
 				addLoading:false,
 				addFormRules:{
-					realname: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+					permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
 				},
 				//新建数据
 				addForm:{
-					username:"",
-					realname: "",
-					birth:"",
-					sex: -1,
-					phone:"",
-					email:"",
+					permissionname:"",
+					permissioninfo: "",
+					create_name:"",
+					create_time:"",
+					alter_name:"",
+					alter_time:"",
 				},
 				//选中的值显示
 				sels: [], 
@@ -671,81 +616,166 @@
 				editFormVisible: false,
 				editLoading: false,
 				editFormRules: {
-					realname: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+					permissionname: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
 				},
 				//编辑界面数据
 				editForm: {
-					username:"",
-					realname: "",
-					birth:"",
-					sex: -1,
-					phone:"",
-					email:"",
+					permissionname:"",
+					permissioninfo: "",
+					create_name:"",
+					create_time:"",
+					alter_name:"",
+					alter_time:"",
 				},
-			   
+               
 			   }
 			},
 			methods:{
-			//表格查询事件
+            handleNodeClick(data) {
+                console.log(data);
+            },
+            //表格查询事件
 			searchClick: function() {
 			var _self = this;
 			var tableObject ={};
 			var searchData=[];
+            var resultData=[];
+            //空表不显示
 			function isEmptyObject(obj) {
 				for (var key in obj) {
 					return false;
 				}
 				return true;
 			}
-			 for(var i=0;i<_self.tableData.length;i++){
-			 	searchData.push(_self.tableData[i]);
-			 }
-			if(_self.searchForm.realname != ""&&_self.searchForm.username != ""){
-				for(var i = 0;i<_self.tableData.length;i++){
-					if((_self.tableData[i].realname == _self.searchForm.realname&&_self.tableData[i].username == _self.searchForm.username))//&&(tableObject.birth == this.searchForm.birth&&this.searchForm.birth!="")
-					//&&(tableObject.position == this.searchForm.position&&this.searchForm.position!="")&&(tableObject.deptname == this.searchForm.deptname&&this.searchForm.deptname!="")
-					//&&(tableObject.jobtype == this.searchForm.jobtype&&this.searchForm.jobtype!=""))//&&(tableObject.sex == (searchForm.sex==0?"女":"男")))
-					{	
-						tableObject = _self.tableData[i];
-						
-					}
-					
-				}
+            //起始时间的判断大小的函数
+            function tab(begin,end){
+                var oDate1 = new Date(begin);
+                var oDate2 = new Date(end);
+                if(oDate1.getTime() > oDate2.getTime()){
+                    return true;
+                }
+                return false;
+            }
+            //数据还原
+			  for(var i=0;i<_self.tableData.length;i++){
+                var flow=_self.tableData[i];
+                searchData.push(flow);
+			  }
+           
+           
+			if(_self.searchForm.begintime != ""&&_self.searchForm.endtime != ""){
+                //起始时间的判断
+                if(tab(_self.searchForm.begintime,_self.searchForm.endtime))
+                {
+                    _self.$message({
+                        message: "开始时间不能早于结束时间",
+                        type: "error"
+                        });
+                        return;
+                }
+                if(_self.searchForm.permissioninfo != "")
+                {
+                    for(var i = 0;i<_self.tableData.length;i++){
+                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo&&(_self.tableData[i].create_time >= _self.searchForm.begintime&&_self.tableData[i].create_time <= _self.searchForm.endtime))
+                        {	
+                            var row=_self.tableData[i];
+                            resultData.push(row);
+                            
+                        }
+                        
+                    }
+                }
+                else{
+                    for(var i = 0;i<_self.tableData.length;i++){
+                        if(_self.tableData[i].create_time >= _self.searchForm.begintime&&_self.tableData[i].create_time <= _self.searchForm.endtime)
+                        {	
+                            var row=_self.tableData[i];
+                            resultData.push(row);   
+                        }
+                    }
+                }
 				_self.tableData.splice(0,_self.tableData.length);
-				if(!isEmptyObject(tableObject)){
-					_self.tableData.push(tableObject);
+				if(resultData.length>=1){
+					_self.tableData=resultData;
 				}
 			}
-			else if(_self.searchForm.realname != ""&&_self.searchForm.username == ""){
-				for(var i = 0;i<_self.tableData.length;i++){
-					if(_self.tableData[i].realname == _self.searchForm.realname)
-					{	
-						tableObject = _self.tableData[i];
-						
-					}
-					
-				}
+            else if(_self.searchForm.begintime == ""&&_self.searchForm.endtime != ""){
+                if(_self.searchForm.permissioninfo != "")
+                {
+                    for(var i = 0;i<_self.tableData.length;i++){
+                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo&&_self.tableData[i].create_time <= _self.searchForm.endtime)
+                        {	
+                            var row=_self.tableData[i];
+                            resultData.push(row);
+                            
+                        }
+                        
+                    }
+                }
+                else{
+                    for(var i = 0;i<_self.tableData.length;i++){
+                        if(_self.tableData[i].create_time <= _self.searchForm.endtime)
+                        {	
+                            var row=_self.tableData[i];
+                            resultData.push(row);   
+                        }
+                    }
+                }
 				_self.tableData.splice(0,_self.tableData.length);
-				if(!isEmptyObject(tableObject)){
-					_self.tableData.push(tableObject);
-				}
+				if(resultData.length>=1){
+					_self.tableData=resultData;
+				}	
 			}
-			else if(_self.searchForm.realname == ""&&_self.searchForm.username != ""){
-				for(var i = 0;i<_self.tableData.length;i++){
-					if(_self.tableData[i].username == _self.searchForm.username)
-					{	
-						tableObject = _self.tableData[i];
-					}
-					
-				}
+			else if(_self.searchForm.begintime != ""&&_self.searchForm.endtime == ""){
+				
+				if(_self.searchForm.permissioninfo != "")
+                {
+                    for(var i = 0;i<_self.tableData.length;i++){
+                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo&&_self.tableData[i].create_time >= _self.searchForm.begintime)
+                        {	
+                            var row=_self.tableData[i];
+                            resultData.push(row);
+                            
+                        }
+                        
+                    }
+                }
+                else{
+                    for(var i = 0;i<_self.tableData.length;i++){
+                        if(_self.tableData[i].create_time >= _self.searchForm.begintime)
+                        {	
+                            var row=_self.tableData[i];
+                            resultData.push(row);   
+                        }
+                    }
+                }
 				_self.tableData.splice(0,_self.tableData.length);
-				if(!isEmptyObject(tableObject)){	
-					_self.tableData.push(tableObject);
+				if(resultData.length>=1){
+					_self.tableData=resultData;
 				}
 			}
-			else{
-				_self.tableData = searchData;
-			}
+			else if(_self.searchForm.begintime == ""&&_self.searchForm.endtime == ""){
+				if(_self.searchForm.permissioninfo != "")
+                {
+                    for(var i = 0;i<_self.tableData.length;i++){
+                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo)
+                        {	
+                            var row=_self.tableData[i];
+                            resultData.push(row);
+                            
+                        }
+                        
+                    }
+                    _self.tableData.splice(0,_self.tableData.length);
+                    if(resultData.length>=1){
+                        _self.tableData=resultData;
+                    }
+                }
+                else{
+                    _self.tableData.splice(0,_self.tableData.length);
+                    _self.tableData = searchData;
+			    }
+            }
 			
 			//_self.tableData.filter((item)=>{return item.realname == _self.searchForm.realname	});
 			_self.total = _self.tableData.length;
@@ -766,10 +796,28 @@
 				  
         	// },  
 			//时间格式
-			dateChangebirthday(val) {  
+			// dateChange(val) {  
+			// 	console.log(val);  
+			// 	this.addForm.create_time = val;
+			// 	this.editForm.create_time = val;
+			// },
+            createdateChange(val) {  
 				console.log(val);  
-				this.addForm.birth = val;
-				this.editForm.birth = val;  
+				this.addForm.create_time = val;
+				this.editForm.create_time = val;
+			},
+            alterdateChange(val) {  
+				console.log(val);  
+				this.addForm.alter_time = val;
+				this.editForm.alter_time = val;
+			},
+			begindateChange(val) {  
+				console.log(val);  
+                this.searchForm.begintime = val;
+			},
+			enddateChange(val) {  
+				console.log(val);  
+                this.searchForm.endtime = val;
 			},
 			//表格重新加载数据
 			loadingData: function() {
@@ -781,25 +829,26 @@
 			}, 300);
 			},
 			//表格删除事件
-			deleteClick: function(index,row) {
-			var _self = this;
-			this.$confirm("确认删除" + row.realname + "吗?", "提示", {
-				type: "warning",
-				confirmButtonText: '确定',
-				cancelButtonText: '取消'
-			})
-				.then(function() {
-				_self.tableData.splice(index,1);
-				_self.$message({
-					message: row.realname + "删除成功",
-					type: "success"
-				});
-				_self.loadingData(); //重新加载数据
-				})
-				.catch(function(e) {
-				if (e != "cancel") console.log("出现错误：" + e);
-				});
-			},
+			// deleteClick: function(index,row) {
+			// var _self = this;
+			// this.$confirm("确认删除" + row.realname + "吗?", "提示", {
+			// 	type: "warning",
+			// 	confirmButtonText: '确定',
+			// 	cancelButtonText: '取消'
+			// })
+			// 	.then(function() {
+			// 	_self.tableData.splice(index,1);
+			// 	_self.$message({
+			// 		message: row.realname + "删除成功",
+			// 		type: "success"
+			// 	});
+			// 	_self.loadingData(); //重新加载数据
+			// 	})
+			// 	.catch(function(e) {
+			// 	if (e != "cancel") console.log("出现错误：" + e);
+			// 	});
+			// },
+
 			//新建事件
 			addClick: function() {
 			var _self = this;
@@ -822,7 +871,7 @@
 			for (var i = 0; i < multipleSelection.length; i++) {
 				var row = multipleSelection[i];
 				//ids += row.realname + ",";
-				ids.push(row.realname);
+				ids.push(row.permissionname);
 			}
 			this.$confirm("确认删除" + ids + "吗?", "提示", {
 				type: "warning"
@@ -831,7 +880,7 @@
 				for(var d =0;d< ids.length;d++){
 					for(var k=0;k< _self.tableData.length;k++)
 						{
-							if(_self.tableData[k].realname == ids[d]){
+							if(_self.tableData[k].permissionname == ids[d]){
 								_self.tableData.splice(k,1);
 							}
 						}
@@ -884,29 +933,29 @@
 			for (var i = 0; i < multipleSelection.length; i++) {
 				var row = multipleSelection[i];
 				//ids += row.realname + ",";
-				ids.push(row.realname);
+				ids.push(row.permissionname);
 			}
 			for(var d =0;d< ids.length;d++){
 					for(var k=0;k< _self.tableData.length;k++)
 						{
-							if(_self.tableData[k].realname == ids[d]){
+							if(_self.tableData[k].permissionname == ids[d]){
 								_self.selectIndex = k;
 							}
 						}
 				}
 			this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-			this.editForm.sex=(row.sex == "男"?1:0);
+			//this.editForm.sex=(row.sex == "男"?1:0);
 			this.editFormVisible = true;
 			},
 			//保存点击事件
 			editSubmit: function(val) {
 			var _self = this;
-			this.tableData[this.selectIndex].realname = val.realname;
-			this.tableData[this.selectIndex].birth = val.birth;
-			this.tableData[this.selectIndex].sex = (val.sex == 0?"女":"男");
-			this.tableData[this.selectIndex].username = val.username;
-			this.tableData[this.selectIndex].phone = val.phone;
-			this.tableData[this.selectIndex].email = val.email;
+			this.tableData[this.selectIndex].permissionname = val.permissionname;
+			this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
+			this.tableData[this.selectIndex].create_name = val.create_name;
+            this.tableData[this.selectIndex].create_time = val.create_time;
+			this.tableData[this.selectIndex].alter_name = val.alter_name;
+			this.tableData[this.selectIndex].alter_time = val.alter_time;
 			this.editFormVisible = false;
 			_self.loadingData();//重新加载数据
 			console.info(this.editForm);
@@ -915,33 +964,33 @@
 			addSubmit: function(val) {
 				var _self=this;
 				this.tableData.unshift({
-					realname: val.realname,
-					birth: val.birth,
-					sex: (val.sex == 0?"女":"男"),
-					username:val.username,
-					phone:val.phone,
-					email:val.email
+					permissionname: val.permissionname,
+					permissioninfo: val.permissioninfo,
+                    create_name:val.create_name,
+					create_time:val.create_time,
+					alter_name:val.alter_name,
+					alter_time:val.alter_time
 				});
 				this.addFormVisible = false;
 				_self.total = _self.tableData.length;
 				_self.loadingData();//重新加载数据
-				val.realname = "";
-				val.birth = "";
-				val.sex = "";
-				val.username ="";
-				val.phone = "";
-				val.email ="";
+				val.permissionname = "";
+				val.permissioninfo = "";
+				val.create_name = "";
+				val.create_time ="";
+				val.alter_name = "";
+				val.alter_time ="";
 				console.info(this.addForm);
 				
 			},
 			closeDialog:function(val){
 				this.addFormVisible = false;
-				val.realname = "";
-				val.birth = "";
-				val.sex = "";
-				val.username ="";
-				val.phone = "";
-				val.email ="";
+				val.permissionname = "";
+				val.permissioninfo = "";
+				val.create_name = "";
+				val.create_time ="";
+				val.alter_name = "";
+				val.alter_time ="";
 			}
 		},
 			
