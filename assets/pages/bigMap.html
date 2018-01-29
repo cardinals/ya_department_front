@@ -14,6 +14,7 @@
 <body class="fw map-bg">
 	<div id="app">
 		<div class="application-box tc abs">
+			<div class="application-logo logo2"></div>
 			<a class="application-icon-l db l" href="javascript:;">
 				<div id="map" style="height:100%;width:100%;"></div>
 			</a>
@@ -24,7 +25,7 @@
 						<div class="application-text p38 icon1 flex map-bg2">
 							<div>
 								<div class="application-name">预案总数（个）</div>
-								<div class="application-num">1523</div>
+								<div class="application-num">{{yags}}</div>
 							</div>
 						</div>
 					</div>
@@ -32,7 +33,7 @@
 						<div class="application-text p38 icon2 flex map-bg2">
 							<div>
 								<div class="application-name">重点单位总数（家）</div>
-								<div class="application-num">7483</div>
+								<div class="application-num">{{zddw}}</div>
 							</div>
 						</div>
 					</div>
@@ -60,6 +61,8 @@
 	var vm = new Vue({
 		el: "#app",
 		data: {
+			yags: '1523',
+			zddw: '7483',
 			city: ''
 		},
 		methods: {
@@ -502,6 +505,7 @@
 		mounted() {
 			this.echarts2()
 			this.echarts4()
+			setInterval(this.yags++, 1000)
 		}
 	})
 </script>

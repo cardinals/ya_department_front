@@ -146,6 +146,11 @@
   width: 100%;
   bottom: 30px;
 }
+.application-logo {
+  top: 13px;
+  left: 192px;
+  position: absolute;
+}
 .application-box {
   width: 1200px;
   height: 500px;
