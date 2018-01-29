@@ -3,8 +3,7 @@
   left: 0;
   width: 160px;
   height: 100%;
-  background: #050f33;
-  border-right: 1px solid #330066;
+  border: 1px solid #330066;
 }
 .sync-main {
   float: right;
@@ -15,7 +14,6 @@
   background-size: 100% 100%;
 }
 .sync-box {
-  background: #050f33;
   width: 100%;
   height: 120px;
   border-bottom: 1px solid #330066;

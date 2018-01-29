@@ -121,10 +121,10 @@
   width: 260px;
 }
 .map-bg {
-  background: #122735;
+  background: #050f33;
 }
 .map-bg2 {
-  background: #162c3c;
+  background-color:rgba(255,255,255,0.1);
 }
 .map-menu {
   width: 240px;
@@ -492,4 +492,12 @@
 }
 .main-container {
   padding: 20px;
+}
+
+.blink {
+  animation:blink 1.5s linear infinite;
+}
+@keyframes blink {
+  0% {border-color:red;}
+  100%{border-color:black;}
 }
