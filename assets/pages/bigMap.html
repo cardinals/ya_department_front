@@ -25,7 +25,7 @@
 					<div class="application-div h15 p5">
 						<div class="application-text p38 icon1 flex map-bg2">
 							<div>
-								<div class="application-name">预案总数（个）</div>
+								<div class="application-name">数字化预案总数（个）</div>
 								<div class="application-num">{{yags}}</div>
 							</div>
 						</div>
@@ -62,8 +62,8 @@
 	var vm = new Vue({
 		el: "#app",
 		data: {
-			yags: '1523',
-			zddw: '7483',
+			yags: '1451523',
+			zddw: '2727468',
 			city: ''
 		},
 		methods: {
@@ -94,7 +94,8 @@
 									areaStyle: {
 										color: '#050f33'
 									},
-									borderColor: '#7282B1',
+									borderColor: '#f7cb29',
+									// borderColor: '#7282B1',
 									label: {
 										show: true,
 										textStyle: {
@@ -108,7 +109,8 @@
 									areaStyle: {
 										color: '#050f33'
 									},
-									borderColor: '#7282B1',
+									borderColor: '#f7cb29',
+									// borderColor: '#7282B1',
 									borderWidth: '2',
 									label: {
 										show: true,
@@ -131,14 +133,14 @@
 								},
 								itemStyle: {
 									normal: {
-										borderColor: '',
+										borderColor: '#00EE00',
 										borderWidth: 1,            // 标注边线线宽，单位px，默认为1
 										label: {
 											show: false
 										}
 									},
 									emphasis: {
-										borderColor: '#1e90ff',
+										borderColor: '#00EE00',
 										borderWidth: 5,
 										label: {
 											show: false
@@ -501,12 +503,18 @@
 			},
 			loadChart: function () {
 				window.location.assign("mapPage1.html?city=" + vm.$options.data.city);
+			},
+			autoAdd: function () {
+				this.yags++
+				this.zddw++
 			}
 		},
 		mounted() {
 			this.echarts2()
 			this.echarts4()
-			setInterval(this.yags++, 1000)
+			setInterval(() => {
+				this.autoAdd()
+			}, 1200)
 		}
 	})
 </script>

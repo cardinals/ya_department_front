@@ -55,15 +55,25 @@
   position: fixed;
 }
 .sync-province-icon {
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
   margin: 16px;
   margin-top: 16px;
+  background-image: url("../images/sync-fwjd.png");
+  background-size: 48px 48px;
+}
+.sync-province-icon2 {
+  width: 48px;
+  height: 48px;
+  margin: 16px;
+  margin-top: 16px;
+  background-image: url("../images/sync-gzjd.png");
+  background-size: 48px 48px;
 }
 .sync-province-lebal {
     position: relative;
     font-size: 13px;
-    top: -30px;
+    top: -26px;
     color: #77bafe;
     font-family: "微软雅黑";
 }
@@ -190,4 +200,11 @@
 #province31 {
     top: 448px;
     left: 1039px;
+}
+.blink {
+    animation:blink 0.5s linear infinite alternate;
+}
+@keyframes blink {
+  0% {opacity: 0.4;}
+  100% {opacity: 1;}
 }

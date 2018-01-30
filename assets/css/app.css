@@ -184,9 +184,9 @@
   background-size:55px 55px;
 }
 .p38 {
-  padding-left: 38%;
+  padding-left: 30%;
   background-repeat: no-repeat;
-  background-position: 17% center;
+  background-position: 15% center;
   justify-content: left;
 }
 .application-text {
@@ -492,12 +492,4 @@
 }
 .main-container {
   padding: 20px;
-}
-
-.blink {
-  animation:blink 1.5s linear infinite;
-}
-@keyframes blink {
-  0% {border-color:red;}
-  100%{border-color:black;}
 }
