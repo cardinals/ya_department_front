@@ -35,9 +35,8 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" href="javascript:;">
-									<span class="glyphicon glyphicon-volume-up l mt3"></span>
-									<span class="f12 l mt1 ml5">(0)</span>
+								<a class="fix" style="width:44px;" href="/assets/pages/bigMap0.html">
+									<img src="../images/zhanshi.png">
 								</a>
 							</li>
 							<li>
@@ -93,7 +92,7 @@
 							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
 								
 								<el-row gutter="40">
-										<el-col :span="12">
+										<el-col :span="8" class="double-search-left">
 											<el-form-item label="角色描述">  
 												<el-select size="mini" v-model="searchForm.roleinfo" placeholder="角色描述">  
                                                     <el-option label="管理员" value="管理员"></el-option>  
@@ -102,7 +101,7 @@
 											</el-form-item>
 										</el-col>
 										<el-col :span="12">
-											<el-form-item label="创建时间" class="right-search">
+											<el-form-item label="创建时间">
                                                 <el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
 												value-format="yyyy-MM-dd" size="mini" v-model="searchForm.begintime" placeholder="开始时间" style="width: 170px"></el-date-picker>
                                                 ~
@@ -134,92 +133,81 @@
 
 						
 						<div class="table_container">
-							<div class="table-title">
-								<ion-title>查询结果</ion-title>
-							</div>
-						<el-table
-								border
-								id="table"
-								:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-								v-loading.body="loading"  
-								@selection-change="selectionChange"  
-								style="width: 100%;padding: 3px;"
-								:height="tableheight"
-								>
-			
-							<el-table-column  
-							type="selection"  
-							width="45">  
-							</el-table-column>
-							<el-table-column 
-								type="index" 
-								label="序号"
-								width="65"
-								align="center">
-							</el-table-column>
-							<el-table-column  
-								prop="rolename"  
-								label="角色名称"  
-								width="100"
-								align="center">  
-							</el-table-column>  
-							<el-table-column  
-								prop="roleinfo"  
-								label="角色描述"  
-								width="115"
-								align="left">  
-							</el-table-column>  
-							<el-table-column  
-								prop="create_name"  
-								label="创建人" 
-								width="122"
-								align="center">  
-							</el-table-column> 
-							<el-table-column  
-								prop="create_time"  
-								label="创建时间"  
-								width="132"
-								align="center">  
-							</el-table-column>  
-							<el-table-column  
-								prop="alter_name"  
-								label="修改人"  
-								width="140"
-								align="center">  
-							</el-table-column>  
-							<el-table-column  
-								prop="alter_time"  
-								label="修改时间"  
-								width="132"
-								align="center">  
-							</el-table-column>
-							<el-table-column  
-								prop="role"  
-								label="资源列表"  
-								width="120"
-								align="left">
-								<template slot-scope="scope">  
-										<el-popover
-											ref="popover2"
-											placement="bottom"
-											title="资源列表"
-											width="200"
-                                            trigger="click">
-                                            <el-tree :data="treedata" :props="defaultProps" @node-click="handleNodeClick" accordion></el-tree>
-										</el-popover>
-										<el-button v-popover:popover2>资源列表</el-button>
-								</template>	  
-							</el-table-column>
-							<!-- <el-table-column  
-								label="操作"
-								width="120"
-								>  
-								<template slot-scope="scope">  
-									<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.$index, scope.row)">编辑</el-button>  
-									<el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.$index, scope.row)">删除</el-button>
-								</template>  
-							</el-table-column>        -->
-						</el-table>
+							<el-table
+									border
+									id="table"
+									:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+									v-loading.body="loading"  
+									@selection-change="selectionChange"  
+									style="width: 100%;padding: 3px;"
+									:height="tableheight"
+									>
+				
+								<el-table-column  
+								type="selection"  
+								width="45">  
+								</el-table-column>
+								<el-table-column 
+									type="index" 
+									label="序号"
+									width="65"
+									align="center">
+								</el-table-column>
+								<el-table-column  
+									prop="rolename"  
+									label="角色名称"  
+									width="100"
+									align="center">  
+								</el-table-column>  
+								<el-table-column  
+									prop="roleinfo"  
+									label="角色描述"  
+									width="115"
+									align="center">  
+								</el-table-column>  
+								<el-table-column  
+									prop="create_name"  
+									label="创建人" 
+									width="122"
+									align="center">  
+								</el-table-column> 
+								<el-table-column  
+									prop="create_time"  
+									label="创建时间"  
+									width="132"
+									align="center">  
+								</el-table-column>  
+								<el-table-column  
+									prop="alter_name"  
+									label="修改人"  
+									width="140"
+									align="center">  
+								</el-table-column>  
+								<el-table-column  
+									prop="alter_time"  
+									label="修改时间"  
+									width="132"
+									align="center">  
+								</el-table-column>
+								<el-table-column  
+									prop="role"  
+									label="资源列表"  
+									width="120"
+									align="center">
+									<template slot-scope="scope">  
+											<el-button type="text" @click="resourceClick">查看详情</el-button>
+									</template>	  
+								</el-table-column>
+								<!-- <el-table-column  
+									label="操作"
+									width="120"
+									>  
+									<template slot-scope="scope">  
+										<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.$index, scope.row)">编辑</el-button>  
+										<el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.$index, scope.row)">删除</el-button>
+									</template>  
+								</el-table-column>        -->
+							</el-table>
 						
 								<!---->
 								<!---->
@@ -242,6 +230,10 @@
 								</el-col>  
 							</el-row> 
 						</div>
+							<!--详情界面-->  
+							<el-dialog title="资源列表" :visible.sync="resourceVisible" @close="closeresourceDialog()" :close-on-click-modal="false">
+								<el-tree :data="treedata" :props="defaultProps" @node-click="handleNodeClick" accordion></el-tree>
+							</el-dialog> 
 							<!--新建界面-->  
 							<el-dialog title="新建用户" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">  
 								<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
@@ -259,33 +251,8 @@
 										</el-col>
 									</el-row> 
 									<el-row>
-										<el-col :span="8">
-                                            <el-form-item label="创建人" prop="create_name">  
-                                                <el-input v-model="addForm.create_name" auto-complete="off" placeholder="创建人" style="width:180px"></el-input>  
-                                            </el-form-item>
-										</el-col>
-										<el-col :span="4">&nbsp;</el-col>
-										<el-col :span="8">
-											<el-form-item label="创建时间">  
-												<el-date-picker type="date" placeholder="选择日期" @change="createdateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" v-model="addForm.create_time" style="width:180px"></el-date-picker>  
-                                            </el-form-item>
-										</el-col>
+										<el-tree :props="defaultProps" @node-click="handleNodeClick" accordion></el-tree>
 									</el-row>
-									<el-row>
-										<el-col :span="8">            
-											<el-form-item label="修改人" prop="alter_name">  
-											<el-input v-model="addForm.alter_name" auto-complete="off" placeholder="修改人" style="width:180px"></el-input>  
-											</el-form-item>
-										</el-col>
-										<el-col :span="4">&nbsp;</el-col>
-										<el-col :span="8">            
-											<el-form-item label="修改时间" prop="alter_time">  
-                                                <el-date-picker type="date" placeholder="选择日期" @change="alterdateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" v-model="addForm.alter_time" style="width:180px"></el-date-picker>
-											</el-form-item>
-										</el-col>
-									</el-row>   
 								</el-form>  
 								<div slot="footer" class="dialog-footer">  
 									<el-button @click.native="closeDialog(addForm)">取消</el-button>  
@@ -379,7 +346,8 @@
 			},
 			{
 				'index': '4',
-				'menuName': '重点单位管理'
+				'menuName': '重点单位管理',
+				'url': '/assets/pages/key-unit.html'
 			},
 			{
 				'index': '5',
@@ -598,7 +566,9 @@
 					alter_time: "1020-01-01",
 				}
 			 ],
-			   rowdata:'',
+			 countryList:['法国','英国','德国'],
+			 cityList:[['巴黎','普罗旺斯',"马赛"],['伦敦','爱丁堡',"北爱尔兰"],['柏林','慕尼黑',"汉堡"]],			   
+			 rowdata:'',
 			   //表高度变量
 			   tableheight :445,
 			   //显示加载中样
@@ -618,6 +588,8 @@
 				},
 				//序号
 				indexData:0,
+				//资源列表是否显示
+				resourceVisible:false,
 				//删除的弹出框
 				deleteVisible: false,
 				//新建页面是否显示
@@ -701,6 +673,11 @@
             handleNodeClick(data) {
                 console.log(data);
             },
+			//资源详情
+			resourceClick:function(){
+				var _self = this;
+				_self.resourceVisible=true;
+			},
             //表格查询事件
 			searchClick: function() {
 			var _self = this;
@@ -1058,6 +1035,9 @@
 				val.create_time ="";
 				val.alter_name = "";
 				val.alter_time ="";
+			},
+			closeresourceDialog:function(){
+				this.resourceVisible=false;
 			}
 		},
 			
