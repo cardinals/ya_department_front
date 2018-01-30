@@ -148,15 +148,16 @@
 }
 .application-back {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  width: 90px;
+  top: 8px;
+  left: 10px;
   z-index: 9999;
 }
 .application-back a {
   font-family: 微软雅黑;
   text-align: center;
   color: #8A979F;
-  font-size: 12px;
+  font-size: 14px;
 }
 .application-logo {
   top: -22px;
