@@ -121,10 +121,10 @@
   width: 260px;
 }
 .map-bg {
-  background: #122735;
+  background: #050f33;
 }
 .map-bg2 {
-  background: #162c3c;
+  background-color:rgba(255,255,255,0.1);
 }
 .map-menu {
   width: 240px;
@@ -145,6 +145,11 @@
   position: fixed;
   width: 100%;
   bottom: 30px;
+}
+.application-logo {
+  top: 13px;
+  left: 192px;
+  position: absolute;
 }
 .application-box {
   width: 1200px;
@@ -179,9 +184,9 @@
   background-size:55px 55px;
 }
 .p38 {
-  padding-left: 38%;
+  padding-left: 30%;
   background-repeat: no-repeat;
-  background-position: 17% center;
+  background-position: 15% center;
   justify-content: left;
 }
 .application-text {
