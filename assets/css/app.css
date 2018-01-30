@@ -9,8 +9,8 @@
 }
 .logo {
   background: url('../images/LOGO.png') no-repeat;
-  width: 165px;
-  height: 40px;
+  width: 360px;
+  height: 180px;
 }
 .logo2 {
   background: url('../images/LOGO2.png') no-repeat;
@@ -146,10 +146,23 @@
   width: 100%;
   bottom: 30px;
 }
+.application-back {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+}
+.application-back a {
+  font-family: 微软雅黑;
+  text-align: center;
+  color: #8A979F;
+  font-size: 12px;
+}
 .application-logo {
-  top: 13px;
-  left: 192px;
+  top: -22px;
+  left: 212px;
   position: absolute;
+  z-index: 9999;
 }
 .application-box {
   width: 1200px;
