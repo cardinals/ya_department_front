@@ -35,8 +35,8 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" style="width:44px;" href="/assets/pages/bigMap0.html">
-									<img src="../images/zhanshi.png">
+								<a class="fix" style="width:44px;" href="/assets/pages/test02.html">
+									<img src="../images/shishizhanshi.png">
 								</a>
 							</li>
 							<li>
@@ -141,7 +141,7 @@
 									<el-form>
 										<el-col :span="12" style="text-align: left">
 											<el-form-item align="left">  
-												<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>  
+												<el-button type="primary" icon="edit" size="small" @click="editClick">修改</el-button>  
 												<el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>  
 											</el-form-item>
 										</el-col>
@@ -213,7 +213,7 @@
 							<el-table-column  
 								prop="email"  
 								label="邮箱"  
-								width="189"
+								width="193"
 								align="center">  
 							</el-table-column>
 							<el-table-column  
@@ -250,7 +250,7 @@
 
 
 						<!--列表底部工具条和分页符-->  
-						<el-row style="margin-top: 20px" type="flex" justify="end">  
+						<el-row type="flex" justify="end">  
 								<el-col :span="18" >  
 									<el-pagination  
 											style="float: right"  
@@ -314,7 +314,22 @@
 											<el-input v-model="addForm.email" auto-complete="off" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
-									</el-row>   
+									</el-row>
+									<el-row>
+											<el-col :span="8">            
+												<el-form-item label="密码" prop="password">  
+												<el-input v-model="addForm.password" auto-complete="off" style="width:180px"></el-input>  
+												</el-form-item>
+											</el-col>
+											<el-col :span="4">&nbsp;</el-col>
+											<el-col :span="8">            
+												<el-form-item label="角色">  
+												<el-checkbox-group v-model="addForm.rolelist" auto-complete="off" style="width:180px">
+													<el-checkbox v-for="role in addForm.rolelist" :label="role" :key="role">{{role}}</el-checkbox>
+												</el-checkbox-group>  
+												</el-form-item>
+											</el-col>
+										</el-row>      
 								</el-form>  
 								<div slot="footer" class="dialog-footer">  
 									<el-button @click.native="closeDialog(addForm)">取消</el-button>  
@@ -322,8 +337,8 @@
 								</div>  
 							</el-dialog> 
 
-							<!--编辑界面-->  
-							<el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">  
+							<!--修改界面-->  
+							<el-dialog title="修改" :visible.sync="editFormVisible" :close-on-click-modal="false">  
 							<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 								<el-row>
 								<el-col :span="8">            
@@ -368,7 +383,22 @@
 										<el-input v-model="editForm.email" auto-complete="off" style="width:180px"></el-input>  
 										</el-form-item>
 									</el-col>
-								</el-row>  
+								</el-row>
+								<el-row>
+									<el-col :span="8">            
+										<el-form-item label="密码" prop="password">  
+										<el-input v-model="editForm.password" auto-complete="off" style="width:180px"></el-input>  
+										</el-form-item>
+									</el-col>
+									<el-col :span="4">&nbsp;</el-col>
+									<el-col :span="8">            
+										<el-form-item label="角色" prop="role">  
+										<el-checkbox-group auto-complete="off" style="width:180px">
+											<el-checkbox v-for="role in editForm.rolelist" :label="role" :key="role">{{role}}</el-checkbox>
+										</el-checkbox-group>  
+										</el-form-item>
+									</el-col>
+								</el-row>   
 							</el-form>  
 					<div slot="footer" class="dialog-footer">  
 						<el-button @click.native="editFormVisible = false">取消</el-button>  
@@ -383,8 +413,8 @@
 </div>
 
 	<!-- /main-box -->
-
-	<script src="../lib/jquery-3.2.1.min.js"></script>
+</body>
+<script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
 	<script src="../lib/elementUI.js" charset="utf-8"></script>
 	<script>		
@@ -535,96 +565,106 @@
 				id: "",
 				username:"",
 				realname: "",
-				deptname:'',
-				birth:"",
-				sex:"",
-				state: "",
-				position:"",
-				worklife:"",
-				position:"",
-				jobtype:"",
-				DRUS:""
+				// deptname:'',
+				// birth:"",
+				// sex:"",
+				// state: "",
+				// position:"",
+				// worklife:"",
+				// position:"",
+				// jobtype:"",
+				// DRUS:""
 			  },
 			  tableData: [
 				{
-					username:"刘备",
+					userid:"12306",
+					username:"lst",
 					realname: "刘树田",
-					birth: "2016-05-03",
+					birth: "1986-05-03",
 					sex: "男",
 					phone: "13242452511",
 					email: "liushutian@syfri.com",
 				},
 			   	{
-					username:"孙权",
+					userid:"12307",
+					username:"sbs",
 					realname: "孙宝书",
-					birth: "2016-01-02",
+					birth: "1991-01-02",
 					sex: "男",
 					phone: "13242124124",
 					email: "sunbaoshu@syfri.com",
 				},
 				{
-					username:"曹操",
-					realname: "曹茶",
+					userid:"12308",
+					username:"cc",
+					realname: "曹德",
 					birth: "1996-02-16",
-					sex: "男",
+					sex: "女",
 					phone: "13932425651",
 					email: "caocha@syfri.com",
 				},
 				{
-				username:"东波",
-				realname: "刘海柱",
-				birth: "1991-11-14",
-				sex: "男",
-				phone: "13987654212",
-				email: "liuhaizhu@syfri.com",
+					userid:"12309",
+					username:"lhz",
+					realname: "刘海柱",
+					birth: "1991-11-14",
+					sex: "男",
+					phone: "13987654212",
+					email: "liuhaizhu@syfri.com",
 				},
 				{
-					username:"雪欧",
-					realname: "张辽",
-					birth: "2016-05-03",
+					userid:"12310",
+					username:"zl",
+					realname: "张文斌",
+					birth: "1996-05-03",
 					sex: "女",
 					phone: "13987654321",
 					email: "zhangliao@syfri.com",
 				},
 				{
-				username:"芹菜",
-				realname: "孙尚",
-				birth: "1989-10-09",
-				sex: "女",
-				phone: "13687994241",
-				email: "sunshang@syfri.com",
+					userid:"12311",
+					username:"ss",
+					realname: "孙尚",
+					birth: "1989-10-09",
+					sex: "女",
+					phone: "13687994241",
+					email: "sunshang@syfri.com",
 				},
 				{
-					username:"汗冰",
-					realname: "艾希",
+					userid:"12312",
+					username:"zax",
+					realname: "张艾希",
 					birth: "1993-08-12",
 					sex: "女",
 					phone: "13742141412",
 					email: "aixi@syfri.com",
 				},
 				{
-				username:"牛熊",
-				realname: "牛大力",
-				birth: "1986-07-25",
-				sex: "男",
-				phone: "13242452511",
-				email: "niudali@syfri.com",
+					userid:"12313",
+					username:"ndl",
+					realname: "牛大力",
+					birth: "1986-07-25",
+					sex: "男",
+					phone: "13242452511",
+					email: "niudali@syfri.com",
 				},
 				{
-					username:"子上",
-					realname: "司马昭",
+					userid:"12314",
+					username:"mz",
+					realname: "马昭",
 					birth: "1997-03-28",
 					sex: "男",
 					phone: "13389852376",
 					email: "simazhao@syfri.com",
 				},
 				{
-				username:"子元",
-				realname: "司马师",
-				birth: "1993-07-31",
-				sex: "男",
-				phone: "13967854323",
-				email: "simashi@syfri.com",
+					userid:"12315",
+					username:"ml",
+					realname: "冯玉冰",
+					birth: "1993-07-31",
+					sex: "女",
+					phone: "13967854323",
+					email: "simashi@syfri.com",
 				}
 			 ],
 			   rowdata:'',
@@ -659,31 +699,35 @@
 				},
 				//新建数据
 				addForm:{
+					userid:"",
 					username:"",
+					password:"",
 					realname: "",
 					birth:"",
 					sex: -1,
 					phone:"",
 					email:"",
+					rolelist:[]
 				},
-				//选中的值显示
-				sels: [], 
 				//选中的序号
 				selectIndex: -1, 
-				//编辑界面是否显示
+				//修改界面是否显示
 				editFormVisible: false,
 				editLoading: false,
 				editFormRules: {
 					realname: [{ required: true, message: "请输入姓名", trigger: "blur" }]
 				},
-				//编辑界面数据
+				//修改界面数据
 				editForm: {
+					userid:"",
 					username:"",
+					password:"",
 					realname: "",
 					birth:"",
 					sex: -1,
 					phone:"",
 					email:"",
+					rolelist:[]
 				},
 			   
 			   }
@@ -708,6 +752,7 @@
 			 for(var i=0;i<_self.tableData.length;i++){
 			 	searchData.push(_self.tableData[i]);
 			 }
+			
 			if(_self.searchForm.realname != ""&&_self.searchForm.username != ""){
 				for(var i = 0;i<_self.tableData.length;i++){
 					if((_self.tableData[i].realname == _self.searchForm.realname&&_self.tableData[i].username == _self.searchForm.username))//&&(tableObject.birth == this.searchForm.birth&&this.searchForm.birth!="")
@@ -751,6 +796,7 @@
 					_self.tableData.push(tableObject);
 				}
 			}
+			//搜索项为空时恢复全部数据
 			else{
 				_self.tableData = searchData;
 			}
@@ -789,7 +835,7 @@
 			}, 300);
 			},
 			//表格删除事件
-			deleteClick: function(index,row) {
+			/*deleteClick: function(index,row) {
 			var _self = this;
 			this.$confirm("确认删除" + row.realname + "吗?", "提示", {
 				type: "warning",
@@ -807,10 +853,13 @@
 				.catch(function(e) {
 				if (e != "cancel") console.log("出现错误：" + e);
 				});
-			},
+			},*/
+			
 			//新建事件
 			addClick: function() {
 			var _self = this;
+			/*POST请求全部的角色role列表项传给add页面数据*/ /*此时尚无userid*/
+			//this.addForm.rolelist = res.data.rolelist;
 			_self.addFormVisible = true;
 			
 			},
@@ -833,19 +882,23 @@
 			}
 			//var ids = "";
 			var ids = [];
+			var deletename =[];
 			for (var i = 0; i < multipleSelection.length; i++) {
 				var row = multipleSelection[i];
 				//ids += row.realname + ",";
-				ids.push(row.realname);
+				//删除POST请求时传入ids里的userid作为删除唯一标识
+				ids.push(row.userid);
+				deletename.push(row.realname);
 			}
-			this.$confirm("确认删除" + ids + "吗?", "提示", {
+			this.$confirm("确认删除" + deletename + "吗?", "提示", {
 				type: "warning"
 			})
 				.then(function() {
+				/*POST请求之后再对前台加载*/
 				for(var d =0;d< ids.length;d++){
 					for(var k=0;k< _self.tableData.length;k++)
 						{
-							if(_self.tableData[k].realname == ids[d]){
+							if(_self.tableData[k].userid == ids[d]){
 								_self.tableData.splice(k,1);
 							}
 						}
@@ -875,7 +928,7 @@
 			var _self = this;
 			_self.loadingData(); //重新加载数据
 			},
-			//表格编辑事件
+			//表格修改事件
 			editClick: function() {
 			var _self = this;
 			var multipleSelection = this.multipleSelection;
@@ -888,7 +941,7 @@
 			}
 			else if(multipleSelection.length>1){
 				_self.$message({
-					message:"只能选一条记录进行编辑",
+					message:"只能选一条记录进行修改",
 					type:"error"
 				});
 				return;
@@ -898,23 +951,29 @@
 			for (var i = 0; i < multipleSelection.length; i++) {
 				var row = multipleSelection[i];
 				//ids += row.realname + ",";
-				ids.push(row.realname);
+				//编辑时POST传入唯一标识userid来取出特殊项
+				ids.push(row.userid);
 			}
+			/*POST请求之后再对前台加载*/
 			for(var d =0;d< ids.length;d++){
 					for(var k=0;k< _self.tableData.length;k++)
 						{
-							if(_self.tableData[k].realname == ids[d]){
+							if(_self.tableData[k].userid == ids[d]){
 								_self.selectIndex = k;
 							}
 						}
 				}
 			this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
 			this.editForm.sex=(row.sex == "男"?1:0);
+			/*请求到的角色role列表传给edit页面数据*/
+			//this.editForm.rolelist = res.data.rolelist;
 			this.editFormVisible = true;
 			},
 			//保存点击事件
 			editSubmit: function(val) {
 			var _self = this;
+			/*POST请求递交editForm数据传入userid之后再对前台加载*/
+			this.tableData[this.selectIndex].userid = val.userid;
 			this.tableData[this.selectIndex].realname = val.realname;
 			this.tableData[this.selectIndex].birth = val.birth;
 			this.tableData[this.selectIndex].sex = (val.sex == 0?"女":"男");
@@ -928,6 +987,7 @@
 			//新建提交点击事件
 			addSubmit: function(val) {
 				var _self=this;
+				/*POST请求递交addForm数据传入之后再对前台加载*/ /*此时尚无userid*/
 				this.tableData.unshift({
 					realname: val.realname,
 					birth: val.birth,
@@ -983,6 +1043,4 @@
 			}
 		});
 	</script>
-</body>
-
 </html>

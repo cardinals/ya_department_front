@@ -35,8 +35,8 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" style="width:44px;" href="/assets/pages/bigMap0.html">
-									<img src="../images/zhanshi.png">
+								<a class="fix" style="width:44px;" href="/assets/pages/test02.html">
+									<img src="../images/shishizhanshi.png">
 								</a>
 							</li>
 							<li>
@@ -114,7 +114,7 @@
 									<el-form>
 										<el-col :span="12" style="text-align: left">
 											<el-form-item align="left">  
-												<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>  
+												<el-button type="primary" icon="edit" size="small" @click="editClick">修改</el-button>  
 												<el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>  
 											</el-form-item>
 										</el-col>
@@ -192,7 +192,7 @@
 								<el-table-column  
 									prop="role"  
 									label="资源列表"  
-									width="120"
+									width="124"
 									align="center">
 									<template slot-scope="scope">  
 											<el-button type="text" @click="resourceClick">查看详情</el-button>
@@ -215,7 +215,7 @@
 
 
 						<!--列表底部工具条和分页符-->  
-						<el-row style="margin-top: 3px" type="flex" justify="end">   
+						<el-row type="flex" justify="end">   
 								<el-col :span="18" >  
 									<el-pagination  
 											style="float: right"  
@@ -251,7 +251,15 @@
 										</el-col>
 									</el-row> 
 									<el-row>
-										<el-tree :props="defaultProps" @node-click="handleNodeClick" accordion></el-tree>
+										<el-form-item label="资源列表"> 
+											<el-tree
+											:props="checkprops"
+											:load="loadNode"
+											lazy
+											show-checkbox
+											@check-change="handleCheckChange">
+											</el-tree>
+										</el-form-item>
 									</el-row>
 								</el-form>  
 								<div slot="footer" class="dialog-footer">  
@@ -260,8 +268,8 @@
 								</div>  
 							</el-dialog> 
 
-							<!--编辑界面-->  
-							<el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">  
+							<!--修改界面-->  
+							<el-dialog title="修改" :visible.sync="editFormVisible" :close-on-click-modal="false">  
 							<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 								<el-row>
                                     <el-col :span="8">            
@@ -318,8 +326,8 @@
 </div>
 
 	<!-- /main-box -->
-
-	<script src="../lib/jquery-3.2.1.min.js"></script>
+</body>
+<script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
 	<script src="../lib/elementUI.js" charset="utf-8"></script>
 	<script>
@@ -486,85 +494,41 @@
 			  },
 			  tableData: [
 				{
-					rolename:"刘协",
-					roleinfo: "管理员",
-                    create_name:"乱世",
-					create_time: "2018-01-03",
-                    alter_name:"董卓",
-					alter_time: "2020-01-01",
+					roleid:"2306",
+					rolename:"Normal",
+					roleinfo: "普通用户",
+                    create_name:"冯玉冰",
+					create_time: "2008-05-03",
+                    alter_name:"马昭",
+					alter_time: "2015-08-29",
 				},
 			   	{
-					rolename:"刘备",
-					roleinfo: "普通用户",
-                    create_name:"乱世",
-					create_time: "2024-05-03",
-                    alter_name:"诸葛亮",
-					alter_time: "2020-01-01",
+					roleid:"2307",
+					rolename:"Admin",
+					roleinfo: "管理员",
+                    create_name:"孙宝书",
+					create_time: "2008-05-03",
+                    alter_name:"牛大力",
+					alter_time: "2017-02-11",
 				},
 				{
-					rolename:"曹操",
-					roleinfo: "魏国主公",
-                    create_name:"乱世",
-					create_time: "2084-05-03",
-                    alter_name:"郭嘉",
-					alter_time: "2020-01-01",
+					roleid:"2308",
+					rolename:"Super",
+					roleinfo: "超级管理员",
+                    create_name:"张艾希",
+					create_time: "2012-11-24",
+                    alter_name:"孙尚",
+					alter_time: "2013-12-07",
 				},
 				{
-                    rolename:"孙权",
-					roleinfo: "吴国主公",
-                    create_name:"乱世",
-					create_time: "2004-05-03",
-                    alter_name:"陆逊",
-					alter_time: "1990-01-01",
+					roleid:"2309",
+                    rolename:"System",
+					roleinfo: "系统管理员",
+                    create_name:"刘海柱",
+					create_time: "2013-07-16",
+                    alter_name:"张文斌",
+					alter_time: "2016-01-01",
 				},
-				{
-					rolename:"司马炎",
-					roleinfo: "西晋主公",
-                    create_name:"太平",
-					create_time: "1984-05-03",
-                    alter_name:"司马昭",
-					alter_time: "2020-01-01",
-				},
-				{
-                    rolename:"司马伦",
-					roleinfo: "八王之一",
-                    create_name:"乱世",
-					create_time: "1884-05-03",
-                    alter_name:"八王之乱",
-					alter_time: "2020-01-01",
-				},
-				{
-					rolename:"曹丕",
-					roleinfo: "魏国皇帝",
-                    create_name:"乱世",
-					create_time: "1784-05-03",
-                    alter_name:"司马懿",
-					alter_time: "1920-01-01",
-				},
-				{
-                    rolename:"曹叡",
-					roleinfo: "魏国皇帝",
-                    create_name:"乱世",
-					create_time: "1684-05-03",
-                    alter_name:"曹真",
-					alter_time: "1220-01-01",
-				},
-				{
-					rolename:"曹芳",
-					roleinfo: "魏国皇帝",
-                    create_name:"乱世",
-					create_time: "1384-05-03",
-                    alter_name:"曹爽",
-					alter_time: "2520-01-01",
-				},
-				{
-                    rolename:"刘禅",
-					roleinfo: "蜀国皇帝",
-                    create_name:"乱世",
-					create_time: "1984-05-03",
-                    alter_name:"姜维",
-					alter_time: "1020-01-01",
-				}
 			 ],
 			 countryList:['法国','英国','德国'],
 			 cityList:[['巴黎','普罗旺斯',"马赛"],['伦敦','爱丁堡',"北爱尔兰"],['柏林','慕尼黑',"汉堡"]],			   
@@ -611,13 +575,13 @@
 				sels: [], 
 				//选中的序号
 				selectIndex: -1, 
-				//编辑界面是否显示
+				//修改界面是否显示
 				editFormVisible: false,
 				editLoading: false,
 				editFormRules: {
 					rolename: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
 				},
-				//编辑界面数据
+				//修改界面数据
 				editForm: {
 					rolename:"",
 					roleinfo: "",
@@ -627,52 +591,100 @@
 					alter_time:"",
 				},
                 treedata: [{
-                    label: '粮草',
+                    label: '水源',
                     children: [{
-                        label: '荆州',
+                        label: '辽河流域',
                         children: [{
-                        label: '千亩'
+                        label: '法库县'
+                        },
+						{
+                        label: '康平县'
                         }]
-                    }]
+                    },
+					{
+                        label: '黄河流域',
+                        children: [{
+                        label: '堰塞湖'
+                        },
+						{
+                        label: '曲水河'
+                        }]
+                    },
+					]
                     }, {
-                    label: '人才',
+                    label: '灭火物资',
                     children: [{
-                        label: '益州',
+                        label: '灭火器',
                         children: [{
-                        label: '李严'
+                        label: '二氧化碳灭火器'
+                        },
+						{
+                        label: '干粉灭火器'
+                        },
+						{
+                        label: '泡沫灭火器'
                         }]
                     }, {
-                        label: '荆州',
+                        label: '消防用土',
                         children: [{
-                        label: '诸葛亮'
-                        }]
-                    }]
-                    }, {
-                    label: '属地',
-                    children: [{
-                        label: '川蜀',
-                        children: [{
-                        label: '益州'
-                        }]
-                    }, {
-                        label: '荆襄',
-                        children: [{
-                        label: '荆州'
-                        },{
-                        label: '樊城'
-                        }]
+                        label: '沙地采集'
+                        },
+						{
+                        label: '袋装沙土'
+                        },]
                     }]
                     }],
                     defaultProps: {
                     children: 'children',
                     label: 'label'
-                    }
+                    },
+					//新修改页面的复选树
+					checkprops: {
+					label: 'name',
+					children: 'zones'
+					},
+					count: 1,
+					
 			   }
 			},
 			methods:{
             handleNodeClick(data) {
                 console.log(data);
             },
+			//新增checkbox
+			handleCheckChange(data, checked, indeterminate) {
+				console.log(data, checked, indeterminate);
+			},
+			loadNode(node, resolve) {
+				if (node.level === 0) {
+				return resolve([{ name: 'region1' }, { name: 'region2' }]);
+				}
+				if (node.level > 3) return resolve([]);
+
+				var hasChild;
+				if (node.data.name === 'region1') {
+				hasChild = true;
+				} else if (node.data.name === 'region2') {
+				hasChild = false;
+				} else {
+				hasChild = Math.random() > 0.5;
+				}
+
+				setTimeout(() => {
+				var data;
+				if (hasChild) {
+					data = [{
+					name: 'zone' + this.count++
+					}, {
+					name: 'zone' + this.count++
+					}];
+				} else {
+					data = [];
+				}
+
+				resolve(data);
+				}, 500);
+			},
 			//资源详情
 			resourceClick:function(){
 				var _self = this;
@@ -954,7 +966,7 @@
 			var _self = this;
 			_self.loadingData(); //重新加载数据
 			},
-			//表格编辑事件
+			//表格修改事件
 			editClick: function() {
 			var _self = this;
 			var multipleSelection = this.multipleSelection;
@@ -967,7 +979,7 @@
 			}
 			else if(multipleSelection.length>1){
 				_self.$message({
-					message:"只能选一条记录进行编辑",
+					message:"只能选一条记录进行修改",
 					type:"error"
 				});
 				return;
@@ -1062,6 +1074,4 @@
 			}
 		});
 	</script>
-</body>
-
 </html>

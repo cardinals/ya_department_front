@@ -35,8 +35,8 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" style="width:44px;" href="/assets/pages/bigMap0.html">
-									<img src="../images/zhanshi.png">
+								<a class="fix" style="width:44px;" href="/assets/pages/test02.html">
+									<img src="../images/shishizhanshi.png">
 								</a>
 							</li>
 							<li>
@@ -236,731 +236,729 @@
 </div>
 
 	<!-- /main-box -->
+</body>
+<script src="../lib/jquery-3.2.1.min.js"></script>
+<script src="../lib/vue.min.js"></script>
+<script src="../lib/elementUI.js" charset="utf-8"></script>
+<script>
+	$('#oscar-nav-btn').click(function () {
+		$('.dada2').toggle();
+	});
 
-	<script src="../lib/jquery-3.2.1.min.js"></script>
-	<script src="../lib/vue.min.js"></script>
-    <script src="../lib/elementUI.js" charset="utf-8"></script>
-	<script>
-		$('#oscar-nav-btn').click(function () {
-			$('.dada2').toggle();
-		});
+	
 
-		
+	var myData = [
+		{
+			'index': '1',
+			'menuName': '首页',
+			'url': 'http://www.google.com'
+		},
+		{
+			'index': '2',
+			'menuName': '水源管理',
+			'url': 'http://www.google.com'
+		},
+		{
+			'index': '3',
+			'menuName': '消防力量管理'
+		},
+		{
+			'index': '4',
+			'menuName': '重点单位管理',
+			'url': '/assets/pages/key-unit.html'
+		},
+		{
+			'index': '5',
+			'menuName': '系统管理',
+			'children': [
+				{ 'index': '2-1', 'menuName': '用户管理', 'url': '/assets/pages/user-list2.html' },
+				{ 'index': '2-2', 'menuName': '角色管理', 'url': '/assets/pages/role-list.html' },
+				{ 'index': '2-3', 'menuName': '权限管理', 'url': '/assets/pages/permission.html' }
+			]
+		}
+	];
+	
+	// 定义树节点
+	var treeMenuTemplate = [];
+	treeMenuTemplate.push('<li class="el-submenu" :class="[open ? \'\': \'\', selected ? \'is-active\':\'\']">');
+	treeMenuTemplate.push('<a class="db el-submenu__title" :id="model.index" @click="toggle" v-menu-animation="open" :style="{paddingLeft: paddingLeft + \'px\'}" :href="getUrl">');
+	treeMenuTemplate.push('<i class="el-icon-message" v-if="level == 1"></i>');
+	treeMenuTemplate.push('<template v-if="hasChildren()">');
+	treeMenuTemplate.push('<i class="el-submenu__icon-arrow" :class="[open ? \'el-icon-arrow-up\': \'el-icon-arrow-down\']"></i>');
+	treeMenuTemplate.push('</template>');
+	treeMenuTemplate.push('{{ model.menuName }}');
+	treeMenuTemplate.push('</a>');
+	treeMenuTemplate.push('<ul class="el-menu" :class="[open ? \'\' : \'dn\']" v-if="hasChildren()">');
+	treeMenuTemplate.push('<tree-menu v-for="item in model.children" :model="item" :level="level + 1" :theId="theId"></tree-menu>');
+	treeMenuTemplate.push('</ul>');
+	treeMenuTemplate.push('</li>');
 
-		var myData = [
-			{
-				'index': '1',
-				'menuName': '首页',
-				'url': 'http://www.google.com'
-			},
-			{
-				'index': '2',
-				'menuName': '水源管理',
-				'url': 'http://www.google.com'
-			},
-			{
-				'index': '3',
-				'menuName': '消防力量管理'
-			},
-			{
-				'index': '4',
-				'menuName': '重点单位管理',
-				'url': '/assets/pages/key-unit.html'
-			},
-			{
-				'index': '5',
-				'menuName': '系统管理',
-				'children': [
-					{ 'index': '2-1', 'menuName': '用户管理', 'url': '/assets/pages/user-list2.html' },
-					{ 'index': '2-2', 'menuName': '角色管理', 'url': '/assets/pages/role-list.html' },
-					{ 'index': '2-3', 'menuName': '权限管理', 'url': '/assets/pages/permission.html' }
-				]
+	var treeMenu = Vue.component('tree-menu', {
+		template: treeMenuTemplate.join(''),
+
+		created: function () {
+			var index = this.model.index;
+			var hasIndex = this.theId.search(index);
+			var lala = index.replace(this.theId, '');
+			if (hasIndex == 0) {
+				this.open = true;
 			}
-		];
-		
-		// 定义树节点
-		var treeMenuTemplate = [];
-		treeMenuTemplate.push('<li class="el-submenu" :class="[open ? \'\': \'\', selected ? \'is-active\':\'\']">');
-		treeMenuTemplate.push('<a class="db el-submenu__title" :id="model.index" @click="toggle" v-menu-animation="open" :style="{paddingLeft: paddingLeft + \'px\'}" :href="getUrl">');
-		treeMenuTemplate.push('<i class="el-icon-message" v-if="level == 1"></i>');
-		treeMenuTemplate.push('<template v-if="hasChildren()">');
-		treeMenuTemplate.push('<i class="el-submenu__icon-arrow" :class="[open ? \'el-icon-arrow-up\': \'el-icon-arrow-down\']"></i>');
-		treeMenuTemplate.push('</template>');
-		treeMenuTemplate.push('{{ model.menuName }}');
-		treeMenuTemplate.push('</a>');
-		treeMenuTemplate.push('<ul class="el-menu" :class="[open ? \'\' : \'dn\']" v-if="hasChildren()">');
-		treeMenuTemplate.push('<tree-menu v-for="item in model.children" :model="item" :level="level + 1" :theId="theId"></tree-menu>');
-		treeMenuTemplate.push('</ul>');
-		treeMenuTemplate.push('</li>');
-
-		var treeMenu = Vue.component('tree-menu', {
-			template: treeMenuTemplate.join(''),
-
-			created: function () {
-				var index = this.model.index;
-				var hasIndex = this.theId.search(index);
-				var lala = index.replace(this.theId, '');
-				if (hasIndex == 0) {
-					this.open = true;
-				}
-				if (hasIndex == 0 && lala.length == 0) {
-					this.selected = true;
-				}
-			},
-
-			props: ['model', 'level', 'theId'],
-
-			computed: {
-				getUrl: function () {
-					if (this.hasChildren()) {
-						return "javascript:;";
-					}
-					return this.model.url;
-				}
-			},
-
-			data: function () {
-				return {
-					open: false,
-					paddingLeft: this.level * 20,
-					selected: false,
-					
-				};
-			},
-
-			methods: {
-				hasChildren: function () {
-					return this.model.children && this.model.children.length;
-				},
-
-				toggle: function () {
-					if (this.hasChildren()) {
-						this.open = !this.open;
-					}
-				},
-			}
-
-		});
-
-		Vue.directive('menu-animation', function (el, binding) {
-			var open = (binding.value);
-			var ulElement = $(el).parent().children('ul');
-			if (open) {
-				ulElement.slideDown(200);
-			} else {
-				ulElement.slideUp(200);
-			}
-		});
-
-		// 定义外围树
-		var bigTreeTemplate = [];
-		bigTreeTemplate.push('<div class="tree-menu">');
-		bigTreeTemplate.push('<ul v-for="menuItem in theModel" class="el-menu">');
-		bigTreeTemplate.push('<tree-menu :model="menuItem" :level="theLevel" :theId="defaultActive"></tree-menu>');
-		bigTreeTemplate.push('</ul>');
-		bigTreeTemplate.push('</div>');
-
-		Vue.component('big-tree', {
-			template: bigTreeTemplate.join(''),
-
-			props: ['defaultActive'],
-
-			created: function () { },
-
-			data: function () {
-				return {
-					theModel: myData,
-					theLevel: 1
-				};
-			},
-
-			components: {
-				'tree-menu': treeMenu
-			}
-		});
-		new Vue({
-			el: '#app',
-			data: function() {
-			  return { visible: false,
-			  awa:"",
-              activeName:"first",
-			  IDs:"",
-			  //搜索表单
-			  searchForm: {
-                DWMC:"",
-                DWDJ:"",
-                DWXZ:"",
-                XZQY:""
-			  },
-			  tableData: [
-				{
-					DWMC:"辽宁省人民法院",
-					DWDJ: "省部级",
-					FRDB:"王长贵",
-					AQZRR:"刘树田",
-					JZLX:"高层建筑",
-					DWCLSJ:'2016-08-30',
-                    DWXZ:"司法",
-					XZQY: "辽宁省",
-                    DWDZ:"霞飞路29号",
-                    ZDMJ: 5000,
-                    JZMJ:20000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "沈阳市消防局",
-                    ZJZXFGLR:"刘备",
-                    ZJZXFGLRDH:"13234567890",
-                    GIS_X:"114.6204",
-                    GIS_Y:"23.1647",
-                    ID:"1"
-				},
-			   	{
-					DWMC:"辽宁省政府",
-					DWDJ: "省部级",
-					FRDB:"曹爽",
-					AQZRR:"蒹葭",
-					JZLX:"大型综合体",
-					DWCLSJ:'2015-07-30',
-                    DWXZ:"行政",
-					XZQY: "辽宁省",
-                    DWDZ:"霞飞路30号",
-                    ZDMJ: 50000,
-                    JZMJ:200000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "沈阳市消防局",
-                    ZJZXFGLR:"曹操",
-                    ZJZXFGLRDH:"13212347890",
-                    GIS_X:"103.9526",
-                    GIS_Y:"30.7617",
-                    ID:"2"
-				},
-				{
-					DWMC:"辽宁省就业局",
-					DWDJ: "省部级",
-					FRDB:"司马伦",
-					AQZRR:"谢永强",
-					JZLX:"大型综合体",
-					DWCLSJ:'2013-04-20',
-                    DWXZ:"民事",
-					XZQY: "辽宁省",
-                    DWDZ:"霞飞路31号",
-                    ZDMJ: 20000,
-                    JZMJ:100000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "沈阳市消防局",
-                    ZJZXFGLR:"孙权",
-                    ZJZXFGLRDH:"13289077890",
-                    GIS_X:"119.4653",
-                    GIS_Y:"32.8162",
-                    ID:"3"
-				},
-				{
-                    DWMC:"沈阳市城市规划管理局",
-					DWDJ: "市厅级",
-					FRDB:"朱然",
-					AQZRR:"王铁柱",
-					JZLX:"高层建筑",
-					DWCLSJ:'2012-11-14',
-                    DWXZ:"城市管理",
-					XZQY: "辽宁省",
-                    DWDZ:"霞飞路32号",
-                    ZDMJ: 10000,
-                    JZMJ: 80000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "沈阳市消防和平分队",
-                    ZJZXFGLR:"张昭",
-                    ZJZXFGLRDH:"13435357890",
-                    GIS_X:"117.5757",
-                    GIS_Y:"41.4075",
-                    ID:"4"
-				},
-				{
-					DWMC:"沈阳市公安局",
-					DWDJ: "市厅级",
-					FRDB:"潘凤",
-					AQZRR:"强东",
-					JZLX:"大型综合体",
-					DWCLSJ:'2015-06-10',
-                    DWXZ:"司法",
-					XZQY: "辽宁省",
-                    DWDZ:"霞飞路33号",
-                    ZDMJ: 12000,
-                    JZMJ: 60000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "沈阳市消防沈河分队",
-                    ZJZXFGLR:"张郃",
-                    ZJZXFGLRDH:"13632457890",
-                    GIS_X:"91.1865",
-                    GIS_Y:"30.1465",
-                    ID:"5"
-				},
-				{
-                    DWMC:"沈阳市地铁二号线",
-					DWDJ: "市厅级",
-					FRDB:"曹彰",
-					AQZRR:"张建",
-					JZLX:"地下建筑",
-					DWCLSJ:'2016-12-23',
-                    DWXZ:"民事",
-					XZQY: "辽宁省",
-                    DWDZ:"霞飞路34号",
-                    ZDMJ: 1000,
-                    JZMJ: 60000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "沈阳市消防浑南分队",
-                    ZJZXFGLR:"颜良",
-                    ZJZXFGLRDH:"13632653425",
-                    GIS_X:"120.3442",
-                    GIS_Y:"31.5527",
-                    ID:"6"
-				},
-				{
-					DWMC:"青岛市塑性加工园",
-					DWDJ: "市厅级",
-					FRDB:"贾诩",
-					AQZRR:"周磊",
-					JZLX:"化工园区",
-					DWCLSJ:'2014-03-15',
-                    DWXZ:"城市管理",
-					XZQY: "山东省",
-                    DWDZ:"文明路39号",
-                    ZDMJ: 2000,
-                    JZMJ: 6000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "青岛市市消防大东分队",
-                    ZJZXFGLR:"张鲁",
-                    ZJZXFGLRDH:"13664546425",
-                    GIS_X:"119.2786",
-                    GIS_Y:"35.5023",
-                    ID:"7"
-				},
-				{
-                    DWMC:"泰安市城建局",
-					DWDJ: "市厅级",
-					FRDB:"张辽",
-					AQZRR:"王玉山",
-					JZLX:"大型综合体",
-					DWCLSJ:'2017-02-12',
-                    DWXZ:"城市管理",
-					XZQY: "山东省",
-                    DWDZ:"法防路36号",
-                    ZDMJ: 2000,
-                    JZMJ: 7000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "泰安市消防塔湾分队",
-                    ZJZXFGLR:"韩遂",
-                    ZJZXFGLRDH:"13683456425",
-                    GIS_X:"102.9199",
-                    GIS_Y:"25.4663",
-                    ID:"8"
-				},
-				{
-                    DWMC:"河北省国土资源厅",
-					DWDJ: "省部级",
-					FRDB:"许褚",
-					AQZRR:"孙坚",
-					JZLX:"高层建筑",
-					DWCLSJ:'2011-12-12',
-                    DWXZ:"城市管理",
-					XZQY: "河北省",
-                    DWDZ:"格调路46号",
-                    ZDMJ: 3000,
-                    JZMJ: 9000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "河北省消防总队",
-                    ZJZXFGLR:"袁术",
-                    ZJZXFGLRDH:"13952234425",
-                    GIS_X:"119.5313",
-                    GIS_Y:"29.8773",
-                    ID:"9"
-				},
-				{
-                    DWMC:"秦皇岛市林业局",
-					DWDJ: "市厅级",
-					FRDB:"徐晃",
-					AQZRR:"黄山",
-					JZLX:"化工园区",
-					DWCLSJ:'2014-07-25',
-                    DWXZ:"城市管理",
-					XZQY: "河北省",
-                    DWDZ:"发文路64号",
-                    ZDMJ: "4000平方米",
-                    JZMJ: 9000,
-                    ZDXFSS:"配备正常",
-                    XFGXJGID: "秦皇岛市消防大队",
-                    ZJZXFGLR:"马腾",
-                    ZJZXFGLRDH:"13845674425",
-                    GIS_X:"117.323",
-                    GIS_Y:"34.8926",
-                    ID:"10"
-				}
-			 ],
-             urls: [ 'inform.html', 'inform2.html' ],
-			   //表高度变量
-			   tableheight :474,
-			   //显示加载中样
-			   loading: false,
-			   labelPosition: 'right',
-			    //多选值
-				multipleSelection: [],
-				//当前页
-				currentPage: 1,
-				//分页大小
-				pageSize: 10,
-				//总记录数
-				total:10, 
-				//行数据保存
-				rowdata:{},
-				//序号
-				indexData:0,
-				//发送至邮箱是否显示
-				emailDialogVisible:false,
-				email:"",
-				//信息分享是否显示
-				shareDialogVisible:false,
-				//信息打印是否显示
-				printDialogVisible:false,
-				//删除的弹出框
-				deleteVisible: false,
-				//新建页面是否显示
-				addFormVisible:false,
-				addLoading:false,
-				addFormRules:{
-					permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
-				},
-				//新建数据
-				addForm:{
-					DWMC:"",
-					DWDJ: "",
-                    DWXZ:"",
-					XZQY: "",
-                    DWDZ:"",
-                    ZDMJ: "",
-                    XFGXJGID: ""
-				},
-				//选中的值显示
-				sels: [], 
-				//选中的序号
-				selectIndex: -1, 
-				//编辑界面是否显示
-				editFormVisible: false,
-				editLoading: false,
-				editFormRules: {
-					permissionname: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
-				},
-				//编辑界面数据
-				editForm: {
-					DWMC:"",
-					DWDJ: "",
-                    DWXZ:"",
-					XZQY: "",
-                    DWDZ:"",
-                    ZDMJ: "",
-                    XFGXJGID: ""
-				},
-               
-			   }
-			},
-            mounted:function(){
-                var url = location.search;
-                if (url.indexOf("?") != -1) {  
-                    var str = url.substr(1);  
-                    //alert(str);  
-                    var ID=str.substring(3);
-					this.IDs = ID;   
-                    //alert(ID);
-                    for(var i=0;i<this.tableData.length;i++){
-                       if(this.tableData[i].ID==ID){
-                            this.rowdata = this.tableData[i];
-                       }
-                    } 
-                    //alert(this.rowdata.ID);
-                }    
-            },
-			methods:{
-            handleNodeClick(data) {
-                console.log(data);
-            },
-            //表格查询事件
-			searchClick: function() {
-			var _self = this;
-			var tableObject ={};
-			var searchData=[];
-            var resultData=[];
-            //空表不显示
-			function isEmptyObject(obj) {
-				for (var key in obj) {
-					return false;
-				}
-				return true;
-			}
-            //起始时间的判断大小的函数
-            function tab(begin,end){
-                var oDate1 = new Date(begin);
-                var oDate2 = new Date(end);
-                if(oDate1.getTime() > oDate2.getTime()){
-                    return true;
-                }
-                return false;
-            }
-            //数据还原
-			  for(var i=0;i<_self.tableData.length;i++){
-                var flow=_self.tableData[i];
-                searchData.push(flow);
-			  }
-           
-           
-
-                
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if((!(_self.searchForm.DWMC==""&&_self.searchForm.DWDJ==""&&_self.searchForm.DWXZ==""&&_self.searchForm.XZQY==""))&&(_self.searchForm.DWMC!=""?(_self.tableData[i].DWMC == _self.searchForm.DWMC):true)&&(_self.searchForm.DWDJ!=""?(_self.tableData[i].DWDJ == _self.searchForm.DWDJ):true)
-                        &&(_self.searchForm.DWXZ!=""?(_self.tableData[i].DWXZ == _self.searchForm.DWXZ):true)&&(_self.searchForm.XZQY!=""?(_self.tableData[i].XZQY == _self.searchForm.XZQY):true))
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);
-                            
-                        }
-                        
-                    }
-                    _self.tableData.splice(0,_self.tableData.length);
-			        if(resultData.length>=1){
-                        _self.tableData=resultData;
-                    }
-                    else{
-                        _self.tableData.splice(0,_self.tableData.length);
-                        _self.tableData = searchData;
-                        }
-			_self.total = _self.tableData.length;
-			_self.loadingData(); //重新加载数据
-			},
-			//表格勾选事件
-			selectionChange: function(val) {
-			 for (var i = 0; i < val.length; i++) {
-			 	var row = val[i];
-			 }
-			 this.multipleSelection = val;
-			//this.sels = sels
-			console.info(val);
-			},
-            //标签页
-            handleClick: function (e) {
-                var url = this.urls[e.index];
-                window.location.href = url+"?ID="+this.IDs;
-                console.log(e);
-            },
-            createdateChange(val) {  
-				console.log(val);  
-				this.addForm.create_time = val;
-				this.editForm.create_time = val;
-			},
-            alterdateChange(val) {  
-				console.log(val);  
-				this.addForm.alter_time = val;
-				this.editForm.alter_time = val;
-			},
-			begindateChange(val) {  
-				console.log(val);  
-                this.searchForm.begintime = val;
-			},
-			enddateChange(val) {  
-				console.log(val);  
-                this.searchForm.endtime = val;
-			},
-			//发送至邮箱
-			openEmail:function(){
-				this.emailDialogVisible = true;
-			},
-			closeEmailDialog:function(){
-				this.emailDialogVisible = false;
-				this.email="";
-			},
-			//信息分享
-			openShare:function(){
-				this.shareDialogVisible = true;
-			},
-			closeShareDialog:function(){
-				this.shareDialogVisible = false;
-			},
-			//信息打印
-			openPrinter:function(){
-				this.$message({
-					message:'打印中...'
-				})
-			},
-			//表格重新加载数据
-			loadingData: function() {
-			var _self = this;
-			_self.loading = true;
-			setTimeout(function() {
-				console.info("加载数据成功");
-				_self.loading = false;
-			}, 300);
-			},
-			//新建事件
-			addClick: function() {
-			var _self = this;
-			_self.addFormVisible = true;
-			
-			},
-			//删除所选，批量删除
-			removeSelection: function() {
-			var _self = this;
-			var multipleSelection = this.multipleSelection;
-			if (multipleSelection.length < 1) {
-				_self.$message({
-				message: "请至少选中一条记录",
-				type: "error"
-				});
-				return;
-			}
-			//var ids = "";
-			var ids = [];
-			for (var i = 0; i < multipleSelection.length; i++) {
-				var row = multipleSelection[i];
-				//ids += row.realname + ",";
-				ids.push(row.permissionname);
-			}
-			this.$confirm("确认删除" + ids + "吗?", "提示", {
-				type: "warning"
-			})
-				.then(function() {
-				for(var d =0;d< ids.length;d++){
-					for(var k=0;k< _self.tableData.length;k++)
-						{
-							if(_self.tableData[k].permissionname == ids[d]){
-								_self.tableData.splice(k,1);
-							}
-						}
-				}
-				_self.$message({
-					message: ids + "删除成功",
-					type: "success"
-				});
-				_self.total = _self.tableData.length;
-				_self.loadingData(); //重新加载数据
-				})
-				.catch(function(e) {
-				if (e != "cancel") console.log("出现错误：" + e);
-				});
-			},
-			//分页大小修改事件
-			pageSizeChange: function(val) {
-			console.log("每页 " + val + " 条");
-			this.pageSize = val;
-			var _self = this;
-			_self.loadingData(); //重新加载数据
-			},
-			//当前页修改事件
-			currentPageChange: function(val) {
-			this.currentPage = val;
-			console.log("当前页: " + val);
-			var _self = this;
-			_self.loadingData(); //重新加载数据
-			},
-			//表格编辑事件
-			editClick: function() {
-			var _self = this;
-			var multipleSelection = this.multipleSelection;
-			if (multipleSelection.length < 1) {
-				_self.$message({
-				message: "请至少选中一条记录",
-				type: "error"
-				});
-				return;
-			}
-			else if(multipleSelection.length>1){
-				_self.$message({
-					message:"只能选一条记录进行编辑",
-					type:"error"
-				});
-				return;
-			}
-			//var ids = "";
-			var ids = [];
-			for (var i = 0; i < multipleSelection.length; i++) {
-				var row = multipleSelection[i];
-				//ids += row.realname + ",";
-				ids.push(row.permissionname);
-			}
-			for(var d =0;d< ids.length;d++){
-					for(var k=0;k< _self.tableData.length;k++)
-						{
-							if(_self.tableData[k].permissionname == ids[d]){
-								_self.selectIndex = k;
-							}
-						}
-				}
-			this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-			//this.editForm.sex=(row.sex == "男"?1:0);
-			this.editFormVisible = true;
-			},
-			//保存点击事件
-			editSubmit: function(val) {
-			var _self = this;
-			this.tableData[this.selectIndex].permissionname = val.permissionname;
-			this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-			this.tableData[this.selectIndex].create_name = val.create_name;
-            this.tableData[this.selectIndex].create_time = val.create_time;
-			this.tableData[this.selectIndex].alter_name = val.alter_name;
-			this.tableData[this.selectIndex].alter_time = val.alter_time;
-			this.editFormVisible = false;
-			_self.loadingData();//重新加载数据
-			console.info(this.editForm);
-			},
-			//新建提交点击事件
-			addSubmit: function(val) {
-				var _self=this;
-				this.tableData.unshift({
-					permissionname: val.permissionname,
-					permissioninfo: val.permissioninfo,
-                    create_name:val.create_name,
-					create_time:val.create_time,
-					alter_name:val.alter_name,
-					alter_time:val.alter_time
-				});
-				this.addFormVisible = false;
-				_self.total = _self.tableData.length;
-				_self.loadingData();//重新加载数据
-				val.permissionname = "";
-				val.permissioninfo = "";
-				val.create_name = "";
-				val.create_time ="";
-				val.alter_name = "";
-				val.alter_time ="";
-				console.info(this.addForm);
-				
-			},
-			closeDialog:function(val){
-				this.addFormVisible = false;
-				val.permissionname = "";
-				val.permissioninfo = "";
-				val.create_name = "";
-				val.create_time ="";
-				val.alter_name = "";
-				val.alter_time ="";
+			if (hasIndex == 0 && lala.length == 0) {
+				this.selected = true;
 			}
 		},
-			
-	})
-		  
-		  $('#menu-toggle-btn').click(function () {
-			var left = $('.left-sidebar'),
-				main = $('.main-box'),
-				$this = $(this);
-			if (left.hasClass('damin')) {
-				left.removeClass('damin').css('left', '0');
-				main.css('padding-left', '240px');
-				setTimeout(function () {
-					$this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
-				}, 300);
-			} else {
-				left.addClass('damin').css('left', '-240px');
-				main.css('padding-left', 0);
-				setTimeout(function () {
-					$this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
-				}, 300);
-			}
-		});
-	</script>
-</body>
 
+		props: ['model', 'level', 'theId'],
+
+		computed: {
+			getUrl: function () {
+				if (this.hasChildren()) {
+					return "javascript:;";
+				}
+				return this.model.url;
+			}
+		},
+
+		data: function () {
+			return {
+				open: false,
+				paddingLeft: this.level * 20,
+				selected: false,
+				
+			};
+		},
+
+		methods: {
+			hasChildren: function () {
+				return this.model.children && this.model.children.length;
+			},
+
+			toggle: function () {
+				if (this.hasChildren()) {
+					this.open = !this.open;
+				}
+			},
+		}
+
+	});
+
+	Vue.directive('menu-animation', function (el, binding) {
+		var open = (binding.value);
+		var ulElement = $(el).parent().children('ul');
+		if (open) {
+			ulElement.slideDown(200);
+		} else {
+			ulElement.slideUp(200);
+		}
+	});
+
+	// 定义外围树
+	var bigTreeTemplate = [];
+	bigTreeTemplate.push('<div class="tree-menu">');
+	bigTreeTemplate.push('<ul v-for="menuItem in theModel" class="el-menu">');
+	bigTreeTemplate.push('<tree-menu :model="menuItem" :level="theLevel" :theId="defaultActive"></tree-menu>');
+	bigTreeTemplate.push('</ul>');
+	bigTreeTemplate.push('</div>');
+
+	Vue.component('big-tree', {
+		template: bigTreeTemplate.join(''),
+
+		props: ['defaultActive'],
+
+		created: function () { },
+
+		data: function () {
+			return {
+				theModel: myData,
+				theLevel: 1
+			};
+		},
+
+		components: {
+			'tree-menu': treeMenu
+		}
+	});
+	new Vue({
+		el: '#app',
+		data: function() {
+		  return { visible: false,
+		  awa:"",
+		  activeName:"first",
+		  IDs:"",
+		  //搜索表单
+		  searchForm: {
+			DWMC:"",
+			DWDJ:"",
+			DWXZ:"",
+			XZQY:""
+		  },
+		  tableData: [
+			{
+				DWMC:"辽宁省人民法院",
+				DWDJ: "省部级",
+				FRDB:"王长贵",
+				AQZRR:"刘树田",
+				JZLX:"高层建筑",
+				DWCLSJ:'2016-08-30',
+				DWXZ:"司法",
+				XZQY: "辽宁省",
+				DWDZ:"霞飞路29号",
+				ZDMJ: 5000,
+				JZMJ:20000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "沈阳市消防局",
+				ZJZXFGLR:"刘备",
+				ZJZXFGLRDH:"13234567890",
+				GIS_X:"114.6204",
+				GIS_Y:"23.1647",
+				ID:"1"
+			},
+			   {
+				DWMC:"辽宁省政府",
+				DWDJ: "省部级",
+				FRDB:"曹爽",
+				AQZRR:"蒹葭",
+				JZLX:"大型综合体",
+				DWCLSJ:'2015-07-30',
+				DWXZ:"行政",
+				XZQY: "辽宁省",
+				DWDZ:"霞飞路30号",
+				ZDMJ: 50000,
+				JZMJ:200000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "沈阳市消防局",
+				ZJZXFGLR:"曹操",
+				ZJZXFGLRDH:"13212347890",
+				GIS_X:"103.9526",
+				GIS_Y:"30.7617",
+				ID:"2"
+			},
+			{
+				DWMC:"辽宁省就业局",
+				DWDJ: "省部级",
+				FRDB:"司马伦",
+				AQZRR:"谢永强",
+				JZLX:"大型综合体",
+				DWCLSJ:'2013-04-20',
+				DWXZ:"民事",
+				XZQY: "辽宁省",
+				DWDZ:"霞飞路31号",
+				ZDMJ: 20000,
+				JZMJ:100000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "沈阳市消防局",
+				ZJZXFGLR:"孙权",
+				ZJZXFGLRDH:"13289077890",
+				GIS_X:"119.4653",
+				GIS_Y:"32.8162",
+				ID:"3"
+			},
+			{
+				DWMC:"沈阳市城市规划管理局",
+				DWDJ: "市厅级",
+				FRDB:"朱然",
+				AQZRR:"王铁柱",
+				JZLX:"高层建筑",
+				DWCLSJ:'2012-11-14',
+				DWXZ:"城市管理",
+				XZQY: "辽宁省",
+				DWDZ:"霞飞路32号",
+				ZDMJ: 10000,
+				JZMJ: 80000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "沈阳市消防和平分队",
+				ZJZXFGLR:"张昭",
+				ZJZXFGLRDH:"13435357890",
+				GIS_X:"117.5757",
+				GIS_Y:"41.4075",
+				ID:"4"
+			},
+			{
+				DWMC:"沈阳市公安局",
+				DWDJ: "市厅级",
+				FRDB:"潘凤",
+				AQZRR:"强东",
+				JZLX:"大型综合体",
+				DWCLSJ:'2015-06-10',
+				DWXZ:"司法",
+				XZQY: "辽宁省",
+				DWDZ:"霞飞路33号",
+				ZDMJ: 12000,
+				JZMJ: 60000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "沈阳市消防沈河分队",
+				ZJZXFGLR:"张郃",
+				ZJZXFGLRDH:"13632457890",
+				GIS_X:"91.1865",
+				GIS_Y:"30.1465",
+				ID:"5"
+			},
+			{
+				DWMC:"沈阳市地铁二号线",
+				DWDJ: "市厅级",
+				FRDB:"曹彰",
+				AQZRR:"张建",
+				JZLX:"地下建筑",
+				DWCLSJ:'2016-12-23',
+				DWXZ:"民事",
+				XZQY: "辽宁省",
+				DWDZ:"霞飞路34号",
+				ZDMJ: 1000,
+				JZMJ: 60000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "沈阳市消防浑南分队",
+				ZJZXFGLR:"颜良",
+				ZJZXFGLRDH:"13632653425",
+				GIS_X:"120.3442",
+				GIS_Y:"31.5527",
+				ID:"6"
+			},
+			{
+				DWMC:"青岛市塑性加工园",
+				DWDJ: "市厅级",
+				FRDB:"贾诩",
+				AQZRR:"周磊",
+				JZLX:"化工园区",
+				DWCLSJ:'2014-03-15',
+				DWXZ:"城市管理",
+				XZQY: "山东省",
+				DWDZ:"文明路39号",
+				ZDMJ: 2000,
+				JZMJ: 6000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "青岛市市消防大东分队",
+				ZJZXFGLR:"张鲁",
+				ZJZXFGLRDH:"13664546425",
+				GIS_X:"119.2786",
+				GIS_Y:"35.5023",
+				ID:"7"
+			},
+			{
+				DWMC:"泰安市城建局",
+				DWDJ: "市厅级",
+				FRDB:"张辽",
+				AQZRR:"王玉山",
+				JZLX:"大型综合体",
+				DWCLSJ:'2017-02-12',
+				DWXZ:"城市管理",
+				XZQY: "山东省",
+				DWDZ:"法防路36号",
+				ZDMJ: 2000,
+				JZMJ: 7000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "泰安市消防塔湾分队",
+				ZJZXFGLR:"韩遂",
+				ZJZXFGLRDH:"13683456425",
+				GIS_X:"102.9199",
+				GIS_Y:"25.4663",
+				ID:"8"
+			},
+			{
+				DWMC:"河北省国土资源厅",
+				DWDJ: "省部级",
+				FRDB:"许褚",
+				AQZRR:"孙坚",
+				JZLX:"高层建筑",
+				DWCLSJ:'2011-12-12',
+				DWXZ:"城市管理",
+				XZQY: "河北省",
+				DWDZ:"格调路46号",
+				ZDMJ: 3000,
+				JZMJ: 9000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "河北省消防总队",
+				ZJZXFGLR:"袁术",
+				ZJZXFGLRDH:"13952234425",
+				GIS_X:"119.5313",
+				GIS_Y:"29.8773",
+				ID:"9"
+			},
+			{
+				DWMC:"秦皇岛市林业局",
+				DWDJ: "市厅级",
+				FRDB:"徐晃",
+				AQZRR:"黄山",
+				JZLX:"化工园区",
+				DWCLSJ:'2014-07-25',
+				DWXZ:"城市管理",
+				XZQY: "河北省",
+				DWDZ:"发文路64号",
+				ZDMJ: "4000平方米",
+				JZMJ: 9000,
+				ZDXFSS:"配备正常",
+				XFGXJGID: "秦皇岛市消防大队",
+				ZJZXFGLR:"马腾",
+				ZJZXFGLRDH:"13845674425",
+				GIS_X:"117.323",
+				GIS_Y:"34.8926",
+				ID:"10"
+			}
+		 ],
+		 urls: [ 'inform.html', 'inform2.html' ],
+		   //表高度变量
+		   tableheight :474,
+		   //显示加载中样
+		   loading: false,
+		   labelPosition: 'right',
+			//多选值
+			multipleSelection: [],
+			//当前页
+			currentPage: 1,
+			//分页大小
+			pageSize: 10,
+			//总记录数
+			total:10, 
+			//行数据保存
+			rowdata:{},
+			//序号
+			indexData:0,
+			//发送至邮箱是否显示
+			emailDialogVisible:false,
+			email:"",
+			//信息分享是否显示
+			shareDialogVisible:false,
+			//信息打印是否显示
+			printDialogVisible:false,
+			//删除的弹出框
+			deleteVisible: false,
+			//新建页面是否显示
+			addFormVisible:false,
+			addLoading:false,
+			addFormRules:{
+				permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
+			},
+			//新建数据
+			addForm:{
+				DWMC:"",
+				DWDJ: "",
+				DWXZ:"",
+				XZQY: "",
+				DWDZ:"",
+				ZDMJ: "",
+				XFGXJGID: ""
+			},
+			//选中的值显示
+			sels: [], 
+			//选中的序号
+			selectIndex: -1, 
+			//编辑界面是否显示
+			editFormVisible: false,
+			editLoading: false,
+			editFormRules: {
+				permissionname: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
+			},
+			//编辑界面数据
+			editForm: {
+				DWMC:"",
+				DWDJ: "",
+				DWXZ:"",
+				XZQY: "",
+				DWDZ:"",
+				ZDMJ: "",
+				XFGXJGID: ""
+			},
+		   
+		   }
+		},
+		mounted:function(){
+			var url = location.search;
+			if (url.indexOf("?") != -1) {  
+				var str = url.substr(1);  
+				//alert(str);  
+				var ID=str.substring(3);
+				this.IDs = ID;   
+				//alert(ID);
+				for(var i=0;i<this.tableData.length;i++){
+				   if(this.tableData[i].ID==ID){
+						this.rowdata = this.tableData[i];
+				   }
+				} 
+				//alert(this.rowdata.ID);
+			}    
+		},
+		methods:{
+		handleNodeClick(data) {
+			console.log(data);
+		},
+		//表格查询事件
+		searchClick: function() {
+		var _self = this;
+		var tableObject ={};
+		var searchData=[];
+		var resultData=[];
+		//空表不显示
+		function isEmptyObject(obj) {
+			for (var key in obj) {
+				return false;
+			}
+			return true;
+		}
+		//起始时间的判断大小的函数
+		function tab(begin,end){
+			var oDate1 = new Date(begin);
+			var oDate2 = new Date(end);
+			if(oDate1.getTime() > oDate2.getTime()){
+				return true;
+			}
+			return false;
+		}
+		//数据还原
+		  for(var i=0;i<_self.tableData.length;i++){
+			var flow=_self.tableData[i];
+			searchData.push(flow);
+		  }
+	   
+	   
+
+			
+				for(var i = 0;i<_self.tableData.length;i++){
+					if((!(_self.searchForm.DWMC==""&&_self.searchForm.DWDJ==""&&_self.searchForm.DWXZ==""&&_self.searchForm.XZQY==""))&&(_self.searchForm.DWMC!=""?(_self.tableData[i].DWMC == _self.searchForm.DWMC):true)&&(_self.searchForm.DWDJ!=""?(_self.tableData[i].DWDJ == _self.searchForm.DWDJ):true)
+					&&(_self.searchForm.DWXZ!=""?(_self.tableData[i].DWXZ == _self.searchForm.DWXZ):true)&&(_self.searchForm.XZQY!=""?(_self.tableData[i].XZQY == _self.searchForm.XZQY):true))
+					{	
+						var row=_self.tableData[i];
+						resultData.push(row);
+						
+					}
+					
+				}
+				_self.tableData.splice(0,_self.tableData.length);
+				if(resultData.length>=1){
+					_self.tableData=resultData;
+				}
+				else{
+					_self.tableData.splice(0,_self.tableData.length);
+					_self.tableData = searchData;
+					}
+		_self.total = _self.tableData.length;
+		_self.loadingData(); //重新加载数据
+		},
+		//表格勾选事件
+		selectionChange: function(val) {
+		 for (var i = 0; i < val.length; i++) {
+			 var row = val[i];
+		 }
+		 this.multipleSelection = val;
+		//this.sels = sels
+		console.info(val);
+		},
+		//标签页
+		handleClick: function (e) {
+			var url = this.urls[e.index];
+			window.location.href = url+"?ID="+this.IDs;
+			console.log(e);
+		},
+		createdateChange(val) {  
+			console.log(val);  
+			this.addForm.create_time = val;
+			this.editForm.create_time = val;
+		},
+		alterdateChange(val) {  
+			console.log(val);  
+			this.addForm.alter_time = val;
+			this.editForm.alter_time = val;
+		},
+		begindateChange(val) {  
+			console.log(val);  
+			this.searchForm.begintime = val;
+		},
+		enddateChange(val) {  
+			console.log(val);  
+			this.searchForm.endtime = val;
+		},
+		//发送至邮箱
+		openEmail:function(){
+			this.emailDialogVisible = true;
+		},
+		closeEmailDialog:function(){
+			this.emailDialogVisible = false;
+			this.email="";
+		},
+		//信息分享
+		openShare:function(){
+			this.shareDialogVisible = true;
+		},
+		closeShareDialog:function(){
+			this.shareDialogVisible = false;
+		},
+		//信息打印
+		openPrinter:function(){
+			this.$message({
+				message:'打印中...'
+			})
+		},
+		//表格重新加载数据
+		loadingData: function() {
+		var _self = this;
+		_self.loading = true;
+		setTimeout(function() {
+			console.info("加载数据成功");
+			_self.loading = false;
+		}, 300);
+		},
+		//新建事件
+		addClick: function() {
+		var _self = this;
+		_self.addFormVisible = true;
+		
+		},
+		//删除所选，批量删除
+		removeSelection: function() {
+		var _self = this;
+		var multipleSelection = this.multipleSelection;
+		if (multipleSelection.length < 1) {
+			_self.$message({
+			message: "请至少选中一条记录",
+			type: "error"
+			});
+			return;
+		}
+		//var ids = "";
+		var ids = [];
+		for (var i = 0; i < multipleSelection.length; i++) {
+			var row = multipleSelection[i];
+			//ids += row.realname + ",";
+			ids.push(row.permissionname);
+		}
+		this.$confirm("确认删除" + ids + "吗?", "提示", {
+			type: "warning"
+		})
+			.then(function() {
+			for(var d =0;d< ids.length;d++){
+				for(var k=0;k< _self.tableData.length;k++)
+					{
+						if(_self.tableData[k].permissionname == ids[d]){
+							_self.tableData.splice(k,1);
+						}
+					}
+			}
+			_self.$message({
+				message: ids + "删除成功",
+				type: "success"
+			});
+			_self.total = _self.tableData.length;
+			_self.loadingData(); //重新加载数据
+			})
+			.catch(function(e) {
+			if (e != "cancel") console.log("出现错误：" + e);
+			});
+		},
+		//分页大小修改事件
+		pageSizeChange: function(val) {
+		console.log("每页 " + val + " 条");
+		this.pageSize = val;
+		var _self = this;
+		_self.loadingData(); //重新加载数据
+		},
+		//当前页修改事件
+		currentPageChange: function(val) {
+		this.currentPage = val;
+		console.log("当前页: " + val);
+		var _self = this;
+		_self.loadingData(); //重新加载数据
+		},
+		//表格编辑事件
+		editClick: function() {
+		var _self = this;
+		var multipleSelection = this.multipleSelection;
+		if (multipleSelection.length < 1) {
+			_self.$message({
+			message: "请至少选中一条记录",
+			type: "error"
+			});
+			return;
+		}
+		else if(multipleSelection.length>1){
+			_self.$message({
+				message:"只能选一条记录进行编辑",
+				type:"error"
+			});
+			return;
+		}
+		//var ids = "";
+		var ids = [];
+		for (var i = 0; i < multipleSelection.length; i++) {
+			var row = multipleSelection[i];
+			//ids += row.realname + ",";
+			ids.push(row.permissionname);
+		}
+		for(var d =0;d< ids.length;d++){
+				for(var k=0;k< _self.tableData.length;k++)
+					{
+						if(_self.tableData[k].permissionname == ids[d]){
+							_self.selectIndex = k;
+						}
+					}
+			}
+		this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
+		//this.editForm.sex=(row.sex == "男"?1:0);
+		this.editFormVisible = true;
+		},
+		//保存点击事件
+		editSubmit: function(val) {
+		var _self = this;
+		this.tableData[this.selectIndex].permissionname = val.permissionname;
+		this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
+		this.tableData[this.selectIndex].create_name = val.create_name;
+		this.tableData[this.selectIndex].create_time = val.create_time;
+		this.tableData[this.selectIndex].alter_name = val.alter_name;
+		this.tableData[this.selectIndex].alter_time = val.alter_time;
+		this.editFormVisible = false;
+		_self.loadingData();//重新加载数据
+		console.info(this.editForm);
+		},
+		//新建提交点击事件
+		addSubmit: function(val) {
+			var _self=this;
+			this.tableData.unshift({
+				permissionname: val.permissionname,
+				permissioninfo: val.permissioninfo,
+				create_name:val.create_name,
+				create_time:val.create_time,
+				alter_name:val.alter_name,
+				alter_time:val.alter_time
+			});
+			this.addFormVisible = false;
+			_self.total = _self.tableData.length;
+			_self.loadingData();//重新加载数据
+			val.permissionname = "";
+			val.permissioninfo = "";
+			val.create_name = "";
+			val.create_time ="";
+			val.alter_name = "";
+			val.alter_time ="";
+			console.info(this.addForm);
+			
+		},
+		closeDialog:function(val){
+			this.addFormVisible = false;
+			val.permissionname = "";
+			val.permissioninfo = "";
+			val.create_name = "";
+			val.create_time ="";
+			val.alter_name = "";
+			val.alter_time ="";
+		}
+	},
+		
+})
+	  
+	  $('#menu-toggle-btn').click(function () {
+		var left = $('.left-sidebar'),
+			main = $('.main-box'),
+			$this = $(this);
+		if (left.hasClass('damin')) {
+			left.removeClass('damin').css('left', '0');
+			main.css('padding-left', '240px');
+			setTimeout(function () {
+				$this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
+			}, 300);
+		} else {
+			left.addClass('damin').css('left', '-240px');
+			main.css('padding-left', 0);
+			setTimeout(function () {
+				$this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
+			}, 300);
+		}
+	});
+</script>
 </html>
