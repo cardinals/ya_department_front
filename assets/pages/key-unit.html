@@ -3,7 +3,7 @@
 
 <head>
 	<meta chartset='utf-8'>
-	<title>权限管理</title>
+	<title>重点单位管理</title>
 	<link rel="stylesheet" type="text/css" href="../css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
@@ -91,37 +91,55 @@
 						<el-row> 
 							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
 								<el-row gutter="40">
-									<el-col :span="8" class="double-search-left">
-										<el-form-item label="权限描述">  
-											<el-select size="mini" v-model="searchForm.permissioninfo" placeholder="权限描述">  
-												<el-option label="新增" value="新增"></el-option>  
-												<el-option label="删除" value="删除"></el-option>  
-											</el-select>  
-										</el-form-item>
+									<el-col :span="10" class="single-search-left">
+                                        <el-form-item label="单位名称">  
+                                            <el-input size="mini" v-model="searchForm.DWMC" placeholder="单位名称"></el-input>  
+                                        </el-form-item>
 									</el-col>
-									<el-col :span="12">
-										<el-form-item label="创建时间"> 
-											<el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
-											value-format="yyyy-MM-dd" size="mini" v-model="searchForm.begintime" placeholder="开始时间" style="width: 170px"></el-date-picker>
-											~
-											<el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd"
-											value-format="yyyy-MM-dd" size="mini" v-model="searchForm.endtime" placeholder="结束时间" style="width: 170px"></el-date-picker>
-										</el-form-item>
+									<el-col :span="10">
+                                        <el-form-item label="单位等级">  
+                                            <el-select size="mini" v-model="searchForm.DWDJ" placeholder="单位等级">  
+                                                <el-option label="省部级" value="省部级"></el-option>  
+                                                <el-option label="市厅级" value="市厅级"></el-option>
+                                                <el-option label="区局级" value="区局级"></el-option>  
+                                            </el-select>  
+                                        </el-form-item>
 									</el-col>
-								</el-row> 
+                                </el-row>
+                                <el-row gutter="40">
+									<el-col :span="10" class="single-search-left">
+                                        <el-form-item label="单位性质">  
+                                            <el-select size="mini" v-model="searchForm.DWXZ" placeholder="单位性质">  
+                                                <el-option label="司法" value="司法"></el-option>
+                                                <el-option label="行政" value="行政"></el-option>    
+                                                <el-option label="城市管理" value="城市管理"></el-option>
+                                                <el-option label="民事" value="民事"></el-option>
+                                            </el-select>  
+                                        </el-form-item>
+									</el-col>
+									<el-col :span="10">
+                                        <el-form-item label="行政区域">  
+                                            <el-select size="mini" v-model="searchForm.XZQY" placeholder="行政区域">  
+                                                <el-option label="辽宁省" value="辽宁省"></el-option>  
+                                                <el-option label="山东省" value="山东省"></el-option>
+                                                <el-option label="河北省" value="河北省"></el-option>  
+                                            </el-select>  
+                                        </el-form-item>
+									</el-col>
+								</el-row>  
 								<div>
 									<el-form>
 										<el-col :span="12" style="text-align: left">
 											<el-form-item align="left">  
-												<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>  
-												<el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>  
+												<!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->  
+												<!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
 											</el-form-item>
 										</el-col>
 										<el-col :span="12"></el-col>
 										<el-col :span="12" style="text-align: right">
 											<el-form-item>  
 												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>  
-												<el-button type="success" icon="plus" size="small" @click="addClick">新增</el-button>  
+												<!-- <el-button type="success" icon="plus" size="small" @click="addClick">新增</el-button>   -->
 											</el-form-item>
 										</el-col>
 									</el-form>
@@ -132,72 +150,72 @@
 
 						
 						<div class="table_container">
-							<el-table
-									border
-									id="table"
-									:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-									v-loading.body="loading"  
-									@selection-change="selectionChange"  
-									style="width: 100%;padding: 3px;"
-									:height="tableheight"
-									>
-				
-								<el-table-column  
-								type="selection"  
-								width="45">  
-								</el-table-column>
-								<el-table-column 
-									type="index" 
-									label="序号"
-									width="65"
-									align="center">
-								</el-table-column>
-								<el-table-column  
-									prop="permissionname"  
-									label="权限名称"  
-									width="100"
-									align="center">  
-								</el-table-column>  
-								<el-table-column  
-									prop="permissioninfo"  
-									label="权限描述"  
-									width="265"
-									align="center">  
-								</el-table-column>  
-								<el-table-column  
-									prop="create_name"  
-									label="创建人" 
-									width="93"
-									align="center">  
-								</el-table-column> 
-								<el-table-column  
-									prop="create_time"  
-									label="创建时间"  
-									width="132"
-									align="center">  
-								</el-table-column>  
-								<el-table-column  
-									prop="alter_name"  
-									label="修改人"  
-									width="140"
-									align="center">  
-								</el-table-column>  
-								<el-table-column  
-									prop="alter_time"  
-									label="修改时间"  
-									width="132"
-									align="center">  
-								</el-table-column>
-								<!-- <el-table-column  
-									label="操作"
-									width="120"
-									>  
-									<template slot-scope="scope">  
-										<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.$index, scope.row)">编辑</el-button>  
-										<el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.$index, scope.row)">删除</el-button>
-									</template>  
-								</el-table-column>        -->
-							</el-table>
+						<el-table
+								border
+								id="table"
+								:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+								v-loading.body="loading"  
+								@selection-change="selectionChange"  
+								style="width: 100%;padding: 3px;"
+								:height="tableheight"
+								>
+			
+							<el-table-column  
+							type="selection"  
+							width="45">  
+							</el-table-column>
+							<el-table-column 
+								type="index" 
+								label="序号"
+								width="65"
+								align="center">
+							</el-table-column>
+							<el-table-column  
+								prop="DWMC"  
+								label="单位名称"  
+								width="160"
+                                align="center">
+                                <template slot-scope="scope">  
+                                    <el-button @click="informClick(scope.row)" type="text">{{scope.row.DWMC}}</el-button>
+                                </template>  
+							</el-table-column>  
+							<el-table-column  
+								prop="DWDJ"  
+								label="单位等级"  
+								width="93"
+								align="center">  
+							</el-table-column>  
+							<el-table-column  
+								prop="DWXZ"  
+								label="单位性质" 
+								width="93"
+								align="center">  
+							</el-table-column> 
+							<el-table-column  
+								prop="XZQY"  
+								label="行政区域"  
+								width="93"
+								align="center">  
+							</el-table-column>  
+							<el-table-column  
+								prop="DWDZ"  
+								label="单位地址"  
+								width="140"
+								align="center">  
+							</el-table-column>  
+							<el-table-column  
+								prop="ZDMJ"  
+								label="占地面积"  
+								width="106"
+								align="center">  
+                            </el-table-column>
+                            <el-table-column  
+								prop="XFGXJGID"  
+								label="消防管辖机构"  
+								width="180"
+								align="center">  
+							</el-table-column>
+						</el-table>
 						
 								<!---->
 								<!---->
@@ -236,6 +254,34 @@
 											</el-form-item>
 										</el-col>
 									</el-row> 
+									<el-row>
+										<el-col :span="8">
+                                            <el-form-item label="创建人" prop="create_name">  
+                                                <el-input v-model="addForm.create_name" auto-complete="off" placeholder="创建人" style="width:180px"></el-input>  
+                                            </el-form-item>
+										</el-col>
+										<el-col :span="4">&nbsp;</el-col>
+										<el-col :span="8">
+											<el-form-item label="创建时间">  
+												<el-date-picker type="date" placeholder="选择日期" @change="createdateChange" format="yyyy-MM-dd"
+												value-format="yyyy-MM-dd" v-model="addForm.create_time" style="width:180px"></el-date-picker>  
+                                            </el-form-item>
+										</el-col>
+									</el-row>
+									<el-row>
+										<el-col :span="8">            
+											<el-form-item label="修改人" prop="alter_name">  
+											<el-input v-model="addForm.alter_name" auto-complete="off" placeholder="修改人" style="width:180px"></el-input>  
+											</el-form-item>
+										</el-col>
+										<el-col :span="4">&nbsp;</el-col>
+										<el-col :span="8">            
+											<el-form-item label="修改时间" prop="alter_time">  
+                                                <el-date-picker type="date" placeholder="选择日期" @change="alterdateChange" format="yyyy-MM-dd"
+												value-format="yyyy-MM-dd" v-model="addForm.alter_time" style="width:180px"></el-date-picker>
+											</el-form-item>
+										</el-col>
+									</el-row>   
 								</el-form>  
 								<div slot="footer" class="dialog-footer">  
 									<el-button @click.native="closeDialog(addForm)">取消</el-button>  
@@ -330,7 +376,7 @@
 			{
 				'index': '4',
 				'menuName': '重点单位管理',
-				'url': '/assets/pages/key-unit.html'				
+				'url': '/assets/pages/key-unit.html'
 			},
 			{
 				'index': '5',
@@ -450,99 +496,116 @@
 			  awa:"",
 			  //搜索表单
 			  searchForm: {
-				id: "",
-				username:"",
-				realname: "",
-                rolename:"",
-                permissioninfo:"",
-                begintime:"",
-                endtime:"",
+                DWMC:"",
+                DWDJ:"",
+                DWXZ:"",
+                XZQY:""
 			  },
 			  tableData: [
 				{
-					permissionname:"管理员",
-					permissioninfo: "新增",
-                    create_name:"乱世",
-					create_time: "2018-01-03",
-                    alter_name:"诸葛亮",
-					alter_time: "2020-01-01",
+					DWMC:"辽宁省人民法院",
+					DWDJ: "省部级",
+                    DWXZ:"司法",
+					XZQY: "辽宁省",
+                    DWDZ:"霞飞路29号",
+                    ZDMJ: 5000,
+                    XFGXJGID: "沈阳市消防局",
+                    ID:"1"
 				},
 			   	{
-					permissionname:"刘备",
-					permissioninfo: "删除",
-                    create_name:"乱世",
-					create_time: "2024-05-03",
-                    alter_name:"诸葛亮",
-					alter_time: "2020-01-01",
+					DWMC:"辽宁省政府",
+					DWDJ: "省部级",
+                    DWXZ:"行政",
+					XZQY: "辽宁省",
+                    DWDZ:"霞飞路30号",
+                    ZDMJ: 50000,
+                    XFGXJGID: "沈阳市消防局",
+                    ID:"2"
 				},
 				{
-					permissionname:"曹操",
-					permissioninfo: "魏国主公",
-                    create_name:"乱世",
-					create_time: "2084-05-03",
-                    alter_name:"郭嘉",
-					alter_time: "2020-01-01",
+					DWMC:"辽宁省就业局",
+					DWDJ: "省部级",
+                    DWXZ:"民事",
+					XZQY: "辽宁省",
+                    DWDZ:"霞飞路31号",
+                    ZDMJ: 20000,
+                    XFGXJGID: "沈阳市消防局",
+                    ID:"3"
 				},
 				{
-                    permissionname:"孙权",
-					permissioninfo: "吴国主公",
-                    create_name:"乱世",
-					create_time: "2004-05-03",
-                    alter_name:"陆逊",
-					alter_time: "1990-01-01",
+                    DWMC:"沈阳市城市规划管理局",
+					DWDJ: "市厅级",
+                    DWXZ:"城市管理",
+					XZQY: "辽宁省",
+                    DWDZ:"霞飞路32号",
+                    ZDMJ: 10000,
+                    XFGXJGID: "沈阳市消防和平分队",
+                    ID:"4"
 				},
 				{
-					permissionname:"司马炎",
-					permissioninfo: "西晋主公",
-                    create_name:"太平",
-					create_time: "1984-05-03",
-                    alter_name:"司马昭",
-					alter_time: "2020-01-01",
+					DWMC:"沈阳市公安局",
+					DWDJ: "市厅级",
+                    DWXZ:"司法",
+					XZQY: "辽宁省",
+                    DWDZ:"霞飞路33号",
+                    ZDMJ: 12000,
+                    XFGXJGID: "沈阳市消防沈河分队",
+                    ID:"5"
 				},
 				{
-                    permissionname:"司马伦",
-					permissioninfo: "八王之一",
-                    create_name:"乱世",
-					create_time: "1884-05-03",
-                    alter_name:"八王之乱",
-					alter_time: "2020-01-01",
+                    DWMC:"沈阳市地铁二号线",
+					DWDJ: "市厅级",
+                    DWXZ:"民事",
+					XZQY: "辽宁省",
+                    DWDZ:"霞飞路34号",
+                    ZDMJ: 1000,
+                    XFGXJGID: "沈阳市消防浑南分队",
+                    ID:"6"
 				},
 				{
-					permissionname:"曹丕",
-					permissioninfo: "魏国皇帝",
-                    create_name:"乱世",
-					create_time: "1784-05-03",
-                    alter_name:"司马懿",
-					alter_time: "1920-01-01",
+					DWMC:"青岛市塑性加工园",
+					DWDJ: "市厅级",
+                    DWXZ:"城市管理",
+					XZQY: "山东省",
+                    DWDZ:"文明路39号",
+                    ZDMJ: 2000,
+                    XFGXJGID: "青岛市市消防大东分队",
+                    ID:"7"
 				},
 				{
-                    permissionname:"曹叡",
-					permissioninfo: "魏国皇帝",
-                    create_name:"乱世",
-					create_time: "1684-05-03",
-                    alter_name:"曹真",
-					alter_time: "1220-01-01",
+                    DWMC:"泰安市城建局",
+					DWDJ: "市厅级",
+                    DWXZ:"城市管理",
+					XZQY: "山东省",
+                    DWDZ:"法防路36号",
+                    ZDMJ: 2000,
+                    XFGXJGID: "泰安市消防塔湾分队",
+                    ID:"8"
 				},
 				{
-					permissionname:"曹芳",
-					permissioninfo: "魏国皇帝",
-                    create_name:"乱世",
-					create_time: "1384-05-03",
-                    alter_name:"曹爽",
-					alter_time: "2520-01-01",
+                    DWMC:"河北省国土资源厅",
+					DWDJ: "省部级",
+                    DWXZ:"城市管理",
+					XZQY: "河北省",
+                    DWDZ:"格调路46号",
+                    ZDMJ: 3000,
+                    XFGXJGID: "河北省消防总队",
+                    ID:"9"
 				},
 				{
-                    permissionname:"刘禅",
-					permissioninfo: "蜀国皇帝",
-                    create_name:"乱世",
-					create_time: "1984-05-03",
-                    alter_name:"姜维",
-					alter_time: "1020-01-01",
+                    DWMC:"秦皇岛市林业局",
+					DWDJ: "市厅级",
+                    DWXZ:"城市管理",
+					XZQY: "河北省",
+                    DWDZ:"发文路64号",
+                    ZDMJ: 4000,
+                    XFGXJGID: "秦皇岛市消防大队",
+                    ID:"10"
 				}
 			 ],
 			   rowdata:'',
 			   //表高度变量
-			   tableheight :445,
+			   tableheight :450,
 			   //显示加载中样
 			   loading: false,
 			   labelPosition: 'right',
@@ -570,12 +633,13 @@
 				},
 				//新建数据
 				addForm:{
-					permissionname:"",
-					permissioninfo: "",
-					create_name:"",
-					create_time:"",
-					alter_name:"",
-					alter_time:"",
+					DWMC:"",
+					DWDJ: "",
+                    DWXZ:"",
+					XZQY: "",
+                    DWDZ:"",
+                    ZDMJ: "",
+                    XFGXJGID: ""
 				},
 				//选中的值显示
 				sels: [], 
@@ -589,12 +653,13 @@
 				},
 				//编辑界面数据
 				editForm: {
-					permissionname:"",
-					permissioninfo: "",
-					create_name:"",
-					create_time:"",
-					alter_name:"",
-					alter_time:"",
+					DWMC:"",
+					DWDJ: "",
+                    DWXZ:"",
+					XZQY: "",
+                    DWDZ:"",
+                    ZDMJ: "",
+                    XFGXJGID: ""
 				},
                
 			   }
@@ -626,127 +691,28 @@
                 return false;
             }
             //数据还原
-			  for(var i=0;i<_self.tableData.length;i++){
-                var flow=_self.tableData[i];
-                searchData.push(flow);
-			  }
-           
-           
-			if(_self.searchForm.begintime != ""&&_self.searchForm.endtime != ""){
-                //起始时间的判断
-                if(tab(_self.searchForm.begintime,_self.searchForm.endtime))
-                {
-                    _self.$message({
-                        message: "开始时间不能早于结束时间",
-                        type: "error"
-                        });
-                        return;
-                }
-                if(_self.searchForm.permissioninfo != "")
-                {
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo&&(_self.tableData[i].create_time >= _self.searchForm.begintime&&_self.tableData[i].create_time <= _self.searchForm.endtime))
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);
-                            
-                        }
-                        
-                    }
-                }
-                else{
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if(_self.tableData[i].create_time >= _self.searchForm.begintime&&_self.tableData[i].create_time <= _self.searchForm.endtime)
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);   
-                        }
-                    }
-                }
-				_self.tableData.splice(0,_self.tableData.length);
-				if(resultData.length>=1){
-					_self.tableData=resultData;
+			for(var i=0;i<_self.tableData.length;i++){
+			var flow=_self.tableData[i];
+			searchData.push(flow);
+			}       
+			for(var i = 0;i<_self.tableData.length;i++){
+				if((!(_self.searchForm.DWMC==""&&_self.searchForm.DWDJ==""&&_self.searchForm.DWXZ==""&&_self.searchForm.XZQY==""))&&(_self.searchForm.DWMC!=""?(_self.tableData[i].DWMC == _self.searchForm.DWMC):true)&&(_self.searchForm.DWDJ!=""?(_self.tableData[i].DWDJ == _self.searchForm.DWDJ):true)
+				&&(_self.searchForm.DWXZ!=""?(_self.tableData[i].DWXZ == _self.searchForm.DWXZ):true)&&(_self.searchForm.XZQY!=""?(_self.tableData[i].XZQY == _self.searchForm.XZQY):true))
+				{	
+					var row=_self.tableData[i];
+					resultData.push(row);
+					
 				}
-			}
-            else if(_self.searchForm.begintime == ""&&_self.searchForm.endtime != ""){
-                if(_self.searchForm.permissioninfo != "")
-                {
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo&&_self.tableData[i].create_time <= _self.searchForm.endtime)
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);
-                            
-                        }
-                        
-                    }
-                }
-                else{
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if(_self.tableData[i].create_time <= _self.searchForm.endtime)
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);   
-                        }
-                    }
-                }
-				_self.tableData.splice(0,_self.tableData.length);
-				if(resultData.length>=1){
-					_self.tableData=resultData;
-				}	
-			}
-			else if(_self.searchForm.begintime != ""&&_self.searchForm.endtime == ""){
 				
-				if(_self.searchForm.permissioninfo != "")
-                {
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo&&_self.tableData[i].create_time >= _self.searchForm.begintime)
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);
-                            
-                        }
-                        
-                    }
-                }
-                else{
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if(_self.tableData[i].create_time >= _self.searchForm.begintime)
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);   
-                        }
-                    }
-                }
-				_self.tableData.splice(0,_self.tableData.length);
-				if(resultData.length>=1){
-					_self.tableData=resultData;
-				}
 			}
-			else if(_self.searchForm.begintime == ""&&_self.searchForm.endtime == ""){
-				if(_self.searchForm.permissioninfo != "")
-                {
-                    for(var i = 0;i<_self.tableData.length;i++){
-                        if(_self.tableData[i].permissioninfo == _self.searchForm.permissioninfo)
-                        {	
-                            var row=_self.tableData[i];
-                            resultData.push(row);
-                            
-                        }
-                        
-                    }
-                    _self.tableData.splice(0,_self.tableData.length);
-                    if(resultData.length>=1){
-                        _self.tableData=resultData;
-                    }
-                }
-                else{
-                    _self.tableData.splice(0,_self.tableData.length);
-                    _self.tableData = searchData;
-			    }
-            }
-			
-			//_self.tableData.filter((item)=>{return item.realname == _self.searchForm.realname	});
+			_self.tableData.splice(0,_self.tableData.length);
+			if(resultData.length>=1){
+				_self.tableData=resultData;
+			}
+			else{
+				_self.tableData.splice(0,_self.tableData.length);
+				_self.tableData = searchData;
+				}
 			_self.total = _self.tableData.length;
 			_self.loadingData(); //重新加载数据
 			},
@@ -769,7 +735,10 @@
 			// 	console.log(val);  
 			// 	this.addForm.create_time = val;
 			// 	this.editForm.create_time = val;
-			// },
+            // },
+            informClick(val){
+                window.location.href="inform.html?ID="+val.ID;
+            },
             createdateChange(val) {  
 				console.log(val);  
 				this.addForm.create_time = val;

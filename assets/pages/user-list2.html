@@ -35,9 +35,8 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" href="javascript:;">
-									<span class="glyphicon glyphicon-volume-up l mt3"></span>
-									<span class="f12 l mt1 ml5">(0)</span>
+								<a class="fix" style="width:44px;" href="/assets/pages/bigMap0.html">
+									<img src="../images/zhanshi.png">
 								</a>
 							</li>
 							<li>
@@ -93,13 +92,13 @@
 							<el-form  label-width="70px" :inline="true" class="el-form demo-form-inline">
 
 									<el-row>
-										<el-col :span="12">
+										<el-col :span="10" class="single-search-left">
 											<el-form-item label="用户名">  
-												<el-input size="mini" v-model="searchForm.username" placeholder="姓名"></el-input>  
+												<el-input size="mini" v-model="searchForm.username" placeholder="用户名"></el-input>  
 											</el-form-item>
 										</el-col>
-										<el-col :span="12">
-											<el-form-item label="真实姓名" class="right-search">
+										<el-col :span="10">
+											<el-form-item label="真实姓名">
 												<el-input size="mini" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
 											</el-form-item>
 										</el-col>
@@ -161,9 +160,6 @@
 
 						
 						<div class="table_container">
-							<div class="table-title">
-								<ion-title>查询结果</ion-title>
-							</div>
 						<el-table
 								border
 								id="table"
@@ -225,16 +221,16 @@
 								label="角色"  
 								width="120"
 								align="center">
-								<template slot-scope="scope">  
-										<el-popover
-											ref="popover2"
-											placement="bottom"
-											title="角色"
-											width="200"
-											trigger="click"
-											content="安保处长,执勤队长,后勤委员,政委">
-										</el-popover>
-										<el-button v-popover:popover2>查看角色</el-button>
+								<template slot-scope="scope">
+									<el-popover
+										ref="popover2"
+										placement="bottom"
+										title="角色"
+										width="200"
+										trigger="click"
+										content="安保处长,执勤队长,后勤委员,政委">
+									</el-popover>
+									<el-button type="text" v-popover:popover2>查看详情</el-button>
 								</template>	  
 							</el-table-column>
 							<!-- <el-table-column  
@@ -269,6 +265,10 @@
 								</el-col>  
 							</el-row> 
 						</div>
+							<!--详情界面-->  
+							<el-dialog title="角色详情" :visible.sync="itemFormVisible" @close="closeitemDialog()" :close-on-click-modal="false">
+								
+							</el-dialog> 
 							<!--新建界面-->  
 							<el-dialog title="新建用户" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">  
 								<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
@@ -387,7 +387,7 @@
 	<script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
 	<script src="../lib/elementUI.js" charset="utf-8"></script>
-	<script>
+	<script>		
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
 		});
@@ -411,7 +411,8 @@
 			},
 			{
 				'index': '4',
-				'menuName': '重点单位管理'
+				'menuName': '重点单位管理',
+				'url': '/assets/pages/key-unit.html'
 			},
 			{
 				'index': '5',
@@ -646,6 +647,8 @@
 				},
 				//序号
 				indexData:0,
+				//详情页是否显示
+				itemFormVisible:false,
 				//删除的弹出框
 				deleteVisible: false,
 				//新建页面是否显示
@@ -685,7 +688,12 @@
 			   
 			   }
 			},
+			mounted:function(){
+
+			},
 			methods:{
+
+			
 			//表格查询事件
 			searchClick: function() {
 			var _self = this;
@@ -804,6 +812,12 @@
 			addClick: function() {
 			var _self = this;
 			_self.addFormVisible = true;
+			
+			},
+			//查看详情
+			itemClick: function() {
+			var _self = this;
+			_self.itemFormVisible = true;
 			
 			},
 			//删除所选，批量删除
@@ -942,6 +956,9 @@
 				val.username ="";
 				val.phone = "";
 				val.email ="";
+			},
+			closeitemDialog:function(){
+				this.itemFormVisible=false;
 			}
 		},
 			

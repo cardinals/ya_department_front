@@ -34,6 +34,59 @@ body{height:100%;}
 .addForm{
     width: 124px;
 }
-.right-search{
-    float: right;
+.dtdlStyle{
+    display: inline;
+    margin-left: 15px;
+}
+.inform-left{
+    display: inline;
+}
+.inform-right{
+    display: inline;
+}
+.inform-margin{
+    margin-top: 15px;
+}
+.single-search-left{
+    margin-left: 160px;
+}
+.double-search-left{
+    margin-left: 70px;
+}
+.nameBox {
+	background-color: #fff;
+	border: 5px solid #ccc;
+	margin-top: 15px;
+	padding: 20px 20px 20px 30px;
+    box-shadow: 2px 3px 5px #ccc;
+}
+.inform-content {
+    border: 5px solid #ccc;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	background-color: #fbfbfb;
+	box-shadow: 2px 3px 5px #ccc;
+}
+.companyStatus {
+	padding: 0px 5px;
+	display: none;
+	color: #fff;
+	border-radius: 3px;
+	font-size: 14px;
+	text-align: center;
+	line-height: 24px;
+	margin: 0 7px 0 15px; 
+	display: inline-block;
+	position: relative;
+	top:-3px;
+    font-weight: normal !important;
+    background-color: rgb(67, 149, 225);
+	/*text-overflow: ellipsis;    */
+	/*overflow: hidden; */
+	/*white-space: nowrap; */
+	/*line-height: 1.4;*/
+}
+.inform-h3{
+    font-weight: bold;
+    color: rgb(78, 78, 78);
 }
