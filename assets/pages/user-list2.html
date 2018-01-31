@@ -94,12 +94,12 @@
 									<el-row>
 										<el-col :span="10" class="single-search-left">
 											<el-form-item label="用户名">  
-												<el-input size="mini" v-model="searchForm.username" placeholder="用户名"></el-input>  
+												<el-input size="small" v-model="searchForm.username" placeholder="用户名"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="10">
 											<el-form-item label="真实姓名">
-												<el-input size="mini" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
+												<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
 											</el-form-item>
 										</el-col>
 										<!--<el-col :span="7">
@@ -229,9 +229,9 @@
 										width="200"
 										trigger="click"
 										>
-										<span v-for="roleinfo in roleList"><span>{{roleinfo}}</span><br></span>
+										<span v-for="role in scope.row.roles"><span>{{role.roleinfo}}</span><br></span>
 									</el-popover>
-									<el-button type="text" @click="openRoleList(scope.row.userid)" v-popover:popover2>查看详情</el-button>
+									<el-button type="text" v-popover:popover2>查看详情</el-button>
 								</template>	  
 							</el-table-column>
 							<!-- <el-table-column  
@@ -276,61 +276,68 @@
 									<el-row>
 										<el-col :span="8">            
 											<el-form-item label="用户名" prop="username">  
-											<el-input v-model="addForm.username" auto-complete="off" style="width:180px"></el-input>  
+											<el-input v-model="addForm.username" placeholder="用户名" auto-complete="off" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
 										<el-col :span="8">            
 											<el-form-item label="真实姓名" prop="realname">  
-											<el-input v-model="addForm.realname" auto-complete="off" style="width:180px"></el-input>  
+											<el-input v-model="addForm.realname" placeholder="真实姓名" auto-complete="off" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 									</el-row> 
 									<el-row>
-										<el-col :span="8">
-											<el-form-item label="生日" prop="birth">  
-												<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" v-model="addForm.birth" style="width:180px"></el-date-picker>  
+										<el-col :span="8">            
+											<el-form-item label="密码" prop="password">  
+											<el-input v-model="addForm.password" type="password" placeholder="密码" auto-complete="off" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
-										<el-col :span="8">
-											<el-form-item label="性别" prop="sex">  
-												<el-radio-group v-model="addForm.sex">  
-													<el-radio class="radio" :label="1">男</el-radio>  
-													<el-radio class="radio" :label="0">女</el-radio>  
-												</el-radio-group>
+										<el-col :span="8">            
+											<el-form-item label="确认密码" prop="checkPass">  
+											<el-input v-model="addForm.checkPass" type="password" placeholder="确认密码" auto-complete="off" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 									</el-row>
 									<el-row>
 										<el-col :span="8">            
 											<el-form-item label="手机号" prop="phone">  
-											<el-input v-model="addForm.phone" auto-complete="off" style="width:180px"></el-input>  
+											<el-input v-model="addForm.phone" auto-complete="off" placeholder="手机号" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
 										<el-col :span="8">            
 											<el-form-item label="邮箱" prop="email">  
-											<el-input v-model="addForm.email" auto-complete="off" style="width:180px"></el-input>  
+											<el-input v-model="addForm.email" auto-complete="off" placeholder="邮箱" style="width:180px"></el-input>  
 											</el-form-item>
 										</el-col>
 									</el-row>
 									<el-row>
-											<el-col :span="8">            
-												<el-form-item label="密码" prop="password">  
-												<el-input v-model="addForm.password" type="password" auto-complete="off" style="width:180px"></el-input>  
-												</el-form-item>
-											</el-col>
-											<el-col :span="4">&nbsp;</el-col>
-											<el-col :span="8">            
-												<el-form-item label="角色">  
-												<el-checkbox-group v-model="addForm.rolelist" auto-complete="off" style="width:180px">
-													<el-checkbox v-for="role in addForm.rolelist" :label="role" :key="role">{{role}}</el-checkbox>
-												</el-checkbox-group>  
-												</el-form-item>
-											</el-col>
-										</el-row>      
+										<el-col :span="8">
+											<el-form-item label="生日" prop="birth">  
+												<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" format="yyyy-MM-dd"
+												value-format="yyyy-MM-dd" auto-complete="off" v-model="addForm.birth" style="width:180px"></el-date-picker>  
+											</el-form-item>
+										</el-col>
+										<el-col :span="4">&nbsp;</el-col>
+										<el-col :span="8">
+											<el-form-item label="性别" prop="sex">  
+												<el-radio-group v-model="addForm.sex" auto-complete="off">  
+													<el-radio class="radio" :label="1">男</el-radio>  
+													<el-radio class="radio" :label="0">女</el-radio>  
+												</el-radio-group>
+											</el-form-item>
+										</el-col>	
+									</el-row>
+									<el-row>
+										<el-col :span="8">            
+											<el-form-item label="角色">  
+											<el-checkbox-group v-model="addForm.rolelist" auto-complete="off" style="width:180px">
+												<el-checkbox v-for="role in addForm.rolelist" :label="role" :key="role">{{role}}</el-checkbox>
+											</el-checkbox-group>  
+											</el-form-item>
+										</el-col>
+									</el-row>      
 								</el-form>  
 								<div slot="footer" class="dialog-footer">  
 									<el-button @click.native="closeDialog(addForm)">取消</el-button>  
@@ -344,62 +351,69 @@
 								<el-row>
 								<el-col :span="8">            
 									<el-form-item label="用户名" prop="username">  
-										<el-input v-model="editForm.username" auto-complete="off" style="width:180px"></el-input>  
+										<el-input v-model="editForm.username" placeholder="用户名" auto-complete="off" style="width:180px"></el-input>  
 									</el-form-item>
 								</el-col>
 								<el-col :span="4">&nbsp;</el-col>
 								<el-col :span="8">            
 									<el-form-item label="真实姓名" prop="realname">  
-										<el-input v-model="editForm.realname" auto-complete="off" style="width:180px"></el-input>  
+										<el-input v-model="editForm.realname" placeholder="真实姓名" auto-complete="off" style="width:180px"></el-input>  
 									</el-form-item>
 								</el-col>
 								
 								</el-row> 
 								<el-row>
-								<el-col :span="8">
-									<el-form-item label="生日" prop="birth">  
-										<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" format="yyyy-MM-dd"
-										value-format="yyyy-MM-dd" v-model="editForm.birth" style="width:180px"></el-date-picker>  
-									</el-form-item>
-								</el-col>
-								<el-col :span="4">&nbsp;</el-col>
-								<el-col :span="8">
-									<el-form-item label="性别" prop="sex">  
-										<el-radio-group v-model="editForm.sex">  
-											<el-radio class="radio" :label="1">男</el-radio>  
-											<el-radio class="radio" :label="0">女</el-radio>  
-										</el-radio-group>
-									</el-form-item>
-								</el-col>
+									<el-col :span="8">            
+										<el-form-item label="密码" prop="password">  
+										<el-input v-model="editForm.password" type="password" placeholder="密码" auto-complete="off" style="width:180px"></el-input>  
+										</el-form-item>
+									</el-col>
+									<el-col :span="4">&nbsp;</el-col>
+									<el-col :span="8">            
+										<el-form-item label="确认密码" prop="checkPass">  
+										<el-input v-model="editForm.checkPass" type="password" placeholder="确认密码" auto-complete="off" style="width:180px"></el-input>  
+										</el-form-item>
+									</el-col>
 								</el-row>
 								<el-row>
 									<el-col :span="8">            
 										<el-form-item label="手机号" prop="phone">  
-										<el-input v-model="editForm.phone" auto-complete="off" style="width:180px"></el-input>  
+										<el-input v-model="editForm.phone" auto-complete="off" placeholder="手机号" style="width:180px"></el-input>  
 										</el-form-item>
 									</el-col>
 									<el-col :span="4">&nbsp;</el-col>
 									<el-col :span="8">            
 										<el-form-item label="邮箱" prop="email">  
-										<el-input v-model="editForm.email" auto-complete="off" style="width:180px"></el-input>  
+										<el-input v-model="editForm.email" auto-complete="off" placeholder="邮箱" style="width:180px"></el-input>  
 										</el-form-item>
 									</el-col>
 								</el-row>
 								<el-row>
-									<el-col :span="8">            
-										<el-form-item label="密码" prop="password">  
-										<el-input v-model="editForm.password" auto-complete="off" style="width:180px"></el-input>  
+									<el-col :span="8">
+										<el-form-item label="生日" prop="birth">  
+											<el-date-picker type="date" placeholder="选择日期" @change="dateChangebirthday" format="yyyy-MM-dd"
+											value-format="yyyy-MM-dd" auto-complete="off" v-model="editForm.birth" style="width:180px"></el-date-picker>  
 										</el-form-item>
 									</el-col>
 									<el-col :span="4">&nbsp;</el-col>
+									<el-col :span="8">
+										<el-form-item label="性别" prop="sex">  
+											<el-radio-group v-model="editForm.sex" auto-complete="off">  
+												<el-radio class="radio" :label="1">男</el-radio>  
+												<el-radio class="radio" :label="0">女</el-radio>  
+											</el-radio-group>
+										</el-form-item>
+									</el-col>	
+								</el-row>
+								<el-row>
 									<el-col :span="8">            
-										<el-form-item label="角色" prop="role">  
-										<el-checkbox-group auto-complete="off" style="width:180px">
+										<el-form-item label="角色">  
+										<el-checkbox-group v-model="editForm.rolelist" auto-complete="off" style="width:180px">
 											<el-checkbox v-for="role in editForm.rolelist" :label="role" :key="role">{{role}}</el-checkbox>
 										</el-checkbox-group>  
 										</el-form-item>
 									</el-col>
-								</el-row>   
+								</el-row>    
 							</el-form>  
 					<div slot="footer" class="dialog-footer">  
 						<el-button @click.native="editFormVisible = false">取消</el-button>  
@@ -587,6 +601,20 @@
 					sex: "男",
 					phone: "13242452511",
 					email: "liushutian@syfri.com",
+					roles:[
+						{
+							roleid:"1",
+							rolename:"normal",
+							roleinfo:"普通用户",
+							delete_flag:"0"
+						},
+						{
+							roleid:"3",
+							rolename:"liaoning",
+							roleinfo:"辽宁省",
+							delete_flag:"0"
+						},
+					]
 				},
 			   	{
 					userid:"12307",
@@ -597,6 +625,26 @@
 					sex: "男",
 					phone: "13242124124",
 					email: "sunbaoshu@syfri.com",
+					roles:[
+						{
+							roleid:"1",
+							rolename:"normal",
+							roleinfo:"普通用户",
+							delete_flag:"0"
+						},
+						{
+							roleid:"2",
+							rolename:"shandong",
+							roleinfo:"山东省",
+							delete_flag:"0"
+						},
+						{
+							roleid:"3",
+							rolename:"liaoning",
+							roleinfo:"辽宁省",
+							delete_flag:"0"
+						}
+					]
 				},
 				{
 					userid:"12308",
@@ -606,7 +654,27 @@
 					birth: "1996-02-16",
 					sex: "女",
 					phone: "13932425651",
-					email: "caocha@syfri.com",
+					email: "caode@syfri.com",
+					roles:[
+						{
+							roleid:"2",
+							rolename:"shandong",
+							roleinfo:"山东省",
+							delete_flag:"0"
+						},
+						{
+							roleid:"3",
+							rolename:"liaoning",
+							roleinfo:"辽宁省",
+							delete_flag:"0"
+						},
+						{
+							roleid:"4",
+							rolename:"admin",
+							roleinfo:"管理员",
+							delete_flag:"0"
+						}
+					]
 				},
 				{
 					userid:"12309",
@@ -617,6 +685,20 @@
 					sex: "男",
 					phone: "13987654212",
 					email: "liuhaizhu@syfri.com",
+					roles:[
+						{
+							roleid:"2",
+							rolename:"shandong",
+							roleinfo:"山东省",
+							delete_flag:"0"
+						},
+						{
+							roleid:"3",
+							rolename:"liaoning",
+							roleinfo:"辽宁省",
+							delete_flag:"0"
+						},
+					]
 				},
 				{
 					userid:"12310",
@@ -626,7 +708,15 @@
 					birth: "1996-05-03",
 					sex: "女",
 					phone: "13987654321",
-					email: "zhangliao@syfri.com",
+					email: "zhangwb@syfri.com",
+					roles:[
+						{
+							roleid:"1",
+							rolename:"normal",
+							roleinfo:"普通用户",
+							delete_flag:"0"
+						},
+					]
 				},
 				{
 					userid:"12311",
@@ -637,6 +727,32 @@
 					sex: "女",
 					phone: "13687994241",
 					email: "sunshang@syfri.com",
+					roles:[
+						{
+							roleid:"1",
+							rolename:"normal",
+							roleinfo:"普通用户",
+							delete_flag:"0"
+						},
+						{
+							roleid:"2",
+							rolename:"shandong",
+							roleinfo:"山东省",
+							delete_flag:"0"
+						},
+						{
+							roleid:"3",
+							rolename:"liaoning",
+							roleinfo:"辽宁省",
+							delete_flag:"0"
+						},
+						{
+							roleid:"4",
+							rolename:"admin",
+							roleinfo:"管理员",
+							delete_flag:"0"
+						}
+					]
 				},
 				{
 					userid:"12312",
@@ -647,6 +763,20 @@
 					sex: "女",
 					phone: "13742141412",
 					email: "aixi@syfri.com",
+					roles:[
+						{
+							roleid:"3",
+							rolename:"liaoning",
+							roleinfo:"辽宁省",
+							delete_flag:"0"
+						},
+						{
+							roleid:"4",
+							rolename:"admin",
+							roleinfo:"管理员",
+							delete_flag:"0"
+						}
+					]
 				},
 				{
 					userid:"12313",
@@ -657,6 +787,14 @@
 					sex: "男",
 					phone: "13242452511",
 					email: "niudali@syfri.com",
+					roles:[
+						{
+							roleid:"2",
+							rolename:"shandong",
+							roleinfo:"山东省",
+							delete_flag:"0"
+						}
+					]
 				},
 				{
 					userid:"12314",
@@ -666,21 +804,37 @@
 					birth: "1997-03-28",
 					sex: "男",
 					phone: "13389852376",
-					email: "simazhao@syfri.com",
+					email: "mazhao@syfri.com",
+					roles:[
+						{
+							roleid:"4",
+							rolename:"admin",
+							roleinfo:"管理员",
+							delete_flag:"0"
+						}
+					]
 				},
 				{
 					userid:"12315",
-					username:"ml",
-					password:"Dwe123",
+					username:"fyb",
+					password:"wda123",
 					realname: "冯玉冰",
-					birth: "1993-07-31",
+					birth: "1991-09-12",
 					sex: "女",
-					phone: "13967854323",
-					email: "simashi@syfri.com",
+					phone: "13485432376",
+					email: "fengyubing@syfri.com",
+					roles:[
+						{
+							roleid:"2",
+							rolename:"shandong",
+							roleinfo:"山东省",
+							delete_flag:"0"
+						}
+					]
 				}
 			 ],
 			 //用户角色data
-			 userroleData: [
+			 /*userroleData: [
 				{
 					userid:"12306",
 					roleid:"1"
@@ -760,7 +914,7 @@
 					roleid:"4",
 					roleinfo:"系统管理员"
 				},
-			 ],
+			 ],*/
 			 roleList:[],
 			   rowdata:'',
 			   //表高度变量
@@ -799,17 +953,17 @@
 					{ min: 2, max: 16, message: '长度在 2 到 16 个字符', trigger: 'blur' }
 				  ],
 				  birth:[
-				  { type: 'date', required: true, message: '请选择出生日期', trigger: 'change' }
+				  { type: 'date', required: false, message: '请选择出生日期', trigger: 'change' }
 				  ],
 				  sex: [
-				  { required: true, message: '请选择性别', trigger: 'change' }
+				  { required: false, message: '请选择性别', trigger: 'change' }
 				  ],
 				  phone: [
-				  { required: true, message: '请输入手机号', trigger: 'blur' },
+				  { required: false, message: '请输入手机号', trigger: 'blur' },
 					{ min: 11, max: 11, message: '手机号格式不正确', trigger: 'blur' }
 				  ],
 				  email: [
-				  { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+				  { required: false, message: '请输入邮箱地址', trigger: 'blur' },
 				  { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
 				  ],
 				  password: [
@@ -823,6 +977,7 @@
 					userid:"",
 					username:"",
 					password:"",
+					checkPass:"",
 					realname: "",
 					birth:"",
 					sex: -1,
@@ -845,17 +1000,14 @@
 					{ min: 2, max: 16, message: '长度在 2 到 16 个字符', trigger: 'blur' }
 				  ],
 				  birth:[
-				  { type: 'date', required: true, message: '请选择出生日期', trigger: 'change' }
-				  ],
-				  sex: [
-				  { required: true, message: '请选择性别', trigger: 'change' }
+				  { type: 'date', required: false, message: '请选择出生日期', trigger: 'change' }
 				  ],
 				  phone: [
-				  { required: true, message: '请输入手机号', trigger: 'blur' },
+				  { required: false, message: '请输入手机号', trigger: 'blur' },
 					{ min: 11, max: 11, message: '手机号格式不正确', trigger: 'blur' }
 				  ],
 				  email: [
-				  { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+				  { required: false, message: '请输入邮箱地址', trigger: 'blur' },
 				  { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur,change' }
 				  ],
 				  password: [
@@ -868,6 +1020,7 @@
 					userid:"",
 					username:"",
 					password:"",
+					checkPass:"",
 					realname: "",
 					birth:"",
 					sex: -1,
@@ -1008,7 +1161,8 @@
 				}.bind(this),function(error){
 					console.log(error)
 				})*/
-				this.roleList.splice(0,this.roleList.length);
+				
+				/*this.roleList.splice(0,this.roleList.length);
 				var roleidList=[];
 				for(var i=0;i<this.userroleData.length;i++){
 					if(this.userroleData[i].userid == val){
@@ -1021,7 +1175,7 @@
 							this.roleList.push(this.roleData[k].roleinfo);
 						}
 					}
-				}
+				}*/
 			},
 			//新建事件
 			addClick: function() {
@@ -1136,22 +1290,34 @@
 			this.editForm.sex=(row.sex == "男"?1:0);
 			/*请求到的角色role列表传给edit页面数据*/
 			//this.editForm.rolelist = res.data.rolelist;
+			this.editForm.checkPass=row.password;
 			this.editFormVisible = true;
 			},
 			//保存点击事件
 			editSubmit: function(val) {
 			var _self = this;
-			/*POST请求递交editForm数据传入userid之后再对前台加载*/
-			this.tableData[this.selectIndex].userid = val.userid;
-			this.tableData[this.selectIndex].realname = val.realname;
-			this.tableData[this.selectIndex].birth = val.birth;
-			this.tableData[this.selectIndex].sex = (val.sex == 0?"女":"男");
-			this.tableData[this.selectIndex].username = val.username;
-			this.tableData[this.selectIndex].phone = val.phone;
-			this.tableData[this.selectIndex].email = val.email;
-			this.editFormVisible = false;
-			_self.loadingData();//重新加载数据
-			console.info(this.editForm);
+			/*this.$refs[val].validate((valid) => {
+				if (valid) {
+					//alert('submit!');*/
+				
+					/*POST请求递交editForm数据传入userid之后再对前台加载*/
+					this.tableData[this.selectIndex].userid = val.userid;
+					this.tableData[this.selectIndex].realname = val.realname;
+					this.tableData[this.selectIndex].birth = val.birth;
+					this.tableData[this.selectIndex].sex = (val.sex == 0?"女":"男");
+					this.tableData[this.selectIndex].username = val.username;
+					this.tableData[this.selectIndex].phone = val.phone;
+					this.tableData[this.selectIndex].email = val.email;
+					this.editFormVisible = false;
+					_self.loadingData();//重新加载数据
+					console.info(this.editForm);
+				/*} 
+				else 
+				{
+					console.log('error submit!!');
+					return false;
+				}
+			});*/
 			},
 			//新建提交点击事件
 			addSubmit: function(val) {
