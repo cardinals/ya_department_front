@@ -1008,6 +1008,7 @@
 				}.bind(this),function(error){
 					console.log(error)
 				})*/
+				this.roleList.splice(0,this.roleList.length);
 				var roleidList=[];
 				for(var i=0;i<this.userroleData.length;i++){
 					if(this.userroleData[i].userid == val){
