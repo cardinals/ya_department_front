@@ -284,34 +284,17 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row> 
-                                <el-row>
-                                    <el-col :span="8">
-                                        <el-form-item label="创建人" prop="create_name">  
-                                            <el-input v-model="editForm.create_name" auto-complete="off" placeholder="创建人" style="width:180px"></el-input>  
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="4">&nbsp;</el-col>
-                                    <el-col :span="8">
-                                        <el-form-item label="创建时间">  
-                                            <el-date-picker type="date" placeholder="选择日期" @change="createdateChange" format="yyyy-MM-dd"
-                                            value-format="yyyy-MM-dd" v-model="editForm.create_time" style="width:180px"></el-date-picker>  
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <el-row>
-                                    <el-col :span="8">            
-                                        <el-form-item label="修改人" prop="alter_name">  
-                                        <el-input v-model="editForm.alter_name" auto-complete="off" placeholder="修改人" style="width:180px"></el-input>  
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="4">&nbsp;</el-col>
-                                    <el-col :span="8">            
-                                        <el-form-item label="修改时间" prop="alter_time">  
-                                            <el-date-picker type="date" placeholder="选择日期" @change="alterdateChange" format="yyyy-MM-dd"
-                                            value-format="yyyy-MM-dd" v-model="editForm.alter_time" style="width:180px"></el-date-picker>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>  
+								<el-row>
+										<el-form-item label="资源列表"> 
+											<el-tree
+											:props="checkprops"
+											:load="loadNode"
+											lazy
+											show-checkbox
+											@check-change="handleCheckChange">
+											</el-tree>
+										</el-form-item>
+								</el-row>
 							</el-form>  
 					<div slot="footer" class="dialog-footer">  
 						<el-button @click.native="editFormVisible = false">取消</el-button>  
@@ -330,6 +313,7 @@
 <script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
 	<script src="../lib/elementUI.js" charset="utf-8"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
@@ -472,7 +456,6 @@
 			el: '#app',
 			data: function() {
 			  return { visible: false,
-			  awa:"",
 			  //搜索表单
 			  searchForm: {
 				id: "",
@@ -482,15 +465,15 @@
                 roleinfo:"",
                 begintime:"",
                 endtime:"",
-				deptname:'',
-				birth:"",
-				sex:"",
-				state: "",
-				position:"",
-				worklife:"",
-				position:"",
-				jobtype:"",
-				DRUS:""
+				// deptname:'',
+				// birth:"",
+				// sex:"",
+				// state: "",
+				// position:"",
+				// worklife:"",
+				// position:"",
+				// jobtype:"",
+				// DRUS:""
 			  },
 			  tableData: [
 				{
@@ -530,6 +513,7 @@
 					alter_time: "2016-01-01",
 				},
 			 ],
+			 delStatus:"success",
 			 countryList:['法国','英国','德国'],
 			 cityList:[['巴黎','普罗旺斯',"马赛"],['伦敦','爱丁堡',"北爱尔兰"],['柏林','慕尼黑',"汉堡"]],			   
 			 rowdata:'',
@@ -564,15 +548,15 @@
 				},
 				//新建数据
 				addForm:{
+					roleid:"",
 					rolename:"",
 					roleinfo: "",
 					create_name:"",
 					create_time:"",
 					alter_name:"",
 					alter_time:"",
+					resourcelist:[]
 				},
-				//选中的值显示
-				sels: [], 
 				//选中的序号
 				selectIndex: -1, 
 				//修改界面是否显示
@@ -583,12 +567,14 @@
 				},
 				//修改界面数据
 				editForm: {
+					roleid:"",
 					rolename:"",
 					roleinfo: "",
 					create_name:"",
 					create_time:"",
 					alter_name:"",
 					alter_time:"",
+					resourcelist:[]
 				},
                 treedata: [{
                     label: '水源',
@@ -655,6 +641,7 @@
 			handleCheckChange(data, checked, indeterminate) {
 				console.log(data, checked, indeterminate);
 			},
+			//checkbox分级
 			loadNode(node, resolve) {
 				if (node.level === 0) {
 				return resolve([{ name: 'region1' }, { name: 'region2' }]);
@@ -884,30 +871,12 @@
 				_self.loading = false;
 			}, 300);
 			},
-			//表格删除事件
-			// deleteClick: function(index,row) {
-			// var _self = this;
-			// this.$confirm("确认删除" + row.realname + "吗?", "提示", {
-			// 	type: "warning",
-			// 	confirmButtonText: '确定',
-			// 	cancelButtonText: '取消'
-			// })
-			// 	.then(function() {
-			// 	_self.tableData.splice(index,1);
-			// 	_self.$message({
-			// 		message: row.realname + "删除成功",
-			// 		type: "success"
-			// 	});
-			// 	_self.loadingData(); //重新加载数据
-			// 	})
-			// 	.catch(function(e) {
-			// 	if (e != "cancel") console.log("出现错误：" + e);
-			// 	});
-			// },
 
 			//新建事件
 			addClick: function() {
 			var _self = this;
+			/*POST请求全部的资源列表项传给add页面数据*/ /*此时尚无roleid*/
+			//this.addForm.resourcelist = res.data.resourcelist;
 			_self.addFormVisible = true;
 			
 			},
@@ -924,27 +893,43 @@
 			}
 			//var ids = "";
 			var ids = [];
+			var deletename =[];
 			for (var i = 0; i < multipleSelection.length; i++) {
 				var row = multipleSelection[i];
 				//ids += row.realname + ",";
-				ids.push(row.rolename);
+				//删除POST请求时传入ids里的roleid作为删除唯一标识
+				ids.push(row.roleid);
+				deletename.push(row.roleinfo);
 			}
-			this.$confirm("确认删除" + ids + "吗?", "提示", {
+			this.$confirm("确认删除" + deletename + "吗?", "提示", {
 				type: "warning"
 			})
 				.then(function() {
+				/*axios.post('',ids).then(function(res){
+					this.delStatus=res.data.status
+					console.log(res.data)
+				}.bind(this),function(error){
+					console.log(error)
+				})
+				this.delStatus="success";
+				if(this.delStatus=="success"){}*/
+
+				/*POST请求之后再对前台加载*/
 				for(var d =0;d< ids.length;d++){
 					for(var k=0;k< _self.tableData.length;k++)
 						{
-							if(_self.tableData[k].rolename == ids[d]){
+							if(_self.tableData[k].roleid == ids[d]){
 								_self.tableData.splice(k,1);
 							}
 						}
-				}
+				
+				
 				_self.$message({
-					message: ids + "删除成功",
+					message: deletename + "删除成功",
 					type: "success"
 				});
+			}
+		
 				_self.total = _self.tableData.length;
 				_self.loadingData(); //重新加载数据
 				})
@@ -989,23 +974,27 @@
 			for (var i = 0; i < multipleSelection.length; i++) {
 				var row = multipleSelection[i];
 				//ids += row.realname + ",";
-				ids.push(row.rolename);
+				//编辑时POST传入唯一标识roleid来取出特殊项
+				ids.push(row.roleid);
 			}
+			/*POST请求之后再对前台加载*/
 			for(var d =0;d< ids.length;d++){
 					for(var k=0;k< _self.tableData.length;k++)
 						{
-							if(_self.tableData[k].rolename == ids[d]){
+							if(_self.tableData[k].roleid == ids[d]){
 								_self.selectIndex = k;
 							}
 						}
 				}
 			this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-			//this.editForm.sex=(row.sex == "男"?1:0);
+			/*请求到的resource列表传给edit页面数据*/
+			//this.editForm.resourcelist = res.data.resourcelist;
 			this.editFormVisible = true;
 			},
 			//保存点击事件
 			editSubmit: function(val) {
 			var _self = this;
+			/*POST请求递交editForm数据传入roleid之后再对前台加载*/
 			this.tableData[this.selectIndex].rolename = val.rolename;
 			this.tableData[this.selectIndex].roleinfo = val.roleinfo;
 			this.tableData[this.selectIndex].create_name = val.create_name;
@@ -1019,6 +1008,7 @@
 			//新建提交点击事件
 			addSubmit: function(val) {
 				var _self=this;
+				/*POST请求递交addForm数据传入之后再对前台加载*/ /*此时尚无roleid*/
 				this.tableData.unshift({
 					rolename: val.rolename,
 					roleinfo: val.roleinfo,
