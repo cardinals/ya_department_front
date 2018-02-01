@@ -89,7 +89,7 @@
 				<div class="main-container">
 					<div id="tableView">
 							<div class="nameBox">
-									<div style="display: inline-flex ">
+									<div style="float: left">
 										<img src="../images/danwei2.jpg">
 									</div>
 									<div class="dib" style="margin-left: 20px;">
@@ -105,9 +105,9 @@
 										</dl>
 									</div>
 									<div style="float: right">
-										<el-button type="primary" icon="share" style="margin-top:10%;width:120px"  @click="openShare">信息分享</el-button><br>
-										<el-button type="primary" icon="document" style="margin-top:10%;width:120px" @click="openPrinter">信息打印</el-button><br>
-										<el-button type="primary" icon="message" style="margin-top:10%;width:120px" @click="openEmail">发送邮箱</el-button><br>
+										<el-button type="primary" icon="share" style="width:120px"  @click="openShare">信息分享</el-button><br>
+										<el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openPrinter">信息打印</el-button><br>
+										<el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">发送邮箱</el-button><br>
 									</div>
 								</div>
 						<div class="inform-content">
@@ -147,16 +147,6 @@
 														<dt class="dtdlStyle">制作单位ID：</dt><dd class="dtdlStyle">{{rowdata.ZZDWID}}</dd>
 													</dl>
 												</div>
-												<div class="inform-margin">
-													<a id="ew" href="" style="display: none" download=""><span id="we"></span></a>
-													<a id="sw" href="" style="display: none" download=""><span id="ws"></span></a>
-													<a id="pf" href="" style="display: none" download=""><span id="fp"></span></a>
-													<dl>
-														<dt class="dtdlStyle">二维预案下载:</dt><dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/erwei.png" @click="DownLoadTwoFile()"></dd>
-														<dt class="dtdlStyle">三维预案下载:</dt><dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/sanwei.png" @click="DownLoadThreeFile()"></dd>
-														<dt class="dtdlStyle">文档预案下载:</dt><dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/wendang.png" @click="DownLoadFile()"></dd>
-													</dl>
-												</div>
 											</div>
 											<div style="width:400px">
 												<div>
@@ -191,10 +181,20 @@
 												</div>
 											</div>
 										</div>
+										<div class="inform-margin">
+											<a id="ew" href="" style="display: none" download=""><span id="we"></span></a>
+											<a id="sw" href="" style="display: none" download=""><span id="ws"></span></a>
+											<a id="pf" href="" style="display: none" download=""><span id="fp"></span></a>
+											<dl>
+												<dt class="dtdlStyle">附件下载:</dt>
+												<dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/erwei.png" @click="DownLoadTwoFile()"></dd><dt class="dtdlStyle" style="cursor:pointer;margin-left:0px !important;" @click="DownLoadTwoFile()">二维预案</dt>
+												<dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/sanwei.png" @click="DownLoadThreeFile()"></dd><dt class="dtdlStyle"style="cursor:pointer;margin-left:0px !important;" @click="DownLoadThreeFile()">三维预案</dt>
+												<dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/wendang.png" @click="DownLoadFile()"></dd><dt class="dtdlStyle"style="cursor:pointer;margin-left:0px !important;" @click="DownLoadFile()">文档预案</dt>
+											</dl>
+										</div>
 									</el-tab-pane>
 								</el-tabs>
 							</template>
-							
 						</div>
 						<!--信息分享-->
 						<el-dialog
