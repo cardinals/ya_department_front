@@ -94,19 +94,21 @@
 								<el-row gutter="40">
 										<el-col :span="8" class="double-search-left">
 											<el-form-item label="角色描述">  
-												<el-select size="mini" v-model="searchForm.roleinfo" placeholder="角色描述">  
-                                                    <el-option label="管理员" value="管理员"></el-option>  
-                                                    <el-option label="普通用户" value="普通用户"></el-option>  
+												<el-select size="small" v-model="searchForm.roleinfo" placeholder="角色描述">  
+													<el-option label="普通用户" value="普通用户"></el-option> 
+													<el-option label="管理员" value="管理员"></el-option>  
+													<el-option label="辽宁省" value="辽宁省"></el-option> 
+													<el-option label="山东省" value="山东省"></el-option> 
                                                 </el-select>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="12">
 											<el-form-item label="创建时间">
                                                 <el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" size="mini" v-model="searchForm.begintime" placeholder="开始时间" style="width: 170px"></el-date-picker>
+												value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime" placeholder="开始时间" style="width: 170px"></el-date-picker>
                                                 ~
                                                 <el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" size="mini" v-model="searchForm.endtime" placeholder="结束时间" style="width: 170px"></el-date-picker>
+												value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime" placeholder="结束时间" style="width: 170px"></el-date-picker>
 											</el-form-item>
 										</el-col>
 								</el-row> 
@@ -145,57 +147,57 @@
 				
 								<el-table-column  
 								type="selection"  
-								width="45">  
+								min-width="5%">  
 								</el-table-column>
 								<el-table-column 
 									type="index" 
 									label="序号"
-									width="65"
+									width="64"
 									align="center">
 								</el-table-column>
 								<el-table-column  
 									prop="rolename"  
 									label="角色名称"  
-									width="100"
+									min-width="11%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="roleinfo"  
 									label="角色描述"  
-									width="115"
+									min-width="12%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="create_name"  
 									label="创建人" 
-									width="122"
+									min-width="12%"
 									align="center">  
 								</el-table-column> 
 								<el-table-column  
 									prop="create_time"  
 									label="创建时间"  
-									width="132"
+									min-width="13%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="alter_name"  
 									label="修改人"  
-									width="140"
+									min-width="14%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="alter_time"  
 									label="修改时间"  
-									width="132"
+									min-width="14%"
 									align="center">  
 								</el-table-column>
 								<el-table-column  
 									prop="role"  
 									label="资源列表"  
-									width="124"
+									min-width="12%"
 									align="center">
 									<template slot-scope="scope">  
-											<el-button type="text" @click="resourceClick">查看详情</el-button>
+											<el-button type="text" @click="openResourceList(scope.row.resource)">查看详情</el-button>
 									</template>	  
 								</el-table-column>
 								<!-- <el-table-column  
@@ -232,7 +234,7 @@
 						</div>
 							<!--详情界面-->  
 							<el-dialog title="资源列表" :visible.sync="resourceVisible" @close="closeresourceDialog()" :close-on-click-modal="false">
-								<el-tree :data="treedata" :props="defaultProps" @node-click="handleNodeClick" accordion></el-tree>
+								<el-tree :data="resourceList" node-key="id" :default-expanded-keys="[1]" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
 							</el-dialog> 
 							<!--新建界面-->  
 							<el-dialog title="新建用户" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">  
@@ -253,11 +255,14 @@
 									<el-row>
 										<el-form-item label="资源列表"> 
 											<el-tree
-											:props="checkprops"
-											:load="loadNode"
-											lazy
-											show-checkbox
-											@check-change="handleCheckChange">
+											:props="defaultProps"
+											:data="allResourceList"
+											node-key="id"
+											ref="tree"
+											highlight-current
+											:default-expanded-keys="[1]"
+											@node-click="handleNodeClick"
+											show-checkbox>
 											</el-tree>
 										</el-form-item>
 									</el-row>
@@ -475,44 +480,337 @@
 				// jobtype:"",
 				// DRUS:""
 			  },
+			  //表数据
 			  tableData: [
 				{
-					roleid:"2306",
-					rolename:"Normal",
+					roleid:"1",
+					rolename:"normal",
 					roleinfo: "普通用户",
                     create_name:"冯玉冰",
 					create_time: "2008-05-03",
                     alter_name:"马昭",
 					alter_time: "2015-08-29",
+					//资源列表
+					resource:[
+					{
+						id:1,
+						label1: '系统管理',
+						children1: [{
+							id:3,
+							label1: '用户管理',
+							children1: [{
+								id:7,
+								label1: '查询'
+							}]
+						},{
+							id:4,
+							label1: '角色管理',
+							children1: [{
+								id:8,
+								label1: '查询'
+							}]
+						},{
+							id:5,
+							label1: '权限管理',
+							children1: [{
+								id:9,
+								label1: '查询'
+							}]
+						},]
+					},
+					{
+						id:2,
+						label1: '重点单位',
+						children1: [{
+							id:6,
+							label1: '查询',
+						}]
+                    }
+					],
 				},
 			   	{
-					roleid:"2307",
-					rolename:"Admin",
-					roleinfo: "管理员",
+					roleid:"2",
+					rolename:"shandong",
+					roleinfo: "山东省",
                     create_name:"孙宝书",
 					create_time: "2008-05-03",
                     alter_name:"牛大力",
 					alter_time: "2017-02-11",
+					resource:[
+					{
+						id:1,
+						label1: '系统管理',
+						children1: [{
+							id:3,
+							label1: '用户管理',
+							children1: [{
+								id:7,
+								label1: '查询'
+							},
+							{
+								id:8,
+								label1: '新增'
+							},
+							{
+								id:9,
+								label1: '修改'
+							},
+							{
+								id:10,
+								label1: '删除'
+							}]
+						},{
+							id:4,
+							label1: '角色管理',
+							children1: [{
+								id:11,
+								label1: '查询'
+							}]
+						},{
+							id:5,
+							label1: '权限管理',
+							children1: [{
+								id:12,
+								label1: '查询'
+							}]
+						},]
+					},
+					{
+						id:2,
+						label1: '重点单位',
+						children1: [{
+							id:6,
+							label1: '查询',
+						}]
+                    }
+					]
 				},
 				{
-					roleid:"2308",
-					rolename:"Super",
-					roleinfo: "超级管理员",
+					roleid:"3",
+					rolename:"liaoning",
+					roleinfo: "辽宁省",
                     create_name:"张艾希",
 					create_time: "2012-11-24",
                     alter_name:"孙尚",
 					alter_time: "2013-12-07",
+					resource:[
+					{
+						id:1,
+						label1: '系统管理',
+						children1: [{
+							id:3,
+							label1: '用户管理',
+							children1: [{
+								id:7,
+								label1: '查询'
+							},
+							{
+								id:8,
+								label1: '新增'
+							},
+							{
+								id:9,
+								label1: '修改'
+							},
+							{
+								id:10,
+								label1: '删除'
+							}]
+						},{
+							id:4,
+							label1: '角色管理',
+							children1: [{
+								id:11,
+								label1: '查询'
+							},
+							{
+								id:12,
+								label1: '新增'
+							},
+							{
+								id:13,
+								label1: '修改'
+							},
+							{
+								id:14,
+								label1: '删除'
+							}]
+						},{
+							id:5,
+							label1: '权限管理',
+							children1: [{
+								id:15,
+								label1: '查询'
+							}]
+						},]
+					},
+					{
+						id:"2",
+						label1: '重点单位',
+						children1: [{
+							id:"6",
+							label1: '查询',
+						}]
+                    }
+					]
 				},
 				{
-					roleid:"2309",
-                    rolename:"System",
-					roleinfo: "系统管理员",
+					roleid:"4",
+                    rolename:"admin",
+					roleinfo: "管理员",
                     create_name:"刘海柱",
 					create_time: "2013-07-16",
                     alter_name:"张文斌",
 					alter_time: "2016-01-01",
+					resource:[
+					{
+						id: 1,
+						label1: '系统管理',
+						children1: [{
+							id: 3,
+							label1: '用户管理',
+							children1: [{
+								id: 7,
+								label1: '查询'
+							},
+							{
+								id: 8,
+								label1: '新增'
+							},
+							{
+								id: 9,
+								label1: '修改'
+							},
+							{
+								id: 10,
+								label1: '删除'
+							}]
+						},{
+							id: 4,
+							label1: '角色管理',
+							children1: [{
+								id: 11,
+								label1: '查询'
+							},
+							{
+								id: 12,
+								label1: '新增'
+							},
+							{
+								id: 13,
+								label1: '修改'
+							},
+							{
+								id: 14,
+								label1: '删除'
+							}]
+						},{
+							id: 5,
+							label1: '权限管理',
+							children1: [{
+								id: 15,
+								label1: '查询'
+							},
+							{
+								id: 16,
+								label1: '新增'
+							},
+							{
+								id: 17,
+								label1: '修改'
+							},
+							{
+								id: 18,
+								label1: '删除'
+							}]
+						},]
+					},
+					{
+						id: 2,
+						label1: '重点单位',
+						children1: [{
+							id: 6,
+							label1: '查询',
+						}]
+                    }
+					]
 				},
 			 ],
+			 //后台返回全部资源列表
+			 allResourceList:[
+			 {
+				 id: 1,
+				 label1: '系统管理',
+				 children1: [{
+					 id: 3,
+					 label1: '用户管理',
+					 children1: [{
+						 id: 7,
+						 label1: '查询'
+					 },
+					 {
+						 id: 8,
+						 label1: '新增'
+					 },
+					 {
+						 id: 9,
+						 label1: '修改'
+					 },
+					 {
+						 id: 10,
+						 label1: '删除'
+					 }]
+				 },{
+					 id: 4,
+					 label1: '角色管理',
+					 children1: [{
+						 id: 11,
+						 label1: '查询'
+					 },
+					 {
+						 id: 12,
+						 label1: '新增'
+					 },
+					 {
+						 id: 13,
+						 label1: '修改'
+					 },
+					 {
+						 id: 14,
+						 label1: '删除'
+					 }]
+				 },{
+					 id: 5,
+					 label1: '权限管理',
+					 children1: [{
+						 id: 15,
+						 label1: '查询'
+					 },
+					 {
+						 id: 16,
+						 label1: '新增'
+					 },
+					 {
+						 id: 17,
+						 label1: '修改'
+					 },
+					 {
+						 id: 18,
+						 label1: '删除'
+					 }]
+				 },]
+			 },
+			 {
+				 id: 2,
+				 label1: '重点单位',
+				 children1: [{
+					 id: 6,
+					 label1: '查询',
+				 }]
+			 }
+			 ],
+
+			 //删除成功后台返回数据
 			 delStatus:"success",
 			 countryList:['法国','英国','德国'],
 			 cityList:[['巴黎','普罗旺斯',"马赛"],['伦敦','爱丁堡',"北爱尔兰"],['柏林','慕尼黑',"汉堡"]],			   
@@ -555,7 +853,7 @@
 					create_time:"",
 					alter_name:"",
 					alter_time:"",
-					resourcelist:[]
+					resource:[]
 				},
 				//选中的序号
 				selectIndex: -1, 
@@ -574,56 +872,228 @@
 					create_time:"",
 					alter_name:"",
 					alter_time:"",
-					resourcelist:[]
+					resource:[]
 				},
-                treedata: [{
-                    label: '水源',
+				//资源树
+                /*treedata:[[{
+                    label: '用户信息',
                     children: [{
-                        label: '辽河流域',
+                        label: '用户基本信息',
                         children: [{
-                        label: '法库县'
+                        label: '单位信息'
                         },
 						{
-                        label: '康平县'
+                        label: '个人信息'
                         }]
-                    },
-					{
-                        label: '黄河流域',
-                        children: [{
-                        label: '堰塞湖'
-                        },
-						{
-                        label: '曲水河'
-                        }]
-                    },
+                    }
 					]
-                    }, {
-                    label: '灭火物资',
-                    children: [{
-                        label: '灭火器',
-                        children: [{
-                        label: '二氧化碳灭火器'
-                        },
-						{
-                        label: '干粉灭火器'
-                        },
-						{
-                        label: '泡沫灭火器'
-                        }]
-                    }, {
-                        label: '消防用土',
-                        children: [{
-                        label: '沙地采集'
-                        },
-						{
-                        label: '袋装沙土'
-                        },]
-                    }]
                     }],
-                    defaultProps: {
-                    children: 'children',
-                    label: 'label'
+					[{roleid:"2"},{
+						label: '用户信息',
+						children: [{
+							label: '用户基本信息',
+							children: [{
+							label: '单位信息'
+							},
+							{
+							label: '个人信息'
+							}]
+						},
+						{
+							label: '预案信息',
+							children: [{
+							label: '二维预案'
+							},
+							{
+							label: '三维预案'
+							}]
+						},
+						]
+						}], 
+
+					[{roleid:"3"},{
+						label1: '用户信息',
+						children1: [{
+							label1: '用户基本信息',
+							children1: [{
+								label1: '单位信息'
+							},
+							{
+								label1: '个人信息'
+							}]
+						},
+						{
+							label1: '预案信息',
+							children1: [{
+								label1: '二维预案'
+							},
+							{
+								label1: '三维预案'
+							}]
+						},
+						]
+						}, {
+							label1: '消防物资信息',
+						children1: [{
+							label1: '灭火器',
+							children1: [{
+								label1: '二氧化碳灭火器'
+							},
+							{
+								label1: '干粉灭火器'
+							},
+							{
+								label1: '泡沫灭火器'
+							}]
+						}, {
+							label1: '消防用土',
+							children1: [{
+								label1: '沙地采集'
+							},
+							{
+								label1: '袋装沙土'
+							},]
+						}]
+						}], 
+
+						[{roleid:"4"},{
+							label1: '用户信息',
+						children1: [{
+							label1: '用户基本信息',
+							children1: [{
+								label1: '单位信息'
+							},
+							{
+								label1: '个人信息'
+							}]
+						},
+						{
+							label1: '预案信息',
+							children1: [{
+								label1: '二维预案'
+							},
+							{
+								label1: '三维预案'
+							}]
+						},
+						]
+						}, {
+							label1: '消防物资信息',
+						children1: [{
+							label1: '灭火器',
+							children1: [{
+								label1: '二氧化碳灭火器'
+							},
+							{
+								label1: '干粉灭火器'
+							},
+							{
+								label1: '泡沫灭火器'
+							}]
+						}, {
+							label1: '消防用土',
+							children1: [{
+								label1: '沙地采集'
+							},
+							{
+								label1: '袋装沙土'
+							},]
+						}]
+						},
+						{
+							label1: '地理位置信息',
+						children1: [{
+							label1: '重点单位位置',
+							children1: [{
+								label1: '高层建筑'
+							},
+							{
+								label1: '地下建筑'
+							},
+							{
+								label1: '大型综合体'
+							},
+							{
+								label1: '化工园区'
+							}]
+						}]
+						}
+						], 
+					] ,
+
+					//角色资源data
+					roleresourceData: [
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+						{
+							roleid:"1",
+							resourceid:""
+						},
+					],*/
+
+				    //树结构配置
+					defaultProps: {
+                    children: 'children1',
+                    label: 'label1'
                     },
+
+					//角色对应资源
+					resourceList:[],
+
 					//新修改页面的复选树
 					checkprops: {
 					label: 'name',
@@ -673,7 +1143,16 @@
 				}, 500);
 			},
 			//资源详情
-			resourceClick:function(){
+			openResourceList:function(val){
+				/*axios.post('',val).then(function(res){
+					this.resourceData=res.data;
+					console.log(this.resourceData);
+				}.bind(this),function(error){
+					console.log(error)
+				})*/
+
+				//将本行的resource传给dialog资源列表
+				this.resourceList=val;
 				var _self = this;
 				_self.resourceVisible=true;
 			},
@@ -876,7 +1355,8 @@
 			addClick: function() {
 			var _self = this;
 			/*POST请求全部的资源列表项传给add页面数据*/ /*此时尚无roleid*/
-			//this.addForm.resourcelist = res.data.resourcelist;
+			//this.addForm.resourcelist = res.data.allResourceList;
+			//_self.addForm.resourcelist = _self.allResourceList;
 			_self.addFormVisible = true;
 			
 			},
@@ -1008,6 +1488,7 @@
 			//新建提交点击事件
 			addSubmit: function(val) {
 				var _self=this;
+				val.resource = this.$refs.tree.getCheckedNodes();
 				/*POST请求递交addForm数据传入之后再对前台加载*/ /*此时尚无roleid*/
 				this.tableData.unshift({
 					rolename: val.rolename,
@@ -1015,7 +1496,8 @@
                     create_name:val.create_name,
 					create_time:val.create_time,
 					alter_name:val.alter_name,
-					alter_time:val.alter_time
+					alter_time:val.alter_time,
+					resource:val.resource
 				});
 				this.addFormVisible = false;
 				_self.total = _self.tableData.length;
@@ -1026,6 +1508,7 @@
 				val.create_time ="";
 				val.alter_name = "";
 				val.alter_time ="";
+				val.resource=this.allResourceList;
 				console.info(this.addForm);
 				
 			},
