@@ -89,12 +89,12 @@
 				<div class="main-container">
 					<div id="tableView">
 						<el-row> 
-							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
+							<el-form  label-width="70px" :inline="true" class="el-form demo-form-inline">
 								
-								<el-row gutter="40">
-										<el-col :span="8" class="double-search-left">
+								<el-row>
+										<el-col :span="10">
 											<el-form-item label="角色描述">  
-												<el-select size="small" v-model="searchForm.roleinfo" placeholder="角色描述">  
+												<el-select size="small" v-model="searchForm.roleinfo" placeholder="角色描述" style="width: 300px">  
 													<el-option label="普通用户" value="普通用户"></el-option> 
 													<el-option label="管理员" value="管理员"></el-option>  
 													<el-option label="辽宁省" value="辽宁省"></el-option> 
@@ -105,10 +105,10 @@
 										<el-col :span="12">
 											<el-form-item label="创建时间">
                                                 <el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime" placeholder="开始时间" style="width: 170px"></el-date-picker>
+												value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime" placeholder="开始时间" style="width: 196px"></el-date-picker>
                                                 ~
                                                 <el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime" placeholder="结束时间" style="width: 170px"></el-date-picker>
+												value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime" placeholder="结束时间" style="width: 196px"></el-date-picker>
 											</el-form-item>
 										</el-col>
 								</el-row> 
@@ -141,7 +141,7 @@
 									:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 									v-loading.body="loading"  
 									@selection-change="selectionChange"  
-									style="width: 100%;padding: 3px;"
+									style="width: 100%;"
 									:height="tableheight"
 									>
 				
@@ -152,7 +152,7 @@
 								<el-table-column 
 									type="index" 
 									label="序号"
-									width="64"
+									width="65"
 									align="center">
 								</el-table-column>
 								<el-table-column  
@@ -188,13 +188,13 @@
 								<el-table-column  
 									prop="alter_time"  
 									label="修改时间"  
-									min-width="14%"
+									min-width="13%"
 									align="center">  
 								</el-table-column>
 								<el-table-column  
 									prop="role"  
 									label="资源列表"  
-									min-width="12%"
+									min-width="13%"
 									align="center">
 									<template slot-scope="scope">  
 											<el-button type="text" @click="openResourceList(scope.row.resource)">查看详情</el-button>
@@ -816,7 +816,7 @@
 			 cityList:[['巴黎','普罗旺斯',"马赛"],['伦敦','爱丁堡',"北爱尔兰"],['柏林','慕尼黑',"汉堡"]],			   
 			 rowdata:'',
 			   //表高度变量
-			   tableheight :445,
+			   tableheight :440,
 			   //显示加载中样
 			   loading: false,
 			   labelPosition: 'right',

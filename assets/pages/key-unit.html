@@ -90,15 +90,15 @@
 					<div id="tableView">
 						<el-row> 
 							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row gutter="40">
-									<el-col :span="10" class="single-search-left">
+								<el-row>
+									<el-col :span="10">
                                         <el-form-item label="单位名称">  
-                                            <el-input size="small" v-model="searchForm.DWMC" placeholder="单位名称"></el-input>  
+                                            <el-input size="small" v-model="searchForm.DWMC" placeholder="单位名称" style="width: 324px"></el-input>  
                                         </el-form-item>
 									</el-col>
 									<el-col :span="10">
                                         <el-form-item label="单位等级">  
-                                            <el-select size="small" v-model="searchForm.DWDJ" placeholder="单位等级">  
+                                            <el-select size="small" v-model="searchForm.DWDJ" placeholder="单位等级" style="width: 324px">  
                                                 <el-option label="省部级" value="省部级"></el-option>  
                                                 <el-option label="市厅级" value="市厅级"></el-option>
                                                 <el-option label="区局级" value="区局级"></el-option>  
@@ -106,10 +106,10 @@
                                         </el-form-item>
 									</el-col>
                                 </el-row>
-                                <el-row gutter="40">
+                                <el-row>
 									<el-col :span="10" class="single-search-left">
                                         <el-form-item label="单位性质">  
-                                            <el-select size="small" v-model="searchForm.DWXZ" placeholder="单位性质">  
+                                            <el-select size="small" v-model="searchForm.DWXZ" placeholder="单位性质" style="width: 324px">  
                                                 <el-option label="司法" value="司法"></el-option>
                                                 <el-option label="行政" value="行政"></el-option>    
                                                 <el-option label="城市管理" value="城市管理"></el-option>
@@ -119,7 +119,7 @@
 									</el-col>
 									<el-col :span="10">
                                         <el-form-item label="行政区域">  
-                                            <el-select size="small" v-model="searchForm.XZQY" placeholder="行政区域">  
+                                            <el-select size="small" v-model="searchForm.XZQY" placeholder="行政区域" style="width: 324px">  
                                                 <el-option label="辽宁省" value="辽宁省"></el-option>  
                                                 <el-option label="山东省" value="山东省"></el-option>
                                                 <el-option label="河北省" value="河北省"></el-option>  
@@ -156,13 +156,13 @@
 								:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 								v-loading.body="loading"  
 								@selection-change="selectionChange"  
-								style="width: 100%;padding: 3px;"
+								style="width: 100%;"
 								:height="tableheight"
 								>
 			
 							<el-table-column  
 							type="selection"  
-							width="45">  
+							min-width="5%">  
 							</el-table-column>
 							<el-table-column 
 								type="index" 
@@ -173,7 +173,7 @@
 							<el-table-column  
 								prop="DWMC"  
 								label="单位名称"  
-								width="160"
+								min-width="19%"
                                 align="center">
                                 <template slot-scope="scope">  
                                     <el-button @click="informClick(scope.row)" type="text">{{scope.row.DWMC}}</el-button>
@@ -182,37 +182,37 @@
 							<el-table-column  
 								prop="DWDJ"  
 								label="单位等级"  
-								width="93"
+								min-width="12%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="DWXZ"  
 								label="单位性质" 
-								width="93"
+								min-width="12%"
 								align="center">  
 							</el-table-column> 
 							<el-table-column  
 								prop="XZQY"  
 								label="行政区域"  
-								width="93"
+								min-width="12%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="DWDZ"  
 								label="单位地址"  
-								width="140"
+								min-width="14%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="ZDMJ"  
 								label="占地面积"  
-								width="106"
+								min-width="12%"
 								align="center">  
                             </el-table-column>
                             <el-table-column  
 								prop="XFGXJGID"  
 								label="消防管辖机构"  
-								width="180"
+								min-width="22%"
 								align="center">  
 							</el-table-column>
 						</el-table>
@@ -605,7 +605,7 @@
 		 ],
 		   rowdata:'',
 		   //表高度变量
-		   tableheight :446,
+		   tableheight :460,
 		   //显示加载中样
 		   loading: false,
 		   labelPosition: 'right',

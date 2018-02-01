@@ -105,7 +105,7 @@
 										</dl>
 									</div>
 									<div style="float: right">
-										<el-button type="primary" icon="share" style="margin-top:20%;width:120px"  @click="openShare">信息分享</el-button><br>
+										<el-button type="primary" icon="share" style="margin-top:10%;width:120px"  @click="openShare">信息分享</el-button><br>
 										<el-button type="primary" icon="document" style="margin-top:10%;width:120px" @click="openPrinter">信息打印</el-button><br>
 										<el-button type="primary" icon="message" style="margin-top:10%;width:120px" @click="openEmail">发送邮箱</el-button><br>
 									</div>
@@ -116,7 +116,7 @@
 									<el-tab-pane label="基本信息" name="first"></el-tab-pane>
 									<el-tab-pane label="预案信息" name="second">
 										<div class="inform-div" style="display: inline-flex">
-											<div style="width:400px">
+											<div style="width:460px">
 												<div>
 													<dl class="inform-left">
 														<dt class="dtdlStyle">预案名称：</dt><dd class="dtdlStyle">{{rowdata.YAMC}}</dd>
@@ -148,9 +148,13 @@
 													</dl>
 												</div>
 												<div class="inform-margin">
+													<a id="ew" href="" style="display: none" download=""><span id="we"></span></a>
+													<a id="sw" href="" style="display: none" download=""><span id="ws"></span></a>
 													<a id="pf" href="" style="display: none" download=""><span id="fp"></span></a>
 													<dl>
-														<dt class="dtdlStyle">附件下载:</dt><dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/lanyun.png" @click="DownLoadFile()"></dd>
+														<dt class="dtdlStyle">二维预案下载:</dt><dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/erwei.png" @click="DownLoadTwoFile()"></dd>
+														<dt class="dtdlStyle">三维预案下载:</dt><dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/sanwei.png" @click="DownLoadThreeFile()"></dd>
+														<dt class="dtdlStyle">文档预案下载:</dt><dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/wendang.png" @click="DownLoadFile()"></dd>
 													</dl>
 												</div>
 											</div>
@@ -696,8 +700,18 @@
 		handleNodeClick(data) {
 			console.log(data);
 		},
+		DownLoadTwoFile:function(){
+			var fileUrl="../example/二维预案.xlsx";
+			document.getElementById("ew").href=fileUrl;
+			   $("#we").click();//在执行a标签里面span的click
+		},
+		DownLoadThreeFile:function(){
+			var fileUrl="../example/三维预案.xlsx";
+			document.getElementById("sw").href=fileUrl;
+			   $("#ws").click();//在执行a标签里面span的click
+		},
 		DownLoadFile:function(){
-			var fileUrl="../example/预算.xlsx";
+			var fileUrl="../example/文档预案.xlsx";
 			document.getElementById("pf").href=fileUrl;
 			   $("#fp").click();//在执行a标签里面span的click
 		},
