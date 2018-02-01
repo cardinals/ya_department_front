@@ -32,13 +32,23 @@
   height: 100%;
   margin: 0;
   float: left;
-  background-color: #0277bd;
+  background-color: #3e3f43;
+}
+.map-menu .el-form-item__label {
+  color: #FFFFFF !important;
 }
 .map-main {
   width: 960px;
   height: 100%;
   margin: 0;
   float: right;
+}
+.map-china {
+  position: fixed;
+  width: 90px;
+  top: 36px;
+  left: 265px;
+  z-index: 9999;
 }
 .copyright {
   font-size: 12px;
@@ -59,6 +69,10 @@
   text-align: center;
   color: #8A979F;
   font-size: 14px;
+  text-decoration: none;
+}
+.application-back div {
+  margin-top:6px;
 }
 .application-logo {
   top: -22px;

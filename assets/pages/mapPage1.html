@@ -17,7 +17,7 @@
         <div class="application-box tc abs">
             <div class="map-menu p10">
                 <el-form ref="form" :model="form" label-width="80px">
-                    <el-form-item label="水源信息">
+                    <el-form-item id="white" label="水源信息">
                         <el-switch v-model="form.delivery1" @change="getMarker1"></el-switch>
                     </el-form-item>
                     <el-form-item label="消防力量">
@@ -27,6 +27,11 @@
                         <el-switch v-model="form.delivery3" @change="getMarker3"></el-switch>
                     </el-form-item>
                 </el-form>
+            </div>
+            <div class="map-china">
+                <a href="bigMap.html">
+                    <img src="../images/icon-china.png" />
+                </a>
             </div>
             <div id="BMap" class="map-main tc"></div>
         </div>
@@ -108,21 +113,27 @@
                 map.centerAndZoom(this.city);       //设置地图中心点
                 map.enableScrollWheelZoom(true);      //开启鼠标滚轮缩放
                 this.getBoundary(map);      //绘制边框
-                var marker1 = new BMap.Marker(new BMap.Point(116.404, 39.915));      // 创建标注
-                var marker2 = new BMap.Marker(new BMap.Point(106.425, 25.900));      // 创建标注
-                var marker3 = new BMap.Marker(new BMap.Point(118.404, 37.915));      // 创建标注
+                var point1 = new BMap.Point(116.404, 39.915);      //创建坐标点
+                var point2 = new BMap.Point(106.425, 25.900);      //创建坐标点
+                var point3 = new BMap.Point(118.404, 37.915);      //创建坐标点
+                var myIcon1 = new BMap.Icon("../images/消火栓.png", new BMap.Size(30,30));      //创建图标
+                var myIcon2 = new BMap.Icon("../images/消防车.png", new BMap.Size(28,28));      //创建图标
+                var myIcon3 = new BMap.Icon("../images/重点企业.png", new BMap.Size(30,30));      //创建图标
+                var marker1 = new BMap.Marker(point1,{icon:myIcon1});      // 创建标注
+                var marker2 = new BMap.Marker(point2,{icon:myIcon2});      // 创建标注
+                var marker3 = new BMap.Marker(point3,{icon:myIcon3});      // 创建标注
                 map.addOverlay(marker1);      // 将标注添加到地图中
                 map.addOverlay(marker2);      // 将标注添加到地图中
                 map.addOverlay(marker3);      // 将标注添加到地图中
-                this.marker1=marker1;
-                this.marker2=marker2;
-                this.marker3=marker3;
+                this.marker1 = marker1;
+                this.marker2 = marker2;
+                this.marker3 = marker3;
             }
         },
         mounted() {
             this.getCity()
             this.drawMap()
-            document.title = this.city+'预案情况'
+            document.title = this.city + '预案情况'
         }
     })
 </script>
