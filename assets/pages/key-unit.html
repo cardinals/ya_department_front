@@ -44,7 +44,7 @@
 							</li>
 							<li>
 								<a class="f12" href="javascript:;">
-									<span>oscar@outlook.com</span>
+									&nbsp;&nbsp;<span>管理员</span>&nbsp;&nbsp;
 									<span class="glyphicon glyphicon-triangle-top oscar-arrow frame-duration"></span>
 									<div class="dada abs ovh">
 										<div class="dada-item">
@@ -80,7 +80,7 @@
 			<div class="left-sidebar">
 				<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
 				<div id="menu-box">
-					<big-tree default-active="2-1"></big-tree>
+					<big-tree default-active="4"></big-tree>
 				</div>
 			</div>
 			<!-- /left-sidebar -->
@@ -90,15 +90,16 @@
 					<div id="tableView">
 						<el-row> 
 							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row>
+								<el-row type="flex" justify="center">
 									<el-col :span="10">
                                         <el-form-item label="单位名称">  
-                                            <el-input size="small" v-model="searchForm.DWMC" placeholder="单位名称" style="width: 324px"></el-input>  
+                                            <el-input size="small" v-model="searchForm.DWMC" placeholder="单位名称" style="width: 300px"></el-input>  
                                         </el-form-item>
 									</el-col>
+									<el-col :span="2">&nbsp;</el-col>
 									<el-col :span="10">
                                         <el-form-item label="单位等级">  
-                                            <el-select size="small" v-model="searchForm.DWDJ" placeholder="单位等级" style="width: 324px">  
+                                            <el-select size="small" v-model="searchForm.DWDJ" placeholder="单位等级" style="width: 300px">  
                                                 <el-option label="省部级" value="省部级"></el-option>  
                                                 <el-option label="市厅级" value="市厅级"></el-option>
                                                 <el-option label="区局级" value="区局级"></el-option>  
@@ -106,10 +107,10 @@
                                         </el-form-item>
 									</el-col>
                                 </el-row>
-                                <el-row>
+                                <el-row type="flex" justify="center">
 									<el-col :span="10" class="single-search-left">
                                         <el-form-item label="单位性质">  
-                                            <el-select size="small" v-model="searchForm.DWXZ" placeholder="单位性质" style="width: 324px">  
+                                            <el-select size="small" v-model="searchForm.DWXZ" placeholder="单位性质" style="width: 300px">  
                                                 <el-option label="司法" value="司法"></el-option>
                                                 <el-option label="行政" value="行政"></el-option>    
                                                 <el-option label="城市管理" value="城市管理"></el-option>
@@ -117,9 +118,10 @@
                                             </el-select>  
                                         </el-form-item>
 									</el-col>
+									<el-col :span="2">&nbsp;</el-col>
 									<el-col :span="10">
                                         <el-form-item label="行政区域">  
-                                            <el-select size="small" v-model="searchForm.XZQY" placeholder="行政区域" style="width: 324px">  
+                                            <el-select size="small" v-model="searchForm.XZQY" placeholder="行政区域" style="width: 300px">  
                                                 <el-option label="辽宁省" value="辽宁省"></el-option>  
                                                 <el-option label="山东省" value="山东省"></el-option>
                                                 <el-option label="河北省" value="河北省"></el-option>  

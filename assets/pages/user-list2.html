@@ -44,7 +44,7 @@
 							</li>
 							<li>
 								<a class="f12" href="javascript:;">
-									<span>oscar@outlook.com</span>
+									&nbsp;&nbsp;<span>管理员</span>&nbsp;&nbsp;
 									<span class="glyphicon glyphicon-triangle-top oscar-arrow frame-duration"></span>
 									<div class="dada abs ovh">
 										<div class="dada-item">
@@ -91,13 +91,14 @@
 						<el-row> 
 							<el-form  label-width="70px" :inline="true" class="el-form demo-form-inline">
 
-									<el-row>
-										<el-col :span="12">
+									<el-row type="flex" justify="center">
+										<el-col :span="10">
 											<el-form-item label="用户名">  
 												<el-input size="small" v-model="searchForm.username" placeholder="用户名" style="width: 300px;"></el-input>  
 											</el-form-item>
 										</el-col>
-										<el-col :span="12">
+										<el-col :span="2">&nbsp;</el-col>
+										<el-col :span="10">
 											<el-form-item label="真实姓名">
 												<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名" style="width: 300px;"></el-input>
 											</el-form-item>
