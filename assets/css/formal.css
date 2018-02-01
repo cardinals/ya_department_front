@@ -23,7 +23,7 @@ body{height:100%;}
 }
 .table_container{
     border: 1px solid #eee;
-    border-radius:2px;  
+    border-radius:2px;
 }
 .table-title{
     background-color: #eee;
@@ -47,12 +47,12 @@ body{height:100%;}
 .inform-margin{
     margin-top: 15px;
 }
-.single-search-left{
-    margin-left: 150px;
+/*.single-search-left{
+
 }
 .double-search-left{
-    margin-left: 70px;
-}
+  
+}*/
 .nameBox {
 	background-color: #fff;
 	border: 5px solid #ccc;

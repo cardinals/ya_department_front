@@ -92,14 +92,14 @@
 							<el-form  label-width="70px" :inline="true" class="el-form demo-form-inline">
 
 									<el-row>
-										<el-col :span="10" class="single-search-left">
+										<el-col :span="12">
 											<el-form-item label="用户名">  
-												<el-input size="small" v-model="searchForm.username" placeholder="用户名"></el-input>  
+												<el-input size="small" v-model="searchForm.username" placeholder="用户名" style="width: 300px;"></el-input>  
 											</el-form-item>
 										</el-col>
-										<el-col :span="10">
+										<el-col :span="12">
 											<el-form-item label="真实姓名">
-												<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
+												<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名" style="width: 300px;"></el-input>
 											</el-form-item>
 										</el-col>
 										<!--<el-col :span="7">
@@ -166,13 +166,13 @@
 								:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 								v-loading.body="loading"  
 								@selection-change="selectionChange"  
-								style="width: 100%;padding: 3px;"
+								style="width: 100%;"
 								:height="tableheight"
 								>
 			
 							<el-table-column  
 							type="selection"  
-							width="45">  
+							min-width="5%">  
 							</el-table-column>
 							<el-table-column 
 								type="index" 
@@ -183,43 +183,43 @@
 							<el-table-column  
 								prop="username"  
 								label="用户名"  
-								width="100"
+								min-width="10%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="realname"  
 								label="真实姓名"  
-								width="100"
+								min-width="10%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="birth"  
 								label="生日" 
-								width="122"
+								min-width="12%"
 								align="center">  
 							</el-table-column> 
 							<el-table-column  
 								prop="sex"  
 								label="性别"  
-								width="65"
+								min-width="7%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="phone"  
 								label="手机号"  
-								width="165"
+								min-width="17%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="email"  
 								label="邮箱"  
-								width="193"
+								min-width="19%"
 								align="center">  
 							</el-table-column>
 							<el-table-column  
 								prop="role"  
 								label="角色"  
-								width="120"
+								min-width="12%"
 								align="center">
 								<template slot-scope="scope">
 									<el-popover
@@ -918,7 +918,7 @@
 			 roleList:[],
 			   rowdata:'',
 			   //表高度变量
-			   tableheight :445,
+			   tableheight :465,
 			   //显示加载中样
 			   loading: false,
 			   labelPosition: 'right',

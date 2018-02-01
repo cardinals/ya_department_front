@@ -89,11 +89,11 @@
 				<div class="main-container">
 					<div id="tableView">
 						<el-row> 
-							<el-form  label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row gutter="40">
-									<el-col :span="8" class="double-search-left">
+							<el-form  label-width="70px" :inline="true" class="el-form demo-form-inline">
+								<el-row>
+									<el-col :span="10">
 										<el-form-item label="权限描述">  
-											<el-select size="small" v-model="searchForm.permissioninfo" placeholder="权限描述">  
+											<el-select size="small" v-model="searchForm.permissioninfo" placeholder="权限描述" style="width: 300px">  
 												<el-option label="新增" value="新增"></el-option>  
 												<el-option label="删除" value="删除"></el-option>  
 											</el-select>  
@@ -102,10 +102,10 @@
 									<el-col :span="12">
 										<el-form-item label="创建时间"> 
 											<el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
-											value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime" placeholder="开始时间" style="width: 170px"></el-date-picker>
+											value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime" placeholder="开始时间" style="width: 196px"></el-date-picker>
 											~
 											<el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd"
-											value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime" placeholder="结束时间" style="width: 170px"></el-date-picker>
+											value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime" placeholder="结束时间" style="width:196px"></el-date-picker>
 										</el-form-item>
 									</el-col>
 								</el-row> 
@@ -138,13 +138,13 @@
 									:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 									v-loading.body="loading"  
 									@selection-change="selectionChange"  
-									style="width: 100%;padding: 3px;"
+									style="width: 100%;"
 									:height="tableheight"
 									>
 				
 								<el-table-column  
 								type="selection"  
-								width="45">  
+								min-width="5%">  
 								</el-table-column>
 								<el-table-column 
 									type="index" 
@@ -155,37 +155,37 @@
 								<el-table-column  
 									prop="permissionname"  
 									label="权限名称"  
-									width="100"
+									min-width="10%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="permissioninfo"  
 									label="权限描述"  
-									width="265"
+									min-width="8%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="create_name"  
 									label="创建人" 
-									width="93"
+									min-width="10%"
 									align="center">  
 								</el-table-column> 
 								<el-table-column  
 									prop="create_time"  
 									label="创建时间"  
-									width="132"
+									min-width="14%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="alter_name"  
 									label="修改人"  
-									width="140"
+									min-width="10%"
 									align="center">  
 								</el-table-column>  
 								<el-table-column  
 									prop="alter_time"  
 									label="修改时间"  
-									width="132"
+									min-width="13%"
 									align="center">  
 								</el-table-column>
 								<!-- <el-table-column  
@@ -487,7 +487,7 @@
 		 ],
 		   rowdata:'',
 		   //表高度变量
-		   tableheight :445,
+		   tableheight :440,
 		   //显示加载中样
 		   loading: false,
 		   labelPosition: 'right',
