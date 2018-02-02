@@ -291,15 +291,18 @@
                                     </el-col>
                                 </el-row> 
 								<el-row>
-										<el-form-item label="资源列表"> 
-											<el-tree
-											:props="checkprops"
-											:load="loadNode"
-											lazy
-											show-checkbox
-											@check-change="handleCheckChange">
-											</el-tree>
-										</el-form-item>
+									<el-form-item label="资源列表"> 
+										<el-tree
+										:props="defaultProps"
+										:data="allResourceList"
+										node-key="id"
+										ref="tree"
+										highlight-current
+										:default-expanded-keys="[1]"
+										@node-click="handleNodeClick"
+										show-checkbox>
+										</el-tree>
+									</el-form-item>
 								</el-row>
 							</el-form>  
 					<div slot="footer" class="dialog-footer">  
@@ -401,7 +404,7 @@
 
 			data: function () {
 				return {
-					open: false,
+					open: true,
 					paddingLeft: this.level * 20,
 					selected: false,
 					
