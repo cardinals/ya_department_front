@@ -19,7 +19,7 @@ body{height:100%;}
 }
 .main-box {
     height:100%;
-    margin:50px auto;
+    margin-top:50px;
 }
 .table_container{
     border: 1px solid #eee;
