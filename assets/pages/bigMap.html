@@ -8,46 +8,57 @@
 	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
 	<link rel="stylesheet" type="text/css" href="../css/app.css">
 	<link rel="stylesheet" type="text/css" href="../css/sync.css">
+	<link rel="stylesheet" type="text/css" href="../css/tagscloud2.css">
 </head>
 
 <body class="fw map-bg">
 	<div id="app">
 		<div class="application-box tc abs">
 			<div class="application-logo logo"></div>
-			<a class="application-icon-l db l" href="javascript:;">
+			<div class="application-icon-l db l">
 				<div id="map" style="height:100%;width:100%;"></div>
-			</a>
+			</div>
 			<!-- /application-icon-l -->
-			<a class="application-icon-r db r" href="javascript:;">
-				<div style="height:100%;width:100%;">
-					<div class="application-div h15 p5">
-						<div class="application-text p38 icon1 flex map-bg2">
-							<div>
-								<div class="application-name">数字化预案总数（个）</div>
-								<div class="application-num">{{yags}}</div>
-							</div>
-						</div>
-					</div>
-					<div class="application-div h15 p5">
-						<div class="application-text p38 icon2 flex map-bg2">
-							<div>
-								<div class="application-name">重点单位总数（家）</div>
-								<div class="application-num">{{zddw}}</div>
-							</div>
-						</div>
-					</div>
-					<div class="application-div h35 p5">
-						<div class="application-text flex map-bg2">
-							<div id="bar" class="application-text"></div>
-						</div>
-					</div>
-					<div class="application-div h35 p5">
-						<div class="application-text flex map-bg2">
-							<div id="pie" class="application-text"></div>
+			<div class="application-icon-r db r">
+				<div class="application-div h15 p5">
+					<div class="application-text p38 icon1 flex map-bg2">
+						<div>
+							<div class="application-name">数字化预案总数（个）</div>
+							<div class="application-num">{{yags}}</div>
 						</div>
 					</div>
 				</div>
-			</a>
+				<div class="application-div h15 p5">
+					<div class="application-text p38 icon2 flex map-bg2">
+						<div>
+							<div class="application-name">重点单位总数（家）</div>
+							<div class="application-num">{{zddw}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="application-div h35 p5">
+					<div class="application-text flex map-bg2">
+						<!-- <div id="bar" class="application-text"></div> -->
+						<div id="pie" class="application-text"></div>
+					</div>
+				</div>
+				<div class="application-div h35 p5">
+					<div class="application-text flex map-bg2">
+						<div id="tagscloud" class="application-text">
+							<a class="tagc1">辽宁省人民法院</a>
+							<a class="tagc2">辽宁省政府</a>
+							<a class="tagc3">辽宁省就业局</a>
+							<a class="tagc2">沈阳市城市规划管理局</a>
+							<a class="tagc2">沈阳市公安局</a>
+							<a class="tagc1">沈阳市地铁二号线</a>
+							<a class="tagc2">青岛市塑性加工园</a>
+							<a class="tagc3">泰安市城建局</a>
+							<a class="tagc2">河北省国土资源厅</a>
+							<a class="tagc2">秦皇岛市林业局</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<!-- /application-icon-r -->
 		</div>
 		<!-- /application-box -->
@@ -56,6 +67,7 @@
 <script src="../lib/echarts-2/echarts-all.js"></script>
 <script src="../lib/echarts-4/echarts.js"></script>
 <script type="text/javascript" src="../lib/vue.js"></script>
+<script type="text/javascript" src="../lib/tagscloud.js"></script>
 <script>
 	var vm = new Vue({
 		el: "#app",
@@ -360,87 +372,87 @@
 				});
 			},
 			echarts4: function () {
-				var myBarChart = echarts.init(document.getElementById('bar'));
+				// var myBarChart = echarts.init(document.getElementById('bar'));
 				var myPieChart = echarts.init(document.getElementById('pie'));
-				BarOption = {
-					tooltip: {
-						trigger: 'axis',
-						axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-						}
-					},
-					color: ['red', 'orange', 'yellow', 'lightgreen'],
-					legend: {
-						x: 'center',
-						y: '5%',
-						itemWidth: 18,
-						data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
-						textStyle: {
-							color: 'white'
-						},
-					},
-					grid: {
-						left: '5%',
-						right: '5%',
-						top: '25%',
-						bottom: '10%',
-						containLabel: true
-					},
-					xAxis: [
-						{
-							type: 'category',
-							data: ['二维预案', '三维预案'],
-							axisLine: {
-								lineStyle: {
-									color: 'white'
-								}
-							}
-						}
-					],
-					yAxis: [
-						{
-							type: 'value',
-							axisLine: {
-								lineStyle: {
-									color: 'white'
-								}
-							},
-							splitLine: {
-								show: false
-							},
-						}
-					],
-					series: [
-						{
-							name: '高层建筑',
-							type: 'bar',
-							barWidth: '40%',
-							stack: '预案',
-							data: [1335, 335]
-						},
-						{
-							name: '地下建筑',
-							type: 'bar',
-							barWidth: '40%',
-							stack: '预案',
-							data: [1310, 679]
-						},
-						{
-							name: '大型综合体',
-							type: 'bar',
-							barWidth: '40%',
-							stack: '预案',
-							data: [1234, 548]
-						},
-						{
-							name: '化工园区',
-							type: 'bar',
-							barWidth: '40%',
-							stack: '预案',
-							data: [1135, 135]
-						}
-					]
-				};
+				// BarOption = {
+				// 	tooltip: {
+				// 		trigger: 'axis',
+				// 		axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+				// 			type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				// 		}
+				// 	},
+				// 	color: ['red', 'orange', 'yellow', 'lightgreen'],
+				// 	legend: {
+				// 		x: 'center',
+				// 		y: '5%',
+				// 		itemWidth: 18,
+				// 		data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
+				// 		textStyle: {
+				// 			color: 'white'
+				// 		},
+				// 	},
+				// 	grid: {
+				// 		left: '5%',
+				// 		right: '5%',
+				// 		top: '25%',
+				// 		bottom: '10%',
+				// 		containLabel: true
+				// 	},
+				// 	xAxis: [
+				// 		{
+				// 			type: 'category',
+				// 			data: ['二维预案', '三维预案'],
+				// 			axisLine: {
+				// 				lineStyle: {
+				// 					color: 'white'
+				// 				}
+				// 			}
+				// 		}
+				// 	],
+				// 	yAxis: [
+				// 		{
+				// 			type: 'value',
+				// 			axisLine: {
+				// 				lineStyle: {
+				// 					color: 'white'
+				// 				}
+				// 			},
+				// 			splitLine: {
+				// 				show: false
+				// 			},
+				// 		}
+				// 	],
+				// 	series: [
+				// 		{
+				// 			name: '高层建筑',
+				// 			type: 'bar',
+				// 			barWidth: '40%',
+				// 			stack: '预案',
+				// 			data: [1335, 335]
+				// 		},
+				// 		{
+				// 			name: '地下建筑',
+				// 			type: 'bar',
+				// 			barWidth: '40%',
+				// 			stack: '预案',
+				// 			data: [1310, 679]
+				// 		},
+				// 		{
+				// 			name: '大型综合体',
+				// 			type: 'bar',
+				// 			barWidth: '40%',
+				// 			stack: '预案',
+				// 			data: [1234, 548]
+				// 		},
+				// 		{
+				// 			name: '化工园区',
+				// 			type: 'bar',
+				// 			barWidth: '40%',
+				// 			stack: '预案',
+				// 			data: [1135, 135]
+				// 		}
+				// 	]
+				// };
 				PieOption = {
 					tooltip: {
 						trigger: 'item',
@@ -496,7 +508,7 @@
 						}
 					]
 				};
-				myBarChart.setOption(BarOption);
+				// myBarChart.setOption(BarOption);
 				myPieChart.setOption(PieOption);
 			},
 			loadChart: function () {
