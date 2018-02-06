@@ -35,7 +35,7 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" style="width:44px;" href="/assets/pages/test02.html">
+								<a class="fix" id="zhanshi" href="/assets/pages/test02.html">
 									<img src="../images/shishizhanshi.png">
 								</a>
 							</li>
@@ -93,13 +93,13 @@
 								<el-row type="flex" justify="center">
 									<el-col :span="10">
                                         <el-form-item label="单位名称">  
-                                            <el-input size="small" v-model="searchForm.DWMC" placeholder="单位名称" style="width: 300px"></el-input>  
+                                            <el-input size="small" v-model="searchForm.DWMC" placeholder="单位名称" class="inputWidth"></el-input>  
                                         </el-form-item>
 									</el-col>
 									<el-col :span="2">&nbsp;</el-col>
 									<el-col :span="10">
                                         <el-form-item label="单位等级">  
-                                            <el-select size="small" v-model="searchForm.DWDJ" placeholder="单位等级" style="width: 300px">  
+                                            <el-select size="small" v-model="searchForm.DWDJ" placeholder="单位等级" class="inputWidth">  
                                                 <el-option label="省部级" value="省部级"></el-option>  
                                                 <el-option label="市厅级" value="市厅级"></el-option>
                                                 <el-option label="区局级" value="区局级"></el-option>  
@@ -110,7 +110,7 @@
                                 <el-row type="flex" justify="center">
 									<el-col :span="10" class="single-search-left">
                                         <el-form-item label="单位性质">  
-                                            <el-select size="small" v-model="searchForm.DWXZ" placeholder="单位性质" style="width: 300px">  
+                                            <el-select size="small" v-model="searchForm.DWXZ" placeholder="单位性质" class="inputWidth">  
                                                 <el-option label="司法" value="司法"></el-option>
                                                 <el-option label="行政" value="行政"></el-option>    
                                                 <el-option label="城市管理" value="城市管理"></el-option>
@@ -121,7 +121,7 @@
 									<el-col :span="2">&nbsp;</el-col>
 									<el-col :span="10">
                                         <el-form-item label="行政区域">  
-                                            <el-select size="small" v-model="searchForm.XZQY" placeholder="行政区域" style="width: 300px">  
+                                            <el-select size="small" v-model="searchForm.XZQY" placeholder="行政区域" class="inputWidth">  
                                                 <el-option label="辽宁省" value="辽宁省"></el-option>  
                                                 <el-option label="山东省" value="山东省"></el-option>
                                                 <el-option label="河北省" value="河北省"></el-option>  
@@ -131,14 +131,14 @@
 								</el-row>  
 								<div>
 									<el-form>
-										<el-col :span="12" style="text-align: left">
+										<el-col :span="12" class="btnEditDelete">
 											<el-form-item align="left">  
 												<!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->  
 												<!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
 											</el-form-item>
 										</el-col>
 										<el-col :span="12"></el-col>
-										<el-col :span="12" style="text-align: right">
+										<el-col :span="12" class="btnSearchPlus">
 											<el-form-item>  
 												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>  
 												<!-- <el-button type="success" icon="plus" size="small" @click="addClick">新增</el-button>   -->
@@ -158,7 +158,7 @@
 								:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 								v-loading.body="loading"  
 								@selection-change="selectionChange"  
-								style="width: 100%;"
+								class="tableStyle"
 								:height="tableheight"
 								>
 			
@@ -184,37 +184,37 @@
 							<el-table-column  
 								prop="DWDJ"  
 								label="单位等级"  
-								min-width="12%"
+								min-width="11%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="DWXZ"  
 								label="单位性质" 
-								min-width="12%"
+								min-width="11%"
 								align="center">  
 							</el-table-column> 
 							<el-table-column  
 								prop="XZQY"  
 								label="行政区域"  
-								min-width="12%"
+								min-width="11%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="DWDZ"  
 								label="单位地址"  
-								min-width="14%"
+								min-width="13%"
 								align="center">  
 							</el-table-column>  
 							<el-table-column  
 								prop="ZDMJ"  
 								label="占地面积"  
-								min-width="12%"
+								min-width="11%"
 								align="center">  
                             </el-table-column>
                             <el-table-column  
 								prop="XFGXJGID"  
 								label="消防管辖机构"  
-								min-width="22%"
+								min-width="21%"
 								align="center">  
 							</el-table-column>
 						</el-table>
@@ -228,7 +228,6 @@
 						<el-row type="flex" justify="end">   
 								<el-col :span="18" >  
 									<el-pagination  
-											style="float: right"  
 											@size-change="pageSizeChange"  
 											@current-change="currentPageChange"  
 											:current-page="currentPage"  
@@ -246,41 +245,13 @@
 									<el-row>
 										<el-col :span="8">            
 											<el-form-item label="权限名称" prop="permissionname">  
-											<el-input v-model="addForm.permissionname" auto-complete="off" placeholder="权限名称" style="width:180px"></el-input>  
+											<el-input v-model="addForm.permissionname" auto-complete="off" placeholder="权限名称" class="addEditFormInput"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
 										<el-col :span="8">            
 											<el-form-item label="权限描述" prop="permissioninfo">  
-											<el-input v-model="addForm.permissioninfo" auto-complete="off" placeholder="权限描述" style="width:180px"></el-input>  
-											</el-form-item>
-										</el-col>
-									</el-row> 
-									<el-row>
-										<el-col :span="8">
-                                            <el-form-item label="创建人" prop="create_name">  
-                                                <el-input v-model="addForm.create_name" auto-complete="off" placeholder="创建人" style="width:180px"></el-input>  
-                                            </el-form-item>
-										</el-col>
-										<el-col :span="4">&nbsp;</el-col>
-										<el-col :span="8">
-											<el-form-item label="创建时间">  
-												<el-date-picker type="date" placeholder="选择日期" @change="createdateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" v-model="addForm.create_time" style="width:180px"></el-date-picker>  
-                                            </el-form-item>
-										</el-col>
-									</el-row>
-									<el-row>
-										<el-col :span="8">            
-											<el-form-item label="修改人" prop="alter_name">  
-											<el-input v-model="addForm.alter_name" auto-complete="off" placeholder="修改人" style="width:180px"></el-input>  
-											</el-form-item>
-										</el-col>
-										<el-col :span="4">&nbsp;</el-col>
-										<el-col :span="8">            
-											<el-form-item label="修改时间" prop="alter_time">  
-                                                <el-date-picker type="date" placeholder="选择日期" @change="alterdateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" v-model="addForm.alter_time" style="width:180px"></el-date-picker>
+											<el-input v-model="addForm.permissioninfo" auto-complete="off" placeholder="权限描述" class="addEditFormInput"></el-input>  
 											</el-form-item>
 										</el-col>
 									</el-row>   
@@ -297,41 +268,13 @@
 								<el-row>
                                     <el-col :span="8">            
                                         <el-form-item label="权限名称" prop="permissionname">  
-                                        <el-input v-model="editForm.permissionname" auto-complete="off" placeholder="权限名称" style="width:180px"></el-input>  
+                                        <el-input v-model="editForm.permissionname" auto-complete="off" placeholder="权限名称" class="addEditFormInput"></el-input>  
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="4">&nbsp;</el-col>
                                     <el-col :span="8">            
                                         <el-form-item label="权限描述" prop="permissioninfo">  
-                                        <el-input v-model="editForm.permissioninfo" auto-complete="off" placeholder="权限描述" style="width:180px"></el-input>  
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row> 
-                                <el-row>
-                                    <el-col :span="8">
-                                        <el-form-item label="创建人" prop="create_name">  
-                                            <el-input v-model="editForm.create_name" auto-complete="off" placeholder="创建人" style="width:180px"></el-input>  
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="4">&nbsp;</el-col>
-                                    <el-col :span="8">
-                                        <el-form-item label="创建时间">  
-                                            <el-date-picker type="date" placeholder="选择日期" @change="createdateChange" format="yyyy-MM-dd"
-                                            value-format="yyyy-MM-dd" v-model="editForm.create_time" style="width:180px"></el-date-picker>  
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <el-row>
-                                    <el-col :span="8">            
-                                        <el-form-item label="修改人" prop="alter_name">  
-                                        <el-input v-model="editForm.alter_name" auto-complete="off" placeholder="修改人" style="width:180px"></el-input>  
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :span="4">&nbsp;</el-col>
-                                    <el-col :span="8">            
-                                        <el-form-item label="修改时间" prop="alter_time">  
-                                            <el-date-picker type="date" placeholder="选择日期" @change="alterdateChange" format="yyyy-MM-dd"
-                                            value-format="yyyy-MM-dd" v-model="editForm.alter_time" style="width:180px"></el-date-picker>
+                                        <el-input v-model="editForm.permissioninfo" auto-complete="off" placeholder="权限描述" class="addEditFormInput"></el-input>  
                                         </el-form-item>
                                     </el-col>
                                 </el-row>  
@@ -607,7 +550,7 @@
 		 ],
 		   rowdata:'',
 		   //表高度变量
-		   tableheight :460,
+		   tableheight :450,
 		   //显示加载中样
 		   loading: false,
 		   labelPosition: 'right',

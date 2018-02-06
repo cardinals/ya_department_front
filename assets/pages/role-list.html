@@ -35,7 +35,7 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" style="width:44px;" href="/assets/pages/test02.html">
+								<a class="fix" id="zhanshi" href="/assets/pages/test02.html">
 									<img src="../images/shishizhanshi.png">
 								</a>
 							</li>
@@ -94,7 +94,7 @@
 								<el-row type="flex" justify="center">
 										<el-col :span="10">
 											<el-form-item label="角色描述">  
-												<el-select size="small" v-model="searchForm.roleinfo" placeholder="角色描述" style="width: 300px">  
+												<el-select size="small" v-model="searchForm.roleinfo" placeholder="角色描述" class="inputWidth">  
 													<el-option label="普通用户" value="普通用户"></el-option> 
 													<el-option label="管理员" value="管理员"></el-option>  
 													<el-option label="辽宁省" value="辽宁省"></el-option> 
@@ -106,23 +106,23 @@
 										<el-col :span="12">
 											<el-form-item label="创建时间">
                                                 <el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime" placeholder="开始时间" style="width: 196px"></el-date-picker>
+												value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime" placeholder="开始时间" class="dateInputWidth"></el-date-picker>
                                                 ~
                                                 <el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd"
-												value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime" placeholder="结束时间" style="width: 196px"></el-date-picker>
+												value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime" placeholder="结束时间" class="dateInputWidth"></el-date-picker>
 											</el-form-item>
 										</el-col>
 								</el-row> 
 								<div>
 									<el-form>
-										<el-col :span="12" style="text-align: left">
+										<el-col :span="12" class="btnEditDelete">
 											<el-form-item align="left">  
 												<el-button type="primary" icon="edit" size="small" @click="editClick">修改</el-button>  
 												<el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="12"></el-col>
-										<el-col :span="12" style="text-align: right">
+										<el-col :span="12" class="btnSearchPlus">
 											<el-form-item>  
 												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>  
 												<el-button type="success" icon="plus" size="small" @click="addClick">新增</el-button>  
@@ -142,7 +142,7 @@
 									:data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 									v-loading.body="loading"  
 									@selection-change="selectionChange"  
-									style="width: 100%;"
+									class="tableStyle"
 									:height="tableheight"
 									>
 				
@@ -220,8 +220,7 @@
 						<!--列表底部工具条和分页符-->  
 						<el-row type="flex" justify="end">   
 								<el-col :span="18" >  
-									<el-pagination  
-											style="float: right"  
+									<el-pagination   
 											@size-change="pageSizeChange"  
 											@current-change="currentPageChange"  
 											:current-page="currentPage"  
@@ -243,13 +242,13 @@
 									<el-row>
 										<el-col :span="8">            
 											<el-form-item label="角色名称" prop="rolename">  
-											<el-input v-model="addForm.rolename" auto-complete="off" placeholder="角色名称" style="width:180px"></el-input>  
+											<el-input v-model="addForm.rolename" auto-complete="off" placeholder="角色名称" class="addEditFormInput"></el-input>  
 											</el-form-item>
 										</el-col>
 										<el-col :span="4">&nbsp;</el-col>
 										<el-col :span="8">            
 											<el-form-item label="角色描述" prop="roleinfo">  
-											<el-input v-model="addForm.roleinfo" auto-complete="off" placeholder="角色描述" style="width:180px"></el-input>  
+											<el-input v-model="addForm.roleinfo" auto-complete="off" placeholder="角色描述" class="addEditFormInput"></el-input>  
 											</el-form-item>
 										</el-col>
 									</el-row> 
@@ -280,13 +279,13 @@
 								<el-row>
                                     <el-col :span="8">            
                                         <el-form-item label="角色名称" prop="rolename">  
-                                        <el-input v-model="editForm.rolename" auto-complete="off" placeholder="角色名称" style="width:180px"></el-input>  
+                                        <el-input v-model="editForm.rolename" auto-complete="off" placeholder="角色名称" class="addEditFormInput"></el-input>  
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="4">&nbsp;</el-col>
                                     <el-col :span="8">            
                                         <el-form-item label="角色描述" prop="roleinfo">  
-                                        <el-input v-model="editForm.roleinfo" auto-complete="off" placeholder="角色描述" style="width:180px"></el-input>  
+                                        <el-input v-model="editForm.roleinfo" auto-complete="off" placeholder="角色描述" class="addEditFormInput"></el-input>  
                                         </el-form-item>
                                     </el-col>
                                 </el-row> 
@@ -831,7 +830,7 @@
 				//分页大小
 				pageSize: 10,
 				//总记录数
-				total:10, 
+				total:4, 
 				//行数据保存
 				rowdata:{
 

@@ -35,7 +35,7 @@
 					<nav class="navbar-collapse collapse" id="bs-nav">
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a class="fix" style="width:44px;" href="/assets/pages/test02.html">
+								<a class="fix" id="zhanshi" href="/assets/pages/test02.html">
 									<img src="../images/shishizhanshi.png">
 								</a>
 							</li>
@@ -89,22 +89,22 @@
 				<div class="main-container">
 					<div id="tableView">
 						<div class="nameBox">
-							<div style="float: left">
+							<div id="basic-Inform-Picture">
 								<img src="../images/danwei2.jpg">
 							</div>
-							<div class="dib" style="margin-left: 20px;">
+							<div class="dib" id="basic-Inform-Title">
 								<div>
 									<h3 class="dib inform-h3">{{rowdata.DWMC}}</h3>
 									<span class="companyStatus dib" title="建筑类型">{{rowdata.JZLX}}</span>
 								</div>
 								<dl>
-									<img src="../images/owner.png"><dt class="dib" style="margin-left: 5px">法定代表人：</dt><dd class="dtdlStyle">{{rowdata.FRDB}}</dd><br>										
-									<img src="../images/safe.png"><dt class="dib" style="margin-left: 5px">安全责任人：</dt><dd class="dtdlStyle">{{rowdata.AQZRR}}</dd><br>
-									<img src="../images/date.png"><dt class="dib" style="margin-left: 5px">成立日期：</dt><dd class="dtdlStyle">{{rowdata.DWCLSJ}}</dd><br>
-									<img src="../images/location.png"><dt class="dib" style="margin-left: 5px">单位地址：</dt><dd class="dtdlStyle">{{rowdata.DWDZ}}</dd>
+									<img src="../images/owner.png"><dt class="dib inform-small-title" >法定代表人：</dt><dd class="dtdlStyle">{{rowdata.FRDB}}</dd><br>										
+									<img src="../images/safe.png"><dt class="dib inform-small-title">安全责任人：</dt><dd class="dtdlStyle">{{rowdata.AQZRR}}</dd><br>
+									<img src="../images/date.png"><dt class="dib inform-small-title">成立日期：</dt><dd class="dtdlStyle">{{rowdata.DWCLSJ}}</dd><br>
+									<img src="../images/location.png"><dt class="dib inform-small-title">单位地址：</dt><dd class="dtdlStyle">{{rowdata.DWDZ}}</dd>
 								</dl>
 							</div>
-							<div style="float: right">
+							<div class="btnGroup">
 								<el-button type="primary" icon="share" style="width:120px"  @click="openShare">信息分享</el-button><br>
 								<el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openPrinter">信息打印</el-button><br>
 								<el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">发送邮箱</el-button><br>
@@ -114,8 +114,8 @@
 							<template>
 								<el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
 									<el-tab-pane label="基本信息" name="first">
-									<div class="inform-div" style="display: inline-flex">
-											<div style="width:460px">
+									<div class="inform-div">
+											<div class="left-inform">
 												<div>
 													<dl class="inform-left">
 														<dt class="dtdlStyle">单位等级：</dt><dd class="dtdlStyle">{{rowdata.DWDJ}}</dd>
@@ -147,7 +147,7 @@
 													</dl>
 												</div>
 											</div>
-											<div style="width: 400px">
+											<div class="right-inform">
 												<div> 
 													<dl class="inform-left"> 
 														<dt class="dtdlStyle">单位性质：</dt><dd class="dtdlStyle">{{rowdata.DWXZ}}</dd>
@@ -182,8 +182,8 @@
 										</div>
 									</el-tab-pane>
 									<el-tab-pane label="预案信息" name="second">
-										<div class="inform-div" style="display: inline-flex">
-											<div style="width:460px">
+										<div class="inform-div">
+											<div class="left-inform">
 												<div>
 													<dl class="inform-left">
 														<dt class="dtdlStyle">预案名称：</dt><dd class="dtdlStyle">{{yudata.YAMC}}</dd>
@@ -210,7 +210,7 @@
 													</dl>
 												</div>
 											</div>
-											<div style="width:400px">
+											<div class="right-inform">
 												<div>
 													<dl class="inform-left">
 														<dt class="dtdlStyle">制作日期：</dt><dd class="dtdlStyle">{{yudata.ZZRQ}}</dd>
@@ -239,14 +239,14 @@
 											</div>
 										</div>
 										<div class="inform-margin">
-											<a id="ew" href="" style="display: none" download=""><span id="we"></span></a>
-											<a id="sw" href="" style="display: none" download=""><span id="ws"></span></a>
-											<a id="pf" href="" style="display: none" download=""><span id="fp"></span></a>
+											<a id="ew" href="" class="inform-download-display" download=""><span id="we"></span></a>
+											<a id="sw" href="" class="inform-download-display" download=""><span id="ws"></span></a>
+											<a id="pf" href="" class="inform-download-display" download=""><span id="fp"></span></a>
 											<dl>
 												<dt class="dtdlStyle">附件下载:</dt>
-												<dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/erwei.png" @click="DownLoadTwoFile()"></dd><dt class="dtdlStyle" style="cursor:pointer;margin-left:0px !important;" @click="DownLoadTwoFile()">二维预案</dt>
-												<dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/sanwei.png" @click="DownLoadThreeFile()"></dd><dt class="dtdlStyle"style="cursor:pointer;margin-left:0px !important;" @click="DownLoadThreeFile()">三维预案</dt>
-												<dd class="dtdlStyle"><img style="cursor:pointer" src="../images/icon-download/wendang.png" @click="DownLoadFile()"></dd><dt class="dtdlStyle"style="cursor:pointer;margin-left:0px !important;" @click="DownLoadFile()">文档预案</dt>
+												<dd class="dtdlStyle"><img class="inform-download-cursor" src="../images/icon-download/erwei.png" @click="DownLoadTwoFile()"></dd><dt class="dtdlStyle inform-download-cursor" @click="DownLoadTwoFile()">二维预案</dt>
+												<dd class="dtdlStyle"><img class="inform-download-cursor" src="../images/icon-download/sanwei.png" @click="DownLoadThreeFile()"></dd><dt class="dtdlStyle inform-download-cursor" @click="DownLoadThreeFile()">三维预案</dt>
+												<dd class="dtdlStyle"><img class="inform-download-cursor" src="../images/icon-download/wendang.png" @click="DownLoadFile()"></dd><dt class="dtdlStyle inform-download-cursor" @click="DownLoadFile()">文档预案</dt>
 											</dl>
 										</div>
 									</el-tab-pane>
