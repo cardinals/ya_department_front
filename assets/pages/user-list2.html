@@ -432,8 +432,11 @@
 </body>
 <script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
+	<script src="../lib/axios.min.js"></script>
 	<script src="../lib/elementUI.js" charset="utf-8"></script>
-	<script>		
+	<script>
+		//axios默认设置cookie
+		axios.defaults.withCredentials = true;		
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
 		});
@@ -456,7 +459,7 @@
 				'menuName': '系统管理',
 				'children': [
 					{ 'index': '3-1', 'menuName': '用户管理', 'url': '/assets/pages/user-list2.html' },
-					{ 'index': '3-2', 'menuName': '角色管理', 'url': '/assets/pages/role-list.html' },
+					{ 'index': '3-2', 'menuName': '角色管理', 'url': '/assets/pages/role_list.html' },
 					{ 'index': '3-3', 'menuName': '权限管理', 'url': '/assets/pages/permission.html' }
 				]
 			},
@@ -509,6 +512,9 @@
 						return "javascript:;";
 					}
 					return this.model.url;
+				},
+				author(){
+					return this.$store.state.author
 				}
 			},
 
@@ -930,7 +936,7 @@
 				//分页大小
 				pageSize: 10,
 				//总记录数
-				total:10, 
+				total:0, 
 				//行数据保存
 				rowdata:{
 
@@ -1029,11 +1035,22 @@
 					email:"",
 					rolelist:[]
 				},
-			   
+				tabledata:[]
 			   }
 			},
 			mounted:function(){
-
+				
+				axios.get('http://localhost/getMenu')				
+				.then(function(res){
+				console.log(res.data);
+				console.log(240);
+				
+            }.bind(this),function(error){
+                console.log(error)
+			})
+			this.total = this.tableData.length;
+			
+		
 			},
 			methods:{
 
