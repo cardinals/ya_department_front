@@ -320,9 +320,12 @@
 </body>
 <script src="../lib/jquery-3.2.1.min.js"></script>
 	<script src="../lib/vue.min.js"></script>
+	<script src="../lib/axios.min.js"></script>
 	<script src="../lib/elementUI.js" charset="utf-8"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 	<script>
+		//axios默认设置cookie
+		axios.defaults.withCredentials = true;	
 		$('#oscar-nav-btn').click(function () {
 			$('.dada2').toggle();
 		});
@@ -830,7 +833,7 @@
 				//分页大小
 				pageSize: 10,
 				//总记录数
-				total:4, 
+				total:0, 
 				//行数据保存
 				rowdata:{
 
@@ -1105,6 +1108,18 @@
 					count: 1,
 					
 			   }
+			},
+			mounted:function(){
+				
+				axios.get('http://localhost/getMenu')				
+				.then(function(res){
+				
+				
+            }.bind(this),function(error){
+                console.log(error)
+			})
+			this.total = this.tableData.length;
+		
 			},
 			methods:{
             handleNodeClick(data) {

@@ -603,6 +603,7 @@ new Vue({
     */
     //初始化数据
     searchClick: function(){
+        var _self = this;
         //空表不显示
         function isEmptyObject(obj) {
             for (var key in obj) {
@@ -634,7 +635,7 @@ new Vue({
             pageSize: this.pageSize,
             pageNum: this.currentPage
         }
-        axios.post('/role/findByVO', params).then(function(res){
+        axios.post('http://localhost/role/findByVO', params).then(function(res){
             this.tableData = res.data.result;
             this.total = res.data.result.length;
         }.bind(this),function(error){

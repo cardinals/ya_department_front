@@ -107,7 +107,7 @@
 							<div class="btnGroup">
 								<el-button type="primary" icon="share" style="width:120px"  @click="openShare">信息分享</el-button><br>
 								<el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openPrinter">信息打印</el-button><br>
-								<el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">发送邮箱</el-button><br>
+								<el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">预案上传</el-button><br>
 							</div>
 						</div>
 						<div class="inform-content">
@@ -275,10 +275,10 @@
 								<el-button type="primary" @click="openShare">确 定</el-button>
 							</div>
 						</el-dialog>
-						<!--发送邮箱-->
+						<!--预案上传-->
 						<el-dialog
 							
-							title="发送至邮箱"
+							title="预案上传"
 							:visible.sync="emailDialogVisible"
 							@close="closeEmailDialog"
 							:close-on-click-modal="false"
@@ -287,12 +287,24 @@
 							style="margin:0 auto;"
 							>
 							<div style="text-align: center">
-								<span style="font-weight: bold;">邮箱地址</span>
-								<el-input v-model="email" auto-complete="off" placeholder="请输入邮箱" style="width: 180px"></el-input>  
+								<span style="font-weight: bold;">上传文件</span>
+								<el-upload
+								class="upload-demo"
+								ref="upload"
+								action="http://localhost:81/photoWeb/servlet/MyFileUp"
+								:on-preview="handlePreview"
+								:on-remove="handleRemove"
+								:file-list="fileList"
+								:auto-upload="false">
+								<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+								<el-button type="primary" @click="upFiles">确 定</el-button>
+								<el-button @click="closeEmailDialog">取 消</el-button>
+								<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+								</el-upload>
 							</div>
 							<div slot="footer" class="dialog-footer">
-								<el-button @click="closeEmailDialog">取 消</el-button>
-								<el-button type="primary" @click="openEmail">确 定</el-button>
+								
+
 							</div>
 						</el-dialog>
 					</div>
@@ -308,6 +320,7 @@
 <script src="../lib/jquery-3.2.1.min.js"></script>
 <script src="../lib/vue.min.js"></script>
 <script src="../lib/elementUI.js" charset="utf-8"></script>
+<script src="../lib/axios.min.js"></script>
 <script>
 	$('#oscar-nav-btn').click(function () {
 		$('.dada2').toggle();
@@ -888,6 +901,7 @@
 				ID:"10"
 			}
 		 ],
+		 fileList:[],
 		 urls: [ 'inform.html', 'inform2.html' ],
 		   //表高度变量
 		   tableheight :474,
@@ -1087,6 +1101,26 @@
 		openEmail:function(){
 			this.emailDialogVisible = true;
 		},
+		upFiles:function(){
+			this.$refs.upload.submit();
+			/*axios({
+					methods:'post',
+					url:'http://localhost:81/photoWeb/servlet/MyFileUp',	
+				})
+				.then(function(res){
+				console.log(res.data);
+				console.log(240);
+				
+            }.bind(this),function(error){
+                console.log(error)
+            })*/
+		},
+		handleRemove(file, fileList) {
+			console.log(file, fileList);
+		},
+		handlePreview(file) {
+			console.log(file);
+		},
 		closeEmailDialog:function(){
 			this.emailDialogVisible = false;
 			this.email="";
@@ -1276,5 +1310,6 @@
 			}, 300);
 		}
 	});
+
 </script>
 </html>
