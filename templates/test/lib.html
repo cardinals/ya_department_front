@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head id="common_header">
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title text="数字化预案管理平台"></title>
+        <link rel="stylesheet" type="text/css" href="../css/reset.css">
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
+        <link rel="stylesheet" type="text/css" href="../css/element.css">
+        <link rel="stylesheet" type="text/css" href="../css/app.css">
+        <link rel="stylesheet" type="text/css" href="../css/formal.css">
+    </head>
+    <body class="fw f14">
+        <div class="header-box navbar" id="header_box">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" id="oscar-nav-btn" type="button" data-toggle="collapse" data-target="#bs-navbar"
+                    aria-controls="bs-navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="../" class="navbar-brand">
+                        <div class="logo2">
+                            <!-- 运营拍档 -->
+                        </div>
+                    </a>
+                </div>
+                <!-- /navbar-header -->
+                <nav class="navbar-collapse collapse" id="bs-nav">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="fix" id="zhanshi" href="/assets/pages/test02.html">
+                                <img src="../images/shishizhanshi.png">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="glyphicon glyphicon-cog" href="javascript:;"></a>
+                        </li>
+                        <li>
+                            <a class="f12" href="javascript:;">
+                                &nbsp;&nbsp;<span>管理员</span>&nbsp;&nbsp;
+                                <span class="glyphicon glyphicon-triangle-top oscar-arrow frame-duration"></span>
+                                <div class="dada abs ovh">
+                                    <div class="dada-item">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        <span class="ml5">个人中心</span>
+                                    </div>
+                                    <div class="dada-item" id="logout">
+                                        <form id="login-out-form" action="#" th:action="@{/logout}" method="post" onsubmit="return false;"></form>
+                                        <span class="glyphicon glyphicon-off"></span>
+                                        <span class="ml5">退出</span>
+                                    </div>
+                                </div>
+                                <!-- /dada -->
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="dada2 abs ovh f12">
+                    <div class="dada-item">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="ml5">个人中心</span>
+                    </div>
+                    <div class="dada-item">
+                        <span class="glyphicon glyphicon-off"></span>
+                        <span class="ml5">退出</span>
+                    </div>
+                </div>
+                <!-- /dada -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /header-box -->
+
+        <div class="left-sidebar" id="menu_box (onevar)">
+            <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+            <input type="hidden" id="defaultActive" th:value="${onevar}"/>
+            <div id="menu-box">
+                <big-tree default-active=""></big-tree>
+            </div>
+        </div>
+        <!-- /left-sidebar -->
+
+        <!-- container-header -->
+        <div class="row main-container-header" id="main_container_header (onevar, twovar)">
+            <div class="col-md-12 rel">
+                <div class="main-container-header-line fix">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6"> <h4 class="g4" th:text="${onevar}"></h4></div>
+                        <div class="col-xs-6 col-md-6 tr f12">
+                            <div class="bread-link-box">
+                                当前位置：<span th:utext="${twovar}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- javascript-box -->
+         <div id="javascript_box">
+            <script src="../lib/jquery-3.2.1.min.js"></script>
+            <script src="../lib/vue.js"></script>
+            <script src="../lib/elementUI.js" charset="utf-8"></script>
+            <script src="../lib/vue-resource.min.js"></script>
+            <script src="../lib/axios.min.js"></script>
+            
+            <!--<script inline="javascript">
+                /*<![CDATA[*/
+                Vue.http.options.root = [[${contextPath}]] === '/' ? '' : [[${contextPath}]];
+                realname = [[${session.realname}]];
+                $('#realname').html(realname);
+                /*]]>*/
+            </script>-->
+
+            <!-- 动态菜单 -->
+            <script src="../lib/lib.js"></script>
+        </div>
+    </body>
+</html>

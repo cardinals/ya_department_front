@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>全国数据总览</title>
+	<link rel="stylesheet" type="text/css" href="../css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../css/zxx.lib.css">
+	<link rel="stylesheet" type="text/css" href="../css/app.css">
+</head>
+
+<body class="fw map-bg">
+	<div class="application-box tc abs">
+		<a class="application-icon-l db l" href="javascript:;">
+			<div id="map" style="height:100%;width:100%;">
+                <!--导入JQuery支持-->
+                    <script type="text/javascript" src="../lib/jquery-3.2.1.min.js"></script>
+                    <script src="../lib/echarts-4/echarts.js" type="text/javascript"></script>
+                   
+                    <script type="text/javascript">
+					var myChart = echarts.init(document.getElementById('map'));
+                    // 虚拟构造同横纵坐标的两组数据
+                    var sData1 = (function () {
+                        var d = [];
+                        var len = 40;
+                        var value;
+                        while (len--) {
+                            d.push([
+                                Math.round(Math.random()*10) * (Math.round(Math.random()*10) > 5 ? 1 : -1),
+                                Math.round(Math.random()*10) * (Math.round(Math.random()*10) > 5 ? 1 : -1),
+                                Math.round(Math.random()*20)
+                            ]);
+                        }
+                        return d;
+                    })();
+                    var sData2 = (function () {
+                        var d = [];
+                        var len = sData1.length;
+                        for (var i = 0; i < len; i++) {
+                            d.push([
+                                sData1[i][0],
+                                sData1[i][1],
+                                Math.round(Math.random()*15)
+                            ]);
+                        }
+                        return d;
+                    })();
+
+                    option = {
+                        color : ['rgba(255, 69, 0, 0.5)', 'rgba(30, 144, 255, 0.5)'],
+                        title : {
+                            text: '饼图代替散点',
+                            subtext : '混搭'
+                        },
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{b} : {c} ({d}%)"//内容格式器 系列1:16(94.12%)
+                        },
+                        toolbox: {
+                            show : true,
+                            feature : {//工具箱启用的功能
+                                mark : {show: true},//辅助线
+                                dataView : {show: true, readOnly: false},//数据视图 存数据
+                                restore : {show: true},//还原，复位原始图表
+                                saveAsImage : {show: true}//保存为图片
+                            }
+                        },
+                        xAxis : [//x轴样式
+                            {
+                                type : 'value',//坐标轴类型，横轴默认为类目型'category'，纵轴默认为数值型'value'
+                                splitNumber: 2//轴刻度
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value',
+                                splitNumber: 2
+                            }
+                        ],
+                        animation: false ,//是否启用图表初始化动画，默认开启，建议IE8-关闭
+                        series : [//驱动图表生成的数据内容数组
+                            {
+                                type:'scatter',//图表类型 散点图
+                                symbol: 'none',//标志图形 不需要
+                                data: sData1
+                            },
+                            {
+                                type:'scatter',
+                                symbol: 'none',
+                                data: sData2
+                            }
+                        ]
+                    };
+
+                    function buildPieSeries(){
+                        var xAxis = myChart.component.xAxis.getAxis(0);
+                        var yAxis = myChart.component.yAxis.getAxis(0);
+                        var len = sData1.length;
+                        option.series = option.series.slice(0,2);
+                        option.legend = {//图例，每个图表最多仅有一个图例，混搭图表共享
+                            data : ['系列1', '系列2']
+                        };
+                        while (len--) {
+                            option.series.push({
+                                type: 'pie',//把散点换成图表类型 饼图
+                                itemStyle : {
+                                    normal : {
+                                        label : {//（图例名）标签，饼图默认显示在外部，离饼图距离由labelLine.length决定， 
+                                            show : true
+                                        },
+                                        labelLine : {
+                                            show : false
+                                        }
+                                    }
+                                },
+                                radius : sData1[len][2] + sData2[len][2],//饼图半径
+                                center: [
+                                    xAxis.getCoord(sData1[len][0]), 
+                                    yAxis.getCoord(sData1[len][1])
+                                ],
+                                data: [
+                                    {name: '系列1', value: sData1[len][2]},
+                                    {name: '系列2', value: sData2[len][2]}
+                                ]
+                            })
+                        }
+                        option.animation = true;
+                        myChart.setOption(option, true);
+                        window.onresize = buildPieSeries;
+                    }
+                    // 构造出一系列的饼图代替原来的散点，需要在散点画出来后才能获取到散点的坐标，setTimeout！
+                    setTimeout(buildPieSeries, 100);
+                    
+                   
+				</script>
+					</div>
+				</div>
+			</div>
+            <a class="application-icon-r db r" href="javascript:;">
+				<div class="application-div h35 p5">
+					<div class="application-text flex map-bg2">
+						<div id="bar" class="application-text">
+							<script src="../lib/echarts-4/echarts.js"></script>
+							<script>
+								var myChart = echarts.init(document.getElementById('bar'));
+								option = {
+									tooltip: {
+										trigger: 'axis',
+										axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+											type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+										}
+									},
+									color: ['red', 'orange', 'yellow', 'lightgreen'],
+									legend: {
+										x: 'center',
+										y: '5%',
+										itemWidth: 18,
+										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
+										textStyle: {
+											color: 'white'
+										},
+									},
+									grid: {
+										left: '5%',
+										right: '5%',
+										top: '25%',
+										bottom: '10%',
+										containLabel: true
+									},
+									xAxis: [
+										{
+											type: 'category',
+											data: ['二维预案', '三维预案'],
+											axisLine: {
+												lineStyle: {
+													color: 'white'
+												}
+											}
+										}
+									],
+									yAxis: [
+										{
+											type: 'value',
+											axisLine: {
+												lineStyle: {
+													color: 'white'
+												}
+											},
+											splitLine: {
+												show: false
+											},
+										}
+									],
+									series: [
+										{
+											name: '高层建筑',
+											type: 'bar',
+											barWidth: '40%',
+											stack: '预案',
+											data: [1335, 335]
+										},
+										{
+											name: '地下建筑',
+											type: 'bar',
+											barWidth: '40%',
+											stack: '预案',
+											data: [1310, 679]
+										},
+										{
+											name: '大型综合体',
+											type: 'bar',
+											barWidth: '40%',
+											stack: '预案',
+											data: [1234, 548]
+										},
+										{
+											name: '化工园区',
+											type: 'bar',
+											barWidth: '40%',
+											stack: '预案',
+											data: [1135, 135]
+										}
+									]
+								};
+								myChart.setOption(option);
+							</script>
+						</div>
+					</div>
+				</div>
+				<div class="application-div h35 p5">
+					<div class="application-text flex map-bg2">
+						<div id="pie" class="application-text">
+							<script src="../lib/echarts-4/echarts.js"></script>
+							<script>
+								var myChart = echarts.init(document.getElementById('pie'));
+								option = {
+									tooltip: {
+										trigger: 'item',
+										formatter: "{a} <br/>{b}: {c} ({d}%)"
+									},
+									color: ['red', 'orange', 'yellow', 'lightgreen'],
+									legend: {
+										orient: 'vertical',
+										x: '60%',
+										y: 'center',
+										itemGap: 16,
+										itemWidth: 18,
+										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
+										textStyle: {
+											color: 'white'
+										},
+										align: 'left'
+									},
+									series: [
+										{
+											name: '三维预案',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: [0, '42%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 335, name: '高层建筑' },
+												{ value: 679, name: '地下建筑' },
+												{ value: 548, name: '大型综合体' },
+												{ value: 135, name: '化工园区' }
+											]
+										},
+										{
+											name: '二维预案',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: ['56%', '75%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 1335, name: '高层建筑' },
+												{ value: 1310, name: '地下建筑' },
+												{ value: 1234, name: '大型综合体' },
+												{ value: 1135, name: '化工园区' }
+											]
+										}
+									]
+								};
+								myChart.setOption(option);
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</a>
+		<!-- /application-icon-r -->
+	</div>
+	<!-- /application-box -->
+
+</body>
+
+</html>
