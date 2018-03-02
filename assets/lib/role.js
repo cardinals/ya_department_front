@@ -13,11 +13,11 @@ new Vue({
         endtime:"",
       },
        //表数据
-      //tableData: [],//Grid中数据
+      tableData: [],//Grid中数据
       //所有资源
       allResourceList:[],
       //表数据
-      tableData: [
+      /*tableData: [
         {
             roleid:"1",
             rolename:"normal",
@@ -271,7 +271,7 @@ new Vue({
             }
             ]
         },
-     ],
+      ],*/
      //后台返回全部资源列表
      allResourceList:[
      {
@@ -428,7 +428,12 @@ new Vue({
        }
     },
     mounted:function(){
-
+        axios.get('http://localhost/role/getAll').then(function(res){
+            console.log(res.data.result);
+            this.tableData = res.data.result;
+        }.bind(this),function(error){
+            console.log(error)
+        }),
         this.total = this.tableData.length;
     } ,
     methods:{
@@ -631,9 +636,7 @@ new Vue({
         }
         var params = {
             rolename: this.searchForm.rolename,
-            roleinfo: this.searchForm.roleinfo,
-            pageSize: this.pageSize,
-            pageNum: this.currentPage
+            roleinfo: this.searchForm.roleinfo
         }
         axios.post('http://localhost/role/findByVO', params).then(function(res){
             this.tableData = res.data.result;
