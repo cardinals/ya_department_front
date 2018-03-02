@@ -59,7 +59,23 @@ treeMenuTemplate.push('</li>');
             if (this.hasChildren()) {
                 return "javascript:;";
             }
-            return this.model.url;
+            var realUrl="";
+            if(this.model.url=="/user"){
+                realUrl="../pages/user-list2.html"
+            }
+            else if(this.model.url=="/role"){
+                realUrl="../pages/role_list.html"
+            }
+            else if(this.model.url=="/permission"){
+                realUrl="../pages/permission_list.html"
+            }
+            else if(this.model.url=="/codelist"){
+                realUrl="../pages/codelist.html"
+            }
+            else if(this.model.url=="/index"){
+                realUrl="../pages/index.html"
+            }
+            return realUrl;
         }
     },
 
