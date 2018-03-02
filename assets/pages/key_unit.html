@@ -108,25 +108,44 @@
                                 <template slot-scope="scope">  
                                     <el-button @click="informClick(scope.row)" type="text">{{scope.row.DWMC}}</el-button>
                                 </template>  
-                            </el-table-column>  
-                            <el-table-column  
-                                prop="DWDJ"  
-                                label="单位等级"  
-                                min-width="12%"
-                                align="center">  
-                            </el-table-column>  
-                            <el-table-column  
-                                prop="DWXZ"  
-                                label="单位性质" 
-                                min-width="12%"
-                                align="center">  
-                            </el-table-column> 
+                            </el-table-column>
                             <el-table-column  
                                 prop="XZQY"  
                                 label="行政区域"  
                                 min-width="12%"
                                 align="center">  
-                            </el-table-column>  
+                            </el-table-column>
+                            <el-table-column  
+                                prop="DWDZ"  
+                                label="单位地址"  
+                                min-width="12%"
+                                align="center">  
+                            </el-table-column>
+                            <el-table-column  
+                                prop="XFGXJGID"  
+                                label="消防管辖机构"  
+                                min-width="25%"
+                                align="center">  
+                            </el-table-column> 
+                            <el-table-column  
+                                prop="CJSJ"  
+                                label="录入时间"  
+                                min-width="20%"
+                                align="center">  
+                            </el-table-column> 
+                            <!-- <el-table-column  
+                                prop="DWDJ"  
+                                label="单位等级"  
+                                min-width="12%"
+                                align="center">  
+                            </el-table-column>      
+                            <el-table-column  
+                                prop="DWXZ"  
+                                label="单位性质" 
+                                min-width="12%"
+                                align="center">  
+                            </el-table-column>  -->
+                              
                             <!-- <el-table-column  
                                 prop="DWDZ"  
                                 label="单位地址"  
@@ -139,19 +158,9 @@
                                 min-width="12%"
                                 align="center">  
                             </el-table-column> -->
-                            <el-table-column  
-                                prop="XFGXJGID"  
-                                label="消防管辖机构"  
-                                min-width="25%"
-                                align="center">  
-                            </el-table-column>
+                            
                         </el-table>
                         
-                                <!---->
-                                <!---->
-                        
-
-
                         <!--列表底部工具条和分页符-->  
                         <el-row type="flex" justify="end">   
                                 <el-col :span="18" >  

@@ -18,12 +18,12 @@ new Vue({
       tableData: [
         {
             DWMC:"辽宁省人民法院",
-            DWDJ: "省部级",
-            DWXZ:"司法",
             XZQY: "辽宁省",
             DWDZ:"霞飞路29号",
-            ZDMJ: 5000,
-            XFGXJGID: "沈阳市消防局",
+            XFGXJGNAME: "沈阳市消防局",
+            CJSJ:"2012-02-23",
+            DWDJ: "省部级",
+            DWXZ:"司法",
             ID:"1"
         },
            {
