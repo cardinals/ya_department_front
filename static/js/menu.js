@@ -87,6 +87,9 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/digitalplan"){
                 realUrl="http://localhost/templates/digitalplan/digital_plan.html"
             }
+            else if(this.model.url=="/resource"){
+                realUrl="http://localhost/templates/system/resource_list.html"
+            }
             return realUrl;
         }
     },
