@@ -15,7 +15,10 @@
         <div class="application-box tc abs">
             <div class="map-menu p10">
                 <el-form ref="form" :model="form" label-width="80px">
-                    <el-form-item id="white" label="水源信息">
+                    <el-form-item label="选择区域">
+                        <el-cascader placeholder="地区" :options="options" filterable change-on-select></el-cascader>
+                    </el-form-item>
+                    <el-form-item label="水源信息">
                         <el-switch v-model="form.delivery1" @change="getMarker1"></el-switch>
                     </el-form-item>
                     <el-form-item label="消防力量">
@@ -27,7 +30,7 @@
                 </el-form>
             </div>
             <div class="map-china">
-                <a href="bigMap.html">
+                <a href="big_screen_map.html">
                     <img src="../../static/images/icon-china.png" />
                 </a>
             </div>
@@ -53,7 +56,41 @@
                 delivery1: true,
                 delivery2: true,
                 delivery3: true
-            }
+            },
+            options: [
+                { value: '北京', label: '北京' },
+                { value: '天津', label: '天津' },
+                { value: '河北', label: '河北' },
+                { value: '山西', label: '山西' },
+                { value: '内蒙古', label: '内蒙古' },
+                { value: '辽宁', label: '辽宁' },
+                { value: '吉林', label: '吉林' },
+                { value: '黑龙江', label: '黑龙江' },
+                { value: '上海', label: '上海' },
+                { value: '江苏', label: '江苏' },
+                { value: '浙江省', label: '浙江省' },
+                { value: '安徽', label: '安徽' },
+                { value: '福建', label: '福建' },
+                { value: '江西', label: '江西' },
+                { value: '山东', label: '山东' },
+                { value: '河南', label: '河南' },
+                { value: '湖北', label: '湖北' },
+                { value: '湖南', label: '湖南' },
+                { value: '广东', label: '广东' },
+                { value: '广西', label: '广西' },
+                { value: '海南', label: '海南' },
+                { value: '重庆', label: '重庆' },
+                { value: '四川', label: '四川' },
+                { value: '贵州', label: '贵州' },
+                { value: '云南', label: '云南' },
+                { value: '西藏', label: '西藏' },
+                { value: '陕西', label: '陕西' },
+                { value: '甘肃省', label: '甘肃省' },
+                { value: '青海', label: '青海' },
+                { value: '宁夏', label: '宁夏' },
+                { value: '新疆', label: '新疆' }],
+            selectedOptions: [],
+            selectedOptions2: []
         },
         methods: {
             getMarker1: function () {
@@ -114,12 +151,12 @@
                 var point1 = new BMap.Point(116.404, 39.915);      //创建坐标点
                 var point2 = new BMap.Point(106.425, 25.900);      //创建坐标点
                 var point3 = new BMap.Point(118.404, 37.915);      //创建坐标点
-                var myIcon1 = new BMap.Icon("../images/消火栓.png", new BMap.Size(30,30));      //创建图标
-                var myIcon2 = new BMap.Icon("../images/消防车.png", new BMap.Size(28,28));      //创建图标
-                var myIcon3 = new BMap.Icon("../images/重点企业.png", new BMap.Size(30,30));      //创建图标
-                var marker1 = new BMap.Marker(point1,{icon:myIcon1});      // 创建标注
-                var marker2 = new BMap.Marker(point2,{icon:myIcon2});      // 创建标注
-                var marker3 = new BMap.Marker(point3,{icon:myIcon3});      // 创建标注
+                var myIcon1 = new BMap.Icon("../../static/images/消火栓.png", new BMap.Size(30, 30));      //创建图标
+                var myIcon2 = new BMap.Icon("../../static/images/消防车.png", new BMap.Size(28, 28));      //创建图标
+                var myIcon3 = new BMap.Icon("../../static/images/重点企业.png", new BMap.Size(30, 30));      //创建图标
+                var marker1 = new BMap.Marker(point1, { icon: myIcon1 });      // 创建标注
+                var marker2 = new BMap.Marker(point2, { icon: myIcon2 });      // 创建标注
+                var marker3 = new BMap.Marker(point3, { icon: myIcon3 });      // 创建标注
                 map.addOverlay(marker1);      // 将标注添加到地图中
                 map.addOverlay(marker2);      // 将标注添加到地图中
                 map.addOverlay(marker3);      // 将标注添加到地图中
