@@ -25,7 +25,7 @@
                     <div class="Login">
                         <div class="Login_n">
                           <div class="Login_nTop">用户登录</div>
-                          <form id="login-form" autocomplete="off" name="login-form" action="http://localhost/login" method="post">
+                          <form id="login-form" autocomplete="off" name="login-form" action="/api/login" method="post">
                                 <ul>
                                     <li class="I1">
                                         <input type="text" class="inputstyle" v-model="username" name="username" id="username" placeholder="用户名">
@@ -80,7 +80,7 @@
           password: "",
           validateCode: "",
           messages:"",
-          src: "http://10.119.119.175:8004/imageCode"
+          src: "/api/imageCode"
         },
         methods: {
             login: function () {
@@ -99,12 +99,7 @@
                         password: this.password,
                         validateCode: this.validateCode
                     }
-                    axios.post('http://localhost/login',params).then(function(res){
-                        console.log(res.data);
-                    }.bind(this),function(error){
-                        console.log(error);
-                    });
-                    //$('#login-form').submit();
+                    $('#login-form').submit();
                     var _self = this;
                     //this.messages = msg;
                     /*if(msg != null){
