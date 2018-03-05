@@ -427,7 +427,7 @@ new Vue({
        }
     },
     mounted:function(){
-        axios.get('http://localhost/role/getAll').then(function(res){
+        axios.get('http://localhost/api/role/getAll').then(function(res){
             console.log(res.data.result);
             this.tableData = res.data.result;
         }.bind(this),function(error){
@@ -637,7 +637,7 @@ new Vue({
             rolename: this.searchForm.rolename,
             roleinfo: this.searchForm.roleinfo
         }
-        axios.post('http://localhost/role/findByVO', params).then(function(res){
+        axios.post('http://localhost/api/role/findByVO', params).then(function(res){
             this.tableData = res.data.result;
             this.total = res.data.result.length;
         }.bind(this),function(error){
