@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+</head>
+
+<body class="fw map-bg">
+    <div id="app">
+        <div class="application-box tc abs">
+            <div class="map-menu p10">
+                <el-form ref="form" :model="form" label-width="80px">
+                    <el-form-item id="white" label="水源信息">
+                        <el-switch v-model="form.delivery1" @change="getMarker1"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="消防力量">
+                        <el-switch v-model="form.delivery2" @change="getMarker2"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="重点单位">
+                        <el-switch v-model="form.delivery3" @change="getMarker3"></el-switch>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div class="map-china">
+                <a href="bigMap.html">
+                    <img src="../../static/images/icon-china.png" />
+                </a>
+            </div>
+            <div id="BMap" class="map-main tc"></div>
+        </div>
+    </div>
+</body>
+<!-- 引入js -->
+<script src="../../static/js/jquery-3.2.1.min.js"></script>
+<script src="../../static/js/vue.min.js"></script>
+<script src="../../static/js/element.js" charset="utf-8"></script>
+<!-- 引入地图 -->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            city: '',
+            marker1: '',
+            marker2: '',
+            marker3: '',
+            form: {
+                delivery1: true,
+                delivery2: true,
+                delivery3: true
+            }
+        },
+        methods: {
+            getMarker1: function () {
+                if (this.form.delivery1) {
+                    this.marker1.show();
+                } else {
+                    this.marker1.hide();
+                }
+            },
+            getMarker2: function () {
+                if (this.form.delivery2) {
+                    this.marker2.show();
+                } else {
+                    this.marker2.hide();
+                }
+            },
+            getMarker3: function () {
+                if (this.form.delivery3) {
+                    this.marker3.show();
+                } else {
+                    this.marker3.hide();
+                }
+            },
+            getCity: function () {
+                var url = location.href;
+                var tmp1 = url.split("?")[1];
+                var city1 = tmp1.split("=")[1];
+                this.city = decodeURI(city1);
+            },
+            getBoundary: function (map) {
+                var bdary = new BMap.Boundary();
+                bdary.get(this.city, function (rs) { //获取行政区域
+                    // map.clearOverlays(); //清除地图覆盖物 
+                    var count = rs.boundaries.length; //行政区域的点有多少个
+                    for (var i = 0; i < count; i++) {
+                        var ply = new BMap.Polygon(rs.boundaries[i], { strokeWeight: 2, strokeColor: "#ff0000" }); //建立多边形覆盖物
+                        ply.setFillColor("none");
+                        map.addOverlay(ply); //添加覆盖物
+                        map.setViewport(ply.getPath()); //调整视野 
+                    }
+                });
+            },
+            drawMap: function () {
+                // 百度地图API功能
+                var map = new BMap.Map("BMap");    // 创建Map实例
+                map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+                //添加地图类型控件
+                map.addControl(new BMap.MapTypeControl({
+                    mapTypes: [
+                        BMAP_NORMAL_MAP,
+                        BMAP_HYBRID_MAP
+                    ]
+                }));
+                map.setCurrentCity(this.city);      // 设置地图显示的城市 此项是必须设置的
+                map.centerAndZoom(this.city);       //设置地图中心点
+                map.enableScrollWheelZoom(true);      //开启鼠标滚轮缩放
+                this.getBoundary(map);      //绘制边框
+                var point1 = new BMap.Point(116.404, 39.915);      //创建坐标点
+                var point2 = new BMap.Point(106.425, 25.900);      //创建坐标点
+                var point3 = new BMap.Point(118.404, 37.915);      //创建坐标点
+                var myIcon1 = new BMap.Icon("../../static/images/消火栓.png", new BMap.Size(30,30));      //创建图标
+                var myIcon2 = new BMap.Icon("../../static/images/消防车.png", new BMap.Size(28,28));      //创建图标
+                var myIcon3 = new BMap.Icon("../../static/images/重点企业.png", new BMap.Size(30,30));      //创建图标
+                var marker1 = new BMap.Marker(point1,{icon:myIcon1});      // 创建标注
+                var marker2 = new BMap.Marker(point2,{icon:myIcon2});      // 创建标注
+                var marker3 = new BMap.Marker(point3,{icon:myIcon3});      // 创建标注
+                map.addOverlay(marker1);      // 将标注添加到地图中
+                map.addOverlay(marker2);      // 将标注添加到地图中
+                map.addOverlay(marker3);      // 将标注添加到地图中
+                this.marker1 = marker1;
+                this.marker2 = marker2;
+                this.marker3 = marker3;
+            }
+        },
+        mounted() {
+            this.getCity()
+            this.drawMap()
+            document.title = this.city + '预案情况'
+        }
+    })
+</script>
+
+</html>

@@ -82,7 +82,7 @@ treeMenuTemplate.push('</li>');
                 realUrl="http://localhost/templates/system/code_list.html"
             }
             else if(this.model.url=="/home"){
-                realUrl="http://localhost/templates/index.html"
+                realUrl="http://localhost/templates/home.html"
             }
             else if(this.model.url=="/digitalplan"){
                 realUrl="http://localhost/templates/digitalplan/digital_plan.html"
