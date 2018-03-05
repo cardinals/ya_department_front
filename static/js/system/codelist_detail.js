@@ -1,5 +1,3 @@
-$("#header_box").load("../pages/header_box.html #header_box");
-// $("#menu_box").load("../pages/left-sidebar.html #menu_box");
 //axios默认设置cookie
 axios.defaults.withCredentials = true;  
 new Vue({

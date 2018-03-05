@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../css/lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
 </head>
 
 <body class="fw f14 main-index-body">
@@ -20,7 +20,7 @@
                 <div id="tableView">
                     <div class="nameBox">
                         <div id="basic-Inform-Picture">
-                            <img src="../images/danwei2.jpg">
+                            <img src="../../static/images/danwei2.jpg">
                         </div>
                         <div class="dib" id="basic-Inform-Title">
                             <div>
@@ -28,23 +28,23 @@
                                 <span class="companyStatus dib" title="建筑类型">{{rowdata.JZLX}}</span>
                             </div>
                             <dl>
-                                <img src="../images/location.png">
+                                <img src="../../static/images/location.png">
                                 <dt class="dib inform-small-title">单位地址：</dt>
                                 <dd class="dtdlStyle">{{rowdata.DWDZ}}</dd>
                                 <br>
-                                <img src="../images/date.png">
+                                <img src="../../static/images/date.png">
                                 <dt class="dib inform-small-title">单位成立时间：</dt>
                                 <dd class="dtdlStyle">{{rowdata.DWCLSJ}}</dd>
                                 <br>
-                                <img src="../images/owner.png">
+                                <img src="../../static/images/owner.png">
                                 <dt class="dib inform-small-title">单位电话：</dt>
                                 <dd class="dtdlStyle">{{rowdata.DWDH}}</dd>
                                 <br>
-                                <img src="../images/safe.png">
+                                <img src="../../static/images/safe.png">
                                 <dt class="dib inform-small-title">单位邮政编码：</dt>
                                 <dd class="dtdlStyle">{{rowdata.YZBM}}</dd>
                                 <br>
-                                <img src="../images/safe.png">
+                                <img src="../../static/images/safe.png">
                                 <dt class="dib inform-small-title">单位邮箱：</dt>
                                 <dd class="dtdlStyle">{{rowdata.DWDZYX}}</dd>
                             </dl>
@@ -257,15 +257,15 @@
                                         <dl>
                                             <dt class="dtdlStyle">附件下载:</dt>
                                             <dd class="dtdlStyle">
-                                                <img class="inform-download-cursor" src="../images/icon-download/erwei.png" @click="DownLoadTwoFile()">
+                                                <img class="inform-download-cursor" src="../../static/images/icon-download/erwei.png" @click="DownLoadTwoFile()">
                                             </dd>
                                             <dt class="dtdlStyle inform-download-cursor" @click="DownLoadTwoFile()">二维预案</dt>
                                             <dd class="dtdlStyle">
-                                                <img class="inform-download-cursor" src="../images/icon-download/sanwei.png" @click="DownLoadThreeFile()">
+                                                <img class="inform-download-cursor" src="../../static/images/icon-download/sanwei.png" @click="DownLoadThreeFile()">
                                             </dd>
                                             <dt class="dtdlStyle inform-download-cursor" @click="DownLoadThreeFile()">三维预案</dt>
                                             <dd class="dtdlStyle">
-                                                <img class="inform-download-cursor" src="../images/icon-download/wendang.png" @click="DownLoadFile()">
+                                                <img class="inform-download-cursor" src="../../static/images/icon-download/wendang.png" @click="DownLoadFile()">
                                             </dd>
                                             <dt class="dtdlStyle inform-download-cursor" @click="DownLoadFile()">文档预案</dt>
                                         </dl>
@@ -371,9 +371,9 @@
                     <el-dialog title="分享至" :visible.sync="shareDialogVisible" @close="closeShareDialog" :close-on-click-modal="false" center
                         class="el-dialog--small" style="margin:0 auto;">
                         <div style="text-align: center">
-                            <img style="cursor:pointer" src="../images/weibo.png" @click="shareWeibo()">
-                            <img style="cursor:pointer" src="../images/wechat.png" @click="shareWechat()">
-                            <img style="cursor:pointer" src="../images/QQ.png" @click="shareQQ()">
+                            <img style="cursor:pointer" src="../../static/images/weibo.png" @click="shareWeibo()">
+                            <img style="cursor:pointer" src="../../static/images/wechat.png" @click="shareWechat()">
+                            <img style="cursor:pointer" src="../../static/images/QQ.png" @click="shareQQ()">
                         </div>
                         <div slot="footer" class="dialog-footer">
                             <el-button @click="closeShareDialog">取 消</el-button>
@@ -399,8 +399,8 @@
         </div>
     </div>
 </body>
-<script src="../lib/lib.js"></script>
-<script src="../lib/menu.js"></script>
-<script src="../lib/inform.js"></script>
+<script src="../../static/js/lib.js" ></script>
+<script src="../../static/js/menu.js" ></script>
+<script src="../../static/js/digitalplan/inform.js"></script>
 
 </html>

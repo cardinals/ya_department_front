@@ -1,6 +1,15 @@
 $('#oscar-nav-btn').click(function () {
     $('.dada2').toggle();
 });
+
+//引入上导航
+$("#header_box").load("../../templates/header_box.html #header_box");
+
+//退出登录
+function logOut(){
+    $('#login-out-form')[0].submit();
+    //alert("gg");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var menuData=[];
