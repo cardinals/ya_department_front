@@ -70,22 +70,22 @@ treeMenuTemplate.push('</li>');
             }
             var realUrl="";
             if(this.model.url=="/user"){
-                realUrl="user_list.html"
+                realUrl="http://localhost/templates/system/user_list.html"
             }
             else if(this.model.url=="/role"){
-                realUrl="role_list.html"
+                realUrl="http://localhost/templates/system/role_list.html"
             }
             else if(this.model.url=="/permission"){
-                realUrl="permission_list.html"
+                realUrl="http://localhost/templates/system/permission_list.html"
             }
             else if(this.model.url=="/codelist"){
-                realUrl="code_list.html"
+                realUrl="http://localhost/templates/system/code_list.html"
             }
             else if(this.model.url=="/home"){
-                realUrl="../index.html"
+                realUrl="http://localhost/templates/index.html"
             }
             else if(this.model.url=="/digitalplan"){
-                realUrl="../digitalplan/digital_plan.html"
+                realUrl="http://localhost/templates/digitalplan/digital_plan.html"
             }
             return realUrl;
         }
