@@ -80,7 +80,7 @@
           password: "",
           validateCode: "",
           messages:"",
-          src: "http://10.119.119.175:8004/imageCode"
+          src: "/api/imageCode"
         },
         methods: {
             login: function () {
@@ -99,11 +99,6 @@
                         password: this.password,
                         validateCode: this.validateCode
                     }
-                    /*axios.post('http://localhost/login',params).then(function(res){
-                        console.log(res.data);
-                    }.bind(this),function(error){
-                        console.log(error);
-                    });*/
                     $('#login-form').submit();
                     var _self = this;
                     //this.messages = msg;

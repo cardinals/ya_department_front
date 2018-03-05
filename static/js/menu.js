@@ -70,16 +70,16 @@ treeMenuTemplate.push('</li>');
             }
             var realUrl="";
             if(this.model.url=="/user"){
-                realUrl="../system/user_list.html"
+                realUrl="user_list.html"
             }
             else if(this.model.url=="/role"){
-                realUrl="../system/role_list.html"
+                realUrl="role_list.html"
             }
             else if(this.model.url=="/permission"){
-                realUrl="../system/permission_list.html"
+                realUrl="permission_list.html"
             }
             else if(this.model.url=="/codelist"){
-                realUrl="../system/code_list.html"
+                realUrl="code_list.html"
             }
             else if(this.model.url=="/home"){
                 realUrl="../index.html"
