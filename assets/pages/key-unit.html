@@ -100,10 +100,10 @@
 									</el-col>
 									<el-col :span="12">
 										<el-form-item label="录入时间">
-											<el-date-picker type="date" @change="begindateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime_create"
+											<el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime"
 											 placeholder="录入开始时间" class="dateInputWidth"></el-date-picker>
 											~
-											<el-date-picker type="date" @change="enddateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime_create"
+											<el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime"
 											 placeholder="录入结束时间" class="dateInputWidth"></el-date-picker>
 										</el-form-item>
 									</el-col>
@@ -746,15 +746,6 @@
 			},
 			clearClick: function () {
 				// this.searchForm.
-			},
-			//时间格式
-			begindateChange_create(val) {
-				console.log(val);
-				this.searchForm.begintime_create = val;
-			},
-			enddateChange_create(val) {
-				console.log(val);
-				this.searchForm.endtime_create = val;
 			},
 			//表格勾选事件
 			selectionChange: function (val) {
