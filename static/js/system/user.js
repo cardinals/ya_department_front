@@ -462,18 +462,16 @@ new Vue({
        }
     },
     mounted:function(){
-        
-        axios.get('http://localhost/getMenu')				
-        .then(function(res){
-        console.log(res.data);
-        console.log(240);
-        
-    }.bind(this),function(error){
-        console.log(error)
-    })
-    this.total = this.tableData.length;
-    
-
+        var params = {
+            
+        }
+        axios.post('http://localhost/api/user/findByVO',params).then(function(res){
+            console.log(res.data.result);
+            this.tableData = res.data.result;
+        }.bind(this),function(error){
+            console.log(error)
+        }),
+        this.total = this.tableData.length;
     },
     methods:{
 
@@ -489,7 +487,7 @@ new Vue({
         }
         return true;
     }
-     for(var i=0;i<_self.tableData.length;i++){
+    /* for(var i=0;i<_self.tableData.length;i++){
          searchData.push(_self.tableData[i]);
      }
     
@@ -543,7 +541,19 @@ new Vue({
     
     //_self.tableData.filter((item)=>{return item.realname == _self.searchForm.realname	});
     _self.total = _self.tableData.length;
-    _self.loadingData(); //重新加载数据
+    _self.loadingData(); //重新加载数据*/
+
+    var params = {
+        username: this.searchForm.username,
+        realname: this.searchForm.realname
+    }
+    axios.post('http://localhost/api/user/findByVO', params).then(function(res){
+        this.tableData = res.data.result;
+        this.total = res.data.result.length;
+        _self.loadingData();
+    }.bind(this),function(error){
+        console.log(error)
+    })
     },
     //表格勾选事件
     selectionChange: function(val) {
@@ -627,6 +637,112 @@ new Vue({
         _self.addFormVisible = true;
 
     },
+       //新建提交点击事件
+       addSubmit: function(val) {
+        var _self=this;
+        /*POST请求递交addForm数据传入之后再对前台加载*/ /*此时尚无userid*/
+        /*this.tableData.unshift({
+            realname: val.realname,
+            birth: val.birth,
+            sex: (val.sex == 0?"女":"男"),
+            username:val.username,
+            phone:val.phone,
+            email:val.email
+        });
+        this.addFormVisible = false;
+        _self.total = _self.tableData.length;
+        _self.loadingData();//重新加载数据
+        val.realname = "";
+        val.birth = "";
+        val.sex = "";
+        val.username ="";
+        val.phone = "";
+        val.email ="";
+        console.info(this.addForm);*/
+        var params = {
+            username: val.username,
+            realname: val.realname,
+            password: val.password,
+        }
+        axios.post('http://localhost/api/user/insertByVO', params).then(function(res){
+            /*var addData = res.data.result;
+            _self.tableData.unshift(addData);*/
+            _self.total = _self.tableData.length;
+        }.bind(this),function(error){
+            console.log(error)
+        })
+        this.addFormVisible = false;
+        _self.loadingData();//重新加载数据
+        
+    }, 
+    //表格修改事件
+    editClick: function() {
+        var _self = this;
+        var multipleSelection = this.multipleSelection;
+        if (multipleSelection.length < 1) {
+            _self.$message({
+            message: "请至少选中一条记录",
+            type: "error"
+            });
+            return;
+        }
+        else if(multipleSelection.length>1){
+            _self.$message({
+                message:"只能选一条记录进行修改",
+                type:"error"
+            });
+            return;
+        }
+        //var ids = "";
+        var ids = [];
+        for (var i = 0; i < multipleSelection.length; i++) {
+            var row = multipleSelection[i];
+            //ids += row.realname + ",";
+            //编辑时POST传入唯一标识userid来取出特殊项
+            ids.push(row.userid);
+        }
+        /*POST请求之后再对前台加载*/
+        for(var d =0;d< ids.length;d++){
+                for(var k=0;k< _self.tableData.length;k++)
+                    {
+                        if(_self.tableData[k].userid == ids[d]){
+                            _self.selectIndex = k;
+                        }
+                    }
+            }
+        this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
+        this.editForm.sex=(row.sex == "男"?1:0);
+        /*请求到的角色role列表传给edit页面数据*/
+        //this.editForm.rolelist = res.data.rolelist;
+        this.editForm.checkPass=row.password;
+        this.editFormVisible = true;
+        },
+        //保存点击事件
+        editSubmit: function(val) {
+        var _self = this;
+        /*this.$refs[val].validate((valid) => {
+            if (valid) {
+                //alert('submit!');*/
+            
+                /*POST请求递交editForm数据传入userid之后再对前台加载*/
+                this.tableData[this.selectIndex].userid = val.userid;
+                this.tableData[this.selectIndex].realname = val.realname;
+                this.tableData[this.selectIndex].birth = val.birth;
+                this.tableData[this.selectIndex].sex = (val.sex == 0?"女":"男");
+                this.tableData[this.selectIndex].username = val.username;
+                this.tableData[this.selectIndex].phone = val.phone;
+                this.tableData[this.selectIndex].email = val.email;
+                this.editFormVisible = false;
+                _self.loadingData();//重新加载数据
+                console.info(this.editForm);
+            /*} 
+            else 
+            {
+                console.log('error submit!!');
+                return false;
+            }
+        });*/
+        },
     //查看详情
     itemClick: function() {
     var _self = this;
@@ -691,98 +807,6 @@ new Vue({
     console.log("当前页: " + val);
     var _self = this;
     _self.loadingData(); //重新加载数据
-    },
-    //表格修改事件
-    editClick: function() {
-    var _self = this;
-    var multipleSelection = this.multipleSelection;
-    if (multipleSelection.length < 1) {
-        _self.$message({
-        message: "请至少选中一条记录",
-        type: "error"
-        });
-        return;
-    }
-    else if(multipleSelection.length>1){
-        _self.$message({
-            message:"只能选一条记录进行修改",
-            type:"error"
-        });
-        return;
-    }
-    //var ids = "";
-    var ids = [];
-    for (var i = 0; i < multipleSelection.length; i++) {
-        var row = multipleSelection[i];
-        //ids += row.realname + ",";
-        //编辑时POST传入唯一标识userid来取出特殊项
-        ids.push(row.userid);
-    }
-    /*POST请求之后再对前台加载*/
-    for(var d =0;d< ids.length;d++){
-            for(var k=0;k< _self.tableData.length;k++)
-                {
-                    if(_self.tableData[k].userid == ids[d]){
-                        _self.selectIndex = k;
-                    }
-                }
-        }
-    this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-    this.editForm.sex=(row.sex == "男"?1:0);
-    /*请求到的角色role列表传给edit页面数据*/
-    //this.editForm.rolelist = res.data.rolelist;
-    this.editForm.checkPass=row.password;
-    this.editFormVisible = true;
-    },
-    //保存点击事件
-    editSubmit: function(val) {
-    var _self = this;
-    /*this.$refs[val].validate((valid) => {
-        if (valid) {
-            //alert('submit!');*/
-        
-            /*POST请求递交editForm数据传入userid之后再对前台加载*/
-            this.tableData[this.selectIndex].userid = val.userid;
-            this.tableData[this.selectIndex].realname = val.realname;
-            this.tableData[this.selectIndex].birth = val.birth;
-            this.tableData[this.selectIndex].sex = (val.sex == 0?"女":"男");
-            this.tableData[this.selectIndex].username = val.username;
-            this.tableData[this.selectIndex].phone = val.phone;
-            this.tableData[this.selectIndex].email = val.email;
-            this.editFormVisible = false;
-            _self.loadingData();//重新加载数据
-            console.info(this.editForm);
-        /*} 
-        else 
-        {
-            console.log('error submit!!');
-            return false;
-        }
-    });*/
-    },
-    //新建提交点击事件
-    addSubmit: function(val) {
-        var _self=this;
-        /*POST请求递交addForm数据传入之后再对前台加载*/ /*此时尚无userid*/
-        this.tableData.unshift({
-            realname: val.realname,
-            birth: val.birth,
-            sex: (val.sex == 0?"女":"男"),
-            username:val.username,
-            phone:val.phone,
-            email:val.email
-        });
-        this.addFormVisible = false;
-        _self.total = _self.tableData.length;
-        _self.loadingData();//重新加载数据
-        val.realname = "";
-        val.birth = "";
-        val.sex = "";
-        val.username ="";
-        val.phone = "";
-        val.email ="";
-        console.info(this.addForm);
-        
     },
     closeDialog:function(val){
         this.addFormVisible = false;
