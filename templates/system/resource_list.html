@@ -1,8 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
+		
 		<link rel="stylesheet" type="text/css" href="../../static/css/lib.css"> 
-		<!-- <link rel="stylesheet" type="text/css" href="."> -->
+		<link rel="stylesheeet" type="text/css" href="../../static/css/system/resourcelist.css">
+		
 	</head>
 	<body class="fw f14 main-index-body">
 		<div id="header_box"></div>
@@ -17,47 +19,57 @@
 				<div class="main-container">
 					<div id="lib :: main_container_header('资源管理','资源管理')"></div>
                     <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
-					<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" style="font-weight:bold;width:200px;border-radius:5px;font-weight:100px;">
+					
+					<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" class="res_tree" style=" font-weight:bold;
+					width:200px;
+					border-radius:5px;
+					font-weight:100px;">
 					</el-tree>
-					</div>
-                    <div class="res_in" style="padding:30px; overflow:true;margin-left:45px;margin-top:30px;float:left;border:1px solid #ccc;width:60%;height:100%;border-radius:5px;">
-							
-							<el-form >
+					
+				    </div>
+					
+                    <div class="res_in" style="padding-left:10px;
+					overflow:true;
+					margin-left:45px;
+					margin-top:30px;
+					float:left;
+					border:1px solid #ccc;
+					width:60%;height:100%;
+					border-radius:5px;">
+					
+				
+					
+							 <el-form  :data="tableData">
 
 									<el-form-item label="资源名称">
-									  <el-input placeholder="/user/add" style="width:90%;"></el-input>
+									  {{tableData[1].children[0].resourcename}}
 									</el-form-item>
-
 									<el-form-item label="资源描述">
-									  <el-input style="width:90%;"></el-input>
+									     {{tableData[1].children[0].resourceinfo}}
 									</el-form-item>
-							
 									<el-form-item label="父资源">
-											<el-input style="width:90%;"></el-input>
-									 </el-form-item>
-
-									 <el-form-item label="顺序">
-											<el-input style="width:90%;"></el-input>
+									        {{tableData[1].children[0].url}}
 									</el-form-item>
-
+									<el-form-item label="顺序">
+									        {{tableData[1].children[0].resourceid}}
+									</el-form-item>
 									<el-form-item label="图标地址">
-										<el-input style="width:90%;"></el-input>
+									    	{{tableData[1].children[0].icon}}
 									</el-form-item>
-
 									<el-form-item label="资源类型">
-											<el-input style="width:90%;"></el-input>
+									    	{{tableData[1].children[0].type}}
 									</el-form-item>
 									<el-form-item label="创建人">
-										<el-input style="width:90%;"></el-input>
-									 </el-form-item>
+											{{tableData[1].children[0].url}}
+									</el-form-item>
 									<el-form-item label="创建时间">
-										<el-input style="width:90%;"></el-input>
-									 </el-form-item>
-									 <el-form-item label="修改人">
-										<el-input style="width:90%;"></el-input>
+											{{tableData[1].children[0].url}}
+									</el-form-item>
+									<el-form-item label="修改人">
+											{{tableData[1].children[0].url}}
 									</el-form-item>
 									<el-form-item label="修改时间">
-										<el-input style="width:90%;"></el-input>
+											{{tableData[1].children[0].url}}
 									</el-form-item>
 
 									<el-form-item>

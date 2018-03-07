@@ -1,4 +1,6 @@
 $("#header_box").load("../pages/header_box.html #header_box");
+//axios默认设置cookie
+axios.defaults.withCredentials = true;	
 
 new Vue({        
     el: '#app',
@@ -75,6 +77,21 @@ new Vue({
           }
         };
       },
+      mounted:function () {
+        var params = {
+            codetype: this.searchForm.codetypename,
+            createTimeBegin: this.searchForm.begintime_create,
+            createTimeEnd: this.searchForm.endtime_create
+        };
+
+        axios.post('http://localhost/codelist/findByVO', params).then(function(res){
+            this.tableData = res.data.result;
+            // this.total = res.data.result.length;
+            this.total = this.tableData.length;
+        }.bind(this),function(error){
+            console.log(error)
+        })
+    },
       methods: {
         handleNodeClick(data) {
           console.log(data);
