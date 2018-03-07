@@ -36,7 +36,7 @@
                                     <li class="I3">
                                         <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
                                         <a href="javascript:;" @click="reloadCode()">
-                                          <img v-bind:src="src"  id="checkCode" class="verficode" onerror="javascript:this.src='../images/img-error.png';" style="vertical-align: bottom" width="50" height="20">
+                                          <img v-bind:src="src"  id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom" width="50" height="20">
                                         </a>
                                     </li>
                                 </ul>
@@ -112,7 +112,7 @@
                 this.password = "";
             },
             reloadCode(){
-                $('#checkCode').attr('src','/imageCode?' + ((new Date()).valueOf()));
+                $('#checkCode').attr('src','/api/imageCode?' + ((new Date()).valueOf()));
             }
         }
     });
