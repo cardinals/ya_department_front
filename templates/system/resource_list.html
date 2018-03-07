@@ -16,75 +16,65 @@
             <div class="main-box">
 				<div class="main-container">
 					<div id="lib :: main_container_header('资源管理','资源管理')"></div>
-                    <div class="tree">
-						<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" style="width:200px;">
-                            
-						</el-tree>
+                    <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
+					<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" style="font-weight:bold;width:200px;border-radius:5px;font-weight:100px;">
+					</el-tree>
 					</div>
-                    <div class="res_in">
-						  <span>资源名称</span>
-						  <el-input style="width:410px;"></el-input>
-						  <span>资源描述</span>
-						  <el-input style="width:450px;"></el-input>
-						  <span>父资源</span>
-						  <el-input style="width:430px;"></el-input>
-						  <span>顺序</span>
-						  <el-input style="width:480px;"></el-input>
-						  <span>图标地址</span>
-						  <el-input style="width:410px;"></el-input>
-						  <span>资源类型</span>
-						  <el-input style="width:450px;"></el-input>
-						  <span>创建人</span>
-						  <el-input style="width:410px;"></el-input>
-						  <span>创建时间</span>
-						  <el-input style="width:470px;"></el-input>
-						  <span>修改人</span>
-						  <el-input style="width:410px;"></el-input>
-						  <span>修改时间</span>
-						  <el-input style="width:450px;"></el-input>
-						
-					</div>
-					<!-- <div id="tableView" style="position:fixed;left:600px; ">
-						<el-row> 
-						  	<el-form  label-width="70px" :inline="true" class="el-form demo-form-inline" :model="searchForm">
-								 <el-form-item label="资源名称">
-									<el-input size="mini" style="width: 300px;" placeholder="/user/add"></el-input>
-								 </el-form-item>            
-								 <el-form-item label="资源描述">  
-									<el-input size="mini" style="width: 300px;"></el-input>
-								 </el-form-item>				   
-								 <el-form-item label="父		资		源">  
-									<el-input size="mini" style="width: 300px;"></el-input>
-								 </el-form-item>
-								 <el-form-item label="顺		序">  
-									<el-input size="mini" style="width: 300px;"></el-input>
-								 </el-form-item>
-								 <el-form-item label="图标地址">  
-									<el-input size="mini" style="width: 300px;"></el-input>
-								 </el-form-item>
-								 <el-form-item label="资源类型">  
-									<el-input size="mini" style="width: 300px;"></el-input>
-								 </el-form-item>
-								 <el-form-item label="创	建	人">  
-									<el-input size="mini" style="width: 300px;"></el-input>
-								 </el-form-item>
-								 <el-form-item label="创建时间" class="right-search" style="width: 300px;"> 
-									 <el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
-									 value-format="yyyy-MM-dd" size="mini" v-model="searchForm.begintime" placeholder="创建时间" style="width: 170px"></el-date-picker>
-								 </el-form-item>
-								 <el-form-item label="修	改	人">  
-									<el-input size="mini" style="width: 300px;"></el-input>
-								 </el-form-item>
-								 <el-form-item label="修改时间" class="right-search" style="width: 300px;"> 
-									 <el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd"
-									 value-format="yyyy-MM-dd" size="mini" v-model="searchForm.begintime" placeholder="创建时间" style="width: 170px"></el-date-picker>
-								 </el-form-item>
-							</el-form>
-						</el-row> 
-						    自定义节点 
-						<el-button >添加顶级节点</el-button>
-					</div> -->
+                    <div class="res_in" style="padding:30px; overflow:true;margin-left:45px;margin-top:30px;float:left;border:1px solid #ccc;width:60%;height:100%;border-radius:5px;">
+							
+							<el-form >
 
+									<el-form-item label="资源名称">
+									  <el-input placeholder="/user/add" style="width:90%;"></el-input>
+									</el-form-item>
+
+									<el-form-item label="资源描述">
+									  <el-input style="width:90%;"></el-input>
+									</el-form-item>
+							
+									<el-form-item label="父资源">
+											<el-input style="width:90%;"></el-input>
+									 </el-form-item>
+
+									 <el-form-item label="顺序">
+											<el-input style="width:90%;"></el-input>
+									</el-form-item>
+
+									<el-form-item label="图标地址">
+										<el-input style="width:90%;"></el-input>
+									</el-form-item>
+
+									<el-form-item label="资源类型">
+											<el-input style="width:90%;"></el-input>
+									</el-form-item>
+									<el-form-item label="创建人">
+										<el-input style="width:90%;"></el-input>
+									 </el-form-item>
+									<el-form-item label="创建时间">
+										<el-input style="width:90%;"></el-input>
+									 </el-form-item>
+									 <el-form-item label="修改人">
+										<el-input style="width:90%;"></el-input>
+									</el-form-item>
+									<el-form-item label="修改时间">
+										<el-input style="width:90%;"></el-input>
+									</el-form-item>
+
+									<el-form-item>
+									  <el-checkbox name="type" >
+										<span>锁定</span>
+									  </el-checkbox>
+									</el-form-item>
+
+									<el-form-item>
+									  <el-button >更新</el-button>
+									</el-form-item>
+
+							 </el-form>
+								   
+									
+					</div>
+					
 				</div>
 				<!-- main-container -->
 			</div>
