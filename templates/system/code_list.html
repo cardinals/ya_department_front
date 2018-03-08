@@ -24,7 +24,7 @@
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
                             <el-row>
                                 <el-col :span="12" class="double-search-left">
-                                    <el-form-item label="代码类型">
+                                <el-form-item label="代码类型">
                                         <el-input class="form-input-text" size="small" v-model="searchForm.codetype" placeholder="请输入代码类型名称" prefix-icon="el-icon-search"></el-input>
                                     </el-form-item>
                                 </el-col>
@@ -89,7 +89,7 @@
                     </div>
 
                     <!--新建界面-->
-                    <el-dialog title="新建代码集" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">
+                    <el-dialog title="新建代码集" :visible.sync="addFormVisible" @close="closeDialog('addForm')" :close-on-click-modal="false">
                         <el-form :model="addForm" label-width="120px" :rules="addFormRules" ref="addForm">
                             <el-row>
                                 <el-col :span="22">
@@ -121,36 +121,37 @@
                             </el-row>
                         </el-form>
                         <div slot="footer" class="dialog-footer">
-                            <el-button @click.native="closeDialog(addForm)">取消</el-button>
+                            <el-button @click.native="closeDialog('addForm')">取消</el-button>
                             <el-button type="primary" @click.native="addSubmit(addForm)">提交</el-button>
                         </div>
                     </el-dialog>
 
                     <!--修改界面 -->
-                    <el-dialog title="修改代码集" :visible.sync="editFormVisible" :close-on-click-modal="false">
-                        <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+                    <el-dialog title="修改代码集" :visible.sync="editFormVisible" @close="closeDialog('editForm')" :close-on-click-modal="false">
+                        <el-form :model="editForm" label-width="120px" :rules="editFormRules" ref="editForm">
                             <el-row>
-                                <el-col :span="12">
+                                <el-col :span="22">
                                     <el-form-item label="代码类型" prop="codetype">
                                         <el-input v-model="editForm.codetype" auto-complete="off" placeholder="代码类型"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="4"></el-col>
-                                <el-col :span="12">
+                            </el-row>
+                            <el-row>
+                                <el-col :span="22">
                                     <el-form-item label="代码类型名称" prop="codetypeName">
                                         <el-input v-model="editForm.codetypeName" auto-complete="off" placeholder="代码类型名称"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
-                                <el-col :span="20">
+                                <el-col :span="22">
                                     <el-form-item label="备注" prop="remark">
                                         <el-input v-model="editForm.remark" auto-complete="off" placeholder="备注"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
-                                <el-col :span="20">
+                                <el-col :span="22">
                                     <el-form-item label="国际化信息" prop="language" value="zh_CN">
                                         <el-input v-model="editForm.language" auto-complete="off" placeholder="国际化信息"></el-input>
                                     </el-form-item>
@@ -158,7 +159,7 @@
                             </el-row>
                         </el-form>
                         <div slot="footer" class="dialog-footer">
-                            <el-button @click.native="editFormVisible = false">取消</el-button>
+                            <el-button @click.native="closeDialog('editForm')">取消</el-button>
                             <el-button type="primary" @click.native="editSubmit(editForm)">提交</el-button>
                         </div>
                     </el-dialog>
