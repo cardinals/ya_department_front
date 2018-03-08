@@ -20,7 +20,7 @@
 					<div id="lib :: main_container_header('资源管理','资源管理')"></div>
                     <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
 					
-					<el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick" class="res_tree" style=" font-weight:bold;
+					<el-tree :data="tableData" node-key="resourceid" :default-expanded-keys="['17']" :props="defaultProps" @node-click="handleNodeClick" style=" font-weight:bold;
 					width:200px;
 					border-radius:5px;
 					font-weight:100px;">
@@ -71,13 +71,11 @@
 									<el-form-item label="修改时间">
 											{{tableData[1].children[0].url}}
 									</el-form-item>
-
 									<el-form-item>
 									  <el-checkbox name="type" >
 										<span>锁定</span>
 									  </el-checkbox>
 									</el-form-item>
-
 									<el-form-item>
 									  <el-button >更新</el-button>
 									</el-form-item>

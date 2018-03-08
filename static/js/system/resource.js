@@ -1,8 +1,16 @@
+//axios默认设置cookie
+axios.defaults.withCredentials = true;
 new Vue({        
     el: '#app',
     data() {
         return {
-          data: [{
+          //表数据
+          tableData: [],//Grid中数据
+          //角色对应资源
+          resourceList:[],
+
+           data: [
+           {
             label: '消防物资',
                     children: [
 						{
@@ -66,13 +74,37 @@ new Vue({
                         label: '数据信息中心'
                         }]
                     }]
-          }],
+          }
+    ],
           defaultProps: {
             children: 'children',
-            label: 'label'
+            label: 'resourceinfo'
           }
         };
       },
+      mounted:function(){
+        axios.get('http://localhost/api/resource/getAll').then(function(res){
+            console.log(res.data.result);
+            this.tableData = res.data.result;
+        }.bind(this),function(error){
+            console.log(error)
+        }),
+        this.total = this.tableData.length;
+        
+        // axios.get('http://localhost/api/role/getRole/{userid}').then(function(res){
+        //     console.log(res.data.result);
+        //     this.tableData = res.data.result;
+        // }.bind(this),function(error){
+        //     console.log(error)
+        // }),
+        // this.total = this.tableData.length;
+        //  this.resourceList=val;
+        //  var _self = this;
+        //  _self.resourceVisible=true;
+
+
+      } ,
+    
       methods: {
         handleNodeClick(data) {
           console.log(data);
