@@ -129,7 +129,7 @@ new Vue({
         var params = {
 
         }
-        axios.post('http://localhost/api/user/findByVO', params).then(function (res) {
+        axios.post('/api/user/findByVO', params).then(function (res) {
             console.log(res.data.result);
             this.tableData = res.data.result;
             this.total = this.tableData.length;
@@ -156,7 +156,7 @@ new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             }
-            axios.post('http://localhost/api/user/findByVO', params).then(function (res) {
+            axios.post('/api/user/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 _self.loadingData();
@@ -222,7 +222,7 @@ new Vue({
         roleDetails: function(id){
             var _self = this;
             _self.roleDetailVisible = true;
-            axios.get('http://localhost/api/role/getRole/' + id).then(function(res){
+            axios.get('/api/role/getRole/' + id).then(function(res){
                 this.roleDetailList = res.data.result;
                 for(var i=0;i<this.roleDetailList.length;i++){
                     this.roleDetailSelect.push(this.roleDetailList[i].rolename);
@@ -234,7 +234,7 @@ new Vue({
         },
         //获取所有的角色
         getAllRoles: function () {
-            axios.get('http://localhost/api/role/getAll').then(function (res) {
+            axios.get('/api/role/getAll').then(function (res) {
                 this.allRoles = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
@@ -261,7 +261,7 @@ new Vue({
                 });
                 return;
             }else{
-                axios.get('http://localhost/api/account/getNum/' + this.addForm.username).then(function(res){
+                axios.get('/api/account/getNum/' + this.addForm.username).then(function(res){
                     if(res.data.result != 0){
                         _self.$message({
                             message: "用户名已存在!",
@@ -278,7 +278,7 @@ new Vue({
                             email: val.email,
                             roles: val.roles
                         }
-                        axios.post('http://localhost/api/user/insertByVO', params).then(function(res){
+                        axios.post('/api/user/insertByVO', params).then(function(res){
                             var addData = res.data.result;
                             _self.tableData.unshift(addData);
                             _self.total = _self.tableData.length;
@@ -364,7 +364,7 @@ new Vue({
                     roles: val.roles
                 };
                 console.log(val.roles);
-                axios.post('http://localhost/api/user/updateByVO', params).then(function (res) {
+                axios.post('/api/user/updateByVO', params).then(function (res) {
                     this.tableData[this.selectIndex].username = val.username;
                     this.tableData[this.selectIndex].realname = val.realname;
                     this.tableData[this.selectIndex].birth = val.birth;
@@ -413,7 +413,7 @@ new Vue({
                     var params = {
                         ids: ids
                     }
-                    axios.post('http://localhost/api/user/deleteByIds', params).then(function (res) {
+                    axios.post('/api/user/deleteByIds', params).then(function (res) {
                         for (var d = 0; d < ids.length; d++) {
                             for (var k = 0; k < _self.tableData.length; k++) {
                                 if (_self.tableData[k].pkid == ids[d]) {
