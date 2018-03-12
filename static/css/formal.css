@@ -6,7 +6,7 @@
  ****************/
 /*css reset*/
 html{overflow:hidden;height:100%;}
-body{height:100%;}
+body{height:100%;overflow:hidden;}
 .navbar{
   position:fixed;
   top:0;
@@ -16,10 +16,6 @@ body{height:100%;}
 }
 .left-sidebar {
     position: fixed;
-}
-.main-box {
-    height:100%;
-    margin-top:50px;
 }
 .table_container{
     border: 1px solid #eee;

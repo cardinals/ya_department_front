@@ -411,9 +411,10 @@
   background-color: #20a0ff;
 }
 .main-box {
-  height: 600px;
+  height: 535px;
   padding-left: 240px;
   overflow:auto;
+  margin-top:50px;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
