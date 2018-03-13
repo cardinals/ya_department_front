@@ -91,20 +91,15 @@
                     alert("用户名不能为空！")
                 }else if(password == null || password == ''){
                     alert("密码不能为空！")
-                }/*else if(checkCode == null || checkCode == ''){
+                }else if(checkCode == null || checkCode == ''){
                     alert("验证码不能为空！")
-                }*/else{
-                    var params = {
-                        username: this.username,
-                        password: this.password,
-                        validateCode: this.validateCode
-                    }
+                }else{
                     $('#login-form').submit();
                     var _self = this;
-                    //this.messages = msg;
-                    /*if(msg != null){
+                    this.messages = msg;
+                    if(msg != null){
                         alert(msg);
-                    }*/
+                    }
                 }
             },
             reset: function () {
