@@ -244,11 +244,9 @@ new Vue({
         //新建事件
         addClick: function () {
             var _self = this;
-            this.addForm.birth = "";
             /*POST请求全部的角色role列表项传给add页面数据*/
             this.getAllRoles();
             _self.addFormVisible = true;
-
         },
         //新建提交点击事件
         addSubmit: function (val) {
@@ -462,7 +460,7 @@ new Vue({
             val.username ='';
             val.realname = '';
             val.password = '';
-            val.password2 = '';
+            val.checkPass = '';
             val.birth = '';
             val.sex = '';
             val.mobile = '';

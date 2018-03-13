@@ -116,12 +116,14 @@
 								<el-col :span="8">
 									<el-form-item label="真实姓名" prop="realname">
 										<el-input v-model="addForm.realname" placeholder="真实姓名" auto-complete="off" style="width:180px"></el-input>
+										<el-input auto-complete="off" style="display: none"></el-input>
 									</el-form-item>
 								</el-col>
 							</el-row>
 							<el-row>
 								<el-col :span="8">
 									<el-form-item label="密码" prop="password">
+										<el-input type="password" auto-complete="off" style="display: none"></el-input>
 										<el-input v-model="addForm.password" type="password" placeholder="密码" auto-complete="off" style="width:180px"></el-input>
 									</el-form-item>
 								</el-col>
