@@ -69,7 +69,10 @@ treeMenuTemplate.push('</li>');
                 return "javascript:;";
             }
             var realUrl="";
-            if(this.model.url=="/user"){
+            if(this.model.url=="/home"){
+                realUrl="http://localhost/templates/home.html"
+            }
+            else if(this.model.url=="/user"){
                 realUrl="http://localhost/templates/system/user_list.html"
             }
             else if(this.model.url=="/role"){
@@ -78,20 +81,17 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/permission"){
                 realUrl="http://localhost/templates/system/permission_list.html"
             }
+            else if(this.model.url=="/resource"){
+                realUrl="http://localhost/templates/system/resource_list.html"
+            }
             else if(this.model.url=="/codelist"){
                 realUrl="http://localhost/templates/system/code_list.html"
             }
-            else if(this.model.url=="/home"){
-                realUrl="http://localhost/templates/home.html"
-            }
-            else if(this.model.url=="/digitalplan"){
-                realUrl="http://localhost/templates/digitalplan/digital_plan.html"
+            else if(this.model.url=="/digitalplan/digitalplan"){
+                realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
             }
             else if(this.model.url=="/planobject/importantunits"){
                 realUrl="http://localhost/templates/planobject/importantunits_list.html"
-            }
-            else if(this.model.url=="/resource"){
-                realUrl="http://localhost/templates/system/resource_list.html"
             }
             return realUrl;
         }
