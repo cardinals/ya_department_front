@@ -93,6 +93,9 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/planobject/importantunits"){
                 realUrl="http://localhost/templates/planobject/importantunits_list.html"
             }
+            else if(this.model.url=="/basicinfo/firewater"){
+                realUrl="http://localhost/templates/basicinfo/firewater_list.html"
+            }
             return realUrl;
         }
     },
