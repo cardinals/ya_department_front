@@ -1,10 +1,29 @@
+
 .map_slt{
 background: red;
-
 color: red;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
+.res_slt{
+  margin-left:-10px;padding-top:40px;width:240px;border:none;
+}
+.pagenum{
+  position:fixed;bottom:60px;margin-left:50px;color:black;
 
 }
+.pagenum_btn{
+  font-weight:bold;text-decoration: none;color:black;
 
-  .input-with-select .el-input-group__prepend {
-    background-color: #fff;
-  }
+}
+.an{
+  text-decoration: none;
+}
+
+.map_btn_f{
+  background:#000;margin-top:100px;border-radius:100px;
+}
+.map_btn{
+  background:#000;margin-top:10px;margin-left:0px;border-radius:100px;
+}
