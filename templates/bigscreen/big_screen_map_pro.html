@@ -56,9 +56,6 @@
                         </el-collapse-item>
                     </el-collapse>
  
-
-
-
                                 <!-- <el-col :span="10">
                                     <el-dropdown trigger="click">
                                             <span class="el-dropdown-link" >
@@ -87,7 +84,6 @@
                                     </el-dropdown>
                                 </el-col> -->
 
-
                      <div style="position:fixed;bottom:60px;margin-left:50px;color:black;">
                           
                         <a href="" class="bgbtn02 btn " style="font-weight:bold;text-decoration: none;color:black;">     
@@ -101,7 +97,7 @@
                             >
 
                           </a>    
-                        </div>
+                    </div>
                 </el-form>
                 </div>
 
@@ -270,25 +266,24 @@
         }
     })
 </script>
-
-<script>
-        $('#menu-toggle-btn').click(function () {
-        var left = $('.map-menu'),
-            main = $('.meu-box'),
-            $this = $(this);
-        if (left.hasClass('damin')) {
-            left.removeClass('damin').css('left', '0');
-            main.css('padding-left', '0px');
-            setTimeout(function () {
-                $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
-            }, 300);
-        } else {
-            left.addClass('damin').css('left', '-280px');
-            main.css('padding-left', 0);
-            setTimeout(function () {
-                $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
-            }, 300);
-        }
-    });
-</script>
+    <script>
+            $('#menu-toggle-btn').click(function () {
+            var left = $('.map-menu'),
+                main = $('.meu-box'),
+                $this = $(this);
+            if (left.hasClass('damin')) {
+                left.removeClass('damin').css('left', '0');
+                main.css('padding-left', '0px');
+                setTimeout(function () {
+                    $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
+                }, 300);
+            } else {
+                left.addClass('damin').css('left', '-280px');
+                main.css('padding-left', 0);
+                setTimeout(function () {
+                    $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
+                }, 300);
+            }
+        });
+    </script>
 </html>
