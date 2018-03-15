@@ -32,18 +32,11 @@
 									</el-col>
 								</el-row>
 								<el-row type="flex" justify="center">
-                                 
-                                    <el-col :span="10">
-                                        <el-form-item label="水源类型">
-                                            <el-cascader 
-                                                expand-trigger="hover" 
-                                                :options="SYLX_data" 
-                                                v-model="selected_SYLX" 
-                                                @change="handleChange" 
-                                                class="inputWidth">
-                                            </el-cascader>
-                                        </el-form-item>
-                                    </el-col>         
+									<el-col :span="10">
+										<el-form-item label="所属机构">
+											<el-input size="small" v-model="searchForm.JGID" placeholder="所属机构" class="inputWidth"></el-input>
+										</el-form-item>
+									</el-col>      
                                     <el-col :span="12">
                                         <el-form-item label="取水形式">
                                             <el-cascader 
@@ -56,7 +49,17 @@
                                         </el-form-item>
 									</el-col>
 								</el-row>
-								
+								<el-row type="flex" justify="center">
+								<el-col :span="10">
+									<el-form-item label="水源类型">
+										<el-select size="small" v-model="selected_SYLX" placeholder="水源类型" style="width:300px;" multiple>	
+										<el-option v-for="item in SYLX_data" :key="item.value" :label="item.label" :value="item.value">		
+										</el-option>
+									</el-select>
+									</el-form-item>
+								</el-col>
+								<el-col :span="12"></el-col>   
+								</el-row>
 								<div>
 									<el-form>
 										<el-col :span="12" class="btnEditDelete">
@@ -88,10 +91,10 @@
 										<el-button @click="informClick(scope.row)" type="text">{{scope.row.SYMC}}</el-button>
 									</template>
 								</el-table-column>
-								<el-table-column prop="SYDZ" label="水源地址" min-width="35%" align="center"></el-table-column>
+								<el-table-column prop="SYDZ" label="水源地址" min-width="30%" align="center"></el-table-column>
 								<el-table-column prop="SYLX" label="水源类型" min-width="12%" align="center" :formatter="typeFormat"></el-table-column>
-								<el-table-column prop="QSXS" label="取水形式" min-width="25%" align="center" :formatter="formsFormat"></el-table-column>
-								
+								<el-table-column prop="QSXS" label="取水形式" min-width="12%" align="center" :formatter="formsFormat"></el-table-column>
+								<el-table-column prop="SSJG" label="所属机构" min-width="18%" align="center" :formatter="formsFormat"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->

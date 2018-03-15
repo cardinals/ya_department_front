@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    <title>消防水源管理</title>
+</head>
+
+<body class="fw f14 main-index-body">
+    <div id="header_box"></div>
+    <div class="left-sidebar">
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <div id="menu-box">
+            <big-tree default-active="51"></big-tree>
+        </div>
+    </div>
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container">
+                <div id="lib :: main_container_header('消防水源管理','消防水源管理')"></div>
+                <div id="tableView">
+                    <div class="nameBox" style="min-height:210px">
+                        <div id="basic-Inform-Picture">
+                            <img src="../../static/images/danwei2.jpg">
+                        </div>
+                        <div class="dib" id="basic-Inform-Title">
+                            <div>
+                                <h3 class="dib inform-h3">{{rowdata.SYMC}}</h3>
+                                <span class="companyStatus dib" title="水源名称">{{rowdata.SYMC}}</span>
+                            </div>
+                            <dl>
+                                <img src="../../static/images/location.png">
+                                <dt class="dib inform-small-title">可用状态：</dt>
+                                <dd class="dtdlStyle">{{rowdata.KYZT}}</dd>
+                                <br>
+                                <img src="../../static/images/date.png">
+                                <dt class="dib inform-small-title">水源编号：</dt>
+                                <dd class="dtdlStyle">{{rowdata.DWCLSJ}}</dd>
+                                <br>
+                                <img src="../../static/images/location.png">
+                                <dt class="dib inform-small-title">水源地址：</dt>
+                                <dd class="dtdlStyle">{{rowdata.DWDH}}</dd>
+                            </dl>
+                        </div>
+                        <div style="float: right">
+                            <el-button type="primary" icon="share" style="width:120px" @click="openShare">信息分享</el-button>
+                            <br>
+                            <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openPrinter">信息打印</el-button>
+                            <br>
+                            <el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">发送邮箱</el-button>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="inform-content">
+                        <template>
+                            <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+                                <el-tab-pane label="基本信息" name="first">
+                                    <div class="inform-div" id="XHS" style="display:none">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">建造时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.JZSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">启用时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.QYSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">所属管网：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.GWID}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">设置形式：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.SZXS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">供水单位：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.GSDW}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">联系方式：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.LXFS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">管网形式：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.GWXS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">管网直径：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.GWZJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">管网压力：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.GWYL}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">接口形式：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.JKXS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">流量：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.LL}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">备注：</dt>
+                                                    <dd class="dtdlStyle">{{XHSdata.BZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="inform-div" id="XFSC" style="display:none">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">建造时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.JZSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">启用时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.QYSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">水源标高差：</dt>
+                                                    <dd class="dtdlStyle">{{XFSCdata.SYBGC}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">储水量：</dt>
+                                                    <dd class="dtdlStyle">{{XFSCdata.RL}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">进水流量：</dt>
+                                                    <dd class="dtdlStyle">{{XFSCdata.JSLL}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">管网形式：</dt>
+                                                    <dd class="dtdlStyle">{{XFSCdata.GWXS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">停车位置：</dt>
+                                                    <dd class="dtdlStyle">{{XFSCdata.TCWZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">停车数量：</dt>
+                                                    <dd class="dtdlStyle">{{XFSCdata.TCSL}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">备注：</dt>
+                                                    <dd class="dtdlStyle">{{XFSCdata.BZ}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                        </div>
+                                    </div>
+
+                                    <div class="inform-div" id="XFSH" style="display:none">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">建造时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.JZSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">启用时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.QYSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">所属管网：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.SSGW}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">管网直径：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.GWZJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">管网压力：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.GWYL}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">水鹤高度：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.SHGD}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">流量：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.LL}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">进水管直径：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.JSGZJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">出水管直径：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.CSGZJ}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">加水车道：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.JSCD}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">备注：</dt>
+                                                    <dd class="dtdlStyle">{{XFSHdata.BZ}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="inform-div" id="XFQSMT" style="display:none">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">建造时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.JZSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">启用时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.QYSJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源名称：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.TRSYMC}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源位置：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.TRSYWZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源类型：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.TRSYLX}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">水质：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.SZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">有无枯水期：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.YWKSQ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">四季变化：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.SJBH}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源容量：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.TRSYRL}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源面积：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.TRSYMJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">水源标高差：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.SYBGC}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">停车位置：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.TCWZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">停车数量：</dt>
+                                                    <dd class="dtdlStyle">{{XFQSMTdata.TCSL}}</dd>
+                                                </dl>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="inform-div" id="TRSY" style="display:none">
+                                        <div class="left-inform">
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源名称：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.TRSYMC}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源位置：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.TRSYWZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源类型：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.TRSYLX}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">水质：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.SZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">有无枯水期：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.YWKSQ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">四季变化：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.SJBH}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源容量：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.TRSYRL}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">天然水源面积：</dt>
+                                                    <dd class="dtdlStyle">{{TRSYdata.TRSYMJ}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="方位信息" name="second">
+                                    <div class="inform-div" style="min-height:180px">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">所属路段：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.SSLD}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">地图坐标X：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.GIS_X}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">地图坐标Y：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.GIS_Y}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="维修记录" name="fourth">
+                                    <div class="inform-div" style="min-height:180px">
+                                        <div class="left-inform">
+                                            暂无
+                                        </div>
+                                        <div class="right-inform">                                                                              
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="检查记录" name="fifth">
+                                        <div class="inform-div" style="min-height:180px">
+                                            <div class="left-inform">
+                                                暂无
+                                            </div>
+                                            <div class="right-inform">                                                                              
+                                            </div>
+                                        </div>
+                                </el-tab-pane>
+                            </el-tabs>
+                        </template>
+
+                    </div>
+                    <!--信息分享-->
+                    <el-dialog title="分享至" :visible.sync="shareDialogVisible" @close="closeShareDialog" :close-on-click-modal="false" center
+                        class="el-dialog--small" style="margin:0 auto;">
+                        <div style="text-align: center">
+                            <img style="cursor:pointer" src="../../static/images/weibo.png" @click="shareWeibo()">
+                            <img style="cursor:pointer" src="../../static/images/wechat.png" @click="shareWechat()">
+                            <img style="cursor:pointer" src="../../static/images/QQ.png" @click="shareQQ()">
+                        </div>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="closeShareDialog">取 消</el-button>
+                            <el-button type="primary" @click="openShare">确 定</el-button>
+                        </div>
+                    </el-dialog>
+                    <!--发送邮箱-->
+                    <el-dialog title="发送至邮箱" :visible.sync="emailDialogVisible" @close="closeEmailDialog" :close-on-click-modal="false" center
+                        class="el-dialog--small" style="margin:0 auto;">
+                        <div style="text-align: center">
+                            <span style="font-weight: bold;">邮箱地址</span>
+                            <el-input v-model="email" auto-complete="off" placeholder="请输入邮箱" style="width: 180px"></el-input>
+                        </div>
+                        <div slot="footer" class="dialog-footer">
+                            <el-button @click="closeEmailDialog">取 消</el-button>
+                            <el-button type="primary" @click="openEmail">确 定</el-button>
+                        </div>
+                    </el-dialog>
+                </div>
+            </div>
+
+            <!-- main-container -->
+        </div>
+    </div>
+</body>
+<script src="../../static/js/lib.js" ></script>
+<script src="../../static/js/menu.js" ></script>
+<script src="../../static/js/basicinfo/firewater_detail.js"></script>
+
+</html>
