@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title></title>
@@ -8,33 +7,129 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css" >
 </head>
-
 <body class="fw map-bg">
     <div id="app">
         <div class="application-box tc abs">
-            <div class="map-menu p10">
-                <el-form ref="form" :model="form" label-width="80px">
-                    <el-form-item label="选择区域">
-                        <el-cascader placeholder="地区" :options="options" filterable change-on-select></el-cascader>
-                    </el-form-item>
-                    <el-form-item label="水源信息">
-                        <el-switch v-model="form.delivery1" @change="getMarker1"></el-switch>
-                    </el-form-item>
-                    <el-form-item label="消防力量">
-                        <el-switch v-model="form.delivery2" @change="getMarker2"></el-switch>
-                    </el-form-item>
-                    <el-form-item label="重点单位">
-                        <el-switch v-model="form.delivery3" @change="getMarker3"></el-switch>
-                    </el-form-item>
+            <div class="map-menu p10" >
+                <div class="meu-box" >
+                <el-form ref="form" :model="form" label-width="80px" >
+                  
+                    <el-select placeholder="请输入地址"  class="input-with-select map_slt w150 l b_r">
+                        <el-option label="北京" value="北京"></el-option>
+                        <el-option label="天津" value="天津"></el-option>
+                        <el-option label="河北" value="河北"></el-option>
+                    </el-select>
+
+                    <el-button class="l ml5" type="primary" icon="el-icon-search">搜索</el-button>
+
+                    <el-collapse class="res_slt" >
+                        <el-collapse-item title="更多搜索选项" name="4" >
+                            <div>
+                            <!-- <form action="" method="get"> 
+                                <label><input name="Fruit" type="checkbox" value="" />重点单位</label> 
+                                <label><input name="Fruit" type="checkbox" value="" />重大活动或会议</label> 
+                                <label><input name="Fruit" type="checkbox" value="" />其他对象</label> 
+                            </form>  -->
+                            <el-dropdown-item style="font-size:5px;">
+                                    <el-checkbox label="重点单位"></el-checkbox>
+                                    <el-checkbox label="重大活动或会议"></el-checkbox>
+                                    <el-checkbox label="其他对象"></el-checkbox>
+                            </el-dropdown-item>
+
+                            </div>
+                            <div>
+                                <el-dropdown-item>
+                                    <el-select class="mt10" placeholder="请选择">
+                                    </el-select>
+                                </el-dropdown-item>
+                                <el-dropdown-item>
+                                    <el-input class="mt10" placeholder="主体名称"></el-input>
+                                </el-dropdown-item>
+                                <el-dropdown-item>
+                                    <el-input class="mt10" placeholder="地址"></el-input>
+                                </el-dropdown-item>
+                                <el-dropdown-item >
+                                    <el-date-picker class="mt10 w190" type="date" placeholder="录入日期"></el-date-picker>
+                                </el-dropdown-item>
+                            </div>
+                        </el-collapse-item>
+                    </el-collapse>
+ 
+                                <!-- <el-col :span="10">
+                                    <el-dropdown trigger="click">
+                                            <span class="el-dropdown-link" >
+                                            更多<i class="el-icon-arrow-down el-icon-right"></i>
+                                            </span>
+                                        <el-dropdown-menu slot="dropdown" style="width:180px;margin-left:40px;">
+                                                <el-dropdown-item style="font-size:10px;">
+                                                    <el-checkbox label="重点单位"></el-checkbox>
+                                                    <el-checkbox label="重大活动或会议"></el-checkbox>
+                                                    <el-checkbox label="其他对象"></el-checkbox>
+                                                </el-dropdown-item>
+                                                <el-dropdown-item>
+                                                    <el-select style="margin-top: 10px;" placeholder="请选择">
+                                                    </el-select>
+                                                </el-dropdown-item>
+                                                <el-dropdown-item>
+                                                    <el-input style="margin-top: 10px;" placeholder="主体名称"></el-input>
+                                                </el-dropdown-item>
+                                                <el-dropdown-item>
+                                                    <el-input style="margin-top: 10px;" placeholder="地址"></el-input>
+                                                </el-dropdown-item>
+                                                <el-dropdown-item>
+                                                    <el-date-picker style="margin-top: 10px;width:200px;" type="date" placeholder="录入日期"></el-date-picker>
+                                                </el-dropdown-item>
+                                        </el-dropdown-menu>
+                                    </el-dropdown>
+                                </el-col> -->
+
+                     <div class="pagenum">
+                          
+                        <a href="" class="bgbtn02 btn pagenum_btn" >     
+                            <!-- <img src="images/edit.png"/>      -->
+                             <
+
+                          </a> 
+                          <span>1/33</span>  
+                          <a href="" class="bgbtn02 btn pagenum_btn" >     
+                                <!-- <img src="images/edit.png"/>    -->
+                            >
+
+                          </a>    
+                    </div>
                 </el-form>
+                </div>
+
+                <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc an" href="javascript:;" ></a>
+
             </div>
-            <div class="map-china">
+
+
+            <div class="map-menu-right h456 mt35">
+
+                <div class="meu-box-right">
+                    <el-button type="primary"  icon="el-icon-search"class="map_btn_f" >消防主体</el-button>
+                    <el-button type="primary" icon="el-icon-search" class="map_btn" >数字化预案</el-button>
+                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近500m水源</el-button>   
+                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近1000m水源</el-button>
+                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近500m消防力量</el-button>
+                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近1000m消防力量</el-button>
+                </div> 
+
+            </div>
+
+
+            <div class="map-china" style="margin-top:10px;margin-left:800px;">
                 <a href="big_screen_map.html">
                     <img src="../../static/images/icon-china.png" />
                 </a>
             </div>
-            <div id="BMap" class="map-main tc"></div>
+
+            <div id="BMap" class="map-main tc">
+            </div>
+          
         </div>
     </div>
 </body>
@@ -172,5 +267,24 @@
         }
     })
 </script>
-
+    <script>
+            $('#menu-toggle-btn').click(function () {
+            var left = $('.map-menu'),
+                main = $('.meu-box'),
+                $this = $(this);
+            if (left.hasClass('damin')) {
+                left.removeClass('damin').css('left', '0');
+                main.css('padding-left', '0px');
+                setTimeout(function () {
+                    $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
+                }, 300);
+            } else {
+                left.addClass('damin').css('left', '-280px');
+                main.css('padding-left', 0);
+                setTimeout(function () {
+                    $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
+                }, 300);
+            }
+        });
+    </script>
 </html>

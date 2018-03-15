@@ -33,12 +33,28 @@
   margin: 0;
   float: left;
   background-color: #3e3f43;
+  position: absolute; /*设置为绝对定位*/
+  z-index:999;        /*设置重叠的上下次序，值越大月在上方*/
+  opacity: 0.9;
 }
+.map-menu-right {
+  width: 170px;
+  height: 100%;
+  margin: 0;
+  float: right;
+  position: absolute; /*设置为绝对定位*/
+  right:0px;
+  z-index:999;        /*设置重叠的上下次序，值越大月在上方*/
+  background-color: #409EFF;
+  opacity: 0.5; 
+  /* 透明属性 */
+}
+
 .map-menu .el-form-item__label {
   color: #FFFFFF !important;
 }
 .map-main {
-  width: 960px;
+  width: 100%;
   height: 100%;
   margin: 0;
   float: right;
@@ -411,10 +427,9 @@
   background-color: #20a0ff;
 }
 .main-box {
-  height: 535px;
+  height: 600px;
   padding-left: 240px;
   overflow:auto;
-  margin-top:50px;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
