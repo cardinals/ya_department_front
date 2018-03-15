@@ -10,14 +10,116 @@
 	<link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/tagscloud2.css">
 </head>
+<style>
+	.body{
+		padding: 0px;
+	}
+     .center-in-center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+		}
+		.map_top{
+         height:85px;
+		 width:1200px;
+		 position: fixed;
+		 top: 40px;
+		
+		}
+		.map_bottom{
+         height:85px;
+		 width:1200px;
+		 position: fixed;
+		 bottom: 50px;
+		
+		}
+		.map_left{
+         height:300px;
+		 width:220px;
+		 position: fixed;
+		 top:140px;
+		 left: 50px;
+	
+		}
+		.map_right{
+         height:300px;
+		 width:220px;
+		 position: fixed;
+		 top:140px;
+		 right: 50px;
+	
+		}
+		.top_br{
+			 padding:10px;border-radius:10px;box-shadow:0px 0px 30px 10px #3399ff  inset;
 
-<body class="fw map-bg">
+		}
+		
+</style>
+<style>
+	
+</style>
+
+<body class="fw map-bg" >
+
 	<div id="app">
 		<div class="application-box tc abs">
-			<div class="application-logo logo"></div>
-			<div class="application-icon-l db l">
-				<div id="map" style="margin-top:120px;margin-left:300px;height:50%;width:50%;"></div>
+			
+			<div class="map_top">
+				<div style="position:fixed;left:50px;width:220px;" class="top_a map-bg2">
+					<div class="application-name" >重点单位总数（家）</div>
+					<div class="application-num" style="color:#99ff00;">{{zddw}}</div>
+				</div>
+				<div style="position:fixed;left:340px;width:260px;" class="top_b map-bg2">
+					<div class="application-name">二维数字化预案总数（个）</div>
+					<div class="application-num" style="color:#99ff00;">{{zddw}}</div>
+				</div>
+				<div style="position:fixed;right:340px;width:260px;" class="top_c map-bg2">
+					<div class="application-name">三维数字化预案总数（个）</div>
+					<div class="application-num" style="color:#99ff00;">{{zddw}}</div>
+				</div>	
+				<div style="position:fixed;right:50px;width:220px;" class="top_d map-bg2">
+					<div class="application-name">数字化预案总数（个）</div>
+					<div class="application-num" style="color:#99ff00;">{{yags}}</div>
+				</div>
 			</div>
+
+			<div class="map_left map-bg2">
+
+			</div>
+			
+			<!-- <div class="application-logo logo"></div> -->
+			<div class="application-icon-l center-in-center map-bg2" >
+				<div id="map" style="height:100%;width:100%;"></div>
+			</div>
+			
+			<div class="map_right map-bg2">
+				<div class="application-name">二维预案总数排行</div>
+                <div class="application-name">（全国前十省）</div>
+			</div>
+			
+			<div class="map_bottom">
+				<!-- <div style="position:fixed;left:50px;" class="top_d top_br">
+					<div class="application-name">数字化预案总数（个）</div>
+					<div class="application-num" style="color:#99ff00;">{{yags}}</div>
+				</div> -->
+				
+				<div style="position:fixed;left:340px;width:600px;" class="top_d map-bg2">
+						<div class="application-name">数字化预案总数（个）</div>
+						<div class="application-num" style="color:#99ff00;">{{yags}}</div>
+				</div>
+
+				<div style="position:fixed;right:50px;width:220px;" class="top_d map-bg2">
+						<div class="application-name">数字化预案总数（个）</div>
+						<div class="application-num" style="color:#99ff00;">{{yags}}</div>
+				</div>
+
+			</div>
+
 			<!-- /application-icon-l -->
 			<!-- <div class="application-icon-r" style="margin-left:10px;">
 				<div class="application-div h15 p5">
@@ -28,10 +130,11 @@
 							</div>
 						</div>
 				</div>
-            </div> -->
-
+			</div> -->
+			
+           <!--右侧部分-->
 			<div class="application-icon-r db r">
-				<div class="application-div h15 p5">
+				<!-- <div class="application-div h15 p5">
 					<div class="application-text p38 icon1 flex map-bg2">
 						<div>
 							<div class="application-name">数字化预案总数（个）</div>
@@ -49,36 +152,40 @@
 				</div>
 				<div class="application-div h35 p5">
 					<div class="application-text flex map-bg2">
-						<!-- <div id="bar" class="application-text"></div> -->
 						<div id="pie" class="application-text"></div>
 					</div>
-				</div>
-				<div class="application-div h35 p5">
+				</div> -->
+				<div class="application-div h35 p5" style="position:fixed;bottom:55px;left:45px;width:230px;height:90px;">
 					<div class="application-text flex map-bg2">
 						<div id="tagscloud" class="application-text">
-							<a class="tagc1">辽宁省人民法院</a>
-							<a class="tagc2">辽宁省政府</a>
-							<a class="tagc3">辽宁省就业局</a>
-							<a class="tagc2">沈阳市城市规划管理局</a>
-							<a class="tagc2">沈阳市公安局</a>
-							<a class="tagc1">沈阳市地铁二号线</a>
-							<a class="tagc2">青岛市塑性加工园</a>
-							<a class="tagc3">泰安市城建局</a>
-							<a class="tagc2">河北省国土资源厅</a>
-							<a class="tagc2">秦皇岛市林业局</a>
+							<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
+							<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
+							<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
+							<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
+							<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
+							<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
+							<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
+							<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
+							<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
+							<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> 
+
 			<!-- /application-icon-r -->
 		</div>
 		<!-- /application-box -->
 	</div>
+	
+
+
 </body>
 <script src="../../static/js/echarts-2/echarts-all.js"></script>
 <script src="../../static/js/echarts-4/echarts.js"></script>
 <script type="text/javascript" src="../../static/js/vue.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
+
 <script>
 	var vm = new Vue({
 		el: "#app",
