@@ -102,7 +102,7 @@ treeMenuTemplate.push('</li>');
 
     data: function () {
         return {
-            open: true,
+            open: false,
             paddingLeft: this.level * 20,
             selected: false,
             
