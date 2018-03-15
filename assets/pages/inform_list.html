@@ -177,7 +177,250 @@
                                         </div>
                                     </div>
                                 </el-tab-pane>
-                                <el-tab-pane label="预案信息" name="second">
+                                <el-tab-pane label="主要人员信息" name="second">
+                                    <div class="inform-div">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">法人代表或主要负责人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.FRDB}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">法人代表身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.FRDBSFZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">法人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.FRDBDH}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle"></dt>
+                                                    <dd class="dtdlStyle"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全责任人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.AQZRR}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全责任人身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.AQZRRSFZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全责任人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.AQZRRDH}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全管理人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.AQGLR}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全管理人身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.AQGLRSFZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全管理人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.AQGLRDH}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle"></dt>
+                                                    <dd class="dtdlStyle"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">专兼职消防管理人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ZJZXFGLR}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">专兼职消防管理人身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ZJZXFGLRSFZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">专兼职消防管理人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ZJZXFGLRDH}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="重点区域" name="third">
+                                    <div class="inform-div">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">重点部位名称：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ZDBWMC}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">重点部位位置：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ZDBWWZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">所在层数：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.SZCS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">所在高度：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.SZGD}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">建筑面积：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.JZMJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防电梯数：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.XFDTS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">疏散出口数：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.SSCKS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">安全出口数：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.AQCKS}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">建筑结构：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.JZJG}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">使用性质：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.SYXZ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">防火标识设立情况：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.FHBSJLQK}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">危险源情况：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.WXYQK}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">火种情况：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.HZQK}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">耐火等级：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.NHDJ}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">灭火设施：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.MHSS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">危险性：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.WXX}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="消防设施" name="forth">
+                                    <div class="inform-div">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">周围毗邻情况：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ZWPLQK}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防通道或疏散通道：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.XFTD}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">内部消防设施：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.NBXFSS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">防火设施：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.FHSS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防控制室信息：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.XFKZS}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">其他等信息：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.QT}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="单位位置" name="fifth">
+                                    <div class="inform-div">
+                                        
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="预案信息" name="sixth">
                                     <div class="inform-div">
                                         <div class="left-inform">
                                             <div>
@@ -269,98 +512,6 @@
                                             </dd>
                                             <dt class="dtdlStyle inform-download-cursor" @click="DownLoadFile()">文档预案</dt>
                                         </dl>
-                                    </div>
-                                </el-tab-pane>
-                                <el-tab-pane label="主要人员信息" name="third">
-                                    <div class="inform-div">
-                                        <div class="left-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">法人代表或主要负责人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.FRDB}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">法人代表身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.FRDBSFZ}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">法人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.FRDBDH}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle"></dt>
-                                                    <dd class="dtdlStyle"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全责任人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.AQZRR}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全责任人身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.AQZRRSFZ}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全责任人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.AQZRRDH}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全管理人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.AQGLR}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全管理人身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.AQGLRSFZ}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全管理人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.AQGLRDH}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle"></dt>
-                                                    <dd class="dtdlStyle"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">专兼职消防管理人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ZJZXFGLR}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">专兼职消防管理人身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ZJZXFGLRSFZHM}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">专兼职消防管理人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ZJZXFGLRDH}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
                                     </div>
                                 </el-tab-pane>
                             </el-tabs>

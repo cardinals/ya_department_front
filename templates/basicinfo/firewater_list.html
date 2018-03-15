@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+        <link rel="stylesheet" type="text/css" href="../../static/css/basicinfo/firewater_list.css"> 
+    </head>
+	<body class="fw f14 main-index-body">
+		<div id="header_box"></div>
+        <div class="left-sidebar">
+            <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+            <div id="menu-box">
+                <big-tree default-active="51"></big-tree>
+            </div>
+        </div>
+        <div id="app">
+            <div class="main-box">
+                <div class="main-container">
+                    <div id="lib :: main_container_header('消防水源管理','消防水源管理')"></div>
+                    <div id="tableView">
+						<el-row>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row type="flex" justify="center">
+									<el-col :span="10">
+										<el-form-item label="水源名称">
+											<el-input size="small" v-model="searchForm.SYMC" placeholder="水源名称" class="inputWidth"></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :span="12">
+										<el-form-item label="水源地址">
+											<el-input size="small" v-model="searchForm.SYDZ" placeholder="水源地址" class="inputWidth"></el-input>
+										</el-form-item>
+									</el-col>
+								</el-row>
+								<el-row type="flex" justify="center">
+                                 
+                                    <el-col :span="10">
+                                        <el-form-item label="水源类型">
+                                            <el-cascader 
+                                                expand-trigger="hover" 
+                                                :options="SYLX_data" 
+                                                v-model="selected_SYLX" 
+                                                @change="handleChange" 
+                                                class="inputWidth">
+                                            </el-cascader>
+                                        </el-form-item>
+                                    </el-col>         
+                                    <el-col :span="12">
+                                        <el-form-item label="取水形式">
+                                            <el-cascader 
+                                                expand-trigger="hover" 
+                                                :options="QSXS_data" 
+                                                v-model="selected_QSXS" 
+                                                @change="handleChange" 
+                                                class="inputWidth">
+                                            </el-cascader>
+                                        </el-form-item>
+									</el-col>
+								</el-row>
+								
+								<div>
+									<el-form>
+										<el-col :span="12" class="btnEditDelete">
+											<el-form-item align="left">
+												<!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
+												<!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
+											</el-form-item>
+										</el-col>
+										<el-col :span="12"></el-col>
+										<el-col :span="12" class="btnSearchPlus">
+											<el-form-item>
+												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+												<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+							</el-form>
+						</el-row>
+
+						<div class="table_container">
+							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+
+								<el-table-column type="selection" min-width="5%"></el-table-column>
+								<el-table-column prop="SYBH" label="水源编号" min-width="11%" align="center"></el-table-column>
+								<el-table-column prop="SYMC" label="水源名称" min-width="12%" align="center">
+									<template slot-scope="scope">
+										<el-button @click="informClick(scope.row)" type="text">{{scope.row.SYMC}}</el-button>
+									</template>
+								</el-table-column>
+								<el-table-column prop="SYDZ" label="水源地址" min-width="35%" align="center"></el-table-column>
+								<el-table-column prop="SYLX" label="水源类型" min-width="12%" align="center" :formatter="typeFormat"></el-table-column>
+								<el-table-column prop="QSXS" label="取水形式" min-width="25%" align="center" :formatter="formsFormat"></el-table-column>
+								
+							</el-table>
+
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination 
+										@size-change="pageSizeChange" 
+										@current-change="currentPageChange" 
+										:current-page="currentPage" 
+										:page-sizes="[10, 20, 30, 50]"
+										 :page-size="pageSize" 
+										 layout="total, sizes, prev, pager, next, jumper" 
+										 :total=parseInt(total)>
+									</el-pagination>
+								</el-col>
+							</el-row>
+						</div>
+
+						<!--新建界面-->
+						<el-dialog title="新建用户" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">
+							<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+								<el-row>
+									<el-col :span="8">
+										<el-form-item label="权限名称" prop="permissionname">
+											<el-input v-model="addForm.permissionname" auto-complete="off" placeholder="权限名称" class="addEditFormInput"></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :span="4">&nbsp;</el-col>
+									<el-col :span="8">
+										<el-form-item label="权限描述" prop="permissioninfo">
+											<el-input v-model="addForm.permissioninfo" auto-complete="off" placeholder="权限描述" class="addEditFormInput"></el-input>
+										</el-form-item>
+									</el-col>
+								</el-row>
+							</el-form>
+							<div slot="footer" class="dialog-footer">
+								<el-button @click.native="closeDialog(addForm)">取消</el-button>
+								<el-button type="primary" @click.native="addSubmit(addForm)">提交</el-button>
+							</div>
+						</el-dialog>
+
+						<!--编辑界面-->
+						<el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
+							<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+								<el-row>
+									<el-col :span="8">
+										<el-form-item label="权限名称" prop="permissionname">
+											<el-input v-model="editForm.permissionname" auto-complete="off" placeholder="权限名称" class="addEditFormInput"></el-input>
+										</el-form-item>
+									</el-col>
+									<el-col :span="4">&nbsp;</el-col>
+									<el-col :span="8">
+										<el-form-item label="权限描述" prop="permissioninfo">
+											<el-input v-model="editForm.permissioninfo" auto-complete="off" placeholder="权限描述" class="addEditFormInput"></el-input>
+										</el-form-item>
+									</el-col>
+								</el-row>
+							</el-form>
+							<div slot="footer" class="dialog-footer">
+								<el-button @click.native="editFormVisible = false">取消</el-button>
+								<el-button type="primary" @click.native="editSubmit(editForm)">提交</el-button>
+							</div>
+						</el-dialog>
+					</div>
+                </div>
+                    <!-- main-container -->
+            </div>
+        </div>
+    </body>
+	<script src="../../static/js/lib.js" ></script>
+    <script src="../../static/js/menu.js" ></script>
+    <script src="../../static/js/basicinfo/firewater_list.js" ></script>
+</html>
