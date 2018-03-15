@@ -1,12 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    666
-</body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+        <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan.css"> 
+        <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplanlist.css"> 
+    </head>
+	<body class="fw f14 main-index-body">
+		<div id="header_box"></div>
+        <div class="left-sidebar">
+            <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+            <div id="menu-box">
+                <big-tree default-active="41"></big-tree>
+            </div>
+        </div>
+        <div id="app">
+            <div class="main-box">
+                <div class="main-container">
+                    <div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
+                    <div id="tableView">
+						<el-row>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row type="flex" justify="center">
+									<el-col :span="10">
+										<el-form-item label="预案名称">
+											<el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称" class="inputWidth"></el-input>
+										</el-form-item>
+                                    </el-col>
+                                    <el-col :span="12">
+                                            <el-form-item label="预案类型">
+                                                <el-cascader 
+                                                    expand-trigger="hover" 
+                                                    :options="YALX_data" 
+                                                    v-model="searchForm.selected_YALX" 
+                                                    @change="handleChange" 
+                                                    class="digitalList-right" clearable>
+                                                </el-cascader>
+                                            </el-form-item>
+                                        </el-col>
+								</el-row>
+								<el-row type="flex" justify="center">
+                                    <el-col :span="10">
+                                        <el-form-item label="对象名称">
+                                            <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称" class="inputWidth"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+									<el-col :span="12">
+										<el-form-item label="对象类型">
+											<el-select size="small" v-model="searchForm.option_DXLX" placeholder="对象类型" class="digitalList-right" multiple>
+												<el-option 
+													v-for="item in DXLX_data" 
+													:key="item.value" 
+													:label="item.label" 
+													:value="item.value">
+												</el-option>
+											</el-select>
+										</el-form-item>
+
+									</el-col>
+                                </el-row>
+                                <el-row type="flex" justify="center">
+                                        <el-col :span="10">
+                                                <el-form-item label="预案种类">
+                                                    <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="inputWidth" multiple>
+                                                        <el-option 
+                                                            v-for="item in YAZL_data" 
+                                                            :key="item.value" 
+                                                            :label="item.label" 
+                                                            :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                </el-form-item>
+                                            </el-col>
+                                        <el-col :span="12">
+                                                <el-form-item label="编制日期">
+                                                    <el-date-picker type="date" @change="begindateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime_create"
+                                                     placeholder="编制开始时间" class="dateInputWidth"></el-date-picker>
+                                                    ~
+                                                    <el-date-picker type="date" @change="enddateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime_create"
+                                                     placeholder="编制结束时间" class="dateInputWidth"></el-date-picker>
+                                                </el-form-item>
+                                            </el-col>
+                                    </el-row>
+								<el-row type="flex" justify="center">
+                                    <el-col :span="10">
+                                            <el-form-item label="编制单位">
+                                                <el-tree class="inputWidth" :props="defaultProps" :data="allFormationList" node-key="id" ref="tree" highlight-current :default-expanded-keys="defaultKeys"
+                                                    @node-click="handleNodeClick" show-checkbox>
+                                                </el-tree>
+                                            </el-form-item>
+                                        </el-col>
+									<el-col :span="12"></el-col>
+								</el-row>
+								<div>
+									<el-form>
+										<el-col :span="12" class="btnEditDelete">
+											<el-form-item align="left">
+												<!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
+												<!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
+											</el-form-item>
+										</el-col>
+										<el-col :span="12"></el-col>
+										<el-col :span="12" class="btnSearchPlus">
+											<el-form-item>
+												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+												<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+							</el-form>
+						</el-row>
+
+						<div class="table_container">
+							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+
+								<el-table-column type="selection" min-width="5%"></el-table-column>
+								<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+								<el-table-column prop="YAMC" label="预案名称" min-width="15%" align="center">e>
+                                    <template slot-scope="scope">
+                                        <el-button type="text" @click="planDetails(scope.row)">{{scope.row.YAMC}}</el-button>
+                                    </template>
+								</el-table-column>
+								<el-table-column prop="YALX" label="预案类型" min-width="11%" align="center"></el-table-column>
+								<el-table-column prop="DXMC" label="对象名称" min-width="16%" align="center"></el-table-column>
+								<el-table-column prop="DXLX" label="对象类型" min-width="14%" align="center"></el-table-column>
+                                <el-table-column prop="BZDW" label="编制单位" min-width="12%" align="center"></el-table-column>
+                                <el-table-column prop="BZRQ" label="编制日期" min-width="16%" align="center"></el-table-column>
+								<el-table-column prop="YAZL" label="预案种类" min-width="11%" align="center"></el-table-column>
+							</el-table>
+
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination 
+										@size-change="pageSizeChange" 
+										@current-change="currentPageChange" 
+										:current-page="currentPage" 
+										:page-sizes="[10, 20, 30, 50]"
+										 :page-size="pageSize" 
+										 layout="total, sizes, prev, pager, next, jumper" 
+										 :total=parseInt(total)>
+									</el-pagination>
+								</el-col>
+							</el-row>
+                        </div>
+                        <!--详情界面-->
+                        <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
+                                <div style="display: inline-flex;">
+                                    <div style="border: 1px solid red;width: 150px">
+                                        <img src="../../static/images/danwei2.jpg">
+                                    </div>
+                                    <div class="dib" id="basic-Inform-Title">
+                                        <div class="inform-div">
+                                            <div style="width: 200px;">
+                                                <div>
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">预案名称：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.DWPYJC}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">预案类型：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.DWDJ}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">预案对象：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.XZQY}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">编制单位：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.DWXZ}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">编制日期：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.DWZSX}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">备注：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.BZ}}</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">预案版本：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.ZDMJ}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">预案种类：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.JZMJ}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">是否跨区域：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.JZSL}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">编制者：</dt>
+                                                        <dd class="dtdlStyle">{{rowdata.ZGRS}}</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div style="margin-top: 15px;">
+                                            <el-button type="primary" @click="downloadPlan">预案下载</el-button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </el-dialog>
+					</div>
+                </div>
+                    <!-- main-container -->
+            </div>
+        </div>
+    </body>
+	<script src="../../static/js/lib.js" ></script>
+    <script src="../../static/js/menu.js" ></script>
+    <script src="../../static/js/digitalplan/digitalplanlist.js" ></script>
 </html>
