@@ -60,7 +60,7 @@ new Vue({
                     SYBH: "007",
                     SYMC: "基础水源七",
                     SYDZ: "创新路97号",
-                    SYLX: "nature", 
+                    SYLX: "TRSY", 
                     QSXS: "003"
                 },
                 {
@@ -74,14 +74,14 @@ new Vue({
                     SYBH: "009",
                     SYMC: "基础水源九",
                     SYDZ: "创新路99号",
-                    SYLX: "nature", 
+                    SYLX: "TRSY", 
                     QSXS: "001"
                 },
                 {
                     SYBH: "010",
                     SYMC: "基础水源十",
                     SYDZ: "创新路100号",
-                    SYLX: "nature", 
+                    SYLX: "TRSY", 
                     QSXS: "002"
                 },
                 {
@@ -105,9 +105,8 @@ new Vue({
                 },{
                     value: 'XFQSMT',
                     label: '消防取水码头'
-                },
-                {
-                    value: 'nature',
+                },{
+                    value: 'TRSY',
                     label: '天然水源'
                 }
             ],
@@ -187,6 +186,7 @@ new Vue({
                 XFGXJGID: ""
             },
 
+
         }
     },
     methods: {
@@ -215,9 +215,10 @@ new Vue({
                 searchData.push(flow);
             }
             for (var i = 0; i < _self.tableData.length; i++) {
-                if ((!(_self.searchForm.SYMC == "" && _self.searchForm.SYDZ == "" && _self.selected_SYLX == "" && _self.selected_QSXS == "")) 
+                if ((!(_self.searchForm.SYMC == "" && _self.searchForm.SYDZ == "" && _self.selected_SYLX == "" && _self.selected_QSXS == "" && _self.searchForm.JGID == "")) 
                 && (_self.searchForm.SYMC != "" ? (_self.tableData[i].SYMC == _self.searchForm.SYMC) : true) 
                 && (_self.searchForm.SYDZ != "" ? (_self.tableData[i].SYDZ == _self.searchForm.SYDZ) : true)
+                && (_self.searchForm.JGID != "" ? (_self.tableData[i].JGID == _self.searchForm.JGID) : true) 
                 && (_self.selected_SYLX != "" ? (_self.tableData[i].SYLX == _self.selected_SYLX) : true) 
                 && (_self.selected_QSXS != "" ? (_self.tableData[i].QSXS == _self.selected_QSXS) : true)) {
                     var row = _self.tableData[i];
@@ -272,7 +273,7 @@ new Vue({
                 case 'XFQSMT':
                     return '消防取水码头';
                     break;
-                case 'nature':
+                case 'TRSY':
                     return '天然水源';
                     break;
             }
@@ -293,9 +294,9 @@ new Vue({
                     return '形式四';
                     break;
             }
-        },
+        }, 
         informClick(val) {
-            window.location.href = "firewater_detail.html?ID=" + val.ID;
+            window.location.href = "firewater_detail.html?SYBH=" + val.SYBH + "&SYLX=" + val.SYLX;
         },
         createdateChange(val) {
             console.log(val);
