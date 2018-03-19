@@ -11,18 +11,16 @@
 	<link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/tagscloud2.css">
 	<script type="text/javascript" src="../../static/js/jquery-3.2.1.min.js"></script>
-
 </head>
+
 <style>
-	.body{
-		padding: 0px;
-	}
+	*{ margin: 0; padding: 0; list-style: none; text-decoration: none; font-weight: normal; -webkit-tap-highlight-color:rgba(0,0,0,0); box-sizing: border-box;}
      .center-in-center{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -moz-transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
             -o-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
@@ -45,7 +43,6 @@
          height:300px;
 		 width:220px;
 		 position: fixed;
-		 top:140px;
 		 left: 50px;
 	
 		}
@@ -65,10 +62,7 @@
 		
 </style>
 <style type="text/css">
-	* {
-		padding: 0px;
-		margin: 0px;
-	}
+	
 	a {
 		text-decoration: none;
 	}
@@ -239,35 +233,81 @@
 		start();
 	});
 </script>
-
 <body class="fw map-bg" >
-
 	<div id="app">
 		<div class="application-box tc abs">
-			
 			<div class="map_top">
-
-				<div style="position:fixed;left:104px;width:220px;" class="top_a map-bg2">
+				<div style="position:fixed;left:44px;top:53px;width:295px;" class="top_a map-bg2">
 					<div class="application-name" >重点单位总数（家）</div>
-					<div class="application-num" style="color:#99ff00;">{{zddw}}</div>
+					<div class="application-num" style="color:#f7cb29;">{{zddw}}</div>
 				</div>
-
-				<div style="position:fixed;left:330px;width:300px;" class="top_b map-bg2">
+				<div style="position:fixed;left:345px;top:53px;width:295px;" class="top_b map-bg2">
 					<div class="application-name">二维数字化预案总数（个）</div>
-					<div class="application-num" style="color:#99ff00;">{{zddw}}</div>
+					<div class="application-num" style="color:#f7cb29;">{{zddw}}</div>
 				</div>
-
-				<div style="position:fixed;right:330px;width:300px;" class="top_c map-bg2">
+				<div style="position:fixed;left:645px;top:53px;width:295px;" class="top_c map-bg2">
 					<div class="application-name">三维数字化预案总数（个）</div>
-					<div class="application-num" style="color:#99ff00;">{{zddw}}</div>
+					<div class="application-num" style="color:#f7cb29;">{{zddw}}</div>
 				</div>	
-
-				<div style="position:fixed;right:104px;width:220px;" class="top_d map-bg2">
+				<div style="position:fixed;left:945px;top:53px;width:295px;" class="top_d map-bg2">
 					<div class="application-name">数字化预案总数（个）</div>
-					<div class="application-num" style="color:#99ff00;">{{yags}}</div>
+					<div class="application-num" style="color:#f7cb29;">{{yags}}</div>
 				</div>
-
 			</div>
+            <div class="map_left">
+                  <!--左侧侧部分-->
+				<div class="application-icon-r db r">
+					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:126px;left:44px;width:295px;height:177px;">
+						<div class="application-text flex ">
+							<div id="bar" class="application-text"></div>
+						</div>
+					</div>
+
+					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:200px;left:44px;width:295px;height:125px;">
+						<div class="application-text flex ">
+							<div id="pie" class="application-text"></div>
+						</div>
+					</div> 
+
+					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:600px;left:44px;width:295px;height:115px;">
+						<div class="application-text flex ">
+							<div id="tagscloud" class="application-text" style="height:50px;">
+								<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
+								<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
+								<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
+								<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
+								<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
+								<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
+								<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
+								<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
+								<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
+								<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
+							</div>
+						</div>
+					</div>
+
+				</div> 
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- 轮播图 -->
 			<div class="slider">
 					<ul class="slider-main">
@@ -331,41 +371,13 @@
 		
 			</div>
 
-			
-			
-           <!--右侧部分-->
-			<div class="application-icon-r db r">
-				
-                <div class="application-div h35 p5 map-bg2" style="position:fixed;bottom:305px;left:104px;width:220px;height:155px;">
-						<div class="application-text flex ">
-							<div id="bar" class="application-text"></div>
-						</div>
-				</div> 
 
-				<div class="application-div h35 p5 map-bg2" style="position:fixed;bottom:175px;left:104px;width:220px;height:125px;">
-					<div class="application-text flex ">
-						<div id="pie" class="application-text"></div>
-					</div>
-				</div> 
-				<div class="application-div h35 p5 map-bg2" style="position:fixed;bottom:55px;left:104px;width:220px;height:115px;">
-					<div class="application-text flex ">
-						<div id="tagscloud" class="application-text" style="height:50px;">
-							<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
-							<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
-							<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
-							<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
-							<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
-							<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
-							<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
-							<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
-							<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
-							<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
-						</div>
-					</div>
-				</div>
-			</div> 
 
-			<!-- /application-icon-r -->
+
+
+
+
+
 		</div>
 		<!-- /application-box -->
 	</div>
@@ -398,7 +410,7 @@
 							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 						}
 					},
-					color: ['yellow'],
+					color: ['#f7cb29'],
 					
 					grid: {
 						

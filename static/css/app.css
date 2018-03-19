@@ -96,28 +96,30 @@
   position: absolute;
   z-index: 9999;
 }
+
+/*全屏显示框体*/
+
 .application-box {
+
   width: 1200px;
   height: 500px;
   left: 50%;
   top: 50%;
   margin-left: -600px;
   margin-top: -250px;
+  border:2px solid red;
 }
+
 .application-icon {
   width: 288px;
   height: 100%;
 }
-
 /* 地图的div框 */
 .application-icon-l {
   width: 600px;
   height:300px;
   font-weight: bold;
 }
-
-
-
 .application-icon-r {
   width: 400px;
   height: 100%;
