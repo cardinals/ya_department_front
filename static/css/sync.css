@@ -100,20 +100,20 @@
    
    
    .sync-province-icon {
-     width: 48px;
-     height: 48px;
+     width: 28px;
+     height: 28px;
      margin: 16px;
      margin-top: 16px;
      background-image: url("../images/sync-fwjd.png");
-     background-size: 48px 48px;
+     background-size: 28px 28px;
    }
    .sync-province-icon2 {
-     width: 48px;
-     height: 48px;
+     width: 28px;
+     height: 28px;
      margin: 16px;
      margin-top: 16px;
      background-image: url("../images/sync-gzjd.png");
-     background-size: 48px 48px;
+     background-size: 28px 28px;
    }
    .sync-province-lebal02{
        position: relative;
