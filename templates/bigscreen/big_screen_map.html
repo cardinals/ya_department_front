@@ -3,82 +3,378 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<title>全国数据总览</title>
 	<link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/app.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/tagscloud2.css">
+	<script type="text/javascript" src="../../static/js/jquery-3.2.1.min.js"></script>
+
+
+
+	
 </head>
 
-<body class="fw map-bg">
+<style>
+	*{ margin: 0; padding: 0; list-style: none; text-decoration: none; font-weight: normal; -webkit-tap-highlight-color:rgba(0,0,0,0); box-sizing: border-box;}
+     .center-in-center{
+        position: fixed;
+        top:270px;
+        left: 620px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+		}
+		.map_top{
+         height:85px;
+		 width:1200px;
+		 position: fixed;
+		 top: 40px;
+		
+		}
+		.map_bottom{
+         height:107px;
+		 width:593px;
+		 position:fixed;
+		 left:345px;
+		 top:431px;
+		
+		}
+		.map_left{
+         height:300px;
+		 width:220px;
+		 position: fixed;
+		 left: 50px;
+	
+		}
+
+		.map_right{
+         height:309px;
+		 width:295px;
+		 position: fixed;
+		 top:116px;
+		 left: 944px;
+		}
+
+		.top_br{
+			 padding:10px;border-radius:10px;box-shadow:0px 0px 30px 10px #3399ff  inset;
+
+		}
+		
+</style>
+<style type="text/css">
+	
+	a {
+		text-decoration: none;
+	}
+	ul {
+		list-style: outside none none;
+	}
+	.slider, .slider-panel img, .slider-extra {
+        
+		width: 275px;
+		height: 80px;
+		border-radius:5px;
+
+	}
+	.slider {
+
+		position: fixed;
+		left: 954px;
+		top: 451px;
+
+	}
+	.slider-panel, .slider-nav, .slider-pre, .slider-next {
+		position: absolute;
+		z-index: 8;
+	}
+	.slider-panel {
+		position: absolute;
+	}
+	.slider-panel img{
+		border: none;
+	}
+	.slider-extra {
+		position: relative;
+	}
+	.slider-nav {
+		margin-left: -51px;
+		position: absolute;
+		left: 50%;
+		bottom: 4px;
+	}
+	.slider-nav li {
+		background: #3e3e3e;
+		border-radius: 50%;
+		color: #fff;
+		cursor: pointer;
+		margin: 0 2px;
+		overflow: hidden;
+		text-align: center;
+		display: inline-block;
+		height: 18px;
+		line-height: 18px;
+		width: 18px;
+	}
+	.slider-nav .slider-item-selected {
+		background: blue;
+	}
+	.slider-page a{
+		background: rgba(0, 0, 0, 0.2);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000,endColorstr=#33000000);
+		color: #fff;
+		text-align: center;
+		display: block;
+		font-family: "simsun";
+		font-size: 22px;
+		width: 28px;
+		height: 62px;
+		line-height: 62px;
+		margin-top: -31px;
+		position: absolute;
+		top: 50%;
+	}
+	.slider-page a:HOVER {
+		background: rgba(0, 0, 0, 0.4);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);
+	}
+	.slider-next {
+		left: 100%;
+		margin-left: -28px;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var length,
+			currentIndex = 0,
+			interval,
+			hasStarted = false, //是否已经开始轮播
+			t = 3000; //轮播时间间隔
+		length = $('.slider-panel').length;
+		
+		//将除了第一张图片隐藏
+		$('.slider-panel:not(:first)').hide();
+		//将第一个slider-item设为激活状态
+		$('.slider-item:first').addClass('slider-item-selected');
+		//隐藏向前、向后翻按钮
+		$('.slider-page').hide();
+		
+		//鼠标上悬时显示向前、向后翻按钮,停止滑动，鼠标离开时隐藏向前、向后翻按钮，开始滑动
+		$('.slider-panel, .slider-pre, .slider-next').hover(function() {
+			stop();
+			$('.slider-page').show();
+		}, function() {
+			$('.slider-page').hide();
+			start();
+		});
+		
+		$('.slider-item').hover(function(e) {
+			stop();
+			var preIndex = $(".slider-item").filter(".slider-item-selected").index();
+			currentIndex = $(this).index();
+			play(preIndex, currentIndex);
+		}, function() {
+			start();
+		});
+		
+		$('.slider-pre').unbind('click');
+		$('.slider-pre').bind('click', function() {
+			pre();
+		});
+		$('.slider-next').unbind('click');
+		$('.slider-next').bind('click', function() {
+			next();
+		});
+		
+		/**
+		 * 向前翻页
+		 */
+		function pre() {
+			var preIndex = currentIndex;
+			currentIndex = (--currentIndex + length) % length;
+			play(preIndex, currentIndex);
+		}
+		/**
+		 * 向后翻页
+		 */
+		function next() {
+			var preIndex = currentIndex;
+			currentIndex = ++currentIndex % length;
+			play(preIndex, currentIndex);
+		}
+		/**
+		 * 从preIndex页翻到currentIndex页
+		 * preIndex 整数，翻页的起始页
+		 * currentIndex 整数，翻到的那页
+		 */
+		function play(preIndex, currentIndex) {
+			$('.slider-panel').eq(preIndex).fadeOut(500)
+				.parent().children().eq(currentIndex).fadeIn(1000);
+			$('.slider-item').removeClass('slider-item-selected');
+			$('.slider-item').eq(currentIndex).addClass('slider-item-selected');
+		}
+		
+		/**
+		 * 开始轮播
+		 */
+		function start() {
+			if(!hasStarted) {
+				hasStarted = true;
+				interval = setInterval(next, t);
+			}
+		}
+		/**
+		 * 停止轮播
+		 */
+		function stop() {
+			clearInterval(interval);
+			hasStarted = false;
+		}
+		
+		//开始轮播
+		start();
+	});
+</script>
+<body class="fw map-bg" >
 	<div id="app">
 		<div class="application-box tc abs">
-			<div class="application-logo logo"></div>
-			<div class="application-icon-l db l">
-				<div id="map" style="margin-top:120px;margin-left:300px;height:50%;width:50%;"></div>
+			<div class="map_top">
+				<div style="position:fixed;left:44px;top:43px;width:295px;" class="top_a map-bg2">
+					<div class="application-name" >重点单位总数（家）</div>
+					<div class="application-num" style="color:#f7cb29;">{{zddw}}</div>
+				</div>
+				<div style="position:fixed;left:345px;top:43px;width:295px;" class="top_b map-bg2">
+					<div class="application-name">二维数字化预案总数（个）</div>
+					<div class="application-num" style="color:#f7cb29;">{{zddw}}</div>
+				</div>
+				<div style="position:fixed;left:645px;top:43px;width:295px;" class="top_c map-bg2">
+					<div class="application-name">三维数字化预案总数（个）</div>
+					<div class="application-num" style="color:#f7cb29;">{{zddw}}</div>
+				</div>	
+				<div style="position:fixed;left:945px;top:43px;width:295px;" class="top_d map-bg2">
+					<div class="application-name">数字化预案总数（个）</div>
+					<div class="application-num" style="color:#f7cb29;">{{yags}}</div>
+				</div>
 			</div>
-			<!-- /application-icon-l -->
-			<!-- <div class="application-icon-r" style="margin-left:10px;">
-				<div class="application-div h15 p5">
-					<div class="application-text p38 icon1 flex map-bg2">
-						<div>
-								<div class="application-name">数字化预案总数（个）</div>
-								<div class="application-num">{{yags}}</div>
+            <div class="map_left">
+<!--左侧侧部分-->
+				<div class="application-icon-r db r">
+					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:116px;left:44px;width:295px;height:178px;">
+						<div class="application-text flex ">
+							<div id="bar" class="application-text"></div>
+						</div>
+					</div>
+
+					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:300px;left:44px;width:295px;height:125px;">
+						<div class="application-text flex ">
+							<div id="pie" class="application-text"></div>
+						</div>
+					</div> 
+
+					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:431px;left:44px;width:295px;height:107px;">
+						<div class="application-text flex ">
+							<div id="tagscloud" class="application-text" style="height:50px;">
+								<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
+								<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
+								<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
+								<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
+								<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
+								<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
+								<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
+								<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
+								<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
+								<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
 							</div>
 						</div>
-				</div>
-            </div> -->
+					</div>
 
-			<div class="application-icon-r db r">
-				<div class="application-div h15 p5">
-					<div class="application-text p38 icon1 flex map-bg2">
-						<div>
-							<div class="application-name">数字化预案总数（个）</div>
-							<div class="application-num">{{yags}}</div>
-						</div>
-					</div>
-				</div>
-				<div class="application-div h15 p5 ">
-					<div class="application-text p38 icon2 flex map-bg2">
-						<div>
-							<div class="application-name">重点单位总数（家）</div>
-							<div class="application-num">{{zddw}}</div>
-						</div>
-					</div>
-				</div>
-				<div class="application-div h35 p5">
-					<div class="application-text flex map-bg2">
-						<!-- <div id="bar" class="application-text"></div> -->
-						<div id="pie" class="application-text"></div>
-					</div>
-				</div>
-				<div class="application-div h35 p5">
-					<div class="application-text flex map-bg2">
-						<div id="tagscloud" class="application-text">
-							<a class="tagc1">辽宁省人民法院</a>
-							<a class="tagc2">辽宁省政府</a>
-							<a class="tagc3">辽宁省就业局</a>
-							<a class="tagc2">沈阳市城市规划管理局</a>
-							<a class="tagc2">沈阳市公安局</a>
-							<a class="tagc1">沈阳市地铁二号线</a>
-							<a class="tagc2">青岛市塑性加工园</a>
-							<a class="tagc3">泰安市城建局</a>
-							<a class="tagc2">河北省国土资源厅</a>
-							<a class="tagc2">秦皇岛市林业局</a>
-						</div>
-					</div>
-				</div>
+				</div> 
 			</div>
-			<!-- /application-icon-r -->
+
+<!-- 右侧部分 -->
+			<div class="map_right map-bg2">
+					<div class="application-name">二维预案总数排行</div>
+					<div class="application-name">（全国前十省）</div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>北京</span>————<span>1314</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>上海</span>————<span>1354</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>天津</span>————<span>1314</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>河北</span>————<span>3714</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>广州</span>————<span>3314</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>江苏</span>————<span>1314</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>河北</span>————<span>1124</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>辽宁</span>————<span>1314</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>江苏</span>————<span>3114</span></div>
+					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>河北</span>————<span>3714</span></div>
+			</div>
+
+
+<!-- 轮播图 -->
+       <div class="map-bg2" style="width:295px;height:107px;position: fixed;
+	   left: 944px;
+	   top: 431px;">
+	        <div class="application-name" style="font-size:1.5em;">二维预案</div>
+			<div class="slider">
+					<ul class="slider-main">
+						<li class="slider-panel">
+							<a  target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png"></a>
+						</li>
+						<li class="slider-panel">
+							<a  target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap2.png"></a>
+						</li>
+						<li class="slider-panel">
+							<a target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap3.png"></a>
+						</li>
+						<li class="slider-panel">
+							<a  target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png"></a>
+						</li>
+					</ul>
+					<div class="slider-extra">
+						<ul class="slider-nav">
+							<li class="slider-item">1</li>
+							<li class="slider-item">2</li>
+							<li class="slider-item">3</li>
+							<li class="slider-item">4</li>
+						</ul>
+						<div class="slider-page">
+							<a class="slider-pre" href="javascript:;;">&lt;</a>
+							<a class="slider-next" href="javascript:;;">&gt;</a>
+						</div>
+					</div>
+			</div>
+
+        </div>
+<!-- 中心 -->
+			<!-- <div class="application-logo logo"></div> -->
+			<div class="application-icon-l center-in-center" >
+
+				<div id="map" style="height:100%;width:100%;"></div>
+
+			</div>
+			
+<!-- 底部 -->
+			<div class="map_bottom map-bg2">
+				<!-- <div class="application-name map-bg2" style="position:fixed;left:340px;width:600px;" >三十个省</div> -->
+				<div id="barmax" class="application-text"  style="position:fixed;top:431;left:-55px;width:695px;height:107px;"></div>
+		
+			</div>
+
 		</div>
 		<!-- /application-box -->
 	</div>
+	
+
+
 </body>
 <script src="../../static/js/echarts-2/echarts-all.js"></script>
 <script src="../../static/js/echarts-4/echarts.js"></script>
 <script type="text/javascript" src="../../static/js/vue.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
+
+
 <script>
 	var vm = new Vue({
 		el: "#app",
@@ -88,6 +384,65 @@
 			city: ''
 		},
 		methods: {
+			 echarts1:function(){
+				var myBarChart = echarts.init(document.getElementById('barmax'));
+			
+				BarmaxOption = {
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+						}
+					},
+					color: ['#f7cb29'],
+					
+					grid: {
+						
+					
+						top: '25%',
+						bottom: '10%',
+						containLabel: true
+					},
+					xAxis: [
+						{
+							type: 'category',
+							data: ['北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
+							'西藏', '山西','陕西', '西安','南京', '杭州','山东', '昆明','重庆', '武汉','北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
+							'西藏', '山西','陕西', '西安','南京', '杭州','山东'],
+							axisLine: {
+								lineStyle: {
+									color: 'white'
+								}
+							}
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							axisLine: {
+								lineStyle: {
+									color: 'white'
+								}
+							},
+							splitLine: {
+								show: false
+							},
+						}
+					],
+					series: [
+						{
+							name: '数字化预案',
+							type: 'bar',
+							barWidth: '100%',
+							stack: '预案',
+							data: [1335, 335,1035, 335,1335,935, 335,1335, 335,670, 335,1335, 335,335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,]
+						}
+					]
+				};
+			
+				 myBarChart.setOption(BarmaxOption);
+				
+			  },
 			echarts2: function () {
 				var myMapChart = echarts2.init(document.getElementById('map'));
 				MapOption = {
@@ -382,145 +737,154 @@
 					vm.$options.methods.loadChart();
 				});
 			},
-			echarts4: function () {
-				// var myBarChart = echarts.init(document.getElementById('bar'));
+		    echarts3:function () {
+
 				var myPieChart = echarts.init(document.getElementById('pie'));
-				// BarOption = {
-				// 	tooltip: {
-				// 		trigger: 'axis',
-				// 		axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-				// 			type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-				// 		}
-				// 	},
-				// 	color: ['red', 'orange', 'yellow', 'lightgreen'],
-				// 	legend: {
-				// 		x: 'center',
-				// 		y: '5%',
-				// 		itemWidth: 18,
-				// 		data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
-				// 		textStyle: {
-				// 			color: 'white'
-				// 		},
-				// 	},
-				// 	grid: {
-				// 		left: '5%',
-				// 		right: '5%',
-				// 		top: '25%',
-				// 		bottom: '10%',
-				// 		containLabel: true
-				// 	},
-				// 	xAxis: [
-				// 		{
-				// 			type: 'category',
-				// 			data: ['二维预案', '三维预案'],
-				// 			axisLine: {
-				// 				lineStyle: {
-				// 					color: 'white'
-				// 				}
-				// 			}
-				// 		}
-				// 	],
-				// 	yAxis: [
-				// 		{
-				// 			type: 'value',
-				// 			axisLine: {
-				// 				lineStyle: {
-				// 					color: 'white'
-				// 				}
-				// 			},
-				// 			splitLine: {
-				// 				show: false
-				// 			},
-				// 		}
-				// 	],
-				// 	series: [
-				// 		{
-				// 			name: '高层建筑',
-				// 			type: 'bar',
-				// 			barWidth: '40%',
-				// 			stack: '预案',
-				// 			data: [1335, 335]
-				// 		},
-				// 		{
-				// 			name: '地下建筑',
-				// 			type: 'bar',
-				// 			barWidth: '40%',
-				// 			stack: '预案',
-				// 			data: [1310, 679]
-				// 		},
-				// 		{
-				// 			name: '大型综合体',
-				// 			type: 'bar',
-				// 			barWidth: '40%',
-				// 			stack: '预案',
-				// 			data: [1234, 548]
-				// 		},
-				// 		{
-				// 			name: '化工园区',
-				// 			type: 'bar',
-				// 			barWidth: '40%',
-				// 			stack: '预案',
-				// 			data: [1135, 135]
-				// 		}
-				// 	]
-				// };
+
+
 				PieOption = {
+									tooltip: {
+										trigger: 'item',
+										formatter: "{a} <br/>{b}: {c} ({d}%)"
+									},
+									color: ['red', 'orange', 'yellow', 'lightgreen'],
+									legend: {
+										orient: 'vertical',
+										x: '60%',
+										y: 'center',
+										itemGap: 16,
+										itemWidth: 18,
+										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
+										textStyle: {
+											color: 'white'
+										},
+										align: 'left'
+									},
+									series: [
+										{
+											name: '三维预案',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: [0, '42%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 335, name: '高层建筑' },
+												{ value: 679, name: '地下建筑' },
+												{ value: 548, name: '大型综合体' },
+												{ value: 135, name: '化工园区' }
+											]
+										},
+										{
+											name: '二维预案',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: ['56%', '75%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 1335, name: '高层建筑' },
+												{ value: 1310, name: '地下建筑' },
+												{ value: 1234, name: '大型综合体' },
+												{ value: 1135, name: '化工园区' }
+											]
+										}
+									]
+								};
+
+				myPieChart.setOption(PieOption);
+			},
+
+			echarts4: function () {
+				var myBarChart = echarts.init(document.getElementById('bar'));
+			
+				BarOption = {
 					tooltip: {
-						trigger: 'item',
-						formatter: "{a} <br/>{b}: {c} ({d}%)"
+						trigger: 'axis',
+						axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+						}
 					},
 					color: ['red', 'orange', 'yellow', 'lightgreen'],
 					legend: {
-						orient: 'vertical',
-						x: '60%',
-						y: 'center',
-						itemGap: 16,
+						x: 'center',
+						y: '5%',
 						itemWidth: 18,
 						data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
 						textStyle: {
 							color: 'white'
 						},
-						align: 'left'
 					},
+					grid: {
+						left: '5%',
+						right: '5%',
+						top: '25%',
+						bottom: '10%',
+						containLabel: true
+					},
+					xAxis: [
+						{
+							type: 'category',
+							data: ['二维预案', '三维预案'],
+							axisLine: {
+								lineStyle: {
+									color: 'white'
+								}
+							}
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							axisLine: {
+								lineStyle: {
+									color: 'white'
+								}
+							},
+							splitLine: {
+								show: false
+							},
+						}
+					],
 					series: [
 						{
-							name: '三维预案',
-							type: 'pie',
-							center: ['35%', '50%'],
-							radius: [0, '42%'],
-							label: {
-								normal: {
-									show: false
-								}
-							},
-							data: [
-								{ value: 335, name: '高层建筑' },
-								{ value: 679, name: '地下建筑' },
-								{ value: 548, name: '大型综合体' },
-								{ value: 135, name: '化工园区' }
-							]
+							name: '高层建筑',
+							type: 'bar',
+							barWidth: '40%',
+							stack: '预案',
+							data: [1335, 335]
 						},
 						{
-							name: '二维预案',
-							type: 'pie',
-							center: ['35%', '50%'],
-							radius: ['56%', '75%'],
-							label: {
-								normal: {
-									show: false
-								}
-							},
-							data: [
-								{ value: 1335, name: '高层建筑' },
-								{ value: 1310, name: '地下建筑' },
-								{ value: 1234, name: '大型综合体' },
-								{ value: 1135, name: '化工园区' }
-							]
+							name: '地下建筑',
+							type: 'bar',
+							barWidth: '40%',
+							stack: '预案',
+							data: [1310, 679]
+						},
+						{
+							name: '大型综合体',
+							type: 'bar',
+							barWidth: '40%',
+							stack: '预案',
+							data: [1234, 548]
+						},
+						{
+							name: '化工园区',
+							type: 'bar',
+							barWidth: '40%',
+							stack: '预案',
+							data: [1135, 135]
 						}
 					]
 				};
-				// myBarChart.setOption(BarOption);
-				myPieChart.setOption(PieOption);
+			
+				 myBarChart.setOption(BarOption);
 			},
 			loadChart: function () {
 				window.location.assign("big_screen_map_pro.html?city=" + vm.$options.data.city);
@@ -531,7 +895,9 @@
 			}
 		},
 		mounted() {
+			this.echarts1()
 			this.echarts2()
+			this.echarts3()
 			this.echarts4()
 			setInterval(() => {
 				this.autoAdd()
@@ -539,5 +905,8 @@
 		}
 	})
 </script>
+
+
+
 
 </html>

@@ -117,17 +117,17 @@
 
 								<el-table-column type="selection" min-width="5%"></el-table-column>
 								<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-								<el-table-column prop="YAMC" label="预案名称" min-width="15%" align="center">e>
+								<el-table-column prop="YAMC" label="预案名称" min-width="15%" align="center">
                                     <template slot-scope="scope">
                                         <el-button type="text" @click="planDetails(scope.row)">{{scope.row.YAMC}}</el-button>
                                     </template>
 								</el-table-column>
 								<el-table-column prop="YALX" label="预案类型" min-width="11%" align="center"></el-table-column>
 								<el-table-column prop="DXMC" label="对象名称" min-width="16%" align="center"></el-table-column>
-								<el-table-column prop="DXLX" label="对象类型" min-width="14%" align="center"></el-table-column>
-                                <el-table-column prop="BZDW" label="编制单位" min-width="12%" align="center"></el-table-column>
-                                <el-table-column prop="BZRQ" label="编制日期" min-width="16%" align="center"></el-table-column>
-								<el-table-column prop="YAZL" label="预案种类" min-width="11%" align="center"></el-table-column>
+								<el-table-column prop="DXLX" label="对象类型" min-width="12%" align="center"></el-table-column>
+                                <el-table-column prop="BZDW" label="编制单位" min-width="10%" align="center"></el-table-column>
+                                <el-table-column prop="BZRQ" label="编制日期" min-width="12%" align="center"></el-table-column>
+								<el-table-column prop="YAZL" label="预案种类" min-width="10%" align="center"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->
@@ -157,37 +157,37 @@
                                                 <div>
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">预案名称：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.DWPYJC}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.YAMC}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">预案类型：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.DWDJ}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.YALX}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">预案对象：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.XZQY}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.DXMC}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">编制单位：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.DWXZ}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.BZDW}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">编制日期：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.DWZSX}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.BZRQ}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">备注：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.BZ}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.BZ}}</dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -195,25 +195,25 @@
                                                 <div>
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">预案版本：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.ZDMJ}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.YABBH}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">预案种类：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.JZMJ}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.YAZL}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">是否跨区域：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.JZSL}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.SFKQY}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
                                                         <dt class="dtdlStyle">编制者：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.ZGRS}}</dd>
+                                                        <dd class="dtdlStyle">{{detailData.BZZ}}</dd>
                                                     </dl>
                                                 </div>
                                             </div>

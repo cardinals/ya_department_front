@@ -252,8 +252,6 @@ new Vue({
                     label: '三维预案'
                 }
             ],
-            //预案详情
-            planDetailList: [],
             defaultKeys: [],
             //后台返回编制单位列表
 			 allFormationList:[
@@ -344,12 +342,10 @@ new Vue({
             },
             //资源列表是否显示
             planDetailVisible: false,
-            rowdata: '',
             //表高度变量
             tableheight: 458,
             //显示加载中样
             loading: false,
-            labelPosition: 'right',
             //多选值
             multipleSelection: [],
             //当前页
@@ -358,10 +354,8 @@ new Vue({
             pageSize: 10,
             //总记录数
             total: 10,
-            //行数据保存
-            rowdata: {
-
-            },
+            //预案详情页
+            detailData: [],
             //序号
             indexData: 0,
             //删除的弹出框
@@ -520,8 +514,9 @@ new Vue({
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
+            
             /*axios.get('/api/resource/getResource/' + val.ID).then(function (res) {
-                this.planDetailList = res.data.result;
+                this.detailData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })*/
