@@ -13,9 +13,40 @@
     <script src="../../static/js/jquery-3.2.1.min.js"></script>
     <script src="../../static/js/vue.min.js"></script>
     <script src="../../static/js/element.js" charset="utf-8"></script>
+    <style>
+            * { padding: 0; margin: 0; }
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                border: 1px solid #00008B;
+                
+            }
+    
+            th,td {
+                border: 1px solid #00008B;
+                color: #fff;
+                padding: 4px;
+                height: 3px;
+            }
+
+            th {
+                padding: 8px;
+                font: bold 16px "微软雅黑";
+                color: rgb(129, 129, 247);
+            }
+    
+            td {
+                font: 10px "微软雅黑";
+                height:1px;
+            }
+           
+            tbody tr:hover {
+                cursor: pointer;
+            
+            }
+
+        </style>
 </head>
-
-
 
 
 
@@ -97,7 +128,6 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">山西</span>
                 </div>
-
                 <div id="province17" class="sync-province-box">
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">陕西</span>
@@ -134,9 +164,6 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">安徽</span>
                 </div>
-
-
-
                  <div id="province26" class="sync-province-box">
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">江西</span>
@@ -161,7 +188,6 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">贵州</span>
                 </div>
-
                 <hr class="line1"/>
                 <hr class="line2"/>
                 <hr class="line3"/>
@@ -170,39 +196,26 @@
                 <hr class="line6"/>
                 <hr class="line7"/>
                 <hr class="line8"/>
-
-                <div class="data_right" style="position:fixed;left:795px;top:40px;width:444px;height:500px; border:1px solid #00008B;">
-                        <el-table
-                        :data="tableData"
-                       
-                        border
-                        style="width: 100%;height:500px;border:1px solid #00008B">
-                        <el-table-column
-                          prop="dw"
-                          label="单位"
-                          width="80"
-                           >
-                        </el-table-column>
-                        <el-table-column
-                          prop="dghztsl"
-                          label="待更换主体数量"
-                          width="140">
-                        </el-table-column>
-                        <el-table-column
-                          prop="yghsl"
-                          label="已更换数量"
-                          width="140">
-                        </el-table-column>
-                        <el-table-column
-                          prop="ghl"
-                          label="更换率">
-                        </el-table-column>
-                       </el-table>
-
+                <div class="data_right" style="position:fixed;left:795px;top:40px;width:444px;height:500px; ">
+                        <!-- style="position:fixed;left:795px;top:40px;width:444px;height:500px; border:1px solid #00008B;" -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>单位</th>
+                                <th style="width:170px;">待更换主体单位数量</th>
+                                <th style="width:150px;">已更换数量</th>
+                                <th>变更率</th>
+                            </tr>
+                        </thead>
+                         <tbody id="J_TbData">
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="data_bottom" style="position:fixed;left:40px;top:455px;width:751px;height:85px;">
-                    
+                    <div style="position:fixed;left:40px;top:455px;width:293px;height:85px;border:1px solid #00008B;">
+                        <div id="pie" ></div>
+                    </div>
                     <div style="position:fixed;left:347px;top:455px;width:140px;height:85px;border:1px solid #00008B;">
                         <div id="provincetest" class="sync-province-box"  >
                             <img class="sync-icon" src="../../static/images/sync-fwjd.png">
@@ -222,10 +235,8 @@
                         <img class="sync-icon" src="../../static/images/sync-gzjd.png">
                         <span class="sync-lebal">故障节点</span>
                         <span class="sync-txts-attention">{{gzjd}}</span>
-
                      </div>
                     </div>
-
                 </div>
 
 
@@ -274,70 +285,281 @@
                 云南: true,
                 贵州: true
             },
-            tableData: [{
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }, {
-                dw: '北京',
-                dghztsl: '222998',
-                yghsl: '上海市',
-                ghl:'16.5%'
-                }
+           
+        },
+		methods: {
+			
+		    echarts3:function () {
 
-                ]
+				var myPieChart = echarts.init(document.getElementById('pie'));
 
+				PieOption = {
+									tooltip: {
+										trigger: 'item',
+										formatter: "{a} <br/>{b}: {c} ({d}%)"
+									},
+									color: ['red', 'orange', 'yellow', 'lightgreen'],
+									legend: {
+										orient: 'vertical',
+										x: '60%',
+										y: 'center',
+										itemGap: 16,
+										itemWidth: 18,
+										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
+										textStyle: {
+											color: 'white'
+										},
+										align: 'left'
+									},
+									series: [
+										{
+											name: '三维预案',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: [0, '42%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 335, name: '高层建筑' },
+												{ value: 679, name: '地下建筑' },
+												{ value: 548, name: '大型综合体' },
+												{ value: 135, name: '化工园区' }
+											]
+										},
+										{
+											name: '二维预案',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: ['56%', '75%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 1335, name: '高层建筑' },
+												{ value: 1310, name: '地下建筑' },
+												{ value: 1234, name: '大型综合体' },
+												{ value: 1135, name: '化工园区' }
+											]
+										}
+									]
+								};
 
+				myPieChart.setOption(PieOption);
+			},
 
-
-
-
-        }
+			loadChart: function () {
+				window.location.assign("big_screen_map_pro.html?city=" + vm.$options.data.city);
+			},
+			autoAdd: function () {
+				this.yags++
+				this.zddw++
+			}
+		},
+		mounted() {
+			this.echarts3()
+			setInterval(() => {
+				this.autoAdd()
+			}, 1200)
+		}
 
     })
     
 </script>
+
+<script>
+        var data = [{
+            name: "北京",
+            url: "3334241",
+            type: "13123",
+            lv:"16.5%"
+         }
+        ,{
+            name: "上海",
+            url: "213123",
+            type: "13123",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        // ,{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // }
+        
+        ];
+
+        $(function(){
+            //第一种：动态创建表格的方式，使用拼接html的方式 （推荐）
+            // var html = "";
+            // for( var i = 0; i < data.length; i++ ) {
+            //     html += "<tr>";
+            //     html +=     "<td>" + data[i].name + "</td>"
+            //     html +=     "<td>" + data[i].url + "</td>"
+            //     html +=     "<td>" + data[i].type + "</td>"
+            //     html += "</tr>";
+            // }
+            // $("#J_TbData").html(html);
+
+            //第二种： 动态创建表格的方式，使用动态创建dom对象的方式
+            //清空所有的子节点
+            $("#J_TbData").empty();
+
+            // $("#J_TbData").remove();
+
+            for( var i = 0; i < data.length; i++ ) {
+                //动态创建一个tr行标签,并且转换成jQuery对象
+                var $trTemp = $("<tr></tr>");
+
+                //往行里面追加 td单元格
+                $trTemp.append("<td>"+ data[i].name +"</td>");
+                $trTemp.append("<td>"+ data[i].url +"</td>");
+                $trTemp.append("<td>"+ data[i].type +"</td>");
+                $trTemp.append("<td>"+ data[i].lv +"</td>");
+                // $("#J_TbData").append($trTemp);
+                $trTemp.appendTo("#J_TbData");
+            }
+        });
+    </script>
 
 
 </html>
