@@ -1,3 +1,11 @@
+//设置全局地址
+axios.get('/dpapi/getPath')
+    .then(function(res){
+        Vue.http.options.root = res.data;
+}.bind(this),function(error){
+        console.log(error)
+});
+
 $('#oscar-nav-btn').click(function () {
     $('.dada2').toggle();
 });
