@@ -4,6 +4,16 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+             /**lxy start */
+             fileList: [
+                {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}, 
+                {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}
+            ],
+           
+            upLoadData:{
+                id:1
+            },
+            /**lxy end */
             //搜索表单
             searchForm: {
                 YAMC: "",
@@ -14,7 +24,7 @@ new Vue({
                 begintime_create:"",
                 endtime_create:"",       
             },
-            tableData: [
+            tableData: []/*[
                 {
                     YAMC: "防火器材预案",
                     YALX: "指挥",
@@ -115,7 +125,7 @@ new Vue({
                     YAZL:"三维预案",
                     ID: "10"
                 }
-            ],
+            ]*/,
             XFGX_data: [
                 {
                     value: 'liaoning',
@@ -345,6 +355,8 @@ new Vue({
             total: 10,
             //预案详情页
             detailData: [],
+            //详情页日期
+            detailYMD:"",
             //序号
             indexData: 0,
             //删除的弹出框
@@ -388,12 +400,26 @@ new Vue({
 
         }
     },
+    created:function(){
+        var params={
+        }
+        axios.post('/api/digitalplanlist/findByVO',params).then(function(res){
+            this.tableData = res.data.result;
+            console.log("success")
+        }.bind(this),function(error){
+            console.log("failed")
+        })
+
+    },
     methods: {
         handleNodeClick(data) {
             console.log(data);
         },
         handleChange(value) {
             console.log(value);
+        },
+        handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         },
         //表格查询事件
         searchClick: function () {
@@ -487,6 +513,27 @@ new Vue({
             console.log(val);
             this.searchForm.endtime_create = val;
         },
+         //时间格式化
+         dateFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '';
+            } else {
+                var date = new Date(rowDate);
+                if (date == undefined) {
+                    return '';
+                }
+                var month = '' + (date.getMonth() + 1),
+                    day = '' + date.getDate(),
+                    year = date.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [year, month, day].join('-')
+            }
+        },
+
         //表格勾选事件
         selectionChange: function (val) {
             this.multipleSelection = val;
@@ -497,11 +544,27 @@ new Vue({
             var _self = this;
             _self.planDetailVisible = true;
             
-            /*axios.get('/api/resource/getResource/' + val.ID).then(function (res) {
+            axios.get('/api/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
                 this.detailData = res.data.result;
+                if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
+                    return '';
+                } else {
+                    var date = new Date(this.detailData.zzrq);
+                    if (date == undefined) {
+                        return '';
+                    }
+                    var month = '' + (date.getMonth() + 1),
+                        day = '' + date.getDate(),
+                        year = date.getFullYear();
+    
+                    if (month.length < 2) month = '0' + month;
+                    if (day.length < 2) day = '0' + day;
+    
+                    this.detailYMD=[year, month, day].join('-');
+                }
             }.bind(this), function (error) {
                 console.log(error)
-            })*/
+            })
 
         },
         //预案下载
@@ -662,6 +725,22 @@ new Vue({
             val.alter_name = "";
             val.alter_time = "";
         }
+        /**
+        * lxy
+        */
+        ,
+        submitUpload() {
+            this.upLoadData= {id:2};
+            this.$refs.upload.submit();
+        },
+        handleRemove(file, fileList) {
+
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        }
+
     },
 
 })
