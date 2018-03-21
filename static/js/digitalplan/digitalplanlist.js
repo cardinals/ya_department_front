@@ -397,7 +397,7 @@ new Vue({
                 ZDMJ: "",
                 XFGXJGID: ""
             },
-
+          
         }
     },
     created:function(){
@@ -411,7 +411,7 @@ new Vue({
         })
 
     },
-    methods: {
+    methods: {        
         handleNodeClick(data) {
             console.log(data);
         },
