@@ -13,6 +13,14 @@
     <script src="../../static/js/jquery-3.2.1.min.js"></script>
     <script src="../../static/js/vue.min.js"></script>
     <script src="../../static/js/element.js" charset="utf-8"></script>
+
+
+    <script src="../../static/js/echarts-2/echarts-all.js"></script>
+    <script src="../../static/js/echarts-4/echarts.js"></script>
+    <script type="text/javascript" src="../../static/js/vue.js"></script>
+    <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
+
+
     <style>
             * { padding: 0; margin: 0; }
             table {
@@ -52,6 +60,10 @@
 
 <body class="fw map-bg">
     <div id="app">
+
+
+
+
         <div class="application-box tc abs" > 
             <div class="sync-main tc map-bg left" >
             	<img src="../../static/images/bg_01.png" style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 410px; border:1px solid #00008B;"/>
@@ -213,8 +225,14 @@
                 </div>
 
                 <div class="data_bottom" style="position:fixed;left:40px;top:455px;width:751px;height:85px;">
+                    
                     <div style="position:fixed;left:40px;top:455px;width:293px;height:85px;border:1px solid #00008B;">
-                        <div id="pie" ></div>
+                        <div class="application-div h35 p5" style="position:fixed;top:445px;left:10px;width:295px;height:105px;">
+                            <div class="application-text flex ">
+                                <!-- <div style="color:#fff;">数据类型</div> -->
+                                <div id="pie" class="application-text"></div>
+                            </div>
+                        </div> 
                     </div>
                     <div style="position:fixed;left:347px;top:455px;width:140px;height:85px;border:1px solid #00008B;">
                         <div id="provincetest" class="sync-province-box"  >
@@ -244,7 +262,10 @@
             </div>
         </div>
     </div>
+
 </body>
+
+
 <script>
     var vm = new Vue({
         el: "#app",
@@ -298,52 +319,35 @@
 										trigger: 'item',
 										formatter: "{a} <br/>{b}: {c} ({d}%)"
 									},
-									color: ['red', 'orange', 'yellow', 'lightgreen'],
+									color: ['rgb(53, 148, 211)', 'rgb(25, 60, 83)'],
 									legend: {
 										orient: 'vertical',
 										x: '60%',
 										y: 'center',
 										itemGap: 16,
 										itemWidth: 18,
-										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
+										data: ['结构化数据', '文件数据'],
 										textStyle: {
 											color: 'white'
 										},
 										align: 'left'
 									},
 									series: [
+										
 										{
-											name: '三维预案',
+											name: '数据类型',
 											type: 'pie',
 											center: ['35%', '50%'],
-											radius: [0, '42%'],
+											radius: ['46%', '75%'],
 											label: {
 												normal: {
 													show: false
 												}
 											},
 											data: [
-												{ value: 335, name: '高层建筑' },
-												{ value: 679, name: '地下建筑' },
-												{ value: 548, name: '大型综合体' },
-												{ value: 135, name: '化工园区' }
-											]
-										},
-										{
-											name: '二维预案',
-											type: 'pie',
-											center: ['35%', '50%'],
-											radius: ['56%', '75%'],
-											label: {
-												normal: {
-													show: false
-												}
-											},
-											data: [
-												{ value: 1335, name: '高层建筑' },
-												{ value: 1310, name: '地下建筑' },
-												{ value: 1234, name: '大型综合体' },
-												{ value: 1135, name: '化工园区' }
+												{ value: 400, name: '结构化数据' },
+												{ value: 600, name: '文件数据' },
+											
 											]
 										}
 									]
@@ -560,6 +564,9 @@
             }
         });
     </script>
+
+
+
 
 
 </html>
