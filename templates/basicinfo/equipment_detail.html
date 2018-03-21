@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    <title>装备器材信息详情</title>
+</head>
+
+<body class="fw f14 main-index-body">
+    <div id="header_box"></div>
+    <div class="left-sidebar">
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <div id="menu-box">
+            <big-tree default-active="31"></big-tree>
+        </div>
+    </div>
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container">
+                <div id="lib :: main_container_header('装备器材信息详情','装备器材信息详情')"></div>
+                <div id="tableView">
+                    <div class="inform-content">
+                        <template>
+                            <el-tabs v-model="activeName" type="border-card">
+                                    <div class="inform-div">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">装备器材编码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zbqcbm}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">装备器材名称：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zbqcmc}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">装备器材类型名称：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zbqclxmc}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">是否消耗性装备：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.sfxhxzb}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">规格型号：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ggxh}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">计量单位：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.jldwdm}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">参考价：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.ckj}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">重量：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zl}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">体积：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.tj}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">尺寸：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.cz}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">比重：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.bzh}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">检测批号：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.jcph}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">抗烧时间：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.kssj}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">主要成份：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zycf}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">适用范围：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.syfw}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">准入检验类别：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zrjylbdm}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">进口装备国内代理商：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.jkzbgndls}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">售后服务单位：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.shfwdw}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">保养周期：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.byzq}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">检查周期：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.jczq}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </el-tabs>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../static/js/lib.js" ></script>
+<script src="../../static/js/menu.js" ></script>
+<script src="../../static/js/basicinfo/equipment_detail.js"></script>
+
+</html>

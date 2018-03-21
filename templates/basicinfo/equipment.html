@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/basicinfo/equipment.css">
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="header_box"></div>
+	<div class="left-sidebar">
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="31"></big-tree>
+		</div>
+	</div>
+	<div id="app">
+		<div class="main-box">
+			<div class="main-container">
+				<div id="lib :: main_container_header('消防器材信息','消防器材信息')"></div>
+				<div id="tableView">
+					<el-row>
+						<el-form label-width="110px" :inline="true" class="el-form demo-form-inline">
+							<el-row type="flex" justify="center">
+								<el-col :span="11">
+									<el-form-item label="装备器材名称">
+										<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="inputWidth"></el-input>
+									</el-form-item>
+								</el-col>
+								<el-col :span="11">
+									<el-form-item label="是否消耗性装备">
+										<el-checkbox></el-checkbox>
+									</el-form-item>
+								</el-col>
+							</el-row>
+							<el-row type="flex" justify="center">
+								<el-col :span="11">
+									<el-form-item label="装备器材类型">
+										<el-select size="small" v-model="searchForm.equipmenttype" placeholder="全部" class="inputWidth" clearable>
+                                            <el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+                                        </el-select>
+									</el-form-item>
+								</el-col>
+								<el-col :span="11"></el-col>
+							</el-row>
+							<div>
+								<el-form>
+									<el-col :span="12" class="btnEditDelete">
+										<el-form-item align="left">
+										</el-form-item>
+									</el-col>
+									<el-col :span="12"></el-col>
+									<el-col :span="12" class="btnSearchPlus">
+										<el-form-item>
+											<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+											<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+										</el-form-item>
+									</el-col>
+								</el-form>
+							</div>
+						</el-form>
+					</el-row>
+
+					<div class="table_container">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+							<el-table-column type="selection" min-width="5%"></el-table-column>
+							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+							<el-table-column prop="zbqcbm" label="装备编码" min-width="11%" align="center"></el-table-column>
+							<el-table-column prop="zbqcmc" label="装备名称" min-width="11%" align="center">
+								<template slot-scope="scope">
+									<el-button @click="detailClick(scope.row)" type="text">{{scope.row.dwmc}}</el-button>
+								</template>
+							</el-table-column>
+							<el-table-column prop="zbqclxmc" label="装备类型" min-width="12%" align="center"></el-table-column>
+							<el-table-column prop="sfxhxzb" label="是否消耗性装备" min-width="14%" align="center"></el-table-column>
+							<el-table-column prop="ggxh" label="规格型号" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="jldwdm" label="计量单位" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="ckj" label="参考价" min-width="8%" align="center"></el-table-column>
+							<el-table-column prop="jczq" label="检查周期" min-width="9%" align="center"></el-table-column>
+						</el-table>
+
+						<!--列表底部工具条和分页符-->
+						<el-row type="flex" justify="end">
+							<el-col :span="18">
+								<el-pagination 
+									@size-change="pageSizeChange" 
+									@current-change="currentPageChange" 
+									:current-page="currentPage" 
+									:page-sizes="[10, 20, 30, 50]"
+									:page-size="pageSize" 
+									layout="total, sizes, prev, pager, next, jumper" 
+									:total=parseInt(total)>
+								</el-pagination>
+							</el-col>
+						</el-row>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/basicinfo/equipment.js"></script>
+
+</html>
