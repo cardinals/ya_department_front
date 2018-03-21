@@ -5,235 +5,23 @@ new Vue({
     data: function () {
         return {
             visible: false,
-            awa: "",
             //搜索表单
             searchForm: {
-                DWMC: "",
-                DWDJ: "",
-                DWXZ: "",
-                XZQY: ""
+                dwmc: "",
+                xzqy: "",
+                xfgx: "",
+                begintime: "",
+                endtime: "",
+                bhxj:""
             },
-            tableData: [
-                {
-                    DWMC: "辽宁省人民法院",
-                    XZQY: "辽宁省",
-                    DWDZ: "霞飞路29号",
-                    XFGXJGNAME: "沈阳市消防局",
-                    CJSJ: "2012-02-23",
-                    DWDJ: "省部级",
-                    DWXZ: "司法",
-                    ID: "1"
-                },
-                {
-                    DWMC: "辽宁省政府",
-                    DWDJ: "省部级",
-                    DWXZ: "行政",
-                    XZQY: "辽宁省",
-                    DWDZ: "霞飞路30号",
-                    ZDMJ: 50000,
-                    XFGXJGNAME: "沈阳市消防局",
-                    CJSJ: "2012-02-23",
-                    ID: "2"
-                },
-                {
-                    DWMC: "辽宁省就业局",
-                    DWDJ: "省部级",
-                    DWXZ: "民事",
-                    XZQY: "辽宁省",
-                    DWDZ: "霞飞路31号",
-                    ZDMJ: 20000,
-                    XFGXJGNAME: "沈阳市消防局",
-                    CJSJ: "2012-02-23",
-                    ID: "3"
-                },
-                {
-                    DWMC: "沈阳市城市规划管理局",
-                    DWDJ: "市厅级",
-                    DWXZ: "城市管理",
-                    XZQY: "辽宁省",
-                    DWDZ: "霞飞路32号",
-                    ZDMJ: 10000,
-                    XFGXJGNAME: "沈阳市消防和平分队",
-                    CJSJ: "2012-02-23",
-                    ID: "4"
-                },
-                {
-                    DWMC: "沈阳市公安局",
-                    DWDJ: "市厅级",
-                    DWXZ: "司法",
-                    XZQY: "辽宁省",
-                    DWDZ: "霞飞路33号",
-                    ZDMJ: 12000,
-                    XFGXJGNAME: "沈阳市消防沈河分队",
-                    CJSJ: "2012-02-23",
-                    ID: "5"
-                },
-                {
-                    DWMC: "沈阳市地铁二号线",
-                    DWDJ: "市厅级",
-                    DWXZ: "民事",
-                    XZQY: "辽宁省",
-                    DWDZ: "霞飞路34号",
-                    ZDMJ: 1000,
-                    XFGXJGNAME: "沈阳市消防浑南分队",
-                    CJSJ: "2012-02-23",
-                    ID: "6"
-                },
-                {
-                    DWMC: "青岛市塑性加工园",
-                    DWDJ: "市厅级",
-                    DWXZ: "城市管理",
-                    XZQY: "山东省",
-                    DWDZ: "文明路39号",
-                    ZDMJ: 2000,
-                    XFGXJGNAME: "青岛市市消防大东分队",
-                    CJSJ: "2012-02-23",
-                    ID: "7"
-                },
-                {
-                    DWMC: "泰安市城建局",
-                    DWDJ: "市厅级",
-                    DWXZ: "城市管理",
-                    XZQY: "山东省",
-                    DWDZ: "法防路36号",
-                    ZDMJ: 2000,
-                    XFGXJGNAME: "泰安市消防塔湾分队",
-                    CJSJ: "2012-02-23",
-                    ID: "8"
-                },
-                {
-                    DWMC: "河北省国土资源厅",
-                    DWDJ: "省部级",
-                    DWXZ: "城市管理",
-                    XZQY: "河北省",
-                    DWDZ: "格调路46号",
-                    ZDMJ: 3000,
-                    XFGXJGNAME: "河北省消防总队",
-                    CJSJ: "2012-02-23",
-                    ID: "9"
-                },
-                {
-                    DWMC: "秦皇岛市林业局",
-                    DWDJ: "市厅级",
-                    DWXZ: "城市管理",
-                    XZQY: "河北省",
-                    DWDZ: "发文路64号",
-                    ZDMJ: 4000,
-                    XFGXJGNAME: "秦皇岛市消防大队",
-                    CJSJ: "2012-02-23",
-                    ID: "10"
-                }
-            ],
-            XFGX_data: [
-                {
-                    value: 'liaoning',
-                    label: '辽宁省消防总队',
-                    children: [{
-                        value: 'shenyang',
-                        label: '沈阳市消防总队',
-                        children: [{
-                            value: 'heping',
-                            label: '沈阳市消防和平分队'
-                        }, {
-                            value: 'dadong',
-                            label: '沈阳市消防大东分队'
-                        }]
-                    }, {
-                        value: 'dalian',
-                        label: '大连市消防总队'
-                    }, {
-                        value: 'anshan',
-                        label: '鞍山市消防总队'
-                    }]
-                }, {
-                    value: 'shandong',
-                    label: '山东省消防总队',
-                    children: [{
-                        value: 'shenyang',
-                        label: '青岛市消防总队'
-                    }, {
-                        value: 'dalian',
-                        label: '烟台市消防总队'
-                    }, {
-                        value: 'anshan',
-                        label: '淄博市消防总队'
-                    }]
-                }, {
-                    value: 'hebei',
-                    label: '河北省消防总队',
-                    children: [{
-                        value: 'qinhuangdao',
-                        label: '秦皇岛市消防总队'
-                    }, {
-                        value: 'dalian',
-                        label: '石家庄消防总队'
-                    }]
-                }
-            ],
+            tableData: [],
+
+            XFGX_data: [],
             selected_XFGX: [],
-            XZQY_data: [
-                {
-                    value: 'liaoning',
-                    label: '辽宁省',
-                    children: [{
-                        value: 'shenyang',
-                        label: '沈阳市',
-                        children: [{
-                            value: 'heping',
-                            label: '沈阳市和平'
-                        }, {
-                            value: 'dadong',
-                            label: '沈阳市大东'
-                        }]
-                    }, {
-                        value: 'dalian',
-                        label: '大连市队'
-                    }, {
-                        value: 'anshan',
-                        label: '鞍山市'
-                    }]
-                }, {
-                    value: 'shandong',
-                    label: '山东省',
-                    children: [{
-                        value: 'shenyang',
-                        label: '青岛市'
-                    }, {
-                        value: 'dalian',
-                        label: '烟台市'
-                    }, {
-                        value: 'anshan',
-                        label: '淄博市'
-                    }]
-                }, {
-                    value: 'hebei',
-                    label: '河北省',
-                    children: [{
-                        value: 'qinhuangdao',
-                        label: '秦皇岛'
-                    }, {
-                        value: 'dalian',
-                        label: '石家庄'
-                    }]
-                }
-            ],
+
+            XZQY_data: [],
             selected_XZQY: [],
-            BHXJ_data: [
-                {
-                    value: '沈阳市中级人民法院',
-                    label: '沈阳市中级人民法院'
-                }, {
-                    value: '大连市中级人民法院',
-                    label: '大连市中级人民法院'
-                }, {
-                    value: '鞍山市中级人民法院',
-                    label: '鞍山市中级人民法院'
-                }, {
-                    value: '抚顺市中级人民法院',
-                    label: '抚顺市中级人民法院'
-                }
-            ],
-            option_BHXJ: [],
+            
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -292,8 +80,19 @@ new Vue({
                 ZDMJ: "",
                 XFGXJGID: ""
             },
+             //树结构配置
+             defaultProps: {
+                children: 'children',
+                label: 'codeName',
+                value: 'codeValue'
+            },
 
         }
+    },
+    created:function(){
+        this.searchClick();
+        // this.searchXFGX_data();
+        this.searchXZQY_data();
     },
     methods: {
         handleNodeClick(data) {
@@ -305,60 +104,51 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             var _self = this;
-            var tableObject = {};
-            var searchData = [];
-            var resultData = [];
-            //空表不显示
-            function isEmptyObject(obj) {
-                for (var key in obj) {
-                    return false;
-                }
-                return true;
+            if (this.searchForm.begintime != "" && this.searchForm.endtime != "" && this.searchForm.begintime > this.searchForm.endtime) {
+                _self.$message({
+                    message: "时间选择错误！",
+                    type: "error"
+                });
+                return;
             }
-            //起始时间的判断大小的函数
-            function tab(begin, end) {
-                var oDate1 = new Date(begin);
-                var oDate2 = new Date(end);
-                if (oDate1.getTime() > oDate2.getTime()) {
-                    return true;
-                }
-                return false;
-            }
-            //数据还原
-            for (var i = 0; i < _self.tableData.length; i++) {
-                var flow = _self.tableData[i];
-                searchData.push(flow);
-            }
-            for (var i = 0; i < _self.tableData.length; i++) {
-                if ((!(_self.searchForm.DWMC == "" && _self.searchForm.DWDJ == "" && _self.searchForm.DWXZ == "" && _self.searchForm.XZQY == "")) && (_self.searchForm.DWMC != "" ? (_self.tableData[i].DWMC == _self.searchForm.DWMC) : true) && (_self.searchForm.DWDJ != "" ? (_self.tableData[i].DWDJ == _self.searchForm.DWDJ) : true)
-                    && (_self.searchForm.DWXZ != "" ? (_self.tableData[i].DWXZ == _self.searchForm.DWXZ) : true) && (_self.searchForm.XZQY != "" ? (_self.tableData[i].XZQY == _self.searchForm.XZQY) : true)) {
-                    var row = _self.tableData[i];
-                    resultData.push(row);
-
-                }
-
-            }
-            _self.tableData.splice(0, _self.tableData.length);
-            if (resultData.length >= 1) {
-                _self.tableData = resultData;
-            } else {
-                _self.tableData.splice(0, _self.tableData.length);
-                _self.tableData = searchData;
-            }
-            _self.total = _self.tableData.length;
-            _self.loadingData(); //重新加载数据
+            var params={
+                dwmc:this.searchForm.dwmc,
+                // begintime: this.searchForm.begintime,
+                // endtime: this.searchForm.endtime,
+                // xzqy_id: this.searchForm.xzqy,
+                // xfgx_id: this.searchForm.xfgx
+            };
+            axios.post('/dpapi/keyunit/findByVO',params).then(function(res){
+                this.tableData = res.data.result;
+                this.total = res.data.result.length;
+                this.rowdata = this.tableData;
+            }.bind(this),function(error){
+                console.log(error);
+            })
         },
         clearClick: function () {
             // this.searchForm.
         },
-        //时间格式
-        begindateChange_create(val) {
-            console.log(val);
-            this.searchForm.begintime_create = val;
+        searchXFGX_data: function (){
+            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+                this.XFGX_data=res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
         },
-        enddateChange_create(val) {
-            console.log(val);
-            this.searchForm.endtime_create = val;
+        searchXZQY_data: function(){
+            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+                this.XZQY_data = res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        //时间格式
+        begindateChange(val) {
+            this.searchForm.begintime = val;
+        },
+        enddateChange(val) {
+            this.searchForm.endtime = val;
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -369,19 +159,9 @@ new Vue({
             //this.sels = sels
             console.info(val);
         },
-        //批量删除数据
-        // delGroup() {  
-        // 	var ids = this.sels.map(item => item.id).join()//获取所有选中行的id组成的字符串，以逗号分隔
-
-        // },  
-        //时间格式
-        // dateChange(val) {  
-        // 	console.log(val);  
-        // 	this.addForm.create_time = val;
-        // 	this.editForm.create_time = val;
-        // },
+        
         informClick(val) {
-            window.location.href = "importantunits_detail.html?ID=" + val.ID;
+            window.location.href = "importantunits_detail.html?ID=" + val.pkid;
         },
         createdateChange(val) {
             console.log(val);
@@ -410,26 +190,6 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-        //表格删除事件
-        // deleteClick: function(index,row) {
-        // var _self = this;
-        // this.$confirm("确认删除" + row.realname + "吗?", "提示", {
-        // 	type: "warning",
-        // 	confirmButtonText: '确定',
-        // 	cancelButtonText: '取消'
-        // })
-        // 	.then(function() {
-        // 	_self.tableData.splice(index,1);
-        // 	_self.$message({
-        // 		message: row.realname + "删除成功",
-        // 		type: "success"
-        // 	});
-        // 	_self.loadingData(); //重新加载数据
-        // 	})
-        // 	.catch(function(e) {
-        // 	if (e != "cancel") console.log("出现错误：" + e);
-        // 	});
-        // },
 
         //新建事件
         addClick: function () {
