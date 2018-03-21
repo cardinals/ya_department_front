@@ -424,54 +424,7 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             var _self = this;
-            var tableObject = {};
-            var searchData = [];
-            var resultData = [];
-            //空表不显示
-            function isEmptyObject(obj) {
-                for (var key in obj) {
-                    return false;
-                }
-                return true;
-            }
-            //起始时间的判断大小的函数
-            function tab(begin, end) {
-                var oDate1 = new Date(begin);
-                var oDate2 = new Date(end);
-                if (oDate1.getTime() > oDate2.getTime()) {
-                    return true;
-                }
-                return false;
-            }
-            if (this.searchForm.begintime_create != "" && this.searchForm.endtime_create != "" && tab(begintime_create, endtime_create)) {
-                _self.$message({
-                    message: "时间选择错误！",
-                    type: "error"
-                });
-                return;
-            }
-            //数据还原
-            for (var i = 0; i < _self.tableData.length; i++) {
-                var flow = _self.tableData[i];
-                searchData.push(flow);
-            }
-            for (var i = 0; i < _self.tableData.length; i++) {
-                if ((!(_self.searchForm.YAMC == "" && _self.searchForm.selected_YALX.length==0 && _self.searchForm.DXMC == "" && _self.searchForm.option_DXLX.length==0&& _self.searchForm.option_YAZL.length==0)) && (_self.searchForm.YAMC != "" ? (_self.tableData[i].YAMC == _self.searchForm.YAMC) : true) && (_self.searchForm.DXMC != "" ? (_self.tableData[i].DXMC == _self.searchForm.DXMC) : true)
-                     && (_self.searchForm.YALX != "" ? (_self.tableData[i].YALX == _self.searchForm.YALX) : true)) {
-                    var row = _self.tableData[i];
-                    resultData.push(row);
-
-                }
-
-            }
-            _self.tableData.splice(0, _self.tableData.length);
-            if (resultData.length >= 1) {
-                _self.tableData = resultData;
-            } else {
-                _self.tableData.splice(0, _self.tableData.length);
-                _self.tableData = searchData;
-            }
-            /*
+            
             if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
                 _self.$message({
                     message: "时间选择错误！",
@@ -490,7 +443,7 @@ new Vue({
                 this.total = res.data.result.length;
             }.bind(this), function (error) {
                 console.log(error)
-            })*/
+            })
             _self.total = _self.tableData.length;
             _self.loadingData(); //重新加载数据
         },

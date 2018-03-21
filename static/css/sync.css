@@ -28,9 +28,10 @@
    .sync-lebal {
      position: relative;
      left: 10px;
-     top: -25px;
+     top: -105px;
      color: #77bafe;
      font-family: "微软雅黑";
+     font-size: 20px;
      
    }
    .sync-txts-normal {
@@ -38,16 +39,16 @@
      font-family: "微软雅黑";
      font-size: 40px;
      color: #00ffff;
-     margin-left: 100px;
-     margin-top: -90px
+     margin-left: 80px;
+     margin-top: -105px
    }
    .sync-txts-attention  {
      float: left;
      font-family: "微软雅黑";
      font-size: 40px;
      color: #f9885c;
-     margin-left: 100px;
-     margin-top: -90px
+     margin-left: 80px;
+     margin-top: -105px
    }
    
    .sync-province-box02 {
@@ -81,12 +82,12 @@
    }
    
    .sync-province-icon01{
-     width: 48px;
-     height: 48px;
+     width: 40px;
+     height: 40px;
      margin: 16px;
      margin-top: 16px;
      background-image: url(../images/xf-logo_01.png);
-     background-size: 48px 48px;
+     background-size: 40px 40px;
    }
    .sync-province-icon0{
      width: 48px;
@@ -100,20 +101,20 @@
    
    
    .sync-province-icon {
-     width: 48px;
-     height: 48px;
+     width: 38px;
+     height: 38px;
      margin: 16px;
      margin-top: 16px;
      background-image: url("../images/sync-fwjd.png");
-     background-size: 48px 48px;
+     background-size: 38px 38px;
    }
    .sync-province-icon2 {
-     width: 48px;
-     height: 48px;
+     width: 38px;
+     height: 38px;
      margin: 16px;
      margin-top: 16px;
      background-image: url("../images/sync-gzjd.png");
-     background-size: 48px 48px;
+     background-size: 38px 38px;
    }
    .sync-province-lebal02{
        position: relative;
@@ -125,9 +126,10 @@
       
    }
    .sync-province-lebal0{
-       position: relative;
-       font-size: 24px;
-       top: -26px;
+       position: fixed;
+       font-size: 20px;
+       left: 271px;
+       top: 95px;
        color: #FFFFFF;
        font-family: "微软雅黑";
       
@@ -142,32 +144,38 @@
    }
    .sync-province-lebal {
        position: relative;
-       font-size: 13px;
+       font-size:10px;
+       left: 20x;
        top: -26px;
        color: #77bafe;
        font-family: "微软雅黑";
+       margin-right: 8px;
    }
    
+   /* 底部 */
    #provincetest{
-       top: 70px;
-       left:30px;
+       top: 463px;
+       left:351px;
       
    }
    #provincetest1{
-       top: 200px;
-       left:30px;
+       top: 463px;
+       left:505px;
    }
    #provincetest2{
-       top: 330px;
-       left:30px;
+       top: 463px;
+       left:655px;
    }
+
+
+
    #province0{
        top: 140px;
        left:540px;
    }
    #province01{
-       top: 44px;
-       left:680px;
+       top: 34px;
+       left:385px;
    }
    #province02{
        top: 214px;
@@ -177,129 +185,143 @@
        top: 254px;
        left:696px;
    }
+
+   /* bj */
    #province1 {
-       top: 144px;
-       left: 257px;
+       top: 95px;
+       left: 55px;
    }
+
    #province2 {
-       top: 182px;
-       left: 397px;
+       top: 132px;
+       left: 162px;
    }
    #province3 {
-       top: 217px;
-       left: 257px;
+    top: 165px;
+    left: 55px;
    }
    #province4 {
-       top: 251px;
-       left: 397px;
+       top: 200px;
+       left: 162px;
    }
    #province5 {
-       top: 289px;
-       left: 257px;
+       top: 235px;
+       left: 55px;
    }
    #province6 {
-       top: 144px;
-       left: 1108px;
+       top: 95px;
+       left: 715px;
    }
    #province7 {
-       top: 182px;
-       left: 968px;
+       top: 132px;
+       left: 608px;
    }
    #province8 {
-       top: 217px;
-       left: 1108px;
+       top:165px;
+       left:715px;
    }
    #province9 {
-       top: 251px;
-       left: 968px;
+       top: 200px;
+       left: 608px;
    }
    #province10 {
-       top: 289px;
-       left: 1108px;
+       top: 235px;
+       left: 715px;
    }
    #province11 {
-       top: 346px;
-       left: 326px;
+       top: 286px;
+       left: 105px;
    }
    #province12 {
-       top: 346px;
-       left: 398px;
+       top: 286px;
+       left: 162px;
    }
    #province13 {
-       top: 346px;
-       left: 469px;
+       top: 286px;
+       left: 219px;
    }
+
+
+
    #province14 {
-       top: 346px;
-       left: 898px;
+       top: 286px;
+       left: 551px;
    }
    #province15 {
-       top: 346px;
-       left: 970px;
+       top: 286px;
+       left: 608px;
    }
    #province16 {
-       top: 346px;
-       left: 1039px;
+
+       top: 286px;
+       left: 665px;
    }
+
+/*  */
+
    #province17 {
-       top: 402px;
-       left: 398px;
+       top: 337px;
+       left: 162px;
    }
    #province18 {
-       top: 402px;
-       left: 469px;
+       top: 337px;
+       left: 219px;
    }
    #province19 {
-       top: 402px;
-       left: 541px;
+       top: 337px;
+       left: 275px;
    }
    #province20 {
-       top: 402px;
-       left: 611px;
+       top: 337px;
+       left: 330px;
    }
    #province21 {
-       top: 402px;
-       left: 683px;
+       top: 337px;
+       left: 385px;
    }
    #province22 {
-       top: 402px;
-       left: 756px;
+       top: 337px;
+       left: 440px;
    }
    #province23 {
-       top: 402px;
-       left: 826px;
+       top: 337px;
+       left:495px;
    }
    #province24 {
-       top: 402px;
-       left: 898px;
+       top: 337px;
+       left: 552px;
    }
    #province25 {
-       top: 402px;
-       left: 970px;
+       top: 337px;
+       left: 609px;
    }
+
+
+   /*  */
+
    #province26 {
-       top: 457px;
-       left: 327px;
+       top: 383px;
+       left: 108px;
    }
    #province27 {
-       top: 457px;
-       left: 398px;
+       top: 383px;
+       left: 162px;
    }
    #province28 {
-       top: 457px;
-       left: 469px;
+       top: 383px;
+       left: 219px;
    }
    #province29 {
-       top: 457px;
-       left: 898px;
+       top: 383px;
+       left: 552px;
    }
    #province30 {
-       top: 457px;
-       left: 970px;
+       top: 383px;
+       left: 609px;
    }
    #province31 {
-       top: 457px;
-       left: 1039px;
+       top: 383px;
+       left: 665px;
    }
    .blink {
        animation:blink 0.5s linear infinite alternate;
@@ -309,283 +331,65 @@
      100% {opacity: 1;}
    }
    
+   
    .line1{
        border: 1px solid #abcdef;
        position: fixed;
-       top: 255px;
-       left: 318px;
-       width: 810px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
+       top: 313px;
+       left: 156px;
+       width: 25px;
+      
    }
    .line2{
        border: 1px solid #abcdef;
        position: fixed;
-       top: 375px;
-       left: 528px;
-       width: 390px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
+       top: 313px;
+       left: 213px;
+       width: 25px;
    }
-   
+  
    .line3{
-       border: 1px solid #abcdef;
+    border: 1px solid #abcdef;
        position: fixed;
-       top: 485px;
-       left: 528px;
-       width: 390px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   
-   .line4{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 175px;
-       left: 318px;
-       width: 170px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line5{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 175px;
-       left: 957px;
-       width: 170px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line6{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 215px;
-       left: 458px;
-       width: 70px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line7{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 215px;
-       left: 920px;
-       width: 70px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line8{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 285px;
-       left: 458px;
-       width: 70px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line9{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 285px;
-       left: 920px;
-       width: 70px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line10{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 325px;
-       left: 318px;
-       width: 170px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line11{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 325px;
-       left: 958px;
-       width: 169px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line12{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 325px;
-       left: 957px;
-       width: 170px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line13{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 375px;
-       left: 386px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line14{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 375px;
-       left: 458px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line15{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 375px;
-       left: 958px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line16{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 375px;
-       left: 1028px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line17{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 435px;
-       left: 458px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line18{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 435px;
-       left: 530px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line19{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 435px;
+       top: 313px;
        left: 602px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line20{
-       border: 1px solid #abcdef;
+       width: 25px;
+}
+.line4{
+    border: 1px solid #abcdef;
        position: fixed;
-       top: 435px;
-       left: 671px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line21{
-       border: 1px solid #abcdef;
+       top: 313px;
+       left: 659px;
+       width: 25px;
+}
+/*  */
+
+.line5{
+    border: 1px solid #abcdef;
+    position: fixed;
+    top: 410px;
+    left: 157px;
+    width: 24px;
+}
+.line6{
+    border: 1px solid #abcdef;
+    position: fixed;
+    top: 410px;
+    left: 213px;
+    width: 25px;
+
+}
+.line7{
+    border: 1px solid #abcdef;
        position: fixed;
-       top: 435px;
-       left: 743px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line22{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 435px;
-       left: 815px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line23{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 435px;
-       left: 887px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line24{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 435px;
-       left: 959px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line25{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 485px;
-       left: 386px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line26{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 485px;
-       left: 458px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line27{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 485px;
-       left: 958px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line28{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 485px;
-       left: 1028px;
-       width: 31px;
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line29{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 360px;
-       left: 667px;
-       width: 110px;
-       display:inline-block; transform: rotate(-90deg);
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line30{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 479px;
-       left: 715px;
-       width: 13px;
-       display:inline-block; transform: rotate(-90deg);
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line31{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 215px;
-       left: 471px;
-       width: 113px;
-       display:inline-block; transform: rotate(45deg);
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line32{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 291px;
-       left: 875px;
-       width: 98px;
-       display:inline-block; transform: rotate(45deg);
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line33{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 215px;
-       left: 861px;
-       width: 113px;
-       display:inline-block; transform: rotate(-45deg);
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
-   .line34{
-       border: 1px solid #abcdef;
-       position: fixed;
-       top: 291px;
-       left: 474px;
-       width: 98px;
-       display:inline-block; transform: rotate(-45deg);
-       box-shadow:0px 0px 0.5px 0.5px #abcdef;
-   }
+       top: 410px;
+       left: 602px;
+       width: 25px;
+}
+.line8{
+    border: 1px solid #abcdef;
+    position: fixed;
+    top: 410px;
+    left: 659px;
+    width: 25px;
+}

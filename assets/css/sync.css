@@ -7,7 +7,7 @@
    }
    .sync-main {
      float: right;
-     width: 1040px;
+     width: 540px;
      height: 100%;
      margin: 0;
      background-size: 100% 100%;
@@ -73,10 +73,13 @@
      height: 80px;
      position: fixed;
    }
+
+   /* logo名称 */
+
    .sync-province-box0 {
      float: left;
-     width: 360px;
-     height: 80px;
+     width: 240px;
+     height: 50px;
      position: fixed;
    }
    
@@ -98,15 +101,22 @@
    }
    
    
-   
+
+   /* 图标 */
    .sync-province-icon {
-     width: 48px;
-     height: 48px;
-     margin: 16px;
-     margin-top: 16px;
+
+     width: 28px;
+     height: 28px;
+     margin: 6px;
+     margin-top: 6px;
      background-image: url("../images/sync-fwjd.png");
-     background-size: 48px 48px;
+     background-size: 28px 28px;
+
+
    }
+
+
+
    .sync-province-icon2 {
      width: 48px;
      height: 48px;
@@ -161,10 +171,13 @@
        top: 330px;
        left:30px;
    }
+
+/* logo */
    #province0{
        top: 140px;
-       left:540px;
+       left:340px;
    }
+
    #province01{
        top: 44px;
        left:680px;

@@ -13,54 +13,73 @@
     <script src="../../static/js/jquery-3.2.1.min.js"></script>
     <script src="../../static/js/vue.min.js"></script>
     <script src="../../static/js/element.js" charset="utf-8"></script>
+
+
+    <script src="../../static/js/echarts-2/echarts-all.js"></script>
+    <script src="../../static/js/echarts-4/echarts.js"></script>
+    <script type="text/javascript" src="../../static/js/vue.js"></script>
+    <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
+
+
+    <style>
+            * { padding: 0; margin: 0; }
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                border: 1px solid #00008B;
+                
+            }
+    
+            th,td {
+                border: 1px solid #00008B;
+                color: #fff;
+                padding: 4px;
+                height: 3px;
+            }
+
+            th {
+                padding: 8px;
+                font: bold 16px "微软雅黑";
+                color: rgb(129, 129, 247);
+            }
+    
+            td {
+                font: 10px "微软雅黑";
+                height:1px;
+            }
+           
+            tbody tr:hover {
+                cursor: pointer;
+            
+            }
+
+        </style>
 </head>
+
+
 
 <body class="fw map-bg">
     <div id="app">
-        <div class="application-box tc abs">
-            
-            <div class="sync-main tc map-bg">
-            	<div class="left">
-		            <div id="provincetest" class="sync-province-box" >
-		                  <img class="sync-icon" src="../../static/images/sync-fwjd.png">
-		                  <span class="sync-lebal">数据节点</span>
-		                  <span class="sync-txts-normal">{{sjjd}}</span>
-		            </div>
-	                <div id="provincetest1" class="sync-province-box">
-	                  <img class="sync-icon" src="../../static/images/sync-fwjd.png">
-	                  <span class="sync-lebal">服务节点</span>
-	                  <span class="sync-txts-normal">{{fwjd}}</span>
-	                </div>
-	                <div id="provincetest2" class="sync-province-box">
-	                  <img class="sync-icon" src="../../static/images/sync-gzjd.png">
-	                   <span class="sync-lebal">故障节点</span>
-	                   <span class="sync-txts-attention">{{gzjd}}</span>
-	                </div>
-                </div>
-            	<img src="../../static/images/bg_01.png" style= "position: fixed;left: 200px;top:54px; width: 1000px;height: 500px;"/>
-            	<img src="../../static/images/center_01.png" style= "position: fixed;left: 604px;top:145px; width: 240px;height: 240px;"/>
-            	<!--<img src="../images/center_02.png" style= "position: fixed;left: 295px;top:175px; width: 850px;height:330px;"/>-->
-            	<div id="province01" class="sync-province-box">
+
+
+
+
+        <div class="application-box tc abs" > 
+            <div class="sync-main tc map-bg left" >
+            	<img src="../../static/images/bg_0101.png" style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 410px; border:1px solid #00008B;"/>
+            	<img src="../../static/images/center_01.png" style= "position: fixed;left:325px;top:100px; width: 195px;height: 200px;"/>
+                <img src="../../static/images/center_02.png" style= "position: fixed;left:95px;top:120px; width: 650px;height: 310px;"/>
+                <!--<img src="../images/center_02.png" style= "position: fixed;left: 295px;top:175px; width: 850px;height:330px;"/>-->
+                <div id="province01" class="sync-province-box" >
                     <div class="sync-province-icon01"></div>
                 </div>
             	<div id="province0" class="sync-province-box0">
-                     <span class="sync-province-lebal0">公安部消防局数字化预案管理平台</span>
-               </div>
-                 <hr class="line1"/>
-                <div id="province02" class="sync-province-box02">
-                 <!-- <span class="sync-province-lebal02">数据汇集</span>-->
+                    <span class="sync-province-lebal0">公安部消防局数字化预案管理平台</span>
                 </div>
-                <div id="province03" class="sync-province-box00">
-                     <span class="sync-province-lebal00">数据汇集</span>
-                </div>
-                <hr class="line4"/>
-                <hr class="line5" />
                 <div id="province1" class="sync-province-box">
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">北京</span>
                 </div>
-                <hr class="line6"/>
-                <hr class="line7" />
                 <div id="province2" class="sync-province-box">
                     <div class="sync-province-icon2 blink"></div>
                     <span class="sync-province-lebal">天津</span>
@@ -69,18 +88,12 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">重庆</span>
                 </div>
-                <hr class="line8"/>
-                <hr class="line9" />
                 <div id="province4" class="sync-province-box">
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">上海</span>
                 </div>
-                <hr class="line10"/>
-                <hr class="line11" />
-                <hr class="line29" />
-                <hr class="line30" />
-                <div id="province5" class="sync-province-box">
-                    <div class="sync-province-icon"></div>
+                <div id="province5" class="sync-province-box" >
+                    <div class="sync-province-icon" ></div>
                     <span class="sync-province-lebal">辽宁</span>
                 </div>
                 <div id="province6" class="sync-province-box">
@@ -103,11 +116,6 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">宁夏</span>
                 </div>
-                <hr class="line2"/>
-                <hr class="line13"/>
-                <hr class="line14"/>
-                <hr class="line15"/>
-                <hr class="line16"/>
                 <div id="province11" class="sync-province-box">
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">黑龙江</span>
@@ -132,15 +140,6 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">山西</span>
                 </div>
-                
-                <hr class="line17"/>
-                <hr class="line18"/>
-                <hr class="line19"/>
-                <hr class="line20"/>
-                <hr class="line21"/>
-                <hr class="line22"/>
-                <hr class="line23"/>
-                <hr class="line24"/>
                 <div id="province17" class="sync-province-box">
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">陕西</span>
@@ -177,12 +176,7 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">安徽</span>
                 </div>
-                <hr class="line3"/>
-                <hr class="line25"/>
-                <hr class="line26"/>
-                <hr class="line27"/>
-                <hr class="line28"/>
-                <div id="province26" class="sync-province-box">
+                 <div id="province26" class="sync-province-box">
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">江西</span>
                 </div>
@@ -206,18 +200,76 @@
                     <div class="sync-province-icon"></div>
                     <span class="sync-province-lebal">贵州</span>
                 </div>
-                <hr class="line31"/>
-                <hr class="line32"/>
-                <hr class="line33"/>
-                <hr class="line34"/>
+                <hr class="line1"/>
+                <hr class="line2"/>
+                <hr class="line3"/>
+                <hr class="line4"/>
+                <hr class="line5"/>
+                <hr class="line6"/>
+                <hr class="line7"/>
+                <hr class="line8"/>
+                <div class="data_right" style="position:fixed;left:795px;top:40px;width:444px;height:500px; ">
+                        <!-- style="position:fixed;left:795px;top:40px;width:444px;height:500px; border:1px solid #00008B;" -->
+                    <table>
+                        <thead>
+                            <tr>        
+                                <th>省份</th>
+                                <th style="width:110px;">同步次数</th>
+                                <th style="width:150px;">同步结构化数据量</th>
+                                <th>同步文件数</th>
+                            </tr>
+                        </thead>
+                         <tbody id="J_TbData">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="data_bottom" style="position:fixed;left:40px;top:455px;width:751px;height:85px;">
+                    
+                    <div class="map-bg2" style="position:fixed;left:40px;top:455px;width:293px;height:85px;">
+                        <div class="application-div h35 p5" style="position:fixed;top:445px;left:10px;width:295px;height:105px;">
+                            <div class="application-text flex ">
+                                <!-- <div style="color:#fff;">数据类型</div> -->
+                                <div id="pie" class="application-text"></div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="map-bg2" style="position:fixed;left:347px;top:455px;width:140px;height:85px;">
+                        <div id="provincetest" class="sync-province-box"  >
+                            <img class="sync-icon" src="../../static/images/sync-fwjd.png">
+                            <span class="sync-lebal">数据节点</span>
+                            <span class="sync-txts-normal">{{sjjd}}</span>
+                        </div>
+                   </div>
+                   <div class="map-bg2" style="position:fixed;left:500px;top:455px;width:140px;height:85px;">
+                     <div id="provincetest1" class="sync-province-box"  >
+                        <img class="sync-icon" src="../../static/images/sync-fwjd.png">
+                        <span class="sync-lebal">服务节点</span>
+                        <span class="sync-txts-normal">{{fwjd}}</span>
+                     </div>
+                   </div>
+                   <div class="map-bg2" style="position:fixed;left:652px;top:455px;width:140px;height:85px;">
+                     <div id="provincetest2" class="sync-province-box"  >
+                        <img class="sync-icon" src="../../static/images/sync-gzjd.png">
+                        <span class="sync-lebal">故障节点</span>
+                        <span class="sync-txts-attention">{{gzjd}}</span>
+                     </div>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
     </div>
+
 </body>
+
+
 <script>
     var vm = new Vue({
         el: "#app",
-        data: {
+          data: {
             sjjd: '31',
             fwjd: '29',
             gzjd: '02',
@@ -253,10 +305,268 @@
                 海南: true,
                 云南: true,
                 贵州: true
-            }
-        }
+            },
+           
+        },
+		methods: {
+			
+		    echarts3:function () {
+
+				var myPieChart = echarts.init(document.getElementById('pie'));
+
+				PieOption = {
+									tooltip: {
+										trigger: 'item',
+										formatter: "{a} <br/>{b}: {c} ({d}%)"
+									},
+									color: ['rgb(53, 148, 211)', 'rgb(25, 60, 83)'],
+									legend: {
+										orient: 'vertical',
+										x: '60%',
+										y: 'center',
+										itemGap: 16,
+										itemWidth: 18,
+										data: ['结构化数据', '文件数据'],
+										textStyle: {
+											color: 'white'
+										},
+										align: 'left'
+									},
+									series: [
+										
+										{
+											name: '数据类型',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: ['46%', '75%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 400, name: '结构化数据' },
+												{ value: 600, name: '文件数据' },
+											
+											]
+										}
+									]
+								};
+
+				myPieChart.setOption(PieOption);
+			},
+
+			loadChart: function () {
+				window.location.assign("big_screen_map_pro.html?city=" + vm.$options.data.city);
+			},
+			autoAdd: function () {
+				this.yags++
+				this.zddw++
+			}
+		},
+		mounted() {
+			this.echarts3()
+			setInterval(() => {
+				this.autoAdd()
+			}, 1200)
+		}
+
     })
     
 </script>
+
+<script>
+        var data = [{
+            name: "北京",
+            url: "3334241",
+            type: "13123",
+            lv:"16.5%"
+         }
+        ,{
+            name: "上海",
+            url: "213123",
+            type: "13123",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        // ,{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // }
+        
+        ];
+
+        $(function(){
+            //第一种：动态创建表格的方式，使用拼接html的方式 （推荐）
+            // var html = "";
+            // for( var i = 0; i < data.length; i++ ) {
+            //     html += "<tr>";
+            //     html +=     "<td>" + data[i].name + "</td>"
+            //     html +=     "<td>" + data[i].url + "</td>"
+            //     html +=     "<td>" + data[i].type + "</td>"
+            //     html += "</tr>";
+            // }
+            // $("#J_TbData").html(html);
+
+            //第二种： 动态创建表格的方式，使用动态创建dom对象的方式
+            //清空所有的子节点
+            $("#J_TbData").empty();
+
+            // $("#J_TbData").remove();
+
+            for( var i = 0; i < data.length; i++ ) {
+                //动态创建一个tr行标签,并且转换成jQuery对象
+                var $trTemp = $("<tr></tr>");
+
+                //往行里面追加 td单元格
+                $trTemp.append("<td>"+ data[i].name +"</td>");
+                $trTemp.append("<td>"+ data[i].url +"</td>");
+                $trTemp.append("<td>"+ data[i].type +"</td>");
+                $trTemp.append("<td>"+ data[i].lv +"</td>");
+                // $("#J_TbData").append($trTemp);
+                $trTemp.appendTo("#J_TbData");
+            }
+        });
+    </script>
+
+
+
+
 
 </html>
