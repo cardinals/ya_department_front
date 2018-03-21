@@ -4,6 +4,17 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+             /**lxy start */
+             fileList: [
+                {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}, 
+                {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}
+            ],
+           
+            upLoadData:{
+                id:1
+            },
+
+            /**lxy end */
             //搜索表单
             searchForm: {
                 YAMC: "",
@@ -390,17 +401,24 @@ new Vue({
                 DWDZ: "",
                 ZDMJ: "",
                 XFGXJGID: ""
-            },
-
+            }
+          
         }
     },
     methods: {
+        
         handleNodeClick(data) {
             console.log(data);
         },
         handleChange(value) {
             console.log(value);
         },
+        handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+
+
+
         //表格查询事件
         searchClick: function () {
             var _self = this;
@@ -511,6 +529,9 @@ new Vue({
         },
         //预案下载
         downloadPlan:function(){
+
+
+
             /*var params = ;
             axios.post('/api/resource/getResource/' + val.ID,params).then(function (res) {
                 this.resourceList = res.data.result;
@@ -667,6 +688,20 @@ new Vue({
             val.alter_name = "";
             val.alter_time = "";
         }
+/**
+ * lxy
+ */
+        ,submitUpload() {
+            this.upLoadData= {id:2};
+            this.$refs.upload.submit();
+          },
+          handleRemove(file, fileList) {
+
+            console.log(file, fileList);
+          },
+          handlePreview(file) {
+            console.log(file);
+          }
     },
 
 })
