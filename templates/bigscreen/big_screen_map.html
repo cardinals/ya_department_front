@@ -291,62 +291,64 @@
 							</div>
 						</div>
 					</div>
-
 				</div> 
 			</div>
 
 <!-- 右侧部分 -->
 			<div class="map_right map-bg2">
-					<div class="application-name">二维预案总数排行</div>
-					<div class="application-name">（全国前十省）</div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>北京</span>————<span>1314</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>上海</span>————<span>1354</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>天津</span>————<span>1314</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>河北</span>————<span>3714</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>广州</span>————<span>3314</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>江苏</span>————<span>1314</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>河北</span>————<span>1124</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>辽宁</span>————<span>1314</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>江苏</span>————<span>3114</span></div>
-					<div class="application-name" style="color:rgb(248, 9, 140);font-size:15px;"><span>河北</span>————<span>3714</span></div>
+				<div class="application-name">二维预案总数排行(top10)</div>
+				<!-- <div class="application-name">（全国前十省）</div> -->
+				<table border="0" style="color:rgb(248, 9, 140);font-size:15px;position:absolute;top:30px;left:90px;border-collapse:separate; border-spacing:0px 5px;">
+					<tr v-for = "top in top10" >
+						<td>{{top.name}}</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>{{top.value}}</td>
+					</tr>
+				</table>
 			</div>
-
 
 <!-- 轮播图 -->
-       <div class="map-bg2" style="width:295px;height:107px;position: fixed;
-	   left: 944px;
-	   top: 431px;">
-	        <div class="application-name" style="font-size:1.5em;">二维预案</div>
-			<div class="slider">
-					<ul class="slider-main">
-						<li class="slider-panel">
-							<a  target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png"></a>
-						</li>
-						<li class="slider-panel">
-							<a  target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap2.png"></a>
-						</li>
-						<li class="slider-panel">
-							<a target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap3.png"></a>
-						</li>
-						<li class="slider-panel">
-							<a  target="_blank"><img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png"></a>
-						</li>
-					</ul>
-					<div class="slider-extra">
-						<ul class="slider-nav">
-							<li class="slider-item">1</li>
-							<li class="slider-item">2</li>
-							<li class="slider-item">3</li>
-							<li class="slider-item">4</li>
-						</ul>
-						<div class="slider-page">
-							<a class="slider-pre" href="javascript:;;">&lt;</a>
-							<a class="slider-next" href="javascript:;;">&gt;</a>
-						</div>
-					</div>
+	<div class="map-bg2" style="width:295px;height:107px;position: fixed;
+		   left: 944px;
+		   top: 431px;">
+		<div class="application-name" style="font-size:1.5em;">二维预案</div>
+		<div class="slider">
+			<ul class="slider-main">
+				<li class="slider-panel">
+					<a target="_blank">
+						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png">
+					</a>
+				</li>
+				<li class="slider-panel">
+					<a target="_blank">
+						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap2.png">
+					</a>
+				</li>
+				<li class="slider-panel">
+					<a target="_blank">
+						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap3.png">
+					</a>
+				</li>
+				<li class="slider-panel">
+					<a target="_blank">
+						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png">
+					</a>
+				</li>
+			</ul>
+			<div class="slider-extra">
+				<ul class="slider-nav">
+					<li class="slider-item">1</li>
+					<li class="slider-item">2</li>
+					<li class="slider-item">3</li>
+					<li class="slider-item">4</li>
+				</ul>
+				<div class="slider-page">
+					<a class="slider-pre" href="javascript:;;">&lt;</a>
+					<a class="slider-next" href="javascript:;;">&gt;</a>
+				</div>
 			</div>
-
-        </div>
+		</div>
+	</div>
 <!-- 中心 -->
 			<!-- <div class="application-logo logo"></div> -->
 			<div class="application-icon-l center-in-center" >
@@ -381,7 +383,19 @@
 		data: {
 			yags: '1451523',
 			zddw: '2727468',
-			city: ''
+			city: '',
+			top10: [
+				{ name:'北京',value:'9999' },
+				{ name:'北京',value:'999' },
+				{ name:'北京',value:'999' },
+				{ name:'北京',value:'9999' },
+				{ name:'北京',value:'999' },
+				{ name:'北京',value:'999' },
+				{ name:'北京',value:'9999' },
+				{ name:'北京',value:'999' },
+				{ name:'北京',value:'9999' },
+				{ name:'北京',value:'9999' }
+			]
 		},
 		methods: {
 			 echarts1:function(){
