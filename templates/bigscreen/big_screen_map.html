@@ -22,7 +22,7 @@
      .center-in-center{
         position: fixed;
         top:270px;
-        left: 620px;
+        left: 642px;
         -webkit-transform: translate(-50%, -50%);
         -moz-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
@@ -296,9 +296,9 @@
 
 <!-- 右侧部分 -->
 			<div class="map_right map-bg2">
-				<div class="application-name">二维预案总数排行(top10)</div>
+				<div class="application-name">预案总数排行(top10)</div>
 				<!-- <div class="application-name">（全国前十省）</div> -->
-				<table border="0" style="color:rgb(248, 9, 140);font-size:15px;position:absolute;top:30px;left:90px;border-collapse:separate; border-spacing:0px 5px;">
+				<table border="0" style="color:#0f82ee;font-size:15px;position:absolute;top:30px;left:70px;border-collapse:separate; border-spacing:0px 5px;">
 					<tr v-for = "top in top10" >
 						<td>{{top.name}}</td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -385,22 +385,21 @@
 			zddw: '2727468',
 			city: '',
 			top10: [
-				{ name:'北京',value:'9999' },
-				{ name:'北京',value:'999' },
-				{ name:'北京',value:'999' },
-				{ name:'北京',value:'9999' },
-				{ name:'北京',value:'999' },
-				{ name:'北京',value:'999' },
-				{ name:'北京',value:'9999' },
-				{ name:'北京',value:'999' },
-				{ name:'北京',value:'9999' },
-				{ name:'北京',value:'9999' }
+				{ name:'北京总队',value:'9999' },
+				{ name:'北京总队',value:'999' },
+				{ name:'北京总队',value:'999' },
+				{ name:'北京总队',value:'9999' },
+				{ name:'北京总队',value:'999' },
+				{ name:'北京总队',value:'999' },
+				{ name:'北京总队',value:'9999' },
+				{ name:'北京总队',value:'999' },
+				{ name:'北京总队',value:'9999' },
+				{ name:'北京总队',value:'9999' }
 			]
 		},
 		methods: {
 			 echarts1:function(){
 				var myBarChart = echarts.init(document.getElementById('barmax'));
-			
 				BarmaxOption = {
 					tooltip: {
 						trigger: 'axis',
@@ -408,11 +407,8 @@
 							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 						}
 					},
-					color: ['#f7cb29'],
-					
+					// color: ['#0f82ee'],
 					grid: {
-						
-					
 						top: '25%',
 						bottom: '10%',
 						containLabel: true
@@ -422,7 +418,7 @@
 							type: 'category',
 							data: ['北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
 							'西藏', '山西','陕西', '西安','南京', '杭州','山东', '昆明','重庆', '武汉','北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
-							'西藏', '山西','陕西', '西安','南京', '杭州','山东'],
+							'西藏', '山西','陕西', '西安','南京'],
 							axisLine: {
 								lineStyle: {
 									color: 'white'
@@ -449,19 +445,41 @@
 							type: 'bar',
 							barWidth: '100%',
 							stack: '预案',
-							data: [1335, 335,1035, 335,1335,935, 335,1335, 335,670, 335,1335, 335,335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,1335, 335,]
+							barWidth: '10',
+							itemStyle: {
+								normal: {
+									color: new echarts.graphic.LinearGradient(
+										0, 0, 0, 1,
+										[
+											{ offset: 0, color: '#83bff6' },
+											{ offset: 0.5, color: '#188df0' },
+											{ offset: 1, color: '#0f82ee' }
+										]
+									)
+								},
+								emphasis: {
+									color: new echarts.graphic.LinearGradient(
+										0, 0, 0, 1,
+										[
+											{ offset: 0, color: '#188df0' },
+											{ offset: 0.7, color: '#188df0' },
+											{ offset: 1, color: '#83bff6' }
+										]
+									)
+								}
+							},
+							data: [1335, 335, 1035, 935, 335, 1335, 335, 670, 335, 1335, 335, 335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335,]
 						}
 					]
 				};
-			
 				 myBarChart.setOption(BarmaxOption);
-				
 			  },
 			echarts2: function () {
 				var myMapChart = echarts2.init(document.getElementById('map'));
 				MapOption = {
 					tooltip: {
-						trigger: 'item'
+						trigger: 'item',
+						formatter: '{b}<br/>预案总量:{c}'
 					},
 					dataRange: {
 						show: false,
@@ -752,65 +770,60 @@
 				});
 			},
 		    echarts3:function () {
-
 				var myPieChart = echarts.init(document.getElementById('pie'));
-
-
 				PieOption = {
-									tooltip: {
-										trigger: 'item',
-										formatter: "{a} <br/>{b}: {c} ({d}%)"
-									},
-									color: ['red', 'orange', 'yellow', 'lightgreen'],
-									legend: {
-										orient: 'vertical',
-										x: '60%',
-										y: 'center',
-										itemGap: 16,
-										itemWidth: 18,
-										data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
-										textStyle: {
-											color: 'white'
-										},
-										align: 'left'
-									},
-									series: [
-										{
-											name: '三维预案',
-											type: 'pie',
-											center: ['35%', '50%'],
-											radius: [0, '42%'],
-											label: {
-												normal: {
-													show: false
-												}
-											},
-											data: [
-												{ value: 335, name: '高层建筑' },
-												{ value: 679, name: '地下建筑' },
-												{ value: 548, name: '大型综合体' },
-												{ value: 135, name: '化工园区' }
-											]
-										},
-										{
-											name: '二维预案',
-											type: 'pie',
-											center: ['35%', '50%'],
-											radius: ['56%', '75%'],
-											label: {
-												normal: {
-													show: false
-												}
-											},
-											data: [
-												{ value: 1335, name: '高层建筑' },
-												{ value: 1310, name: '地下建筑' },
-												{ value: 1234, name: '大型综合体' },
-												{ value: 1135, name: '化工园区' }
-											]
-										}
-									]
-								};
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b}: {c} ({d}%)"
+					},
+					color: ['#eecd0f', '#0fee6c', '#0f82ee'],
+					legend: {
+						orient: 'vertical',
+						x: '60%',
+						y: 'center',
+						itemGap: 16,
+						itemWidth: 18,
+						data: ['部局级预案', '总队级预案', '支队级预案'],
+						textStyle: {
+							color: 'white'
+						},
+						align: 'left'
+					},
+					series: [
+						{
+							name: '三维预案',
+							type: 'pie',
+							center: ['35%', '50%'],
+							radius: [0, '42%'],
+							label: {
+								normal: {
+									show: false
+								}
+							},
+							data: [
+								{ value: 335, name: '部局级预案' },
+								{ value: 679, name: '总队级预案' },
+								{ value: 548, name: '支队级预案' }
+							]
+						},
+						{
+							name: '二维预案',
+							type: 'pie',
+							center: ['35%', '50%'],
+							radius: ['56%', '75%'],
+							label: {
+								normal: {
+									show: false
+								}
+							},
+							data: [
+								{ value: 1335, name: '部局级预案' },
+								{ value: 1310, name: '总队级预案' },
+								{ value: 1234, name: '支队级预案' }
+							]
+						}
+					]
+				};
 
 				myPieChart.setOption(PieOption);
 			},
@@ -825,12 +838,12 @@
 							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 						}
 					},
-					color: ['red', 'orange', 'yellow', 'lightgreen'],
+					color: ['#eecd0f', '#0fee6c', '#0f82ee'],
 					legend: {
 						x: 'center',
 						y: '5%',
 						itemWidth: 18,
-						data: ['高层建筑', '地下建筑', '大型综合体', '化工园区'],
+						data: ['部局级预案', '总队级预案', '支队级预案'],
 						textStyle: {
 							color: 'white'
 						},
@@ -868,32 +881,25 @@
 					],
 					series: [
 						{
-							name: '高层建筑',
+							name: '部局级预案',
 							type: 'bar',
 							barWidth: '40%',
 							stack: '预案',
 							data: [1335, 335]
 						},
 						{
-							name: '地下建筑',
+							name: '总队级预案',
 							type: 'bar',
 							barWidth: '40%',
 							stack: '预案',
 							data: [1310, 679]
 						},
 						{
-							name: '大型综合体',
+							name: '支队级预案',
 							type: 'bar',
 							barWidth: '40%',
 							stack: '预案',
 							data: [1234, 548]
-						},
-						{
-							name: '化工园区',
-							type: 'bar',
-							barWidth: '40%',
-							stack: '预案',
-							data: [1135, 135]
 						}
 					]
 				};
