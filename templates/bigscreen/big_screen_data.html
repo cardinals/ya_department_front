@@ -66,7 +66,7 @@
 
         <div class="application-box tc abs" > 
             <div class="sync-main tc map-bg left" >
-            	<img src="../../static/images/bg_01.png" style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 410px; border:1px solid #00008B;"/>
+            	<img src="../../static/images/bg_0101.png" style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 410px; border:1px solid #00008B;"/>
             	<img src="../../static/images/center_01.png" style= "position: fixed;left:325px;top:100px; width: 195px;height: 200px;"/>
                 <img src="../../static/images/center_02.png" style= "position: fixed;left:95px;top:120px; width: 650px;height: 310px;"/>
                 <!--<img src="../images/center_02.png" style= "position: fixed;left: 295px;top:175px; width: 850px;height:330px;"/>-->
@@ -212,11 +212,11 @@
                         <!-- style="position:fixed;left:795px;top:40px;width:444px;height:500px; border:1px solid #00008B;" -->
                     <table>
                         <thead>
-                            <tr>
-                                <th>单位</th>
-                                <th style="width:170px;">待更换主体单位数量</th>
-                                <th style="width:150px;">已更换数量</th>
-                                <th>变更率</th>
+                            <tr>        
+                                <th>省份</th>
+                                <th style="width:110px;">同步次数</th>
+                                <th style="width:150px;">同步结构化数据量</th>
+                                <th>同步文件数</th>
                             </tr>
                         </thead>
                          <tbody id="J_TbData">
@@ -226,29 +226,30 @@
 
                 <div class="data_bottom" style="position:fixed;left:40px;top:455px;width:751px;height:85px;">
                     
-                    <div style="position:fixed;left:40px;top:455px;width:293px;height:85px;border:1px solid #00008B;">
+                    <div class="map-bg2" style="position:fixed;left:40px;top:455px;width:293px;height:85px;">
                         <div class="application-div h35 p5" style="position:fixed;top:445px;left:10px;width:295px;height:105px;">
                             <div class="application-text flex ">
                                 <!-- <div style="color:#fff;">数据类型</div> -->
                                 <div id="pie" class="application-text"></div>
+                                <a href="big_screen_data_main">点击新页</a>
                             </div>
                         </div> 
                     </div>
-                    <div style="position:fixed;left:347px;top:455px;width:140px;height:85px;border:1px solid #00008B;">
+                    <div class="map-bg2" style="position:fixed;left:347px;top:455px;width:140px;height:85px;">
                         <div id="provincetest" class="sync-province-box"  >
                             <img class="sync-icon" src="../../static/images/sync-fwjd.png">
                             <span class="sync-lebal">数据节点</span>
                             <span class="sync-txts-normal">{{sjjd}}</span>
                         </div>
                    </div>
-                   <div style="position:fixed;left:500px;top:455px;width:140px;height:85px;border:1px solid #00008B;">
+                   <div class="map-bg2" style="position:fixed;left:500px;top:455px;width:140px;height:85px;">
                      <div id="provincetest1" class="sync-province-box"  >
                         <img class="sync-icon" src="../../static/images/sync-fwjd.png">
                         <span class="sync-lebal">服务节点</span>
                         <span class="sync-txts-normal">{{fwjd}}</span>
                      </div>
                    </div>
-                   <div style="position:fixed;left:652px;top:455px;width:140px;height:85px;border:1px solid #00008B;">
+                   <div class="map-bg2" style="position:fixed;left:652px;top:455px;width:140px;height:85px;">
                      <div id="provincetest2" class="sync-province-box"  >
                         <img class="sync-icon" src="../../static/images/sync-gzjd.png">
                         <span class="sync-lebal">故障节点</span>

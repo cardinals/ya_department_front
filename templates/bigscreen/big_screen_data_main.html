@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
+    <!-- 引入js -->
+    <script src="../../static/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/js/vue.min.js"></script>
+    <script src="../../static/js/element.js" charset="utf-8"></script>
+
+
+    <script src="../../static/js/echarts-2/echarts-all.js"></script>
+    <script src="../../static/js/echarts-4/echarts.js"></script>
+    <script type="text/javascript" src="../../static/js/vue.js"></script>
+    <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
+
+
+    <style>
+            * { padding: 0; margin: 0; }
+            table {
+                border-collapse: collapse;
+                border-spacing: 0;
+                border: 1px solid #00008B;
+                
+            }
+    
+            th,td {
+                border: 1px solid #00008B;
+                color: #fff;
+                padding: 4px;
+                height: 3px;
+            }
+
+            th {
+                padding: 8px;
+                font: bold 16px "微软雅黑";
+                color: rgb(129, 129, 247);
+            }
+    
+            td {
+                font: 10px "微软雅黑";
+                height:1px;
+            }
+           
+            tbody tr:hover {
+                cursor: pointer;
+            
+            }
+
+        </style>
+</head>
+
+
+
+<body class="fw map-bg">
+    <div id="app">
+
+
+
+
+        <div class="application-box tc abs"  > 
+            <div class="sync-main tc map-bg left" >
+            	<div class="top_left_a map-bg2"  style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 210px; ">
+            	
+                 </div>
+                 <div class="top_left_b map-bg2"  style= "position: fixed;left:820.5px;top:40.5px; width: 420px;height: 210px; ">
+            	
+                </div>
+                <div class="bottom_left_a"  style= "position: fixed;left:40.5px;top:280.5px; width: 750px;height: 256px;">
+                    <div class="bottom_left_a_a map-bg2"  style= "position: fixed;left:40.5px;top:280.5px; width: 375px;height: 26px; ">
+               
+                    </div>
+                    <div class="bottom_left_a_b map-bg2"  style= "position: fixed;left:40.5px;top:308px; width: 375px;height: 230px; ">
+               
+                    </div>
+
+
+                    <div class="bottom_left_a_c map-bg2"  style= "position: fixed;left:417px;top:280.5px; width: 375px;height: 26px; ">
+               
+                    </div>
+                    <div class="bottom_left_a_d map-bg2"  style= "position: fixed;left:417px;top:308px; width: 375px;height: 230px; ">
+               
+                    </div>
+
+                </div>
+                <div class="bottom_left_b"  style= "position: fixed;left:820.5px;top:280.5px; width: 420px;height: 256px; ">
+                    <div class="bottom_left_b_a map-bg2"  style= "position: fixed;left:820.5px;top:280.5px; width: 420px;height: 26px; ">
+               
+                    </div>
+                    <div class="bottom_left_b_b map-bg2"  style= "position: fixed;left:820.5px;top:308px; width: 420px;height: 230px; ">
+               
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+          data: {
+            sjjd: '31',
+            fwjd: '29',
+            gzjd: '02',
+            flag: {
+                北京: true,
+                天津: true,
+                重庆: true,
+                上海: true,
+                辽宁: true,
+                新疆: true,
+                内蒙古: true,
+                西藏: true,
+                广西: true,
+                宁夏: true,
+                黑龙江: true,
+                吉林: true,
+                河北: true,
+                河南: true,
+                山东: true,
+                山西: true,
+                陕西: true,
+                湖南: true,
+                湖北: true,
+                四川: true,
+                青海: true,
+                甘肃: true,
+                江苏: true,
+                浙江: true,
+                安徽: true,
+                江西: true,
+                福建: true,
+                广东: true,
+                海南: true,
+                云南: true,
+                贵州: true
+            },
+           
+        },
+		methods: {
+			
+		    echarts3:function () {
+
+				var myPieChart = echarts.init(document.getElementById('pie'));
+
+				PieOption = {
+									tooltip: {
+										trigger: 'item',
+										formatter: "{a} <br/>{b}: {c} ({d}%)"
+									},
+									color: ['rgb(53, 148, 211)', 'rgb(25, 60, 83)'],
+									legend: {
+										orient: 'vertical',
+										x: '60%',
+										y: 'center',
+										itemGap: 16,
+										itemWidth: 18,
+										data: ['结构化数据', '文件数据'],
+										textStyle: {
+											color: 'white'
+										},
+										align: 'left'
+									},
+									series: [
+										
+										{
+											name: '数据类型',
+											type: 'pie',
+											center: ['35%', '50%'],
+											radius: ['46%', '75%'],
+											label: {
+												normal: {
+													show: false
+												}
+											},
+											data: [
+												{ value: 400, name: '结构化数据' },
+												{ value: 600, name: '文件数据' },
+											
+											]
+										}
+									]
+								};
+
+				myPieChart.setOption(PieOption);
+			},
+
+			loadChart: function () {
+				window.location.assign("big_screen_map_pro.html?city=" + vm.$options.data.city);
+			},
+			autoAdd: function () {
+				this.yags++
+				this.zddw++
+			}
+		},
+		mounted() {
+			this.echarts3()
+			setInterval(() => {
+				this.autoAdd()
+			}, 1200)
+		}
+
+    })
+    
+</script>
+
+<script>
+        var data = [{
+            name: "北京",
+            url: "3334241",
+            type: "13123",
+            lv:"16.5%"
+         }
+        ,{
+            name: "上海",
+            url: "213123",
+            type: "13123",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        },{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        ,{
+            name: "天津",
+            url: "2132133",
+            type: "255252",
+            lv:"16.5%"
+        }
+        // ,{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // },{
+        //     name: "天津",
+        //     url: "2132133",
+        //     type: "255252",
+        //     lv:"16.5%"
+        // }
+        
+        ];
+
+        $(function(){
+            //第一种：动态创建表格的方式，使用拼接html的方式 （推荐）
+            // var html = "";
+            // for( var i = 0; i < data.length; i++ ) {
+            //     html += "<tr>";
+            //     html +=     "<td>" + data[i].name + "</td>"
+            //     html +=     "<td>" + data[i].url + "</td>"
+            //     html +=     "<td>" + data[i].type + "</td>"
+            //     html += "</tr>";
+            // }
+            // $("#J_TbData").html(html);
+
+            //第二种： 动态创建表格的方式，使用动态创建dom对象的方式
+            //清空所有的子节点
+            $("#J_TbData").empty();
+
+            // $("#J_TbData").remove();
+
+            for( var i = 0; i < data.length; i++ ) {
+                //动态创建一个tr行标签,并且转换成jQuery对象
+                var $trTemp = $("<tr></tr>");
+
+                //往行里面追加 td单元格
+                $trTemp.append("<td>"+ data[i].name +"</td>");
+                $trTemp.append("<td>"+ data[i].url +"</td>");
+                $trTemp.append("<td>"+ data[i].type +"</td>");
+                $trTemp.append("<td>"+ data[i].lv +"</td>");
+                // $("#J_TbData").append($trTemp);
+                $trTemp.appendTo("#J_TbData");
+            }
+        });
+    </script>
+
+
+
+
+
+</html>
