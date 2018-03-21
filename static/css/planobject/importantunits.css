@@ -44,3 +44,15 @@ input[type=checkbox]{
     color:#82848a;
     outline:0
 }
+.digitalList-right{
+    width:405px;
+}
+.detailDisplay{
+    display: inline-flex;
+}
+.imgWidth{
+    width: 150px;
+}
+.leftDetail{
+    width: 220px;
+}
