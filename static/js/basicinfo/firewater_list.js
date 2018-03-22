@@ -49,7 +49,7 @@ new Vue({
                     label: '形式四'
                 }
             ],
-            option_QSXS: [],
+            selected_QSXS: [],
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -113,17 +113,7 @@ new Vue({
         }
     },
     created: function () {
-        var params = {
-
-        }
-        axios.post('/dpapi/shuiyuan/findByVO', params).then(function (res) {
-            console.log(res.data.result);
-            this.tableData = res.data.result;
-            this.total = this.tableData.length;
-            this.loadingData();
-        }.bind(this), function (error) {
-            console.log(error)
-        })
+       this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -134,51 +124,28 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
-            var _self = this;
-            var tableObject = {};
-            var searchData = [];
-            var resultData = [];
-            //空表不显示
-            function isEmptyObject(obj) {
-                for (var key in obj) {
-                    return false;
-                }
-                return true;
+            var params = {
+                symc : this.searchForm.symc,
+                sydz : this.searchForm.sydz,
+                jgid : this.searchForm.jgid,
+           //     qsxs : this.selected_QSXS,
+           //     sylx : this.selected_SYLX
             }
-            //数据还原
-            for (var i = 0; i < _self.tableData.length; i++) {
-                var flow = _self.tableData[i];
-                searchData.push(flow);
-            }
-            for (var i = 0; i < _self.tableData.length; i++) {
-                if ((!(_self.searchForm.SYMC == "" && _self.searchForm.SYDZ == "" && _self.selected_SYLX == "" && _self.option_QSXS == "" && _self.searchForm.JGID == "")) 
-                && (_self.searchForm.SYMC != "" ? (_self.tableData[i].SYMC == _self.searchForm.SYMC) : true) 
-                && (_self.searchForm.SYDZ != "" ? (_self.tableData[i].SYDZ == _self.searchForm.SYDZ) : true)
-                && (_self.searchForm.JGID != "" ? (_self.tableData[i].JGID == _self.searchForm.JGID) : true) 
-                && (_self.selected_SYLX != "" ? (_self.tableData[i].SYLX == _self.selected_SYLX) : true) 
-                && (_self.selected_QSXS != "" ? (_self.tableData[i].QSXS == _self.option_QSXS) : true)) {
-                    var row = _self.tableData[i];
-                    resultData.push(row);
-
-                }
-
-            }
-            _self.tableData.splice(0, _self.tableData.length);
-            if (resultData.length >= 1) {
-                _self.tableData = resultData;
-            } else {
-                _self.tableData.splice(0, _self.tableData.length);
-                _self.tableData = searchData;
-            }
-            _self.total = _self.tableData.length;
-            _self.loadingData(); //重新加载数据
+            axios.post('/dpapi/shuiyuan/findByVO', params).then(function (res) {
+                console.log(res.data.result);
+                this.tableData = res.data.result;
+                this.total = this.tableData.length;
+                this.loadingData();
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         clearClick: function () {
             this.searchForm.symc="";
             this.searchForm.sydz="";
             this.searchForm.jgid="";
             this.selected_SYLX=[];
-            this.option_QSXS=[];
+            this.selected_QSXS=[];
         },
         //表格勾选事件
         selectionChange: function (val) {
