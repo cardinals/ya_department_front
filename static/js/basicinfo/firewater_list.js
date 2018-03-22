@@ -8,90 +8,13 @@ new Vue({
             awa: "",
             //搜索表单
             searchForm: {
-                SYMC: "",
-                SYDZ: "",
-                SYLX: "",
-                QSXS: ""
+                symc: "",
+                sydz: "",
+                sylx: "",
+                qsxs: "",
+                ssjg:""
             },
-            tableData: [
-                {
-                    SYBH: "001",
-                    SYMC: "基础水源一",
-                    SYDZ: "创新路91号",
-                    SYLX: "XHS", 
-                    QSXS: "001"
-                },
-                {
-                    SYBH: "002",
-                    SYMC: "基础水源二",
-                    SYDZ: "创新路92号",
-                    SYLX: "XFSC", 
-                    QSXS: "002"
-                },
-                {
-                    SYBH: "003",
-                    SYMC: "基础水源三",
-                    SYDZ: "创新路93号",
-                    SYLX: "XHS", 
-                    QSXS: "003"
-                },
-                {
-                    SYBH: "004",
-                    SYMC: "基础水源四",
-                    SYDZ: "创新路94号",
-                    SYLX: "XFSC", 
-                    QSXS: "004"
-                },
-                {
-                    SYBH: "005",
-                    SYMC: "基础水源五",
-                    SYDZ: "创新路95号",
-                    SYLX: "XFSH", 
-                    QSXS: "001"
-                },
-                {
-                    SYBH: "006",
-                    SYMC: "基础水源六",
-                    SYDZ: "创新路96号",
-                    SYLX: "XFSH", 
-                    QSXS: "002"
-                },
-                {
-                    SYBH: "007",
-                    SYMC: "基础水源七",
-                    SYDZ: "创新路97号",
-                    SYLX: "TRSY", 
-                    QSXS: "003"
-                },
-                {
-                    SYBH: "008",
-                    SYMC: "基础水源八",
-                    SYDZ: "创新路98号",
-                    SYLX: "XFSC", 
-                    QSXS: "004"
-                },
-                {
-                    SYBH: "009",
-                    SYMC: "基础水源九",
-                    SYDZ: "创新路99号",
-                    SYLX: "TRSY", 
-                    QSXS: "001"
-                },
-                {
-                    SYBH: "010",
-                    SYMC: "基础水源十",
-                    SYDZ: "创新路100号",
-                    SYLX: "TRSY", 
-                    QSXS: "002"
-                },
-                {
-                    SYBH: "011",
-                    SYMC: "基础水源十一",
-                    SYDZ: "创新路101号",
-                    SYLX: "XHS", 
-                    QSXS: "003"
-                }
-            ],
+            tableData: [],
             SYLX_data: [
                 {
                     value: 'XHS',
@@ -126,7 +49,7 @@ new Vue({
                     label: '形式四'
                 }
             ],
-            selected_QSXS: [],
+            option_QSXS: [],
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -189,6 +112,19 @@ new Vue({
 
         }
     },
+    created: function () {
+        var params = {
+
+        }
+        axios.post('/dpapi/shuiyuan/findByVO', params).then(function (res) {
+            console.log(res.data.result);
+            this.tableData = res.data.result;
+            this.total = this.tableData.length;
+            this.loadingData();
+        }.bind(this), function (error) {
+            console.log(error)
+        })
+    },
     methods: {
         handleNodeClick(data) {
             console.log(data);
@@ -215,12 +151,12 @@ new Vue({
                 searchData.push(flow);
             }
             for (var i = 0; i < _self.tableData.length; i++) {
-                if ((!(_self.searchForm.SYMC == "" && _self.searchForm.SYDZ == "" && _self.selected_SYLX == "" && _self.selected_QSXS == "" && _self.searchForm.JGID == "")) 
+                if ((!(_self.searchForm.SYMC == "" && _self.searchForm.SYDZ == "" && _self.selected_SYLX == "" && _self.option_QSXS == "" && _self.searchForm.JGID == "")) 
                 && (_self.searchForm.SYMC != "" ? (_self.tableData[i].SYMC == _self.searchForm.SYMC) : true) 
                 && (_self.searchForm.SYDZ != "" ? (_self.tableData[i].SYDZ == _self.searchForm.SYDZ) : true)
                 && (_self.searchForm.JGID != "" ? (_self.tableData[i].JGID == _self.searchForm.JGID) : true) 
                 && (_self.selected_SYLX != "" ? (_self.tableData[i].SYLX == _self.selected_SYLX) : true) 
-                && (_self.selected_QSXS != "" ? (_self.tableData[i].QSXS == _self.selected_QSXS) : true)) {
+                && (_self.selected_QSXS != "" ? (_self.tableData[i].QSXS == _self.option_QSXS) : true)) {
                     var row = _self.tableData[i];
                     resultData.push(row);
 
@@ -238,16 +174,11 @@ new Vue({
             _self.loadingData(); //重新加载数据
         },
         clearClick: function () {
-            
-        },
-        //时间格式
-        begindateChange_create(val) {
-            console.log(val);
-            this.searchForm.begintime_create = val;
-        },
-        enddateChange_create(val) {
-            console.log(val);
-            this.searchForm.endtime_create = val;
+            this.searchForm.symc="";
+            this.searchForm.sydz="";
+            this.searchForm.jgid="";
+            this.selected_SYLX=[];
+            this.option_QSXS=[];
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -296,7 +227,7 @@ new Vue({
             }
         }, 
         informClick(val) {
-            window.location.href = "firewater_detail.html?SYBH=" + val.SYBH + "&SYLX=" + val.SYLX;
+            window.location.href = "firewater_detail.html?id=" + val.id;
         },
         createdateChange(val) {
             console.log(val);
