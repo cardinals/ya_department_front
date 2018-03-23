@@ -173,7 +173,7 @@ new Vue({
                     var params = {
                         id : id
                     }
-                    axios.post('/dpapi/xfsC/findById',params).then(function (res) {
+                    axios.post('/dpapi/xfsc/findById',params).then(function (res) {
                         this.XFSCdata = res.data.result;
                     }.bind(this), function (error) {
                         console.log(error)

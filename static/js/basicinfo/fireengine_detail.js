@@ -25,9 +25,8 @@ new Vue({
             var ID = str.substring(3);
             this.id = ID;
             // alert(ID);
-            axios.get('/dpapi/fireengine/doFindDetailById/' + this.id).then(function (res) {
-                this.tableData = res.data.result[0];
-                this.rowdata = this.tableData;
+            axios.get('/dpapi/fireengine/' + this.id).then(function (res) {
+                this.rowdata = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -38,16 +37,7 @@ new Vue({
     //     this.searchClick();
     // },
     methods: {
-        searchClick: function () {
-            this.id = id;
-            axios.get('/dpapi/fireengine/doFindDetailById/' + this.id).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
-                this.rowdata = this.tableData;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
+       
         //表格重新加载数据
         loadingData: function () {
             var _self = this;

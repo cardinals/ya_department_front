@@ -7,8 +7,8 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                cllx: "",
-                cldj: "",
+                zblxdm: "",
+                cldjdm: "",
                 cphm:""
             },
             tableData: [],
@@ -68,8 +68,8 @@ new Vue({
         searchClick: function () {
             var _self = this;
             var params={
-                cllx :this.searchForm.cllx,
-                cldj :this.searchForm.cldj,
+                zblxdm :this.searchForm.zblxdm,
+                cldjdm :this.searchForm.cldjdm,
                 cphm :this.searchForm.cphm,
             };
             axios.post('/dpapi/fireengine/list',params).then(function(res){
@@ -81,7 +81,9 @@ new Vue({
             })
         },
         clearClick: function () {
-            // this.searchForm.
+            this.searchForm.zblxdm="";
+            this.searchForm.cldjdm="";
+            this.searchForm.cphm="";
         },
         getAllTypesData: function (){
             axios.get('/api/codelist/getCodetype/CA01').then(function(res){
@@ -91,7 +93,7 @@ new Vue({
             })
         },
         getAllLevelsData: function (){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            axios.get('/api/codelist/getCodetype/CLDJ').then(function(res){
                 this.allLevelsData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
