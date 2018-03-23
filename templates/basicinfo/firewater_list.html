@@ -39,22 +39,17 @@
 									</el-col>      
                                     <el-col :span="12">
                                         <el-form-item label="取水形式">
-                                            <el-cascader 
-                                                expand-trigger="hover" 
-                                                :options="QSXS_data" 
-                                                v-model="selected_QSXS" 
-                                                @change="handleChange" 
-                                                class="inputWidth">
-                                            </el-cascader>
+                                            <el-select size="small" v-model="searchForm.qsxs" placeholder="全部" class="inputWidth" clearable>
+												<el-option v-for="item in QSXS_data" :label="item.label" :value="item.value" :key="item.value"></el-option>
+											</el-select>
                                         </el-form-item>
 									</el-col>
 								</el-row>
 								<el-row type="flex" justify="center">
 								<el-col :span="10">
 									<el-form-item label="水源类型">
-										<el-select size="small" v-model="selected_SYLX" placeholder="水源类型" style="width:300px;" multiple>	
-										<el-option v-for="item in SYLX_data" :key="item.value" :label="item.label" :value="item.value">		
-										</el-option>
+										<el-select size="small" v-model="selected_SYLX" placeholder="全部" style="width:300px;" multiple>	
+										<el-option v-for="item in SYLX_data" :key="item.value" :label="item.label" :value="item.value"></el-option>
 									</el-select>
 									</el-form-item>
 								</el-col>
@@ -94,7 +89,7 @@
 								<el-table-column prop="sydz" label="水源地址" min-width="30%" align="center"></el-table-column>
 								<el-table-column prop="sylx" label="水源类型" min-width="12%" align="center" :formatter="typeFormat"></el-table-column>
 								<el-table-column prop="qsxs" label="取水形式" min-width="12%" align="center" :formatter="formsFormat"></el-table-column>
-								<el-table-column prop="jgid" label="所属机构" min-width="18%" align="center" :formatter="formsFormat"></el-table-column>
+								<el-table-column prop="jgid" label="所属机构" min-width="18%" align="center"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->

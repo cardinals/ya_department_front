@@ -8,11 +8,11 @@ new Vue({
             awa: "",
             //搜索表单
             searchForm: {
-                symc: "",
-                sydz: "",
-                sylx: "",
-                qsxs: "",
-                ssjg:""
+                symc: '',
+                sydz: '',
+                sylx: '',
+                qsxs: '',
+                jgid: ''
             },
             tableData: [],
             SYLX_data: [
@@ -49,7 +49,6 @@ new Vue({
                     label: '形式四'
                 }
             ],
-            selected_QSXS: [],
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -124,12 +123,19 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
+            this.searchForm.sylx = '';
+            if(this.selected_SYLX.length>0){
+            for(var i=0;i<this.selected_SYLX.length;i++){
+                this.searchForm.sylx += '\''+this.selected_SYLX[i] + '\',';
+           // this.searchForm.sylx += this.selected_SYLX[i] + ',';
+            }
+        }
             var params = {
                 symc : this.searchForm.symc,
                 sydz : this.searchForm.sydz,
                 jgid : this.searchForm.jgid,
-           //     qsxs : this.selected_QSXS,
-           //     sylx : this.selected_SYLX
+                qsxs : this.searchForm.qsxs,
+                sylx : this.searchForm.sylx
             }
             axios.post('/dpapi/shuiyuan/findByVO', params).then(function (res) {
                 console.log(res.data.result);
@@ -144,8 +150,10 @@ new Vue({
             this.searchForm.symc="";
             this.searchForm.sydz="";
             this.searchForm.jgid="";
+            this.searchForm.qsxs="";
+            this.searchForm.sylx="";
             this.selected_SYLX=[];
-            this.selected_QSXS=[];
+            
         },
         //表格勾选事件
         selectionChange: function (val) {
