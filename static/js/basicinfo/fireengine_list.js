@@ -72,7 +72,7 @@ new Vue({
                 cldj :this.searchForm.cldj,
                 cphm :this.searchForm.cphm,
             };
-            axios.post('/dpapi/equipment/findByVO',params).then(function(res){
+            axios.post('/dpapi/fireengine/list',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
