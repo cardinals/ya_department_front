@@ -98,9 +98,11 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/digitalplan/digitalplan"){
                 realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
             }
+
             else if(this.model.url=="/digitalplan/advancedsearch"){
                 realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
             }
+
             else if(this.model.url=="/planobject/importantunits"){
                 realUrl="http://localhost/templates/planobject/importantunits_list.html"
             }

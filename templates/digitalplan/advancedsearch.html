@@ -90,7 +90,7 @@
                                 <el-row type="flex" justify="center">
                                       
                                     <el-col :span="10">
-                                        <el-form-item label="是否跨区域">
+                                        <el-form-item label="是否跨区">
                                             <el-checkbox-group >
                                                 <el-checkbox label="是"></el-checkbox>
                                                 <el-checkbox label="否"></el-checkbox>
@@ -118,11 +118,14 @@
                                             </el-col>
                                         <el-col :span="12">
                                                 <el-form-item label="录入时间">
-                                                    <el-date-picker type="date" @change="begindateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime_create"
-                                                     placeholder="开始时间" class="dateInputWidth"></el-date-picker>
-                                                    ~
-                                                    <el-date-picker type="date" @change="enddateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime_create"
-                                                     placeholder="结束时间" class="dateInputWidth"></el-date-picker>
+                                                    <el-select size="small" v-model="searchForm.option_DXLX" placeholder="录入时间" class="digitalList-right" multiple>
+                                                        <el-option 
+                                                            v-for="item in DXLX_data" 
+                                                            :key="item.value" 
+                                                            :label="item.label" 
+                                                            :value="item.value">
+                                                         </el-option>
+                                                    </el-select>
                                                 </el-form-item>
                                             </el-col>
                                     </el-row>
@@ -155,20 +158,20 @@
 
 								<el-table-column type="selection" min-width="5%"></el-table-column>
 								<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-								<el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="20%" align="center">
+								<el-table-column prop="yamc"  label="预案名称" show-overflow-tooltip min-width="20%" align="center">
                                     <template slot-scope="scope">
                                         <el-button type="text" @click="planDetails(scope.row)">{{scope.row.yamc}}</el-button>
                                     </template>
 								</el-table-column>
-								<el-table-column prop="yalxdm" label="重点单位名称" min-width="20%" align="center"></el-table-column>
-								<el-table-column prop="dxmc" label="预案种类" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-								<el-table-column prop="dxlxdm" label="预案类别" min-width="20%" align="center"></el-table-column>
-                                <el-table-column prop="zzdwmc" label="预案类型" min-width="20%" align="center"></el-table-column>
-                                <el-table-column prop="zzrq" label="预案对象" min-width="20%" align="center" :formatter="dateFormat"></el-table-column>
-								<el-table-column prop="yazl" label="是否跨区域" min-width="20%" align="center"></el-table-column>
-                                <el-table-column prop="yazl" label="记录状态" min-width="20%" align="center"></el-table-column>
-                                <el-table-column prop="yazl" label="是否母预案" min-width="20%" align="center"></el-table-column>
-                                <el-table-column prop="yazl" label="录入时间" min-width="20%" align="center"></el-table-column>
+								<el-table-column prop="zddwmc" label="重点单位名称" min-width="25%" align="center"></el-table-column>
+								<el-table-column prop="yazl" label="预案种类" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+								<el-table-column prop="yalb" label="预案类别" min-width="25%" align="center"></el-table-column>
+                                <el-table-column prop="yalx" label="预案类型" min-width="25%" align="center"></el-table-column>
+                                <el-table-column prop="yadx" label="预案对象" min-width="25%" align="center" :formatter="dateFormat"></el-table-column>
+								<el-table-column prop="kqy" label="是否跨区域" min-width="25%" align="center"></el-table-column>
+                                <el-table-column prop="jlzt" label="记录状态" min-width="25%" align="center"></el-table-column>
+                                <el-table-column prop="mya" label="是否母预案" min-width="25%" align="center"></el-table-column>
+                                <el-table-column prop="lrsj" label="录入时间" min-width="25%" align="center"></el-table-column>
                             </el-table>
 
 							<!--列表底部工具条和分页符-->
@@ -209,19 +212,19 @@
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
-                                                        <dt class="dtdlStyle">预案版本：</dt>
+                                                        <dt class="dtdlStyle">预案种类：</dt>
                                                         <dd class="dtdlStyle">{{detailData.yabbh}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
-                                                        <dt class="dtdlStyle">编制单位：</dt>
+                                                        <dt class="dtdlStyle">重点单位：</dt>
                                                         <dd class="dtdlStyle">{{detailData.zzdwmc}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="inform-margin">
                                                     <dl class="inform-left">
-                                                        <dt class="dtdlStyle">编制日期：</dt>
+                                                        <dt class="dtdlStyle">录入时间：</dt>
                                                         <dd class="dtdlStyle">{{this.detailYMD}}</dd>
                                                     </dl>
                                                 </div>
