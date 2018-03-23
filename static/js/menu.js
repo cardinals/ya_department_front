@@ -98,14 +98,19 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/digitalplan/digitalplan"){
                 realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
             }
-            // else if(this.model.url=="/digitalplan/digitalplan"){
-            //     realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
-            // }
+
+            else if(this.model.url=="/digitalplan/advancedsearch"){
+                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
+            }
+
             else if(this.model.url=="/planobject/importantunits"){
                 realUrl="http://localhost/templates/planobject/importantunits_list.html"
             }
             else if(this.model.url=="/basicinfo/firewater"){
                 realUrl="http://localhost/templates/basicinfo/firewater_list.html"
+            }
+            else if(this.model.url=="/basicinfo/fireengine"){
+                realUrl="http://localhost/templates/basicinfo/fireengine_list.html"
             }
             else if(this.model.url=="/basicinfo/equipment"){
                 realUrl="http://localhost/templates/basicinfo/equipment_list.html"
