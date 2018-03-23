@@ -7,13 +7,12 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                ckmc: "",
                 zbqcmc: "",
-                hwmc:"",
-                ssxfjg:""
+                equipmenttype: "",
+                sfxhxqc:""
             },
             tableData: [],
-            allSSXFJGData: [],
+            allTypesData: [],
             
             rowdata: '',
             //表高度变量
@@ -58,7 +57,7 @@ new Vue({
     },
     created:function(){
         this.searchClick();
-        this.getAllSSXFJGData();
+        this.getAllTypesData();
     },
     methods: {
         handleNodeClick(data) {
@@ -74,7 +73,7 @@ new Vue({
                 // xzqy_id: this.searchForm.xzqy,
                 // xfgx_id: this.searchForm.xfgx
             };
-            axios.post('/dpapi/equipmentstock/findByVO',params).then(function(res){
+            axios.post('/dpapi/equipmentsource/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
@@ -85,9 +84,9 @@ new Vue({
         clearClick: function () {
             // this.searchForm.
         },
-        getAllSSXFJGData: function (){
+        getAllTypesData: function (){
             axios.get('/api/codelist/getCodetype/CA01').then(function(res){
-                this.allSSXFJGData=res.data.result;
+                this.allTypesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -102,7 +101,7 @@ new Vue({
             console.info(val);
         },
         detailClick(val) {
-            window.location.href = "equipmentstock_detail.html?ID=" + val.id;
+            window.location.href = "equipment_detail.html?ID=" + val.id;
         },
         //表格重新加载数据
         loadingData: function () {

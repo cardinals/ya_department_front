@@ -104,6 +104,12 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/basicinfo/firewater"){
                 realUrl="http://localhost/templates/basicinfo/firewater_list.html"
             }
+            else if(this.model.url=="/basicinfo/equipment"){
+                realUrl="http://localhost/templates/basicinfo/equipment_list.html"
+            }
+            else if(this.model.url=="/basicinfo/equipmentstock"){
+                realUrl="http://localhost/templates/basicinfo/equipmentstock_list.html"
+            }
             return realUrl;
         }
     },

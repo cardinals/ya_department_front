@@ -87,8 +87,6 @@ new Vue({
             this.pkid = ID;
             // alert(ID);
             axios.get('/dpapi/keyunit/doFindDetailById/'+ this.pkid).then(function (res) {
-                //alert("111");
-                debugger
                 this.tableData = res.data.result[0];
                 this.rowdata = this.tableData;
                 // this.yuData = res.data.result.YAJBXX;

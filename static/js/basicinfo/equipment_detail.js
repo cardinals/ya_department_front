@@ -24,8 +24,7 @@ new Vue({
             // alert(str);  
             var ID = str.substring(3);
             this.id = ID;
-            // alert(ID);
-            axios.get('/dpapi/equipment/doFindDetailById/' + this.id).then(function (res) {
+            axios.get('/dpapi/equipmentsource/doFindDetailById/' + this.id).then(function (res) {
                 this.tableData = res.data.result[0];
                 this.rowdata = this.tableData;
             }.bind(this), function (error) {
@@ -40,7 +39,7 @@ new Vue({
     methods: {
         searchClick: function () {
             this.id = id;
-            axios.get('/dpapi/equipment/doFindDetailById/' + this.id).then(function (res) {
+            axios.get('/dpapi/equipmentsource/doFindDetailById/' + this.id).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
