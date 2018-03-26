@@ -19,10 +19,10 @@ new Vue({
             //搜索表单
             searchForm: {
                 YAMC: "",
-                selected_YALX: [],
+                selected_YALX: "",
                 DXMC: "",
-                option_DXLX: [],
-                option_YAZL: [],
+                option_DXLX: "",
+                option_YAZL: "",
                 begintime_create:"",
                 endtime_create:"",       
             },
@@ -133,7 +133,7 @@ new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 10,
+            total: 0,
             //预案详情页
             detailData: [],
             //详情页日期
@@ -189,6 +189,7 @@ new Vue({
        this.searchClick();
        this.YALX();
        this.DXLX();
+       this.YAZL();
     },
     methods: {        
         handleNodeClick(data) {
@@ -237,22 +238,21 @@ new Vue({
                 return;
             }
             var params={
-                /*yamc:searchForm.YAMC,
-                selected_YALX:this.searchForm.selected_YALX,
-                DXMC:this.searchForm.DXMC,
-                option_DXLX: this.searchForm.option_DXLX,
-                option_YAZL:this.searchForm.option_YAZL,
+                yamc:this.searchForm.YAMC,
+                yalxdm:this.searchForm.selected_YALX,
+                dxmc:this.searchForm.DXMC,
+                dxlxdm: this.searchForm.option_DXLX,
+                yazl:this.searchForm.option_YAZL,
                 begintime_create:this.searchForm.begintime_create,
-                endtime_create:this.searchForm.endtime_create*/
-
+                endtime_create:this.searchForm.endtime_create
             }
             axios.post('/dpapi/digitalplanlist/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
+                _self.total = _self.tableData.length;
                 console.log("success")
             }.bind(this),function(error){
                 console.log("failed")
             })
-            _self.total = _self.tableData.length;
             _self.loadingData(); //重新加载数据
         },
         clearClick: function () {
@@ -329,13 +329,14 @@ new Vue({
 
         },
         //预案下载
-        downloadPlan:function(){
+        openPlan:function(){
             /*var params = ;
             axios.post('/api/resource/getResource/' + val.ID,params).then(function (res) {
                 this.resourceList = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })*/
+            window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/物美生活广场及地铁华苑站三维灭火预案.html");
         },
         //表格重新加载数据
         loadingData: function () {

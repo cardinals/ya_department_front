@@ -25,19 +25,19 @@
                             <el-row type="flex" justify="center">
                                 <el-col :span="10">
                                     <el-form-item label="预案名称">
-                                        <el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称" class="inputWidth"></el-input>
+                                        <el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称" class="digitalSearch"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10">
                                     <el-form-item label="预案类型">
-                                        <el-select size="small" v-model="searchForm.selected_YALX" placeholder="预案种类" class="digitalList-right" multiple>
+                                        <el-select size="small" v-model="searchForm.selected_YALX" placeholder="预案种类" class="digitalSearch" clearable>
                                             <el-option v-for="item in YALX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10">
                                     <el-form-item label="预案种类">
-                                        <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="digitalList-right" multiple>
+                                        <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="digitalSearch" clearable>
                                             <el-option v-for="item in YAZL_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
                                             </el-option>
                                         </el-select>
@@ -47,12 +47,12 @@
                             <el-row type="flex" justify="center">
                                 <el-col :span="10">
                                     <el-form-item label="对象名称">
-                                        <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称" class="inputWidth"></el-input>
+                                        <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称" class="digitalSearch"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="10">
                                     <el-form-item label="对象类型">
-                                        <el-select size="small" v-model="searchForm.option_DXLX" placeholder="对象类型" class="digitalList-right" multiple>
+                                        <el-select size="small" v-model="searchForm.option_DXLX" placeholder="对象类型" class="digitalSearch" clearable>
                                             <el-option v-for="item in DXLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
                                             </el-option>
                                         </el-select>
@@ -61,10 +61,10 @@
                                 <el-col :span="10">
                                     <el-form-item label="编制日期">
                                         <el-date-picker type="date" @change="begindateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime_create"
-                                            placeholder="编制开始时间" class="dateInputWidth"></el-date-picker>
+                                            placeholder="开始时间" class="digitalDate"></el-date-picker>
                                         ~
                                         <el-date-picker type="date" @change="enddateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime_create"
-                                            placeholder="编制结束时间" class="dateInputWidth"></el-date-picker>
+                                            placeholder="结束时间" class="digitalDate"></el-date-picker>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -133,18 +133,28 @@
                     <!--详情界面-->
                     <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
                         <div class="detailDisplay">
-                            <div class="imgWidth">
-                                <img src="../../static/images/danwei2.jpg">
-                            </div>
                             <div class="dib" id="basic-Inform-Title">
+                                <div class="detailBox" style="display: inline-flex;">
+                                <div class="imgWidth">
+                                    <img src="../../static/images/danwei4.jpg">
+                                </div>
+                                <div class="detailBox">
+                                <div class="yamc_Single">
+                                    <div>
+                                        <dl class="inform-left">
+                                            <dt class="dtdlStyle">预案名称：</dt>
+                                            <dd class="dtdlStyle">{{detailData.yamc}}</dd>
+                                        </dl>
+                                    </div>
+                                    <div style="margin-top: 15px;">
+                                        <dl class="inform-left">
+                                            <dt class="dtdlStyle">预案对象：</dt>
+                                            <dd class="dtdlStyle">{{detailData.dxmc}}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
                                 <div class="inform-div">
-                                    <div class="leftDetail">
-                                        <div>
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">预案名称：</dt>
-                                                <dd class="dtdlStyle">{{detailData.yamc}}</dd>
-                                            </dl>
-                                        </div>
+                                    <div class="leftDetail"> 
                                         <div class="inform-margin">
                                             <dl class="inform-left">
                                                 <dt class="dtdlStyle">预案类型：</dt>
@@ -169,20 +179,8 @@
                                                 <dd class="dtdlStyle">{{this.detailYMD}}</dd>
                                             </dl>
                                         </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">备注：</dt>
-                                                <dd class="dtdlStyle">{{detailData.bz}}</dd>
-                                            </dl>
-                                        </div>
                                     </div>
-                                    <div>
-                                        <div>
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">预案对象：</dt>
-                                                <dd class="dtdlStyle">{{detailData.dxmc}}</dd>
-                                            </dl>
-                                        </div>
+                                    <div>   
                                         <div class="inform-margin">
                                             <dl class="inform-left">
                                                 <dt class="dtdlStyle">预案种类：</dt>
@@ -201,20 +199,25 @@
                                                 <dd class="dtdlStyle">{{detailData.zzrmc}}</dd>
                                             </dl>
                                         </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">备注：</dt>
+                                                <dd class="dtdlStyle">{{detailData.bz}}</dd>
+                                            </dl>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
                                 <br>
-                                <div style="margin-top: 15px;">
-                                    <el-button type="primary" @click="downloadPlan">预案下载</el-button>
+                                <div class="openPlan">
+                                    <el-button type="primary" @click="openPlan">预案在线预览</el-button>
                                 </div>
                                 <!-- lxy-start -->
 
                                 <el-upload class="upload-demo" ref="upload" action="http://localhost/yafjxz/upload" :data="upLoadData" :on-preview="handlePreview"
                                     :on-remove="handleRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList"
                                     :auto-upload="false">
-                                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                                    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                                    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                                 </el-upload>
 
                                 <!-- lxy-end -->
