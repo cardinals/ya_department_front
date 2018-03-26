@@ -2,15 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
-        <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan.css"> 
-        <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplanlist.css"> 
+        <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/advancedsearch.css"> 
     </head>
 	<body class="fw f14 main-index-body">
 		<div id="header_box"></div>
         <div class="left-sidebar">
             <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
             <div id="menu-box">
-                <big-tree default-active="42"></big-tree>
+                <big-tree default-active="32"></big-tree>
             </div>
         </div>
         <div id="app">
@@ -56,15 +55,18 @@
                                     <el-radio-button label="三维预案"></el-radio-button>
                                 </el-radio-group>
                             </el-form-item>
-                            <el-form-item label="预案类别">
+                            <!-- <el-form-item label="预案类别">
                                 <el-radio-group size="small" v-model="searchForm.YALB">
                                     <el-radio-button label="全部"></el-radio-button>
-                                    <el-radio-button label="1"></el-radio-button>
-                                    <el-radio-button label="2"></el-radio-button>
-                                    <el-radio-button label="3"></el-radio-button>
-                                    <el-radio-button label="4"></el-radio-button>
+                                    <el-radio-button label="化危品火灾爆炸"></el-radio-button>
+                                    <el-radio-button label="建筑堆场类"></el-radio-button>
+                                    <el-radio-button label="交通运输类"></el-radio-button>
+                                    <el-radio-button label="危险化学品泄漏事故"></el-radio-button>
+                                    <el-radio-button label="公共突发事件"></el-radio-button>
+                                    <el-radio-button label="群众遇险事件"></el-radio-button>
+                                    <el-radio-button label="群众求助救援"></el-radio-button>
                                 </el-radio-group>
-                            </el-form-item>
+                            </el-form-item> -->
                             <el-form-item label="是否跨区">
                                 <el-radio-group size="small" v-model="searchForm.SFKQ">
                                     <el-radio-button label="全部"></el-radio-button>
@@ -92,10 +94,10 @@
                                 </el-row>
                                 <el-row>
                                     <el-col :span="12">
-                                        <div>{{data.DXMC }}</div>
+                                        <div>对象名称：{{data.DXMC }}</div>
                                     </el-col>
                                     <el-col :span="12">
-                                        <div>{{data.LRSJ }}</div>
+                                        <div>录入时间：{{data.LRSJ }}</div>
                                     </el-col>
                                 </el-row>
                             </el-card>

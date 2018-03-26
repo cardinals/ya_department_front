@@ -113,10 +113,10 @@ new Vue({
             }
             var params={
                 dwmc:this.searchForm.dwmc,
-                // begintime: this.searchForm.begintime,
-                // endtime: this.searchForm.endtime,
-                // xzqy_id: this.searchForm.xzqy,
-                // xfgx_id: this.searchForm.xfgx
+                begintime: this.searchForm.begintime,
+                endtime: this.searchForm.endtime,
+                // xzqy: this.searchForm.xzqy,
+                // xfgx: this.searchForm.xfgx
             };
             axios.post('/dpapi/keyunit/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
@@ -161,7 +161,8 @@ new Vue({
         },
         
         informClick(val) {
-            window.location.href = "importantunits_detail.html?ID=" + val.pkid;
+        window.location.href = "importantunits_detail.html?ID=" + val.pkid;
+        //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         createdateChange(val) {
             console.log(val);

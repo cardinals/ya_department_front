@@ -11,7 +11,7 @@
 	<div class="left-sidebar">
 		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
 		<div id="menu-box">
-			<big-tree default-active="31"></big-tree>
+			<big-tree default-active="21"></big-tree>
 		</div>
 	</div>
 	<div id="app">
@@ -29,10 +29,10 @@
 								</el-col>
 								<el-col :span="12">
 									<el-form-item label="录入时间">
-										<el-date-picker type="date" @change="begindateChange" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime"
+										<el-date-picker type="date" @change="begindateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime"
 										 placeholder="录入开始时间" class="dateInputWidth"></el-date-picker>
 										~
-										<el-date-picker type="date" @change="enddateChange" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime"
+										<el-date-picker type="date" @change="enddateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.endtime"
 										 placeholder="录入结束时间" class="dateInputWidth"></el-date-picker>
 									</el-form-item>
 								</el-col>
@@ -43,7 +43,6 @@
 										<!-- <el-cascader 
 											expand-trigger="hover" 
 											:options="XFGX_data" 
-											v-model="selected_XFGX" 
 											@change="handleChange" 
 											class="inputWidth" 
 											v-model="searchForm.xfgx"
@@ -58,7 +57,6 @@
 										<el-cascader 
 											expand-trigger="hover" 
 											:options="XZQY_data" 
-											v-model="selected_XZQY" 
 											@change="handleChange" 
 											class="inputWidth" 
 											v-model="searchForm.xzqy"
