@@ -231,6 +231,17 @@
             },
             drawMap: function () {
                 //百度地图API功能
+                var content =
+                '<div style="margin:0;line-height:20px;padding:2px;">' +
+                '<img src="../img/baidu.jpg" alt="" style="float:left;zoom:1;overflow:hidden;width:90px;height:200px;margin-right:3px;"/>' +
+                '基本信息' +
+               
+               
+                '</div>'
+                
+                
+                
+                ;
                 var map = new BMap.Map("BMap");    //创建Map实例
                 //添加地图类型控件
                 map.addControl(new BMap.MapTypeControl({
@@ -253,12 +264,24 @@
                 var marker1 = new BMap.Marker(point1, { icon: myIcon1 });      // 创建标注
                 var marker2 = new BMap.Marker(point2, { icon: myIcon2 });      // 创建标注
                 var marker3 = new BMap.Marker(point3, { icon: myIcon3 });      // 创建标注
+                var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框
+                map.centerAndZoom(point3, 15);//悬浮框
                 map.addOverlay(marker1);      // 将标注添加到地图中
                 map.addOverlay(marker2);      // 将标注添加到地图中
                 map.addOverlay(marker3);      // 将标注添加到地图中
+               //悬浮框
+                marker3.addEventListener("click", function(){          
+                this.openInfoWindow(infoWindow);
+                //图片加载完毕重绘infowindow
+                document.getElementById('imgDemo').onload = function (){
+                    infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                }
+                });
+
                 this.marker1 = marker1;
                 this.marker2 = marker2;
                 this.marker3 = marker3;
+
             }
         },
         mounted() {
