@@ -482,3 +482,6 @@
   color:#82848a;
   outline:0
 }
+.el-form-item {
+  margin-bottom: 12px;
+}
