@@ -10,7 +10,7 @@
         <div class="left-sidebar">
             <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
             <div id="menu-box">
-                <big-tree default-active="41"></big-tree>
+                <big-tree default-active="42"></big-tree>
             </div>
         </div>
         <div id="app">
@@ -18,176 +18,87 @@
                 <div class="main-container">
                     <div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
                     <div id="tableView">
-						<el-row>
-							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row type="flex" justify="center">
-									<el-col :span="10">
-										<el-form-item label="预案名称">
-											<el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称" class="inputWidth"></el-input>
-										</el-form-item>
+                        <el-form label-width="100px" :model="searchForm" class="el-form demo-form-inline">
+                            <el-row>
+                                <el-col :span="20">
+                                    <el-form-item label="预案名称/预案对象名称">
+                                        <el-input size="medium " v-model="searchForm.YAMC" placeholder="预案名称" style="width: 700px"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="2">
+                                    <el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+                                </el-col>
+                                <el-col :span="2">
+                                    <el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+                                </el-col>
+                            </el-row>
+                            <el-form-item label="预案种类">
+                                <el-radio-group size="small" v-model="searchForm.YAZL">
+                                    <el-radio-button label="全部"></el-radio-button>
+                                    <el-radio-button label="部局预案"></el-radio-button>
+                                    <el-radio-button label="总队预案"></el-radio-button>
+                                    <el-radio-button label="支队预案"></el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="预案对象种类">
+                                <el-radio-group size="small" v-model="searchForm.YADXZL">
+                                    <el-radio-button label="全部"></el-radio-button>
+                                    <el-radio-button label="灭火预案单位"></el-radio-button>
+                                    <el-radio-button label="消防保卫警卫"></el-radio-button>
+                                    <el-radio-button label="其他"></el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="预案类型">
+                                <el-radio-group size="small" v-model="searchForm.YALX">
+                                    <el-radio-button label="全部"></el-radio-button>
+                                    <el-radio-button label="卡片预案"></el-radio-button>
+                                    <el-radio-button label="二维预案"></el-radio-button>
+                                    <el-radio-button label="三维预案"></el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="预案类别">
+                                <el-radio-group size="small" v-model="searchForm.YALB">
+                                    <el-radio-button label="全部"></el-radio-button>
+                                    <el-radio-button label="1"></el-radio-button>
+                                    <el-radio-button label="2"></el-radio-button>
+                                    <el-radio-button label="3"></el-radio-button>
+                                    <el-radio-button label="4"></el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="是否跨区">
+                                <el-radio-group size="small" v-model="searchForm.SFKQ">
+                                    <el-radio-button label="全部"></el-radio-button>
+                                    <el-radio-button label="是"></el-radio-button>
+                                    <el-radio-button label="否"></el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                            <el-form-item label="录入时间">
+                                <el-radio-group size="small" v-model="searchForm.LRSJ">
+                                    <el-radio-button label="全部"></el-radio-button>
+                                    <el-radio-button label="今日"></el-radio-button>
+                                    <el-radio-button label="昨日"></el-radio-button>
+                                    <el-radio-button label="最近7日"></el-radio-button>
+                                    <el-radio-button label="最近30日"></el-radio-button>
+                                    <el-radio-button label="自定义时间"></el-radio-button>
+                                </el-radio-group>
+                            </el-form-item>
+                        </el-form>
+                        <div>
+                            <el-card v-for="data in tableData" style="margin-bottom:12px;background-color:#F5F5F5">
+                                <el-row>
+                                    <el-col :span="24">
+                                        <div><strong>{{data.YAMC }}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium">{{data.YALX}}</el-tag></div>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="12">
+                                        <div>{{data.DXMC }}</div>
                                     </el-col>
                                     <el-col :span="12">
-                                        <el-form-item label="预案类型">
-                                            <el-cascader 
-                                                  
-                                                    class="digitalList-right" clearable>
-                                            </el-cascader>
-                                            
-                                            <!-- expand-trigger="hover" 
-                                                    :options="YALX_data" 
-                                                    v-model="searchForm.selected_YALX" 
-                                                    @change="handleChange"  -->
-                                        </el-form-item>
+                                        <div>{{data.LRSJ }}</div>
                                     </el-col>
                                 </el-row>
-                                <el-row type="flex" justify="center">
-                                    <el-col :span="10">
-                                        <el-form-item label="重点单位">
-                                            <el-input size="small" v-model="searchForm.DXMC" placeholder="重点单位名称" class="inputWidth"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-									<el-col :span="12">
-										<el-form-item label="预案种类">
-											<el-select size="small" v-model="searchForm.option_DXLX" placeholder="预案种类" class="digitalList-right" multiple>
-												<el-option 
-													v-for="item in DXLX_data" 
-													:key="item.value" 
-													:label="item.label" 
-													:value="item.value">
-												</el-option>
-											</el-select>
-										</el-form-item>
-
-									</el-col>
-                                </el-row>
-                                <el-row type="flex" justify="center">
-                                    <el-col :span="10">
-                                        <el-form-item label="预案类别">
-                                            <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案类别" class="inputWidth" multiple>
-                                                <el-option 
-                                                    v-for="item in YAZL_data" 
-                                                    :key="item.value" 
-                                                    :label="item.label" 
-                                                    :value="item.value">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
-                                    </el-col>
-                                <el-col :span="12">
-                                    <el-form-item label="预案对象">
-                                        <el-select size="small" v-model="searchForm.option_DXLX" placeholder="预案对象" class="digitalList-right" multiple>
-                                            <el-option 
-                                                v-for="item in DXLX_data" 
-                                                :key="item.value" 
-                                                :label="item.label" 
-                                                :value="item.value">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <!--  -->
-                                <el-row type="flex" justify="center">
-                                      
-                                    <el-col :span="10">
-                                        <el-form-item label="是否跨区">
-                                            <el-checkbox-group >
-                                                <el-checkbox label="是"></el-checkbox>
-                                                <el-checkbox label="否"></el-checkbox>
-                                            </el-checkbox-group>
-                                        </el-form-item>
-                                    </el-col>
-                                   
-                                   <el-col :span="12">
-                                        <el-form-item label="记录状态">
-                                                <el-checkbox-group >
-                                                    <el-checkbox label="有效"></el-checkbox>
-                                                    <el-checkbox label="无效"></el-checkbox>
-                                                </el-checkbox-group>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <el-row type="flex" justify="center">
-                                        <el-col :span="10">
-                                                <el-form-item label="是否母案">
-                                                        <el-checkbox-group >
-                                                            <el-checkbox label="是"></el-checkbox>
-                                                            <el-checkbox label="否"></el-checkbox>
-                                                        </el-checkbox-group>
-                                                </el-form-item>
-                                            </el-col>
-                                        <el-col :span="12">
-                                                <el-form-item label="录入时间">
-                                                    <el-select size="small" v-model="searchForm.option_DXLX" placeholder="录入时间" class="digitalList-right" multiple>
-                                                        <el-option 
-                                                            v-for="item in DXLX_data" 
-                                                            :key="item.value" 
-                                                            :label="item.label" 
-                                                            :value="item.value">
-                                                         </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                    </el-row>
-
-                                    <div>
-                                            <el-form>
-                                                <el-col :span="12" class="btnEditDelete">
-                                                    <el-form-item align="left">
-                                                        <!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
-                                                        <!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
-                                                    </el-form-item>
-                                                </el-col>
-                                                <el-col :span="12"></el-col>
-                                                <el-col :span="12" class="btnSearchPlus">
-                                                    <el-form-item>
-                                                        <el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
-                                                        <el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
-                                                    </el-form-item>
-                                                </el-col>
-                                            </el-form>
-                                    </div>
-
-
-							</el-form>
-						</el-row>
-
-						<div class="table_container">
-							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
-							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
-
-								<el-table-column type="selection" min-width="5%"></el-table-column>
-								<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-								<el-table-column prop="yamc"  label="预案名称" show-overflow-tooltip min-width="20%" align="center">
-                                    <template slot-scope="scope">
-                                        <el-button type="text" @click="planDetails(scope.row)">{{scope.row.yamc}}</el-button>
-                                    </template>
-								</el-table-column>
-								<el-table-column prop="zddwmc" label="重点单位名称" min-width="25%" align="center"></el-table-column>
-								<el-table-column prop="yazl" label="预案种类" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
-								<el-table-column prop="yalb" label="预案类别" min-width="25%" align="center"></el-table-column>
-                                <el-table-column prop="yalx" label="预案类型" min-width="25%" align="center"></el-table-column>
-                                <el-table-column prop="yadx" label="预案对象" min-width="25%" align="center" :formatter="dateFormat"></el-table-column>
-								<el-table-column prop="kqy" label="是否跨区域" min-width="25%" align="center"></el-table-column>
-                                <el-table-column prop="jlzt" label="记录状态" min-width="25%" align="center"></el-table-column>
-                                <el-table-column prop="mya" label="是否母预案" min-width="25%" align="center"></el-table-column>
-                                <el-table-column prop="lrsj" label="录入时间" min-width="25%" align="center"></el-table-column>
-                            </el-table>
-
-							<!--列表底部工具条和分页符-->
-							<el-row type="flex" justify="end">
-								<el-col :span="18">
-									<el-pagination 
-										@size-change="pageSizeChange" 
-										@current-change="currentPageChange" 
-										:current-page="currentPage" 
-										:page-sizes="[10, 20, 30, 50]"
-										 :page-size="pageSize" 
-										 layout="total, sizes, prev, pager, next, jumper" 
-										 :total=parseInt(total)>
-									</el-pagination>
-								</el-col>
-							</el-row>
+                            </el-card>
                         </div>
                         <!--详情界面-->
                         <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
@@ -297,7 +208,7 @@
     </body>
 	<script src="../../static/js/lib.js" ></script>
     <script src="../../static/js/menu.js" ></script>
-    <script src="../../static/js/digitalplan/digitalplanlist.js" ></script>
+    <script src="../../static/js/digitalplan/advancedsearch.js" ></script>
     <script>
     
     
