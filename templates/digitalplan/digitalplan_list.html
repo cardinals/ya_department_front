@@ -26,7 +26,7 @@
 											<el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称" class="inputWidth"></el-input>
 										</el-form-item>
                                     </el-col>
-                                    <el-col :span="12">
+                                    <el-col :span="10">
                                         <el-form-item label="预案类型">
                                             <el-cascader 
                                                     expand-trigger="hover" 
@@ -38,6 +38,18 @@
                                             </el-cascader>
                                         </el-form-item>
                                     </el-col>
+                                    <el-col :span="10">
+                                        <el-form-item label="预案种类">
+                                            <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="digitalList-right" multiple>
+                                                <el-option 
+                                                    v-for="item in YAZL_data" 
+                                                    :key="item.value" 
+                                                    :label="item.label" 
+                                                    :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
 								</el-row>
 								<el-row type="flex" justify="center">
                                     <el-col :span="10">
@@ -45,7 +57,7 @@
                                             <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称" class="inputWidth"></el-input>
                                         </el-form-item>
                                     </el-col>
-									<el-col :span="12">
+									<el-col :span="10">
 										<el-form-item label="对象类型">
 											<el-select size="small" v-model="searchForm.option_DXLX" placeholder="对象类型" class="digitalList-right" multiple>
 												<el-option 
@@ -56,31 +68,20 @@
 												</el-option>
 											</el-select>
 										</el-form-item>
-
-									</el-col>
+                                    </el-col>
+                                    <el-col :span="10">
+                                        <el-form-item label="编制日期">
+                                            <el-date-picker type="date" @change="begindateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime_create"
+                                             placeholder="编制开始时间" class="dateInputWidth"></el-date-picker>
+                                            ~
+                                            <el-date-picker type="date" @change="enddateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime_create"
+                                             placeholder="编制结束时间" class="dateInputWidth"></el-date-picker>
+                                        </el-form-item>
+                                    </el-col>
                                 </el-row>
                                 <el-row type="flex" justify="center">
-                                        <el-col :span="10">
-                                                <el-form-item label="预案种类">
-                                                    <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="inputWidth" multiple>
-                                                        <el-option 
-                                                            v-for="item in YAZL_data" 
-                                                            :key="item.value" 
-                                                            :label="item.label" 
-                                                            :value="item.value">
-                                                        </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                        <el-col :span="12">
-                                                <el-form-item label="编制日期">
-                                                    <el-date-picker type="date" @change="begindateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime_create"
-                                                     placeholder="编制开始时间" class="dateInputWidth"></el-date-picker>
-                                                    ~
-                                                    <el-date-picker type="date" @change="enddateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime_create"
-                                                     placeholder="编制结束时间" class="dateInputWidth"></el-date-picker>
-                                                </el-form-item>
-                                            </el-col>
+                                        
+                                        
                                     </el-row>
 								<el-row type="flex" justify="center">
                                     <el-col :span="10">
