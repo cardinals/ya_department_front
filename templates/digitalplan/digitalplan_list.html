@@ -60,10 +60,10 @@
                                 </el-col>
                                 <el-col :span="10">
                                     <el-form-item label="编制日期">
-                                        <el-date-picker type="date" @change="begindateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.begintime_create"
+                                        <el-date-picker type="date" @change="begindateChange_create" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime_create"
                                             placeholder="开始时间" class="digitalDate"></el-date-picker>
                                         ~
-                                        <el-date-picker type="date" @change="enddateChange_create" format="yyyy-MM-dd" value-format="yyyy-MM-dd" size="small" v-model="searchForm.endtime_create"
+                                        <el-date-picker type="date" @change="enddateChange_create" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.endtime_create"
                                             placeholder="结束时间" class="digitalDate"></el-date-picker>
                                     </el-form-item>
                                 </el-col>
