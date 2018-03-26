@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    <title>化学品详情</title>
+</head>
+
+<body class="fw f14 main-index-body">
+    <div id="header_box"></div>
+    <div class="left-sidebar">
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <div id="menu-box">
+            <big-tree default-active="61"></big-tree>
+        </div>
+    </div>
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container">
+                <div id="danger_detail"></div>
+                <div id="tableView">
+                    <div class="inform-content">
+                        <template>
+                            <el-tabs v-model="activeName" type="border-card">
+                                <div class="inform-div">
+                                    <div class="left-inform">
+                                        <div>
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">名称：</dt>
+                                                <dd class="dtdlStyle">{{detailData.name}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">别名: </dt>
+                                                <dd class="dtdlStyle">{{detailData.alias}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">英文名：</dt>
+                                                <dd class="dtdlStyle">{{detailData.englishName}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">分子式: </dt>
+                                                <dd class="dtdlStyle">{{detailData.expression}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">类型：</dt>
+                                                <dd class="dtdlStyle">{{detailData.dmz}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">包装标志：</dt>
+                                                <dd class="dtdlStyle">{{detailData.flag}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">同义词：</dt>
+                                                <dd class="dtdlStyle">{{detailData.thesaurus}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">危险性/症状：</dt>
+                                                <dd class="dtdlStyle">{{detailData.symptom}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">急救措施/灭火：</dt>
+                                                <dd class="dtdlStyle">{{detailData.firstaid}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">防护措施：</dt>
+                                                <dd class="dtdlStyle">{{detailData.defendWay}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">处置措施：</dt>
+                                                <dd class="dtdlStyle">{{detailData.dispose}}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                    <div class="right-inform">
+                                        <div>
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">国标号：</dt>
+                                                <dd class="dtdlStyle">{{detailData.gbId}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">空气中允许极限及测定：</dt>
+                                                <dd class="dtdlStyle">{{detailData.airDetermine}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">水中允许极限及测定：</dt>
+                                                <dd class="dtdlStyle">{{detailData.waterDetermine}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">禁忌物/禁忌：</dt>
+                                                <dd class="dtdlStyle">{{detailData.tabu}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">储存：</dt>
+                                                <dd class="dtdlStyle">{{detailData.store}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">泄漏处理：</dt>
+                                                <dd class="dtdlStyle">{{detailData.leakWay}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">运输：</dt>
+                                                <dd class="dtdlStyle">{{detailData.traffic}}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="inform-margin">
+                                            <dl class="inform-left">
+                                                <dt class="dtdlStyle">附注：</dt>
+                                                <dd class="dtdlStyle">{{detailData.remark}}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </el-tabs>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/basicinfo/danger_detail.js"></script>
+
+</html>

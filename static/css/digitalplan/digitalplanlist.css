@@ -10,3 +10,6 @@
 .leftDetail{
     width: 220px;
 }
+.el-upload__input{
+    display: none !important;
+}

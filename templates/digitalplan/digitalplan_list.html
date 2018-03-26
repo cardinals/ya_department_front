@@ -32,7 +32,8 @@
                                                     expand-trigger="hover" 
                                                     :options="YALX_data" 
                                                     v-model="searchForm.selected_YALX" 
-                                                    @change="handleChange" 
+                                                    @change="handleChange"
+                                                    :props="defaultProps" 
                                                     class="digitalList-right" clearable>
                                                 </el-cascader>
                                             </el-form-item>
@@ -84,7 +85,7 @@
 								<el-row type="flex" justify="center">
                                     <el-col :span="10">
                                             <el-form-item label="编制单位">
-                                                <el-tree class="inputWidth" :props="defaultProps" :data="allFormationList" node-key="id" ref="tree" highlight-current :default-expanded-keys="defaultKeys"
+                                                <el-tree class="inputWidth" :props="treeDefaultProps" :data="allFormationList" node-key="id" ref="tree" highlight-current :default-expanded-keys="defaultKeys"
                                                     @node-click="handleNodeClick" show-checkbox>
                                                 </el-tree>
                                             </el-form-item>

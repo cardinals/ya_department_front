@@ -173,7 +173,7 @@ new Vue({
                 }
             ],
             selected_XFGX: [],
-            YALX_data: [
+            YALX_data: [],/*
                 {
                     value: 'liaoning',
                     label: '辽宁省',
@@ -218,9 +218,9 @@ new Vue({
                         label: '石家庄'
                     }]
                 }
-            ],
+            ],*/
 
-            DXLX_data: [
+            DXLX_data: [],/*
                 {
                     value: '高层建筑',
                     label: '高层建筑'
@@ -238,8 +238,8 @@ new Vue({
                     value: '消防部队',
                     label: '消防部队'
                 }
-            ],
-            YAZL_data: [
+            ],*/
+            YAZL_data: [],/*
                 {
                     value: '文档预案',
                     label: '文档预案'
@@ -250,7 +250,7 @@ new Vue({
                     value: '三维预案',
                     label: '三维预案'
                 }
-            ],
+            ],*/
             defaultKeys: [],
             //后台返回编制单位列表
 			 allFormationList:[
@@ -335,7 +335,7 @@ new Vue({
 			 }
 			 ],
             //树结构配置
-            defaultProps: {
+            treeDefaultProps: {
                 children: 'children',
                 label: 'formationinfo'
             },
@@ -397,19 +397,17 @@ new Vue({
                 ZDMJ: "",
                 XFGXJGID: ""
             },
+            defaultProps:{
+                value:'codeValue',
+                label:'codeName'
+            }
           
         }
     },
     created:function(){
-        var params={
-        }
-        axios.post('/api/digitalplanlist/findByVO',params).then(function(res){
-            this.tableData = res.data.result;
-            console.log("success")
-        }.bind(this),function(error){
-            console.log("failed")
-        })
-
+       this.searchClick();
+       this.YALX();
+       this.DXLX();
     },
     methods: {        
         handleNodeClick(data) {
@@ -420,6 +418,22 @@ new Vue({
         },
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        
+        //预案类型
+        YALX: function(){
+            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+                this.YALX_data = res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        DXLX: function(){
+            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+                this.DXLX_data = res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            }) 
         },
         //表格查询事件
         searchClick: function () {
@@ -432,17 +446,21 @@ new Vue({
                 });
                 return;
             }
-            var params = {
-                rolename: this.searchForm.rolename,
-                createTimeBegin: this.searchForm.createTimeBegin,
-                createTimeEnd: this.searchForm.createTimeEnd
-            };
+            var params={
+                /*yamc:searchForm.YAMC,
+                selected_YALX:this.searchForm.selected_YALX,
+                DXMC:this.searchForm.DXMC,
+                option_DXLX: this.searchForm.option_DXLX,
+                option_YAZL:this.searchForm.option_YAZL,
+                begintime_create:this.searchForm.begintime_create,
+                endtime_create:this.searchForm.endtime_create*/
 
-            axios.post('/api/role/findByVO', params).then(function (res) {
+            }
+            axios.post('/dpapi/digitalplanlist/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
-                this.total = res.data.result.length;
-            }.bind(this), function (error) {
-                console.log(error)
+                console.log("success")
+            }.bind(this),function(error){
+                console.log("failed")
             })
             _self.total = _self.tableData.length;
             _self.loadingData(); //重新加载数据
@@ -497,7 +515,7 @@ new Vue({
             var _self = this;
             _self.planDetailVisible = true;
             
-            axios.get('/api/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
+            axios.get('/dpapi/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
                 this.detailData = res.data.result;
                 if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
                     return '';
