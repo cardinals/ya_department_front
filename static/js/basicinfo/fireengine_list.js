@@ -7,14 +7,13 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                ckmc: "",
-                zbqcmc: "",
-                hwmc:"",
-                ssxfjg:""
+                zblxdm: "",
+                cldjdm: "",
+                cphm:""
             },
             tableData: [],
-            allSSXFJGData: [],
-            
+            allTypesData: [],
+            allLevelsData:[],
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -58,7 +57,8 @@ new Vue({
     },
     created:function(){
         this.searchClick();
-        this.getAllSSXFJGData();
+        this.getAllTypesData();
+        this.getAllLevelsData();
     },
     methods: {
         handleNodeClick(data) {
@@ -68,13 +68,11 @@ new Vue({
         searchClick: function () {
             var _self = this;
             var params={
-                zbqcmc:this.searchForm.zbqcmc,
-                // begintime: this.searchForm.begintime,
-                // endtime: this.searchForm.endtime,
-                // xzqy_id: this.searchForm.xzqy,
-                // xfgx_id: this.searchForm.xfgx
+                zblxdm :this.searchForm.zblxdm,
+                cldjdm :this.searchForm.cldjdm,
+                cphm :this.searchForm.cphm,
             };
-            axios.post('/dpapi/equipmentstock/findByVO',params).then(function(res){
+            axios.post('/dpapi/fireengine/list',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
@@ -83,11 +81,20 @@ new Vue({
             })
         },
         clearClick: function () {
-            // this.searchForm.
+            this.searchForm.zblxdm="";
+            this.searchForm.cldjdm="";
+            this.searchForm.cphm="";
         },
-        getAllSSXFJGData: function (){
+        getAllTypesData: function (){
             axios.get('/api/codelist/getCodetype/CA01').then(function(res){
-                this.allSSXFJGData=res.data.result;
+                this.allTypesData=res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        getAllLevelsData: function (){
+            axios.get('/api/codelist/getCodetype/CLDJ').then(function(res){
+                this.allLevelsData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -102,7 +109,7 @@ new Vue({
             console.info(val);
         },
         detailClick(val) {
-            window.location.href = "equipmentstock_detail.html?ID=" + val.id;
+            window.location.href = "fireengine_detail.html?ID=" + val.id;
         },
         //表格重新加载数据
         loadingData: function () {

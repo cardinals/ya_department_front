@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="header_box"></div>
+	<div class="left-sidebar">
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="54"></big-tree>
+		</div>
+	</div>
+	<div id="app">
+		<div class="main-box">
+			<div class="main-container">
+				<div id="lib :: main_container_header('消防车辆信息','消防车辆信息')"></div>
+				<div id="tableView">
+					<el-row>
+						<el-form label-width="110px" :inline="true" class="el-form demo-form-inline">
+							<el-row type="flex" justify="center">
+								<el-col :span="11">
+									<el-form-item label="车辆类型">
+										<el-select size="small" v-model="searchForm.zblxdm" placeholder="全部" class="inputWidth" clearable>
+                                            <el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+                                        </el-select>
+									</el-form-item>
+								</el-col>
+								<el-col :span="11">
+									<el-form-item label="车辆等级">
+										<el-select size="small" v-model="searchForm.cldjdm" placeholder="全部" class="inputWidth" clearable>
+                                            <el-option v-for="type in allLevelsData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+                                    </el-select>
+								</el-col>
+							</el-row>
+							<el-row type="flex" justify="center">
+								<el-col :span="11">
+									<el-form-item label="车牌号码">
+										<el-input size="small" v-model="searchForm.cphm" placeholder="车牌号码" class="inputWidth"></el-input>
+									</el-form-item>
+								</el-col>
+								<el-col :span="11"></el-col>
+							</el-row>
+							<div>
+								<el-form>
+									<el-col :span="12" class="btnEditDelete">
+										<el-form-item align="left">
+										</el-form-item>
+									</el-col>
+									<el-col :span="12"></el-col>
+									<el-col :span="12" class="btnSearchPlus">
+										<el-form-item>
+											<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+											<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+										</el-form-item>
+									</el-col>
+								</el-form>
+							</div>
+						</el-form>
+					</el-row>
+
+					<div class="table_container">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+							<el-table-column type="selection" min-width="5%"></el-table-column>
+							<el-table-column prop="djzbbm" label="单件装备编码" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="zbmc" label="装备名称" min-width="12%" align="center">
+								<template slot-scope="scope">
+									<el-button @click="detailClick(scope.row)" type="text">{{scope.row.zbmc}}</el-button>
+								</template>
+							</el-table-column>
+							<el-table-column prop="zblxdm" label="装备类型" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="ssxfjgid" label="所属消防机构" min-width="12%" align="center"></el-table-column>
+							<el-table-column prop="cphm" label="车牌号码" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="zrrxm" label="责任人姓名" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="bfrq" label="报废日期" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="xcbyrq" label="下次保养日期" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="sdzt" label="锁定状态" min-width="9%" align="center"></el-table-column>
+						</el-table>
+
+						<!--列表底部工具条和分页符-->
+						<el-row type="flex" justify="end">
+							<el-col :span="18">
+								<el-pagination 
+									@size-change="pageSizeChange" 
+									@current-change="currentPageChange" 
+									:current-page="currentPage" 
+									:page-sizes="[10, 20, 30, 50]"
+									:page-size="pageSize" 
+									layout="total, sizes, prev, pager, next, jumper" 
+									:total=parseInt(total)>
+								</el-pagination>
+							</el-col>
+						</el-row>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/basicinfo/fireengine_list.js"></script>
+
+</html>

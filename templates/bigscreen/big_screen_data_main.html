@@ -67,31 +67,27 @@
         <div class="application-box tc abs"  > 
             <div class="sync-main tc map-bg left" >
             	<div class="top_left_a map-bg2"  style= "position: fixed;left:40.5px;top:40.5px; width: 751px;height: 235px; ">
-            	
+                        
+                    <div id="barm" class="application-text"></div>
+                    
                  </div>
                  <div class="top_left_b map-bg2"  style= "position: fixed;left:797px;top:40.5px; width: 443px;height: 235px; ">
             	
                  </div>
                 <div class="bottom_left_a"  style= "position: fixed;left:40.5px;top:280.5px; width: 750px;height: 256px;">
                     <div class="bottom_left_a_a map-bg2"  style= "position: fixed;left:40.5px;top:280.5px; width: 375px;height: 26px; ">
-               
-                    </div>
+                     </div>
                     <div class="bottom_left_a_b map-bg2"  style= "position: fixed;left:40.5px;top:308px; width: 375px;height: 230px; ">
-               
                     </div>
                     <div class="bottom_left_a_c map-bg2"  style= "position: fixed;left:417px;top:280.5px; width: 375px;height: 26px; ">
-               
-                    </div>
+                     </div>
                     <div class="bottom_left_a_d map-bg2"  style= "position: fixed;left:417px;top:308px; width: 375px;height: 230px; ">
-               
                     </div>
                 </div>
                 <div class="bottom_left_b"  style= "position: fixed;left:820.5px;top:280.5px; width: 420px;height: 256px; ">
                     <div class="bottom_left_b_a map-bg2"  style= "position: fixed;left:797px;top:280.5px; width: 443px;height: 26px; ">
-               
-                    </div>
+                     </div>
                     <div class="bottom_left_b_b map-bg2"  style= "position: fixed;left:797px;top:308px; width: 443px;height: 230px; ">
-               
                     </div>
                 </div>
 
@@ -150,48 +146,84 @@
 			
 		    echarts3:function () {
 
-				var myPieChart = echarts.init(document.getElementById('pie'));
+				var myBarmChart = echarts.init(document.getElementById('barm'));
 
-				PieOption = {
-									tooltip: {
-										trigger: 'item',
-										formatter: "{a} <br/>{b}: {c} ({d}%)"
-									},
-									color: ['rgb(53, 148, 211)', 'rgb(25, 60, 83)'],
-									legend: {
-										orient: 'vertical',
-										x: '60%',
-										y: 'center',
-										itemGap: 16,
-										itemWidth: 18,
-										data: ['结构化数据', '文件数据'],
-										textStyle: {
-											color: 'white'
-										},
-										align: 'left'
-									},
-									series: [
-										
-										{
-											name: '数据类型',
-											type: 'pie',
-											center: ['35%', '50%'],
-											radius: ['46%', '75%'],
-											label: {
-												normal: {
-													show: false
-												}
-											},
-											data: [
-												{ value: 400, name: '结构化数据' },
-												{ value: 600, name: '文件数据' },
-											
-											]
-										}
-									]
-								};
+				BarmOption = {
+                    tooltip: {
+						trigger: 'axis',
+						axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+						}
+					},
+					// color: ['#0f82ee'],
+					grid: {
+						top: '8%',
+                        bottom: '8%',
+                        left:'5%',
+                        right:'5%',
+						containLabel: true
+					},
+					xAxis: [
+						{
+							type: 'category',
+							data: ['北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
+							'西藏', '山西','陕西', '西安','南京', '杭州','山东', '昆明','重庆', '武汉','北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
+							'西藏', '山西','陕西', '西安','南京'],
+							axisLine: {
+								lineStyle: {
+									color: 'white'
+								}
+							}
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							axisLine: {
+								lineStyle: {
+									color: 'white'
+								}
+							},
+							splitLine: {
+								show: false
+							},
+						}
+					],
+					series: [
+						{
+							name: '数字化预案',
+							type: 'bar',
+							barWidth: '100%',
+							stack: '预案',
+							barWidth: '18',
+							itemStyle: {
+								normal: {
+									color: new echarts.graphic.LinearGradient(
+										0, 0, 0, 1,
+										[
+											{ offset: 0, color: '#83bff6' },
+											{ offset: 0.5, color: '#188df0' },
+											{ offset: 1, color: '#0f82ee' }
+										]
+									)
+								},
+								emphasis: {
+									color: new echarts.graphic.LinearGradient(
+										0, 0, 0, 1,
+										[
+											{ offset: 0, color: '#188df0' },
+											{ offset: 0.7, color: '#188df0' },
+											{ offset: 1, color: '#83bff6' }
+										]
+									)
+								}
+							},
+							data: [1335, 335, 1035, 935, 335, 1335, 335, 670, 335, 1335, 335, 335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335, 1335, 335,]
+						}
+					]
+				};
 
-				myPieChart.setOption(PieOption);
+				myBarmChart.setOption(BarmOption);
 			},
 
 			loadChart: function () {
@@ -212,6 +244,16 @@
     })
     
 </script>
+
+
+
+
+
+
+
+
+
+
 
 <script>
         var data = [{

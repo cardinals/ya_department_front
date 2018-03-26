@@ -73,7 +73,7 @@ new Vue({
                 // xzqy_id: this.searchForm.xzqy,
                 // xfgx_id: this.searchForm.xfgx
             };
-            axios.post('/dpapi/equipment/findByVO',params).then(function(res){
+            axios.post('/dpapi/equipmentsource/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
