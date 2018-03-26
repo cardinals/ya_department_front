@@ -335,7 +335,7 @@
    .line1{
        border: 1px solid #abcdef;
        position: fixed;
-       top: 321px;
+       top: 301px;
        left: 156px;
        width: 25px;
       
@@ -343,7 +343,7 @@
    .line2{
        border: 1px solid #abcdef;
        position: fixed;
-       top: 321px;
+       top: 301px;
        left: 213px;
        width: 25px;
    }
@@ -351,14 +351,14 @@
    .line3{
     border: 1px solid #abcdef;
        position: fixed;
-       top: 321px;
+       top: 301px;
        left: 602px;
        width: 25px;
 }
 .line4{
     border: 1px solid #abcdef;
        position: fixed;
-       top: 321px;
+       top: 301px;
        left: 659px;
        width: 25px;
 }
@@ -367,14 +367,14 @@
 .line5{
     border: 1px solid #abcdef;
     position: fixed;
-    top: 418px;
+    top: 400px;
     left: 157px;
     width: 24px;
 }
 .line6{
     border: 1px solid #abcdef;
     position: fixed;
-    top: 418px;
+    top: 400px;
     left: 213px;
     width: 25px;
 
@@ -382,14 +382,14 @@
 .line7{
     border: 1px solid #abcdef;
        position: fixed;
-       top: 418px;
+       top: 400px;
        left: 602px;
        width: 25px;
 }
 .line8{
     border: 1px solid #abcdef;
     position: fixed;
-    top: 418px;
+    top: 400px;
     left: 659px;
     width: 25px;
 }
