@@ -1,0 +1,18 @@
+.digitalList-right{
+    width:405px;
+}
+.detailDisplay{
+    display: inline-flex;
+}
+.imgWidth{
+    width: 150px;
+}
+.leftDetail{
+    width: 220px;
+}
+.el-upload__input{
+    display: none !important;
+}
+.el-form-item {
+    margin-bottom: 0;
+}
