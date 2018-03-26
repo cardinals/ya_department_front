@@ -33,58 +33,31 @@
                                 <label><input name="Fruit" type="checkbox" value="" />重大活动或会议</label> 
                                 <label><input name="Fruit" type="checkbox" value="" />其他对象</label> 
                             </form>  -->
-                            <el-dropdown-item style="font-size:5px;">
-                                    <el-checkbox label="重点单位"></el-checkbox>
-                                    <el-checkbox label="重大活动或会议"></el-checkbox>
-                                    <el-checkbox label="其他对象"></el-checkbox>
-                            </el-dropdown-item>
-
+                           
                             </div>
                             <div>
+                               
                                 <el-dropdown-item>
-                                    <el-select class="mt10" placeholder="请选择">
-                                    </el-select>
+                                    <el-input class="mt10" placeholder="主体名称" style="padding-bottom:10px;"></el-input>
+                                </el-dropdown-item>
+                                <el-dropdown-item style="font-size:1px;" action="" method="get">
+                                    <el-checkbox style="margin-left:-110px;"  name="Fruit" label="重点单位"></el-checkbox>
+                                    <br/>
+                                    <el-checkbox style="margin-left:-68px;"  name="Fruit"  label="重大活动或会议"></el-checkbox>
+                                    <br/>
+                                    <el-checkbox style="margin-left:-112px;" name="Fruit" label="其他对象"></el-checkbox>
                                 </el-dropdown-item>
                                 <el-dropdown-item>
-                                    <el-input class="mt10" placeholder="主体名称"></el-input>
-                                </el-dropdown-item>
-                                <el-dropdown-item>
-                                    <el-input class="mt10" placeholder="地址"></el-input>
+                                    <el-input class="mt10" placeholder="地址" style="padding-bottom:10px;"></el-input>
                                 </el-dropdown-item>
                                 <el-dropdown-item >
-                                    <el-date-picker class="mt10 w190" type="date" placeholder="录入日期"></el-date-picker>
+                                    <el-date-picker class="mt10 w190" type="date" placeholder="录入日期" style="padding-bottom:10px;"></el-date-picker>
                                 </el-dropdown-item>
                             </div>
                         </el-collapse-item>
                     </el-collapse>
  
-                                <!-- <el-col :span="10">
-                                    <el-dropdown trigger="click">
-                                            <span class="el-dropdown-link" >
-                                            更多<i class="el-icon-arrow-down el-icon-right"></i>
-                                            </span>
-                                        <el-dropdown-menu slot="dropdown" style="width:180px;margin-left:40px;">
-                                                <el-dropdown-item style="font-size:10px;">
-                                                    <el-checkbox label="重点单位"></el-checkbox>
-                                                    <el-checkbox label="重大活动或会议"></el-checkbox>
-                                                    <el-checkbox label="其他对象"></el-checkbox>
-                                                </el-dropdown-item>
-                                                <el-dropdown-item>
-                                                    <el-select style="margin-top: 10px;" placeholder="请选择">
-                                                    </el-select>
-                                                </el-dropdown-item>
-                                                <el-dropdown-item>
-                                                    <el-input style="margin-top: 10px;" placeholder="主体名称"></el-input>
-                                                </el-dropdown-item>
-                                                <el-dropdown-item>
-                                                    <el-input style="margin-top: 10px;" placeholder="地址"></el-input>
-                                                </el-dropdown-item>
-                                                <el-dropdown-item>
-                                                    <el-date-picker style="margin-top: 10px;width:200px;" type="date" placeholder="录入日期"></el-date-picker>
-                                                </el-dropdown-item>
-                                        </el-dropdown-menu>
-                                    </el-dropdown>
-                                </el-col> -->
+                                
 
                      <div class="pagenum">
                           
@@ -233,12 +206,12 @@
                 //百度地图API功能
                 var content =
                 
-                '<div style="margin:0;line-height:20px;padding:2px;">' +
-                    '<img src="../../static/images/zdqy.png" alt="" style="float:left;zoom:1;overflow:hidden;width:100px;height:100px;margin-right:3px;"/>' +
-                    '<br/>基本信息<br/>详情：' +
+                '<div style="margin:0;line-height:20px;padding:2px;width:300px">' +
+                    '<img src="../../static/images/zdqy.png" alt="" style="float:left;zoom:1;overflow:hidden;width:100px;height:150px;margin-right:3px;"/>' +
+                    '<br/>单位名称：<br/>单位成立时间：<br/> 单位地址： <br/>单位电话：<br/>消防管辖:' +
                   '</div>'
                 +
-                '<div style="border:1px solid #c4c4c4;margin-top:50px;padding:5px;border-radius:5px;width:240px;">'+
+                '<div style="border:1px solid #c4c4c4;margin-top:40px;padding:5px;border-radius:5px;width:300px;">'+
                 '二维预案'+
                 '<a style="color:blue;margin-left:40px;">'+
                 '预览'+
@@ -247,7 +220,7 @@
                 '下载'+
                 '</a>'+
                 '</div>'+
-                '<div style="border:1px solid #c4c4c4;margin-top:10px;padding:5px;border-radius:5px;width:240px;">'+
+                '<div style="border:1px solid #c4c4c4;margin-top:10px;padding:5px;border-radius:5px;width:300px;">'+
                 '三维预案'+
                 '<a style="color:blue;margin-left:40px;">'+
                 '预览'+
@@ -293,11 +266,9 @@
                     infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
                 }
                 });
-
                 this.marker1 = marker1;
                 this.marker2 = marker2;
                 this.marker3 = marker3;
-
             }
         },
         mounted() {
