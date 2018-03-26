@@ -10,7 +10,7 @@
         <div class="left-sidebar">
             <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
             <div id="menu-box">
-                <big-tree default-active="41"></big-tree>
+                <big-tree default-active="31"></big-tree>
             </div>
         </div>
         <div id="app">
@@ -84,7 +84,7 @@
                                     </el-row>
 								<el-row type="flex" justify="center">
                                     <el-col :span="10">
-                                            <el-form-item label="编制单位">
+                                            <el-form-item label="编制单位"  style="display: none;">
                                                 <el-tree class="inputWidth" :props="treeDefaultProps" :data="allFormationList" node-key="id" ref="tree" highlight-current :default-expanded-keys="defaultKeys"
                                                     @node-click="handleNodeClick" show-checkbox>
                                                 </el-tree>
