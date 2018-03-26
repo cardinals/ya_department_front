@@ -40,7 +40,7 @@
                                     <el-col :span="12">
                                         <el-form-item label="取水形式">
                                             <el-select size="small" v-model="searchForm.qsxs" placeholder="全部" class="inputWidth" clearable>
-												<el-option v-for="item in QSXS_data" :label="item.label" :value="item.value" :key="item.value"></el-option>
+												<el-option v-for="item in QSXS_data" :label="item.codeName" :value="item.codeValue" :key="item.codeValue"></el-option>
 											</el-select>
                                         </el-form-item>
 									</el-col>
@@ -49,8 +49,8 @@
 								<el-col :span="10">
 									<el-form-item label="水源类型">
 										<el-select size="small" v-model="selected_SYLX" placeholder="全部" style="width:300px;" multiple>	
-										<el-option v-for="item in SYLX_data" :key="item.value" :label="item.label" :value="item.value"></el-option>
-									</el-select>
+											<el-option v-for="item in SYLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
 									</el-form-item>
 								</el-col>
 								<el-col :span="12"></el-col>   
