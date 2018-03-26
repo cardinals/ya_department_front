@@ -28,15 +28,6 @@
                     <el-collapse class="res_slt" >
                         <el-collapse-item title="更多搜索选项" name="4" >
                             <div>
-                            <!-- <form action="" method="get"> 
-                                <label><input name="Fruit" type="checkbox" value="" />重点单位</label> 
-                                <label><input name="Fruit" type="checkbox" value="" />重大活动或会议</label> 
-                                <label><input name="Fruit" type="checkbox" value="" />其他对象</label> 
-                            </form>  -->
-                           
-                            </div>
-                            <div>
-                               
                                 <el-dropdown-item>
                                     <el-input class="mt10" placeholder="主体名称" style="padding-bottom:10px;"></el-input>
                                 </el-dropdown-item>
@@ -56,28 +47,36 @@
                             </div>
                         </el-collapse-item>
                     </el-collapse>
- 
-                                
 
-                     <div class="pagenum">
-                          
-                        <a href="" class="bgbtn02 btn pagenum_btn" >     
-                            <!-- <img src="images/edit.png"/>      -->
-                             <
+                    <!-- <table border="0" style="color:#ffffff;font-size:15px;position:absolute;top:100px;left:60px;border-collapse:separate; border-spacing:0px 12px;">
+                        <tr v-for = "data in tableData" >
+                            <td>{{data.DWMC}}</td>
+                        </tr>
+                    </table> -->
 
-                          </a> 
-                          <span>1/33</span>  
-                          <a href="" class="bgbtn02 btn pagenum_btn" >     
-                                <!-- <img src="images/edit.png"/>    -->
-                            >
+                    <el-card v-for="data in tableData" :body-style="{ padding: '0px' }" style="margin-bottom:6px;background-color:#708090;">
+                        <div slot="header">
+                            <div>
+                                <strong>{{data.DWMC }}</strong>&nbsp&nbsp
+                                <el-tag color="#0f82ee" size="medium">{{data.DWXZ}}</el-tag>
+                            </div>
+                        </div>
+                        <div class="l">地址：{{data.DWDZ }}</div>
+                        <div class="l">电话：{{data.DWDH }}</div>
+                    </el-card>
 
-                          </a>    
+                    <div class="pagenum">
+                        <a href="" class="bgbtn02 btn pagenum_btn">
+                            &lt;
+                        </a>
+                        <span>1/33</span>
+                        <a href="" class="bgbtn02 btn pagenum_btn">
+                            &gt;
+                        </a>
                     </div>
                 </el-form>
                 </div>
-
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc an" href="javascript:;" ></a>
-
             </div>
 
 
@@ -159,7 +158,120 @@
                 { value: '宁夏', label: '宁夏' },
                 { value: '新疆', label: '新疆' }],
             selectedOptions: [],
-            selectedOptions2: []
+            selectedOptions2: [],
+            tableData: [
+            {
+                DWMC:"辽宁省人民法院",
+                XZQY: "辽宁省",
+                DWDZ:"霞飞路29号",
+                XFGXJGNAME: "沈阳市消防局",
+                CJSJ:"2012-02-23",
+                DWDJ: "省部级",
+                DWXZ:"司法",
+                DWDH:"1234567",
+                ID:"1"
+            },
+               {
+                DWMC:"辽宁省政府",
+                DWDJ: "省部级",
+                DWXZ:"行政",
+                XZQY: "辽宁省",
+                DWDZ:"霞飞路30号",
+                ZDMJ: 50000,
+                XFGXJGID: "沈阳市消防局",
+                DWDH:"1234567",
+                ID:"2"
+            },
+            {
+                DWMC:"辽宁省就业局",
+                DWDJ: "省部级",
+                DWXZ:"民事",
+                XZQY: "辽宁省",
+                DWDZ:"霞飞路31号",
+                ZDMJ: 20000,
+                XFGXJGID: "沈阳市消防局",
+                DWDH:"1234567",
+                ID:"3"
+            }
+            // ,
+            // {
+            //     DWMC:"沈阳市城市规划管理局",
+            //     DWDJ: "市厅级",
+            //     DWXZ:"城市管理",
+            //     XZQY: "辽宁省",
+            //     DWDZ:"霞飞路32号",
+            //     ZDMJ: 10000,
+            //     XFGXJGID: "沈阳市消防和平分队",
+            //     DWDH:"1234567",
+            //     ID:"4"
+            // },
+            // {
+            //     DWMC:"沈阳市公安局",
+            //     DWDJ: "市厅级",
+            //     DWXZ:"司法",
+            //     XZQY: "辽宁省",
+            //     DWDZ:"霞飞路33号",
+            //     ZDMJ: 12000,
+            //     XFGXJGID: "沈阳市消防沈河分队",
+            //     DWDH:"1234567",
+            //     ID:"5"
+            // },
+            // {
+            //     DWMC:"沈阳市地铁二号线",
+            //     DWDJ: "市厅级",
+            //     DWXZ:"民事",
+            //     XZQY: "辽宁省",
+            //     DWDZ:"霞飞路34号",
+            //     ZDMJ: 1000,
+            //     XFGXJGID: "沈阳市消防浑南分队",
+            //     DWDH:"1234567",
+            //     ID:"6"
+            // },
+            // {
+            //     DWMC:"青岛市塑性加工园",
+            //     DWDJ: "市厅级",
+            //     DWXZ:"城市管理",
+            //     XZQY: "山东省",
+            //     DWDZ:"文明路39号",
+            //     ZDMJ: 2000,
+            //     XFGXJGID: "青岛市市消防大东分队",
+            //     DWDH:"1234567",
+            //     ID:"7"
+            // },
+            // {
+            //     DWMC:"泰安市城建局",
+            //     DWDJ: "市厅级",
+            //     DWXZ:"城市管理",
+            //     XZQY: "山东省",
+            //     DWDZ:"法防路36号",
+            //     ZDMJ: 2000,
+            //     XFGXJGID: "泰安市消防塔湾分队",
+            //     DWDH:"1234567",
+            //     ID:"8"
+            // },
+            // {
+            //     DWMC:"河北省国土资源厅",
+            //     DWDJ: "省部级",
+            //     DWXZ:"城市管理",
+            //     XZQY: "河北省",
+            //     DWDZ:"格调路46号",
+            //     ZDMJ: 3000,
+            //     XFGXJGID: "河北省消防总队",
+            //     DWDH:"1234567",
+            //     ID:"9"
+            // },
+            // {
+            //     DWMC:"秦皇岛市林业局",
+            //     DWDJ: "市厅级",
+            //     DWXZ:"城市管理",
+            //     XZQY: "河北省",
+            //     DWDZ:"发文路64号",
+            //     ZDMJ: 4000,
+            //     XFGXJGID: "秦皇岛市消防大队",
+            //     DWDH:"1234567",
+            //     ID:"10"
+            // }
+            ]
         },
         methods: {
             getMarker1: function () {
@@ -207,11 +319,14 @@
                 var content =
                 
                 '<div style="margin:0;line-height:20px;padding:2px;width:300px">' +
-                    '<img src="../../static/images/zdqy.png" alt="" style="float:left;zoom:1;overflow:hidden;width:100px;height:150px;margin-right:3px;"/>' +
-                    '<br/>单位名称：<br/>单位成立时间：<br/> 单位地址： <br/>单位电话：<br/>消防管辖:' +
+                    '<img src="../../static/images/zdqy.png" alt="" style="float:left;zoom:1;overflow:hidden;width:100px;height:140px;margin-right:3px;"/>' +
+                    '<br/>单位名称：泰安市城建局'+
+                    '<br/>单位地址：法防路36号'+
+                    '<br/>单位电话：123456'+
+                    '<br/>消防管辖：泰安市消防塔湾分队' +
                   '</div>'
                 +
-                '<div style="border:1px solid #c4c4c4;margin-top:40px;padding:5px;border-radius:5px;width:300px;">'+
+                '<div style="border:1px solid #c4c4c4;margin-top:40px;padding:5px;border-radius:5px;width:100%;">'+
                 '二维预案'+
                 '<a style="color:blue;margin-left:40px;">'+
                 '预览'+
@@ -220,7 +335,7 @@
                 '下载'+
                 '</a>'+
                 '</div>'+
-                '<div style="border:1px solid #c4c4c4;margin-top:10px;padding:5px;border-radius:5px;width:300px;">'+
+                '<div style="border:1px solid #c4c4c4;margin-top:10px;padding:5px;border-radius:5px;width:100%;">'+
                 '三维预案'+
                 '<a style="color:blue;margin-left:40px;">'+
                 '预览'+
