@@ -1,5 +1,5 @@
 //axios默认设置cookie
-axios.defaults.withCredentials = true;	
+axios.defaults.withCredentials = true;
 new Vue({
     el: '#app',
     data: function () {
@@ -15,40 +15,9 @@ new Vue({
                 jgid: ''
             },
             tableData: [],
-            SYLX_data: [
-                {
-                    value: 'XHS',
-                    label: '消火栓'
-                },{
-                    value: 'XFSC',
-                    label: '消防水池'
-                },{
-                    value: 'XFSH',
-                    label: '消防水鹤'
-                },{
-                    value: 'XFQSMT',
-                    label: '消防取水码头'
-                },{
-                    value: 'TRSY',
-                    label: '天然水源'
-                }
-            ],
+            SYLX_data: [],
             selected_SYLX: [],
-            QSXS_data: [
-                {
-                    value: '001',
-                    label: '形式一'
-                }, {
-                    value: '002',
-                    label: '形式二'
-                }, {
-                    value: '003',
-                    label: '形式三'
-                }, {
-                    value: '004',
-                    label: '形式四'
-                }
-            ],
+            QSXS_data: [],
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -107,12 +76,12 @@ new Vue({
                 ZDMJ: "",
                 XFGXJGID: ""
             },
-
-
         }
     },
     created: function () {
-       this.searchClick();
+        this.searchClick();
+        this.searchSYLX_data();
+        this.searchQSXS_data();
     },
     methods: {
         handleNodeClick(data) {
@@ -123,19 +92,19 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
-            this.searchForm.sylx = '';
-            if(this.selected_SYLX.length>0){
-            for(var i=0;i<this.selected_SYLX.length;i++){
-                this.searchForm.sylx += '\''+this.selected_SYLX[i] + '\',';
-           // this.searchForm.sylx += this.selected_SYLX[i] + ',';
-            }
-        }
+            // this.searchForm.sylx = '';
+            // if (this.selected_SYLX.length > 0) {
+            //     for (var i = 0; i < this.selected_SYLX.length; i++) {
+            //         this.searchForm.sylx += '\'' + this.selected_SYLX[i] + '\',';
+            //         // this.searchForm.sylx += this.selected_SYLX[i] + ',';
+            //     }
+            // }
             var params = {
-                symc : this.searchForm.symc,
-                sydz : this.searchForm.sydz,
-                jgid : this.searchForm.jgid,
-                qsxs : this.searchForm.qsxs,
-                sylx : this.searchForm.sylx
+                symc: this.searchForm.symc,
+                sydz: this.searchForm.sydz,
+                jgid: this.searchForm.jgid,
+                qsxs: this.searchForm.qsxs,
+                sylx: this.searchForm.sylx
             }
             axios.post('/dpapi/shuiyuan/findByVO', params).then(function (res) {
                 console.log(res.data.result);
@@ -147,13 +116,27 @@ new Vue({
             })
         },
         clearClick: function () {
-            this.searchForm.symc="";
-            this.searchForm.sydz="";
-            this.searchForm.jgid="";
-            this.searchForm.qsxs="";
-            this.searchForm.sylx="";
-            this.selected_SYLX=[];
-            
+            this.searchForm.symc = "";
+            this.searchForm.sydz = "";
+            this.searchForm.jgid = "";
+            this.searchForm.qsxs = "";
+            this.searchForm.sylx = "";
+            this.selected_SYLX = [];
+
+        },
+        searchSYLX_data: function () {
+            axios.get('/api/codelist/getCodetype/SYLX').then(function (res) {
+                this.SYLX_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchQSXS_data: function () {
+            axios.get('/api/codelist/getCodetype/GSFS').then(function (res) {
+                this.QSXS_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -200,7 +183,7 @@ new Vue({
                     return '形式四';
                     break;
             }
-        }, 
+        },
         informClick(val) {
             window.location.href = "firewater_detail.html?id=" + val.id;
         },
@@ -251,54 +234,54 @@ new Vue({
         // 	if (e != "cancel") console.log("出现错误：" + e);
         // 	});
         // },
-/*
-        //新建事件
-        addClick: function () {
-            var _self = this;
-            _self.addFormVisible = true;
-
-        },
-        //删除所选，批量删除
-        removeSelection: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
-                    message: "请至少选中一条记录",
-                    type: "error"
-                });
-                return;
-            }
-            //var ids = "";
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                //ids += row.realname + ",";
-                ids.push(row.permissionname);
-            }
-            this.$confirm("确认删除" + ids + "吗?", "提示", {
-                type: "warning"
-            })
-                .then(function () {
-                    for (var d = 0; d < ids.length; d++) {
-                        for (var k = 0; k < _self.tableData.length; k++) {
-                            if (_self.tableData[k].permissionname == ids[d]) {
-                                _self.tableData.splice(k, 1);
-                            }
-                        }
+        /*
+                //新建事件
+                addClick: function () {
+                    var _self = this;
+                    _self.addFormVisible = true;
+        
+                },
+                //删除所选，批量删除
+                removeSelection: function () {
+                    var _self = this;
+                    var multipleSelection = this.multipleSelection;
+                    if (multipleSelection.length < 1) {
+                        _self.$message({
+                            message: "请至少选中一条记录",
+                            type: "error"
+                        });
+                        return;
                     }
-                    _self.$message({
-                        message: ids + "删除成功",
-                        type: "success"
-                    });
-                    _self.total = _self.tableData.length;
-                    _self.loadingData(); //重新加载数据
-                })
-                .catch(function (e) {
-                    if (e != "cancel") console.log("出现错误：" + e);
-                });
-        },
-    */
+                    //var ids = "";
+                    var ids = [];
+                    for (var i = 0; i < multipleSelection.length; i++) {
+                        var row = multipleSelection[i];
+                        //ids += row.realname + ",";
+                        ids.push(row.permissionname);
+                    }
+                    this.$confirm("确认删除" + ids + "吗?", "提示", {
+                        type: "warning"
+                    })
+                        .then(function () {
+                            for (var d = 0; d < ids.length; d++) {
+                                for (var k = 0; k < _self.tableData.length; k++) {
+                                    if (_self.tableData[k].permissionname == ids[d]) {
+                                        _self.tableData.splice(k, 1);
+                                    }
+                                }
+                            }
+                            _self.$message({
+                                message: ids + "删除成功",
+                                type: "success"
+                            });
+                            _self.total = _self.tableData.length;
+                            _self.loadingData(); //重新加载数据
+                        })
+                        .catch(function (e) {
+                            if (e != "cancel") console.log("出现错误：" + e);
+                        });
+                },
+            */
         //分页大小修改事件
         pageSizeChange: function (val) {
             console.log("每页 " + val + " 条");
