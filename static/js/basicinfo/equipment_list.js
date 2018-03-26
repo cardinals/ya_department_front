@@ -85,7 +85,7 @@ new Vue({
             // this.searchForm.
         },
         getAllTypesData: function (){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            axios.get('/api/codelist/getCodetype/QCFL').then(function(res){
                 this.allTypesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);

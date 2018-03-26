@@ -40,7 +40,7 @@
 							<el-row type="flex" justify="center">
 								<el-col :span="10">
 									<el-form-item label="消防管辖">
-										<el-cascader 
+										<!-- <el-cascader 
 											expand-trigger="hover" 
 											:options="XFGX_data" 
 											v-model="selected_XFGX" 
@@ -48,8 +48,9 @@
 											class="inputWidth" 
 											v-model="searchForm.xfgx"
 											:props="defaultProps">
-												
-										</el-cascader>
+
+										</el-cascader> -->
+										<el-input size="small" v-model="searchForm.xfgx" placeholder="消防管辖" class="inputWidth"></el-input>
 									</el-form-item>
 								</el-col>
 								<el-col :span="12">
