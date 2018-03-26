@@ -232,14 +232,31 @@
             drawMap: function () {
                 //百度地图API功能
                 var content =
-                '<div style="margin:0;line-height:20px;padding:2px;">' +
-                '<img src="../img/baidu.jpg" alt="" style="float:left;zoom:1;overflow:hidden;width:90px;height:200px;margin-right:3px;"/>' +
+                '<div style="margin:0;line-height:20px;padding:2px;width:90px;height:200px;">'
+                    
+                    +
+                '<img src="../../static/images/zdqy.png" alt="" style="float:left;zoom:1;overflow:hidden;width:90px;height:100px;margin-right:3px;"/>' +
                 '基本信息' +
-               
-               
+                    '<div style="border:1px solid #c0c0c0;border-radius:5px;padding:10px;height:50px;width:100px;">'+
+                    '二维预案'+
+                    '<a style="color:blue">'+
+                    '预览'+
+                    '</a>'+
+                    '<a style="color:red">'+
+                    '下载'+
+                    '</a>'+
+                    '</div>'+
+                    '<div style="border:1px solid #c0c0c0;border-radius:5px;padding:10px;height:50px;width:100px;">'+
+                    '三维预案'+
+                    '<a style="color:blue">'+
+                    '预览'+
+                    '</a>'+
+                    '<a style="color:red">'+
+                    '下载'+
+                    '</a>'+
+                    '</div>'+
+
                 '</div>'
-                
-                
                 
                 ;
                 var map = new BMap.Map("BMap");    //创建Map实例
