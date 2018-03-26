@@ -39,10 +39,11 @@
 									</el-form-item>
 								</el-col>
 								<el-col :span="11">
-									<el-form-item label="所属消防机构名称">
-										<el-select size="small" v-model="searchForm.ssxfjg" class="inputWidth" clearable>
+									<el-form-item label="所属消防机构">
+											<el-input size="small" v-model="searchForm.ssxfjg" placeholder="所属消防机构名称" class="inputWidth"></el-input>
+										<!-- <el-select size="small" v-model="searchForm.ssxfjg" class="inputWidth" clearable>
                                             <el-option v-for="ssxfjg in allSSXFJGData" :label="ssxfjg.codeName" :value="ssxfjg.codeValue" :key="ssxfjg.codeName"></el-option>
-                                        </el-select>
+                                        </el-select> -->
 									</el-form-item>
 								</el-col>
 							</el-row>
