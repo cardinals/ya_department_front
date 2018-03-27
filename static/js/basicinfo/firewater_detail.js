@@ -155,61 +155,61 @@ new Vue({
         //分类加载基础信息tab
         loadingJCXX: function(SYLX,id){          
             switch (SYLX) {
-                case 'XHS':
+                case '1100':
                     var div=document.getElementById("XHS");
                     div.style.display = "";
                     var params = {
                         id : id
                     }
-                    axios.post('/dpapi/xhs/findById',params).then(function (res) {
+                    axios.get('/dpapi/xhs/'+ id).then(function (res) {
                         this.XHSdata = res.data.result;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
                     break;
-                case 'XFSC':
+                case '1300':
                     var div=document.getElementById("XFSC");
                     div.style.display = "";
                     var params = {
                         id : id
                     }
-                    axios.post('/dpapi/xfsc/findById',params).then(function (res) {
+                    axios.get('/dpapi/xfsc/'+ id).then(function (res) {
                         this.XFSCdata = res.data.result;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
                     break;
-                case 'XFSH':
+                case '1200':
                     var div=document.getElementById("XFSH");
                     div.style.display = "";
                     var params = {
                         id : id
                     }
-                    axios.post('/dpapi/xfsh/findById',params).then(function (res) {
+                    axios.get('/dpapi/xfsh/'+ id).then(function (res) {
                         this.XFSHdata = res.data.result;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
                     break;
-                case 'XFQSMT':
+                case '2100':
                     var div=document.getElementById("XFQSMT");
                     div.style.display = "";
                     var params = {
                         id : id
                     }
-                    axios.post('/dpapi/xfmt/findById',params).then(function (res) {
+                    axios.get('/dpapi/xfmt/'+ id).then(function (res) {
                         this.XFQSMTdata = res.data.result;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
                     break;
-                case 'TRSY':
+                case '2000':
                     var div=document.getElementById("TRSY");
                     div.style.display = "";
                     var params = {
                         id : id
                     }
-                    axios.post('/dpapi/trsy/findById',params).then(function (res) {
+                    axios.post('/dpapi/trsy/'+ id).then(function (res) {
                         this.TRSYdata = res.data.result;
                     }.bind(this), function (error) {
                         console.log(error)

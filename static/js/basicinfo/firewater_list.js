@@ -92,13 +92,13 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
-            // this.searchForm.sylx = '';
-            // if (this.selected_SYLX.length > 0) {
-            //     for (var i = 0; i < this.selected_SYLX.length; i++) {
-            //         this.searchForm.sylx += '\'' + this.selected_SYLX[i] + '\',';
-            //         // this.searchForm.sylx += this.selected_SYLX[i] + ',';
-            //     }
-            // }
+            //水源类型多选，array拼接成字符串
+             this.searchForm.sylx = '';
+             if (this.selected_SYLX.length > 0) {
+                 for (var i = 0; i < this.selected_SYLX.length; i++) {
+                     this.searchForm.sylx += '\'' + this.selected_SYLX[i] + '\',';
+                 }
+             }
             var params = {
                 symc: this.searchForm.symc,
                 sydz: this.searchForm.sydz,
@@ -146,43 +146,6 @@ new Vue({
             this.multipleSelection = val;
             //this.sels = sels
             console.info(val);
-        },
-        //水源类型格式化
-        typeFormat: function (row, column) {
-            switch (row[column.property]) {
-                case 'XHS':
-                    return '消火栓';
-                    break;
-                case 'XFSC':
-                    return '消防水池';
-                    break;
-                case 'XFSH':
-                    return '消防水鹤';
-                    break;
-                case 'XFQSMT':
-                    return '消防取水码头';
-                    break;
-                case 'TRSY':
-                    return '天然水源';
-                    break;
-            }
-        },
-        //取水形式格式化
-        formsFormat: function (row, column) {
-            switch (row[column.property]) {
-                case '001':
-                    return '形式一';
-                    break;
-                case '002':
-                    return '形式二';
-                    break;
-                case '003':
-                    return '形式三';
-                    break;
-                case '004':
-                    return '形式四';
-                    break;
-            }
         },
         informClick(val) {
             window.location.href = "firewater_detail.html?id=" + val.id;
