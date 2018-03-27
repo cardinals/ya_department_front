@@ -55,6 +55,27 @@
             }
 
         </style>
+        <style>
+        .run{
+            -webkit-animation:run 6s linear 0s infinite;
+        }
+        .run:hover{  
+        -webkit-animation-play-state:paused;  
+    }  
+
+
+    @-webkit-keyframes run{  
+        from{  
+            -webkit-transform:rotate(0deg);  
+        }  
+        to{  
+            -webkit-transform:rotate(360deg);  
+        }  
+    }  
+        
+        
+        
+        </style>
 </head>
 
 
@@ -67,9 +88,9 @@
                   
             	<img src="../../static/images/bg_0101.png" style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 410px; border:1px solid #00008B;"/>
             
-                <img src="../../static/images/center_01.png" style= "position: fixed;left:325px;top:100px; width: 195px;height: 200px;"/>
-                <a @click="loadChart">
-                <img src="../../static/images/center_01_a.png" style= "position: fixed;left:372.5px;top:158px; width: 99px;height: 85px;"/>
+                <img class="run" src="../../static/images/center_05.png" style= "position: fixed;left:318px;top:98px; width: 205px;height: 205px;"/>
+                <a @click="loadChart" style= "position: fixed;left:400px;top:172px; width: 40px;height: 60px;color:#fff;font-size:18px;padding:1px;">
+                 数据汇集
                 </a>
                 <!-- <div @click="loadChart" style= "position: fixed;left:322px;top:100px; width: 200px;height: 200px;background-image: url('../../static/images/center_01.png');background-size:200px 200px"></div> -->
                 <!-- <a @click="loadChart" style="position:fixed;left:390px;top:180px;color:#fff;">数据汇集</a> -->
