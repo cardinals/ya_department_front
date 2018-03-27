@@ -27,6 +27,29 @@ new Vue({
                 endtime_create:"",       
             },
             tableData: [],
+            testData:{
+                pkid:"67833B5FB1232169E053B077770AE86",
+                yamc:"物美生活广场及地铁华苑站三维灭火预案",
+                yalxdm:"人员密集场所",
+                dxmc:"物美生活广场及地铁华苑站",
+                dxlxdm:"灭火预案单位",
+                zzdwmc:"",
+                zzrq:"2016-03-16",
+                yazl:"对象预案"
+            },
+            detailTestData:{
+                pkid:"67833B5FB1232169E053B077770AE86",
+                yamc:"物美生活广场及地铁华苑站三维灭火预案",
+                dxmc:"物美生活广场及地铁华苑站",
+                yalxdm:"人员密集场所",
+                yazl:"对象预案",
+                yabbh:"A",
+                sfkqy:"是",
+                zzdwmc:"",
+                zzrmc:"zhuolh@ha",
+                zzrq:"2016-03-16",
+                bz:""
+            },
             XFGX_data: [],
             selected_XFGX: [],
             YALX_data: [],
@@ -123,7 +146,7 @@ new Vue({
             //资源列表是否显示
             planDetailVisible: false,
             //表高度变量
-            tableheight: 441,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             //多选值
@@ -265,6 +288,7 @@ new Vue({
                         }
                     }
                 }
+                this.tableData.unshift(this.testData);
                 _self.total = _self.tableData.length;
                 console.log("success")
             }.bind(this),function(error){
@@ -321,7 +345,10 @@ new Vue({
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
-            
+            if(val.pkid == "67833B5FB1232169E053B077770AE86"){
+                this.detailData = this.detailTestData;
+            }
+            else{
             axios.get('/dpapi/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
                 this.detailData = res.data.result;
                 if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
@@ -340,9 +367,26 @@ new Vue({
     
                     this.detailYMD=[year, month, day].join('-');
                 }
+                for(var k=0;k<this.YALX_data.length;k++){
+                    if(this.YALX_data[k].codeValue == this.detailData.yalxdm){
+                        this.detailData.yalxdm = this.YALX_data[k].codeName;
+                    }
+                }
+                for(var m=0;m<this.YAZL_data.length;m++){
+                    if(this.YAZL_data[m].codeValue == this.detailData.yazl){
+                        this.detailData.yazl = this.YAZL_data[m].codeName;
+                    }
+                }
+                for(var h=0;h<this.DXLX_data.length;h++){
+                    if(this.DXLX_data[h].codeValue == this.detailData.dxlxdm){
+                        this.detailData.dxlxdm = this.DXLX_data[h].codeName;
+                    }
+                }
+                this.detailData.sfkqy = (this.detailData.sfkqy==1?"是":"否");
             }.bind(this), function (error) {
                 console.log(error)
             })
+        }
 
         },
         //预案下载
@@ -353,7 +397,7 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })*/
-            window.open("http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
+            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
         downloadPlan:function(){
             //window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838.zip");
@@ -361,7 +405,7 @@ new Vue({
             $form.attr('action', 'http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP');
             $form.appendTo($('body'));
             $form.submit();*/
-            window.open("http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
+            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
         },
         //表格重新加载数据
         loadingData: function () {
