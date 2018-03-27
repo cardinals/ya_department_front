@@ -6,7 +6,6 @@
 }
 .imgWidth{
     width: 150px;
-    margin-top: 2px;
 }
 .leftDetail{
     width: 220px;
@@ -14,15 +13,6 @@
 .el-upload__input{
     display: none !important;
 }
-.el-dialog--small{
-    width:55% !important;
-}
-.openPlan{
-    margin-top: 35px;
-}
-.digitalSearch{
-    width: 240px;
-}
-.digitalDate{
-    width: 110px !important;
+.el-form-item {
+    margin-bottom: 0;
 }

@@ -6,9 +6,11 @@ new Vue({
         return {
              /**lxy start */
              fileList: [
-                {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}, 
-                {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}
-            ],
+                {name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}, 
+                {name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'},
+                {name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}, 
+                {name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true'}
+              ],
            
             upLoadData:{
                 id:1
@@ -17,240 +19,19 @@ new Vue({
             //搜索表单
             searchForm: {
                 YAMC: "",
-                selected_YALX: [],
+                selected_YALX: "",
                 DXMC: "",
-                option_DXLX: [],
-                option_YAZL: [],
+                option_DXLX: "",
+                option_YAZL: "",
                 begintime_create:"",
                 endtime_create:"",       
             },
-            tableData: []/*[
-                {
-                    YAMC: "防火器材预案",
-                    YALX: "指挥",
-                    DXMC: "沈阳市消防局",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "1997-01-12",
-                    YAZL:"二维预案",
-                    ID: "1"
-                },
-                {
-                    YAMC: "疏散预案",
-                    YALX: "疏散",
-                    DXMC: "沈河区消防局",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "1999-04-21",
-                    YAZL:"二维预案",
-                    ID: "2"
-                },
-                {
-                    YAMC: "路线预案",
-                    YALX: "指挥",
-                    DXMC: "沈阳工业园区",
-                    DXLX: "化工园区",
-                    BZDW: "个体",
-                    BZRQ: "2012-04-25",
-                    YAZL:"三维预案",
-                    ID: "3"
-                },
-                {
-                    YAMC: "合作预案",
-                    YALX: "合作计划",
-                    DXMC: "消防总部",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "1983-02-05",
-                    YAZL:"二维预案",
-                    ID: "4"
-                },
-                {
-                    YAMC: "水源分布预案",
-                    YALX: "水源",
-                    DXMC: "北京市消防大队",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "1973-10-05",
-                    YAZL:"三维预案",
-                    ID: "5"
-                },
-                {
-                    YAMC: "安全出口预案",
-                    YALX: "调度",
-                    DXMC: "和平区消防大队",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "1993-05-20",
-                    YAZL:"二维预案",
-                    ID: "6"
-                },
-                {
-                    YAMC: "设备转移预案",
-                    YALX: "调度",
-                    DXMC: "金融中心",
-                    DXLX: "大型综合体",
-                    BZDW: "政府部门",
-                    BZRQ: "1989-09-04",
-                    YAZL:"三维预案",
-                    ID: "7"
-                },
-                {
-                    YAMC: "救援预案",
-                    YALX: "指挥",
-                    DXMC: "辽宁省消防厅",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "2007-11-12",
-                    YAZL:"文档预案",
-                    ID: "8"
-                },
-                {
-                    YAMC: "消防车辆预案",
-                    YALX: "调度",
-                    DXMC: "大东区消防分队",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "2009-06-23",
-                    YAZL:"二维预案",
-                    ID: "9"
-                },
-                {
-                    YAMC: "相邻建筑预案",
-                    YALX: "指挥",
-                    DXMC: "沈阳市消防局",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    BZRQ: "2006-12-6",
-                    YAZL:"三维预案",
-                    ID: "10"
-                }
-            ]*/,
-            XFGX_data: [
-                {
-                    value: 'liaoning',
-                    label: '辽宁省消防总队',
-                    children: [{
-                        value: 'shenyang',
-                        label: '沈阳市消防总队',
-                        children: [{
-                            value: 'heping',
-                            label: '沈阳市消防和平分队'
-                        }, {
-                            value: 'dadong',
-                            label: '沈阳市消防大东分队'
-                        }]
-                    }, {
-                        value: 'dalian',
-                        label: '大连市消防总队'
-                    }, {
-                        value: 'anshan',
-                        label: '鞍山市消防总队'
-                    }]
-                }, {
-                    value: 'shandong',
-                    label: '山东省消防总队',
-                    children: [{
-                        value: 'shenyang',
-                        label: '青岛市消防总队'
-                    }, {
-                        value: 'dalian',
-                        label: '烟台市消防总队'
-                    }, {
-                        value: 'anshan',
-                        label: '淄博市消防总队'
-                    }]
-                }, {
-                    value: 'hebei',
-                    label: '河北省消防总队',
-                    children: [{
-                        value: 'qinhuangdao',
-                        label: '秦皇岛市消防总队'
-                    }, {
-                        value: 'dalian',
-                        label: '石家庄消防总队'
-                    }]
-                }
-            ],
+            tableData: [],
+            XFGX_data: [],
             selected_XFGX: [],
-            YALX_data: [],/*
-                {
-                    value: 'liaoning',
-                    label: '辽宁省',
-                    children: [{
-                        value: 'shenyang',
-                        label: '沈阳市',
-                        children: [{
-                            value: 'heping',
-                            label: '沈阳市和平'
-                        }, {
-                            value: 'dadong',
-                            label: '沈阳市大东'
-                        }]
-                    }, {
-                        value: 'dalian',
-                        label: '大连市队'
-                    }, {
-                        value: 'anshan',
-                        label: '鞍山市'
-                    }]
-                }, {
-                    value: 'shandong',
-                    label: '山东省',
-                    children: [{
-                        value: 'shenyang',
-                        label: '青岛市'
-                    }, {
-                        value: 'dalian',
-                        label: '烟台市'
-                    }, {
-                        value: 'anshan',
-                        label: '淄博市'
-                    }]
-                }, {
-                    value: 'hebei',
-                    label: '河北省',
-                    children: [{
-                        value: 'qinhuangdao',
-                        label: '秦皇岛'
-                    }, {
-                        value: 'dalian',
-                        label: '石家庄'
-                    }]
-                }
-            ],*/
-
-            DXLX_data: [],/*
-                {
-                    value: '高层建筑',
-                    label: '高层建筑'
-                }, {
-                    value: '地下建筑',
-                    label: '地下建筑'
-                }, {
-                    value: '大型综合体',
-                    label: '大型综合体'
-                }, {
-                    value: '化工园区',
-                    label: '化工园区'
-                },
-                {
-                    value: '消防部队',
-                    label: '消防部队'
-                }
-            ],*/
-            YAZL_data: [],/*
-                {
-                    value: '文档预案',
-                    label: '文档预案'
-                }, {
-                    value: '二维预案',
-                    label: '二维预案'
-                }, {
-                    value: '三维预案',
-                    label: '三维预案'
-                }
-            ],*/
+            YALX_data: [],
+            DXLX_data: [],
+            YAZL_data: [],
             defaultKeys: [],
             //后台返回编制单位列表
 			 allFormationList:[
@@ -352,7 +133,7 @@ new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 10,
+            total: 0,
             //预案详情页
             detailData: [],
             //详情页日期
@@ -408,6 +189,7 @@ new Vue({
        this.searchClick();
        this.YALX();
        this.DXLX();
+       this.YAZL();
     },
     methods: {        
         handleNodeClick(data) {
@@ -422,15 +204,24 @@ new Vue({
         
         //预案类型
         YALX: function(){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            axios.get('/api/codelist/getCodetype/YALX').then(function(res){
                 this.YALX_data = res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
         },
+        //对象类型
         DXLX: function(){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            axios.get('/api/codelist/getCodetype/YADXLX').then(function(res){
                 this.DXLX_data = res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            }) 
+        },
+        //预案种类
+        YAZL:function(){
+            axios.get('/api/codelist/getCodetype/YAZL').then(function(res){
+                this.YAZL_data = res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             }) 
@@ -447,22 +238,21 @@ new Vue({
                 return;
             }
             var params={
-                /*yamc:searchForm.YAMC,
-                selected_YALX:this.searchForm.selected_YALX,
-                DXMC:this.searchForm.DXMC,
-                option_DXLX: this.searchForm.option_DXLX,
-                option_YAZL:this.searchForm.option_YAZL,
+                yamc:this.searchForm.YAMC,
+                yalxdm:this.searchForm.selected_YALX,
+                dxmc:this.searchForm.DXMC,
+                dxlxdm: this.searchForm.option_DXLX,
+                yazl:this.searchForm.option_YAZL,
                 begintime_create:this.searchForm.begintime_create,
-                endtime_create:this.searchForm.endtime_create*/
-
+                endtime_create:this.searchForm.endtime_create
             }
             axios.post('/dpapi/digitalplanlist/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
+                _self.total = _self.tableData.length;
                 console.log("success")
             }.bind(this),function(error){
                 console.log("failed")
             })
-            _self.total = _self.tableData.length;
             _self.loadingData(); //重新加载数据
         },
         clearClick: function () {
@@ -539,13 +329,14 @@ new Vue({
 
         },
         //预案下载
-        downloadPlan:function(){
+        openPlan:function(){
             /*var params = ;
             axios.post('/api/resource/getResource/' + val.ID,params).then(function (res) {
                 this.resourceList = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })*/
+            window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/物美生活广场及地铁华苑站三维灭火预案.html");
         },
         //表格重新加载数据
         loadingData: function () {

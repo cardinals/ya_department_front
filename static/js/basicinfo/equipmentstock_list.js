@@ -69,10 +69,9 @@ new Vue({
             var _self = this;
             var params={
                 zbqcmc:this.searchForm.zbqcmc,
-                // begintime: this.searchForm.begintime,
-                // endtime: this.searchForm.endtime,
-                // xzqy_id: this.searchForm.xzqy,
-                // xfgx_id: this.searchForm.xfgx
+                hwmc:this.searchForm.hwmc,
+                ckmc:this.searchForm.ckmc,
+                ssxfjg:this.searchForm.ssxfjg
             };
             axios.post('/dpapi/equipstocksource/findByVO',params).then(function(res){
                 this.tableData = res.data.result;

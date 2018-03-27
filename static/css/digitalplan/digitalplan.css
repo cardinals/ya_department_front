@@ -11,36 +11,3 @@ input[type=checkbox]{
 .el-input__inner{
     height: 30px;
 }
-.el-button--clear{
-    color:#fff;
-    background-color:#909399;
-    border-color:#909399
-}
-.el-button--clear:focus,.el-button--clear:hover{
-    background:#a6a9ad;
-    border-color:#a6a9ad;color:#fff
-}
-.el-button--clear.is-active,.el-button--clear:active{
-    background:#82848a;
-    border-color:#82848a;
-    color:#fff
-}
-.el-button--clear:active{
-    outline:0
-}
-.el-button--clear.is-plain{
-    background:#fff;
-    border:1px solid #bfcbd9;
-    color:#1f2d3d
-}
-.el-button--clear.is-plain:focus,.el-button--clear.is-plain:hover{
-    background:#fff;
-    border-color:#909399;
-    color:#909399
-}
-.el-button--clear.is-plain:active{
-    background:#fff;
-    border-color:#82848a;
-    color:#82848a;
-    outline:0
-}
