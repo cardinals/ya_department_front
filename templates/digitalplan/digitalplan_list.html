@@ -113,11 +113,11 @@
                                     <el-button type="text" @click="planDetails(scope.row)">{{scope.row.yamc}}</el-button>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="yalxdm" label="预案类型" min-width="11%" align="center"></el-table-column>
+                            <el-table-column prop="yalxdm" label="预案类型" min-width="14%" align="center"></el-table-column>
                             <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center"></el-table-column>
-                            <el-table-column prop="dxlxdm" label="对象类型" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="dxlxdm" label="对象类型" min-width="14%" align="center"></el-table-column>
                             <el-table-column prop="zzdwmc" label="编制单位" min-width="10%" align="center"></el-table-column>
-                            <el-table-column prop="zzrq" label="编制日期" min-width="12%" align="center" :formatter="dateFormat"></el-table-column>
+                            <el-table-column prop="zzrq" label="编制日期" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
                             <el-table-column prop="yazl" label="预案种类" min-width="10%" align="center"></el-table-column>
                         </el-table>
 
@@ -212,6 +212,7 @@
                                 <br>
                                 <div class="openPlan">
                                     <el-button type="primary" @click="openPlan">预案在线预览</el-button>
+                                    <el-button type="primary" @click="downloadPlan">预案下载</el-button>
                                 </div>
                                 <!-- lxy-start -->
 
