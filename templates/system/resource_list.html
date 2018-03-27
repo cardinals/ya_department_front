@@ -20,7 +20,7 @@
         <div class="left-sidebar">
             <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
             <div id="menu-box">
-                <big-tree default-active="53"></big-tree>
+                <big-tree  default-active="53"></big-tree>
             </div>
         </div>
         <div id="app">
@@ -53,39 +53,39 @@
 						</span>
 					</el-tree> -->
 
-                    <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
-					<el-tree 
-					:data="tableData" 
-					node-key="resourceid"
-					:default-expanded-keys="['17']" 
-					:props="defaultProps" 
-					@node-click="handleNodeClick" 
-					style=" font-weight:bold;
-					width:200px;
-					border-radius:5px;
-					font-weight:100px;"
-					show-checkbox
-					:expand-on-click-node="false"
-					>
-					<span class="custom-tree-node" slot-scope="{ node, data }">
-						<span>{{ node.label }}</span>
-						<span>
-							<el-button
-							type="text"
-							size="mini"
-							@click="() => append(data)">
-							Append
-							</el-button>
-							<el-button
-							type="text"
-							size="mini"
-							@click="() => remove(node, data)">
-							Delete
-							</el-button>
-						</span>
-					</span>
-					</el-tree>
-				    </div>
+              <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
+									<el-tree 
+									:data="tableData" 
+									node-key="resourceid"
+									:default-expanded-keys="['17']" 
+									:props="defaultProps" 
+									@node-click="handleNodeClick" 
+									style=" font-weight:bold;
+									width:200px;
+									border-radius:5px;
+									font-weight:100px;"
+									show-checkbox
+									:expand-on-click-node="false"
+									>
+									<span class="custom-tree-node" slot-scope="{ node, data }">
+										<span>{{ node.label }}</span>
+										<span>
+											<el-button
+											type="text"
+											size="mini"
+											@click="() => append(data)">
+											Append
+											</el-button>
+											<el-button
+											type="text"
+											size="mini"
+											@click="() => remove(node, data)">
+											Delete
+											</el-button>
+										</span>
+									</span>
+									</el-tree>
+				      </div>
                     <div class="res_in" style="padding-left:10px;
 					overflow:true;
 					margin-left:45px;
