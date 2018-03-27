@@ -19,29 +19,26 @@
 				<div id="lib :: main_container_header('消防车辆信息','消防车辆信息')"></div>
 				<div id="tableView">
 					<el-row>
-						<el-form label-width="110px" :inline="true" class="el-form demo-form-inline">
+						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 							<el-row type="flex" justify="center">
-								<el-col :span="11">
+								<el-col :span="10">
 									<el-form-item label="车辆类型">
 										<el-select size="small" v-model="searchForm.zblxdm" placeholder="全部" class="inputWidth" clearable>
                                             <el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
                                         </el-select>
 									</el-form-item>
 								</el-col>
-								<el-col :span="11">
+								<el-col :span="10">
 									<el-form-item label="车辆等级">
 										<el-select size="small" v-model="searchForm.cldjdm" placeholder="全部" class="inputWidth" clearable>
                                             <el-option v-for="type in allLevelsData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
                                     </el-select>
 								</el-col>
-							</el-row>
-							<el-row type="flex" justify="center">
-								<el-col :span="11">
+								<el-col :span="10">
 									<el-form-item label="车牌号码">
 										<el-input size="small" v-model="searchForm.cphm" placeholder="车牌号码" class="inputWidth"></el-input>
 									</el-form-item>
 								</el-col>
-								<el-col :span="11"></el-col>
 							</el-row>
 							<div>
 								<el-form>
