@@ -15,13 +15,13 @@
         <div id="app">
             <div class="main-box">
                 <div class="main-container">
-                    <div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
+                    <div id="lib :: main_container_header('高级搜索','高级搜索')"></div>
                     <div id="tableView">
                         <el-form label-width="100px" :model="searchForm" class="el-form demo-form-inline">
                             <el-row>
                                 <el-col :span="20">
                                     <el-form-item label="预案名称/预案对象名称">
-                                        <el-input size="medium " v-model="searchForm.YAMC" placeholder="预案名称" style="width: 700px"></el-input>
+                                        <el-input size="medium " v-model="searchForm.YAMC" placeholder="预案名称/预案对象名称" style="width: 700px"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="2">
@@ -32,28 +32,19 @@
                                 </el-col>
                             </el-row>
                             <el-form-item label="预案种类">
-                                <el-radio-group size="small" v-model="searchForm.YAZL">
-                                    <el-radio-button label="全部"></el-radio-button>
-                                    <el-radio-button label="部局预案"></el-radio-button>
-                                    <el-radio-button label="总队预案"></el-radio-button>
-                                    <el-radio-button label="支队预案"></el-radio-button>
-                                </el-radio-group>
+                                <el-checkbox-group size="small" v-model="checkedYazl">
+                                    <el-checkbox-button @change="handleCheckedYazlChange" v-for="item in yazl_data" :label="item.codeName" :key="item.codeValue" :value="item.codeValue"></el-checkbox-button>
+                                </el-checkbox-group>
                             </el-form-item>
                             <el-form-item label="预案对象种类">
-                                <el-radio-group size="small" v-model="searchForm.YADXZL">
-                                    <el-radio-button label="全部"></el-radio-button>
-                                    <el-radio-button label="灭火预案单位"></el-radio-button>
-                                    <el-radio-button label="消防保卫警卫"></el-radio-button>
-                                    <el-radio-button label="其他"></el-radio-button>
-                                </el-radio-group>
+                                <el-checkbox-group size="small" v-model="checkedDxzl">
+                                    <el-checkbox-button @change="handleCheckedDxzlChange" v-for="item in dxzl_data" :label="item.codeName" :key="item.codeValue" :value="item.codeValue"></el-checkbox-button>
+                                </el-checkbox-group>
                             </el-form-item>
                             <el-form-item label="预案类型">
-                                <el-radio-group size="small" v-model="searchForm.YALX">
-                                    <el-radio-button label="全部"></el-radio-button>
-                                    <el-radio-button label="卡片预案"></el-radio-button>
-                                    <el-radio-button label="二维预案"></el-radio-button>
-                                    <el-radio-button label="三维预案"></el-radio-button>
-                                </el-radio-group>
+                                <el-checkbox-group size="small" v-model="checkedYalx">
+                                    <el-checkbox-button @change="handleCheckedYalxChange" v-for="item in yalx_data" :label="item.codeName" :key="item.codeValue" :value="item.codeValue"></el-checkbox-button>
+                                </el-checkbox-group>
                             </el-form-item>
                             <!-- <el-form-item label="预案类别">
                                 <el-radio-group size="small" v-model="searchForm.YALB">
