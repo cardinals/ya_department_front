@@ -186,10 +186,10 @@ new Vue({
         }
     },
     created:function(){
-       this.searchClick();
-       this.YALX();
-       this.DXLX();
-       this.YAZL();
+        this.YALX();
+        this.DXLX();
+        this.YAZL();
+        this.searchClick();
     },
     methods: {        
         handleNodeClick(data) {
@@ -248,6 +248,23 @@ new Vue({
             }
             axios.post('/dpapi/digitalplanlist/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
+                for(var i=0;i<this.tableData.length;i++){
+                    for(var k=0;k<this.YALX_data.length;k++){
+                        if(this.YALX_data[k].codeValue == this.tableData[i].yalxdm){
+                            this.tableData[i].yalxdm = this.YALX_data[k].codeName;
+                        }
+                    }
+                    for(var m=0;m<this.YAZL_data.length;m++){
+                        if(this.YAZL_data[m].codeValue == this.tableData[i].yazl){
+                            this.tableData[i].yazl = this.YAZL_data[m].codeName;
+                        }
+                    }
+                    for(var h=0;h<this.DXLX_data.length;h++){
+                        if(this.DXLX_data[h].codeValue == this.tableData[i].dxlxdm){
+                            this.tableData[i].dxlxdm = this.DXLX_data[h].codeName;
+                        }
+                    }
+                }
                 _self.total = _self.tableData.length;
                 console.log("success")
             }.bind(this),function(error){
@@ -337,6 +354,14 @@ new Vue({
                 console.log(error)
             })*/
             window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/物美生活广场及地铁华苑站三维灭火预案.html");
+        },
+        downloadPlan:function(){
+            //window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838.zip");
+            /*var $form = $('<form method="GET"></form>');
+            $form.attr('action', 'http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP');
+            $form.appendTo($('body'));
+            $form.submit();*/
+            window.open("http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
         },
         //表格重新加载数据
         loadingData: function () {
