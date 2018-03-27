@@ -123,7 +123,7 @@ new Vue({
             //资源列表是否显示
             planDetailVisible: false,
             //表高度变量
-            tableheight: 458,
+            tableheight: 441,
             //显示加载中样
             loading: false,
             //多选值
@@ -353,7 +353,7 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })*/
-            window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/物美生活广场及地铁华苑站三维灭火预案.html");
+            window.open("http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
         downloadPlan:function(){
             //window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838.zip");
