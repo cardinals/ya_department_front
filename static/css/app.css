@@ -4,6 +4,13 @@
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
+
+/* 左侧滚动 */
+
+#menu-box{overflow:auto;overflow-x:hidden;height:555px;}
+
+
+
 .logo {
   background: url('../images/LOGO.png') no-repeat;
   width: 360px;
