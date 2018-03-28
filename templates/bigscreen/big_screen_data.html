@@ -209,7 +209,7 @@
                     ></div>
                     <span class="sync-province-lebal topdaohang">陕西</span>
                 </div>
-                
+
                 <div id="province18" class="sync-province-box">
                     <div class="sync-province-icon" type="button" class="btn btn-success"   
                     data-container="body" data-toggle="popover" data-placement="bottom" 
@@ -319,17 +319,21 @@
                             <div class="application-text flex ">
                                 <!-- <div style="color:#fff;">数据类型</div> -->
                                 <div id="pie" class="application-text"></div>
-                                
                             </div>
+
+                            <a @click="loadChart" style= "text-decoration:none;position: fixed;left:400px;top:172px; width: 40px;height: 60px;color:#fff;font-size:18px;padding:1px;">
+                                    数据汇集 </a>
+
                         </div> 
                     </div>
-                    
+                  
                     <div class="map-bg2" style="position:fixed;left:347px;top:455px;width:140px;height:85px;">
                         <div id="provincetest" class="sync-province-box"  >
                             <img class="sync-icon" src="../../static/images/sync-fwjd.png">
                             <span class="sync-lebal">数据节点</span>
                             <span class="sync-txts-normal">{{sjjd}}</span>
                         </div>
+
                    </div>
                    <div class="map-bg2" style="position:fixed;left:500px;top:455px;width:140px;height:85px;">
                      <div id="provincetest1" class="sync-province-box"  >
