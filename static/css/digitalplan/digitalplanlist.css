@@ -21,8 +21,11 @@
     margin-top: 35px;
 }
 .digitalSearch{
-    width: 240px;
+    width: 200px;
+}
+.digitalType{
+    width:268px;
 }
 .digitalDate{
-    width: 110px !important;
+    width: 125px !important;
 }
