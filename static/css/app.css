@@ -53,8 +53,22 @@
   right:0px;
   z-index:999;        /*设置重叠的上下次序，值越大月在上方*/
   background-color: #409EFF;
-  opacity: 0.5; 
-  /* 透明属性 */
+  /* opacity: 0.5; 透明属性 */
+  background-color: rgba(0,0,0,0);
+}
+
+/* icon图标 */
+.icon{
+    margin-top:10px;
+    width: 26px;
+    height: 26px;
+    overflow: hidden;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+    line-height: 26px;
+    float: left;
+    box-shadow: 1px 2px 1px rgba(0,0,128,0.5);
 }
 
 .map-menu .el-form-item__label {

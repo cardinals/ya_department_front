@@ -7,8 +7,10 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css" >
+  
 </head>
 <body class="fw map-bg">
     <div id="app">
@@ -79,22 +81,53 @@
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc an" href="javascript:;" ></a>
             </div>
 
-
+<!-- 右侧 -->
             <div class="map-menu-right h456 mt35">
 
                 <div class="meu-box-right">
-                    <el-button type="primary"  icon="el-icon-search"class="map_btn_f" >消防主体</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >数字化预案</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近500m水源</el-button>   
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近1000m水源</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近500m消防力量</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近1000m消防力量</el-button>
+                    <div style="width:30px;margin-top:240px;margin-left:130px;">
+                        <div class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="消防主体">
+                        <span class="glyphicon glyphicon-home" style="color:#008B00"></span>
+                        </div>
+                       
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="数字化预案">
+                        <span class="glyphicon glyphicon-tasks" style="color:#00688B"></span>
+                        </div>
+                       
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近500m水源">
+                        <span class="glyphicon glyphicon-tint" style="color:#7B68EE"></span>
+                        </div>
+                        
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近1000m水源">
+                        <span class="glyphicon glyphicon-tint" style="color:#7B68EE"></span>
+                        </div>
+                        
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近500m消防力量">
+                        <span class="glyphicon glyphicon-user"  style="color:#FF4500"></span>
+                        </div>
+
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近1000m消防力量">
+                        <span class="glyphicon glyphicon-user"  style="color:#FF4500"></span>
+                        </div>
+                    </div>
                 </div> 
 
             </div>
 
 
-            <div class="map-china" style="margin-top:10px;margin-left:800px;">
+            <div class="map-china" style="position:fixed; top:70px;left:1050px;">
                 <a href="big_screen_map.html">
                     <img src="../../static/images/icon-china.png" />
                 </a>
@@ -110,6 +143,10 @@
 <script src="../../static/js/jquery-3.2.1.min.js"></script>
 <script src="../../static/js/vue.min.js"></script>
 <script src="../../static/js/element.js" charset="utf-8"></script>
+<script src="../../static/js/bootstrap.min.js"></script>
+<script>
+        $(function () { $("[data-toggle='popover']").popover(); }); 
+</script>
 <!-- 引入地图 -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
 <script>
