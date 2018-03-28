@@ -58,7 +58,10 @@
 <body class="fw map-bg">
     <div id="app">
         <div class="application-box tc abs"  > 
+            
             <div class="sync-main tc map-bg left" >
+
+                <a @click="loadChart" style="position:fixed;left:10px;top:200px;color:#fff;font-size:10px;">返回</a>
             	<div class="top_left_a map-bg2"  style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 235px; ">
                     <div id="barm" class="application-text"></div>
                  </div>
@@ -214,7 +217,7 @@
 			},
 
 			loadChart: function () {
-				window.location.assign("big_screen_map_pro.html?city=" + vm.$options.data.city);
+				window.location.assign("big_screen_data.html");
 			},
 			autoAdd: function () {
 				this.yags++
