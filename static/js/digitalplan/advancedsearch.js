@@ -24,8 +24,8 @@ new Vue({
                 YADXZL: [],
                 YALX: [],
                 YALB: [],
-                SFKQ: [],
-                LRSJ: [],
+                SFKQ: '全部',
+                LRSJ: '全部',
                 begintime_create: "",
                 endtime_create: ""
             },
@@ -134,13 +134,17 @@ new Vue({
 
             //预案种类
             yazl_data: [],
-            checkedYazl: [],
+            checkedYazl: ['全部'],
             //对象种类
             dxzl_data: [],
-            checkedDxzl: [],
+            checkedDxzl: ['全部'],
             //预案类型
             yalx_data: [],
-            checkedYalx: [],
+            checkedYalx: ['全部'],
+            //是否跨区
+            sfkq_data: ['全部','是','否'],
+            //录入时间
+            lrsj_data: ['全部','今日','昨日','最近7日','最近30日','自定义时间'],
             //树结构配置
             defaultProps: {
                 children: 'children',
