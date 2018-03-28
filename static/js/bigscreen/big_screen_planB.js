@@ -201,7 +201,7 @@ var vm = new Vue({
             b2BarChartOption = {
                 backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
-                    text: '按总队统计灭火预案情况',
+                    text: '按总队统计灭火预案对象情况',
                     left: 'center',
                     top: 2,
                     textStyle: {
