@@ -142,9 +142,9 @@ new Vue({
             yalx_data: [],
             checkedYalx: ['全部'],
             //是否跨区
-            sfkq_data: ['全部','是','否'],
+            sfkq_data: ['全部', '是', '否'],
             //录入时间
-            lrsj_data: ['全部','今日','昨日','最近7日','最近30日','自定义时间'],
+            lrsj_data: ['全部', '今日', '昨日', '最近7日', '最近30日', '自定义时间'],
             //树结构配置
             defaultProps: {
                 children: 'children',
@@ -152,12 +152,8 @@ new Vue({
             },
             //资源列表是否显示
             planDetailVisible: false,
-            //表高度变量
-            tableheight: 458,
             //显示加载中样
             loading: false,
-            //多选值
-            multipleSelection: [],
             //当前页
             currentPage: 1,
             //分页大小
@@ -182,6 +178,7 @@ new Vue({
         this.YAZL();
         this.DXLX();
         this.YALX();
+        this.searchClick();
         // var params = {
         // }
         // axios.post('/api/digitalplanlist/findByVO', params).then(function (res) {
@@ -197,7 +194,13 @@ new Vue({
             console.log(data);
         },
 
-
+        //当前页修改事件
+        handleCurrentChange(val) {
+            this.currentPage = val;
+            console.log("当前页: " + val);
+            var _self = this;
+            _self.loadingData(); //重新加载数据
+        },
 
 
         handleExceed(files, fileList) {
@@ -206,28 +209,29 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             var _self = this;
+            this.total=this.tableData.length;
 
-            if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
-                _self.$message({
-                    message: "时间选择错误！",
-                    type: "error"
-                });
-                return;
-            }
-            var params = {
-                rolename: this.searchForm.rolename,
-                createTimeBegin: this.searchForm.createTimeBegin,
-                createTimeEnd: this.searchForm.createTimeEnd
-            };
+            // if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
+            //     _self.$message({
+            //         message: "时间选择错误！",
+            //         type: "error"
+            //     });
+            //     return;
+            // }
+            // var params = {
+            //     rolename: this.searchForm.rolename,
+            //     createTimeBegin: this.searchForm.createTimeBegin,
+            //     createTimeEnd: this.searchForm.createTimeEnd
+            // };
 
-            axios.post('/api/role/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-            _self.total = _self.tableData.length;
-            _self.loadingData(); //重新加载数据
+            // axios.post('/api/role/findByVO', params).then(function (res) {
+            //     this.tableData = res.data.result;
+            //     this.total = res.data.result.length;
+            // }.bind(this), function (error) {
+            //     console.log(error)
+            // })
+            // _self.total = _self.tableData.length;
+            // _self.loadingData(); //重新加载数据
         },
         //预案种类初始化
         YAZL: function () {
