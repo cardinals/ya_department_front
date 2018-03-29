@@ -11,3 +11,7 @@ input[type=checkbox]{
 .el-input__inner{
     height: 30px;
 }
+.cell{
+    display: block;
+    width: 100%;
+}
