@@ -79,7 +79,7 @@
 
 								<el-table-column type="selection" min-width="5%"></el-table-column>
 								<el-table-column prop="sybh" label="水源编号" min-width="11%" align="center"></el-table-column>
-								<el-table-column prop="symc" label="水源名称" min-width="12%" align="center">
+								<el-table-column prop="symc" label="水源名称" min-width="12%" show-overflow-tooltip align="center">
 									<template slot-scope="scope">
 										<el-button @click="informClick(scope.row)" type="text">{{scope.row.symc}}</el-button>
 									</template>

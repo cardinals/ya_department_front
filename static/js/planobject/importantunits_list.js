@@ -35,7 +35,7 @@ new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 10,
+            total: 0,
             //行数据保存
             rowdata: {
 

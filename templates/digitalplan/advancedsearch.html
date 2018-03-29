@@ -70,7 +70,7 @@
                             </el-form-item>
                         </el-form>
                         <div>
-                            <el-card v-for="data in tableData" style="margin-bottom:12px;background-color:#F5F5F5">
+                            <el-card v-for="data in tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                 <el-row>
                                     <el-col :span="24">
                                         <div><strong>{{data.YAMC }}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium">{{data.YALX}}</el-tag></div>
@@ -85,6 +85,15 @@
                                     </el-col>
                                 </el-row>
                             </el-card>
+                            <div type="flex" justify="end">
+                                <el-pagination
+                                  @current-change="handleCurrentChange"
+                                  :current-page="currentPage"
+                                  :page-size="pageSize"
+                                  layout="total, sizes, prev, pager, next, jumper"
+                                  :total=parseInt(total)>
+                                </el-pagination>
+                            </div>
                         </div>
                         <!--详情界面-->
                         <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
