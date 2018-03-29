@@ -15,3 +15,9 @@ input[type=checkbox]{
     display: block;
     width: 100%;
 }
+.firewaterSearch{
+    width: 220px;
+}
+.el-form-item{
+    margin-bottom: 10px;
+}
