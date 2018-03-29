@@ -29,3 +29,8 @@
 .digitalDate{
     width: 125px !important;
 }
+
+.cell{
+    display: block;
+    width: 100%;
+}
