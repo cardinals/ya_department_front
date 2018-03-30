@@ -212,6 +212,7 @@ new Vue({
         this.YAZL();
         this.searchClick();
     },
+
     methods: {        
         handleNodeClick(data) {
             console.log(data);
@@ -250,7 +251,6 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             var _self = this;
-            
             if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
                 _self.$message({
                     message: "时间选择错误！",
@@ -339,70 +339,31 @@ new Vue({
             this.multipleSelection = val;
             console.info(val);
         },
-        //资源详情
+
+        //预案详情
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
-            if(val.pkid == "67833B5FB1232169E053B077770AE86"){
-                this.detailData = this.detailTestData;
-            }
-            else{
-            axios.get('/dpapi/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
-                this.detailData = res.data.result;
-                if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
-                    return '';
-                } else {
-                    var date = new Date(this.detailData.zzrq);
-                    if (date == undefined) {
-                        return '';
-                    }
-                    var month = '' + (date.getMonth() + 1),
-                        day = '' + date.getDate(),
-                        year = date.getFullYear();
-    
-                    if (month.length < 2) month = '0' + month;
-                    if (day.length < 2) day = '0' + day;
-    
-                    this.detailYMD=[year, month, day].join('-');
-                }
-                for(var k=0;k<this.YALX_data.length;k++){
-                    if(this.YALX_data[k].codeValue == this.detailData.yalxdm){
-                        this.detailData.yalxdm = this.YALX_data[k].codeName;
-                    }
-                }
-                for(var m=0;m<this.YAZL_data.length;m++){
-                    if(this.YAZL_data[m].codeValue == this.detailData.yazl){
-                        this.detailData.yazl = this.YAZL_data[m].codeName;
-                    }
-                }
-                for(var h=0;h<this.DXLX_data.length;h++){
-                    if(this.DXLX_data[h].codeValue == this.detailData.dxlxdm){
-                        this.detailData.dxlxdm = this.DXLX_data[h].codeName;
-                    }
-                }
-                this.detailData.sfkqy = (this.detailData.sfkqy==1?"是":"否");
-            }.bind(this), function (error) {
-                console.log(error)
+            var shortURL=top.location.href.substr(0,top.location.href.indexOf("?"))+"?pkid=" + val.pkid;
+            history.pushState(null,null,shortURL)
+            //异步加载详情页
+            $(function() {  
+                $.ajax({  
+                    url : '../../../templates/digitalplan/digitalplan_detail.html',  
+                    cache : true,  
+                    async: true,
+                    success : function(html) {  
+                        $("#detailDialog").html(html);  
+                    }  
+                });  
             })
-        }
-
         },
-        //预案下载
+        //预案预览
         openPlan:function(){
-            /*var params = ;
-            axios.post('/api/resource/getResource/' + val.ID,params).then(function (res) {
-                this.resourceList = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })*/
             window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
+        //预案下载
         downloadPlan:function(){
-            //window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838.zip");
-            /*var $form = $('<form method="GET"></form>');
-            $form.attr('action', 'http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP');
-            $form.appendTo($('body'));
-            $form.submit();*/
             window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
         },
         //表格重新加载数据
@@ -430,13 +391,7 @@ new Vue({
             _self.loadingData(); //重新加载数据
         },
         closeDialog: function (val) {
-            this.planDetailVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
+            this.planDetailVisible = false;        
         }
         /**
         * lxy

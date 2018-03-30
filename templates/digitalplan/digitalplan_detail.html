@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <script src="../../static/js/vue.js"></script>
+    <script src="../../static/js/elementUI.js"></script>
+    <script src="../../static/js/digitalplan_detail.js"></script>
+</head>
+<body class="fw f14 main-index-body">
+    <!--详情界面-->
+        <div id="detailDisplay">
+            <div class="dib" id="basic-Inform-Title">
+                <div class="detailBox" style="display: inline-flex;">
+                <div class="imgWidth">
+                    <img src="../../static/images/danwei4.jpg">
+                </div>
+                <div class="detailBox">
+                <div class="yamc_Single">
+                    <div>
+                        <dl class="inform-left">
+                            <dt class="dtdlStyle">预案名称：</dt>
+                            <dd class="dtdlStyle">{{detailData.yamc}}</dd>
+                        </dl>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <dl class="inform-left">
+                            <dt class="dtdlStyle">预案对象：</dt>
+                            <dd class="dtdlStyle">{{detailData.dxmc}}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="inform-div">
+                    <div class="leftDetail"> 
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">预案类型：</dt>
+                                <dd class="dtdlStyle">{{detailData.yalxdm}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">预案版本：</dt>
+                                <dd class="dtdlStyle">{{detailData.yabbh}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">编制单位：</dt>
+                                <dd class="dtdlStyle">{{detailData.zzdwmc}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">编制日期：</dt>
+                                <dd class="dtdlStyle">{{this.detailYMD}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div>   
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">预案种类：</dt>
+                                <dd class="dtdlStyle">{{detailData.yazl}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">是否跨区域：</dt>
+                                <dd class="dtdlStyle">{{detailData.sfkqy}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">编制者：</dt>
+                                <dd class="dtdlStyle">{{detailData.zzrmc}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">备注：</dt>
+                                <dd class="dtdlStyle">{{detailData.bz}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <br>
+                <div class="openPlan">
+                    <el-button type="primary" @click="openPlan">预案在线预览</el-button>
+                    <el-button type="primary" @click="downloadPlan">预案下载</el-button>
+                </div>
+                <!-- lxy-start -->
+
+                <el-upload class="upload-demo" ref="upload" action="http://localhost/yafjxz/upload" :data="upLoadData" :on-preview="handlePreview"
+                    :on-remove="handleRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList"
+                    :auto-upload="false">
+                </el-upload>
+
+                <!-- lxy-end -->
+            </div>
+        </div>
+
+</body>
+
+</html>
