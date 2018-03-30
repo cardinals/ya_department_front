@@ -1,3 +1,7 @@
 .hiddenInput{
     display: none;
 }
+.cell{
+    display: block;
+    width: 100%;
+}

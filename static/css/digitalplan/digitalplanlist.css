@@ -21,7 +21,7 @@
     margin-top: 35px;
 }
 .digitalSearch{
-    width: 200px;
+    width: 210px;
 }
 .digitalType{
     width:268px;
@@ -33,4 +33,7 @@
 .cell{
     display: block;
     width: 100%;
+}
+.el-form-item{
+    margin-bottom: 10px;
 }

@@ -9,3 +9,7 @@
 .el-form-item__error {
     width: 220px;
 }
+.cell{
+    display: block;
+    width: 100%;
+}
