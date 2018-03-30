@@ -29,3 +29,7 @@ input[type=checkbox]{
 .el-form-item{
     margin-bottom: 10px;
 }
+.cell{  
+    display: block;  
+    width: 100%;  
+} 

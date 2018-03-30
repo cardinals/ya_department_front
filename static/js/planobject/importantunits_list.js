@@ -1,5 +1,5 @@
 //axios默认设置cookie
-axios.defaults.withCredentials = true;	
+axios.defaults.withCredentials = true;
 new Vue({
     el: '#app',
     data: function () {
@@ -12,7 +12,7 @@ new Vue({
                 xfgx: "",
                 begintime: "",
                 endtime: "",
-                bhxj:""
+                bhxj: ""
             },
             tableData: [],
 
@@ -21,7 +21,7 @@ new Vue({
 
             XZQY_data: [],
             selected_XZQY: [],
-            
+
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -80,8 +80,8 @@ new Vue({
                 ZDMJ: "",
                 XFGXJGID: ""
             },
-             //树结构配置
-             defaultProps: {
+            //树结构配置
+            defaultProps: {
                 children: 'children',
                 label: 'codeName',
                 value: 'codeValue'
@@ -89,10 +89,11 @@ new Vue({
 
         }
     },
-    created:function(){
-        this.searchClick();
+    created: function () {
+
         // this.searchXFGX_data();
         this.searchXZQY_data();
+        this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -111,35 +112,42 @@ new Vue({
                 });
                 return;
             }
-            var params={
-                dwmc:this.searchForm.dwmc,
+            var params = {
+                dwmc: this.searchForm.dwmc,
                 begintime: this.searchForm.begintime,
                 endtime: this.searchForm.endtime,
                 // xzqy: this.searchForm.xzqy,
                 // xfgx: this.searchForm.xfgx
             };
-            axios.post('/dpapi/keyunit/findByVO',params).then(function(res){
+            axios.post('/dpapi/keyunit/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                this.rowdata = this.tableData;
-            }.bind(this),function(error){
+                // this.rowdata = this.tableData;
+                for (var i = 0; i < this.tableData.length; i++) {
+                    for (var k = 0; k < this.XZQY_data.length; k++) {
+                        if (this.XZQY_data[k].codeValue == this.tableData[i].xzqy) {
+                            this.tableData[i].xzqy = this.XZQY_data[k].codeName;
+                        }
+                    }
+                }
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
         clearClick: function () {
             // this.searchForm.
         },
-        searchXFGX_data: function (){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
-                this.XFGX_data=res.data.result;
-            }.bind(this),function(error){
+        searchXFGX_data: function () {
+            axios.get('/api/codelist/getCodetype/CA01').then(function (res) {
+                this.XFGX_data = res.data.result;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
-        searchXZQY_data: function(){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+        searchXZQY_data: function () {
+            axios.get('/api/codelist/getCodetype/CA01').then(function (res) {
                 this.XZQY_data = res.data.result;
-            }.bind(this),function(error){
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
@@ -150,6 +158,26 @@ new Vue({
         enddateChange(val) {
             this.searchForm.endtime = val;
         },
+        //时间格式化
+        dateFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '';
+            } else {
+                var date = new Date(rowDate);
+                if (date == undefined) {
+                    return '';
+                }
+                var month = '' + (date.getMonth() + 1),
+                    day = '' + date.getDate(),
+                    year = date.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [year, month, day].join('-')
+            }
+        },
         //表格勾选事件
         selectionChange: function (val) {
             for (var i = 0; i < val.length; i++) {
@@ -159,10 +187,10 @@ new Vue({
             //this.sels = sels
             console.info(val);
         },
-        
+
         informClick(val) {
-        window.location.href = "importantunits_detail.html?ID=" + val.pkid;
-        //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
+            window.location.href = "importantunits_detail.html?ID=" + val.pkid;
+            //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         createdateChange(val) {
             console.log(val);
