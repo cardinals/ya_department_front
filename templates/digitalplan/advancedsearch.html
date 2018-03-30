@@ -73,15 +73,15 @@
                             <el-card v-for="data in tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                 <el-row>
                                     <el-col :span="24">
-                                        <div><strong>{{data.YAMC }}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium">{{data.YALX}}</el-tag></div>
+                                        <div><strong>{{data.yamc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium">{{data.yalxdm}}</el-tag></div>
                                     </el-col>
                                 </el-row>
                                 <el-row>
                                     <el-col :span="12">
-                                        <div>对象名称：{{data.DXMC }}</div>
+                                        <div>对象名称：{{data.dxmc}}</div>
                                     </el-col>
                                     <el-col :span="12">
-                                        <div>录入时间：{{data.LRSJ }}</div>
+                                        <div>录入时间：{{data.zzrq}}</div>
                                     </el-col>
                                 </el-row>
                             </el-card>

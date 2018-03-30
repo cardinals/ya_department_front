@@ -30,106 +30,106 @@ new Vue({
                 endtime_create: ""
             },
             tableData: [
-                {
-                    YAMC: "防火器材预案",
-                    YALX: "指挥",
-                    DXMC: "沈阳市消防局",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "1997-01-12",
-                    YALB: "二维预案",
-                    ID: "1"
-                },
-                {
-                    YAMC: "疏散预案",
-                    YALX: "疏散",
-                    DXMC: "沈河区消防局",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "1999-04-21",
-                    YALB: "二维预案",
-                    ID: "2"
-                },
-                {
-                    YAMC: "路线预案",
-                    YALX: "指挥",
-                    DXMC: "沈阳工业园区",
-                    DXLX: "化工园区",
-                    BZDW: "个体",
-                    LRSJ: "2012-04-25",
-                    YALB: "三维预案",
-                    ID: "3"
-                },
-                {
-                    YAMC: "合作预案",
-                    YALX: "合作计划",
-                    DXMC: "消防总部",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "1983-02-05",
-                    YALB: "二维预案",
-                    ID: "4"
-                },
-                {
-                    YAMC: "水源分布预案",
-                    YALX: "水源",
-                    DXMC: "北京市消防大队",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "1973-10-05",
-                    YALB: "三维预案",
-                    ID: "5"
-                },
-                {
-                    YAMC: "安全出口预案",
-                    YALX: "调度",
-                    DXMC: "和平区消防大队",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "1993-05-20",
-                    YALB: "二维预案",
-                    ID: "6"
-                },
-                {
-                    YAMC: "设备转移预案",
-                    YALX: "调度",
-                    DXMC: "金融中心",
-                    DXLX: "大型综合体",
-                    BZDW: "政府部门",
-                    LRSJ: "1989-09-04",
-                    YALB: "三维预案",
-                    ID: "7"
-                },
-                {
-                    YAMC: "救援预案",
-                    YALX: "指挥",
-                    DXMC: "辽宁省消防厅",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "2007-11-12",
-                    YALB: "文档预案",
-                    ID: "8"
-                },
-                {
-                    YAMC: "消防车辆预案",
-                    YALX: "调度",
-                    DXMC: "大东区消防分队",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "2009-06-23",
-                    YALB: "二维预案",
-                    ID: "9"
-                },
-                {
-                    YAMC: "相邻建筑预案",
-                    YALX: "指挥",
-                    DXMC: "沈阳市消防局",
-                    DXLX: "消防部队",
-                    BZDW: "公安部",
-                    LRSJ: "2006-12-6",
-                    YALB: "三维预案",
-                    ID: "10"
-                }
+                // {
+                //     YAMC: "防火器材预案",
+                //     YALX: "指挥",
+                //     DXMC: "沈阳市消防局",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "1997-01-12",
+                //     YALB: "二维预案",
+                //     ID: "1"
+                // },
+                // {
+                //     YAMC: "疏散预案",
+                //     YALX: "疏散",
+                //     DXMC: "沈河区消防局",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "1999-04-21",
+                //     YALB: "二维预案",
+                //     ID: "2"
+                // },
+                // {
+                //     YAMC: "路线预案",
+                //     YALX: "指挥",
+                //     DXMC: "沈阳工业园区",
+                //     DXLX: "化工园区",
+                //     BZDW: "个体",
+                //     LRSJ: "2012-04-25",
+                //     YALB: "三维预案",
+                //     ID: "3"
+                // },
+                // {
+                //     YAMC: "合作预案",
+                //     YALX: "合作计划",
+                //     DXMC: "消防总部",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "1983-02-05",
+                //     YALB: "二维预案",
+                //     ID: "4"
+                // },
+                // {
+                //     YAMC: "水源分布预案",
+                //     YALX: "水源",
+                //     DXMC: "北京市消防大队",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "1973-10-05",
+                //     YALB: "三维预案",
+                //     ID: "5"
+                // },
+                // {
+                //     YAMC: "安全出口预案",
+                //     YALX: "调度",
+                //     DXMC: "和平区消防大队",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "1993-05-20",
+                //     YALB: "二维预案",
+                //     ID: "6"
+                // },
+                // {
+                //     YAMC: "设备转移预案",
+                //     YALX: "调度",
+                //     DXMC: "金融中心",
+                //     DXLX: "大型综合体",
+                //     BZDW: "政府部门",
+                //     LRSJ: "1989-09-04",
+                //     YALB: "三维预案",
+                //     ID: "7"
+                // },
+                // {
+                //     YAMC: "救援预案",
+                //     YALX: "指挥",
+                //     DXMC: "辽宁省消防厅",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "2007-11-12",
+                //     YALB: "文档预案",
+                //     ID: "8"
+                // },
+                // {
+                //     YAMC: "消防车辆预案",
+                //     YALX: "调度",
+                //     DXMC: "大东区消防分队",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "2009-06-23",
+                //     YALB: "二维预案",
+                //     ID: "9"
+                // },
+                // {
+                //     YAMC: "相邻建筑预案",
+                //     YALX: "指挥",
+                //     DXMC: "沈阳市消防局",
+                //     DXLX: "消防部队",
+                //     BZDW: "公安部",
+                //     LRSJ: "2006-12-6",
+                //     YALB: "三维预案",
+                //     ID: "10"
+                // }
             ],
 
             //预案种类
@@ -218,20 +218,27 @@ new Vue({
             //     });
             //     return;
             // }
-            // var params = {
-            //     rolename: this.searchForm.rolename,
-            //     createTimeBegin: this.searchForm.createTimeBegin,
-            //     createTimeEnd: this.searchForm.createTimeEnd
-            // };
+            var params = {
+                // rolename: this.searchForm.rolename,
+                // createTimeBegin: this.searchForm.createTimeBegin,
+                // createTimeEnd: this.searchForm.createTimeEnd
+            };
 
-            // axios.post('/api/role/findByVO', params).then(function (res) {
-            //     this.tableData = res.data.result;
-            //     this.total = res.data.result.length;
-            // }.bind(this), function (error) {
-            //     console.log(error)
-            // })
-            // _self.total = _self.tableData.length;
-            // _self.loadingData(); //重新加载数据
+            axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
+                this.tableData = res.data.result;
+                this.total = res.data.result.length;
+                for(var i=0;i<this.tableData.length;i++){
+                    for(var k=0;k<this.yalx_data.length;k++){
+                        if(this.yalx_data[k].codeValue == this.tableData[i].yalxdm){
+                            this.tableData[i].yalxdm = this.yalx_data[k].codeName;
+                        }
+                    }
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            _self.total = _self.tableData.length;
+            _self.loadingData(); //重新加载数据
         },
         //预案种类初始化
         YAZL: function () {
