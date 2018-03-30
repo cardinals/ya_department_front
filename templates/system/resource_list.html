@@ -3,7 +3,6 @@
   <head>
 		<link rel="stylesheet" type="text/css" href="../../static/css/lib.css"> 
 		<link rel="stylesheeet" type="text/css" href="../../static/css/system/resourcelist.css">
-		<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css" >
 	</head>
 
 	<style>
@@ -18,21 +17,18 @@
 	</style>
 
 	<body class="fw f14 main-index-body">
-		<div id="header_box"></div>
-
-        <div class="left-sidebar">
-            <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-            <div id="menu-box">
-                <big-tree  default-active="53"></big-tree>
-            </div>
-        </div>
-        <div id="app">
-            <div class="main-box" style="margin-top:50px;height:550px;">
-				<div class="main-container">
-				<!-- <div id="tree"></div>   -->
+			<div id="header_box"></div>
+			<div class="left-sidebar">
+					<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+					<div id="menu-box">
+							<big-tree default-active="52"></big-tree>
+					</div>
+			</div>
+			  <div id="app">
+					<div class="main-box">
+							<div class="main-container">
 				<div id="lib :: main_container_header('资源管理','资源管理')"></div>
-				 
-        <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
+      <div class="tree" style="float:left;font-weight:bold;margin-left:-20px;margin-top:-20px;overflow:auto;">
 						<el-tree 
 									:data="tableData" 
 									node-key="resourceid"
@@ -54,26 +50,27 @@
 											size="mini"
 											@click="() => append(data)">
 											Append
-											</el-button>
-											<el-button
+								</el-button>
+								 <el-button
 												type="text"
 												size="mini"
 												@click="() => remove(node, data)">
 												Delete
 								 </el-button>
 						</span>
-									</span>
-									</el-tree>
-							</div>
+						</span>
+						</el-tree>
+					</div>
 					
            <div class="res_in" style="padding-left:10px;
 										overflow:true;
-										margin-left:45px;
-										margin-top:30px;
+										margin-left:5px;
+										margin-top:-20px;
 										float:left;
+										padding:5px;
 										border:1px solid #ccc;
-										width:60%;height:100%;
-										border-radius:5px;">
+										width:75%;height:100%;
+										">
 
 							 <el-form  :data="tableData">
 									<el-form-item label="资源名称">
@@ -127,31 +124,13 @@
 							 </el-form>	
 					</div>
 				</div>
-			
 			</div>
+	</div>
+</body>
 
-		
-
-		</div>
-				
-
-
-    </body>
 	<script src="../../static/js/lib.js" ></script>
   <script src="../../static/js/menu.js" ></script>
 	<script src="../../static/js/system/resource.js"></script>
-	<!-- <script src="../../static/js/bootstrap.min.js"></script>
-	<script src="../../static/js/jquery-3.2.1.min.js"></script>
-	<script src="../../static/js/bootstrap-treeview.js"></script> -->
-	<script>
-	// function getTree() {
- 		
- 	// 		return data;
-	// 	}
-	// $('#tree').treeview({data: getTree()});
-	// var tree = [  {  text: "Parent 1",  nodes: [   {   text: "Child 1",   nodes: [    {    text: "Grandchild 1"   },    {    text: "Grandchild 2"   }   ]   },   {   text: "Child 2"  }  ]  },  {  text: "Parent 2" },  {  text: "Parent 3" },  {  text: "Parent 4" },  {  text: "Parent 5" } ]; 
-
-	</script>
 
 	<script>
 			let id = 1000;
