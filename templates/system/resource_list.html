@@ -1,10 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
+  <head>
 		<link rel="stylesheet" type="text/css" href="../../static/css/lib.css"> 
 		<link rel="stylesheeet" type="text/css" href="../../static/css/system/resourcelist.css">
 		<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css" >
 	</head>
+
 	<style>
 			.custom-tree-node {
 			  flex: 1;
@@ -15,6 +16,7 @@
 			  padding-right: 8px;
 			}
 	</style>
+
 	<body class="fw f14 main-index-body">
 		<div id="header_box"></div>
 
@@ -27,33 +29,11 @@
         <div id="app">
             <div class="main-box" style="margin-top:50px;height:550px;">
 				<div class="main-container">
-					<div id="lib :: main_container_header('资源管理','资源管理')"></div>
-				  <!-- <el-tree
-								:data="data5"
-								show-checkbox
-								node-key="id"
-								default-expand-all
-								:expand-on-click-node="false">
-								<span class="custom-tree-node" slot-scope="{ node, data }">
-								<span>{{ node.label }}</span>
-								<span>
-										<el-button
-										type="text"
-										size="mini"
-										@click="() => append(data)">
-										Append
-										</el-button>
-										<el-button
-										type="text"
-										size="mini"
-										@click="() => remove(node, data)">
-										Delete
-										</el-button>
-									</span>
-									</span>
-								</el-tree> -->
-              <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
-									<el-tree 
+				<!-- <div id="tree"></div>   -->
+				<div id="lib :: main_container_header('资源管理','资源管理')"></div>
+				 
+        <div class="tree" style="margin-left:45px;margin-top:30px;float:left;font-weight:bold;">
+						<el-tree 
 									:data="tableData" 
 									node-key="resourceid"
 									:default-expanded-keys="['17']" 
@@ -66,10 +46,10 @@
 									show-checkbox
 									:expand-on-click-node="false"
 									>
-									<span class="custom-tree-node" slot-scope="{ node, data }">
-										<span>{{ node.label }}</span>
-										<span>
-											<el-button
+						<span class="custom-tree-node" slot-scope="{ node, data }">
+						<span>{{ node.label }}</span>
+						<span>
+								<el-button
 											type="text"
 											size="mini"
 											@click="() => append(data)">
@@ -80,12 +60,13 @@
 												size="mini"
 												@click="() => remove(node, data)">
 												Delete
-											</el-button>
-										</span>
+								 </el-button>
+						</span>
 									</span>
 									</el-tree>
-				      </div>
-                    <div class="res_in" style="padding-left:10px;
+							</div>
+					
+           <div class="res_in" style="padding-left:10px;
 										overflow:true;
 										margin-left:45px;
 										margin-top:30px;
@@ -93,6 +74,7 @@
 										border:1px solid #ccc;
 										width:60%;height:100%;
 										border-radius:5px;">
+
 							 <el-form  :data="tableData">
 									<el-form-item label="资源名称">
 										<el-input style="width:50%;"  placeholder="请输入内容" v-model="tableData[1].children[0].resourcename" clearable>
@@ -145,10 +127,10 @@
 							 </el-form>	
 					</div>
 				</div>
-				<!-- main-container -->
+			
 			</div>
 
-			<div id="tree"></div>  
+		
 
 		</div>
 				
@@ -158,11 +140,18 @@
 	<script src="../../static/js/lib.js" ></script>
   <script src="../../static/js/menu.js" ></script>
 	<script src="../../static/js/system/resource.js"></script>
-	<script src="../../static/js/bootstrap.min.js"></script>
-	
+	<!-- <script src="../../static/js/bootstrap.min.js"></script>
+	<script src="../../static/js/jquery-3.2.1.min.js"></script>
+	<script src="../../static/js/bootstrap-treeview.js"></script> -->
+	<script>
+	// function getTree() {
+ 		
+ 	// 		return data;
+	// 	}
+	// $('#tree').treeview({data: getTree()});
+	// var tree = [  {  text: "Parent 1",  nodes: [   {   text: "Child 1",   nodes: [    {    text: "Grandchild 1"   },    {    text: "Grandchild 2"   }   ]   },   {   text: "Child 2"  }  ]  },  {  text: "Parent 2" },  {  text: "Parent 3" },  {  text: "Parent 4" },  {  text: "Parent 5" } ]; 
 
-
-
+	</script>
 
 	<script>
 			let id = 1000;
