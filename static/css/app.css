@@ -4,6 +4,13 @@
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
+
+/* 左侧滚动 */
+
+#menu-box{overflow:auto;overflow-x:hidden;height:100%;}
+
+
+
 .logo {
   background: url('../images/LOGO.png') no-repeat;
   width: 360px;
@@ -32,16 +39,48 @@
   height: 100%;
   margin: 0;
   float: left;
-  background-color: #3e3f43;
+  background-color: #191970;
+  position: absolute; /*设置为绝对定位*/
+  z-index:999;        /*设置重叠的上下次序，值越大月在上方*/
+  /* box-shadow: 1px 2px 1px rgba(0,0,128,0.5); */
+  /* opacity: 0.9;  */
 }
+.map-menu-right {
+  width: 170px;
+  height: 100%;
+  margin: 0;
+  float: right;
+  position: absolute; /*设置为绝对定位*/
+  right:0px;
+  z-index:999;        /*设置重叠的上下次序，值越大月在上方*/
+  background-color: #409EFF;
+  /* opacity: 0.5; 透明属性 */
+  background-color: rgba(0,0,0,0);
+}
+
+/* icon图标 */
+.icon{
+    margin-top:10px;
+    width: 26px;
+    height: 26px;
+    overflow: hidden;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+    line-height: 26px;
+    float: left;
+    box-shadow: 1px 2px 1px rgba(0,0,128,0.5);
+}
+
 .map-menu .el-form-item__label {
   color: #FFFFFF !important;
 }
 .map-main {
-  width: 960px;
+  width: 100%;
   height: 100%;
   margin: 0;
-  float: right;
+  
+  float: left;
 }
 .map-china {
   position: fixed;
@@ -80,21 +119,30 @@
   position: absolute;
   z-index: 9999;
 }
+
+/*全屏显示框体*/
+
 .application-box {
+
   width: 1200px;
   height: 500px;
   left: 50%;
   top: 50%;
   margin-left: -600px;
   margin-top: -250px;
+  /* border:1px solid red; */
+
 }
+
 .application-icon {
   width: 288px;
   height: 100%;
 }
+/* 地图的div框 */
 .application-icon-l {
-  width: 800px;
-  height: 100%;
+  width: 600px;
+  height:300px;
+  font-weight: bold;
 }
 .application-icon-r {
   width: 400px;
@@ -126,13 +174,13 @@
 }
 .application-name {
   line-height: 1.5;
-  font-size: 10px;
+  font-size: 20px;
   color: #fff;
 }
 .application-num {
   line-height: 1.5;
-  font-size: 30px;
-  color: #00FEFF;
+  font-size: 2.5em;
+  color: #f7cb29;
 }
 .application-img {
   width: 100%;
@@ -382,7 +430,7 @@
 }
 .menu-toggle-btn {
   background-color: #FFF;
-  border: 1px solid #252628;
+  border: 1px solid rgba(0,0,128,0.5);
   border-right: 0;
   width: 26px;
   height: 26px;
@@ -411,9 +459,10 @@
   background-color: #20a0ff;
 }
 .main-box {
-  height: 600px;
+  height: 575px;
   padding-left: 240px;
   overflow:auto;
+  margin-top: 50px;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
