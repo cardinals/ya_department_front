@@ -17,40 +17,7 @@
     <script src="../../static/js/echarts-2/echarts-all.js"></script>
     <script src="../../static/js/echarts-4/echarts.js"></script>
     <script type="text/javascript" src="../../static/js/vue.js"></script>
-    <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
-    <style>
-            * { padding: 0; margin: 0; }
-            table {
-                border-collapse: collapse;
-                border-spacing: 0;
-                border: 1px solid #00008B;
-                
-            }
     
-            th,td {
-                border: 1px solid #00008B;
-                color: #fff;
-                padding: 4px;
-                height: 3px;
-            }
-
-            th {
-                padding: 8px;
-                font: bold 16px "微软雅黑";
-                color: rgb(129, 129, 247);
-            }
-    
-            td {
-                font: 10px "微软雅黑";
-                height:1px;
-            }
-           
-            tbody tr:hover {
-                cursor: pointer;
-            
-            }
-
-        </style>
 </head>
 
 
@@ -58,31 +25,24 @@
 <body class="fw map-bg">
     <div id="app">
         <div class="application-box tc abs"  > 
-            
-            <div class="sync-main tc map-bg left" >
-
+            <div class="application-div h50">
                 <a @click="loadChart" style="position:fixed;left:10px;top:200px;color:#fff;font-size:10px;">返回</a>
-            	<div class="top_left_a map-bg2"  style= "position: fixed;left:40.5px;top:40.5px; width: 750px;height: 235px; ">
-                    <div id="barm" class="application-text"></div>
-                 </div>
-                 <div class="top_left_b map-bg2"  style= "position: fixed;left:797px;top:40.5px; width: 443px;height: 235px; ">
-                    <div id="scatter" class="application-text"></div> 
+                <div class="h100 l p3" style="width:33.3%">
+                    <div id="t1" class="application-text map-bg2"></div>
                 </div>
-                <div class="bottom_left_a map-bg2"  style= "position: fixed;left:40.5px;top:280.5px; width: 750px;height: 256px;">
-                    <!-- <div class="bottom_left_a_a map-bg2"  style= "position: fixed;left:40.5px;top:280.5px; width: 375px;height: 26px; ">
-                     </div>
-                    <div class="bottom_left_a_b map-bg2"  style= "position: fixed;left:40.5px;top:308px; width: 375px;height: 230px; ">
-                    </div>
-                    <div class="bottom_left_a_c map-bg2"  style= "position: fixed;left:417px;top:280.5px; width: 375px;height: 26px; ">
-                     </div>
-                    <div class="bottom_left_a_d map-bg2"  style= "position: fixed;left:417px;top:308px; width: 375px;height: 230px; ">
-                    </div> -->
+                <div class="h100 l p3" style="width:33.4%">
+                    <div id="t2" class="application-text map-bg2"></div>
                 </div>
-                <div class="bottom_left_b map-bg2"  style= "position: fixed;left:797px;top:280.5px; width: 443px;height: 256px; ">
-                    <!-- <div class="bottom_left_b_a map-bg2"  style= "position: fixed;left:797px;top:280.5px; width: 443px;height: 26px; ">
-                     </div>
-                    <div class="bottom_left_b_b map-bg2"  style= "position: fixed;left:797px;top:308px; width: 443px;height: 230px; ">
-                    </div> -->
+                <div class="h100 l p3" style="width:33.3%">
+                    <div id="t3" class="application-text map-bg2"></div>
+                </div>
+            </div>
+            <div class="application-div h50">
+                <div class="h100 w50 l p3">
+                    <div id="barm" class="application-text map-bg2"></div>
+                </div>
+                <div class="h100 w50 l p3">
+                    <div id="scatter" class="application-text map-bg2"></div>
                 </div>
             </div>
         </div>
