@@ -1,8 +1,5 @@
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-yazlOptions = [{ codeValue: "0", codeName: "全部" }];
-dxzlOptions = [{ codeValue: "0", codeName: "全部" }];
-yalxOptions = [{ codeValue: "0", codeName: "全部" }];
 new Vue({
     el: '#app',
     data: function () {
@@ -134,13 +131,13 @@ new Vue({
             //详情页显示
             planDetailVisible: false,
             //预案种类
-            yazl_data: [],
+            yazl_data: [{ codeValue: "", codeName: "全部" }],
             checkedYazl: ['全部'],
             //对象种类
-            dxzl_data: [],
+            dxzl_data: [{ codeValue: "", codeName: "全部" }],
             checkedDxzl: ['全部'],
             //预案类型
-            yalx_data: [],
+            yalx_data: [{ codeValue: "", codeName: "全部" }],
             checkedYalx: ['全部'],
             //是否跨区
             sfkq_data: ['全部', '是', '否'],
@@ -245,9 +242,8 @@ new Vue({
         YAZL: function () {
             axios.get('/api/codelist/getCodetype/YAZL').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    yazlOptions.push(res.data.result[i]);
+                    this.yazl_data.push(res.data.result[i]);
                 }
-                this.yazl_data = yazlOptions;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -256,9 +252,8 @@ new Vue({
         DXLX: function () {
             axios.get('/api/codelist/getCodetype/YADXLX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    dxzlOptions.push(res.data.result[i]);
+                    this.dxzl_data.push(res.data.result[i]);
                 }
-                this.dxzl_data = dxzlOptions;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -267,49 +262,78 @@ new Vue({
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    yalxOptions.push(res.data.result[i]);
+                    this.yalx_data.push(res.data.result[i]);
                 }
-                this.yalx_data = yalxOptions;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
         //预案种类全选
         handleCheckedYazlChange(value) {
-            if ("全部" == value.currentTarget.defaultValue) {
+            if (value.currentTarget.defaultValue == "全部") {
+                this.checkedYazl=[];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.yazl_data.length; i++) {
                         this.checkedYazl.push(this.yazl_data[i].codeName);
                     }
                 }
+            } else {
                 if (value.currentTarget.checked == false) {
-                    this.checkedYazl = [];
+                    for (var i = 0; i < this.checkedYazl.length; i++) {
+                        if (this.checkedYazl[i] == "全部") {
+                            this.checkedYazl.splice(i,1);
+                        }
+                    }
+                }else if(value.currentTarget.checked == true){
+                    if(this.checkedYazl.length==this.yazl_data.length-1){
+                        this.checkedYazl.push('全部');
+                    }
                 }
             }
         },
         //对象种类全选
         handleCheckedDxzlChange(value) {
-            if ("全部" == value.currentTarget.defaultValue) {
+            if (value.currentTarget.defaultValue == "全部") {
+                this.checkedDxzl=[];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.dxzl_data.length; i++) {
                         this.checkedDxzl.push(this.dxzl_data[i].codeName);
                     }
                 }
+            } else {
                 if (value.currentTarget.checked == false) {
-                    this.checkedDxzl = [];
+                    for (var i = 0; i < this.checkedYazl.length; i++) {
+                        if (this.checkedDxzl[i] == "全部") {
+                            this.checkedDxzl.splice(i,1);
+                        }
+                    }
+                }else if(value.currentTarget.checked == true){
+                    if(this.checkedDxzl.length==this.dxzl_data.length-1){
+                        this.checkedDxzl.push('全部');
+                    }
                 }
             }
         },
         //预案类型全选
         handleCheckedYalxChange(value) {
-            if ("全部" == value.currentTarget.defaultValue) {
+            if (value.currentTarget.defaultValue == "全部") {
+                this.checkedYalx=[];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.yalx_data.length; i++) {
                         this.checkedYalx.push(this.yalx_data[i].codeName);
                     }
                 }
+            } else {
                 if (value.currentTarget.checked == false) {
-                    this.checkedYalx = [];
+                    for (var i = 0; i < this.checkedYazl.length; i++) {
+                        if (this.checkedYalx[i] == "全部") {
+                            this.checkedYalx.splice(i,1);
+                        }
+                    }
+                }else if(value.currentTarget.checked == true){
+                    if(this.checkedYalx.length==this.yalx_data.length-1){
+                        this.checkedYalx.push('全部');
+                    }
                 }
             }
         },
