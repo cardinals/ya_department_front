@@ -169,7 +169,6 @@ new Vue({
             addFormVisible: false,
             addLoading: false,
             addFormRules: {
-                permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
             },
             //新建数据
             addForm: {
@@ -189,7 +188,6 @@ new Vue({
             editFormVisible: false,
             editLoading: false,
             editFormRules: {
-                permissionname: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
             },
             //编辑界面数据
             planDetail: {
@@ -214,6 +212,7 @@ new Vue({
         this.YAZL();
         this.searchClick();
     },
+
     methods: {        
         handleNodeClick(data) {
             console.log(data);
@@ -252,7 +251,6 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             var _self = this;
-            
             if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
                 _self.$message({
                     message: "时间选择错误！",
@@ -341,70 +339,31 @@ new Vue({
             this.multipleSelection = val;
             console.info(val);
         },
-        //资源详情
+
+        //预案详情
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
-            if(val.pkid == "67833B5FB1232169E053B077770AE86"){
-                this.detailData = this.detailTestData;
-            }
-            else{
-            axios.get('/dpapi/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
-                this.detailData = res.data.result;
-                if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
-                    return '';
-                } else {
-                    var date = new Date(this.detailData.zzrq);
-                    if (date == undefined) {
-                        return '';
-                    }
-                    var month = '' + (date.getMonth() + 1),
-                        day = '' + date.getDate(),
-                        year = date.getFullYear();
-    
-                    if (month.length < 2) month = '0' + month;
-                    if (day.length < 2) day = '0' + day;
-    
-                    this.detailYMD=[year, month, day].join('-');
-                }
-                for(var k=0;k<this.YALX_data.length;k++){
-                    if(this.YALX_data[k].codeValue == this.detailData.yalxdm){
-                        this.detailData.yalxdm = this.YALX_data[k].codeName;
-                    }
-                }
-                for(var m=0;m<this.YAZL_data.length;m++){
-                    if(this.YAZL_data[m].codeValue == this.detailData.yazl){
-                        this.detailData.yazl = this.YAZL_data[m].codeName;
-                    }
-                }
-                for(var h=0;h<this.DXLX_data.length;h++){
-                    if(this.DXLX_data[h].codeValue == this.detailData.dxlxdm){
-                        this.detailData.dxlxdm = this.DXLX_data[h].codeName;
-                    }
-                }
-                this.detailData.sfkqy = (this.detailData.sfkqy==1?"是":"否");
-            }.bind(this), function (error) {
-                console.log(error)
+            var shortURL=top.location.href.substr(0,top.location.href.indexOf("?"))+"?pkid=" + val.pkid;
+            history.pushState(null,null,shortURL)
+            //异步加载详情页
+            $(function() {  
+                $.ajax({  
+                    url : '../../../templates/digitalplan/digitalplan_detail.html',  
+                    cache : true,  
+                    async: true,
+                    success : function(html) {  
+                        $("#detailDialog").html(html);  
+                    }  
+                });  
             })
-        }
-
         },
-        //预案下载
+        //预案预览
         openPlan:function(){
-            /*var params = ;
-            axios.post('/api/resource/getResource/' + val.ID,params).then(function (res) {
-                this.resourceList = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })*/
             window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
+        //预案下载
         downloadPlan:function(){
-            //window.open("/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838.zip");
-            /*var $form = $('<form method="GET"></form>');
-            $form.attr('action', 'http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP');
-            $form.appendTo($('body'));
-            $form.submit();*/
             window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
         },
         //表格重新加载数据
@@ -416,74 +375,7 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-
-        //新建事件
-        addClick: function () {
-            var _self = this;
-            _self.addFormVisible = true;
-
-        },
-        //新建提交点击事件
-        addSubmit: function (val) {
-            var _self = this;
-            this.tableData.unshift({
-                permissionname: val.permissionname,
-                permissioninfo: val.permissioninfo,
-                create_name: val.create_name,
-                create_time: val.create_time,
-                alter_name: val.alter_name,
-                alter_time: val.alter_time
-            });
-            this.addFormVisible = false;
-            _self.total = _self.tableData.length;
-            _self.loadingData();//重新加载数据
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
-            console.info(this.addForm);
-
-        },
-        //删除所选，批量删除
-        removeSelection: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
-                    message: "请至少选中一条记录",
-                    type: "error"
-                });
-                return;
-            }
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                ids.push(row.permissionname);
-            }
-            this.$confirm("确认删除" + ids + "吗?", "提示", {
-                type: "warning"
-            })
-                .then(function () {
-                    for (var d = 0; d < ids.length; d++) {
-                        for (var k = 0; k < _self.tableData.length; k++) {
-                            if (_self.tableData[k].permissionname == ids[d]) {
-                                _self.tableData.splice(k, 1);
-                            }
-                        }
-                    }
-                    _self.$message({
-                        message: ids + "删除成功",
-                        type: "success"
-                    });
-                    _self.total = _self.tableData.length;
-                    _self.loadingData(); //重新加载数据
-                })
-                .catch(function (e) {
-                    if (e != "cancel") console.log("出现错误：" + e);
-                });
-        },
+       
         //分页大小修改事件
         pageSizeChange: function (val) {
             console.log("每页 " + val + " 条");
@@ -498,63 +390,8 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //表格编辑事件
-        editClick: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
-                    message: "请至少选中一条记录",
-                    type: "error"
-                });
-                return;
-            }
-            else if (multipleSelection.length > 1) {
-                _self.$message({
-                    message: "只能选一条记录进行编辑",
-                    type: "error"
-                });
-                return;
-            }
-            //var ids = "";
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                //ids += row.realname + ",";
-                ids.push(row.permissionname);
-            }
-            for (var d = 0; d < ids.length; d++) {
-                for (var k = 0; k < _self.tableData.length; k++) {
-                    if (_self.tableData[k].permissionname == ids[d]) {
-                        _self.selectIndex = k;
-                    }
-                }
-            }
-            this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-            //this.editForm.sex=(row.sex == "男"?1:0);
-            this.editFormVisible = true;
-        },
-        //保存点击事件
-        editSubmit: function (val) {
-            var _self = this;
-            this.tableData[this.selectIndex].permissionname = val.permissionname;
-            this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-            this.tableData[this.selectIndex].create_name = val.create_name;
-            this.tableData[this.selectIndex].create_time = val.create_time;
-            this.tableData[this.selectIndex].alter_name = val.alter_name;
-            this.tableData[this.selectIndex].alter_time = val.alter_time;
-            this.editFormVisible = false;
-            _self.loadingData();//重新加载数据
-            console.info(this.editForm);
-        },
         closeDialog: function (val) {
-            this.planDetailVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
+            this.planDetailVisible = false;        
         }
         /**
         * lxy

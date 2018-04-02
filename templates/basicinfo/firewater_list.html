@@ -18,35 +18,35 @@
                     <div id="lib :: main_container_header('消防水源管理','消防水源管理')"></div>
                     <div id="tableView">
 						<el-row>
-							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+							<el-form label-width="70px" :inline="true" class="el-form demo-form-inline">
 								<el-row type="flex" justify="center">
 									<el-col :span="10">
 										<el-form-item label="水源名称">
-											<el-input size="small" v-model="searchForm.symc" placeholder="水源名称" class="inputWidth"></el-input>
+											<el-input size="small" v-model="searchForm.symc" placeholder="水源名称" class="firewaterSearch"></el-input>
 										</el-form-item>
 									</el-col>
 									<el-col :span="10">
 										<el-form-item label="水源地址">
-											<el-input size="small" v-model="searchForm.sydz" placeholder="水源地址" class="inputWidth"></el-input>
+											<el-input size="small" v-model="searchForm.sydz" placeholder="水源地址" class="firewaterSearch"></el-input>
 										</el-form-item>
 									</el-col>
 									<el-col :span="10">
 										<el-form-item label="所属机构">
-											<el-input size="small" v-model="searchForm.jgid" placeholder="所属机构" class="inputWidth"></el-input>
+											<el-input size="small" v-model="searchForm.jgid" placeholder="所属机构" class="firewaterSearch"></el-input>
 										</el-form-item>
 									</el-col>  
 								</el-row>
 								<el-row type="flex" justify="center">
                                     <el-col :span="10">
                                         <el-form-item label="取水形式">
-                                            <el-select size="small" v-model="searchForm.qsxs" placeholder="全部" class="inputWidth" clearable>
+                                            <el-select size="small" v-model="searchForm.qsxs" placeholder="全部" class="firewaterSearch" clearable>
 												<el-option v-for="item in QSXS_data" :label="item.codeName" :value="item.codeValue" :key="item.codeValue"></el-option>
 											</el-select>
                                         </el-form-item>
 									</el-col>
 									<el-col :span="10">
 										<el-form-item label="水源类型">
-											<el-select size="small" v-model="selected_SYLX" placeholder="全部" style="width:300px;" multiple>	
+											<el-select size="small" v-model="selected_SYLX" placeholder="全部" class="firewaterSearch" multiple>	
 												<el-option v-for="item in SYLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 											</el-select>
 										</el-form-item>
@@ -79,7 +79,7 @@
 
 								<el-table-column type="selection" min-width="5%"></el-table-column>
 								<el-table-column prop="sybh" label="水源编号" min-width="11%" align="center"></el-table-column>
-								<el-table-column prop="symc" label="水源名称" min-width="12%" align="center">
+								<el-table-column prop="symc" label="水源名称" min-width="12%" show-overflow-tooltip align="center">
 									<template slot-scope="scope">
 										<el-button @click="informClick(scope.row)" type="text">{{scope.row.symc}}</el-button>
 									</template>

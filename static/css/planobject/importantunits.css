@@ -26,3 +26,10 @@ input[type=checkbox]{
 .leftDetail{
     width: 220px;
 }
+.el-form-item{
+    margin-bottom: 10px;
+}
+.cell{  
+    display: block;  
+    width: 100%;  
+} 

@@ -1,4 +1,3 @@
-
 .map_slt{
 background: red;
 color: red;
@@ -8,9 +7,10 @@ color: red;
 }
 .res_slt{
   margin-left:-10px;padding-top:40px;width:240px;border:none;
+  position:relative; z-index:66;
 }
 .pagenum{
-  position:fixed;bottom:60px;margin-left:72px;color:black;
+  position:fixed;bottom:60px;margin-left:22px;margin-top:20px;color:black;
 
 }
 .pagenum_btn{
@@ -22,8 +22,8 @@ color: red;
 }
 
 .map_btn_f{
-  background:#000;margin-top:100px;border-radius:100px;
+  background:#000;margin-top:100px;
 }
 .map_btn{
-  background:#000;margin-top:10px;margin-left:0px;border-radius:100px;
+  background:#000;margin-top:10px;margin-left:0px;
 }

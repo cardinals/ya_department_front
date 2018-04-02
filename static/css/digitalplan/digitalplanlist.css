@@ -21,8 +21,19 @@
     margin-top: 35px;
 }
 .digitalSearch{
-    width: 240px;
+    width: 210px;
+}
+.digitalType{
+    width:268px;
 }
 .digitalDate{
-    width: 110px !important;
+    width: 125px !important;
+}
+
+.cell{
+    display: block;
+    width: 100%;
+}
+.el-form-item{
+    margin-bottom: 10px;
 }

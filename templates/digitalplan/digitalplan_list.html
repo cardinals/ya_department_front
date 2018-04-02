@@ -23,12 +23,12 @@
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
                             <el-row type="flex" justify="center">
-                                <el-col :span="10">
+                                <el-col :span="8">
                                     <el-form-item label="预案名称">
                                         <el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称" class="digitalSearch"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="10">
+                                <el-col :span="8">
                                     <el-form-item label="预案类型">
                                         <el-select size="small" v-model="searchForm.selected_YALX" placeholder="预案种类" class="digitalSearch" clearable>
                                             <el-option v-for="item in YALX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
@@ -37,7 +37,7 @@
                                 </el-col>
                                 <el-col :span="10">
                                     <el-form-item label="预案种类">
-                                        <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="digitalSearch" clearable>
+                                        <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="digitalType" clearable>
                                             <el-option v-for="item in YAZL_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
                                             </el-option>
                                         </el-select>
@@ -45,12 +45,12 @@
                                 </el-col>
                             </el-row>
                             <el-row type="flex" justify="center">
-                                <el-col :span="10">
+                                <el-col :span="8">
                                     <el-form-item label="对象名称">
                                         <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称" class="digitalSearch"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="10">
+                                <el-col :span="8">
                                     <el-form-item label="对象类型">
                                         <el-select size="small" v-model="searchForm.option_DXLX" placeholder="对象类型" class="digitalSearch" clearable>
                                             <el-option v-for="item in DXLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
@@ -67,10 +67,6 @@
                                             placeholder="结束时间" class="digitalDate"></el-date-picker>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
-                            <el-row type="flex" justify="center">
-
-
                             </el-row>
                             <el-row type="flex" justify="center">
                                 <el-col :span="10">
@@ -101,7 +97,6 @@
                             </div>
                         </el-form>
                     </el-row>
-
                     <div class="table_container">
                         <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
                             @selection-change="selectionChange" class="tableStyle" :height="tableheight">
@@ -131,99 +126,8 @@
                         </el-row>
                     </div>
                     <!--详情界面-->
-                    <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
-                        <div class="detailDisplay">
-                            <div class="dib" id="basic-Inform-Title">
-                                <div class="detailBox" style="display: inline-flex;">
-                                <div class="imgWidth">
-                                    <img src="../../static/images/danwei4.jpg">
-                                </div>
-                                <div class="detailBox">
-                                <div class="yamc_Single">
-                                    <div>
-                                        <dl class="inform-left">
-                                            <dt class="dtdlStyle">预案名称：</dt>
-                                            <dd class="dtdlStyle">{{detailData.yamc}}</dd>
-                                        </dl>
-                                    </div>
-                                    <div style="margin-top: 15px;">
-                                        <dl class="inform-left">
-                                            <dt class="dtdlStyle">预案对象：</dt>
-                                            <dd class="dtdlStyle">{{detailData.dxmc}}</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                                <div class="inform-div">
-                                    <div class="leftDetail"> 
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">预案类型：</dt>
-                                                <dd class="dtdlStyle">{{detailData.yalxdm}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">预案版本：</dt>
-                                                <dd class="dtdlStyle">{{detailData.yabbh}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">编制单位：</dt>
-                                                <dd class="dtdlStyle">{{detailData.zzdwmc}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">编制日期：</dt>
-                                                <dd class="dtdlStyle">{{this.detailYMD}}</dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                    <div>   
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">预案种类：</dt>
-                                                <dd class="dtdlStyle">{{detailData.yazl}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">是否跨区域：</dt>
-                                                <dd class="dtdlStyle">{{detailData.sfkqy}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">编制者：</dt>
-                                                <dd class="dtdlStyle">{{detailData.zzrmc}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">备注：</dt>
-                                                <dd class="dtdlStyle">{{detailData.bz}}</dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                <br>
-                                <div class="openPlan">
-                                    <el-button type="primary" @click="openPlan">预案在线预览</el-button>
-                                    <el-button type="primary" @click="downloadPlan">预案下载</el-button>
-                                </div>
-                                <!-- lxy-start -->
-
-                                <el-upload class="upload-demo" ref="upload" action="http://localhost/yafjxz/upload" :data="upLoadData" :on-preview="handlePreview"
-                                    :on-remove="handleRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList"
-                                    :auto-upload="false">
-                                </el-upload>
-
-                                <!-- lxy-end -->
-                            </div>
-                        </div>
+                    <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">                  
+                        <div id="detailDialog"></div>
                     </el-dialog>
                 </div>
             </div>
@@ -234,5 +138,4 @@
 <script src="../../static/js/lib.js"></script>
 <script src="../../static/js/menu.js"></script>
 <script src="../../static/js/digitalplan/digitalplanlist.js"></script>
-
 </html>

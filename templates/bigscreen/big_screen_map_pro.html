@@ -7,25 +7,27 @@
     <!-- 引入样式 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css" >
+  
 </head>
 <body class="fw map-bg">
     <div id="app">
         <div class="application-box tc abs">
-            <div class="map-menu p10" >
+            <div class="map-menu p10 map-bg" >
                 <div class="meu-box" >
                 <el-form ref="form" :model="form" label-width="80px" >
                   
-                    <el-select placeholder="请输入地址"  class="input-with-select map_slt w150 l b_r">
+                    <el-select placeholder="请输入地址"  class="input-with-select map_slt w150 l b_r" >
                         <el-option label="北京" value="北京"></el-option>
                         <el-option label="天津" value="天津"></el-option>
                         <el-option label="河北" value="河北"></el-option>
                     </el-select>
-
+                    
                     <el-button class="l ml5" type="primary" icon="el-icon-search">搜索</el-button>
 
-                    <el-collapse class="res_slt" >
+                    <el-collapse class="res_slt"  >
                         <el-collapse-item title="更多搜索选项" name="4" >
                             <div>
                                 <el-dropdown-item>
@@ -52,9 +54,10 @@
                         <tr v-for = "data in tableData" >
                             <td>{{data.DWMC}}</td>
                         </tr>
-                    </table> -->
+                    </table>  -->
 
-                    <el-card v-for="data in tableData" :body-style="{ padding: '0px' }" style="margin-bottom:6px;background-color:#708090;">
+                    <el-card v-for="data in tableData" :body-style="{ padding: '0px' }" style="position:fixed;top:200px;margin-bottom:6px;background-color:#708090;color:#fff;">
+                   
                         <div slot="header">
                             <div>
                                 <strong>{{data.DWMC }}</strong>&nbsp&nbsp
@@ -63,38 +66,71 @@
                         </div>
                         <div class="l">地址：{{data.DWDZ }}</div>
                         <div class="l">电话：{{data.DWDH }}</div>
-                    </el-card>
+                    </el-card>  
 
                     <div class="pagenum">
-                        <a href="" class="bgbtn02 btn pagenum_btn">
-                            &lt;
-                        </a>
-                        <span>1/33</span>
-                        <a href="" class="bgbtn02 btn pagenum_btn">
-                            &gt;
-                        </a>
+                        <ul class="pagination">
+                            <li><a href="#">&laquo;</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li class="disabled"><a href="#">/</a></li>
+                            <li><a href="#">33</a></li>
+                                    <li><a href="#">&raquo;</a></li>
+                        </ul>
                     </div>
+
                 </el-form>
                 </div>
-                <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc an" href="javascript:;" ></a>
+                <!-- 收缩按钮 -->
+                <!-- <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc an" href="javascript:;" ></a> -->
             </div>
 
-
+<!-- 右侧 -->
             <div class="map-menu-right h456 mt35">
 
                 <div class="meu-box-right">
-                    <el-button type="primary"  icon="el-icon-search"class="map_btn_f" >消防主体</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >数字化预案</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近500m水源</el-button>   
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近1000m水源</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近500m消防力量</el-button>
-                    <el-button type="primary" icon="el-icon-search" class="map_btn" >附近1000m消防力量</el-button>
+                    <div style="width:30px;margin-top:240px;margin-left:130px;">
+                        <div class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="消防主体">
+                        <span class="glyphicon glyphicon-home" style="color:#008B00"></span>
+                        </div>
+                       
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="数字化预案">
+                        <span class="glyphicon glyphicon-tasks" style="color:#00688B"></span>
+                        </div>
+                       
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近500m水源">
+                        <span class="glyphicon glyphicon-tint" style="color:#7B68EE"></span>
+                        </div>
+                        
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近1000m水源">
+                        <span class="glyphicon glyphicon-tint" style="color:#7B68EE"></span>
+                        </div>
+                        
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近500m消防力量">
+                        <span class="glyphicon glyphicon-user"  style="color:#FF4500"></span>
+                        </div>
+
+                        <div class="icon" class="icon" type="button" class="btn btn-success"   
+                        data-container="body" data-toggle="popover" data-placement="left" 
+                        data-content="附近1000m消防力量">
+                        <span class="glyphicon glyphicon-user"  style="color:#FF4500"></span>
+                        </div>
+                    </div>
                 </div> 
 
             </div>
 
 
-            <div class="map-china" style="margin-top:10px;margin-left:800px;">
+            <div class="map-china" style="position:fixed; top:35px;left:1070px;">
                 <a href="big_screen_map.html">
                     <img src="../../static/images/icon-china.png" />
                 </a>
@@ -110,6 +146,10 @@
 <script src="../../static/js/jquery-3.2.1.min.js"></script>
 <script src="../../static/js/vue.min.js"></script>
 <script src="../../static/js/element.js" charset="utf-8"></script>
+<script src="../../static/js/bootstrap.min.js"></script>
+<script>
+        $(function () { $("[data-toggle='popover']").popover(); }); 
+</script>
 <!-- 引入地图 -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
 <script>
@@ -318,29 +358,29 @@
                 //百度地图API功能
                 var content =
                 
-                '<div style="margin:0;line-height:20px;padding:2px;width:300px">' +
-                    '<img src="../../static/images/zdqy.png" alt="" style="float:left;zoom:1;overflow:hidden;width:100px;height:140px;margin-right:3px;"/>' +
+                '<div style="margin:0;line-height:20px;padding:2px;width:320px">' +
+                    '<img src="../../static/images/zdqy.png" alt="" style="border-radius:5px; box-shadow: 1px 2px 1px rgba(0,0,128,0.5);float:left;zoom:1;overflow:hidden;width:100px;height:140px;margin-right:3px;"/>' +
                     '<br/>单位名称：泰安市城建局'+
                     '<br/>单位地址：法防路36号'+
                     '<br/>单位电话：123456'+
                     '<br/>消防管辖：泰安市消防塔湾分队' +
                   '</div>'
                 +
-                '<div style="border:1px solid #c4c4c4;margin-top:40px;padding:5px;border-radius:5px;width:100%;">'+
+                '<div style="border:1px solid rgba(0,0,128,0.5);margin-top:50px;padding:5px;border-radius:5px;width:100%;box-shadow: 1px 2px 1px rgba(0,0,128,0.5);">'+
                 '二维预案'+
-                '<a style="color:blue;margin-left:40px;">'+
+                '<a style="color:blue;margin-left:80px;">'+
                 '预览'+
                 '</a>'+
-                '<a style="color:red;margin-left:40px;">'+
+                '<a style="color:red;margin-left:90px;">'+
                 '下载'+
                 '</a>'+
                 '</div>'+
-                '<div style="border:1px solid #c4c4c4;margin-top:10px;padding:5px;border-radius:5px;width:100%;">'+
+                '<div style="margin-bottom:10px;border:1px solid rgba(0,0,128,0.5);margin-top:10px;padding:5px;border-radius:5px;width:100%;box-shadow: 1px 2px 1px rgba(0,0,128,0.5);">'+
                 '三维预案'+
-                '<a style="color:blue;margin-left:40px;">'+
+                '<a style="color:blue;margin-left:80px;">'+
                 '预览'+
                 '</a>'+
-                '<a style="color:red;margin-left:40px;" onclick="downloadPlan()">'+
+                '<a style="color:red;margin-left:90px;" onclick="downloadPlan()">'+
                 '下载'+
                 '</a>'+
                 '</div>'
