@@ -1,8 +1,5 @@
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-yazlOptions = [{ codeValue: "0", codeName: "全部" }];
-dxzlOptions = [{ codeValue: "0", codeName: "全部" }];
-yalxOptions = [{ codeValue: "0", codeName: "全部" }];
 new Vue({
     el: '#app',
     data: function () {
@@ -131,15 +128,16 @@ new Vue({
                 //     ID: "10"
                 // }
             ],
-
+            //详情页显示
+            planDetailVisible: false,
             //预案种类
-            yazl_data: [],
+            yazl_data: [{ codeValue: "", codeName: "全部" }],
             checkedYazl: ['全部'],
             //对象种类
-            dxzl_data: [],
+            dxzl_data: [{ codeValue: "", codeName: "全部" }],
             checkedDxzl: ['全部'],
             //预案类型
-            yalx_data: [],
+            yalx_data: [{ codeValue: "", codeName: "全部" }],
             checkedYalx: ['全部'],
             //是否跨区
             sfkq_data: ['全部', '是', '否'],
@@ -244,9 +242,8 @@ new Vue({
         YAZL: function () {
             axios.get('/api/codelist/getCodetype/YAZL').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    yazlOptions.push(res.data.result[i]);
+                    this.yazl_data.push(res.data.result[i]);
                 }
-                this.yazl_data = yazlOptions;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -255,9 +252,8 @@ new Vue({
         DXLX: function () {
             axios.get('/api/codelist/getCodetype/YADXLX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    dxzlOptions.push(res.data.result[i]);
+                    this.dxzl_data.push(res.data.result[i]);
                 }
-                this.dxzl_data = dxzlOptions;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -266,52 +262,99 @@ new Vue({
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    yalxOptions.push(res.data.result[i]);
+                    this.yalx_data.push(res.data.result[i]);
                 }
-                this.yalx_data = yalxOptions;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
         //预案种类全选
         handleCheckedYazlChange(value) {
-            if ("全部" == value.currentTarget.defaultValue) {
+            if (value.currentTarget.defaultValue == "全部") {
+                this.checkedYazl=[];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.yazl_data.length; i++) {
                         this.checkedYazl.push(this.yazl_data[i].codeName);
                     }
                 }
+            } else {
                 if (value.currentTarget.checked == false) {
-                    this.checkedYazl = [];
+                    for (var i = 0; i < this.checkedYazl.length; i++) {
+                        if (this.checkedYazl[i] == "全部") {
+                            this.checkedYazl.splice(i,1);
+                        }
+                    }
+                }else if(value.currentTarget.checked == true){
+                    if(this.checkedYazl.length==this.yazl_data.length-1){
+                        this.checkedYazl.push('全部');
+                    }
                 }
             }
         },
         //对象种类全选
         handleCheckedDxzlChange(value) {
-            if ("全部" == value.currentTarget.defaultValue) {
+            if (value.currentTarget.defaultValue == "全部") {
+                this.checkedDxzl=[];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.dxzl_data.length; i++) {
                         this.checkedDxzl.push(this.dxzl_data[i].codeName);
                     }
                 }
+            } else {
                 if (value.currentTarget.checked == false) {
-                    this.checkedDxzl = [];
+                    for (var i = 0; i < this.checkedYazl.length; i++) {
+                        if (this.checkedDxzl[i] == "全部") {
+                            this.checkedDxzl.splice(i,1);
+                        }
+                    }
+                }else if(value.currentTarget.checked == true){
+                    if(this.checkedDxzl.length==this.dxzl_data.length-1){
+                        this.checkedDxzl.push('全部');
+                    }
                 }
             }
         },
         //预案类型全选
         handleCheckedYalxChange(value) {
-            if ("全部" == value.currentTarget.defaultValue) {
+            if (value.currentTarget.defaultValue == "全部") {
+                this.checkedYalx=[];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.yalx_data.length; i++) {
                         this.checkedYalx.push(this.yalx_data[i].codeName);
                     }
                 }
+            } else {
                 if (value.currentTarget.checked == false) {
-                    this.checkedYalx = [];
+                    for (var i = 0; i < this.checkedYazl.length; i++) {
+                        if (this.checkedYalx[i] == "全部") {
+                            this.checkedYalx.splice(i,1);
+                        }
+                    }
+                }else if(value.currentTarget.checked == true){
+                    if(this.checkedYalx.length==this.yalx_data.length-1){
+                        this.checkedYalx.push('全部');
+                    }
                 }
             }
         },
+       //预案详情
+       planDetails: function (val) {
+        var _self = this;
+        _self.planDetailVisible = true;
+        var shortURL=top.location.href.substr(0,top.location.href.indexOf("?"))+"?pkid=" + val.pkid;
+        history.pushState(null,null,shortURL)
+        //异步加载详情页
+        $(function() {  
+            $.ajax({  
+                url : '../../../templates/digitalplan/digitalplan_detail.html',  
+                cache : true,  
+                async: true,
+                success : function(html) {  
+                    $("#detailDialog").html(html);  
+                }  
+            });  
+        })
+    },
         clearClick: function () {
             this.searchForm.YAMC = "";
             this.searchForm.selected_YALX = [];
@@ -357,34 +400,6 @@ new Vue({
         selectionChange: function (val) {
             this.multipleSelection = val;
             console.info(val);
-        },
-        //资源详情
-        planDetails: function (val) {
-            var _self = this;
-            _self.planDetailVisible = true;
-
-            axios.get('/api/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
-                this.detailData = res.data.result;
-                if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
-                    return '';
-                } else {
-                    var date = new Date(this.detailData.zzrq);
-                    if (date == undefined) {
-                        return '';
-                    }
-                    var month = '' + (date.getMonth() + 1),
-                        day = '' + date.getDate(),
-                        year = date.getFullYear();
-
-                    if (month.length < 2) month = '0' + month;
-                    if (day.length < 2) day = '0' + day;
-
-                    this.detailYMD = [year, month, day].join('-');
-                }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-
         },
         //预案下载
         downloadPlan: function () {
@@ -537,12 +552,6 @@ new Vue({
         },
         closeDialog: function (val) {
             this.planDetailVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
         }
         /**
         * lxy
@@ -559,7 +568,6 @@ new Vue({
         handlePreview(file) {
             console.log(file);
         }
-
     },
 
 })
