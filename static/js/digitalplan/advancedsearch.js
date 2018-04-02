@@ -176,6 +176,7 @@ new Vue({
         this.YAZL();
         this.DXLX();
         this.YALX();
+        this.onSearch();
         this.searchClick();
         // var params = {
         // }
@@ -188,6 +189,15 @@ new Vue({
 
     },
     methods: {
+        onSearch() {
+            this.loading = this.$loading({
+              lock: true,
+              text: 'Loading',
+              spinner: 'el-icon-loading',
+              background: 'rgba(0, 0, 0, 0.7)',
+              target: document.querySelector('.div')
+            });
+        },
         handleNodeClick(data) {
             console.log(data);
         },
@@ -232,11 +242,11 @@ new Vue({
                         }
                     }
                 }
+                this.loading.close();
             }.bind(this), function (error) {
                 console.log(error)
             })
             _self.total = _self.tableData.length;
-            _self.loadingData(); //重新加载数据
         },
         //预案种类初始化
         YAZL: function () {
