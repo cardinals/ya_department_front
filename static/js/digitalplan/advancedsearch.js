@@ -131,7 +131,8 @@ new Vue({
                 //     ID: "10"
                 // }
             ],
-
+            //详情页显示
+            planDetailVisible: false,
             //预案种类
             yazl_data: [],
             checkedYazl: ['全部'],
@@ -312,6 +313,24 @@ new Vue({
                 }
             }
         },
+       //预案详情
+       planDetails: function (val) {
+        var _self = this;
+        _self.planDetailVisible = true;
+        var shortURL=top.location.href.substr(0,top.location.href.indexOf("?"))+"?pkid=" + val.pkid;
+        history.pushState(null,null,shortURL)
+        //异步加载详情页
+        $(function() {  
+            $.ajax({  
+                url : '../../../templates/digitalplan/digitalplan_detail.html',  
+                cache : true,  
+                async: true,
+                success : function(html) {  
+                    $("#detailDialog").html(html);  
+                }  
+            });  
+        })
+    },
         clearClick: function () {
             this.searchForm.YAMC = "";
             this.searchForm.selected_YALX = [];
@@ -357,34 +376,6 @@ new Vue({
         selectionChange: function (val) {
             this.multipleSelection = val;
             console.info(val);
-        },
-        //资源详情
-        planDetails: function (val) {
-            var _self = this;
-            _self.planDetailVisible = true;
-
-            axios.get('/api/digitalplanlist/doFindById/' + val.pkid).then(function (res) {
-                this.detailData = res.data.result;
-                if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
-                    return '';
-                } else {
-                    var date = new Date(this.detailData.zzrq);
-                    if (date == undefined) {
-                        return '';
-                    }
-                    var month = '' + (date.getMonth() + 1),
-                        day = '' + date.getDate(),
-                        year = date.getFullYear();
-
-                    if (month.length < 2) month = '0' + month;
-                    if (day.length < 2) day = '0' + day;
-
-                    this.detailYMD = [year, month, day].join('-');
-                }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-
         },
         //预案下载
         downloadPlan: function () {
@@ -537,12 +528,6 @@ new Vue({
         },
         closeDialog: function (val) {
             this.planDetailVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
         }
         /**
         * lxy
@@ -559,7 +544,6 @@ new Vue({
         handlePreview(file) {
             console.log(file);
         }
-
     },
 
 })

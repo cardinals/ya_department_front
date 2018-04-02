@@ -73,7 +73,7 @@
                             <el-card v-for="data in tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                 <el-row>
                                     <el-col :span="24">
-                                        <div><strong>{{data.yamc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium">{{data.yalxdm}}</el-tag></div>
+                                        <div><strong  @click="planDetails(data)" style="cursor: pointer;">{{data.yamc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium">{{data.yalxdm}}</el-tag></div>
                                     </el-col>
                                 </el-row>
                                 <el-row>
@@ -95,106 +95,10 @@
                                 </el-pagination>
                             </div>
                         </div>
-                        <!--详情界面-->
-                        <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
-                                <div class="detailDisplay">
-                                    <div class="imgWidth">
-                                        <img src="../../static/images/danwei2.jpg">
-                                    </div>
-                                    <div class="dib" id="basic-Inform-Title">
-                                        <div class="inform-div">
-                                            <div class="leftDetail">
-                                                <div>
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">预案名称：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.yamc}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">预案类型：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.yalxdm}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">预案种类：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.yabbh}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">重点单位：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.zzdwmc}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">录入时间：</dt>
-                                                        <dd class="dtdlStyle">{{this.detailYMD}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">备注：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.bz}}</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">预案对象：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.dxmc}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">预案种类：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.yazl}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">是否跨区域：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.sfkqy}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">编制者：</dt>
-                                                        <dd class="dtdlStyle">{{detailData.zzrmc}}</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div style="margin-top: 15px;">
-                                            <el-button type="primary" @click="downloadPlan">预案下载</el-button>
-                                        </div>
-                                        <!-- lxy-start -->
-                                        
-                                        <el-upload
-                                        class="upload-demo"
-                                        ref="upload"                                      
-                                        action="http://localhost/yafjxz/upload"
-                                        :data="upLoadData"
-                                        :on-preview="handlePreview"
-                                        :on-remove="handleRemove"
-                                        multiple
-                                        :limit="3"
-                                        :on-exceed="handleExceed"
-                                        :file-list="fileList"
-                                        :auto-upload="false">
-                                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                                    </el-upload>
-                               
-                                    <!-- lxy-end -->
-                                    </div>
-                                </div>
-                        </el-dialog>
+                       <!--详情界面-->
+                    <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">                  
+                        <div id="detailDialog"></div>
+                    </el-dialog>
 					</div>
                 </div>
                     <!-- main-container -->
