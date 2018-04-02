@@ -505,3 +505,7 @@
   color:#82848a;
   outline:0
 }
+.el-table a{
+  cursor: pointer;
+  text-decoration: none;
+}
