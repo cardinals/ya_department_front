@@ -53,7 +53,8 @@
 /*清除浮动*/
 .fix{*zoom:1;}.fix:after{display:block; content:"clear"; height:0; clear:both; overflow:hidden; visibility:hidden;}
 /*基于display:table-cell的自适应布局*/
-.cell{display:table-cell; *display:inline-block; width:2000px; *width:auto;}
+/* .cell{display:table-cell; *display:inline-block; width:2000px; *width:auto;} */
+.cell{display: block;width: 100%;}
 /*双栏自适应cell部分连续英文字符换行*/
 .cell_bk{display:table; width:100%; table-layout:fixed; word-wrap:break-word;}
 /*单行文字溢出虚点显示*/
