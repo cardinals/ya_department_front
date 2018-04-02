@@ -105,10 +105,10 @@
                             <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                             <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="15%" align="center">
                                 <template slot-scope="scope">
-                                    <el-button type="text" @click="planDetails(scope.row)">{{scope.row.yamc}}</el-button>
+                                    <a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="yalxdm" label="预案类型" min-width="14%" align="center"></el-table-column>
+                            <el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="14%" align="center"></el-table-column>
                             <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center"></el-table-column>
                             <el-table-column prop="dxlxdm" label="对象类型" min-width="14%" align="center"></el-table-column>
                             <el-table-column prop="zzdwmc" label="编制单位" min-width="10%" align="center"></el-table-column>
