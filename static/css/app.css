@@ -7,7 +7,7 @@
 
 /* 左侧滚动 */
 
-#menu-box{overflow:auto;overflow-x:hidden;height:555px;}
+#menu-box{overflow:auto;overflow-x:hidden;height:100%;}
 
 
 
