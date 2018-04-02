@@ -1,7 +1,7 @@
 .el-form-item{
     margin-bottom: 10px;
 }
-/* .el-table th > .cell{
-    padding-left: 5px;
-    padding-right: 5px;
-} */
+.cell{  
+    display: block;  
+    width: 100%;  
+}
