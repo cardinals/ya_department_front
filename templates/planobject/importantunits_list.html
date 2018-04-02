@@ -97,7 +97,7 @@
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="15%" align="center">
 								<template slot-scope="scope">
-									<el-button @click="informClick(scope.row)" type="text">{{scope.row.dwmc}}</el-button>
+									<a @click="informClick(scope.row)" type="text">{{scope.row.dwmc}}</a>
 								</template>
 							</el-table-column>
 							<el-table-column prop="xzqy" label="行政区域" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
