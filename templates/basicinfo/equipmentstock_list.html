@@ -73,7 +73,7 @@
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="ckmc" label="仓库名称" show-overflow-tooltip min-width="9%" align="center">
 								<template slot-scope="scope">
-									<el-button @click="detailClick(scope.row)" type="text">{{scope.row.ckmc}}</el-button>
+									<a @click="detailClick(scope.row)" type="text">{{scope.row.ckmc}}</a>
 								</template>
 							</el-table-column>
 							<el-table-column prop="hwmc" label="货位名称" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
