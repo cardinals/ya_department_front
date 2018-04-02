@@ -29,12 +29,12 @@
   width: 90%;
 }
 .map-bg {
-  background: #050f33;
+  background: url('../images/bg.png') no-repeat;
 }
 .map-bg2 {
   background-color:rgba(255,255,255,0.1);
   border: 1px solid #114D6F;
-  box-shadow: 0px 0px 0px #fff;
+  box-shadow: 0px 0px 5px #2069F0;
 }
 .map-menu {
   width: 240px;
@@ -178,6 +178,10 @@
 .application-imge{
   float: left;
   margin-left: 50px;
+  margin-bottom:20px;
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
 }
 .application-name {
   line-height: 1.5;
