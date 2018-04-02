@@ -81,13 +81,13 @@
 								<el-table-column prop="sybh" label="水源编号" min-width="11%" align="center"></el-table-column>
 								<el-table-column prop="symc" label="水源名称" min-width="12%" show-overflow-tooltip align="center">
 									<template slot-scope="scope">
-										<el-button @click="informClick(scope.row)" type="text">{{scope.row.symc}}</el-button>
+										<a @click="informClick(scope.row)" type="text">{{scope.row.symc}}</a>
 									</template>
 								</el-table-column>
-								<el-table-column prop="sydz" label="水源地址" min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="sydz" label="水源地址" min-width="30%" show-overflow-tooltip align="center"></el-table-column>
 								<el-table-column prop="sylx" label="水源类型" min-width="12%" align="center"></el-table-column>
 								<el-table-column prop="qsxs" label="取水形式" min-width="12%" align="center"></el-table-column>
-								<el-table-column prop="jgid" label="所属机构" min-width="18%" align="center"></el-table-column>
+								<el-table-column prop="jgid" label="所属机构" min-width="18%" show-overflow-tooltip align="center"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->

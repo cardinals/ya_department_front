@@ -65,15 +65,15 @@
 							<el-table-column prop="djzbbm" label="单件装备编码" min-width="9%" align="center"></el-table-column>
 							<el-table-column prop="zbmc" label="装备名称" min-width="12%" align="center">
 								<template slot-scope="scope">
-									<el-button @click="detailClick(scope.row)" type="text">{{scope.row.zbmc}}</el-button>
+									<a @click="detailClick(scope.row)" type="text">{{scope.row.zbmc}}</a>
 								</template>
 							</el-table-column>
 							<el-table-column prop="zblxdm" label="装备类型" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="ssxfjgid" label="所属消防机构" min-width="12%" align="center"></el-table-column>
+							<el-table-column prop="ssxfjgid" label="所属消防机构" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
 							<el-table-column prop="cphm" label="车牌号码" min-width="9%" align="center"></el-table-column>
 							<el-table-column prop="zrrxm" label="责任人姓名" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="bfrq" label="报废日期" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="xcbyrq" label="下次保养日期" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="bfrq" label="报废日期" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="xcbyrq" label="下次保养日期" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
 							<el-table-column prop="sdzt" label="锁定状态" min-width="9%" align="center"></el-table-column>
 						</el-table>
 
