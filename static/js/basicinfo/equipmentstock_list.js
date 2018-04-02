@@ -112,6 +112,26 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
+        //时间格式化
+        dateFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '';
+            } else {
+                var date = new Date(rowDate);
+                if (date == undefined) {
+                    return '';
+                }
+                var month = '' + (date.getMonth() + 1),
+                    day = '' + date.getDate(),
+                    year = date.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [year, month, day].join('-')
+            }
+        },
         //分页大小修改事件
         pageSizeChange: function (val) {
             console.log("每页 " + val + " 条");
