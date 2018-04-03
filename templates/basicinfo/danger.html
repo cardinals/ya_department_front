@@ -43,9 +43,9 @@
 											<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="inputWidth" multiple>
 												<el-option 
 													v-for="item in LXDM_data" 
-													:key="item.value" 
-													:label="item.label" 
-													:value="item.value">
+													:key="item.codeName" 
+													:label="item.codeName" 
+													:value="item.codeValue">
 												</el-option>
 											</el-select>
 										</el-form-item>
@@ -57,9 +57,9 @@
                                             <el-select size="small" v-model="searchForm.option_PROPERTY" placeholder="性状" class="inputWidth" multiple>
                                                 <el-option 
                                                     v-for="item in PROPERTY_data" 
-                                                    :key="item.value" 
-                                                    :label="item.label" 
-                                                    :value="item.value">
+                                                    :key="item.codeName" 
+                                                    :label="item.codeName" 
+                                                    :value="item.codeValue">
                                                 </el-option>
                                             </el-select>
                                         </el-form-item>

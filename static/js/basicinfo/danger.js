@@ -74,8 +74,8 @@ new Vue({
                 name:this.searchForm.NAME,
                 alias: this.searchForm.ALIAS,
                 englishName: this.searchForm.ENGLISH_NAME,
-                // lxdm: this.searchForm.option_LXDM,
-                // property: this.searchForm.option_PROPERTY
+                //type: this.searchForm.option_LXDM,
+                //property: this.searchForm.option_PROPERTY
             };
             axios.post('/dpapi/danger/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
@@ -94,14 +94,14 @@ new Vue({
             this.$refs.tree.setCheckedKeys([]);
         },
         getLXDMData: function (){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            axios.get('/api/codelist/getCodetype/HXPFL').then(function(res){
                 this.LXDM_data=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
         },
         getPROPERTYData: function (){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            axios.get('/api/codelist/getCodetype/HXPZT').then(function(res){
                 this.PROPERTY_data=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
