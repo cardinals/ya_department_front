@@ -17,7 +17,7 @@
 		<div class="main-box">
 			<div class="main-container">
 				<div id="lib :: main_container_header('消防车辆信息','消防车辆信息')"></div>
-				<div id="tableView">
+				<div id="tableView" v-loading="loading" element-loading-text="加载中">
 					<el-row>
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 							<el-row type="flex" justify="center">
@@ -59,7 +59,7 @@
 					</el-row>
 
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column prop="djzbbm" label="单件装备编码" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
