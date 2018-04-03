@@ -147,6 +147,7 @@ new Vue({
                 });
                 return;
             }
+            _self.loading = true;//表格重新加载
             var params = {
                 rolename: this.searchForm.rolename,
                 createTimeBegin: this.searchForm.createTimeBegin,
@@ -156,6 +157,7 @@ new Vue({
             axios.post('/api/role/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })

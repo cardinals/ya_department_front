@@ -112,6 +112,7 @@ new Vue({
                 });
                 return;
             }
+            this.loading = true;
             var params = {
                 dwmc: this.searchForm.dwmc,
                 begintime: this.searchForm.begintime,
@@ -130,6 +131,7 @@ new Vue({
                         }
                     }
                 }
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error);
             })

@@ -51,10 +51,12 @@ new Vue({
         }
     },
     created: function () {
+        this.loading = true; //重新加载数据
         this.codeid = this.GetQueryString("codeid");
         axios.get('/api/codelist/detail/doFindById/' + this.codeid).then(function (res) {
             this.tableData = res.data.result;
             this.total = res.data.result.length;
+            this.loading = false;
         }.bind(this), function (error) {
             console.log(error)
         })
@@ -107,6 +109,7 @@ new Vue({
 
         //查询，初始化
         searchClick: function () {
+            this.loading = true;
             var params = {
                 codeid: this.codeid,
                 codeValue: this.searchForm.codeValue.trim(),
@@ -116,6 +119,7 @@ new Vue({
             axios.post('/api/codelist/detail/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })

@@ -16,7 +16,7 @@ new Vue({
             //表高度变量
             tableheight: 441,
             //显示加载中样
-            loading: false,
+            loading: false,          
             labelPosition: 'right',
             //多选值
             multipleSelection: [],
@@ -126,17 +126,7 @@ new Vue({
         }
     },
     created: function () {
-        var params = {
-
-        }
-        axios.post('/api/user/findByVO', params).then(function (res) {
-            console.log(res.data.result);
-            this.tableData = res.data.result;
-            this.total = this.tableData.length;
-            this.loadingData();
-        }.bind(this), function (error) {
-            console.log(error)
-        })
+        this.searchClick();
     },
     methods: {
 
@@ -150,6 +140,7 @@ new Vue({
                 }
                 return true;
             }
+            _self.loading = true;//表格重新加载
             var params = {
                 username: this.searchForm.username,
                 realname: this.searchForm.realname,
@@ -159,7 +150,7 @@ new Vue({
             axios.post('/api/user/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                _self.loadingData();
+                _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })

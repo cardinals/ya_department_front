@@ -89,6 +89,7 @@ new Vue({
     }
 },
     mounted: function () {
+        this.loading=true;
         var url = location.search;
         if (url.indexOf("?") != -1) {
             var str = url.substr(1);
@@ -102,6 +103,7 @@ new Vue({
                 this.SYLX = res.data.result.sylx;
                 this.sysxxxid = res.data.result.sysxxxid;
                 this.loadingJCXX(this.SYLX,this.sysxxxid);
+                this.loading=false;
             }.bind(this), function (error) {
                 console.log(error)
             })

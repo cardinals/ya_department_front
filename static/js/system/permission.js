@@ -111,6 +111,7 @@ new Vue({
                 });
                 return;
             }
+            _self.loading = true;//表格重新加载
             var params = {
                 permissionname: this.searchForm.permissionname,
                 createTimeBegin: this.searchForm.createTimeBegin,
@@ -120,6 +121,7 @@ new Vue({
             axios.post('/api/permission/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })

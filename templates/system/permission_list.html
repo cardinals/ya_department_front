@@ -16,7 +16,7 @@
 	</div>
 	<div id="app">
 		<div class="main-box">
-			<div class="main-container">
+			<div class="main-container" v-loading="loading" element-loading-text="加载中">
 				<div id="lib :: main_container_header('权限管理','权限管理')"></div>
 				<div id="tableView">
 					<el-row>
@@ -62,17 +62,17 @@
 
 
 					<div class="table_container">
-						<el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+						<el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 						 @selection-change="selectionChange" :height="tableheight">
 
 							<el-table-column type="selection" width="45"></el-table-column>
-							<el-table-column type="index" label="序号" align="center" width="65"></el-table-column>
-							<el-table-column prop="permissionname" label="权限名称" min-width="12%" align="center"></el-table-column>
-							<el-table-column prop="permissioninfo" label="权限描述" min-width="15%" align="center"></el-table-column>
-							<el-table-column prop="createName" label="创建人" min-width="12%" align="center"></el-table-column>
-							<el-table-column prop="createTime" label="创建时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
-							<el-table-column prop="alterName" label="修改人" min-width="12%" align="center"></el-table-column>
-							<el-table-column prop="alterTime" label="修改时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
+							<el-table-column type="index" show-overflow-tooltip label="序号" align="center" width="65"></el-table-column>
+							<el-table-column prop="permissionname" show-overflow-tooltip label="权限名称" min-width="12%" align="center"></el-table-column>
+							<el-table-column prop="permissioninfo" show-overflow-tooltip label="权限描述" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="createName" show-overflow-tooltip label="创建人" min-width="12%" align="center"></el-table-column>
+							<el-table-column prop="createTime" show-overflow-tooltip label="创建时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
+							<el-table-column prop="alterName" show-overflow-tooltip label="修改人" min-width="12%" align="center"></el-table-column>
+							<el-table-column prop="alterTime" show-overflow-tooltip label="修改时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->
