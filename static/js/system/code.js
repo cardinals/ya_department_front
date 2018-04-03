@@ -13,7 +13,7 @@ new Vue({
             },
             tableData: [],
             //表高度变量
-            tableheight: 445,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             //多选值
@@ -112,6 +112,7 @@ new Vue({
                 });
                 return;
             }
+            _self.loading = true;//表格重新加载
             var params = {
                 codetype: this.searchForm.codetype,
                 createTimeBegin: this.searchForm.createTimeBegin,
@@ -121,6 +122,7 @@ new Vue({
             axios.post('/api/codelist/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })

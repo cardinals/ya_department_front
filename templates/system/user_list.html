@@ -17,7 +17,7 @@
 	</div>
 	<div id="app">
 		<div class="main-box">
-			<div class="main-container">
+			<div class="main-container" v-loading="loading" element-loading-text="加载中">
 				<div id="lib :: main_container_header('用户管理','用户管理')"></div>
 				<div id="tableView">
 					<el-row>
@@ -55,26 +55,26 @@
 						</el-form>
 					</el-row>
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 
 							<el-table-column type="selection" min-width="5%">
 							</el-table-column>
-							<el-table-column type="index" label="序号" width="65" align="center">
+							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center">
 							</el-table-column>
-							<el-table-column prop="username" label="用户名" min-width="10%" align="center">
+							<el-table-column prop="username" show-overflow-tooltip label="用户名" min-width="10%" align="center">
 							</el-table-column>
 							<el-table-column prop="realname" show-overflow-tooltip label="真实姓名" min-width="10%" align="center">
 							</el-table-column>
-							<el-table-column prop="birth" label="生日" min-width="12%" align="center" :formatter="dateFormat">
+							<el-table-column prop="birth" show-overflow-tooltip label="生日" min-width="12%" align="center" :formatter="dateFormat">
 							</el-table-column>
-							<el-table-column prop="sex" label="性别" min-width="7%" align="center" :formatter="sexFormat">
+							<el-table-column prop="sex" show-overflow-tooltip label="性别" min-width="7%" align="center" :formatter="sexFormat">
 							</el-table-column>
-							<el-table-column prop="mobile" label="手机号" min-width="17%" align="center">
+							<el-table-column prop="mobile" show-overflow-tooltip label="手机号" min-width="17%" align="center">
 							</el-table-column>
-							<el-table-column prop="email" label="邮箱" min-width="19%" align="center">
+							<el-table-column prop="email" show-overflow-tooltip label="邮箱" min-width="19%" align="center">
 							</el-table-column>
-							<el-table-column prop="role" label="角色" min-width="12%" align="center">
+							<el-table-column prop="role" show-overflow-tooltip label="角色" min-width="12%" align="center">
 								<template slot-scope="scope">
 									<el-button type="text" @click="roleDetails(scope.row.userid)">查看详情</el-button>
 								</template>

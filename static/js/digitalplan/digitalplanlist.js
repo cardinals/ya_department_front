@@ -258,7 +258,7 @@ new Vue({
                 });
                 return;
             }
-            _self.loading = true; //重新加载数据
+            _self.loading = true;//表格重新加载
             var params={
                 yamc:this.searchForm.YAMC,
                 yalxdm:this.searchForm.selected_YALX,

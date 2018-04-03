@@ -58,9 +58,9 @@ new Vue({
         }
     },
     created:function(){
-        this.searchClick();
         this.getLXDMData();
         this.getPROPERTYData();
+        this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -69,16 +69,18 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             var _self = this;
+            _self.loading = true;//表格重新加载
             var params={
                 name:this.searchForm.NAME,
-                // alias: this.searchForm.ALIAS,
-                // english_name: this.searchForm.ENGLISH_NAME,
+                alias: this.searchForm.ALIAS,
+                englishName: this.searchForm.ENGLISH_NAME,
                 // lxdm: this.searchForm.option_LXDM,
                 // property: this.searchForm.option_PROPERTY
             };
             axios.post('/dpapi/danger/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                _self.loading = false;
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -139,78 +141,7 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //表格编辑事件
-        // editClick: function () {
-        //     var _self = this;
-        //     var multipleSelection = this.multipleSelection;
-        //     if (multipleSelection.length < 1) {
-        //         _self.$message({
-        //             message: "请至少选中一条记录",
-        //             type: "error"
-        //         });
-        //         return;
-        //     }
-        //     else if (multipleSelection.length > 1) {
-        //         _self.$message({
-        //             message: "只能选一条记录进行编辑",
-        //             type: "error"
-        //         });
-        //         return;
-        //     }
-        //     //var ids = "";
-        //     var ids = [];
-        //     for (var i = 0; i < multipleSelection.length; i++) {
-        //         var row = multipleSelection[i];
-        //         //ids += row.realname + ",";
-        //         ids.push(row.permissionname);
-        //     }
-        //     for (var d = 0; d < ids.length; d++) {
-        //         for (var k = 0; k < _self.tableData.length; k++) {
-        //             if (_self.tableData[k].permissionname == ids[d]) {
-        //                 _self.selectIndex = k;
-        //             }
-        //         }
-        //     }
-        //     this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-        //     //this.editForm.sex=(row.sex == "男"?1:0);
-        //     this.editFormVisible = true;
-        // },
-        //保存点击事件
-        // editSubmit: function (val) {
-        //     var _self = this;
-        //     this.tableData[this.selectIndex].permissionname = val.permissionname;
-        //     this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-        //     this.tableData[this.selectIndex].create_name = val.create_name;
-        //     this.tableData[this.selectIndex].create_time = val.create_time;
-        //     this.tableData[this.selectIndex].alter_name = val.alter_name;
-        //     this.tableData[this.selectIndex].alter_time = val.alter_time;
-        //     this.editFormVisible = false;
-        //     _self.loadingData();//重新加载数据
-        //     console.info(this.editForm);
-        // },
-        // //新建提交点击事件
-        // addSubmit: function (val) {
-        //     var _self = this;
-        //     this.tableData.unshift({
-        //         permissionname: val.permissionname,
-        //         permissioninfo: val.permissioninfo,
-        //         create_name: val.create_name,
-        //         create_time: val.create_time,
-        //         alter_name: val.alter_name,
-        //         alter_time: val.alter_time
-        //     });
-        //     this.addFormVisible = false;
-        //     _self.total = _self.tableData.length;
-        //     _self.loadingData();//重新加载数据
-        //     val.permissionname = "";
-        //     val.permissioninfo = "";
-        //     val.create_name = "";
-        //     val.create_time = "";
-        //     val.alter_name = "";
-        //     val.alter_time = "";
-        //     console.info(this.addForm);
-
-        // },
+       
         closeDialog: function (val) {
             this.addFormVisible = false;
             val.permissionname = "";
