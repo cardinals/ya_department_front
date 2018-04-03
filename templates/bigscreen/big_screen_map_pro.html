@@ -15,70 +15,71 @@
 <body class="fw map-bg">
     <div id="app">
         <div class="application-box tc abs">
-            <div class="map-menu p10 map-bg" >
+<!-- 左侧 -->
+            <div class="map-menu-left p10 map-bg" >
                 <div class="meu-box" >
-                <el-form ref="form" :model="form" label-width="80px" >
-                  
-                    <el-select placeholder="请输入地址"  class="input-with-select map_slt w150 l b_r" >
-                        <el-option label="北京" value="北京"></el-option>
-                        <el-option label="天津" value="天津"></el-option>
-                        <el-option label="河北" value="河北"></el-option>
-                    </el-select>
-                    
-                    <el-button class="l ml5" type="primary" icon="el-icon-search">搜索</el-button>
+                        <el-form ref="form" :model="form" label-width="80px" >
+                             <div class="search_top">
+                                <el-select placeholder="请输入地址"  class="input-with-select map_slt w150 l b_r" >
+                                    <el-option label="北京" value="北京"></el-option>
+                                    <el-option label="天津" value="天津"></el-option>
+                                    <el-option label="河北" value="河北"></el-option>
+                                </el-select>
+                                <el-button class="l ml5" type="primary" icon="el-icon-search">搜索</el-button>
+                             </div>
 
-                    <el-collapse class="res_slt"  >
-                        <el-collapse-item title="更多搜索选项" name="4" >
-                            <div>
-                                <el-dropdown-item>
-                                    <el-input class="mt10" placeholder="主体名称" style="padding-bottom:10px;"></el-input>
-                                </el-dropdown-item>
-                                <el-dropdown-item style="font-size:1px;" action="" method="get">
-                                    <el-checkbox style="margin-left:-110px;"  name="Fruit" label="重点单位"></el-checkbox>
-                                    <br/>
-                                    <el-checkbox style="margin-left:-68px;"  name="Fruit"  label="重大活动或会议"></el-checkbox>
-                                    <br/>
-                                    <el-checkbox style="margin-left:-112px;" name="Fruit" label="其他对象"></el-checkbox>
-                                </el-dropdown-item>
-                                <el-dropdown-item>
-                                    <el-input class="mt10" placeholder="地址" style="padding-bottom:10px;"></el-input>
-                                </el-dropdown-item>
-                                <el-dropdown-item >
-                                    <el-date-picker class="mt10 w190" type="date" placeholder="录入日期" style="padding-bottom:10px;"></el-date-picker>
-                                </el-dropdown-item>
-                            </div>
-                        </el-collapse-item>
-                    </el-collapse>
-
-                    <!-- <table border="0" style="color:#ffffff;font-size:15px;position:absolute;top:100px;left:60px;border-collapse:separate; border-spacing:0px 12px;">
-                        <tr v-for = "data in tableData" >
-                            <td>{{data.DWMC}}</td>
-                        </tr>
-                    </table>  -->
-
-                    <el-card v-for="data in tableData" :body-style="{ padding: '0px' }" style="position:fixed;top:200px;margin-bottom:6px;background-color:#708090;color:#fff;">
-                   
-                        <div slot="header">
-                            <div>
-                                <strong>{{data.DWMC }}</strong>&nbsp&nbsp
-                                <el-tag color="#0f82ee" size="medium">{{data.DWXZ}}</el-tag>
-                            </div>
-                        </div>
-                        <div class="l">地址：{{data.DWDZ }}</div>
-                        <div class="l">电话：{{data.DWDH }}</div>
-                    </el-card>  
-
-                    <div class="pagenum">
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li class="disabled"><a href="#">/</a></li>
-                            <li><a href="#">33</a></li>
-                                    <li><a href="#">&raquo;</a></li>
-                        </ul>
-                    </div>
-
-                </el-form>
+                                <el-collapse class="res_slt"  >
+                                    <el-collapse-item title="更多搜索选项" name="4" >
+                                        <div>
+                                            <el-dropdown-item>
+                                                <el-input class="mt10" placeholder="主体名称" style="padding-bottom:10px;"></el-input>
+                                            </el-dropdown-item>
+                                            <el-dropdown-item style="font-size:1px;" action="" method="get">
+                                                <el-checkbox style="margin-left:-110px;"  name="Fruit" label="重点单位"></el-checkbox>
+                                                <br/>
+                                                <el-checkbox style="margin-left:-68px;"  name="Fruit"  label="重大活动或会议"></el-checkbox>
+                                                <br/>
+                                                <el-checkbox style="margin-left:-112px;" name="Fruit" label="其他对象"></el-checkbox>
+                                            </el-dropdown-item>
+                                            <el-dropdown-item>
+                                                <el-input class="mt10" placeholder="地址" style="padding-bottom:10px;"></el-input>
+                                            </el-dropdown-item>
+                                            <el-dropdown-item >
+                                                <el-date-picker class="mt10 w190" type="date" placeholder="录入日期" style="padding-bottom:10px;"></el-date-picker>
+                                            </el-dropdown-item>
+                                        </div>
+                                    </el-collapse-item>
+                                </el-collapse>
+            
+                                <!-- <table border="0" style="color:#ffffff;font-size:15px;position:absolute;top:100px;left:60px;border-collapse:separate; border-spacing:0px 12px;">
+                                    <tr v-for = "data in tableData" >
+                                        <td>{{data.DWMC}}</td>
+                                    </tr>
+                                </table>  -->
+            
+                                <el-card v-for="data in tableData" :body-style="{ padding: '0px' }" style="position:fixed;top:200px;margin-bottom:6px;background-color:#708090;color:#fff;">
+                               
+                                    <div slot="header">
+                                        <div>
+                                            <strong>{{data.DWMC }}</strong>&nbsp&nbsp
+                                            <el-tag color="#0f82ee" size="medium">{{data.DWXZ}}</el-tag>
+                                        </div>
+                                    </div>
+                                    <div class="l">地址：{{data.DWDZ }}</div>
+                                    <div class="l">电话：{{data.DWDH }}</div>
+                                </el-card>  
+            
+                                <div class="pagenum" >
+                                    <ul class="pagination">
+                                        <li><a href="#">&laquo;</a></li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li class="disabled"><a href="#">/</a></li>
+                                        <li><a href="#">33</a></li>
+                                        <li><a href="#">&raquo;</a></li>
+                                    </ul>
+                                </div>
+            
+                            </el-form>
                 </div>
                 <!-- 收缩按钮 -->
                 <!-- <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc an" href="javascript:;" ></a> -->
@@ -88,7 +89,13 @@
             <div class="map-menu-right h456 mt35">
 
                 <div class="meu-box-right">
-                    <div style="width:30px;margin-top:240px;margin-left:130px;">
+                    <div class="map-china" >
+                        <a href="big_screen_map.html">
+                            <img src="../../static/images/icon-china.png" />
+                        </a>
+                    </div>
+                    <div style="width:30px;margin-top:180px;margin-left:110px;">
+                        
                         <div class="icon" type="button" class="btn btn-success"   
                         data-container="body" data-toggle="popover" data-placement="left" 
                         data-content="消防主体">
@@ -124,18 +131,10 @@
                         data-content="附近1000m消防力量">
                         <span class="glyphicon glyphicon-user"  style="color:#FF4500"></span>
                         </div>
+
                     </div>
                 </div> 
-
             </div>
-
-
-            <div class="map-china" style="position:fixed; top:35px;left:1070px;">
-                <a href="big_screen_map.html">
-                    <img src="../../static/images/icon-china.png" />
-                </a>
-            </div>
-
             <div id="BMap" class="map-main tc">
             </div>
           
@@ -147,6 +146,8 @@
 <script src="../../static/js/vue.min.js"></script>
 <script src="../../static/js/element.js" charset="utf-8"></script>
 <script src="../../static/js/bootstrap.min.js"></script>
+
+
 <script>
         $(function () { $("[data-toggle='popover']").popover(); }); 
 </script>

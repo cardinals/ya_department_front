@@ -50,7 +50,14 @@
   text-align:left;
   margin-left: 10px;
 }
-.map-menu {
+
+.search_top {
+  width: 300px;
+
+
+}
+
+.map-menu-left {
   width: 240px;
   height: 100%;
   margin: 0;
@@ -98,11 +105,8 @@
   float: left;
 }
 .map-china {
-  position: fixed;
-  width: 90px;
-  top: 36px;
-  left: 265px;
-  z-index: 9999;
+  margin-top:25px;
+  margin-left: 80px;
 }
 .copyright {
   font-size: 12px;
