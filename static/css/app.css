@@ -1,15 +1,55 @@
+.progressBar{
+  width:335px;
+  height:8px;
+  border:1px solid #98AFB7;
+  margin-top:3px;
+  margin-left:30px;
+}
+
+#bar{
+  width:220px;
+  height:8px;
+  /* background:#5EC4EA; */
+  background: -webkit-linear-gradient(left, red , blue);
+ /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right, red, blue);
+ /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right, red, blue);
+ /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right, red , blue); 
+}
+
+.tp_lf{
+color: #31C3F0;
+font-weight: bold;
+text-align: left;
+margin-left: -230px;
+margin-top: 50px;
+}
+
+.tp_lf_z{
+  color: #31C3F0;
+  font-size:13px;
+  text-align: left;
+  margin-left: -230px;
+  margin-top: 50px;
+}
+
+
+.sline{
+  color: rgb(84, 49, 240);
+  width: 85%;
+  margin-left:30px; 
+}
+
 .frame-duration {
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
-
 /* 左侧滚动 */
-
 #menu-box{overflow:auto;overflow-x:hidden;height:100%;}
-
-
 
 .logo {
   background: url('../images/LOGO.png') no-repeat;
@@ -209,6 +249,15 @@
   color: #00FFFD;
   text-align: right;
 }
+.application-num-left {
+  line-height: 1.5;
+  font-size: 2.5em;
+  color: #00FFFD;
+  text-align: left;
+  margin-left: 30px;
+  padding-top:40px ;
+}
+
 .application-img {
   width: 100%;
   height: 288px;
