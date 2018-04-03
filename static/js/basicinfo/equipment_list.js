@@ -65,6 +65,7 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
+            this.loading = true;
             var _self = this;
             var params={
                 zbqcmc:this.searchForm.zbqcmc,
@@ -77,6 +78,7 @@ new Vue({
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
+                this.loading=false;
             }.bind(this),function(error){
                 console.log(error);
             })
