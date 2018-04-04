@@ -173,20 +173,15 @@ new Vue({
         }
     },
     created: function () {
-        this.onSearch();
         this.YAZL();
         this.DXLX();
         this.YALX();
         this.searchClick();
     },
     methods: {
-        onSearch() {
-            this.loading = true;
-        },
         handleNodeClick(data) {
             console.log(data);
         },
-
         //当前页修改事件
         handleCurrentChange(val) {
             this.currentPage = val;
@@ -200,9 +195,10 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
+            this.loading = true;
             var _self = this;
             var params = {
-                // rolename: this.searchForm.rolename,
+                yamc: this.searchForm.yamc,
                 // createTimeBegin: this.searchForm.createTimeBegin,
                 // createTimeEnd: this.searchForm.createTimeEnd
             };
