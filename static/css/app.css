@@ -26,6 +26,19 @@
   background: linear-gradient(to right, orangered , orange); 
 }
 
+.barss{
+  width:260px;
+  height:15px;
+  /* background:#5EC4EA; */
+  background: -webkit-linear-gradient(left, green , lightgreen);
+ /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(right, green , lightgreen);
+ /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(right, green , lightgreen);
+ /* Firefox 3.6 - 15 */
+  background: linear-gradient(to right, green , lightgreen); 
+}
+
 .tp_lf{
 color: #74EBFB;
 font-weight: bold;
@@ -48,7 +61,7 @@ font-family:"微软雅黑";
   color: #74EBFB;
   font-size:13px;
   text-align: left;
-  margin-left: -430px;
+  margin-left: -624px;
   margin-top: 80px;
   padding-top: 20px;
 }

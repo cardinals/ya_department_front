@@ -16,10 +16,34 @@
 
     <script src="../../static/js/echarts-2/echarts-all.js"></script>
     <script src="../../static/js/echarts-4/echarts.js"></script>
-    <script type="text/javascript" src="../../static/js/vue.js"></script>
+	<script type="text/javascript" src="../../static/js/vue.js"></script>
+	
     
 </head>
 
+<style type="text/css">  
+	.yuan{ float:left;margin-left: 90px;margin-top:-60px;width:75px; height:75px;  box-sizing:border-box; padding-top:12px; text-align:center; background-color:rgba(128, 120, 247, 0.4); border-radius:50%; position:relative;}  
+	.yuan_bl1 , .yuan_bl2 , .yuan_bl3 , .yuan_bl4{ width:100%; height:100%; border-radius:50%; position:absolute; left:0; top:0;}  
+	/* .yuan_bl1 , .yuan_bl2{ 
+	background: -webkit-linear-gradient(left, lightblue , blue);
+	
+	background: -o-linear-gradient(right, lightblue , blue);
+	
+	background: -moz-linear-gradient(right, lightblue , blue);
+	
+	background: linear-gradient(to right, lightblue , blue);}   */
+	.yuan_bl3 , .yuan_bl4{ /* background:#5EC4EA; */
+	background: -webkit-linear-gradient(left, lightblue , blue);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, lightblue , blue);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, lightblue , blue);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to right,lightblue , blue);}  
+	.yuan_bl1 , .yuan_bl3{ clip:rect(0 80px 40px 0);}  
+	.yuan_bl2 , .yuan_bl4{ clip:rect(20px 40px 40px 0);}  
+	.yuan_text{ width:50px; height:50px; line-height:50px; box-sizing:border-box; padding-left:2px; margin:0 auto; color:#fff;font-weight:bold;font-size:18px; font-family:"PingFangSC-Thin","sans-serif","STHeitiSC-Light","微软雅黑","Microsoft YaHei"; background-color:#022C64; border-radius:50%; position:relative;} 
+</style>   
 
 <body class="fw map-bg">
     <div id="app">
@@ -28,42 +52,44 @@
                 <a @click="loadChart" style="position:fixed;left:10px;top:200px;color:#fff;font-size:10px;">返回</a>
                 <div class="h100 l p3" style="width:33.3%">
                     <div id="t1" class="application-text map-bg2">
-						<div class="tp_lf">预案数量(个)</div>
+						<div class="tp_lf">结构化数据条数</div>
 						<div class="sline"></div>
                         <div class="tp_rt">
-							
-							
-
 							<div class="application-num-left">{{yags}}</div>
 							<div class="beijing"></div>
+							<div class="yuan">  
+								<div class="yuan_bl1"></div>  
+								<div class="yuan_text">66次</div>  
+							</div>
 						</div>
+						
 						<div class="bm">
-							<span class="tp_lf_y">今日预案数量(个)</span>
+							<span class="tp_lf_y">今日新增(个)</span>
  							<div class="progressBar"><div class="bars"></div></div>
 							<br/>
-							<span class="tp_lf_z">昨日预案数量(个)</span>
- 							<div class="progressBarz"><div class="bars"></div></div>
+							<span class="tp_lf_z">昨日新增(个)</span>
+ 							<div class="progressBarz"><div class="barss"></div></div>
 						</div>
 					</div>
                 </div>
                 <div class="h100 l p3" style="width:33.4%">
                     <div id="t1" class="application-text map-bg2">
-						<div class="tp_lf">预案数量(个)</div>
+						<div class="tp_lf">预案文件个数</div>
 						<div class="sline"></div>
                         <div class="tp_rt">
-							
-							
-
-
 							<div class="application-num-left">{{yags}}</div>
 							<div class="beijing"></div>
+							<div class="yuan">  
+								<div class="yuan_bl1"></div>  
+								<div class="yuan_text">66次</div>  
+							</div>
 						</div>
 						<div class="bm">
-							<span class="tp_lf_y">今日预案数量(个)</span>
+							<span class="tp_lf_y">今日新增(个)</span>
  							<div class="progressBar"><div class="bars"></div></div>
 							<br/>
-							<span class="tp_lf_z">昨日预案数量(个)</span>
- 							<div class="progressBarz"><div class="bars"></div></div>
+							<span class="tp_lf_z">昨日新增(个)</span>
+ 							<div class="progressBarz"><div class="barss"></div></div>
 						</div>
 					</div>
                 </div>
@@ -97,21 +123,25 @@
     </div>
 </body>
 <script>  
-		var percent=0;  
-		var loading=setInterval(function(){  
-			if(percent>100){  
-				percent=0;  
-				$('.circle').removeClass('clip-auto');  
-				$('.right').addClass('wth0');  
-			}else if(percent>50){  
-				$('.circle').addClass('clip-auto');  
-				$('.right').removeClass('wth0');  
+		$(function(){  
+			//初始化  
+			var bl = parseInt($('.yuan_text').html());  
+			var rotatenum = bl;  
+			if(bl > 90){  
+				var blhtml = '';  
+				rotatenum = bl - 90;  
+				blhtml += '<div class="yuan_bl2">';  
+				blhtml += '<div class="yuan_bl4" style="-webkit-transform:rotate(' + rotatenum + 'deg);transform:rotate(' + rotatenum + 'deg);"></div>';  
+				blhtml += '</div>';  
+				//$('.yuan_bl1').remove($('.yuan_bl3'));  
+				$('.yuan_bl1').after(blhtml);  
+			}else{  
+				var blhtml = '';  
+				blhtml += '<div class="yuan_bl3" style="-webkit-transform:rotate(' + rotatenum + 'deg);transform:rotate(' + rotatenum + 'deg);"></div>';  
+				$('.yuan_bl1').append(blhtml);  
 			}  
-			$('.left').css("-webkit-transform","rotate("+(18/5)*percent+"deg)");  
-			$('.num>span').text(percent);  
-			percent++;  
-		},200);  
-</script>  
+		})  
+		</script>
 
 <script>
     var vm = new Vue({
