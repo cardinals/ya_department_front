@@ -31,7 +31,8 @@ body{ background:#2546a5 url(../images/login-bg.jpg) no-repeat center center;}
     background: url(../images/icon-user.png) no-repeat;      
     display: inline-block;
     position: absolute;
-    margin: 12px;
+    margin-left: 12px;
+    margin-top: 10px;
 }
 /*.Login_n ul .I2 input{ background:url(../images/icon-password.png) no-repeat 12px center;}*/
 .Login_n ul .I2 #icon-password{
@@ -40,7 +41,8 @@ body{ background:#2546a5 url(../images/login-bg.jpg) no-repeat center center;}
     background: url(../images/icon-password.png) no-repeat;      
     display: inline-block;
     position: absolute;
-    margin: 12px;
+    margin-left: 12px;
+    margin-top: 10px;
 }
 .Login_n ul .I3 input{ background:url(../images/icon-verficode.png) no-repeat 12px center;}
 .I3  { position:relative;}
