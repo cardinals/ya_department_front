@@ -23,8 +23,25 @@ body{ background:#2546a5 url(../images/login-bg.jpg) no-repeat center center;}
 .Login_nTop{height:64px; line-height:72px; font-size:20px; border-bottom: 1px solid #d6d6d6; padding-left:30px; }
 .Login_n ul{width:298px; margin:30px auto 0;}
 .Login_n ul li input{ width:250px; height:39px; line-height:39px; font-size:14px; padding-left:46px; border-radius:4px; margin-bottom:15px; border:1px solid #d6d6d6;}
-.Login_n ul .I1 input{ background:url(../images/icon-user.png) no-repeat 12px center;}
-.Login_n ul .I2 input{ background:url(../images/icon-password.png) no-repeat 12px center;}
+/*.Login_n ul .I1 input{ background:url(../images/icon-user.png) no-repeat 12px center;} */
+/*icon设置为单独图标，解决chrome浏览器自动填充密码时覆盖background样式问题*/
+.Login_n ul .I1 #icon-user{
+    width: 30px;
+    height: 30px;
+    background: url(../images/icon-user.png) no-repeat;      
+    display: inline-block;
+    position: absolute;
+    margin: 12px;
+}
+/*.Login_n ul .I2 input{ background:url(../images/icon-password.png) no-repeat 12px center;}*/
+.Login_n ul .I2 #icon-password{
+    width: 30px;
+    height: 30px;
+    background: url(../images/icon-password.png) no-repeat;      
+    display: inline-block;
+    position: absolute;
+    margin: 12px;
+}
 .Login_n ul .I3 input{ background:url(../images/icon-verficode.png) no-repeat 12px center;}
 .I3  { position:relative;}
 .verficode{ display:block; width:74px; height:25px; position:absolute; top:8px; right:10px;}
@@ -50,4 +67,15 @@ input:-ms-input-placeholder{
 input::-webkit-input-placeholder{
     color: #4F4F4F;opacity:1;
 }
-
+/*chrome自动填充变黄处理*/
+input:-webkit-autofill {
+    -webkit-animation: autofill-fix 1s infinite;
+}
+@-webkit-keyframes autofill-fix {
+    from {
+        background-color: transparent
+    }
+    to {
+        background-color: transparent
+    }
+}
