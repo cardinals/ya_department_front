@@ -36,7 +36,8 @@ axios.get('http://localhost/api/getMenu')
         }
         console.log(menuData);
     }.bind(this),function(error){
-        console.log(error)
+        console.log(error);
+        window.location.href = "../login.html";
     });   
 
 // 定义树节点
