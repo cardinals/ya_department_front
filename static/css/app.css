@@ -1,45 +1,64 @@
 .progressBar{
   width:335px;
-  height:8px;
-  border:1px solid #98AFB7;
+  height:15px;
   margin-top:3px;
   margin-left:30px;
+  background: rgba(27, 92, 231, 0.2);
+}
+.progressBarz{
+  width:335px;
+  height:15px;
+  margin-top:2px;
+  margin-left:30px;
+  background: rgba(27, 92, 231, 0.2);
 }
 
 .bars{
   width:220px;
-  height:8px;
+  height:15px;
   /* background:#5EC4EA; */
-  background: -webkit-linear-gradient(left, red , blue);
+  background: -webkit-linear-gradient(left, orangered , orange);
  /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(right, red, blue);
+  background: -o-linear-gradient(right, orangered , orange);
  /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(right, red, blue);
+  background: -moz-linear-gradient(right, orangered , orange);
  /* Firefox 3.6 - 15 */
-  background: linear-gradient(to right, red , blue); 
+  background: linear-gradient(to right, orangered , orange); 
 }
 
 .tp_lf{
-color: #31C3F0;
+color: #74EBFB;
 font-weight: bold;
-text-align: left;
-margin-left: -230px;
-margin-top: 50px;
+float: left;
+margin-left: 30px;
+padding-top: 20px;
+font-size: 20px;
+font-family:"微软雅黑";
 }
 
 .tp_lf_z{
-  color: #31C3F0;
+  color: #74EBFB;
   font-size:13px;
-  text-align: left;
-  margin-left: -230px;
-  margin-top: 50px;
+  float: left;
+  margin-left: 30px;
+  margin-top: -20px;
 }
 
+.tp_lf_y{
+  color: #74EBFB;
+  font-size:13px;
+  text-align: left;
+  margin-left: -430px;
+  margin-top: 80px;
+  padding-top: 20px;
+}
 
 .sline{
-  color: rgb(84, 49, 240);
-  width: 85%;
-  margin-left:30px; 
+  margin-top: 35px;
+  margin-left: 30px;
+  width: 100%;
+  height: 18px;
+  background: url('../images/img.png') no-repeat;
 }
 
 .frame-duration {
@@ -252,10 +271,19 @@ margin-top: 50px;
 .application-num-left {
   line-height: 1.5;
   font-size: 2.5em;
-  color: #00FFFD;
-  text-align: left;
+  color: #FADB00;
+  float: left;
+  margin-left: 35px;
+  margin-top: -4px;
+ 
+}
+.beijing{
+  width: 100%;
+  height: 55px;
   margin-left: 30px;
-  padding-top:40px ;
+  margin-top: 5px;
+  background: url('../images/bg_011.png') no-repeat;
+
 }
 
 .application-img {
