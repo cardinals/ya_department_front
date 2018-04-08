@@ -226,10 +226,10 @@ font-family:"微软雅黑";
   width: 288px;
   height: 100%;
 }
-/* 地图的div框 */
+/* 地图的div框 修改地图大小*/
 .application-icon-l {
-  width: 600px;
-  height:300px;
+  width: 700px;
+  height:360px;
   font-weight: bold;
 }
 .application-icon-r {
@@ -263,11 +263,11 @@ font-family:"微软雅黑";
 
 .application-imge{
   float: left;
-  margin-left: 50px;
-  margin-bottom:20px;
-  width: 48px;
+  margin-left: 60px;
+  margin-top: 10px;
+  /* width: 48px;
   height: 48px;
-  background-size: 48px 48px;
+  background-size: 48px 48px; */
 }
 .application-name {
   line-height: 1.5;

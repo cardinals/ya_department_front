@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/tagscloud2.css">
 	<script type="text/javascript" src="../../static/js/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
 
 </head>
 
@@ -239,23 +240,23 @@
 	<div id="app">
 		<div class="application-box tc abs">
 			<div class="map_top">
-				<div style="position:fixed;left:45px;top:43px;width:295px;" class="top_a">
-					<img class="application-imge" src="../../static/images/a1_06.png" />
+				<div style="position:fixed;left:15px;top:33px;width:305px;" class="top_a">
+					<span class="glyphicon glyphicon-hdd application-imge" style="color:#36C9FF; font-size:50px;"></span>
 					<div class="application-name">重点单位总数（个）</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>
-				<div style="position:fixed;left:345px;top:43px;width:295px;" class="top_b">
-					<img class="application-imge" src="../../static/images/a1_06.png" />
+				<div style="position:fixed;left:315px;top:33px;width:335px;" class="top_b">
+					<span class="glyphicon glyphicon-align-justify application-imge" style="color:#42D841;font-size:50px;"></span>
 					<div class="application-name">二维数字化预案总数（个）</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>
-				<div style="position:fixed;left:645px;top:43px;width:295px;" class="top_c">
-					<img class="application-imge" src="../../static/images/a1_06.png" />
+				<div style="position:fixed;left:615px;top:33px;width:335px;" class="top_c">
+					<span class="glyphicon glyphicon-list application-imge" style="color:#F8A507;font-size:50px;"></span>
 					<div class="application-name">三维数字化预案总数（个）</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>	
-				<div style="position:fixed;left:945px;top:43px;width:295px;" class="top_d">
-					<img class="application-imge" src="../../static/images/a1_06.png" />
+				<div style="position:fixed;left:915px;top:33px;width:305px;" class="top_d">
+					<span class="glyphicon glyphicon-th-large application-imge" style="color:#0D55C3;font-size:50px;"></span>
 					<div class="application-name">数字化预案总数（个）</div>
 					<div class="application-num">{{yags}}</div>
 				</div>
@@ -354,17 +355,15 @@
 	</div>
 <!-- 中心 -->
 			<!-- <div class="application-logo logo"></div> -->
-			<div class="application-icon-l center-in-center" >
-				<div id="map" style="height:100%;width:100%;"></div>
+			<div class="application-icon-l center-in-center">
+				<div id="map" style="height:100%;width:100%;" ></div>
 			</div>
 			
 <!-- 底部 -->
 			<div class="map_bottom">
 				<!-- <div class="application-name map-bg2" style="position:fixed;left:340px;width:600px;" >三十个省</div> -->
 				<div id="barmax" class="application-text"  style="position:fixed;top:431;left:-55px;width:695px;height:107px;"></div>
-		
 			</div>
-
 		</div>
 		<!-- /application-box -->
 	</div>
