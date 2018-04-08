@@ -626,3 +626,10 @@ font-family:"微软雅黑";
   cursor: pointer;
   text-decoration: none;
 }
+.left-sidebar div::-webkit-scrollbar {
+  display:none;
+}
+.left-sidebar div{
+  overflow:auto;
+  max-height:530px;
+}
