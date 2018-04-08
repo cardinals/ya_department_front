@@ -586,7 +586,7 @@ font-family:"微软雅黑";
   -ms-transition-duration: 0.3s;
 }
 .main-container {
-  padding: 20px;
+  padding: 20px 20px 60px 20px;
 }
 .el-button--clear{
   color:#fff;
