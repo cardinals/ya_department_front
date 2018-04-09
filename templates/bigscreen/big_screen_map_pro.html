@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css" >
 </head>
-
 <body class="fw map-bg">
     <div id="app">
         <div class="application-box tc abs">
@@ -28,8 +27,9 @@
                                 </el-select>
                                 <el-button class="l ml5" type="primary" icon="el-icon-search">搜索</el-button>
                              </div>
-
-                                <el-collapse class="res_slt"  >
+                             <div class="bx">
+                               
+                                <el-collapse class="res_slt">
                                     <el-collapse-item title="更多搜索选项" name="4" >
                                         <div>
                                             <el-dropdown-item>
@@ -51,7 +51,8 @@
                                         </div>
                                     </el-collapse-item>
                                 </el-collapse>
-            
+                              
+                              </div>
                                 <!-- <table border="0" style="color:#ffffff;font-size:15px;position:absolute;top:100px;left:60px;border-collapse:separate; border-spacing:0px 12px;">
                                     <tr v-for = "data in tableData" >
                                         <td>{{data.DWMC}}</td>
