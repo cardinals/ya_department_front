@@ -26,6 +26,10 @@
   background: linear-gradient(to right, orangered , orange); 
 }
 
+.map_top{
+height: 30px;
+}
+
 .barss{
   width:260px;
   height:15px;
@@ -229,7 +233,7 @@ font-family:"微软雅黑";
 /* 地图的div框 修改地图大小*/
 .application-icon-l {
   width: 700px;
-  height:360px;
+  height:350px;
   font-weight: bold;
 }
 .application-icon-r {
@@ -261,13 +265,14 @@ font-family:"微软雅黑";
   /* overflow: auto; */
 }
 
+/*  图标的样式  */
 .application-imge{
   float: left;
   margin-left: 60px;
   margin-top: 10px;
-  /* width: 48px;
+   width: 48px;
   height: 48px;
-  background-size: 48px 48px; */
+  background-size: 48px 48px;
 }
 .application-name {
   line-height: 1.5;

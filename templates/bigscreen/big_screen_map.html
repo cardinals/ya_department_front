@@ -239,25 +239,24 @@
 <body class="fw map-bg" >
 	<div id="app">
 		<div class="application-box tc abs">
-			<div class="map_top">
-				<div style="position:fixed;left:15px;top:33px;width:305px;" class="top_a">
-					<span class="glyphicon glyphicon-hdd application-imge" style="color:#36C9FF; font-size:50px;"></span>
-					<!-- <img />				 -->
-					<div class="application-name">重点单位总数（个）</div>
+			<div class="map_top" >
+				<div style="float:left;top:25px;width:270px;" class="top_a">
+					<img class="application-imge" src="../../static/images/icon_important.png" />	
+					<div class="application-name">重点单位总数（个)</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>
-				<div style="position:fixed;left:315px;top:33px;width:335px;" class="top_b">
-					<span class="glyphicon glyphicon-align-justify application-imge" style="color:#42D841;font-size:50px;"></span>
+				<div style="float:left;margin-left:-10px;top:25px;width:300px;" class="top_b">
+					<img class="application-imge" src="../../static/images/icon_2D.png" />	
 					<div class="application-name">二维数字化预案总数（个）</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>
-				<div style="position:fixed;left:615px;top:33px;width:335px;" class="top_c">
-					<span class="glyphicon glyphicon-list application-imge" style="color:#F8A507;font-size:50px;"></span>
+				<div style="float:left;margin-left:20px;top:25px;width:300px;" class="top_c">
+					<img class="application-imge" src="../../static/images/icon_3D.png" />	
 					<div class="application-name">三维数字化预案总数（个）</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>	
-				<div style="position:fixed;left:915px;top:33px;width:305px;" class="top_d">
-					<span class="glyphicon glyphicon-th-large application-imge" style="color:#0D55C3;font-size:50px;"></span>
+				<div style="float:left;margin-left:10px;top:25px;width:280px;" class="top_d">
+					<img class="application-imge" src="../../static/images/icon_collect.png" />	
 					<div class="application-name">数字化预案总数（个）</div>
 					<div class="application-num">{{yags}}</div>
 				</div>
@@ -270,13 +269,11 @@
 							<div id="bar" class="application-text"></div>
 						</div>
 					</div>
-
 					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:300px;left:44px;width:295px;height:125px;">
 						<div class="application-text flex ">
 							<div id="pie" class="application-text"></div>
 						</div>
 					</div> 
-
 					<div class="application-div h35 p5" style="position:fixed;top:451px;left:44px;width:295px;height:90px;">
 						<div class="application-text flex ">
 							<div id="tagscloud" class="application-text" >
