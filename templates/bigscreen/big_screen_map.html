@@ -27,13 +27,6 @@
             -o-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
 		}
-		.map_top{
-         height:85px;
-		 width:1200px;
-		 position: fixed;
-		 top: 40px;
-		
-		}
 		.map_bottom{
          height:107px;
 		 width:593px;
@@ -239,128 +232,114 @@
 <body class="fw map-bg" >
 	<div id="app">
 		<div class="application-box tc abs">
-			<div class="map_top" >
-				<div style="float:left;top:25px;width:270px;" class="top_a">
+			<!-- 头部分 -->
+			<div class="application-div h15">
+				<div class="h100 w25 l p3">
 					<img class="application-imge" src="../../static/images/icon_important.png" />	
 					<div class="application-name">重点单位总数（个)</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>
-				<div style="float:left;margin-left:-10px;top:25px;width:300px;" class="top_b">
+				<div class="h100 w25 l p3">
 					<img class="application-imge" src="../../static/images/icon_2D.png" />	
 					<div class="application-name">二维数字化预案总数（个）</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>
-				<div style="float:left;margin-left:20px;top:25px;width:300px;" class="top_c">
+				<div class="h100 w25 l p3">
 					<img class="application-imge" src="../../static/images/icon_3D.png" />	
 					<div class="application-name">三维数字化预案总数（个）</div>
 					<div class="application-num">{{zddw}}</div>
 				</div>	
-				<div style="float:left;margin-left:10px;top:25px;width:280px;" class="top_d">
+				<div class="h100 w25 l p3">
 					<img class="application-imge" src="../../static/images/icon_collect.png" />	
 					<div class="application-name">数字化预案总数（个）</div>
 					<div class="application-num">{{yags}}</div>
 				</div>
 			</div>
-            <div class="map_left">
-<!--左侧侧部分-->
-				<div class="application-icon-r db r">
-					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:116px;left:44px;width:295px;height:178px;">
-						<div class="application-text flex ">
-							<div id="bar" class="application-text"></div>
+			<!-- 左侧部分 -->
+            <div class="l h85 w25">
+				<div class="application-div h45 p3">
+					<div class="application-text map-bg2">
+						<div id="bar" class="application-text"></div>
+					</div>
+				</div>
+				<div class="application-div h30 p3">
+					<div class="application-text map-bg2">
+						<div id="pie" class="application-text"></div>
+					</div>
+				</div>
+				<div class="application-div h25">
+					<div class="application-text flex ">
+						<div id="tagscloud" class="application-text">
+							<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
+							<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
+							<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
+							<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
+							<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
+							<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
+							<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
+							<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
+							<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
+							<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
 						</div>
 					</div>
-					<div class="application-div h35 p5 map-bg2" style="position:fixed;top:300px;left:44px;width:295px;height:125px;">
-						<div class="application-text flex ">
-							<div id="pie" class="application-text"></div>
-						</div>
-					</div> 
-					<div class="application-div h35 p5" style="position:fixed;top:451px;left:44px;width:295px;height:90px;">
-						<div class="application-text flex ">
-							<div id="tagscloud" class="application-text" >
-								<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
-								<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
-								<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
-								<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
-								<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
-								<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
-								<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
-								<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
-								<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
-								<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
-							</div>
-						</div>
-					</div>
-				</div> 
-			</div>
-
-<!-- 右侧部分 -->
-			<div class="map_right map-bg2">
-				<div class="txlf">预案总数排行(top10)</div>
-				<!-- <div class="application-name">（全国前十省）</div> -->
-				<!--
-				<table border="0" style="color:#0f82ee;font-size:15px;position:absolute;top:30px;left:70px;border-collapse:separate; border-spacing:0px 5px;">
-					<tr v-for = "top in top10" >
-						<td>{{top.name}}</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td>{{top.value}}</td>
-					</tr>
-				</table>
-				-->
-				<div id="top10Bar" class="application-text" style="top:-40px;"></div>
-			</div>
-
-<!-- 轮播图 -->
-	<div  style="width:295px;height:107px;position: fixed;
-		   left: 944px;
-		   top: 431px;">
-		<div class="txlf_xl" style="font-size:1em;">二维预案</div>
-		<div class="slider">
-			<ul class="slider-main">
-				<li class="slider-panel">
-					<a target="_blank">
-						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png">
-					</a>
-				</li>
-				<li class="slider-panel">
-					<a target="_blank">
-						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap2.png">
-					</a>
-				</li>
-				<li class="slider-panel">
-					<a target="_blank">
-						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap3.png">
-					</a>
-				</li>
-				<li class="slider-panel">
-					<a target="_blank">
-						<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png">
-					</a>
-				</li>
-			</ul>
-			<div class="slider-extra">
-				<ul class="slider-nav" >
-					<li class="slider-item">1</li>
-					<li class="slider-item">2</li>
-					<li class="slider-item">3</li>
-					<li class="slider-item">4</li>
-				</ul>
-				<div class="slider-page">
-					<a class="slider-pre" href="javascript:;;">&lt;</a>
-					<a class="slider-next" href="javascript:;;">&gt;</a>
 				</div>
 			</div>
-		</div>
-	</div>
-<!-- 中心 -->
-			<!-- <div class="application-logo logo"></div> -->
-			<div class="application-icon-l center-in-center">
-				<div id="map" style="height:100%;width:100%;" ></div>
+			<!-- 中央部分 -->
+			<div class="l h85 w50">
+				<div class="application-div h80">
+					<div id="map" class="application-text"></div>
+				</div>
+				<div class="application-div h20">
+					<div id="barmax" class="application-text"></div>
+				</div>
 			</div>
-			
-<!-- 底部 -->
-			<div class="map_bottom">
-				<!-- <div class="application-name map-bg2" style="position:fixed;left:340px;width:600px;" >三十个省</div> -->
-				<div id="barmax" class="application-text"  style="position:fixed;top:431;left:-55px;width:695px;height:107px;"></div>
+			<!-- 右侧部分 -->
+			<div class="l h85 w25">
+				<div class="application-div h75 p3">
+					<div class="application-text map-bg2">
+						<!-- <div class="txlf">预案总数排行(top10)</div> -->
+						<div id="top10Bar" class="application-text"></div>
+					</div>
+				</div>
+				<div class="application-div h25">
+					<div class="txlf_xl" style="font-size:1em;">二维预案</div>
+					<!-- <div class="slider"> -->
+						<ul class="slider-main">
+							<li class="slider-panel">
+								<a target="_blank">
+									<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png">
+								</a>
+							</li>
+							<li class="slider-panel">
+								<a target="_blank">
+									<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap2.png">
+								</a>
+							</li>
+							<li class="slider-panel">
+								<a target="_blank">
+									<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap3.png">
+								</a>
+							</li>
+							<li class="slider-panel">
+								<a target="_blank">
+									<img alt="二维地图" title="二维地图" src="../../assets/images/2dmap.png">
+								</a>
+							</li>
+						</ul>
+						<div class="slider-extra">
+							<ul class="slider-nav">
+								<li class="slider-item">1</li>
+								<li class="slider-item">2</li>
+								<li class="slider-item">3</li>
+								<li class="slider-item">4</li>
+							</ul>
+							<div class="slider-page">
+								<a class="slider-pre" href="javascript:;;">&lt;</a>
+								<a class="slider-next" href="javascript:;;">&gt;</a>
+							</div>
+						</div>
+					<!-- </div> -->
+				</div>
 			</div>
 		</div>
 		<!-- /application-box -->
@@ -407,7 +386,7 @@
 					},
 					// color: ['#0f82ee'],
 					grid: {
-						top: '25%',
+						top: '0',
 						bottom: '10%',
 						containLabel: true
 					},
@@ -916,11 +895,19 @@
 				}
 
 				BarOption = {
-					tooltip: {
-						trigger: 'axis',
-						axisPointer: {
-							type: 'shadow'
-						}
+				title: {
+                    text: '预案总数排行(top10)',
+                    left: 'center',
+                    top: 2,
+                    textStyle: {
+                        color: '#ccc'
+                    }
+                },
+				tooltip: {
+					trigger: 'axis',
+					axisPointer: {
+						type: 'shadow'
+					}
         		},
 				grid: {
 					left: '6%',

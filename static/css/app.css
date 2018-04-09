@@ -122,7 +122,7 @@ font-family:"微软雅黑";
   font-size: 15px;
   color: #fff;
   text-align:left;
-  margin: 10px;
+  padding: 10px;
 }
 .txlf_xl{
   line-height: 1.5;
@@ -275,7 +275,7 @@ font-family:"微软雅黑";
   float: left;
   margin-left: 60px;
   margin-top: 10px;
-   width: 48px;
+  width: 48px;
   height: 48px;
   background-size: 48px 48px;
 }

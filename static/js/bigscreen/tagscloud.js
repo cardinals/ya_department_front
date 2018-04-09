@@ -1,4 +1,4 @@
-﻿var radius = 60;
+﻿var radius = 40;
 var d = 200;
 var dtr = Math.PI / 180;
 var mcList = [];
