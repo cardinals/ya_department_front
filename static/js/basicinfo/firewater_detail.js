@@ -160,9 +160,6 @@ new Vue({
                 case '1100':
                     var div=document.getElementById("XHS");
                     div.style.display = "";
-                    var params = {
-                        id : id
-                    }
                     axios.get('/dpapi/xhs/'+ id).then(function (res) {
                         this.XHSdata = res.data.result;
                     }.bind(this), function (error) {
@@ -172,9 +169,6 @@ new Vue({
                 case '1300':
                     var div=document.getElementById("XFSC");
                     div.style.display = "";
-                    var params = {
-                        id : id
-                    }
                     axios.get('/dpapi/xfsc/'+ id).then(function (res) {
                         this.XFSCdata = res.data.result;
                     }.bind(this), function (error) {
@@ -184,9 +178,6 @@ new Vue({
                 case '1200':
                     var div=document.getElementById("XFSH");
                     div.style.display = "";
-                    var params = {
-                        id : id
-                    }
                     axios.get('/dpapi/xfsh/'+ id).then(function (res) {
                         this.XFSHdata = res.data.result;
                     }.bind(this), function (error) {
@@ -196,11 +187,19 @@ new Vue({
                 case '2100':
                     var div=document.getElementById("XFQSMT");
                     div.style.display = "";
-                    var params = {
-                        id : id
-                    }
+                /*
                     axios.get('/dpapi/xfmt/'+ id).then(function (res) {
                         this.XFQSMTdata = res.data.result;
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                    */
+                    var params = {
+                        id : id,
+                    }
+                    axios.post('/dpapi/xfmt/findById', params).then(function (res) {
+                        this.XFQSMTdata = res.data.result;
+                        this.TRSYdata = this.XFQSMTdata.trsy[0];
                     }.bind(this), function (error) {
                         console.log(error)
                     })
@@ -208,10 +207,7 @@ new Vue({
                 case '2000':
                     var div=document.getElementById("TRSY");
                     div.style.display = "";
-                    var params = {
-                        id : id
-                    }
-                    axios.post('/dpapi/trsy/'+ id).then(function (res) {
+                    axios.get('/dpapi/trsy/'+ id).then(function (res) {
                         this.TRSYdata = res.data.result;
                     }.bind(this), function (error) {
                         console.log(error)

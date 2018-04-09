@@ -11,7 +11,7 @@ $('#oscar-nav-btn').click(function () {
 });
 
 //引入上导航
-$("#header_box").load("../../templates/header_box.html #header_box");
+$("#header_box").load("../../templates/header_box.html");
 
 //退出登录
 function logOut(){
