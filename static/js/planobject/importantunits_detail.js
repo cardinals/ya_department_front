@@ -100,7 +100,7 @@ new Vue({
                 //     }
                 //     console.log(this.yudata);
                 // }
-                this.loading=false;
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -169,7 +169,14 @@ new Vue({
         },
         //信息打印
         openPrinter: function () {
-            window.print();
+            // 1.设置要打印的区域 div的className
+            var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
+            // 2. 复制给body，并执行window.print打印功能
+            document.body.innerHTML = newstr
+            window.print()
+            // 重新加载页面，以刷新数据
+            window.location.reload();
+
         },
         //表格重新加载数据
         loadingData: function () {
