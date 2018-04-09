@@ -84,6 +84,16 @@
           messages:"",
           src: "/api/imageCode"
         },
+        created:function(){
+            axios.get('/api/shiro').then(function(res){
+                if(res.data != null && res.data.username != null && res.data.username != ""){
+                    window.location.href = "../templates/bigscreen/big_screen_all.html";
+                }
+                console.log(res.data);
+            }.bind(this),function(error){
+                console.log(error);
+            });
+        },
         methods: {
             login: function () {
                 var username = $('#username').val();
