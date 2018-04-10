@@ -286,10 +286,10 @@
 			</div>
 			<!-- 中央部分 -->
 			<div class="l h85 w50">
-				<div class="application-div h80">
+				<div class="application-div h75">
 					<div id="map" class="application-text"></div>
 				</div>
-				<div class="application-div h20">
+				<div class="application-div h25">
 					<div id="barmax" class="application-text"></div>
 				</div>
 			</div>
@@ -386,8 +386,10 @@
 					},
 					// color: ['#0f82ee'],
 					grid: {
-						top: '0',
-						bottom: '10%',
+						top: '10',
+						bottom: '0',
+						left:'2%',
+						right:'3%',
 						containLabel: true
 					},
 					xAxis: [
@@ -395,12 +397,22 @@
 							type: 'category',
 							data: ['北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
 							'西藏', '山西','陕西', '西安','南京', '杭州','山东', '昆明','重庆', '武汉','北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
-							'西藏', '山西','陕西', '西安','南京'],
+							'西藏', '山西','陕西', '西安','内蒙古'],
 							axisLine: {
 								lineStyle: {
 									color: 'white'
 								}
-							}
+							},
+							axisLabel : {
+								interval:0,
+								/*
+								formatter:function(value)  
+                                {  
+                                   return value.split("").join("\n");  
+								},
+								*/
+								rotate:"45"
+							},
 						}
 					],
 					yAxis: [
@@ -449,7 +461,7 @@
 						}
 					]
 				};
-				 myBarChart.setOption(BarmaxOption);
+				myBarChart.setOption(BarmaxOption);
 			  },
 			echarts2: function () {
 				var myMapChart = echarts2.init(document.getElementById('map'));
