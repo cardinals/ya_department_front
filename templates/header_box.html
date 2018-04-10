@@ -74,6 +74,9 @@
         .then(function (res) {
             realname = res.data.realName;
             document.querySelector("#realname").innerHTML = realname;
+            if(res.data == null && realname == null && realname == ""){
+                window.location.href = "login.html";
+            }
             console.log(realname);
         }.bind(this), function (error) {
             console.log(error)
