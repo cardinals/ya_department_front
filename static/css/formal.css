@@ -139,3 +139,6 @@ body{height:100%;overflow:hidden;}
     cursor:pointer;
     margin-left:0px !important
 }
+.el-loading-mask{
+    z-index: 8;
+}
