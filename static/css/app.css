@@ -111,6 +111,10 @@ font-family:"微软雅黑";
 }
 .map-bg {
   background: url('../images/bg.png') no-repeat;
+  height:100%;
+  width:100%;
+  overflow: hidden;
+  background-size:cover;
 }
 .map-bg2 {
   background-color:rgba(255,255,255,0.1);
@@ -134,8 +138,6 @@ font-family:"微软雅黑";
 
 .search_top {
   width: 300px;
-
-
 }
 
 .map-menu-left {
@@ -164,16 +166,16 @@ font-family:"微软雅黑";
 
 /* icon图标 */
 .icon{
-    margin-top:10px;
-    width: 26px;
-    height: 26px;
-    overflow: hidden;
-    background-color: #fff;
-    text-align: center;
-    cursor: pointer;
-    line-height: 26px;
-    float: left;
-    box-shadow: 1px 2px 1px rgba(0,0,128,0.5);
+  margin-top:10px;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+  background-color: #fff;
+  text-align: center;
+  cursor: pointer;
+  line-height: 26px;
+  float: left;
+  box-shadow: 1px 2px 1px rgba(0,0,128,0.5);
 }
 
 .map-menu .el-form-item__label {
