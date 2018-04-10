@@ -345,14 +345,11 @@
 		<!-- /application-box -->
 	</div>
 	
-
-
 </body>
 <script src="../../static/js/echarts-2/echarts-all.js"></script>
 <script src="../../static/js/echarts-4/echarts.js"></script>
 <script type="text/javascript" src="../../static/js/vue.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
-
 
 <script>
 	var vm = new Vue({
@@ -375,7 +372,8 @@
 			]
 		},
 		methods: {
-			 echarts1:function(){
+			// 中央下部31总队柱状图
+			echarts1: function () {
 				var myBarChart = echarts.init(document.getElementById('barmax'));
 				BarmaxOption = {
 					tooltip: {
@@ -388,30 +386,30 @@
 					grid: {
 						top: '10',
 						bottom: '0',
-						left:'2%',
-						right:'3%',
+						left: '2%',
+						right: '3%',
 						containLabel: true
 					},
 					xAxis: [
 						{
 							type: 'category',
-							data: ['北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
-							'西藏', '山西','陕西', '西安','南京', '杭州','山东', '昆明','重庆', '武汉','北京', '河北','天津', '辽宁','湖北', '河南','湖北', '新疆',
-							'西藏', '山西','陕西', '西安','内蒙古'],
+							data: ['北京', '河北', '天津', '辽宁', '湖北', '河南', '湖北', '新疆',
+								'西藏', '山西', '陕西', '西安', '南京', '杭州', '山东', '昆明', '重庆', '武汉', '北京', '河北', '天津', '辽宁', '湖北', '河南', '湖北', '新疆',
+								'西藏', '山西', '陕西', '西安', '内蒙古'],
 							axisLine: {
 								lineStyle: {
 									color: 'white'
 								}
 							},
-							axisLabel : {
-								interval:0,
+							axisLabel: {
+								interval: 0,
 								/*
 								formatter:function(value)  
                                 {  
                                    return value.split("").join("\n");  
 								},
 								*/
-								rotate:"45"
+								rotate: "45"
 							},
 						}
 					],
@@ -462,7 +460,8 @@
 					]
 				};
 				myBarChart.setOption(BarmaxOption);
-			  },
+			},
+			// 中央中部地图
 			echarts2: function () {
 				var myMapChart = echarts2.init(document.getElementById('map'));
 				MapOption = {
@@ -758,7 +757,8 @@
 					vm.$options.methods.loadChart();
 				});
 			},
-		    echarts3:function () {
+			// 左侧第二环形图
+			echarts3: function () {
 				var myPieChart = echarts.init(document.getElementById('pie'));
 				PieOption = {
 					tooltip: {
@@ -816,10 +816,10 @@
 
 				myPieChart.setOption(PieOption);
 			},
-
+			// 左侧第一柱状图
 			echarts4: function () {
 				var myBarChart = echarts.init(document.getElementById('bar'));
-			
+
 				BarOption = {
 					tooltip: {
 						trigger: 'axis',
@@ -892,125 +892,127 @@
 						}
 					]
 				};
-			
-				 myBarChart.setOption(BarOption);
+
+				myBarChart.setOption(BarOption);
 			},
+			// 右侧第一排名柱状图
 			echarts5: function () {
 				var myBarChart = echarts.init(document.getElementById('top10Bar'));
 				var category = [];
 				var barData = [];
 				this.top10.sort(this.up);
-				console.log(this.top10); 
-				for(var i=0;i<this.top10.length;i++){
+				console.log(this.top10);
+				for (var i = 0; i < this.top10.length; i++) {
 					category.push(this.top10[i].name);    //挨个取出类别并填入类别数组
 					barData.push(this.top10[i].value);
 				}
 
 				BarOption = {
-				title: {
-                    text: '预案总数排行(top10)',
-                    left: 'center',
-                    top: 2,
-                    textStyle: {
-                        color: '#ccc'
-                    }
-                },
-				tooltip: {
-					trigger: 'axis',
-					axisPointer: {
-						type: 'shadow'
-					}
-        		},
-				grid: {
-					left: '6%',
-					right: '20%',
-					bottom: '3%',
-					containLabel: true
-				},
-				xAxis: {
-					show : false,
-					type: 'value',
-					axisLine: {
-						show: false,
-						lineStyle: {
-							color: 'white'
+					title: {
+						text: '预案总数排行(top10)',
+						left: 'center',
+						top: 2,
+						textStyle: {
+							color: '#ccc'
 						}
 					},
-					splitLine: {
-						show: false
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'shadow'
+						}
 					},
-					axisTick: {
-						show: false
+					grid: {
+						left: '6%',
+						right: '20%',
+						bottom: '3%',
+						containLabel: true
 					},
-				},
-				yAxis: {
-					type: 'category',
-					data: category,
-					splitLine: {
-						show: false
-					},
-					axisLine: {
+					xAxis: {
 						show: false,
-						lineStyle: {
-							color: 'white'
+						type: 'value',
+						axisLine: {
+							show: false,
+							lineStyle: {
+								color: 'white'
+							}
+						},
+						splitLine: {
+							show: false
+						},
+						axisTick: {
+							show: false
 						},
 					},
-					axisLabel:{
-						inside:true,
+					yAxis: {
+						type: 'category',
+						data: category,
+						splitLine: {
+							show: false
+						},
+						axisLine: {
+							show: false,
+							lineStyle: {
+								color: 'white'
+							},
+						},
+						axisLabel: {
+							inside: true,
+						},
+						axisTick: {
+							show: false
+						},
+						z: 10,
+						nameTextStyle: {
+							fontSize: 15
+
+						}
 					},
-					axisTick: {
-						show: false
-					},
-					z: 10,
-					nameTextStyle: {
-						fontSize: 15
-						
-					}
-				},
-				series: [
-					{
-						name: '数量',
-						type: 'bar',
-						data: barData,
-						barWidth: 14,
-						barGap: 10,
-						smooth: true,
-						label: {
-							normal: {
-								show: true,
-								position: 'right',
-								offset: [5, -2],
-								textStyle: {
-									color: 'white',
-									fontSize: 13
+					series: [
+						{
+							name: '数量',
+							type: 'bar',
+							data: barData,
+							barWidth: 14,
+							barGap: 10,
+							smooth: true,
+							label: {
+								normal: {
+									show: true,
+									position: 'right',
+									offset: [5, -2],
+									textStyle: {
+										color: 'white',
+										fontSize: 13
+									}
+								}
+							},
+							itemStyle: {
+								emphasis: {
+									barBorderRadius: 7
+								},
+								normal: {
+									barBorderRadius: 7,
+									// 蓝色渐变
+									color: new echarts.graphic.LinearGradient(
+										0, 0, 1, 0,
+										[
+											{ offset: 0, color: '#3977E6' },
+											{ offset: 1, color: '#37BBF8' }
+
+										]
+									),
 								}
 							}
-						},
-						itemStyle: {
-							emphasis: {
-								barBorderRadius: 7
-							},
-							normal: {
-								barBorderRadius: 7,
-								color: new echarts.graphic.LinearGradient(
-									0, 0, 1, 0,
-									[
-										{offset: 0, color: '#3977E6'},
-										{offset: 1, color: '#37BBF8'}
-
-									]
-								),
-							}
 						}
-					}
-				]
+					]
 				};
-			
-				 myBarChart.setOption(BarOption);
+
+				myBarChart.setOption(BarOption);
 			},
 			//top10 json串排序
-			up :function(x,y){
-				return x.value-y.value
+			up: function (x, y) {
+				return x.value - y.value
 			},
 			loadChart: function () {
 				window.location.assign("big_screen_map_pro.html?city=" + vm.$options.data.city);
@@ -1032,8 +1034,5 @@
 		}
 	})
 </script>
-
-
-
 
 </html>
