@@ -10,7 +10,7 @@ color: red;
   position:relative; z-index:66;
 }
 .pagenum{
-  position:fixed;bottom:60px;margin-left:22px;margin-top:20px;color:black;
+  position:fixed;bottom:15px;margin-left:22px;color:black;
 
 }
 .pagenum_btn{
@@ -26,4 +26,37 @@ color: red;
 }
 .map_btn{
   background:#000;margin-top:10px;margin-left:0px;
+}
+.menu-box-main{
+  overflow:auto;
+  max-height:380px;
+}
+.menu-box-main::-webkit-scrollbar {
+  display:none;
+}
+.el-collapse-item__header {
+  height: 35px;
+  line-height: 35px;
+  padding-left: 0; 
+  text-align: center;
+}
+.bx {
+  height: 80px;
+}
+.el-card__header {
+  padding: 5px 10px;
+  border-bottom: none;
+}
+.el-card__body div {
+  padding: 0 10px;
+}
+.el-card__body div:last-child {
+  padding: 0 10px 5px;
+}
+.el-card{
+  margin-bottom: 3px;
+  text-align: left;
+}
+.menu-toggle-btn{
+  bottom: 80px;
 }
