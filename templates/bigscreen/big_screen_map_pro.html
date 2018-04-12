@@ -18,37 +18,37 @@
         <div class="application-box tc abs">
             <!-- 左侧 -->
             <div class="map-menu-left p10 map-bg">
+                <!-- 收缩按钮 -->
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-                <div id="menu-box">
+                <div id="menu-box" class="f12">
                     <el-form ref="form" :model="form" label-width="80px">
-
                         <div class="search_top">
-                            <el-select placeholder="请输入地址" class="input-with-select map_slt w150 l b_r">
+                            <el-select placeholder="请输入地址" class="input-with-select map_slt l b_r">
                                 <el-option label="北京" value="北京"></el-option>
                                 <el-option label="天津" value="天津"></el-option>
                                 <el-option label="河北" value="河北"></el-option>
                             </el-select>
-                            <el-button class="l ml5" type="primary" icon="el-icon-search">搜索</el-button>
+                            <el-button class="l ml5" type="primary">搜索</el-button>
                         </div>
                         <div class="bx">
                             <el-collapse class="res_slt">
                                 <el-collapse-item title="更多搜索选项" name="4">
                                     <div>
                                         <el-dropdown-item>
-                                            <el-input class="mt10" placeholder="主体名称" style="padding-bottom:10px;"></el-input>
+                                            <el-input placeholder="主体名称"></el-input>
                                         </el-dropdown-item>
                                         <el-dropdown-item style="font-size:1px;" action="" method="get">
-                                            <el-checkbox style="margin-left:-110px;" name="Fruit" label="重点单位"></el-checkbox>
+                                            <el-checkbox name="Fruit" label="重点单位"></el-checkbox>
                                             <br/>
-                                            <el-checkbox style="margin-left:-68px;" name="Fruit" label="重大活动或会议"></el-checkbox>
+                                            <el-checkbox name="Fruit" label="重大活动或会议"></el-checkbox>
                                             <br/>
-                                            <el-checkbox style="margin-left:-112px;" name="Fruit" label="其他对象"></el-checkbox>
+                                            <el-checkbox name="Fruit" label="其他对象"></el-checkbox>
                                         </el-dropdown-item>
                                         <el-dropdown-item>
-                                            <el-input class="mt10" placeholder="地址" style="padding-bottom:10px;"></el-input>
+                                            <el-input placeholder="地址"></el-input>
                                         </el-dropdown-item>
                                         <el-dropdown-item>
-                                            <el-date-picker class="mt10 w190" type="date" placeholder="录入日期" style="padding-bottom:10px;"></el-date-picker>
+                                            <el-date-picker class="w190" type="date" placeholder="录入日期"></el-date-picker>
                                         </el-dropdown-item>
                                     </div>
                                 </el-collapse-item>
@@ -90,8 +90,6 @@
                         </div>
                     </el-form>
                 </div>
-                <!-- 收缩按钮 -->
-                <!-- <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc an" href="javascript:;" ></a> -->
             </div>
 
             <!-- 右侧 -->
@@ -239,81 +237,81 @@
                 }
                 ,
                 {
-                    DWMC:"沈阳市城市规划管理局",
+                    DWMC: "沈阳市城市规划管理局",
                     DWDJ: "市厅级",
-                    DWXZ:"城市管理",
+                    DWXZ: "城市管理",
                     XZQY: "辽宁省",
-                    DWDZ:"霞飞路32号",
+                    DWDZ: "霞飞路32号",
                     ZDMJ: 10000,
                     XFGXJGID: "沈阳市消防和平分队",
-                    DWDH:"1234567",
-                    ID:"4"
+                    DWDH: "1234567",
+                    ID: "4"
                 },
                 {
-                    DWMC:"沈阳市公安局",
+                    DWMC: "沈阳市公安局",
                     DWDJ: "市厅级",
-                    DWXZ:"司法",
+                    DWXZ: "司法",
                     XZQY: "辽宁省",
-                    DWDZ:"霞飞路33号",
+                    DWDZ: "霞飞路33号",
                     ZDMJ: 12000,
                     XFGXJGID: "沈阳市消防沈河分队",
-                    DWDH:"1234567",
-                    ID:"5"
+                    DWDH: "1234567",
+                    ID: "5"
                 },
                 {
-                    DWMC:"沈阳市地铁二号线",
+                    DWMC: "沈阳市地铁二号线",
                     DWDJ: "市厅级",
-                    DWXZ:"民事",
+                    DWXZ: "民事",
                     XZQY: "辽宁省",
-                    DWDZ:"霞飞路34号",
+                    DWDZ: "霞飞路34号",
                     ZDMJ: 1000,
                     XFGXJGID: "沈阳市消防浑南分队",
-                    DWDH:"1234567",
-                    ID:"6"
+                    DWDH: "1234567",
+                    ID: "6"
                 },
                 {
-                    DWMC:"青岛市塑性加工园",
+                    DWMC: "青岛市塑性加工园",
                     DWDJ: "市厅级",
-                    DWXZ:"城市管理",
+                    DWXZ: "城市管理",
                     XZQY: "山东省",
-                    DWDZ:"文明路39号",
+                    DWDZ: "文明路39号",
                     ZDMJ: 2000,
                     XFGXJGID: "青岛市市消防大东分队",
-                    DWDH:"1234567",
-                    ID:"7"
+                    DWDH: "1234567",
+                    ID: "7"
                 },
                 {
-                    DWMC:"泰安市城建局",
+                    DWMC: "泰安市城建局",
                     DWDJ: "市厅级",
-                    DWXZ:"城市管理",
+                    DWXZ: "城市管理",
                     XZQY: "山东省",
-                    DWDZ:"法防路36号",
+                    DWDZ: "法防路36号",
                     ZDMJ: 2000,
                     XFGXJGID: "泰安市消防塔湾分队",
-                    DWDH:"1234567",
-                    ID:"8"
+                    DWDH: "1234567",
+                    ID: "8"
                 },
                 {
-                    DWMC:"河北省国土资源厅",
+                    DWMC: "河北省国土资源厅",
                     DWDJ: "省部级",
-                    DWXZ:"城市管理",
+                    DWXZ: "城市管理",
                     XZQY: "河北省",
-                    DWDZ:"格调路46号",
+                    DWDZ: "格调路46号",
                     ZDMJ: 3000,
                     XFGXJGID: "河北省消防总队",
-                    DWDH:"1234567",
-                    ID:"9"
+                    DWDH: "1234567",
+                    ID: "9"
                 },
                 {
-                    DWMC:"秦皇岛市林业局",
+                    DWMC: "秦皇岛市林业局",
                     DWDJ: "市厅级",
-                    DWXZ:"城市管理",
+                    DWXZ: "城市管理",
                     XZQY: "河北省",
-                    DWDZ:"发文路64号",
+                    DWDZ: "发文路64号",
                     ZDMJ: 4000,
                     XFGXJGID: "秦皇岛市消防大队",
-                    DWDH:"1234567",
-                    ID:"10"
+                    DWDH: "1234567",
+                    ID: "10"
                 }
             ]
         },
@@ -438,24 +436,6 @@
     })
 </script>
 <script>
-    // $('#menu-toggle-btn').click(function () {
-    //     var left = $('.map-menu'),
-    //         main = $('.meu-box'),
-    //         $this = $(this);
-    //     if (left.hasClass('damin')) {
-    //         left.removeClass('damin').css('left', '0');
-    //         main.css('padding-left', '0px');
-    //         setTimeout(function () {
-    //             $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
-    //         }, 300);
-    //     } else {
-    //         left.addClass('damin').css('left', '-280px');
-    //         main.css('padding-left', 0);
-    //         setTimeout(function () {
-    //             $this.addClass('menu-toggle-bg').css({ "right": "-26px", "transform": "rotateY(180deg)" });
-    //         }, 300);
-    //     }
-    // });
     $('#menu-toggle-btn').click(function () {
         var left = $('.map-menu-left'),
             main = $('.map-main'),
