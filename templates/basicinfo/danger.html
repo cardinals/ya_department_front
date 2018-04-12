@@ -20,49 +20,44 @@
                     <div id="tableView">
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row type="flex" justify="center">
-									<el-col :span="12">
-										<el-form-item label="名称">
-											<el-input size="small" v-model="searchForm.NAME" placeholder="名称" class="inputWidth"></el-input>
-										</el-form-item>
+								<el-row :gutter="20">
+									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">名称</label>
+										<el-input size="small" v-model="searchForm.NAME" placeholder="名称"></el-input>
                                     </el-col>
-                                    <el-col :span="12">
-										<el-form-item label="别名">
-											<el-input size="small" v-model="searchForm.ALIAS" placeholder="别名" class="inputWidth"></el-input>
-										</el-form-item>
+                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">别名</label>
+										<el-input size="small" v-model="searchForm.ALIAS" placeholder="别名"></el-input>
                                     </el-col>
 								</el-row>
-								<el-row type="flex" justify="center">
-                                    <el-col :span="12">
-                                        <el-form-item label="英文名">
-                                            <el-input size="small" v-model="searchForm.ENGLISH_NAME" placeholder="英文名" class="inputWidth"></el-input>
-                                        </el-form-item>
+								<el-row :gutter="20">
+                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">英文名</label>
+										<el-input size="small" v-model="searchForm.ENGLISH_NAME" placeholder="英文名"></el-input>
                                     </el-col>
-									<el-col :span="12">
-										<el-form-item label="类型">
-											<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="inputWidth" multiple>
-												<el-option 
-													v-for="item in LXDM_data" 
-													:key="item.codeName" 
-													:label="item.codeName" 
-													:value="item.codeValue">
-												</el-option>
-											</el-select>
-										</el-form-item>
+									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">类型</label>
+										<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="searchSelect" multiple>
+											<el-option 
+												v-for="item in LXDM_data" 
+												:key="item.codeName" 
+												:label="item.codeName" 
+												:value="item.codeValue">
+											</el-option>
+										</el-select>
 									</el-col>
                                 </el-row>
-                                <el-row type="flex" justify="left">
-                                    <el-col :span="12">
-                                        <el-form-item label="性状">
-                                            <el-select size="small" v-model="searchForm.option_PROPERTY" placeholder="性状" class="inputWidth" multiple>
-                                                <el-option 
-                                                    v-for="item in PROPERTY_data" 
-                                                    :key="item.codeName" 
-                                                    :label="item.codeName" 
-                                                    :value="item.codeValue">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
+                                <el-row :gutter="20">
+                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+											<label class="el-form-item__label searchLabel">性状</label>
+										<el-select size="small" v-model="searchForm.option_PROPERTY" placeholder="性状" class="searchSelect" multiple>
+											<el-option 
+												v-for="item in PROPERTY_data" 
+												:key="item.codeName" 
+												:label="item.codeName" 
+												:value="item.codeValue">
+											</el-option>
+										</el-select>
                                     </el-col>
                                 </el-row>
 								<div>
