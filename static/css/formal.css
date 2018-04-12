@@ -156,3 +156,6 @@ body{height:100%;overflow:hidden;}
 .tilde{
     line-height: 26px;
 }
+.el-table__body-wrapper{
+    overflow: hidden;
+}
