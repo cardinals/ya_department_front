@@ -22,50 +22,43 @@
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-                            <el-row type="flex" justify="center">
-                                <el-col :span="8">
-                                    <el-form-item label="预案名称">
-                                        <el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称" class="digitalSearch"></el-input>
-                                    </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">预案名称</label>
+                                    <el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称"></el-input>
                                 </el-col>
-                                <el-col :span="8">
-                                    <el-form-item label="预案类型">
-                                        <el-select size="small" v-model="searchForm.selected_YALX" placeholder="预案种类" class="digitalSearch" clearable>
-                                            <el-option v-for="item in YALX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
-                                        </el-select>
-                                    </el-form-item>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">预案类型</label>
+                                    <el-select size="small" v-model="searchForm.selected_YALX" placeholder="预案类型" class="searchSelect" clearable>
+                                        <el-option v-for="item in YALX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+                                    </el-select>
                                 </el-col>
-                                <el-col :span="10">
-                                    <el-form-item label="预案种类">
-                                        <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="digitalType" clearable>
-                                            <el-option v-for="item in YAZL_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">预案种类</label>
+                                    <el-select size="small" v-model="searchForm.option_YAZL" placeholder="预案种类" class="searchSelect" clearable>
+                                        <el-option v-for="item in YAZL_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+                                    </el-select>
                                 </el-col>
                             </el-row>
-                            <el-row type="flex" justify="center">
-                                <el-col :span="8">
-                                    <el-form-item label="对象名称">
-                                        <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称" class="digitalSearch"></el-input>
-                                    </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">对象名称</label>
+                                    <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称"></el-input>
                                 </el-col>
-                                <el-col :span="8">
-                                    <el-form-item label="对象类型">
-                                        <el-select size="small" v-model="searchForm.option_DXLX" placeholder="对象类型" class="digitalSearch" clearable>
-                                            <el-option v-for="item in DXLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">对象类型</label>
+                                    <el-select size="small" v-model="searchForm.option_DXLX" placeholder="对象类型" class="searchSelect" clearable>
+                                        <el-option v-for="item in DXLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
+                                        </el-option>
+                                    </el-select>
                                 </el-col>
-                                <el-col :span="10">
-                                    <el-form-item label="编制日期">
-                                        <el-date-picker type="date" @change="begindateChange_create" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime_create"
-                                            placeholder="开始时间" class="digitalDate"></el-date-picker>
-                                        ~
-                                        <el-date-picker type="date" @change="enddateChange_create" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.endtime_create"
-                                            placeholder="结束时间" class="digitalDate"></el-date-picker>
-                                    </el-form-item>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">编制日期</label>
+                                    <el-date-picker type="date" @change="begindateChange_create" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime_create"
+                                        placeholder="开始时间" class="searchDate"></el-date-picker>
+                                    <span class="tilde">~</span>
+                                    <el-date-picker type="date" @change="enddateChange_create" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.endtime_create"
+                                        placeholder="结束时间" class="searchDate"></el-date-picker>
                                 </el-col>
                             </el-row>
                             <el-row type="flex" justify="center">

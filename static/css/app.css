@@ -653,3 +653,6 @@ font-family:"微软雅黑";
   overflow:auto;
   max-height:530px;
 }
+.el-col.searchInline{
+  display: inline-flex;
+}
