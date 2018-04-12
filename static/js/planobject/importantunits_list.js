@@ -24,7 +24,7 @@ new Vue({
 
             rowdata: '',
             //表高度变量
-            tableheight: 450,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             labelPosition: 'right',

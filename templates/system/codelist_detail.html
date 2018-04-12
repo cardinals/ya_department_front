@@ -22,16 +22,14 @@
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-                            <el-row>
-                                <el-col :span="12" class="double-search-left">
-                                    <el-form-item label="代码值">
-                                        <el-input class="form-input-text" size="small" v-model="searchForm.codeValue" placeholder="请输入代码值" prefix-icon="el-icon-search"></el-input>
-                                    </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">代码值</label>
+                                    <el-input size="small" v-model="searchForm.codeValue" placeholder="请输入代码值" prefix-icon="el-icon-search"></el-input>
                                 </el-col>
-                                <el-col :span="12" class="double-search-left">
-                                    <el-form-item label="代码名称">
-                                        <el-input class="form-input-text" size="small" v-model="searchForm.codeName" placeholder="请输入代码名称" prefix-icon="el-icon-search"></el-input>
-                                    </el-form-item>
+                                <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">代码名称</label>
+                                    <el-input size="small" v-model="searchForm.codeName" placeholder="请输入代码名称" prefix-icon="el-icon-search"></el-input>
                                 </el-col>
                             </el-row>
                             <div>
