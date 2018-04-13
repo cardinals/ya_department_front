@@ -11,7 +11,7 @@
 	<div class="left-sidebar">
 		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
 		<div id="menu-box">
-			<big-tree  default-active="42"></big-tree>
+			<big-tree default-active="42"></big-tree>
 		</div>
 	</div>
 	<div id="app">
@@ -21,23 +21,20 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="110px" :inline="true" class="el-form demo-form-inline">
-							<el-row type="flex" justify="center">
-								<el-col :span="10">
-									<el-form-item label="装备器材名称">
-										<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="inputWidth"></el-input>
-									</el-form-item>
+							<el-row :gutter="20">
+								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+									<label class="el-form-item__label searchLabel">装备器材名称</label>
+									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="searchSelect"></el-input>
 								</el-col>
-								<el-col :span="10">
-									<el-form-item label="装备器材类型">
-										<el-select size="small" v-model="searchForm.equipmenttype" placeholder="全部" class="inputWidth" clearable>
-                                            <el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
-                                        </el-select>
-									</el-form-item>
+								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+									<label class="el-form-item__label searchLabel">装备器材类型</label>
+									<el-select size="small" v-model="searchForm.equipmenttype" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+									</el-select>
 								</el-col>
-								<el-col :span="7">
-									<el-form-item label="消耗性装备">
-										<el-checkbox></el-checkbox>
-									</el-form-item>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="searchInline">
+									<label class="el-form-item__label searchLabel">是否消耗性装备</label>
+									<el-checkbox></el-checkbox>
 								</el-col>
 							</el-row>
 							<div>
@@ -59,8 +56,8 @@
 					</el-row>
 
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
+						 class="tableStyle" :height="tableheight">
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="zbqcbm" label="装备编码" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
@@ -80,14 +77,8 @@
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
-								<el-pagination 
-									@size-change="pageSizeChange" 
-									@current-change="currentPageChange" 
-									:current-page="currentPage" 
-									:page-sizes="[10, 20, 30, 50]"
-									:page-size="pageSize" 
-									layout="total, sizes, prev, pager, next, jumper" 
-									:total=parseInt(total)>
+								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>

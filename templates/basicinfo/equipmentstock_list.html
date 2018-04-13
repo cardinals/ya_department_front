@@ -21,31 +21,27 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="125px" :inline="true" class="el-form demo-form-inline">
-							<el-row type="flex" justify="center">
-								<el-col :span="11">
-									<el-form-item label="仓库名称">
-										<el-input size="small" v-model="searchForm.ckmc" placeholder="仓库名称" class="inputWidth"></el-input>
-									</el-form-item>
+							<el-row :gutter="20">
+								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+									<label class="el-form-item__label searchLabel">仓库名称</label>
+									<el-input size="small" v-model="searchForm.ckmc" placeholder="仓库名称" class="inputWidth"></el-input>
 								</el-col>
-								<el-col :span="11">
-									<el-form-item label="装备器材名称">
-										<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="inputWidth"></el-input>
-									</el-form-item>
+								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+									<label class="el-form-item__label searchLabel">装备器材名称</label>
+									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="inputWidth"></el-input>
 								</el-col>
 							</el-row>
-							<el-row type="flex" justify="center">
-								<el-col :span="11">
-									<el-form-item label="货位名称">
-										<el-input size="small" v-model="searchForm.hwmc" placeholder="货位名称" class="inputWidth"></el-input>
-									</el-form-item>
+							<el-row :gutter="20">
+								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+									<label class="el-form-item__label searchLabel">货位名称</label>
+									<el-input size="small" v-model="searchForm.hwmc" placeholder="货位名称" class="inputWidth"></el-input>
 								</el-col>
-								<el-col :span="11">
-									<el-form-item label="所属消防机构">
-											<el-input size="small" v-model="searchForm.ssxfjg" placeholder="所属消防机构名称" class="inputWidth"></el-input>
-										<!-- <el-select size="small" v-model="searchForm.ssxfjg" class="inputWidth" clearable>
+								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+									<label class="el-form-item__label searchLabel">所属消防机构</label>
+									<el-input size="small" v-model="searchForm.ssxfjg" placeholder="所属消防机构名称" class="inputWidth"></el-input>
+									<!-- <el-select size="small" v-model="searchForm.ssxfjg" class="inputWidth" clearable>
                                             <el-option v-for="ssxfjg in allSSXFJGData" :label="ssxfjg.codeName" :value="ssxfjg.codeValue" :key="ssxfjg.codeName"></el-option>
                                         </el-select> -->
-									</el-form-item>
 								</el-col>
 							</el-row>
 							<div>
@@ -67,8 +63,8 @@
 					</el-row>
 
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
+						 class="tableStyle" :height="tableheight">
 							<el-table-column type="selection"></el-table-column>
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
 							<el-table-column prop="ckmc" label="仓库名称" show-overflow-tooltip min-width="9%" align="center">
@@ -91,14 +87,8 @@
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
-								<el-pagination 
-									@size-change="pageSizeChange" 
-									@current-change="currentPageChange" 
-									:current-page="currentPage" 
-									:page-sizes="[10, 20, 30, 50]"
-									:page-size="pageSize" 
-									layout="total, sizes, prev, pager, next, jumper" 
-									:total=parseInt(total)>
+								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>
