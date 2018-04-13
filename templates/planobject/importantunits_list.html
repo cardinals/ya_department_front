@@ -23,24 +23,22 @@
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 							<el-row :gutter="20">
 								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
-									<el-form-item label="单位名称">
-										<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称" class="inputWidth"></el-input>
-									</el-form-item>
+									<label class="el-form-item__label searchLabel">单位名称</label>
+									<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称" class="inputWidth"></el-input>
 								</el-col>
 								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
-									<el-form-item label="录入时间">
-										<el-date-picker type="date" @change="begindateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime"
-										 placeholder="录入开始时间" class="dateInputWidth"></el-date-picker>
-										~
-										<el-date-picker type="date" @change="enddateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.endtime"
-										 placeholder="录入结束时间" class="dateInputWidth"></el-date-picker>
-									</el-form-item>
+									<label class="el-form-item__label searchLabel">录入时间</label>
+									<el-date-picker type="date" @change="begindateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime"
+									 placeholder="录入开始时间" class="dateInputWidth"></el-date-picker>
+									~
+									<el-date-picker type="date" @change="enddateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.endtime"
+									 placeholder="录入结束时间" class="dateInputWidth"></el-date-picker>
 								</el-col>
 							</el-row>
 							<el-row :gutter="20">
 								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
-									<el-form-item label="消防管辖">
-										<!-- <el-cascader 
+									<label class="el-form-item__label searchLabel">消防管辖</label>
+									<!-- <el-cascader 
 											expand-trigger="hover" 
 											:options="XFGX_data" 
 											@change="handleChange" 
@@ -49,23 +47,16 @@
 											:props="defaultProps">
 
 										</el-cascader> -->
-										<el-input size="small" v-model="searchForm.xfgx" placeholder="消防管辖" class="inputWidth"></el-input>
-									</el-form-item>
+									<el-input size="small" v-model="searchForm.xfgx" placeholder="消防管辖" class="inputWidth"></el-input>
 								</el-col>
 								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
-									<el-form-item label="行政区域">
-										<el-cascader 
-											expand-trigger="hover" 
-											:options="XZQY_data" 
-											@change="handleChange" 
-											class="inputWidth" 
-											v-model="searchForm.xzqy"
-											:props="defaultProps">
-										</el-cascader>
-										<el-form-item label="包含下级">
+									<label class="el-form-item__label searchLabel">行政区域</label>
+									<el-cascader expand-trigger="hover" :options="XZQY_data" @change="handleChange" class="inputWidth" v-model="searchForm.xzqy"
+									 :props="defaultProps">
+									</el-cascader>
+									<!-- <el-form-item label="包含下级">
 											<el-checkbox></el-checkbox>
-										</el-form-item>
-									</el-form-item>
+										</el-form-item> -->
 								</el-col>
 							</el-row>
 
@@ -90,8 +81,8 @@
 					</el-row>
 
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
+						 class="tableStyle" :height="tableheight">
 
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
@@ -109,14 +100,8 @@
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
-								<el-pagination 
-									@size-change="pageSizeChange" 
-									@current-change="currentPageChange" 
-									:current-page="currentPage" 
-									:page-sizes="[10, 20, 30, 50]"
-									:page-size="pageSize" 
-									layout="total, sizes, prev, pager, next, jumper" 
-									:total=parseInt(total)>
+								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>
