@@ -113,8 +113,8 @@ font-family:"微软雅黑";
   background: url('../images/bg.png') no-repeat;
   height:100%;
   width:100%;
-  overflow: hidden;
-  background-size:cover;
+  background-size:cover; 
+
 }
 .map-bg2 {
   background-color:rgba(255,255,255,0.1);
@@ -509,6 +509,7 @@ font-family:"微软雅黑";
 .nav > li > a:focus,
 .nav > li > a:hover {
   background-color: #3d3f42;
+   
 }
 .nav > li > a:focus:hover .oscar-arrow,
 .nav > li > a:hover:hover .oscar-arrow {
@@ -581,6 +582,7 @@ font-family:"微软雅黑";
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
   z-index:9999;
+ 
 }
 .menu-toggle-btn:hover {
   text-decoration: none;
@@ -588,6 +590,7 @@ font-family:"微软雅黑";
 .menu-toggle-bg {
   background: #252628;
   color: #d6d6d7;
+   
 }
 .menu-toggle-bg:focus {
   color: #d6d6d7;
