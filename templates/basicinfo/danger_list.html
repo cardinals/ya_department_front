@@ -20,22 +20,27 @@
                     <div id="tableView">
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row :gutter="20">
-									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+								<el-row>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+									<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 										<label class="el-form-item__label searchLabel">名称</label>
 										<el-input size="small" v-model="searchForm.NAME" placeholder="名称"></el-input>
-                                    </el-col>
-                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+									</el-col>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 										<label class="el-form-item__label searchLabel">别名</label>
 										<el-input size="small" v-model="searchForm.ALIAS" placeholder="别名"></el-input>
-                                    </el-col>
+									</el-col>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								</el-row>
-								<el-row :gutter="20">
-                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+								<el-row>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 										<label class="el-form-item__label searchLabel">英文名</label>
 										<el-input size="small" v-model="searchForm.ENGLISH_NAME" placeholder="英文名"></el-input>
-                                    </el-col>
-									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+									</el-col>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+									<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 										<label class="el-form-item__label searchLabel">类型</label>
 										<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="searchSelect" multiple>
 											<el-option 
@@ -46,9 +51,11 @@
 											</el-option>
 										</el-select>
 									</el-col>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                 </el-row>
-                                <el-row :gutter="20">
-                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+                                <el-row>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 											<label class="el-form-item__label searchLabel">性状</label>
 										<el-select size="small" v-model="searchForm.option_PROPERTY" placeholder="性状" class="searchSelect" multiple>
 											<el-option 
@@ -58,7 +65,8 @@
 												:value="item.codeValue">
 											</el-option>
 										</el-select>
-                                    </el-col>
+									</el-col>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                 </el-row>
 								<div>
 									<el-form>

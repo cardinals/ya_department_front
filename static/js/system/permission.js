@@ -10,8 +10,7 @@ new Vue({
             //搜索表单
             searchForm: {
                 permissionname: "",
-                createTimeBegin: "",
-                createTimeEnd: ""
+                createTime:new Array()
             },
             tableData: [],
             //后台返回全部资源列表
@@ -73,13 +72,14 @@ new Vue({
             console.log(data);
         },
 
-        //日期控件格式化
-        begindateChange(val) {
-            this.searchForm.createTimeBegin = val;
+        //日期控件变化时格式化
+        dateChange(val) {
+            this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
+            this.searchForm.createTime.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
+            console.log(this.searchForm.createTime);
         },
-        enddateChange(val) {
-            this.searchForm.createTimeEnd = val;
-        },
+
 
         //表格中日期格式化
         dateFormat: function (row, column) {
@@ -104,18 +104,11 @@ new Vue({
         //查询，初始化
         searchClick: function () {
             var _self = this;
-            if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
-                _self.$message({
-                    message: "时间选择错误！",
-                    type: "error"
-                });
-                return;
-            }
             _self.loading = true;//表格重新加载
             var params = {
                 permissionname: this.searchForm.permissionname,
-                createTimeBegin: this.searchForm.createTimeBegin,
-                createTimeEnd: this.searchForm.createTimeEnd
+                createTimeBegin: this.searchForm.createTime[0],
+                createTimeEnd: this.searchForm.createTime[1]
             };
 
             axios.post('/api/permission/findByVO', params).then(function (res) {

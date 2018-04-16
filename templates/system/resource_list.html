@@ -30,8 +30,9 @@
 							<div class="main-container">
 							<div id="lib :: main_container_header('资源管理','资源管理')"></div>
 						    <div class="frame" >
-                  <div class="frame_left" scroll="no">
-										<h5 class="src_name">资源树</h5>
+                  <div class="frame_left">
+										<div><h5 class="src_name">资源树</h5></div>
+                    <div scroll="no" class="src_slt">			
 											<el-tree 
 											:data="tableData" 
 											node-key="resourceid"
@@ -46,24 +47,25 @@
 											show-checkbox
 											:expand-on-click-node="false"
 											>
-											<span class="custom-tree-node" slot-scope="{ node, data }">
-											<span>{{ node.label }}</span>
-											<span>
-													<el-button
-																type="text"
-																size="mini"
-																@click="() => append(data)">
-																+
-													</el-button>
-													<el-button
-																type="text"
-																size="mini"
-																@click="() => remove(node, data)">
-																-
-													</el-button>
-											</span>
-											</span>
+												<span class="custom-tree-node" slot-scope="{ node, data }">
+												<span>{{ node.label }}</span>
+												<span>
+														<el-button
+																	type="text"
+																	size="mini"
+																	@click="() => append(data)">
+																	+
+														</el-button>
+														<el-button
+																	type="text"
+																	size="mini"
+																	@click="() => remove(node, data)">
+																	-
+														</el-button>
+												</span>
+												</span>
 											</el-tree>
+										</div>
 									</div>
                   <div class="frame_right" scroll="no">
 											<h5 class="src_name">资源树详情</h5>
@@ -110,6 +112,10 @@
 												<el-input size="small"  placeholder="请输入内容" v-model=" tableData[1].children[0].url" clearable></el-input>
 											</el-col>
 										</el-from>	
+										<el-from style="float: right;margin-right: 30px;">
+												<el-button type="primary"  size="small">更新</el-button>
+												<el-button type="success"  size="small">保存</el-button>
+										</el-from>
 									</div>
 								</div>
 			    	</div>
