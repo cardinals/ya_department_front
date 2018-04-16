@@ -66,3 +66,6 @@ label {
 .el-form-item__label{
     width: 100px;
 }
+.el-form-item__content {
+    padding-left: 90px;
+}
