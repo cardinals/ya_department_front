@@ -670,6 +670,13 @@ font-family:"微软雅黑";
 }
 
 .frame_right{
-  float:left;margin-left:0.5rem;width: 69.5%;height: 490px; border:1px solid #bfcbd9;background: #eff0f1;
-  overflow-x:hidden;padding: 1rem;
+  float:left;margin-left:0.3%;width: 69.7%;height: 490px; border:1px solid #bfcbd9;background: #eff0f1;
+  overflow-x:hidden;
+}
+
+.src_name{
+  text-align:center;
+  font-weight: bold;
+  font-family: '微软雅黑';
+  color:#333;
 }
