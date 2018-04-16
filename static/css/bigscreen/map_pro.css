@@ -109,3 +109,4 @@ color: red;
 .pagination {
   margin: 0; 
 }
+.anchorBL{display:none;}/*左下角百度地图图标隐藏*/
