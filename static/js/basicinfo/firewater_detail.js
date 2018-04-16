@@ -187,13 +187,6 @@ new Vue({
                 case '2100':
                     var div=document.getElementById("XFQSMT");
                     div.style.display = "";
-                /*
-                    axios.get('/dpapi/xfmt/'+ id).then(function (res) {
-                        this.XFQSMTdata = res.data.result;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    */
                     var params = {
                         id : id,
                     }
