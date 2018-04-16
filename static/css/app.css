@@ -666,7 +666,7 @@ font-family:"微软雅黑";
 
 .frame_left{
   float:left;width:30%;height: 490px;border: 1px solid #bfcbd9;background: #eff0f1;
-  overflow-x:hidden;
+ 
 }
 
 .frame_right{
@@ -679,4 +679,8 @@ font-family:"微软雅黑";
   font-weight: bold;
   font-family: '微软雅黑';
   color:#333;
+}
+.src_slt{
+  overflow-x:hidden;
+  height:450px;
 }
