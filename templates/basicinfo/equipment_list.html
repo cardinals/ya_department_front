@@ -21,21 +21,24 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="110px" :inline="true" class="el-form demo-form-inline">
-							<el-row :gutter="20">
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
-									<label class="el-form-item__label searchLabel">装备器材名称</label>
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">装备名称</label>
 									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="searchSelect"></el-input>
 								</el-col>
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
-									<label class="el-form-item__label searchLabel">装备器材类型</label>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">装备类型</label>
 									<el-select size="small" v-model="searchForm.equipmenttype" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
 									</el-select>
 								</el-col>
-								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<!-- <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="searchInline">
 									<label class="el-form-item__label searchLabel">是否消耗性装备</label>
 									<el-checkbox></el-checkbox>
-								</el-col>
+								</el-col> -->
 							</el-row>
 							<div>
 								<el-form>
