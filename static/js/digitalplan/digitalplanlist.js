@@ -258,6 +258,7 @@ new Vue({
                 });
                 return;
             }
+            _self.loading = true;//表格重新加载
             var params={
                 yamc:this.searchForm.YAMC,
                 yalxdm:this.searchForm.selected_YALX,
@@ -288,11 +289,11 @@ new Vue({
                 }
                 this.tableData.unshift(this.testData);
                 _self.total = _self.tableData.length;
+                _self.loading = false;
                 console.log("success")
             }.bind(this),function(error){
                 console.log("failed")
             })
-            _self.loadingData(); //重新加载数据
         },
         clearClick: function () {
             this.searchForm.YAMC="";

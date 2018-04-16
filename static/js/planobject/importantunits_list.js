@@ -24,7 +24,7 @@ new Vue({
 
             rowdata: '',
             //表高度变量
-            tableheight: 450,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             labelPosition: 'right',
@@ -112,6 +112,7 @@ new Vue({
                 });
                 return;
             }
+            this.loading = true;
             var params = {
                 dwmc: this.searchForm.dwmc,
                 begintime: this.searchForm.begintime,
@@ -130,6 +131,7 @@ new Vue({
                         }
                     }
                 }
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error);
             })

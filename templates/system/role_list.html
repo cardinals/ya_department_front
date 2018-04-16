@@ -16,27 +16,25 @@
     </div>
     <div id="app">
         <div class="main-box">
-            <div class="main-container">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
                 <div id="lib :: main_container_header('角色管理','角色管理')"></div>
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="70px" :inline="true" class="el-form demo-form-inline" v-model="searchForm">
-                            <el-row>
-                                <el-col :span="12">
-                                    <el-form-item label="角色描述">
-                                        <el-select size="small" v-model="searchForm.rolename" placeholder="全部" class="inputWidth" clearable>
-                                            <el-option v-for="role in allRoles" :label="role.roleinfo" :value="role.rolename" :key="role.rolename"></el-option>
-                                        </el-select>
-                                    </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">角色描述</label>
+                                    <el-select size="small" v-model="searchForm.rolename" placeholder="全部" class="searchSelect" clearable>
+                                        <el-option v-for="role in allRoles" :label="role.roleinfo" :value="role.rolename" :key="role.rolename"></el-option>
+                                    </el-select>
                                 </el-col>
-                                <el-col :span="12">
-                                    <el-form-item label="创建时间">
-                                        <el-date-picker type="date" class="dateInputWidth" size="small" v-model="searchForm.createTimeBegin" placeholder="开始时间" value-format="yyyy-MM-dd"
-                                            @change="begindateChange"></el-date-picker>
-                                        ~
-                                        <el-date-picker type="date" class="dateInputWidth" size="small" v-model="searchForm.createTimeEnd" placeholder="结束时间" value-format="yyyy-MM-dd"
-                                            @change="enddateChange"></el-date-picker>
-                                    </el-form-item>
+                                <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">创建时间</label>
+                                    <el-date-picker type="date" size="small" v-model="searchForm.createTimeBegin" placeholder="开始时间" value-format="yyyy-MM-dd"
+                                        @change="begindateChange" class="searchDate"></el-date-picker>
+                                    <span class="tilde">~</span>
+                                    <el-date-picker type="date" size="small" v-model="searchForm.createTimeEnd" placeholder="结束时间" value-format="yyyy-MM-dd"
+                                        @change="enddateChange" class="searchDate"></el-date-picker>
                                 </el-col>
                             </el-row>
                             <div>
@@ -60,18 +58,18 @@
                     </el-row>
 
                     <div class="table_container">
-                        <el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+                        <el-table class="tableStyle" border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                             @selection-change="selectionChange" :height="tableheight">
 
                             <el-table-column type="selection" min-width="5%"></el-table-column>
-                            <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                            <el-table-column prop="rolename" label="角色名称" min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="roleinfo" label="角色描述" min-width="15%" align="center"></el-table-column>
-                            <el-table-column prop="createName" label="创建人" min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="createTime" label="创建时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
-                            <el-table-column prop="alterName" label="修改人" min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="alterTime" label="修改时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
-                            <el-table-column prop="resource" label="资源" min-width="13%" align="center">
+                            <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+                            <el-table-column prop="rolename" show-overflow-tooltip label="角色名称" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="roleinfo" show-overflow-tooltip label="角色描述" min-width="15%" align="center"></el-table-column>
+                            <el-table-column prop="createName" show-overflow-tooltip label="创建人" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="createTime" show-overflow-tooltip label="创建时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
+                            <el-table-column prop="alterName" show-overflow-tooltip label="修改人" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="alterTime" show-overflow-tooltip label="修改时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
+                            <el-table-column prop="resource" show-overflow-tooltip label="资源" min-width="13%" align="center">
                                 <template slot-scope="scope">
                                     <el-button type="text" @click="resourceDetails(scope.row.roleid)">查看详情</el-button>
                                 </template>

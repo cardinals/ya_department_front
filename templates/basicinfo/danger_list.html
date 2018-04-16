@@ -15,54 +15,49 @@
         </div>
         <div id="app">
             <div class="main-box">
-                <div class="main-container">
+                <div class="main-container" v-loading="loading" element-loading-text="加载中">
                     <div id="danger"></div>
                     <div id="tableView">
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row type="flex" justify="center">
-									<el-col :span="12">
-										<el-form-item label="名称">
-											<el-input size="small" v-model="searchForm.NAME" placeholder="名称" class="inputWidth"></el-input>
-										</el-form-item>
+								<el-row :gutter="20">
+									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">名称</label>
+										<el-input size="small" v-model="searchForm.NAME" placeholder="名称"></el-input>
                                     </el-col>
-                                    <el-col :span="12">
-										<el-form-item label="别名">
-											<el-input size="small" v-model="searchForm.ALIAS" placeholder="别名" class="inputWidth"></el-input>
-										</el-form-item>
+                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">别名</label>
+										<el-input size="small" v-model="searchForm.ALIAS" placeholder="别名"></el-input>
                                     </el-col>
 								</el-row>
-								<el-row type="flex" justify="center">
-                                    <el-col :span="12">
-                                        <el-form-item label="英文名">
-                                            <el-input size="small" v-model="searchForm.ENGLISH_NAME" placeholder="英文名" class="inputWidth"></el-input>
-                                        </el-form-item>
+								<el-row :gutter="20">
+                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">英文名</label>
+										<el-input size="small" v-model="searchForm.ENGLISH_NAME" placeholder="英文名"></el-input>
                                     </el-col>
-									<el-col :span="12">
-										<el-form-item label="类型">
-											<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="inputWidth" multiple>
-												<el-option 
-													v-for="item in LXDM_data" 
-													:key="item.value" 
-													:label="item.label" 
-													:value="item.value">
-												</el-option>
-											</el-select>
-										</el-form-item>
+									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+										<label class="el-form-item__label searchLabel">类型</label>
+										<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="searchSelect" multiple>
+											<el-option 
+												v-for="item in LXDM_data" 
+												:key="item.codeName" 
+												:label="item.codeName" 
+												:value="item.codeValue">
+											</el-option>
+										</el-select>
 									</el-col>
                                 </el-row>
-                                <el-row type="flex" justify="left">
-                                    <el-col :span="12">
-                                        <el-form-item label="性状">
-                                            <el-select size="small" v-model="searchForm.option_PROPERTY" placeholder="性状" class="inputWidth" multiple>
-                                                <el-option 
-                                                    v-for="item in PROPERTY_data" 
-                                                    :key="item.value" 
-                                                    :label="item.label" 
-                                                    :value="item.value">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
+                                <el-row :gutter="20">
+                                    <el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+											<label class="el-form-item__label searchLabel">性状</label>
+										<el-select size="small" v-model="searchForm.option_PROPERTY" placeholder="性状" class="searchSelect" multiple>
+											<el-option 
+												v-for="item in PROPERTY_data" 
+												:key="item.codeName" 
+												:label="item.codeName" 
+												:value="item.codeValue">
+											</el-option>
+										</el-select>
                                     </el-col>
                                 </el-row>
 								<div>
@@ -85,22 +80,22 @@
 							</el-form>
 						</el-row>
 
-						<div class="table_container">
-							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+						<div class="table_container"> 
+							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 
 								<el-table-column type="selection" min-width="5%"></el-table-column>
-								<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 								<el-table-column prop="name" label="名称" show-overflow-tooltip min-width="15%" align="center">
                                     <template slot-scope="scope">
-                                        <el-button type="text" @click="detailClick(scope.row)">{{scope.row.name}}</el-button>
+                                        <a @click="detailClick(scope.row)">{{scope.row.name}}</a>
                                     </template>
 								</el-table-column>
-								<el-table-column prop="alias" label="别名" min-width="11%" align="center"></el-table-column>
+								<el-table-column prop="alias" show-overflow-tooltip label="别名" min-width="11%" align="center"></el-table-column>
 								<el-table-column prop="englishName" label="英文名" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-								<el-table-column prop="dmz" label="类型" min-width="10%" align="center"></el-table-column>
-                                <el-table-column prop="expression" label="分子式" min-width="10%" align="center"></el-table-column>
-                                <el-table-column prop="gbId" label="国标号" min-width="10%" align="center"></el-table-column>
+								<el-table-column prop="dmz" label="类型" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                                <el-table-column prop="expression" label="分子式" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                                <el-table-column prop="gbId" label="国标号" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
                                 <el-table-column prop="property" label="性状" min-width="10%" show-overflow-tooltip align="center"></el-table-column>
                                 <el-table-column prop="symptom" label="危险性/症状" min-width="16%" show-overflow-tooltip align="center"></el-table-column>
 							</el-table>
@@ -128,5 +123,5 @@
     </body>
 	<script src="../../static/js/lib.js" ></script>
     <script src="../../static/js/menu.js" ></script>
-    <script src="../../static/js/basicinfo/danger.js" ></script>
+    <script src="../../static/js/basicinfo/danger_list.js" ></script>
 </html>

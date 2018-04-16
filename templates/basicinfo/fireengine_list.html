@@ -15,29 +15,27 @@
 	</div>
 	<div id="app">
 		<div class="main-box">
-			<div class="main-container">
+			<div class="main-container" v-loading="loading" element-loading-text="加载中">
 				<div id="lib :: main_container_header('消防车辆信息','消防车辆信息')"></div>
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-							<el-row type="flex" justify="center">
-								<el-col :span="10">
-									<el-form-item label="车辆类型">
-										<el-select size="small" v-model="searchForm.zblxdm" placeholder="全部" class="inputWidth" clearable>
-                                            <el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
-                                        </el-select>
-									</el-form-item>
-								</el-col>
-								<el-col :span="10">
-									<el-form-item label="车辆等级">
-										<el-select size="small" v-model="searchForm.cldjdm" placeholder="全部" class="inputWidth" clearable>
-                                            <el-option v-for="type in allLevelsData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+							<el-row :gutter="20">
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">车辆类型</label>
+									<el-select size="small" v-model="searchForm.zblxdm" placeholder="全部" class="searchSelect" clearable>
+                                        <el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
                                     </el-select>
 								</el-col>
-								<el-col :span="10">
-									<el-form-item label="车牌号码">
-										<el-input size="small" v-model="searchForm.cphm" placeholder="车牌号码" class="inputWidth"></el-input>
-									</el-form-item>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">车辆等级</label>
+									<el-select size="small" v-model="searchForm.cldjdm" placeholder="全部" class="searchSelect" clearable>
+                                        <el-option v-for="type in allLevelsData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+                                    </el-select>
+								</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">车牌号码</label>
+									<el-input size="small" v-model="searchForm.cphm" placeholder="车牌号码"></el-input>
 								</el-col>
 							</el-row>
 							<div>
@@ -59,22 +57,22 @@
 					</el-row>
 
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 							<el-table-column type="selection" min-width="5%"></el-table-column>
-							<el-table-column prop="djzbbm" label="单件装备编码" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="zbmc" label="装备名称" min-width="12%" align="center">
+							<el-table-column prop="djzbbm" label="单件装备编码" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="zbmc" label="装备名称" min-width="12%" show-overflow-tooltip align="center">
 								<template slot-scope="scope">
-									<el-button @click="detailClick(scope.row)" type="text">{{scope.row.zbmc}}</el-button>
+									<a @click="detailClick(scope.row)" type="text">{{scope.row.zbmc}}</a>
 								</template>
 							</el-table-column>
-							<el-table-column prop="zblxdm" label="装备类型" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="ssxfjgid" label="所属消防机构" min-width="12%" align="center"></el-table-column>
-							<el-table-column prop="cphm" label="车牌号码" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="zrrxm" label="责任人姓名" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="bfrq" label="报废日期" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="xcbyrq" label="下次保养日期" min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="sdzt" label="锁定状态" min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="zblxdm" label="装备类型" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="ssxfjgid" label="所属消防机构" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="cphm" label="车牌号码" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="zrrxm" label="责任人姓名" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="bfrq" label="报废日期" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="xcbyrq" label="下次保养日期" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="sdzt" label="锁定状态" min-width="9%" show-overflow-tooltip align="center"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->

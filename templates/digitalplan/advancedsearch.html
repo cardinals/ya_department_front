@@ -14,7 +14,7 @@
         </div>
         <div id="app">
             <div class="main-box">
-                <div class="main-container">
+                <div class="main-container" v-loading="loading" element-loading-text="加载中">
                     <div id="lib :: main_container_header('高级搜索','高级搜索')"></div>
                     <div id="tableView">
                         <el-form label-width="100px" :model="searchForm" class="el-form demo-form-inline">

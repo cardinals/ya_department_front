@@ -16,7 +16,7 @@
     </div>
     <div id="app">
         <div class="main-box">
-            <div class="main-container">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
                 <div id="lib :: main_container_header('消防水源管理','消防水源管理')"></div>
                 <div id="tableView">
                     <div class="nameBox" style="min-height:180px">
@@ -24,9 +24,9 @@
                             <img src="../../static/images/danwei2.jpg">
                         </div>
                         <div class="dib" id="basic-Inform-Title">
-                            <div>
+                            <div style="max-width:1050px;">
                                 <h3 class="dib inform-h3">{{rowdata.symc}}</h3>
-                                <span class="companyStatus dib" title="水源名称">{{rowdata.symc}}</span>
+                                <span class="companyStatus dib" title="水源类型">{{rowdata.lxmc}}</span>
                             </div>
                             <dl>
                                 <img src="../../static/images/location.png">
@@ -140,7 +140,7 @@
                                             <div>
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">建造时间：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.jzsj}}</dd>
+                                                    <dd class="dtdlStyle">{{rowdata.cjsj}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -219,7 +219,7 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">管网直径：</dt>
-                                                    <dd class="dtdlStyle">{{XFSHdata.gwzj}}</dd>
+                                                    <dd class="dtdlStyle">{{XFSHdata.gdzj}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -286,43 +286,43 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">天然水源名称：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.trsymc}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.trsymc}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">天然水源位置：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.trsywz}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.trsywz}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">天然水源类型：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.trsylx}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.trsylx}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">水质：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.sz}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.sz}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">有无枯水期：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.ywksq}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.ywksq}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">四季变化：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.sjbh}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.sjbh}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">天然水源容量：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.trsyrl}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.trsyrl}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -330,7 +330,7 @@
                                             <div>
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">天然水源面积：</dt>
-                                                    <dd class="dtdlStyle">{{XFQSMTdata.trsymj}}</dd>
+                                                    <dd class="dtdlStyle">{{TRSYdata.trsymj}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">

@@ -139,3 +139,23 @@ body{height:100%;overflow:hidden;}
     cursor:pointer;
     margin-left:0px !important
 }
+.el-loading-mask{
+    z-index: 8;
+}
+.searchLabel{
+    width: 84px; 
+    vertical-align: middle; 
+    line-height: 8px;
+}
+.searchSelect{
+    width: 100%;
+}
+.searchDate{
+    width: 48% !important;
+}
+.tilde{
+    line-height: 26px;
+}
+.el-table__body-wrapper{
+    overflow: hidden;
+}

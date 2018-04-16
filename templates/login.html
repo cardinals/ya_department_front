@@ -28,9 +28,11 @@
                           <form id="login-form" autocomplete="off" name="login-form" action="/api/login" method="post">
                                 <ul>
                                     <li class="I1">
+                                        <i id="icon-user"></i>
                                         <input type="text" class="inputstyle" v-model="username" name="username" id="username" placeholder="用户名">
                                     </li>
                                     <li class="I2">
+                                        <i id="icon-password"></i>
                                         <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
                                     </li>
                                     <li class="I3">
@@ -81,6 +83,16 @@
           validateCode: "",
           messages:"",
           src: "/api/imageCode"
+        },
+        created:function(){
+            axios.get('/api/shiro').then(function(res){
+                if(res.data != null && res.data.username != null && res.data.username != ""){
+                    window.location.href = "../templates/bigscreen/big_screen_all.html";
+                }
+                console.log(res.data);
+            }.bind(this),function(error){
+                console.log(error);
+            });
         },
         methods: {
             login: function () {

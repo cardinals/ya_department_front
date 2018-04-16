@@ -14,44 +14,39 @@
         </div>
         <div id="app">
             <div class="main-box">
-                <div class="main-container">
+                <div class="main-container" v-loading="loading" element-loading-text="加载中">
                     <div id="lib :: main_container_header('消防水源管理','消防水源管理')"></div>
                     <div id="tableView">
 						<el-row>
-							<el-form label-width="70px" :inline="true" class="el-form demo-form-inline">
-								<el-row type="flex" justify="center">
-									<el-col :span="10">
-										<el-form-item label="水源名称">
-											<el-input size="small" v-model="searchForm.symc" placeholder="水源名称" class="firewaterSearch"></el-input>
-										</el-form-item>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row :gutter="20">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">水源名称</label>
+										<el-input size="small" v-model="searchForm.symc" placeholder="水源名称"></el-input>
 									</el-col>
-									<el-col :span="10">
-										<el-form-item label="水源地址">
-											<el-input size="small" v-model="searchForm.sydz" placeholder="水源地址" class="firewaterSearch"></el-input>
-										</el-form-item>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">水源地址</label>
+										<el-input size="small" v-model="searchForm.sydz" placeholder="水源地址"></el-input>
 									</el-col>
-									<el-col :span="10">
-										<el-form-item label="所属机构">
-											<el-input size="small" v-model="searchForm.jgid" placeholder="所属机构" class="firewaterSearch"></el-input>
-										</el-form-item>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">所属机构</label>
+										<el-input size="small" v-model="searchForm.jgid" placeholder="所属机构"></el-input>
 									</el-col>  
 								</el-row>
-								<el-row type="flex" justify="center">
-                                    <el-col :span="10">
-                                        <el-form-item label="取水形式">
-                                            <el-select size="small" v-model="searchForm.qsxs" placeholder="全部" class="firewaterSearch" clearable>
-												<el-option v-for="item in QSXS_data" :label="item.codeName" :value="item.codeValue" :key="item.codeValue"></el-option>
-											</el-select>
-                                        </el-form-item>
+								<el-row :gutter="20">
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                        <label class="el-form-item__label searchLabel">取水形式</label>
+                                        <el-select size="small" v-model="searchForm.qsxs" placeholder="全部" class="searchSelect" clearable>
+											<el-option v-for="item in QSXS_data" :label="item.codeName" :value="item.codeValue" :key="item.codeValue"></el-option>
+										</el-select>
 									</el-col>
-									<el-col :span="10">
-										<el-form-item label="水源类型">
-											<el-select size="small" v-model="selected_SYLX" placeholder="全部" class="firewaterSearch" multiple>	
-												<el-option v-for="item in SYLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
-											</el-select>
-										</el-form-item>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">水源类型</label>
+										<el-select size="small" v-model="selected_SYLX" placeholder="全部" class="searchSelect" multiple>	
+											<el-option v-for="item in SYLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
 									</el-col>
-									<el-col :span="10"></el-col>   
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline"></el-col>   
 								</el-row>
 								<div>
 									<el-form>
@@ -74,20 +69,20 @@
 						</el-row>
 
 						<div class="table_container">
-							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" v-loading.body="loading"
+							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 
 								<el-table-column type="selection" min-width="5%"></el-table-column>
-								<el-table-column prop="sybh" label="水源编号" min-width="11%" align="center"></el-table-column>
+								<el-table-column prop="sybh" label="水源编号" min-width="11%" show-overflow-tooltip align="center"></el-table-column>
 								<el-table-column prop="symc" label="水源名称" min-width="12%" show-overflow-tooltip align="center">
 									<template slot-scope="scope">
-										<el-button @click="informClick(scope.row)" type="text">{{scope.row.symc}}</el-button>
+										<a @click="informClick(scope.row)" type="text">{{scope.row.symc}}</a>
 									</template>
 								</el-table-column>
-								<el-table-column prop="sydz" label="水源地址" min-width="30%" align="center"></el-table-column>
-								<el-table-column prop="sylx" label="水源类型" min-width="12%" align="center"></el-table-column>
-								<el-table-column prop="qsxs" label="取水形式" min-width="12%" align="center"></el-table-column>
-								<el-table-column prop="jgid" label="所属机构" min-width="18%" align="center"></el-table-column>
+								<el-table-column prop="sydz" label="水源地址" min-width="27%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="lxmc" label="水源类型" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="qsxs" label="取水形式" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="jgid" label="所属机构" min-width="18%" show-overflow-tooltip align="center"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->

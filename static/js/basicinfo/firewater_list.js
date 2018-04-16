@@ -20,7 +20,7 @@ new Vue({
             QSXS_data: [],
             rowdata: '',
             //表高度变量
-            tableheight: 450,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             labelPosition: 'right',
@@ -92,6 +92,7 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
+            this.loading=true;
             //水源类型多选，array拼接成字符串
              this.searchForm.sylx = '';
              if (this.selected_SYLX.length > 0) {
@@ -111,6 +112,7 @@ new Vue({
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loadingData();
+                this.loading=false;
             }.bind(this), function (error) {
                 console.log(error)
             })

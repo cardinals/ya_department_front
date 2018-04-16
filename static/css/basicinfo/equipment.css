@@ -5,3 +5,11 @@
     display: block;  
     width: 100%;  
 }
+.searchLabel {
+    width: 125px;
+    vertical-align: middle;
+    line-height: 8px;
+}
+.el-checkbox__input {
+    line-height: 2.8;
+}

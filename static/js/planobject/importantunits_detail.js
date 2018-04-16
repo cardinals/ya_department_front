@@ -9,7 +9,7 @@ new Vue({
             //表数据
             tableData: [],//基本数据
             yuData: [],//预案数据
-            
+
             //表高度变量
             tableheight: 474,
             //显示加载中样
@@ -77,16 +77,15 @@ new Vue({
 
         }
     },
-    
+
     mounted: function () {
+        this.loading = true;
         var url = location.search;
         if (url.indexOf("?") != -1) {
             var str = url.substr(1);
-            // alert(str);  
             var ID = str.substring(3);
             this.pkid = ID;
-            // alert(ID);
-            axios.get('/dpapi/keyunit/doFindDetailById/'+ this.pkid).then(function (res) {
+            axios.get('/dpapi/keyunit/doFindDetailById/' + this.pkid).then(function (res) {
                 this.tableData = res.data.result[0];
                 this.rowdata = this.tableData;
                 // this.yuData = res.data.result.YAJBXX;
@@ -101,6 +100,7 @@ new Vue({
                 //     }
                 //     console.log(this.yudata);
                 // }
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -169,7 +169,14 @@ new Vue({
         },
         //信息打印
         openPrinter: function () {
-            window.print();
+            // 1.设置要打印的区域 div的className
+            var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
+            // 2. 复制给body，并执行window.print打印功能
+            document.body.innerHTML = newstr
+            window.print()
+            // 重新加载页面，以刷新数据
+            window.location.reload();
+
         },
         //表格重新加载数据
         loadingData: function () {

@@ -177,21 +177,11 @@ new Vue({
         this.DXLX();
         this.YALX();
         this.searchClick();
-        // var params = {
-        // }
-        // axios.post('/api/digitalplanlist/findByVO', params).then(function (res) {
-        //     this.tableData = res.data.result;
-        //     console.log("success")
-        // }.bind(this), function (error) {
-        //     console.log("failed")
-        // })
-
     },
     methods: {
         handleNodeClick(data) {
             console.log(data);
         },
-
         //当前页修改事件
         handleCurrentChange(val) {
             this.currentPage = val;
@@ -200,43 +190,33 @@ new Vue({
             _self.loadingData(); //重新加载数据
         },
 
-
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         },
         //表格查询事件
         searchClick: function () {
+            this.loading = true;
             var _self = this;
-            this.total=this.tableData.length;
-
-            // if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
-            //     _self.$message({
-            //         message: "时间选择错误！",
-            //         type: "error"
-            //     });
-            //     return;
-            // }
             var params = {
-                // rolename: this.searchForm.rolename,
+                yamc: this.searchForm.yamc,
                 // createTimeBegin: this.searchForm.createTimeBegin,
                 // createTimeEnd: this.searchForm.createTimeEnd
             };
-
             axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                for(var i=0;i<this.tableData.length;i++){
-                    for(var k=0;k<this.yalx_data.length;k++){
-                        if(this.yalx_data[k].codeValue == this.tableData[i].yalxdm){
+                for (var i = 0; i < this.tableData.length; i++) {
+                    for (var k = 0; k < this.yalx_data.length; k++) {
+                        if (this.yalx_data[k].codeValue == this.tableData[i].yalxdm) {
                             this.tableData[i].yalxdm = this.yalx_data[k].codeName;
                         }
                     }
                 }
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
             _self.total = _self.tableData.length;
-            _self.loadingData(); //重新加载数据
         },
         //预案种类初始化
         YAZL: function () {
@@ -271,7 +251,7 @@ new Vue({
         //预案种类全选
         handleCheckedYazlChange(value) {
             if (value.currentTarget.defaultValue == "全部") {
-                this.checkedYazl=[];
+                this.checkedYazl = [];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.yazl_data.length; i++) {
                         this.checkedYazl.push(this.yazl_data[i].codeName);
@@ -281,11 +261,11 @@ new Vue({
                 if (value.currentTarget.checked == false) {
                     for (var i = 0; i < this.checkedYazl.length; i++) {
                         if (this.checkedYazl[i] == "全部") {
-                            this.checkedYazl.splice(i,1);
+                            this.checkedYazl.splice(i, 1);
                         }
                     }
-                }else if(value.currentTarget.checked == true){
-                    if(this.checkedYazl.length==this.yazl_data.length-1){
+                } else if (value.currentTarget.checked == true) {
+                    if (this.checkedYazl.length == this.yazl_data.length - 1) {
                         this.checkedYazl.push('全部');
                     }
                 }
@@ -294,7 +274,7 @@ new Vue({
         //对象种类全选
         handleCheckedDxzlChange(value) {
             if (value.currentTarget.defaultValue == "全部") {
-                this.checkedDxzl=[];
+                this.checkedDxzl = [];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.dxzl_data.length; i++) {
                         this.checkedDxzl.push(this.dxzl_data[i].codeName);
@@ -304,11 +284,11 @@ new Vue({
                 if (value.currentTarget.checked == false) {
                     for (var i = 0; i < this.checkedYazl.length; i++) {
                         if (this.checkedDxzl[i] == "全部") {
-                            this.checkedDxzl.splice(i,1);
+                            this.checkedDxzl.splice(i, 1);
                         }
                     }
-                }else if(value.currentTarget.checked == true){
-                    if(this.checkedDxzl.length==this.dxzl_data.length-1){
+                } else if (value.currentTarget.checked == true) {
+                    if (this.checkedDxzl.length == this.dxzl_data.length - 1) {
                         this.checkedDxzl.push('全部');
                     }
                 }
@@ -317,7 +297,7 @@ new Vue({
         //预案类型全选
         handleCheckedYalxChange(value) {
             if (value.currentTarget.defaultValue == "全部") {
-                this.checkedYalx=[];
+                this.checkedYalx = [];
                 if (value.currentTarget.checked == true) {
                     for (var i = 0; i < this.yalx_data.length; i++) {
                         this.checkedYalx.push(this.yalx_data[i].codeName);
@@ -327,34 +307,34 @@ new Vue({
                 if (value.currentTarget.checked == false) {
                     for (var i = 0; i < this.checkedYazl.length; i++) {
                         if (this.checkedYalx[i] == "全部") {
-                            this.checkedYalx.splice(i,1);
+                            this.checkedYalx.splice(i, 1);
                         }
                     }
-                }else if(value.currentTarget.checked == true){
-                    if(this.checkedYalx.length==this.yalx_data.length-1){
+                } else if (value.currentTarget.checked == true) {
+                    if (this.checkedYalx.length == this.yalx_data.length - 1) {
                         this.checkedYalx.push('全部');
                     }
                 }
             }
         },
-       //预案详情
-       planDetails: function (val) {
-        var _self = this;
-        _self.planDetailVisible = true;
-        var shortURL=top.location.href.substr(0,top.location.href.indexOf("?"))+"?pkid=" + val.pkid;
-        history.pushState(null,null,shortURL)
-        //异步加载详情页
-        $(function() {  
-            $.ajax({  
-                url : '../../../templates/digitalplan/digitalplan_detail.html',  
-                cache : true,  
-                async: true,
-                success : function(html) {  
-                    $("#detailDialog").html(html);  
-                }  
-            });  
-        })
-    },
+        //预案详情
+        planDetails: function (val) {
+            var _self = this;
+            _self.planDetailVisible = true;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.pkid;
+            history.pushState(null, null, shortURL)
+            //异步加载详情页
+            $(function () {
+                $.ajax({
+                    url: '../../../templates/digitalplan/digitalplan_detail.html',
+                    cache: true,
+                    async: true,
+                    success: function (html) {
+                        $("#detailDialog").html(html);
+                    }
+                });
+            })
+        },
         clearClick: function () {
             this.searchForm.YAMC = "";
             this.searchForm.selected_YALX = [];

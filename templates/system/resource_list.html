@@ -27,49 +27,49 @@
 			  <div id="app">
 					<div class="main-box">
 							<div class="main-container">
-				<div id="lib :: main_container_header('资源管理','资源管理')"></div>
-      <div class="tree" style="float:left;font-weight:bold;margin-left:-20px;margin-top:-20px;overflow:auto;">
-						<el-tree 
-									:data="tableData" 
-									node-key="resourceid"
-									:default-expanded-keys="['17']" 
-									:props="defaultProps" 
-									@node-click="handleNodeClick" 
-									style=" font-weight:bold;
-									width:200px;
-									border-radius:5px;
-									font-weight:100px;"
-									show-checkbox
-									:expand-on-click-node="false"
-									>
-						<span class="custom-tree-node" slot-scope="{ node, data }">
-						<span>{{ node.label }}</span>
-						<span>
-								<el-button
-											type="text"
-											size="mini"
-											@click="() => append(data)">
-											Append
-								</el-button>
-								 <el-button
-												type="text"
-												size="mini"
-												@click="() => remove(node, data)">
-												Delete
-								 </el-button>
-						</span>
-						</span>
-						</el-tree>
-					</div>
+							<div id="lib :: main_container_header('资源管理','资源管理')"></div>
+							<div class="tree" style="float:left;font-weight:bold;overflow:auto;">
+										<el-tree 
+													:data="tableData" 
+													node-key="resourceid"
+													:default-expanded-keys="['17']" 
+													:props="defaultProps" 
+													@node-click="handleNodeClick" 
+													style=" font-weight:bold;
+													width:300px;
+													border-radius:5px;
+													font-weight:100px;"
+													show-checkbox
+													:expand-on-click-node="false"
+													>
+											<span class="custom-tree-node" slot-scope="{ node, data }">
+											<span>{{ node.label }}</span>
+											<span>
+													<el-button
+																type="text"
+																size="mini"
+																@click="() => append(data)">
+																Append
+													</el-button>
+													<el-button
+																type="text"
+																size="mini"
+																@click="() => remove(node, data)">
+																Delete
+													</el-button>
+											</span>
+											</span>
+											</el-tree>
+										</div>
 					
-           <div class="res_in" style="padding-left:10px;
+          <div class="res_in" style="padding-left:10px;
 										overflow:true;
-										margin-left:5px;
-										margin-top:-20px;
 										float:left;
 										padding:5px;
 										border:1px solid #ccc;
-										width:75%;height:100%;
+										width:75%;
+										height:100%;
+										border-radius:5px;
 										">
 
 							 <el-form  :data="tableData">
@@ -78,27 +78,27 @@
 										</el-input> 
 									</el-form-item>
 									<el-form-item label="资源描述">
-											<el-input style="width:50%;"  placeholder="请输入内容" v-model="tableData[1].children[0].resourceinfo" clearable>
-											</el-input> 
+										<el-input style="width:50%;"  placeholder="请输入内容" v-model="tableData[1].children[0].resourceinfo" clearable>
+										</el-input> 
 									</el-form-item>
 									<el-form-item label="父资源">
-											<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].url" clearable>
-											</el-input> 
+										<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].url" clearable>
+										</el-input> 
 									</el-form-item>
 									<el-form-item label="顺序">
-											<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].resourceid" clearable>
-											</el-input>
+										<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].resourceid" clearable>
+										</el-input>
 									</el-form-item>
 									<el-form-item label="图标地址">
-											<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].icon" clearable>
-											</el-input>
+										<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].icon" clearable>
+										</el-input>
 									</el-form-item>
 									<el-form-item label="资源类型">
-											<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].type" clearable>
-											</el-input>
+										<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].type" clearable>
+										</el-input>
 									</el-form-item>
 									<el-form-item label="创建人">
-											<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].url" clearable>
+										<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].url" clearable>
 											</el-input>
 									</el-form-item>
 									<el-form-item label="创建时间">
@@ -112,11 +112,6 @@
 									<el-form-item label="修改时间">
 											<el-input style="width:50%;"  placeholder="请输入内容" v-model=" tableData[1].children[0].url" clearable>
 											</el-input>
-									</el-form-item>
-									<el-form-item>
-									  <el-checkbox name="type" >
-										<span>锁定</span>
-									  </el-checkbox>
 									</el-form-item>
 									<el-form-item>
 									  <el-button >更新</el-button>

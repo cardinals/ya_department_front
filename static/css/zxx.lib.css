@@ -4,7 +4,7 @@
 .dn{display:none;}.db{display:block;}.dib{display:inline-block;}.di{display:inline;}
 /* h */
 .h14{height:14px;}.h16{height:16px;}.h18{height:18px;}.h20{height:20px;}.h22{height:22px;}.h24{height:24px;}.h456{height:456px;}
-.h15{height:15%;}.h35{height:35%;}.h40{height:40%;}.h60{height:60%;}.h50{height:50%;}.h100{height:100%;}
+.h15{height:15%;}.h20{height:20%;}.h25{height:25%;}.h30{height:30%;}.h35{height:35%;}.h40{height:40%;}.h45{height:45%;}.h50{height:50%;}.h60{height:60%;}.h70{height:70%;}.h75{height:75%;}.h80{height:80%;}.h85{height:85%;}.h100{height:100%;}
 .lh14{line-height:14px;}.lh16{line-height:16px;}.lh18{line-height:18px;}.lh20{line-height:20px;}.lh22{line-height:22px;}.lh24{line-height:24px;}
 /* m */
 .m0{margin:0;}
@@ -16,7 +16,7 @@
 .mt3{margin-top:3px;}.mt10{margin-top:10px;}.mt35{margin-top:35px;}
 /* w */
 .w190{width:190px;}.w150{width:150px;}
-.w20{width:20%;}.w40{width:40%;}.w60{width:60%;}.w50{width:50%;}
+.w20{width:20%;}.w40{width:40%;}.w60{width:60%;}.w25{width:25%;}.w50{width:50%;}
 .b_r{border-radius:30px;}
 /* p */
 .p1{padding:1px;}.pl1{padding-left:1px;}.pt1{padding-top:1px;}.pr1{padding-right:1px;}.pb1{padding-bottom:1px;}
@@ -53,7 +53,8 @@
 /*清除浮动*/
 .fix{*zoom:1;}.fix:after{display:block; content:"clear"; height:0; clear:both; overflow:hidden; visibility:hidden;}
 /*基于display:table-cell的自适应布局*/
-.cell{display:table-cell; *display:inline-block; width:2000px; *width:auto;}
+/* .cell{display:table-cell; *display:inline-block; width:2000px; *width:auto;} */
+.cell{display: block;width: 100%;}
 /*双栏自适应cell部分连续英文字符换行*/
 .cell_bk{display:table; width:100%; table-layout:fixed; word-wrap:break-word;}
 /*单行文字溢出虚点显示*/
