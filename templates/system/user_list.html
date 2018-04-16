@@ -22,15 +22,18 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="70px" :inline="true" class="el-form demo-form-inline">
-							<el-row :gutter="20">
-								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">用户名</label>
 									<el-input size="small" v-model="searchForm.username" placeholder="用户名"></el-input>
 								</el-col>
-								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">真实姓名</label>
 									<el-input size="small" v-model="searchForm.realname" placeholder="真实姓名"></el-input>
 								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
 							<div>
 								<el-form>
