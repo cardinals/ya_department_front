@@ -23,8 +23,7 @@ new Vue({
                 DXMC: "",
                 option_DXLX: "",
                 option_YAZL: "",
-                begintime_create:"",
-                endtime_create:"",       
+                BZRQ:new Array()
             },
             tableData: [],
             testData:{
@@ -265,8 +264,8 @@ new Vue({
                 dxmc:this.searchForm.DXMC,
                 dxlxdm: this.searchForm.option_DXLX,
                 yazl:this.searchForm.option_YAZL,
-                begintime_create:this.searchForm.begintime_create,
-                endtime_create:this.searchForm.endtime_create
+                begintime_create:this.searchForm.BZRQ[0],
+                endtime_create:this.searchForm.BZRQ[1]
             }
             axios.post('/dpapi/digitalplanlist/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
@@ -297,22 +296,19 @@ new Vue({
         },
         clearClick: function () {
             this.searchForm.YAMC="";
-            this.searchForm.selected_YALX=[];
+            this.searchForm.selected_YALX="";
             this.searchForm.DXMC="";
-            this.searchForm.option_DXLX=[];
-            this.searchForm.option_YAZL=[];
-            this.searchForm.begintime_create="";
-            this.searchForm.endtime_create="";
+            this.searchForm.option_DXLX="";
+            this.searchForm.option_YAZL="";
+            this.searchForm.BZRQ.splice(0,this.searchForm.BZRQ.length);
             this.$refs.tree.setCheckedKeys([]);
         },
         //时间格式
-        begindateChange_create(val) {
-            console.log(val);
-            this.searchForm.begintime_create = val;
-        },
-        enddateChange_create(val) {
-            console.log(val);
-            this.searchForm.endtime_create = val;
+        bzrqChange(val) {
+            this.searchForm.BZRQ.splice(0,this.searchForm.BZRQ.length);
+            this.searchForm.BZRQ.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.BZRQ.push(val.substring(val.indexOf("至")+1));
+            console.log(this.searchForm.BZRQ);
         },
          //时间格式化
          dateFormat: function (row, column) {
