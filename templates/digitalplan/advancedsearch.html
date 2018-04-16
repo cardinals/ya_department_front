@@ -70,7 +70,7 @@
                             <el-card v-for="data in tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                 <el-row>
                                     <el-col :span="24">
-                                        <div><strong  @click="planDetails(data)" style="cursor: pointer;">{{data.yamc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium">{{data.yalxdm}}</el-tag></div>
+                                        <div><strong  @click="planDetails(data)" style="cursor: pointer;font-size:15px;">{{data.yamc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;">{{data.yalxdm}}</el-tag></div>
                                     </el-col>
                                 </el-row>
                                 <el-row>
