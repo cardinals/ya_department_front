@@ -21,22 +21,29 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-							<el-row :gutter="20">
-								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">单位名称</label>
-									<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称"></el-input>
 								</el-col>
-								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">录入时间</label>
-									<el-date-picker type="date" @change="begindateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime"
+									<!-- <el-date-picker type="date" @change="begindateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.begintime"
 									 placeholder="录入开始时间" class="dateInputWidth"></el-date-picker>
 									~
 									<el-date-picker type="date" @change="enddateChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.endtime"
-									 placeholder="录入结束时间" class="dateInputWidth"></el-date-picker>
+									 placeholder="录入结束时间" class="dateInputWidth"></el-date-picker> -->
+									<el-date-picker type="daterange" @change="lrsjChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.lrsj"
+									 range-separator="至" placeholder="录入时间" start-placeholder="开始日期" end-placeholder="结束日期" class="searchDatePicker">
+									</el-date-picker>
 								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
-							<el-row :gutter="20">
-								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+							<el-row>
+									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+									<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">消防管辖</label>
 									<!-- <el-cascader 
 											expand-trigger="hover" 
@@ -47,17 +54,19 @@
 											:props="defaultProps">
 
 										</el-cascader> -->
-									<el-input size="small" v-model="searchForm.xfgx" placeholder="消防管辖" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.xfgx" placeholder="消防管辖"></el-input>
 								</el-col>
-								<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+									<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">行政区域</label>
-									<el-cascader expand-trigger="hover" :options="XZQY_data" @change="handleChange" class="inputWidth" v-model="searchForm.xzqy"
+									<el-cascader expand-trigger="hover" :options="XZQY_data" @change="handleChange" style="width: 100%;" v-model="searchForm.xzqy"
 									 :props="defaultProps">
 									</el-cascader>
 									<!-- <el-form-item label="包含下级">
 											<el-checkbox></el-checkbox>
 										</el-form-item> -->
 								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
 
 							<div>

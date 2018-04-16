@@ -21,28 +21,34 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="125px" :inline="true" class="el-form demo-form-inline">
-							<el-row :gutter="20">
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">仓库名称</label>
-									<el-input size="small" v-model="searchForm.ckmc" placeholder="仓库名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.ckmc" placeholder="仓库名称"></el-input>
 								</el-col>
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">装备器材名称</label>
-									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称"></el-input>
 								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
-							<el-row :gutter="20">
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">货位名称</label>
-									<el-input size="small" v-model="searchForm.hwmc" placeholder="货位名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.hwmc" placeholder="货位名称"></el-input>
 								</el-col>
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">所属消防机构</label>
-									<el-input size="small" v-model="searchForm.ssxfjg" placeholder="所属消防机构名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.ssxfjg" placeholder="所属消防机构名称"></el-input>
 									<!-- <el-select size="small" v-model="searchForm.ssxfjg" class="inputWidth" clearable>
                                             <el-option v-for="ssxfjg in allSSXFJGData" :label="ssxfjg.codeName" :value="ssxfjg.codeValue" :key="ssxfjg.codeName"></el-option>
                                         </el-select> -->
 								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
 							<div>
 								<el-form>

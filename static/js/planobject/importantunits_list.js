@@ -10,9 +10,8 @@ new Vue({
                 dwmc: "",
                 xzqy: "",
                 xfgx: "",
-                begintime: "",
-                endtime: "",
-                bhxj: ""
+                // bhxj: "",
+                lrsj:new Array()
             },
             tableData: [],
 
@@ -115,8 +114,8 @@ new Vue({
             this.loading = true;
             var params = {
                 dwmc: this.searchForm.dwmc,
-                begintime: this.searchForm.begintime,
-                endtime: this.searchForm.endtime,
+                begintime: this.searchForm.lrsj[0],
+                endtime: this.searchForm.lrsj[1],
                 // xzqy: this.searchForm.xzqy,
                 // xfgx: this.searchForm.xfgx
             };
@@ -137,7 +136,10 @@ new Vue({
             })
         },
         clearClick: function () {
-            // this.searchForm.
+            this.searchForm.dwmc="";
+            this.searchForm.xfgx="";
+            this.searchForm.xzqy="";
+            this.searchForm.lrsj.splice(0,this.searchForm.lrsj.length);
         },
         searchXFGX_data: function () {
             axios.get('/api/codelist/getCodetype/CA01').then(function (res) {
@@ -154,11 +156,17 @@ new Vue({
             })
         },
         //时间格式
-        begindateChange(val) {
-            this.searchForm.begintime = val;
-        },
-        enddateChange(val) {
-            this.searchForm.endtime = val;
+        // begindateChange(val) {
+        //     this.searchForm.begintime = val;
+        // },
+        // enddateChange(val) {
+        //     this.searchForm.endtime = val;
+        // },
+        lrsjChange(val) {
+            this.searchForm.lrsj.splice(0,this.searchForm.lrsj.length);
+            this.searchForm.lrsj.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.lrsj.push(val.substring(val.indexOf("至")+1));
+            console.log(this.searchForm.lrsj);
         },
         //时间格式化
         dateFormat: function (row, column) {
@@ -189,28 +197,10 @@ new Vue({
             //this.sels = sels
             console.info(val);
         },
-
+        //点击进入详情页
         informClick(val) {
             window.location.href = "importantunits_detail.html?ID=" + val.pkid;
             //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
-        },
-        createdateChange(val) {
-            console.log(val);
-            this.addForm.create_time = val;
-            this.editForm.create_time = val;
-        },
-        alterdateChange(val) {
-            console.log(val);
-            this.addForm.alter_time = val;
-            this.editForm.alter_time = val;
-        },
-        begindateChange(val) {
-            console.log(val);
-            this.searchForm.begintime = val;
-        },
-        enddateChange(val) {
-            console.log(val);
-            this.searchForm.endtime = val;
         },
         //表格重新加载数据
         loadingData: function () {
@@ -221,12 +211,10 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-
         //新建事件
         addClick: function () {
             var _self = this;
             _self.addFormVisible = true;
-
         },
         //删除所选，批量删除
         removeSelection: function () {
