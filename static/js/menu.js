@@ -99,11 +99,9 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/digitalplan/digitalplan"){
                 realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
             }
-
             else if(this.model.url=="/digitalplan/advancedsearch"){
                 realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
             }
-
             else if(this.model.url=="/planobject/importantunits"){
                 realUrl="http://localhost/templates/planobject/importantunits_list.html"
             }
@@ -118,6 +116,9 @@ treeMenuTemplate.push('</li>');
             }
             else if(this.model.url=="/basicinfo/equipmentstock"){
                 realUrl="http://localhost/templates/basicinfo/equipmentstock_list.html"
+            }
+            else if(this.model.url=="/dangerinfo/danger"){
+                realUrl="http://localhost/templates/basicinfo/danger_list.html"
             }
             return realUrl;
         }
