@@ -78,9 +78,44 @@ treeMenuTemplate.push('</li>');
                 return "javascript:;";
             }
             var realUrl="";
+            // 1
             if(this.model.url=="/home"){
                 realUrl="http://localhost/templates/home.html"
             }
+            // 2
+            else if(this.model.url=="/digitalplan/digitalplan"){
+                realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
+            }
+            else if(this.model.url=="/planobject/xfbwjw"){
+                realUrl="http://localhost/templates/digitalplan/xfbwjw_list.html"
+            }
+            else if(this.model.url=="/planobject/otherobjectsplan"){
+                realUrl="http://localhost/templates/digitalplan/otherobjectsplan_list.html"
+            }
+            else if(this.model.url=="/digitalplan/advancedsearch"){
+                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
+            }
+            // 3
+            else if(this.model.url=="/planobject/importantunits"){
+                realUrl="http://localhost/templates/planobject/importantunits_list.html"
+            }
+            // 4
+            else if(this.model.url=="/basicinfo/firewater"){
+                realUrl="http://localhost/templates/basicinfo/firewater_list.html"
+            }
+            else if(this.model.url=="/basicinfo/equipment"){
+                realUrl="http://localhost/templates/basicinfo/equipment_list.html"
+            }
+            else if(this.model.url=="/basicinfo/equipmentstock"){
+                realUrl="http://localhost/templates/basicinfo/equipmentstock_list.html"
+            }
+            else if(this.model.url=="/basicinfo/fireengine"){
+                realUrl="http://localhost/templates/basicinfo/fireengine_list.html"
+            }
+            else if(this.model.url=="/basicinfo/firedrug"){
+                realUrl="http://localhost/templates/basicinfo/firedrug_list.html"
+            }
+            // 5
             else if(this.model.url=="/user"){
                 realUrl="http://localhost/templates/system/user_list.html"
             }
@@ -96,27 +131,7 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/codelist"){
                 realUrl="http://localhost/templates/system/code_list.html"
             }
-            else if(this.model.url=="/digitalplan/digitalplan"){
-                realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
-            }
-            else if(this.model.url=="/digitalplan/advancedsearch"){
-                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
-            }
-            else if(this.model.url=="/planobject/importantunits"){
-                realUrl="http://localhost/templates/planobject/importantunits_list.html"
-            }
-            else if(this.model.url=="/basicinfo/firewater"){
-                realUrl="http://localhost/templates/basicinfo/firewater_list.html"
-            }
-            else if(this.model.url=="/basicinfo/fireengine"){
-                realUrl="http://localhost/templates/basicinfo/fireengine_list.html"
-            }
-            else if(this.model.url=="/basicinfo/equipment"){
-                realUrl="http://localhost/templates/basicinfo/equipment_list.html"
-            }
-            else if(this.model.url=="/basicinfo/equipmentstock"){
-                realUrl="http://localhost/templates/basicinfo/equipmentstock_list.html"
-            }
+            // 6
             else if(this.model.url=="/dangerinfo/danger"){
                 realUrl="http://localhost/templates/basicinfo/danger_list.html"
             }
