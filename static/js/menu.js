@@ -86,10 +86,10 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/digitalplan/digitalplan"){
                 realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
             }
-            else if(this.model.url=="/planobject/xfbwjw"){
+            else if(this.model.url=="/digitalplan/xfbwjw"){
                 realUrl="http://localhost/templates/digitalplan/xfbwjw_list.html"
             }
-            else if(this.model.url=="/planobject/otherobjectsplan"){
+            else if(this.model.url=="/digitalplan/otherobjectsplan"){
                 realUrl="http://localhost/templates/digitalplan/otherobjectsplan_list.html"
             }
             else if(this.model.url=="/digitalplan/advancedsearch"){

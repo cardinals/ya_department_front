@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/planobject/importantunits.css">
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="header_box"></div>
+	<div class="left-sidebar">
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="34"></big-tree>
+		</div>
+    </div>
+    <div id="app">
+		<div class="main-box">
+				<div class="main-container" v-loading="loading" element-loading-text="加载中">
+					<div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
+					<div id="tableView">
+						<el-row>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row :gutter="40">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">预案名称</label>
+										<el-input size="small" v-model="searchForm.yamc" placeholder="预案名称"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+											<label class="el-form-item__label searchLabel">对象名称</label>
+											<el-input size="small" v-model="searchForm.dxmc" placeholder="对象名称"></el-input>
+										</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">预案类型</label>
+										<el-select size="small" v-model="searchForm.yalxdm" placeholder="预案类型" class="searchSelect" clearable>
+											<el-option v-for="item in yalxdmData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
+								</el-row>
+								<el-row :gutter="40">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">是否跨区域</label>
+										<el-select size="small" v-model="searchForm.sfkqy" placeholder="预案种类" class="searchSelect" clearable>
+											<el-option v-for="item in sfkqyData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">制作机构</label>
+										<el-select size="small" v-model="searchForm.jgid" placeholder="对象类型" class="searchSelect" clearable>
+											<el-option v-for="item in jgidData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
+											</el-option>
+										</el-select>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">编制日期</label>
+										<el-date-picker type="daterange" @change="bzrqChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.cjsj"
+										 range-separator="至" placeholder="编制日期" start-placeholder="开始日期" end-placeholder="结束日期" class="searchDatePicker">
+										</el-date-picker>
+									</el-col>
+								</el-row>
+								<div>
+									<el-form>
+										<el-col :span="12" class="btnEditDelete">
+											<el-form-item align="left">
+												<!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
+												<!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
+											</el-form-item>
+										</el-col>
+										<el-col :span="12"></el-col>
+										<el-col :span="12" class="btnSearchPlus">
+											<el-form-item>
+												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+												<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+							</el-form>
+						</el-row>
+						<div class="table_container">
+								<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+									@selection-change="selectionChange" class="tableStyle" :height="tableheight">
+									<el-table-column type="selection" min-width="5%"></el-table-column>
+									<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
+									<el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="30%" align="center">
+										<template slot-scope="scope">
+											<a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
+										</template>
+									</el-table-column>
+									<el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+									<el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+									<el-table-column prop="sfkqy" label="跨区域" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+								</el-table>
+		
+								<!--列表底部工具条和分页符-->
+								<el-row type="flex" justify="end">
+									<el-col :span="18">
+										<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+											:page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+										</el-pagination>
+									</el-col>
+								</el-row>
+							</div>
+					</div>
+				</div>
+				<!-- main-container -->
+				</div>
+        </div>
+	</div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/digitalplan/otherobjectsplan.js"></script>
+
+</html>
