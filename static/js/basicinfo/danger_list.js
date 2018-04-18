@@ -8,14 +8,14 @@ new Vue({
             //搜索表单
             searchForm: {
                 NAME: "",
-                ALIAS: "",
                 ENGLISH_NAME:"",
                 option_LXDM:"",
-                option_PROPERTY:""
+                CAS: "",
+                DANGER_ID:"",
+                EXPRESSION:""
             },
             tableData: [],
             LXDM_data:[],
-            PROPERTY_data: [],
             
             //表高度变量
             tableheight: 450,
@@ -59,7 +59,6 @@ new Vue({
     },
     created:function(){
         this.getLXDMData();
-        this.getPROPERTYData();
         this.searchClick();
     },
     methods: {
@@ -72,10 +71,11 @@ new Vue({
             _self.loading = true;//表格重新加载
             var params={
                 name:this.searchForm.NAME,
-                alias: this.searchForm.ALIAS,
                 englishName: this.searchForm.ENGLISH_NAME,
-                //type: this.searchForm.option_LXDM,
-                //property: this.searchForm.option_PROPERTY
+                type: this.searchForm.option_LXDM,
+                cas: this.searchForm.CAS,
+                dangerId: this.searchForm.DANGER_ID,
+                expression:this.searchForm.EXPRESSION
             };
             axios.post('/dpapi/danger/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
@@ -88,21 +88,14 @@ new Vue({
         clearClick: function () {
             this.searchForm.NAME="";
             this.searchForm.ENGLISH_NAME="";
-            this.searchForm.ALIAS="";
-            this.searchForm.option_LXDM=[];
-            this.searchForm.option_PROPERTY=[];
-            this.$refs.tree.setCheckedKeys([]);
+            this.searchForm.CAS="";
+            this.searchForm.option_LXDM="";
+            this.searchForm.DANGER_ID="";
+            this.searchForm.EXPRESSION="";
         },
         getLXDMData: function (){
-            axios.get('/api/codelist/getCodetype/HXPFL').then(function(res){
+            axios.get('/api/codelist/getCodetype/HXWXPLX').then(function(res){
                 this.LXDM_data=res.data.result;
-            }.bind(this),function(error){
-                console.log(error);
-            })
-        },
-        getPROPERTYData: function (){
-            axios.get('/api/codelist/getCodetype/HXPZT').then(function(res){
-                this.PROPERTY_data=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -140,16 +133,6 @@ new Vue({
             console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
-        },
-       
-        closeDialog: function (val) {
-            this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
         }
     },
 

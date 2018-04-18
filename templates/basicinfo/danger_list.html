@@ -20,27 +20,16 @@
                     <div id="tableView">
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-									<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-										<label class="el-form-item__label searchLabel">名称</label>
-										<el-input size="small" v-model="searchForm.NAME" placeholder="名称"></el-input>
+								<el-row :gutter="40">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">中文名</label>
+										<el-input size="small" v-model="searchForm.NAME" placeholder="中文名"></el-input>
 									</el-col>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                    <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-										<label class="el-form-item__label searchLabel">别名</label>
-										<el-input size="small" v-model="searchForm.ALIAS" placeholder="别名"></el-input>
-									</el-col>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-								</el-row>
-								<el-row>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                    <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">英文名</label>
 										<el-input size="small" v-model="searchForm.ENGLISH_NAME" placeholder="英文名"></el-input>
 									</el-col>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-									<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">类型</label>
 										<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="searchSelect" multiple>
 											<el-option 
@@ -51,22 +40,20 @@
 											</el-option>
 										</el-select>
 									</el-col>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                </el-row>
-                                <el-row>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                    <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-											<label class="el-form-item__label searchLabel">性状</label>
-										<el-select size="small" v-model="searchForm.option_PROPERTY" placeholder="性状" class="searchSelect" multiple>
-											<el-option 
-												v-for="item in PROPERTY_data" 
-												:key="item.codeName" 
-												:label="item.codeName" 
-												:value="item.codeValue">
-											</el-option>
-										</el-select>
+								</el-row>
+								<el-row :gutter="40">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">CAS登记号</label>
+										<el-input size="small" v-model="searchForm.CAS" placeholder="CAS登记号"></el-input>
 									</el-col>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">国际危险号</label>
+										<el-input size="small" v-model="searchForm.DANGER_ID" placeholder="国际危险号"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">分子式</label>
+										<el-input size="small" v-model="searchForm.EXPRESSION" placeholder="分子式"></el-input>
+									</el-col>
                                 </el-row>
 								<div>
 									<el-form>
@@ -94,18 +81,16 @@
 
 								<el-table-column type="selection" min-width="5%"></el-table-column>
 								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-								<el-table-column prop="name" label="名称" show-overflow-tooltip min-width="15%" align="center">
+								<el-table-column prop="name" label="中文名" show-overflow-tooltip min-width="15%" align="center">
                                     <template slot-scope="scope">
                                         <a @click="detailClick(scope.row)">{{scope.row.name}}</a>
                                     </template>
 								</el-table-column>
-								<el-table-column prop="alias" show-overflow-tooltip label="别名" min-width="11%" align="center"></el-table-column>
 								<el-table-column prop="englishName" label="英文名" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
 								<el-table-column prop="dmz" label="类型" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+								<el-table-column prop="cas" label="CAS" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+								<el-table-column prop="dangerId" label="国际危险号" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
                                 <el-table-column prop="expression" label="分子式" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-                                <el-table-column prop="gbId" label="国标号" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-                                <el-table-column prop="property" label="性状" min-width="10%" show-overflow-tooltip align="center"></el-table-column>
-                                <el-table-column prop="symptom" label="危险性/症状" min-width="16%" show-overflow-tooltip align="center"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->
