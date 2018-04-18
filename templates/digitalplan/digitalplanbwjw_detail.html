@@ -1,0 +1,97 @@
+<html>
+<head>
+    <script src="../../static/js/vue.js"></script>
+    <script src="../../static/js/elementUI.js"></script>
+    <script src="../../static/js/digitalplan_detail.js"></script>
+</head>
+<body class="fw f14 main-index-body">
+    <!--详情界面-->
+        <div id="detailDisplay">
+            <div class="dib" id="basic-Inform-Title">
+                <div class="detailBox" style="display: inline-flex;">
+                <div class="imgWidth">
+                    <img src="../../static/images/danwei4.jpg">
+                </div>
+                <div class="detailBox">
+                <div class="yamc_Single">
+                    <div>
+                        <dl class="inform-left">
+                            <dt class="dtdlStyle">预案名称：</dt>
+                            <dd class="dtdlStyle">{{detailData.yamc}}</dd>
+                        </dl>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <dl class="inform-left">
+                            <dt class="dtdlStyle">预案对象：</dt>
+                            <dd class="dtdlStyle">{{detailData.dxmc}}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="inform-div">
+                    <div class="leftDetail"> 
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">预案类型：</dt>
+                                <dd class="dtdlStyle">{{detailData.yalxdm}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">是否跨区域：</dt>
+                                <dd class="dtdlStyle">{{detailData.sfkqy}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作机构：</dt>
+                                <dd class="dtdlStyle">{{detailData.zzdwmc}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作人名称：</dt>
+                                <dd class="dtdlStyle">{{detailData.zzdwmc}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作时间：</dt>
+                                <dd class="dtdlStyle">{{this.detailYMD}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inform-margin">
+                           <dl class="inform-left">
+                               <dt class="dtdlStyle">创建人：</dt>
+                               <dd class="dtdlStyle">{{detailData.cjrmc}}</dd>
+                           </dl>
+                        </div>
+                        <div class="inform-margin">
+                           <dl class="inform-left">
+                              <dt class="dtdlStyle">创建时间：</dt>
+                              <dd class="dtdlStyle">{{detailData.cjsj}}</dd>
+                           </dl>
+                        </div>
+                        <div class="inform-margin">
+                           <dl class="inform-left">
+                               <dt class="dtdlStyle">修改人：</dt>
+                               <dd class="dtdlStyle">{{detailData.xgrmc}}</dd>
+                           </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                               <dt class="dtdlStyle">修改时间：</dt>
+                               <dd class="dtdlStyle">{{detailData.xgsj}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
