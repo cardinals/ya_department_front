@@ -214,10 +214,8 @@ new Vue({
 
     methods: {        
         handleNodeClick(data) {
-            console.log(data);
         },
         handleChange(value) {
-            console.log(value);
         },
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -289,9 +287,9 @@ new Vue({
                 this.tableData.unshift(this.testData);
                 _self.total = _self.tableData.length;
                 _self.loading = false;
-                console.log("success")
+
             }.bind(this),function(error){
-                console.log("failed")
+                console.log(error)
             })
         },
         clearClick: function () {
@@ -308,7 +306,6 @@ new Vue({
             this.searchForm.BZRQ.splice(0,this.searchForm.BZRQ.length);
             this.searchForm.BZRQ.push(val.substring(0,val.indexOf("至")));
             this.searchForm.BZRQ.push(val.substring(val.indexOf("至")+1));
-            console.log(this.searchForm.BZRQ);
         },
          //时间格式化
          dateFormat: function (row, column) {
@@ -334,9 +331,16 @@ new Vue({
         //表格勾选事件
         selectionChange: function (val) {
             this.multipleSelection = val;
-            console.info(val);
         },
-
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
         //预案详情
         planDetails: function (val) {
             var _self = this;
@@ -375,7 +379,6 @@ new Vue({
        
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -383,7 +386,6 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
@@ -399,11 +401,8 @@ new Vue({
             this.$refs.upload.submit();
         },
         handleRemove(file, fileList) {
-
-            console.log(file, fileList);
         },
         handlePreview(file) {
-            console.log(file);
         }
 
     },

@@ -103,17 +103,17 @@
                             @selection-change="selectionChange" class="tableStyle" :height="tableheight">
                             <el-table-column type="selection" min-width="5%"></el-table-column>
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-                            <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="15%" align="center">
+                            <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
                                 <template slot-scope="scope">
                                     <a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="14%" align="center"></el-table-column>
-                            <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center"></el-table-column>
-                            <el-table-column prop="dxlxdm" label="对象类型" show-overflow-tooltip min-width="14%" align="center"></el-table-column>
-                            <el-table-column prop="zzdwmc" label="编制单位" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                            <el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="14%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="dxlxdm" label="对象类型" show-overflow-tooltip min-width="14%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="zzdwmc" label="编制单位" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
                             <el-table-column prop="zzrq" label="编制日期" show-overflow-tooltip min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
-                            <el-table-column prop="yazl" label="预案种类" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                            <el-table-column prop="yazl" label="预案种类" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
                         </el-table>
 
                         <!--列表底部工具条和分页符-->

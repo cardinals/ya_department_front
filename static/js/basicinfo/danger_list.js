@@ -63,7 +63,6 @@ new Vue({
     },
     methods: {
         handleNodeClick(data) {
-            console.log(data);
         },
         //表格查询事件
         searchClick: function () {
@@ -84,6 +83,15 @@ new Vue({
             }.bind(this),function(error){
                 console.log(error);
             })
+        },
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
         },
         clearClick: function () {
             this.searchForm.NAME="";
@@ -106,10 +114,9 @@ new Vue({
                 var row = val[i];
             }
             this.multipleSelection = val;
-            console.info(val);
         },
         detailClick(val) {
-            window.location.href = "danger_detail.html?ID=" + val.id;
+            window.location.href = "danger_detail.html?ID=" + val.uuid;
         },
         //表格重新加载数据
         loadingData: function () {
@@ -122,7 +129,6 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -130,7 +136,6 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         }

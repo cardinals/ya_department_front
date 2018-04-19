@@ -13,6 +13,7 @@ new Vue({
             labelPosition: 'right',
             //基本数据保存
             detailData: {},
+            photo64:""
         }
     },
 
@@ -27,6 +28,9 @@ new Vue({
             axios.get('/dpapi/danger/doFindById/' + this.id).then(function (res) {
                 this.tableData = res.data.result;
                 this.detailData = this.tableData;
+                var photo = document.getElementById("flag");
+                this.photo64 =  this.detailData.photo64;
+                photo.src = "data:image/png;base64,"+this.photo64;
             }.bind(this), function (error) {
                 console.log(error)
             })
