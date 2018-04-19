@@ -11,29 +11,29 @@ new Vue({
             //预案类型Data
             yalxdm: [],
             //测试Data
-            detailTestData: {
-                pkid: "67833B5FB1232169E053B077770AE86",
-                yamc: "物美生活广场及地铁华苑站三维灭火预案",
-                dxmc: "物美生活广场及地铁华苑站",
-                yalxdm: "人员密集场所",
-                yazl: "对象预案",
-                yabbh: "A",
-                sfkqy: "是",
-                zzdwmc: "",
-                zzrmc: "zhuolh@ha",
-                zzrq: "2016-03-16",
-                bz: ""
-            },
+            // detailTestData: {
+            //     pkid: "67833B5FB1232169E053B077770AE86",
+            //     yamc: "物美生活广场及地铁华苑站三维灭火预案",
+            //     dxmc: "物美生活广场及地铁华苑站",
+            //     yalxdm: "人员密集场所",
+            //     yazl: "对象预案",
+            //     yabbh: "A",
+            //     sfkqy: "是",
+            //     zzdwmc: "",
+            //     zzrmc: "zhuolh@ha",
+            //     zzrq: "2016-03-16",
+            //     bz: ""
+            // },
             //上传文件部分个数
-            upLoadData:{
-                id:1
-            },
-            fileList: [
-                { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
-            ],
+            // upLoadData:{
+            //     id:1
+            // },
+            // fileList: [
+            //     { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
+            //     { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
+            //     { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
+            //     { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
+            // ],
         }
     },
     created: function () {
@@ -122,16 +122,16 @@ new Vue({
                             this.detailData.yalxdm = this.yalxdm[k].codeName;
                         }
                     }
-                    for(var m=0;m<this.YAZL_data.length;m++){
-                        if(this.YAZL_data[m].codeValue == this.detailData.yazl){
-                            this.detailData.yazl = this.YAZL_data[m].codeName;
-                        }
-                    }
-                    for(var h=0;h<this.DXLX_data.length;h++){
-                        if(this.DXLX_data[h].codeValue == this.detailData.dxlxdm){
-                            this.detailData.dxlxdm = this.DXLX_data[h].codeName;
-                        }
-                    }
+                    // for(var m=0;m<this.YAZL_data.length;m++){
+                    //     if(this.YAZL_data[m].codeValue == this.detailData.yazl){
+                    //         this.detailData.yazl = this.YAZL_data[m].codeName;
+                    //     }
+                    // }
+                    // for(var h=0;h<this.DXLX_data.length;h++){
+                    //     if(this.DXLX_data[h].codeValue == this.detailData.dxlxdm){
+                    //         this.detailData.dxlxdm = this.DXLX_data[h].codeName;
+                    //     }
+                    // }
                     this.detailData.sfkqy = (this.detailData.sfkqy==1?"是":"否");
                     _self.planDetailVisible = true;
             }.bind(this), function (error) {
@@ -140,14 +140,57 @@ new Vue({
         }
 
         },
-        //预案预览
-        openPlan:function(){
-            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
+        
+        //时间格式
+        cjsjChange(val) {
+            this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
+            this.searchForm.cjsj.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.cjsj.push(val.substring(val.indexOf("至")+1));
+            // console.log(this.searchForm.cjsj);
         },
-        //预案下载
-        downloadPlan:function(){
-            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
+        zzsjChange(val) {
+            this.searchForm.zzsj.splice(0,this.searchForm.zzsj.length);
+            this.searchForm.zzsj.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.zzsj.push(val.substring(val.indexOf("至")+1));
+            // console.log(this.searchForm.cjsj);
         },
+        xgsjChange(val) {
+            this.searchForm.xgsj.splice(0,this.searchForm.xgsj.length);
+            this.searchForm.xgsj.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.xgsj.push(val.substring(val.indexOf("至")+1));
+            // console.log(this.searchForm.cjsj);
+        },
+        //时间格式化
+        dateFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '';
+            } else {
+                var date = new Date(rowDate);
+                if (date == undefined) {
+                    return '';
+                }
+                var month = '' + (date.getMonth() + 1),
+                    day = '' + date.getDate(),
+                    year = date.getFullYear();
+
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+
+                return [year, month, day].join('-')
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
         /**
         * lxy
         */
@@ -161,9 +204,7 @@ new Vue({
         handlePreview(file){
             console.log(file);
         },
-        handleExceed(files, fileList) {
-            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-        },
+        
 
     }
 })

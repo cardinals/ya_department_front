@@ -264,18 +264,19 @@ new Vue({
             })
         },
         clearClick: function () {
-            this.searchForm.yamc = "";
-            this.searchForm.jgid = "";
-            this.searchForm.dxmc = "";
-            this.searchForm.yalxdm = "";
-            this.searchForm.sfkqy = "";
+            this.searchForm.yamc="";
+            this.searchForm.dxmc="";
+            this.searchForm.yalxdm=[];
+            this.searchForm.sfkqy="";
+            this.searchForm.jgid="";
+            this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
         },
         //时间格式
-        bzrqChange(val) {
-            this.searchForm.BZRQ.splice(0, this.searchForm.BZRQ.length);
-            this.searchForm.BZRQ.push(val.substring(0, val.indexOf("至")));
-            this.searchForm.BZRQ.push(val.substring(val.indexOf("至") + 1));
-            console.log(this.searchForm.BZRQ);
+        cjsjChange(val) {
+            this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
+            this.searchForm.cjsj.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.cjsj.push(val.substring(val.indexOf("至")+1));
+            // console.log(this.searchForm.cjsj);
         },
         //时间格式化
         dateFormat: function (row, column) {
