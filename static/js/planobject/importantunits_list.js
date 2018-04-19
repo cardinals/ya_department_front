@@ -155,13 +155,7 @@ new Vue({
                 console.log(error);
             })
         },
-        //时间格式
-        // begindateChange(val) {
-        //     this.searchForm.begintime = val;
-        // },
-        // enddateChange(val) {
-        //     this.searchForm.endtime = val;
-        // },
+        
         lrsjChange(val) {
             this.searchForm.lrsj.splice(0,this.searchForm.lrsj.length);
             this.searchForm.lrsj.push(val.substring(0,val.indexOf("至")));
@@ -186,6 +180,15 @@ new Vue({
                 if (day.length < 2) day = '0' + day;
 
                 return [year, month, day].join('-')
+            }
+        },
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
             }
         },
         //表格勾选事件

@@ -91,9 +91,11 @@
                 </div>
                 <!-- lxy-start -->
 
-                <el-upload class="upload-demo" ref="upload" action="http://localhost/yafjxz/upload" :data="upLoadData" :on-preview="handlePreview"
+                <el-upload class="upload-demo" ref="upload" action="http://localhost/dpapi/danger/insertImage" :data="upLoadData" :on-preview="handlePreview"
                     :on-remove="handleRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList"
                     :auto-upload="false">
+                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
                 </el-upload>
 
                 <!-- lxy-end -->
