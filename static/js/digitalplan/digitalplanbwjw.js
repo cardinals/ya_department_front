@@ -219,7 +219,7 @@ new Vue({
                 return;
             }
             // this.loading = true;//表格重新加载
-            debugger
+            // debugger
             var params = {
                 yamc:this.searchForm.yamc,
                 yalxdm:this.searchForm.yalxdm,
@@ -302,7 +302,7 @@ new Vue({
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
-            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.pkid;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid;
             history.pushState(null, null, shortURL)
             //异步加载详情页
             $(function () {

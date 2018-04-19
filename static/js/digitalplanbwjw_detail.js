@@ -9,11 +9,7 @@ new Vue({
             //详情页日期
             detailYMD:"",
             //预案类型Data
-            YALX_data: [],
-            //对象类型Data
-            DXLX_data: [],
-            //预案种类Data
-            YAZL_data: [],
+            yalxdm: [],
             //测试Data
             detailTestData: {
                 pkid: "67833B5FB1232169E053B077770AE86",
@@ -62,7 +58,7 @@ new Vue({
         //预案类型
         YALX: function(){
             axios.get('/api/codelist/getCodetype/YALX').then(function(res){
-                this.YALX_data = res.data.result;
+                this.yalxdm = res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -90,7 +86,7 @@ new Vue({
                 this.detailData = this.detailTestData;
             }
             else{
-                axios.get('/dpapi/digitalplanlist/doFindById/' + val).then(function (res) {
+                axios.get('/dpapi/xfbwjw/doFindById/' + val).then(function (res) {
                     this.detailData = null;
                     this.detailData = res.data.result;
                     if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
@@ -109,9 +105,9 @@ new Vue({
         
                         this.detailYMD=[year, month, day].join('-');
                     }
-                    for(var k=0;k<this.YALX_data.length;k++){
-                        if(this.YALX_data[k].codeValue == this.detailData.yalxdm){
-                            this.detailData.yalxdm = this.YALX_data[k].codeName;
+                    for(var k=0;k<this.yalxdm.length;k++){
+                        if(this.yalxdm[k].codeValue == this.detailData.yalxdm){
+                            this.detailData.yalxdm = this.yalxdm[k].codeName;
                         }
                     }
                     for(var m=0;m<this.YAZL_data.length;m++){
@@ -143,15 +139,14 @@ new Vue({
         /**
         * lxy
         */
-        submitUpload() {
+        submitUpload(){
             this.upLoadData= {id:2};
             this.$refs.upload.submit();
         },
-        handleRemove(file, fileList) {
-
+        handleRemove(file, fileList){
             console.log(file, fileList);
         },
-        handlePreview(file) {
+        handlePreview(file){
             console.log(file);
         },
         handleExceed(files, fileList) {
