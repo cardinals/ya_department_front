@@ -11,13 +11,18 @@ new Vue({
                 cllx: "",
                 cphm: "",
                 clzt: "",
-                sbll: "",
-                zsl: ""
+                sbll: [0,1000],
+                zsl: [0,1000]
             },
             tableData: [],
             allTeamsData: [],
             allTypesData: [],
             allStatesData: [],
+            props: {
+                value: 'codeValue',
+                label: 'codeName',
+                children: 'children'
+            },
             rowdata: '',
             //表高度变量
             tableheight: 443,
@@ -72,11 +77,13 @@ new Vue({
             var _self = this;
             var params={
                 ssdz :this.searchForm.ssdz,
-                cllx :this.searchForm.cllx,
+                cllx :this.searchForm.cllx[4],
                 cphm :this.searchForm.cphm,
-                clzt :this.searchForm.clzt,
-                sbll :this.searchForm.sbll,
-                zsl :this.searchForm.zsl
+                clzt :this.searchForm.clzt[1],
+                sbll_min :this.searchForm.sbll[0],
+                sbll_max :this.searchForm.sbll[1],
+                zsl_min :this.searchForm.zsl[0],
+                zsl_max :this.searchForm.zsl[1]
             };
             axios.post('/dpapi/fireengine/list',params).then(function(res){
                 this.tableData = res.data.result;
@@ -91,21 +98,21 @@ new Vue({
         },
         clearClick: function () {
             this.searchForm.ssdz="";
-            this.searchForm.cllx="";
+            this.searchForm.cllx=[];
             this.searchForm.cphm="";
-            this.searchForm.clzt="";
-            this.searchForm.sbll="";
-            this.searchForm.zsl="";
+            this.searchForm.clzt=[];
+            this.searchForm.sbll=[0,1000];
+            this.searchForm.zsl=[0,1000];
         },
         getAllTypesData: function (){
-            axios.get('/api/codelist/getCodetype/CLLX').then(function(res){
+            axios.get('/api/codelist/getCarTypes/CLLX').then(function(res){
                 this.allTypesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
         },
         getAllStatesData: function (){
-            axios.get('/api/codelist/getCodetype/CLZT').then(function(res){
+            axios.get('/api/codelist/getCarStates/CLZT').then(function(res){
                 this.allStatesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
