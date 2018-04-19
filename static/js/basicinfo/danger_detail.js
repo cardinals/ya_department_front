@@ -8,7 +8,6 @@ new Vue({
             id: "",
             //表数据
             tableData: [],//基本数据
-
             //显示加载中样
             loading: false,
             labelPosition: 'right',
@@ -47,6 +46,32 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
+        },
+         //发送至邮箱
+        openEmail: function () {
+            this.emailDialogVisible = true;
+        },
+        closeEmailDialog: function () {
+            this.emailDialogVisible = false;
+            this.email = "";
+        },
+        //信息分享
+        openShare: function () {
+            this.shareDialogVisible = true;
+        },
+        closeShareDialog: function () {
+            this.shareDialogVisible = false;
+        },
+        //信息打印
+        openPrinter: function () {
+            // 1.设置要打印的区域 div的className
+            var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
+            // 2. 复制给body，并执行window.print打印功能
+            document.body.innerHTML = newstr
+            window.print()
+            // 重新加载页面，以刷新数据
+            window.location.reload();
+
         },
         //表格重新加载数据
         loadingData: function () {

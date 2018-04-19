@@ -7,13 +7,17 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                zblxdm: "",
-                cldjdm: "",
-                cphm:""
+                ssdz: "",
+                cllx: "",
+                cphm: "",
+                clzt: "",
+                sbll: "",
+                zsl: ""
             },
             tableData: [],
+            allTeamsData: [],
             allTypesData: [],
-            allLevelsData:[],
+            allStatesData: [],
             rowdata: '',
             //表高度变量
             tableheight: 443,
@@ -29,9 +33,7 @@ new Vue({
             //总记录数
             total: 10,
             //行数据保存
-            rowdata: {
-
-            },
+            rowdata: {},
             //序号
             indexData: 0,
             //删除的弹出框
@@ -46,8 +48,8 @@ new Vue({
             sels: [],
             //选中的序号
             selectIndex: -1,
-             //树结构配置
-             defaultProps: {
+            //树结构配置
+            defaultProps: {
                 children: 'children',
                 label: 'codeName',
                 value: 'codeValue'
@@ -58,7 +60,7 @@ new Vue({
     created:function(){
         this.searchClick();
         this.getAllTypesData();
-        this.getAllLevelsData();
+        this.getAllStatesData();
     },
     methods: {
         handleNodeClick(data) {
@@ -69,34 +71,42 @@ new Vue({
             this.loading=true;
             var _self = this;
             var params={
-                zblxdm :this.searchForm.zblxdm,
-                cldjdm :this.searchForm.cldjdm,
+                ssdz :this.searchForm.ssdz,
+                cllx :this.searchForm.cllx,
                 cphm :this.searchForm.cphm,
+                clzt :this.searchForm.clzt,
+                sbll :this.searchForm.sbll,
+                zsl :this.searchForm.zsl
             };
             axios.post('/dpapi/fireengine/list',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
                 this.loading=false;
+
+                console.log(this.tableData);
             }.bind(this),function(error){
                 console.log(error);
             })
         },
         clearClick: function () {
-            this.searchForm.zblxdm="";
-            this.searchForm.cldjdm="";
+            this.searchForm.ssdz="";
+            this.searchForm.cllx="";
             this.searchForm.cphm="";
+            this.searchForm.clzt="";
+            this.searchForm.sbll="";
+            this.searchForm.zsl="";
         },
         getAllTypesData: function (){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            axios.get('/api/codelist/getCodetype/CLLX').then(function(res){
                 this.allTypesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
         },
-        getAllLevelsData: function (){
-            axios.get('/api/codelist/getCodetype/CLDJ').then(function(res){
-                this.allLevelsData=res.data.result;
+        getAllStatesData: function (){
+            axios.get('/api/codelist/getCodetype/CLZT').then(function(res){
+                this.allStatesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -206,7 +216,6 @@ new Vue({
         //     val.alter_name = "";
         //     val.alter_time = "";
         //     console.info(this.addForm);
-
         // },
         closeDialog: function (val) {
             this.addFormVisible = false;

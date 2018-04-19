@@ -19,129 +19,273 @@
             <div class="main-container">
                 <div id="danger_detail"></div>
                 <div id="tableView">
+                    <div class="nameBox">
+                        
+                        <div class="dib" id="basic-Inform-Title">
+                            <div>
+                                <h3 class="dib inform-h3">{{detailData.name}}</h3>
+                                <span class="companyStatus dib" title="类型">{{detailData.dmz}}</span>
+                            </div>
+                            <dl>
+                                <img src="../../static/images/location.png">
+                                <dt class="dib inform-small-title">中文名：</dt>
+                                <dd class="dtdlStyle">{{detailData.name}}</dd>
+                                <br>
+                                <img src="../../static/images/date.png">
+                                <dt class="dib inform-small-title">英文名：</dt>
+                                <dd class="dtdlStyle">{{detailData.englishName}}</dd>
+                                <br>
+                                <img src="../../static/images/phone.png">
+                                <dt class="dib inform-small-title">分子式：</dt>
+                                <dd class="dtdlStyle">{{detailData.expression}}</dd>
+                            </dl>
+                        </div>
+                        <div style="float: right">
+                            <el-button type="primary" icon="share" style="width:120px" @click="openShare">信息分享</el-button>
+                            <br>
+                            <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openPrinter">信息打印</el-button>
+                            <br>
+                            <el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">发送邮箱</el-button>
+                            <br>
+                        </div>
+                    </div>
                     <div class="inform-content">
                         <template>
                             <el-tabs v-model="activeName" type="border-card">
-                                <div class="inform-div">
-                                    <div class="left-inform">
-                                        <div>
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">名称：</dt>
-                                                <dd class="dtdlStyle">{{detailData.name}}</dd>
-                                            </dl>
+                                <el-tab-pane label="基本信息" name="first">
+                                    <div class="inform-div">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">别名: </dt>
+                                                    <dd class="dtdlStyle">{{detailData.alias}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">国际危险号：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.dangerId}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">国标号：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.gbId}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">主要用途：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.mainApplication}}</dd>
+                                                </dl>
+                                            </div>
                                         </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">别名: </dt>
-                                                <dd class="dtdlStyle">{{detailData.alias}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">英文名：</dt>
-                                                <dd class="dtdlStyle">{{detailData.englishName}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">分子式: </dt>
-                                                <dd class="dtdlStyle">{{detailData.expression}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">类型：</dt>
-                                                <dd class="dtdlStyle">{{detailData.dmz}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">包装标志：</dt>
-                                                <dd class="dtdlStyle">{{detailData.flagName}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">同义词：</dt>
-                                                <dd class="dtdlStyle">{{detailData.thesaurus}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">危险性/症状：</dt>
-                                                <dd class="dtdlStyle">{{detailData.symptom}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">急救措施/灭火：</dt>
-                                                <dd class="dtdlStyle">{{detailData.firstaid}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">防护措施：</dt>
-                                                <dd class="dtdlStyle">{{detailData.defendWay}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">处置措施：</dt>
-                                                <dd class="dtdlStyle">{{detailData.dispose}}</dd>
-                                            </dl>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">类型：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.dmz}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">CAS：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.cas}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">特别警示：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.caution}}</dd>
+                                                </dl>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="right-inform">
-                                        <div>
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">国标号：</dt>
-                                                <dd class="dtdlStyle">{{detailData.gbId}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">空气中允许极限及测定：</dt>
-                                                <dd class="dtdlStyle">{{detailData.airDetermine}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">水中允许极限及测定：</dt>
-                                                <dd class="dtdlStyle">{{detailData.waterDetermine}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">禁忌物/禁忌：</dt>
-                                                <dd class="dtdlStyle">{{detailData.tabu}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">储存：</dt>
-                                                <dd class="dtdlStyle">{{detailData.store}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">泄漏处理：</dt>
-                                                <dd class="dtdlStyle">{{detailData.leakWay}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">运输：</dt>
-                                                <dd class="dtdlStyle">{{detailData.traffic}}</dd>
-                                            </dl>
-                                        </div>
-                                        <div class="inform-margin">
-                                            <dl class="inform-left">
-                                                <dt class="dtdlStyle">附注：</dt>
-                                                <dd class="dtdlStyle">{{detailData.remark}}</dd>
-                                            </dl>
-                                        </div>
-                                    </div>
-                                </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="性质信息" name="second">
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">同义词：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.thesaurus}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">性状：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.property}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">毒性：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.poisionProperty}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">危险性/症状：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.symptom}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">燃烧爆炸特性：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.bernProperty}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">空气中允许极限及测定：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.airDetermine}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">水中允许极限及测定：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.waterDetermine}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                </el-tab-pane>
+                                <el-tab-pane label="处置措施" name="third">
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">储存：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.store}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">运输：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.traffic}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">隔离：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.seprarate}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">急救措施/灭火：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.firstaid}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">防护措施：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.defendWay}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">处置措施：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.dispose}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">泄露处理：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.leakWay}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div><strong style="cursor: pointer;font-size:15px;">公众安全：</strong></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{detailData.publicSafety}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                </el-tab-pane>
                             </el-tabs>
                         </template>
                     </div>

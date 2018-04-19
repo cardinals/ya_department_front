@@ -390,22 +390,34 @@
                     '</div>'
 
                     ;
+
                 var map = new BMap.Map("BMap");    //创建Map实例
+                map.centerAndZoom(new BMap.Point(116.404, 39.915), 11); 
+                var top_left_control = new BMap.ScaleControl({
+                    anchor:BMAP_ANCHOR_TOP_LEFT
+                });
+     
+	            map.addControl(top_left_control); 
                 //添加地图类型控件
                 map.addControl(new BMap.MapTypeControl({
                     mapTypes: [
                         BMAP_NORMAL_MAP,
                         BMAP_HYBRID_MAP
                     ]
-                }));
+                }
+                )
+                );
+                 
+
                 map.setCurrentCity(this.city);      //设置地图显示的城市 此项是必须设置的
                 map.centerAndZoom(this.city);       //设置地图中心点
                 map.enableScrollWheelZoom(true);      //开启鼠标滚轮缩放
                 map.setMinZoom(5);       //设置地图最小缩放级别
+
                 this.getBoundary(map);      //绘制边框
-                var point1 = new BMap.Point(116.404, 39.915);      // 创建坐标点
-                var point2 = new BMap.Point(106.425, 25.900);      // 创建坐标点
-                var point3 = new BMap.Point(118.404, 37.915);      // 创建坐标点
+                var point1 = new BMap.Point(116.404, 39.915);     // 创建坐标点
+                var point2 = new BMap.Point(106.425, 25.900);     // 创建坐标点
+                var point3 = new BMap.Point(118.404, 37.915);     // 创建坐标点
                 var myIcon1 = new BMap.Icon("../../static/images/消火栓.png", new BMap.Size(30, 30));      //创建图标
                 var myIcon2 = new BMap.Icon("../../static/images/消防车.png", new BMap.Size(28, 28));      //创建图标
                 var myIcon3 = new BMap.Icon("../../static/images/重点企业.png", new BMap.Size(30, 30));      //创建图标
@@ -414,9 +426,9 @@
                 var marker3 = new BMap.Marker(point3, { icon: myIcon3 });      // 创建标注
                 var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框
                 map.centerAndZoom(point3, 15);//悬浮框
-                map.addOverlay(marker1);      // 将标注添加到地图中
-                map.addOverlay(marker2);      // 将标注添加到地图中
-                map.addOverlay(marker3);      // 将标注添加到地图中
+                map.addOverlay(marker1);  // 将标注添加到地图中
+                map.addOverlay(marker2);  // 将标注添加到地图中
+                map.addOverlay(marker3);  // 将标注添加到地图中
                 //悬浮框
                 marker3.addEventListener("click", function () {
                     this.openInfoWindow(infoWindow);
