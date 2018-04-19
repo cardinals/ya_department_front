@@ -95,15 +95,15 @@
 
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="15%" align="center">
+							<el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
 								<template slot-scope="scope">
 									<a @click="informClick(scope.row)" type="text">{{scope.row.dwmc}}</a>
 								</template>
 							</el-table-column>
-							<el-table-column prop="xzqy" label="行政区域" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="dwdz" label="单位地址" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
-							<el-table-column prop="xfgxjgname" label="消防管辖机构" show-overflow-tooltip min-width="15%" align="center"></el-table-column>
-							<el-table-column prop="cjsj" label="录入时间" min-width="10%" align="center" :formatter="dateFormat"></el-table-column>
+							<el-table-column prop="xzqy" label="行政区域" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="dwdz" label="单位地址" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="xfgxjgname" label="消防管辖机构" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="cjsj" label="录入时间" min-width="10%" align="center" :formatter="dateFormat" :formatter="dataFormat"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->

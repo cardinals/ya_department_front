@@ -134,6 +134,15 @@ new Vue({
                 return [year, month, day].join('-')
             }
         },
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
         //分页大小修改事件
         pageSizeChange: function (val) {
             console.log("每页 " + val + " 条");
