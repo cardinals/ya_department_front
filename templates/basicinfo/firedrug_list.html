@@ -76,12 +76,12 @@
 						 class="tableStyle" :height="tableheight">
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="yjmc" label="药剂名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-							<el-table-column prop="ssdz" label="所属队站" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-							<el-table-column prop="sccj" label="生产厂家" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-							<el-table-column prop="pc" label="批次" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="cbl" label="储备量" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="czl" label="车载量" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+							<el-table-column prop="yjmc" label="药剂名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="ssdzmc" label="所属队站" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="sccj" label="生产厂家" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="pc" label="批次" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="cbl" label="储备量(t)" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="czl" label="车载量(t)" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->
