@@ -231,11 +231,19 @@ new Vue({
             axios.post('/dpapi/xfbwjw/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 for (var i = 0; i < this.tableData.length; i++) {
-                    for (var k = 0; k < this.YALX_data.length; k++) {
-                        if (this.YALX_data[k].codeValue == this.tableData[i].yalxdm) {
-                            this.tableData[i].yalxdm = this.YALX_data[k].codeName;
+                    for (var k = 0; k < this.yalxdmData.length; k++) {
+                        if (this.yalxdmData[k].codeValue == this.tableData[i].yalxdm) {
+                            this.tableData[i].yalxdm = this.yalxdmData[k].codeName;
                         }
                     }
+
+                    for(var m=0;m<this.jgidData.length;m++){
+                        if(this.jgidData[m].codeValue == this.tableData[i].jgid){
+                             this.tableData[i].jgid = this.jgidData[m].codeName;
+                         }
+                     }
+
+
                     // for(var m=0;m<this.YAZL_data.length;m++){
                     //     if(this.YAZL_data[m].codeValue == this.tableData[i].yazl){
                     //         this.tableData[i].yazl = this.YAZL_data[m].codeName;
@@ -256,13 +264,11 @@ new Vue({
             })
         },
         clearClick: function () {
-            this.searchForm.YAMC = "";
-            this.searchForm.selected_YALX = "";
-            this.searchForm.DXMC = "";
-            this.searchForm.option_DXLX = "";
-            this.searchForm.option_YAZL = "";
-            this.searchForm.BZRQ.splice(0, this.searchForm.BZRQ.length);
-            this.$refs.tree.setCheckedKeys([]);
+            this.searchForm.yamc = "";
+            this.searchForm.jgid = "";
+            this.searchForm.dxmc = "";
+            this.searchForm.yalxdm = "";
+            this.searchForm.sfkqy = "";
         },
         //时间格式
         bzrqChange(val) {

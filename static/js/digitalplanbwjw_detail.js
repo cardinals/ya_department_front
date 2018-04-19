@@ -38,13 +38,15 @@ new Vue({
     },
     created: function () {
         this.YALX();
-        this.DXLX();
-        this.YAZL();
+        // this.DXLX();
+        // this.YAZL();
         //取得选中行pkid
         this.pkid = this.GetQueryString("pkid");
         history.back();
+        // this.planDetails(this.pkid);
     },
     mounted:function(){
+        
         this.planDetails(this.pkid);
     },
 
@@ -84,12 +86,22 @@ new Vue({
             var _self = this;    
             if(val == "67833B5FB1232169E053B077770AE86"){
                 this.detailData = this.detailTestData;
+                for(var k=0;k<this.yalxdm.length;k++){
+                    if(this.yalxdm[k].codeValue == this.detailData.yalxdm){
+                        this.detailData.yalxdm = this.yalxdm[k].codeName;
+                    }
+                }
             }
             else{
                 axios.get('/dpapi/xfbwjw/doFindById/' + val).then(function (res) {
                     this.detailData = null;
                     this.detailData = res.data.result;
                     if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
+                        for(var k=0;k<this.yalxdm.length;k++){
+                            if(this.yalxdm[k].codeValue == this.detailData.yalxdm){
+                                this.detailData.yalxdm = this.yalxdm[k].codeName;
+                            }
+                        }
                         return '';
                     } else {
                         var date = new Date(this.detailData.zzrq);
