@@ -32,9 +32,7 @@
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">预案类型</label>
-									<el-select size="small" v-model="searchForm.yalxdm" placeholder="预案类型" class="searchSelect" clearable>
-										<el-option v-for="item in yalxdmData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
-									</el-select>
+									<el-cascader :options ="yalxdmData" :props ="props" size="small" v-model="searchForm.yalxdm" placeholder="预案类型" class="searchSelect" clearable change-on-select></el-cascader>
 								</el-col>
 							</el-row>
 							<el-row :gutter="40">

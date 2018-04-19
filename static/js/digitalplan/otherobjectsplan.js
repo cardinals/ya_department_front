@@ -19,96 +19,19 @@ new Vue({
             sfkqyData: [{
                 codeValue: '全部',
                 codeName: '全部'
-              }, {
+            }, {
                 codeValue: '1',
                 codeName: '是'
-              }, {
+            }, {
                 codeValue: '0',
                 codeName: '否'
-              }],
+            }],
+            props: {
+                value: 'codeValue',
+                label: 'codeName',
+                children: 'children'
+            },
             defaultKeys: [],
-            //后台返回编制单位列表
-            allFormationList: [
-                {
-                    id: 1,
-                    formationinfo: '系统管理',
-                    children: [{
-                        id: 3,
-                        formationinfo: '用户管理',
-                        children: [{
-                            id: 9,
-                            formationinfo: '查询'
-                        },
-                        {
-                            id: 10,
-                            formationinfo: '新增'
-                        },
-                        {
-                            id: 11,
-                            formationinfo: '修改'
-                        },
-                        {
-                            id: 12,
-                            formationinfo: '删除'
-                        }]
-                    }, {
-                        id: 4,
-                        formationinfo: '角色管理',
-                        children: [{
-                            id: 13,
-                            formationinfo: '查询'
-                        },
-                        {
-                            id: 14,
-                            formationinfo: '新增'
-                        },
-                        {
-                            id: 15,
-                            formationinfo: '修改'
-                        },
-                        {
-                            id: 16,
-                            formationinfo: '删除'
-                        }]
-                    }, {
-                        id: 5,
-                        formationinfo: '权限管理',
-                        children: [{
-                            id: 17,
-                            formationinfo: '查询'
-                        },
-                        {
-                            id: 18,
-                            formationinfo: '新增'
-                        },
-                        {
-                            id: 19,
-                            formationinfo: '修改'
-                        },
-                        {
-                            id: 20,
-                            formationinfo: '删除'
-                        }]
-                    },]
-                },
-                {
-                    id: 2,
-                    formationinfo: '重点单位',
-                    children: [{
-                        id: 6,
-                        formationinfo: '公安部',
-                    },
-                    {
-                        id: 7,
-                        formationinfo: '个体',
-                    },
-                    {
-                        id: 8,
-                        formationinfo: '政府部门',
-                    },
-                    ]
-                }
-            ],
             //树结构配置
             treeDefaultProps: {
                 children: 'children',
@@ -192,7 +115,7 @@ new Vue({
         },        
         //预案类型
         getYalxdmData: function(){
-            axios.get('/api/codelist/getCodetype/YALX').then(function(res){
+            axios.get('/api/codelist/getCodelisttree/YALX').then(function(res){
                 this.yalxdmData = res.data.result;
             }.bind(this),function(error){
                 console.log(error);
@@ -213,7 +136,7 @@ new Vue({
             var params={
                 yamc :this.searchForm.yamc,
                 dxmc :this.searchForm.dxmc,
-                yalxdm :this.searchForm.yalxdm,
+                yalxdm :this.searchForm.yalxdm[1],
                 sfkqy :this.searchForm.sfkqy,
                 jgid :this.searchForm.jgid,
                 // cjsj :this.searchForm.cjsj
@@ -230,7 +153,7 @@ new Vue({
         clearClick: function () {
             this.searchForm.yamc="";
             this.searchForm.dxmc="";
-            this.searchForm.yalxdm="";
+            this.searchForm.yalxdm=[];
             this.searchForm.sfkqy="";
             this.searchForm.jgid="";
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
