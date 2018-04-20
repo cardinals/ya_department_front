@@ -2,3 +2,6 @@
     display: block;
     width: 100%;
 }
+.el-form--inline .el-form-item{
+    margin-right: 0px !important;
+}
