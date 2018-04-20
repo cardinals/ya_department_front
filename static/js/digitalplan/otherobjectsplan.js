@@ -201,7 +201,7 @@ new Vue({
             //异步加载详情页
             $(function () {
                 $.ajax({
-                    url: '../../../templates/digitalplan/digitalplanbwjw_detail.html',
+                    url: '../../../templates/digitalplan/otherobjectsplan_detail.html',
                     cache: true,
                     async: true,
                     success: function (html) {
