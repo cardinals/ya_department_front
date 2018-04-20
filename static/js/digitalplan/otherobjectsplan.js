@@ -106,13 +106,7 @@ new Vue({
         this.searchClick();
     },
 
-    methods: {        
-        handleNodeClick(data) {
-            console.log(data);
-        },
-        handleChange(value) {
-            console.log(value);
-        },        
+    methods: {       
         //预案类型
         getYalxdmData: function(){
             axios.get('/api/codelist/getCodelisttree/YALX').then(function(res){
@@ -152,6 +146,7 @@ new Vue({
                 console.log(error);
             })
         },
+        //清空查询条件
         clearClick: function () {
             this.searchForm.yamc="";
             this.searchForm.dxmc="";
@@ -160,6 +155,15 @@ new Vue({
             this.searchForm.jgid="";
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
         },
+        //数据为空时显示‘无’
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
         //时间格式
         cjsjChange(val) {
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
@@ -167,34 +171,40 @@ new Vue({
             this.searchForm.cjsj.push(val.substring(val.indexOf("至")+1));
             // console.log(this.searchForm.cjsj);
         },
-         //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
 
         //表格勾选事件
         selectionChange: function (val) {
+            for (var i = 0; i < val.length; i++) {
+                var row = val[i];
+            }
             this.multipleSelection = val;
-            // console.info(val);
+            //this.sels = sels
+            console.info(val);
         },
-
-        //预案详情
+        //表格重新加载数据
+        loadingData: function () {
+            var _self = this;
+            _self.loading = true;
+            setTimeout(function () {
+                console.info("加载数据成功");
+                _self.loading = false;
+            }, 300);
+        },
+        //分页大小修改事件
+        pageSizeChange: function (val) {
+            // console.log("每页 " + val + " 条");
+            this.pageSize = val;
+            var _self = this;
+            _self.loadingData(); //重新加载数据
+        },
+        //当前页修改事件
+        currentPageChange: function (val) {
+            this.currentPage = val;
+            // console.log("当前页: " + val);
+            var _self = this;
+            _self.loadingData(); //重新加载数据
+        },
+        //打开预案详情页
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
@@ -212,48 +222,9 @@ new Vue({
                 });
             })
         },
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                console.info("加载数据成功");
-                _self.loading = false;
-            }, 300);
-        },
-       
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            // console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
+        //关闭详情页
         closeDialog: function (val) {
             this.planDetailVisible = false;        
         }
-        /**
-        * lxy
-        */
-        ,
-        submitUpload() {
-            this.upLoadData= {id:2};
-            this.$refs.upload.submit();
-        },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-        }
-
-    },
-
+    }
 })

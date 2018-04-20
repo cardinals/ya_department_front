@@ -69,22 +69,21 @@
 							</div>
 						</el-form>
 					</el-row>
-
 					<div class="table_container">
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-						 @selection-change="selectionChange" class="tableStyle" :height="tableheight" empty-text="无">
-							<el-table-column type="selection" min-width="5%"></el-table-column>
-							<el-table-column prop="clmc" label="车辆名称" min-width="20%" show-overflow-tooltip align="center">
+						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+							<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
+							<el-table-column prop="clmc" label="车辆名称" min-width="20%" show-overflow-tooltip align="center" :formatter="dataFormat">
 								<!-- <template slot-scope="scope">
-									<a @click="detailClick(scope.row)" type="text">{{scope.row.clmc}}</a>
+									<a @click="detailClick(scope.row)" type="text">{{scope.row.clmc||"无"}}</a>
 								</template> -->
 							</el-table-column>
-							<el-table-column prop="ssdz" label="所属队站" min-width="20%" show-overflow-tooltip align="center"></el-table-column>
-							<el-table-column prop="cllxmc" label="车辆类型" min-width="13%" show-overflow-tooltip align="center"></el-table-column>
-							<el-table-column prop="cphm" label="车牌号码" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
-							<el-table-column prop="clztmc" label="车辆状态" min-width="10%" show-overflow-tooltip align="center"></el-table-column>
-							<el-table-column prop="sbll" label="水泵流量" min-width="10%" show-overflow-tooltip align="center"></el-table-column>
-							<el-table-column prop="zsl" label="载水量" min-width="10%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="ssdz" label="所属队站" min-width="20%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="cllxmc" label="车辆类型" min-width="16%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="cphm" label="车牌号码" min-width="12%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="clztmc" label="车辆状态" min-width="11%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="sbll" label="水泵流量" min-width="11%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="zsl" label="载水量" min-width="10%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->
