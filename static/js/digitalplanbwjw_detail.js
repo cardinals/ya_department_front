@@ -7,39 +7,18 @@ new Vue({
             //详情Data
             detailData: {},
             //详情页日期
-            detailYMD:"",
+            zzsj:"",
+            cjsj:"",
+            xgsj:"",
+
             //预案类型Data
             yalxdm: [],
-            //测试Data
-            // detailTestData: {
-            //     pkid: "67833B5FB1232169E053B077770AE86",
-            //     yamc: "物美生活广场及地铁华苑站三维灭火预案",
-            //     dxmc: "物美生活广场及地铁华苑站",
-            //     yalxdm: "人员密集场所",
-            //     yazl: "对象预案",
-            //     yabbh: "A",
-            //     sfkqy: "是",
-            //     zzdwmc: "",
-            //     zzrmc: "zhuolh@ha",
-            //     zzrq: "2016-03-16",
-            //     bz: ""
-            // },
-            //上传文件部分个数
-            // upLoadData:{
-            //     id:1
-            // },
-            // fileList: [
-            //     { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-            //     { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-            //     { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-            //     { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
-            // ],
+           
         }
     },
     created: function () {
         this.YALX();
-        // this.DXLX();
-        // this.YAZL();
+       
         //取得选中行pkid
         this.pkid = this.GetQueryString("pkid");
         history.back();
@@ -96,15 +75,11 @@ new Vue({
                 axios.get('/dpapi/xfbwjw/doFindById/' + val).then(function (res) {
                     this.detailData = null;
                     this.detailData = res.data.result;
-                    if (this.detailData.zzrq == null || this.detailData.zzrq == "") {
-                        for(var k=0;k<this.yalxdm.length;k++){
-                            if(this.yalxdm[k].codeValue == this.detailData.yalxdm){
-                                this.detailData.yalxdm = this.yalxdm[k].codeName;
-                            }
-                        }
+                    //制作时间
+                    if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
                         return '';
                     } else {
-                        var date = new Date(this.detailData.zzrq);
+                        var date = new Date(this.detailData.zzsj);
                         if (date == undefined) {
                             return '';
                         }
@@ -115,23 +90,48 @@ new Vue({
                         if (month.length < 2) month = '0' + month;
                         if (day.length < 2) day = '0' + day;
         
-                        this.detailYMD=[year, month, day].join('-');
+                        this.zzsj=[year, month, day].join('-');
+                    }
+                     //创建时间
+                    if (this.detailData.cjsj == null || this.detailData.cjsj == "") {
+                        return '';
+                    } else {
+                        var date = new Date(this.detailData.cjsj);
+                        if (date == undefined) {
+                            return '';
+                        }
+                        var month = '' + (date.getMonth() + 1),
+                            day = '' + date.getDate(),
+                            year = date.getFullYear();
+        
+                        if (month.length < 2) month = '0' + month;
+                        if (day.length < 2) day = '0' + day;
+        
+                        this.cjsj=[year, month, day].join('-');
+                    }
+                   //修改时间
+                    if (this.detailData.xgsj == null || this.detailData.xgsj == "") {
+                        return '';
+                    } else {
+                        var date = new Date(this.detailData.xgsj);
+                        if (date == undefined) {
+                            return '';
+                        }
+                        var month = '' + (date.getMonth() + 1),
+                            day = '' + date.getDate(),
+                            year = date.getFullYear();
+        
+                        if (month.length < 2) month = '0' + month;
+                        if (day.length < 2) day = '0' + day;
+        
+                        this.xgsj=[year, month, day].join('-');
                     }
                     for(var k=0;k<this.yalxdm.length;k++){
                         if(this.yalxdm[k].codeValue == this.detailData.yalxdm){
                             this.detailData.yalxdm = this.yalxdm[k].codeName;
                         }
                     }
-                    // for(var m=0;m<this.YAZL_data.length;m++){
-                    //     if(this.YAZL_data[m].codeValue == this.detailData.yazl){
-                    //         this.detailData.yazl = this.YAZL_data[m].codeName;
-                    //     }
-                    // }
-                    // for(var h=0;h<this.DXLX_data.length;h++){
-                    //     if(this.DXLX_data[h].codeValue == this.detailData.dxlxdm){
-                    //         this.detailData.dxlxdm = this.DXLX_data[h].codeName;
-                    //     }
-                    // }
+                   
                     this.detailData.sfkqy = (this.detailData.sfkqy==1?"是":"否");
                     _self.planDetailVisible = true;
             }.bind(this), function (error) {
@@ -142,24 +142,7 @@ new Vue({
         },
         
         //时间格式
-        cjsjChange(val) {
-            this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
-            this.searchForm.cjsj.push(val.substring(0,val.indexOf("至")));
-            this.searchForm.cjsj.push(val.substring(val.indexOf("至")+1));
-            // console.log(this.searchForm.cjsj);
-        },
-        zzsjChange(val) {
-            this.searchForm.zzsj.splice(0,this.searchForm.zzsj.length);
-            this.searchForm.zzsj.push(val.substring(0,val.indexOf("至")));
-            this.searchForm.zzsj.push(val.substring(val.indexOf("至")+1));
-            // console.log(this.searchForm.cjsj);
-        },
-        xgsjChange(val) {
-            this.searchForm.xgsj.splice(0,this.searchForm.xgsj.length);
-            this.searchForm.xgsj.push(val.substring(0,val.indexOf("至")));
-            this.searchForm.xgsj.push(val.substring(val.indexOf("至")+1));
-            // console.log(this.searchForm.cjsj);
-        },
+        
         //时间格式化
         dateFormat: function (row, column) {
             var rowDate = row[column.property];
@@ -180,16 +163,6 @@ new Vue({
                 return [year, month, day].join('-')
             }
         },
-
-
-
-
-
-
-
-
-
-
 
         /**
         * lxy

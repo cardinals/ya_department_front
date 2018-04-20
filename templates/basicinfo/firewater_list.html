@@ -29,24 +29,119 @@
 										<el-input size="small" v-model="searchForm.sydz" placeholder="水源地址"></el-input>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">所属机构</label>
-										<el-input size="small" v-model="searchForm.jgid" placeholder="所属机构"></el-input>
+										<label class="el-form-item__label searchLabel">水源类型</label>
+										<el-select size="small" v-model="searchForm.sylx" placeholder="全部" class="searchSelect" v-on:change="selectsylx()">	
+											<el-option v-for="item in SYLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
 									</el-col>  
 								</el-row>
 								<el-row :gutter="40">
                                     <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-                                        <label class="el-form-item__label searchLabel">取水形式</label>
-                                        <el-select size="small" v-model="searchForm.qsxs" placeholder="全部" class="searchSelect" clearable>
-											<el-option v-for="item in QSXS_data" :label="item.codeName" :value="item.codeValue" :key="item.codeValue"></el-option>
+                                        <label class="el-form-item__label searchLabel">管辖队站</label>
+										<el-select size="small" v-model="searchForm.gxdz" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in GXZD_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">水源类型</label>
-										<el-select size="small" v-model="selected_SYLX" placeholder="全部" class="searchSelect" multiple>	
-											<el-option v-for="item in SYLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										<label class="el-form-item__label searchLabel">水源性质</label>
+										<el-select size="small" v-model="searchForm.xz" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in XZ_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
-									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline"></el-col>   
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">可用状态</label>
+										<el-select size="small" v-model="searchForm.kyzt" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in KYZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>   
+								</el-row>
+								<el-row :gutter="40" v-show="isXhsSelectShow">
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                        <label class="el-form-item__label searchLabel">所属管网</label>
+										<el-input size="small" v-model="searchForm.xhs_gwid" placeholder="所属管网"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">设置形式</label>
+										<el-select size="small" v-model="searchForm.xhs_szxs" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in xhs_szxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">管网形式</label>
+										<el-select size="small" v-model="searchForm.xhs_gwxs" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in xhs_gwxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>   
+								</el-row>
+								<el-row :gutter="40" v-show="isXhsSelectShow">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">接口形式</label>
+										<el-select size="small" v-model="searchForm.xhs_jkxs" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in xhs_jkxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>   
+								</el-row>
+								<el-row :gutter="40" v-show="isXfshSelectShow">
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                        <label class="el-form-item__label searchLabel">所属管网</label>
+										<el-input size="small" v-model="searchForm.xfsh_gwid" placeholder="所属管网"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">水鹤高度</label>
+										<el-input size="small" v-model="searchForm.xfsh_shgd" placeholder="水鹤高度"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">加水车道</label>
+										<el-select size="small" v-model="searchForm.xfsh_jscd" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in xfsh_jscd_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>   
+								</el-row>
+								<el-row :gutter="40" v-show="isXfscSelectShow">
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                        <label class="el-form-item__label searchLabel">储水量</label>
+										<el-input size="small" v-model="searchForm.xfsc_rl" placeholder="储水量"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">管网形式</label>
+										<el-select size="small" v-model="searchForm.xfsc_gwxs" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in xfsc_gwxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">停车位置</label>
+										<el-input size="small" v-model="searchForm.xfsc_tcwz" placeholder="停车位置"></el-input>
+									</el-col>
+								</el-row>
+								<el-row :gutter="40" v-show="isXfmtSelectShow">
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                        <label class="el-form-item__label searchLabel">停车位置</label>
+										<el-input size="small" v-model="searchForm.xfmt_tcwz" placeholder="停车位置"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">枯水期</label>
+										<el-input size="small" v-model="searchForm.xfmt_ksq" placeholder="枯水期"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">水质</label>
+										<el-select size="small" v-model="searchForm.xfmt_sz" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in xfmt_sz_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
+								</el-row>
+								<el-row :gutter="40" v-show="isTrsySelectShow">
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                        <label class="el-form-item__label searchLabel">天然水源类型</label>
+										<el-select size="small" v-model="searchForm.trsy_trsylx" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in trsy_trsylx_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">有无枯水期</label>
+										<el-select size="small" v-model="searchForm.trsy_ywksq" placeholder="全部" class="searchSelect">	
+											<el-option v-for="item in trsy_ywksq_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+										</el-select>
+									</el-col>
 								</el-row>
 								<div>
 									<el-form>
@@ -71,18 +166,18 @@
 						<div class="table_container">
 							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
-
 								<el-table-column type="selection" min-width="5%"></el-table-column>
-								<el-table-column prop="sybh" label="水源编号" min-width="11%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
 								<el-table-column prop="symc" label="水源名称" min-width="12%" show-overflow-tooltip align="center">
 									<template slot-scope="scope">
-										<a @click="informClick(scope.row)" type="text">{{scope.row.symc}}</a>
+										<a @click="informClick(scope.row)" type="text">{{scope.row.symc||"无"}}</a>
 									</template>
 								</el-table-column>
-								<el-table-column prop="sydz" label="水源地址" min-width="27%" show-overflow-tooltip align="center"></el-table-column>
-								<el-table-column prop="lxmc" label="水源类型" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
-								<el-table-column prop="qsxs" label="取水形式" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
-								<el-table-column prop="jgid" label="所属机构" min-width="18%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="sydz" label="水源地址" min-width="25%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="sylxmc" label="水源类型" min-width="14%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="gxdzmc" label="管辖队站" min-width="14%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="kyztmc" label="可用状态" min-width="10%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="xzmc" label="水源性质" min-width="10%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->
@@ -101,51 +196,6 @@
 							</el-row>
 						</div>
 
-						<!--新建界面-->
-						<el-dialog title="新建用户" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">
-							<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-								<el-row>
-									<el-col :span="8">
-										<el-form-item label="权限名称" prop="permissionname">
-											<el-input v-model="addForm.permissionname" auto-complete="off" placeholder="权限名称" class="addEditFormInput"></el-input>
-										</el-form-item>
-									</el-col>
-									<el-col :span="4">&nbsp;</el-col>
-									<el-col :span="8">
-										<el-form-item label="权限描述" prop="permissioninfo">
-											<el-input v-model="addForm.permissioninfo" auto-complete="off" placeholder="权限描述" class="addEditFormInput"></el-input>
-										</el-form-item>
-									</el-col>
-								</el-row>
-							</el-form>
-							<div slot="footer" class="dialog-footer">
-								<el-button @click.native="closeDialog(addForm)">取消</el-button>
-								<el-button type="primary" @click.native="addSubmit(addForm)">提交</el-button>
-							</div>
-						</el-dialog>
-
-						<!--编辑界面-->
-						<el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
-							<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-								<el-row>
-									<el-col :span="8">
-										<el-form-item label="权限名称" prop="permissionname">
-											<el-input v-model="editForm.permissionname" auto-complete="off" placeholder="权限名称" class="addEditFormInput"></el-input>
-										</el-form-item>
-									</el-col>
-									<el-col :span="4">&nbsp;</el-col>
-									<el-col :span="8">
-										<el-form-item label="权限描述" prop="permissioninfo">
-											<el-input v-model="editForm.permissioninfo" auto-complete="off" placeholder="权限描述" class="addEditFormInput"></el-input>
-										</el-form-item>
-									</el-col>
-								</el-row>
-							</el-form>
-							<div slot="footer" class="dialog-footer">
-								<el-button @click.native="editFormVisible = false">取消</el-button>
-								<el-button type="primary" @click.native="editSubmit(editForm)">提交</el-button>
-							</div>
-						</el-dialog>
 					</div>
                 </div>
                     <!-- main-container -->
