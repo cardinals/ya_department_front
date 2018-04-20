@@ -77,7 +77,7 @@ new Vue({
             var _self = this;
             var params={
                 ssdz :this.searchForm.ssdz,
-                cllx :this.searchForm.cllx[4],
+                cllx :this.searchForm.cllx[this.searchForm.cllx.length-1],
                 cphm :this.searchForm.cphm,
                 clzt :this.searchForm.clzt[1],
                 sbll_min :this.searchForm.sbll[0],
