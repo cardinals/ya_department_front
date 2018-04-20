@@ -21,10 +21,8 @@ new Vue({
         var url = location.search;
         if (url.indexOf("?") != -1) {
             var str = url.substr(1);
-            // alert(str);  
             var ID = str.substring(3);
             this.id = ID;
-            // alert(ID);
             axios.get('/dpapi/danger/doFindById/' + this.id).then(function (res) {
                 this.tableData = res.data.result;
                 this.detailData = this.tableData;
@@ -37,9 +35,6 @@ new Vue({
         }
     },
 
-    // created: function () {
-    //     this.searchClick();
-    // },
     methods: {
         searchClick: function () {
             this.id = id;

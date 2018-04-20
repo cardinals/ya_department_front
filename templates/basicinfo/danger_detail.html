@@ -20,24 +20,24 @@
                 <div id="danger_detail"></div>
                 <div id="tableView">
                     <div class="nameBox">
-                        <img id="flag">
+                        <img id="flag" style="margin-top: -7.8%;">
                         <div class="dib" id="basic-Inform-Title">
                             <div>
-                                <h3 class="dib inform-h3">{{detailData.name}}</h3>
-                                <span class="companyStatus dib" title="类型">{{detailData.dmz}}</span>
+                                <h3 class="dib inform-h3">{{detailData.name||"无"}}</h3>
+                                <span class="companyStatus dib" title="类型">{{detailData.dmz||"无"}}</span>
                             </div>
                             <dl>
                                 <img src="../../static/images/location.png">
                                 <dt class="dib inform-small-title">中文名：</dt>
-                                <dd class="dtdlStyle">{{detailData.name}}</dd>
+                                <dd class="dtdlStyle">{{detailData.name||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/date.png">
                                 <dt class="dib inform-small-title">英文名：</dt>
-                                <dd class="dtdlStyle">{{detailData.englishName}}</dd>
+                                <dd class="dtdlStyle">{{detailData.englishName||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/phone.png">
                                 <dt class="dib inform-small-title">分子式：</dt>
-                                <dd class="dtdlStyle">{{detailData.expression}}</dd>
+                                <dd class="dtdlStyle">{{detailData.expression||"无"}}</dd>
                             </dl>
                         </div>
                         <div style="float: right">
@@ -58,25 +58,25 @@
                                             <div>
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">别名: </dt>
-                                                    <dd class="dtdlStyle">{{detailData.alias}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.alias||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">国际危险号：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dangerId}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.dangerId||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">国标号：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.gbId}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.gbId||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">主要用途：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.mainApplication}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.mainApplication||"无"}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -84,19 +84,19 @@
                                             <div>
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">类型：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dmz}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.dmz||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">CAS：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.cas}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.cas||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">特别警示：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.caution}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.caution||"无"}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -111,7 +111,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.thesaurus}}</div>
+                                                <div>{{detailData.thesaurus||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -123,7 +123,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.property}}</div>
+                                                <div>{{detailData.property||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -135,7 +135,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.poisionProperty}}</div>
+                                                <div>{{detailData.poisionProperty||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -147,7 +147,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.symptom}}</div>
+                                                <div>{{detailData.symptom||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -159,7 +159,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.bernProperty}}</div>
+                                                <div>{{detailData.bernProperty||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -171,7 +171,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.airDetermine}}</div>
+                                                <div>{{detailData.airDetermine||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -183,7 +183,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.waterDetermine}}</div>
+                                                <div>{{detailData.waterDetermine||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -197,7 +197,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.store}}</div>
+                                                <div>{{detailData.store||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -209,7 +209,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.traffic}}</div>
+                                                <div>{{detailData.traffic||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -221,7 +221,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.seprarate}}</div>
+                                                <div>{{detailData.seprarate||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -233,7 +233,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.firstaid}}</div>
+                                                <div>{{detailData.firstaid||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -245,7 +245,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.defendWay}}</div>
+                                                <div>{{detailData.defendWay||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -257,7 +257,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.dispose}}</div>
+                                                <div>{{detailData.dispose||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -269,7 +269,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.leakWay}}</div>
+                                                <div>{{detailData.leakWay||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -281,7 +281,7 @@
                                         </el-row>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.publicSafety}}</div>
+                                                <div>{{detailData.publicSafety||"无"}}</div>
                                             </el-col>
                                         </el-row>
                                     </el-card>

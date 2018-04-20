@@ -243,17 +243,6 @@ new Vue({
                          }
                      }
 
-
-                    // for(var m=0;m<this.YAZL_data.length;m++){
-                    //     if(this.YAZL_data[m].codeValue == this.tableData[i].yazl){
-                    //         this.tableData[i].yazl = this.YAZL_data[m].codeName;
-                    //     }
-                    // }
-                    // for(var h=0;h<this.DXLX_data.length;h++){
-                    //     if(this.DXLX_data[h].codeValue == this.tableData[i].dxlxdm){
-                    //         this.tableData[i].dxlxdm = this.DXLX_data[h].codeName;
-                    //     }
-                    // }
                 }
                 // this.tableData.unshift(this.testData);
                 _self.total = _self.tableData.length;
@@ -297,6 +286,12 @@ new Vue({
 
                 return [year, month, day].join('-')
             }
+        },
+        //时间格式
+        bzrqChange(val) {
+            this.searchForm.BZRQ.splice(0,this.searchForm.BZRQ.length);
+            this.searchForm.BZRQ.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.BZRQ.push(val.substring(val.indexOf("至")+1));
         },
 
         //表格勾选事件
