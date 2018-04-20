@@ -140,6 +140,8 @@ new Vue({
                 sfkqy :this.searchForm.sfkqy,
                 jgid :this.searchForm.jgid,
                 // cjsj :this.searchForm.cjsj
+                cjsj_begintime:this.searchForm.cjsj[0],
+                cjsj_endtime:this.searchForm.cjsj[1]
             };
             axios.post('/dpapi/otherobjectsplan/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
