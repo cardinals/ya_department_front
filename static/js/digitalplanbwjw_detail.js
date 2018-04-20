@@ -141,8 +141,6 @@ new Vue({
 
         },
         
-        //时间格式
-        
         //时间格式化
         dateFormat: function (row, column) {
             var rowDate = row[column.property];
