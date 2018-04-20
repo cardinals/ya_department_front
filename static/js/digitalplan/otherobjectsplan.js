@@ -140,6 +140,8 @@ new Vue({
                 sfkqy :this.searchForm.sfkqy,
                 jgid :this.searchForm.jgid,
                 // cjsj :this.searchForm.cjsj
+                cjsj_begintime:this.searchForm.cjsj[0],
+                cjsj_endtime:this.searchForm.cjsj[1]
             };
             axios.post('/dpapi/otherobjectsplan/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
@@ -201,7 +203,7 @@ new Vue({
             //异步加载详情页
             $(function () {
                 $.ajax({
-                    url: '../../../templates/digitalplan/digitalplanbwjw_detail.html',
+                    url: '../../../templates/digitalplan/otherobjectsplan_detail.html',
                     cache: true,
                     async: true,
                     success: function (html) {
