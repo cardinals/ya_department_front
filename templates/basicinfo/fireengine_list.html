@@ -72,7 +72,7 @@
 
 					<div class="table_container">
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+						 @selection-change="selectionChange" class="tableStyle" :height="tableheight" empty-text="无">
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column prop="clmc" label="车辆名称" min-width="20%" show-overflow-tooltip align="center">
 								<!-- <template slot-scope="scope">

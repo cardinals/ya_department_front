@@ -136,7 +136,7 @@ new Vue({
             var params={
                 yamc :this.searchForm.yamc,
                 dxmc :this.searchForm.dxmc,
-                yalxdm :this.searchForm.yalxdm[1],
+                yalxdm :this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
                 sfkqy :this.searchForm.sfkqy,
                 jgid :this.searchForm.jgid,
                 // cjsj :this.searchForm.cjsj
