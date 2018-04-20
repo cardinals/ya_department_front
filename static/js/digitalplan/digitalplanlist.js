@@ -315,7 +315,7 @@ new Vue({
             } else {
                 var date = new Date(rowDate);
                 if (date == undefined) {
-                    return '';
+                    return '无';
                 }
                 var month = '' + (date.getMonth() + 1),
                     day = '' + date.getDate(),
