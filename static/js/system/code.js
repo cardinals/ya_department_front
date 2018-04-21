@@ -67,7 +67,15 @@ new Vue({
         handleNodeClick(data) {
             console.log(data);
         },
-
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
         //日期控件变化时格式化
         dateChange(val) {
             this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
@@ -80,7 +88,7 @@ new Vue({
         dateFormat: function (row, column) {
             var rowDate = row[column.property];
             if (rowDate == null || rowDate == "") {
-                return '';
+                return '无';
             } else {
                 var date = new Date(rowDate);
                 if (date == undefined) {

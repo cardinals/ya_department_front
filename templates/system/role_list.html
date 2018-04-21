@@ -74,11 +74,11 @@
 
                             <el-table-column type="selection" min-width="5%"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                            <el-table-column prop="rolename" show-overflow-tooltip label="角色名称" min-width="12%" align="center"></el-table-column>
-                            <el-table-column prop="roleinfo" show-overflow-tooltip label="角色描述" min-width="15%" align="center"></el-table-column>
-                            <el-table-column prop="createName" show-overflow-tooltip label="创建人" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="rolename" show-overflow-tooltip label="角色名称" min-width="12%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="roleinfo" show-overflow-tooltip label="角色描述" min-width="15%" align="center":formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="createName" show-overflow-tooltip label="创建人" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
                             <el-table-column prop="createTime" show-overflow-tooltip label="创建时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
-                            <el-table-column prop="alterName" show-overflow-tooltip label="修改人" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="alterName" show-overflow-tooltip label="修改人" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
                             <el-table-column prop="alterTime" show-overflow-tooltip label="修改时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
                             <el-table-column prop="resource" show-overflow-tooltip label="资源" min-width="13%" align="center">
                                 <template slot-scope="scope">

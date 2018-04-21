@@ -114,12 +114,20 @@ new Vue({
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
             console.log(this.searchForm.createTime);
         },
-
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
         //表格中日期格式化
         dateFormat: function (row, column) {
             var rowDate = row[column.property];
             if (rowDate == null || rowDate == "") {
-                return '';
+                return '无';
             } else {
                 var date = new Date(rowDate);
                 if (date == undefined) {

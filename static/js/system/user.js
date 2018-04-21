@@ -172,13 +172,24 @@ new Vue({
                 case '2':
                     return '女';
                     break;
+                default:
+                    return "无"
+            }
+        },
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
             }
         },
         //时间格式化
         dateFormat: function (row, column) {
             var rowDate = row[column.property];
             if (rowDate == null || rowDate == "") {
-                return '';
+                return '无';
             } else {
                 var date = new Date(rowDate);
                 if (date == undefined) {

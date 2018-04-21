@@ -20,101 +20,72 @@
                 <div id="danger_detail"></div>
                 <div id="tableView">
                     <div class="nameBox">
-                        <img id="flag" style="margin-top: -7.8%;">
-                        <div class="dib" id="basic-Inform-Title">
-                            <div>
-                                <h3 class="dib inform-h3">{{detailData.name||"无"}}</h3>
-                                <span class="companyStatus dib" title="类型">{{detailData.dmz||"无"}}</span>
+                        <div id="infromContainer" style="display: inline-flex;">
+                            <div id="flagImage" style="margin-top: 3%">
+                                <img id="flag">
                             </div>
-                            <dl>
-                                <img src="../../static/images/location.png">
-                                <dt class="dib inform-small-title">中文名：</dt>
-                                <dd class="dtdlStyle">{{detailData.name||"无"}}</dd>
-                                <br>
-                                <img src="../../static/images/date.png">
-                                <dt class="dib inform-small-title">英文名：</dt>
-                                <dd class="dtdlStyle">{{detailData.englishName||"无"}}</dd>
-                                <br>
-                                <img src="../../static/images/phone.png">
-                                <dt class="dib inform-small-title">分子式：</dt>
-                                <dd class="dtdlStyle">{{detailData.expression||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div style="float: right">
-                            <el-button type="primary" icon="share" style="width:120px" @click="openShare">信息分享</el-button>
-                            <br>
-                            <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openPrinter">信息打印</el-button>
-                            <br>
-                            <el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">发送邮箱</el-button>
-                            <br>
+                            <div class="dib" id="basic-Inform-Title">
+                                <div>
+                                    <h3 class="dib inform-h3">{{detailData.name||"无"}}</h3>
+                                    <span class="companyStatus dib" title="类型">{{detailData.dmz||"无"}}</span>
+                                </div>
+                                <dl>
+                                    <div class="inform-div">
+                                        <div style="width:280px">
+                                            <img src="../../static/images/name.png">
+                                            <dt class="dib inform-small-title">中文名：</dt>
+                                            <dd class="dtdlStyle">{{detailData.name||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/englishName.png">
+                                            <dt class="dib inform-small-title">英文名：</dt>
+                                            <dd class="dtdlStyle">{{detailData.englishName||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/expression.png">
+                                            <dt class="dib inform-small-title">分子式：</dt>
+                                            <dd class="dtdlStyle">{{detailData.expression||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/thesaurus.png">
+                                            <dt class="dib inform-small-title">同义词：</dt>
+                                            <dd class="dtdlStyle">{{detailData.thesaurus||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/alias.png">
+                                            <dt class="dib inform-small-title">别名: </dt>
+                                            <dd class="dtdlStyle">{{detailData.alias||"无"}}</dd>
+                                        </div>
+                                        <div style="width: 280px;">
+                                            <img src="../../static/images/danger.png">
+                                            <dt class="dib inform-small-title">国际危险号：</dt>
+                                            <dd class="dtdlStyle">{{detailData.dangerId||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/cas.png">
+                                            <dt class="dib inform-small-title">CAS：</dt>
+                                            <dd class="dtdlStyle">{{detailData.cas||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/gbId.png">
+                                            <dt class="dib inform-small-title">国标号：</dt>
+                                            <dd class="dtdlStyle">{{detailData.gbId||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/caution.png">
+                                            <dt class="dib inform-small-title">特别警示：</dt>
+                                            <dd class="dtdlStyle">{{detailData.caution||"无"}}</dd>
+                                            <br>
+                                            <img src="../../static/images/hwplx.png">
+                                            <dt class="dib inform-small-title">类型：</dt>
+                                            <dd class="dtdlStyle">{{detailData.dmz||"无"}}</dd>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <img src="../../static/images/mainApplication.png">
+                                    <dt class="dib inform-small-title">主要用途：</dt>
+                                    <dd class="dtdlStyle">{{detailData.mainApplication||"无"}}</dd>
+                                </dl>
+                            </div>
                         </div>
                     </div>
                     <div class="inform-content">
                         <template>
                             <el-tabs v-model="activeName" type="border-card">
-                                <el-tab-pane label="基本信息" name="first">
-                                    <div class="inform-div">
-                                        <div class="left-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">别名: </dt>
-                                                    <dd class="dtdlStyle">{{detailData.alias||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">国际危险号：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dangerId||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">国标号：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.gbId||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">主要用途：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.mainApplication||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">类型：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dmz||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">CAS：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.cas||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">特别警示：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.caution||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </el-tab-pane>
-                                <el-tab-pane label="性质信息" name="second">
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">同义词：</strong></div>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div>{{detailData.thesaurus||"无"}}</div>
-                                            </el-col>
-                                        </el-row>
-                                    </el-card>
+                                <el-tab-pane label="性质信息" name="first">
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
@@ -188,7 +159,7 @@
                                         </el-row>
                                     </el-card>
                                 </el-tab-pane>
-                                <el-tab-pane label="处置措施" name="third">
+                                <el-tab-pane label="处置措施" name="second">
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
