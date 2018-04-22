@@ -10,11 +10,13 @@ new Vue({
                 ssdz: "",
                 yjlx: "",
                 cbl: [0,1000],
-                czl: [0,1000]
+                czl: [0,1000],
             },
-            tableData: [],
+            
             allYjlxData: [],
-
+            YjlxDataForChange:[],
+            tableData: [],
+            allSsdzData :[],
             //表高度变量
             tableheight: 450,
             //显示加载中样
@@ -52,12 +54,41 @@ new Vue({
         }
     },
     created: function () {
-        this.searchClick();
         this.getAllYjlxData();
+        this.getAllSszdData();
+        this.getAllYjlxDataTree(); 
+        // this.searchClick();
+        
     },
     methods: {
         handleNodeClick(data) {
             // console.log(data);
+        },
+        //药剂类型级联选择
+        getAllYjlxDataTree: function () {
+            axios.get('/api/codelist/getCarTypes/YJLX').then(function (res) {
+                this.allYjlxData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //药剂类型转码
+        getAllYjlxData: function () {
+            axios.get('/api/codelist/getCodetype/YJLX').then(function (res) {
+                this.YjlxDataForChange = res.data.result;
+                this.searchClick();
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //所属队站
+        getAllSszdData: function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.allSsdzData = res.data.result;
+                
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         //表格查询事件
         searchClick: function () {
@@ -65,7 +96,7 @@ new Vue({
             var _self = this;
             var params = {
                 ssdz: this.searchForm.ssdz,
-                yjlx: this.searchForm.yjlx.value,
+                yjlx: this.searchForm.yjlx,
                 cbl_min: this.searchForm.cbl[0],
                 cbl_max: this.searchForm.cbl[1],
                 czl_min: this.searchForm.czl[0],
@@ -74,24 +105,26 @@ new Vue({
             axios.post('/dpapi/firedrug/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                for (var i = 0; i < this.tableData.length; i++) {
+                    for (var k = 0; k < this.YjlxDataForChange.length; k++) {
+                        if (this.YjlxDataForChange[k].codeValue == this.tableData[i].yjlx) {
+                            this.tableData[i].yjlx = this.YjlxDataForChange[k].codeName;
+                        }
+                    }
+                }
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //清空
         clearClick: function () {
             this.searchForm.ssdz="";
             this.searchForm.yjlx="";
             this.searchForm.cbl=[];
             this.searchForm.czl=[]
         },
-        getAllYjlxData: function () {
-            axios.get('/api/codelist/getCodetype/YJLX').then(function (res) {
-                this.allYjlxData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
+        
         //表格数据格式化
         dataFormat: function (row, column) {
             var rowDate = row[column.property];
