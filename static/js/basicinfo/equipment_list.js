@@ -13,7 +13,7 @@ new Vue({
             },
             tableData: [],
             allTypesData: [],
-            
+            allTypesDataTree: [],
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -56,8 +56,9 @@ new Vue({
         }
     },
     created:function(){
-        this.searchClick();
+        this.getAllTypesDataTree();
         this.getAllTypesData();
+        this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -77,7 +78,6 @@ new Vue({
             axios.post('/dpapi/equipmentsource/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                this.rowdata = this.tableData;
                 this.loading=false;
             }.bind(this),function(error){
                 console.log(error);
@@ -87,8 +87,15 @@ new Vue({
             // this.searchForm.
         },
         getAllTypesData: function (){
-            axios.get('/api/codelist/getCodetype/QCFL').then(function(res){
+            axios.get('/api/codelist/getCodetype/ZBQCLB').then(function(res){
                 this.allTypesData=res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        getAllTypesDataTree: function (){
+            axios.get('/api/codelist/getCarTypes/ZBQCLB').then(function(res){
+                this.allTypesDataTree=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
