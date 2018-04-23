@@ -112,7 +112,6 @@ new Vue({
             this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
             this.searchForm.createTime.push(val.substring(0,val.indexOf("至")));
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
-            console.log(this.searchForm.createTime);
         },
         //表格数据格式化
         dataFormat: function (row, column) {
@@ -176,7 +175,6 @@ new Vue({
         },
 
         handleNodeClick(data) {
-            console.log(data);
         },
 
         //表格勾选事件
@@ -278,7 +276,6 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -286,7 +283,6 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },

@@ -207,7 +207,6 @@ new Vue({
         },
         //增加、修改时“生日”表单赋值
         dateChangebirthday(val) {
-            console.log(val);
             this.addForm.birth = val;
             this.editForm.birth = val;
         },
@@ -229,7 +228,6 @@ new Vue({
                 for(var i=0;i<this.roleDetailList.length;i++){
                     this.roleDetailSelect.push(this.roleDetailList[i].rolename);
                 }
-                console.log(roleDetailSelect);
             }.bind(this),function(error){
                 console.log(error)
             })
@@ -363,7 +361,6 @@ new Vue({
                     email: val.email,
                     roles: val.roles
                 };
-                console.log(val.roles);
                 axios.post('/api/user/updateByVO', params).then(function (res) {
                     this.tableData[this.selectIndex].username = val.username;
                     this.tableData[this.selectIndex].realname = val.realname;
@@ -445,7 +442,6 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -453,7 +449,6 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },

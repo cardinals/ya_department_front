@@ -16,7 +16,6 @@ $("#header_box").load("../../templates/header_box.html");
 //退出登录
 function logOut(){
     $('#login-out-form')[0].submit();
-    //alert("gg");
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
@@ -24,7 +23,6 @@ var menuData=[];
 //var menuData=[{"resourceid":"18","resourcename":null,"resourceinfo":"首页","url":"/home","seqno":null,"index":"1","icon":null,"type":null,"parentId":"-1","children":[]},{"resourceid":"17","resourcename":null,"resourceinfo":"系统管理","url":"","seqno":null,"index":"2","icon":null,"type":null,"parentId":"-1","children":[{"resourceid":"1","resourcename":null,"resourceinfo":"用户管理","url":"/user","seqno":null,"index":"21","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"6","resourcename":null,"resourceinfo":"角色管理","url":"/role","seqno":null,"index":"22","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"19","resourcename":null,"resourceinfo":"资源管理","url":"/resource","seqno":null,"index":"23","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"24","resourcename":null,"resourceinfo":"权限管理","url":"/permission","seqno":null,"index":"24","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"12","resourcename":null,"resourceinfo":"代码集管理","url":"/codelist","seqno":null,"index":"25","icon":null,"type":null,"parentId":"17","children":null}]}];
 axios.get('http://localhost/api/getMenu')				
         .then(function(res){
-        console.log(240);   
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
             menuData.push({
@@ -34,7 +32,6 @@ axios.get('http://localhost/api/getMenu')
                 "url":obj.url,
             });
         }
-        console.log(menuData);
     }.bind(this),function(error){
         console.log(error);
         window.location.href = "http://localhost/templates/login.html";
