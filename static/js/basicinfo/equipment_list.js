@@ -1,5 +1,5 @@
 //axios默认设置cookie
-axios.defaults.withCredentials = true;	
+axios.defaults.withCredentials = true;
 new Vue({
     el: '#app',
     data: function () {
@@ -7,13 +7,16 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                zbqcmc: "",
-                equipmenttype: "",
-                sfxhxqc:""
+                zbmc: "",
+                ssdz: "",
+                zblx: "",
+                kcsl: ""
             },
             tableData: [],
-            allTypesData: [],
-            allTypesDataTree: [],
+            allTypesData: [],//装备类型table转码数据
+            allTypesDataTree: [],//装备类型级联选择数据
+            allSsdzData: [],//消防队站下拉框数据（到总队级）
+            allXzqhData: [],//行政区划table转码数据
             rowdata: '',
             //表高度变量
             tableheight: 450,
@@ -46,8 +49,8 @@ new Vue({
             sels: [],
             //选中的序号
             selectIndex: -1,
-             //树结构配置
-             defaultProps: {
+            //树结构配置
+            defaultProps: {
                 children: 'children',
                 label: 'codeName',
                 value: 'codeValue'
@@ -55,10 +58,12 @@ new Vue({
 
         }
     },
-    created:function(){
-        this.getAllTypesDataTree();
-        this.getAllTypesData();
-        this.searchClick();
+    created: function () {
+        this.getAllSszdData();//消防队站下拉框数据（到总队级）
+        this.getAllTypesDataTree();//装备类型级联选择数据
+        this.getAllTypesData();//装备类型table转码数据
+        this.getAllXzqhData();//行政区划table转码数据
+        // this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -66,37 +71,69 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
-            this.loading = true;
+            // this.loading = true;
             var _self = this;
-            var params={
-                zbqcmc:this.searchForm.zbqcmc,
-                // begintime: this.searchForm.begintime,
-                // endtime: this.searchForm.endtime,
-                // xzqy_id: this.searchForm.xzqy,
-                // xfgx_id: this.searchForm.xfgx
+            var params = {
+                zbmc: this.searchForm.zbmc,
+                ssdz: this.searchForm.ssdz,
+                xssd: this.searchForm.zblx[this.searchForm.zblx.length - 1],
+                kcsl_min: this.searchForm.kcsl[0],
+                kcsl_max: this.searchForm.kcsl[1]
             };
-            axios.post('/dpapi/equipmentsource/findByVO',params).then(function(res){
+            axios.post('/dpapi/equipmentsource/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
+                //行政区划转码
+                for (var i = 0; i < this.tableData.length; i++) {
+                    for (var k = 0; k < this.allXzqhData.length; k++) {
+                        if (this.allXzqhData[k].codeValue == this.tableData[i].xzqy) {
+                            this.tableData[i].xzqy = this.allXzqhData[k].codeName;
+                        }
+                    }
+                }
                 this.total = res.data.result.length;
-                this.loading=false;
-            }.bind(this),function(error){
+                this.loading = false;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //清空查询条件
         clearClick: function () {
-            // this.searchForm.
+            this.searchForm.zbmc = "";
+            this.searchForm.ssdz = "";
+            this.searchForm.zblx = [];
+            this.searchForm.kcsl = [];
         },
-        getAllTypesData: function (){
-            axios.get('/api/codelist/getCodetype/ZBQCLB').then(function(res){
-                this.allTypesData=res.data.result;
-            }.bind(this),function(error){
+        //行政区划数据
+        getAllXzqhData: function () {
+            axios.get('/api/codelist/getCodetype/XZQH').then(function (res) {
+                this.allXzqhData = res.data.result;
+                this.searchClick();
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
-        getAllTypesDataTree: function (){
-            axios.get('/api/codelist/getCarTypes/ZBQCLB').then(function(res){
-                this.allTypesDataTree=res.data.result;
-            }.bind(this),function(error){
+        //装备类型转码数据
+        getAllTypesData: function () {
+            axios.get('/api/codelist/getCodetype/ZBQCLB').then(function (res) {
+                this.allTypesData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //装备类型级联选择数据
+        getAllTypesDataTree: function () {
+            axios.get('/api/codelist/getCarTypes/ZBQCLB').then(function (res) {
+                this.allTypesDataTree = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //所属队站下拉框数据
+        getAllSszdData: function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.allSsdzData = res.data.result;
+
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
@@ -118,6 +155,7 @@ new Vue({
             //this.sels = sels
             console.info(val);
         },
+        //跳转至详情页
         detailClick(val) {
             window.location.href = "equipment_detail.html?ID=" + val.id;
         },
@@ -144,7 +182,7 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        
+
     },
 
 })

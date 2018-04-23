@@ -25,22 +25,30 @@
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">装备名称</label>
-									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="searchSelect"></el-input>
+									<el-input size="small" v-model="searchForm.zbmc" placeholder="装备名称" class="searchSelect"></el-input>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-									<label class="el-form-item__label searchLabel">装备类型</label>
-									<el-cascader :options="allTypesDataTree" :props="defaultProps" size="small" v-model="searchForm.equipmenttype" placeholder="全部" class="searchSelect"
-									 clearable change-on-select></el-cascader>
-									<!-- <el-select size="small" v-model="searchForm.equipmenttype" placeholder="全部" class="searchSelect" clearable>
-										<el-option v-for="type in allTypesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
-									</el-select> -->
+									<label class="el-form-item__label searchLabel">所属队站</label>
+									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allSsdzData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+									</el-select>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-								<!-- <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="searchInline">
-									<label class="el-form-item__label searchLabel">是否消耗性装备</label>
-									<el-checkbox></el-checkbox>
-								</el-col> -->
+							</el-row>
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">装备类型</label>
+									<el-cascader :options="allTypesDataTree" :props="defaultProps" size="small" v-model="searchForm.zblx" placeholder="全部"
+									 class="searchSelect" clearable change-on-select></el-cascader>
+								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">库存数量</label>
+									<el-slider v-model="searchForm.kcsl" range :max="1000" class="searchSelect"></el-slider>
+								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
 							<div>
 								<el-form>
@@ -65,18 +73,19 @@
 						 class="tableStyle" :height="tableheight">
 							<!-- <el-table-column type="selection" min-width="5%"></el-table-column> -->
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="zbqcbm" label="装备编码" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="zbqcmc" label="装备名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
+							<!-- <el-table-column prop="zbqcbm" label="装备编码" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column> -->
+							<el-table-column prop="zbmc" label="装备名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
 								<template slot-scope="scope">
-									<a @click="detailClick(scope.row)" type="text">{{scope.row.zbqcmc}}</a>
+									<a @click="detailClick(scope.row)" type="text">{{scope.row.zbmc}}</a>
 								</template>
 							</el-table-column>
-							<el-table-column prop="zbqclxmc" label="装备类型" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="sfxhxzb" label="消耗性装备" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="ggxh" label="规格型号" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="jldwdm" label="计量单位" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="ckj" label="参考价" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="jczq" label="检查周期" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="ssdzmc" label="所属队站" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="xzqy" label="行政区划" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="sccj" label="生产厂家" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="zcbl" label="总储备量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="kcsl" label="库存数量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="zzsl" label="装载数量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="ztsl" label="在途数量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->
