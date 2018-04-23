@@ -113,6 +113,12 @@ new Vue({
                     ]
                 }
             ],
+            props: {
+                value: 'codeValue',
+                label: 'codeName',
+                children: 'children'
+            },
+            defaultKeys: [],
             //树结构配置
             treeDefaultProps: {
                 children: 'children',
@@ -224,8 +230,8 @@ new Vue({
                 yamc:this.searchForm.yamc,
                 yalxdm:this.searchForm.yalxdm,
                 dxmc:this.searchForm.dxmc,
-                begintime_create:this.searchForm.cjsj[0],
-                endtime_create:this.searchForm.cjsj[1],
+                // begintime_create:this.searchForm.cjsj[0],
+                // endtime_create:this.searchForm.cjsj[1],
                 sfkqy:this.searchForm.sfkqy
             }
             axios.post('/dpapi/xfbwjw/findByVO', params).then(function (res) {
