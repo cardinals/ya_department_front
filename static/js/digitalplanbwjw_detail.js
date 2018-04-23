@@ -17,17 +17,16 @@ new Vue({
         }
     },
     created: function () {
-        this.YALX();
-       
         //取得选中行pkid
         this.pkid = this.GetQueryString("pkid");
+        this.YALX();
         history.back();
         // this.planDetails(this.pkid);
     },
-    mounted:function(){
+    // mounted:function(){
         
-        this.planDetails(this.pkid);
-    },
+    //     this.planDetails(this.pkid);
+    // },
 
     methods: {
         //根据参数部分和参数名来获取参数值 
@@ -40,6 +39,7 @@ new Vue({
         YALX: function(){
             axios.get('/api/codelist/getCodetype/YALX').then(function(res){
                 this.yalxdm = res.data.result;
+                this.planDetails(this.pkid);
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -63,25 +63,17 @@ new Vue({
         //预案详情
         planDetails: function (val) {
             var _self = this;    
-            if(val == "67833B5FB1232169E053B077770AE86"){
-                this.detailData = this.detailTestData;
-                for(var k=0;k<this.yalxdm.length;k++){
-                    if(this.yalxdm[k].codeValue == this.detailData.yalxdm){
-                        this.detailData.yalxdm = this.yalxdm[k].codeName;
-                    }
-                }
-            }
-            else{
+            
                 axios.get('/dpapi/xfbwjw/doFindById/' + val).then(function (res) {
                     this.detailData = null;
                     this.detailData = res.data.result;
                     //制作时间
                     if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
-                        return '';
+                        this.detailData.zzsj='';
                     } else {
                         var date = new Date(this.detailData.zzsj);
                         if (date == undefined) {
-                            return '';
+                            this.detailData.zzsj='';
                         }
                         var month = '' + (date.getMonth() + 1),
                             day = '' + date.getDate(),
@@ -94,11 +86,11 @@ new Vue({
                     }
                      //创建时间
                     if (this.detailData.cjsj == null || this.detailData.cjsj == "") {
-                        return '';
+                        this.detailData.cjsj='';
                     } else {
                         var date = new Date(this.detailData.cjsj);
                         if (date == undefined) {
-                            return '';
+                            this.detailData.cjsj='';
                         }
                         var month = '' + (date.getMonth() + 1),
                             day = '' + date.getDate(),
@@ -111,11 +103,11 @@ new Vue({
                     }
                    //修改时间
                     if (this.detailData.xgsj == null || this.detailData.xgsj == "") {
-                        return '';
+                        this.detailData.xgsj='';
                     } else {
                         var date = new Date(this.detailData.xgsj);
                         if (date == undefined) {
-                            return '';
+                            this.detailData.xgsj='';
                         }
                         var month = '' + (date.getMonth() + 1),
                             day = '' + date.getDate(),
@@ -137,7 +129,7 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
-        }
+        
 
         },
         
