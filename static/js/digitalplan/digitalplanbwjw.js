@@ -15,6 +15,7 @@ new Vue({
             },
             tableData: [],
             yalxdmData: [],
+            yalxdmDataTree: [],
             jgidData: [],
             sfkqyData: [
                 {
@@ -113,6 +114,12 @@ new Vue({
                     ]
                 }
             ],
+            props: {
+                value: 'codeValue',
+                label: 'codeName',
+                children: 'children'
+            },
+            defaultKeys: [],
             //树结构配置
             treeDefaultProps: {
                 children: 'children',
@@ -182,10 +189,12 @@ new Vue({
         }
     },
     created: function () {
+        
+        this.YALXTree();
         this.YALX();
         // this.DXLX();
         // this.YAZL();
-        this.searchClick();
+        // this.searchClick();
     },
 
     methods: {
@@ -199,10 +208,19 @@ new Vue({
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         },
 
-        //预案类型
+        //预案类型table转码
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
                 this.yalxdmData = res.data.result;
+                this.searchClick();
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //预案类型级联
+        YALXTree: function () {
+            axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
+                this.yalxdmDataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -219,30 +237,29 @@ new Vue({
                 return;
             }
             // this.loading = true;//表格重新加载
-            // debugger
             var params = {
                 yamc:this.searchForm.yamc,
-                yalxdm:this.searchForm.yalxdm,
+                yalxdm:this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
                 dxmc:this.searchForm.dxmc,
-                begintime_create:this.searchForm.cjsj[0],
-                endtime_create:this.searchForm.cjsj[1],
+                // begintime_create:this.searchForm.cjsj[0],
+                // endtime_create:this.searchForm.cjsj[1],
                 sfkqy:this.searchForm.sfkqy
             }
             axios.post('/dpapi/xfbwjw/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 for (var i = 0; i < this.tableData.length; i++) {
+                    //预案类型转码
                     for (var k = 0; k < this.yalxdmData.length; k++) {
                         if (this.yalxdmData[k].codeValue == this.tableData[i].yalxdm) {
                             this.tableData[i].yalxdm = this.yalxdmData[k].codeName;
                         }
                     }
-
-                    for(var m=0;m<this.jgidData.length;m++){
-                        if(this.jgidData[m].codeValue == this.tableData[i].jgid){
-                             this.tableData[i].jgid = this.jgidData[m].codeName;
-                         }
-                     }
-
+                    //是否跨区域转码
+                    for (var k = 0; k < this.sfkqyData.length; k++) {
+                        if (this.sfkqyData[k].codeValue == this.tableData[i].sfkqy) {
+                            this.tableData[i].sfkqy = this.sfkqyData[k].codeName;
+                        }
+                    }
                 }
                 // this.tableData.unshift(this.testData);
                 _self.total = _self.tableData.length;
@@ -292,6 +309,15 @@ new Vue({
             this.searchForm.BZRQ.splice(0,this.searchForm.BZRQ.length);
             this.searchForm.BZRQ.push(val.substring(0,val.indexOf("至")));
             this.searchForm.BZRQ.push(val.substring(val.indexOf("至")+1));
+        },
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
         },
 
         //表格勾选事件
