@@ -2,7 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
-        <link rel="stylesheet" type="text/css" href="../../static/css/basicinfo/firewater_list.css"> 
+		<link rel="stylesheet" type="text/css" href="../../static/css/basicinfo/firewater_list.css"> 
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
     </head>
 	<body class="fw f14 main-index-body">
 		<div id="header_box"></div>
@@ -195,7 +196,10 @@
 								</el-col>
 							</el-row>
 						</div>
-
+						<!--详情界面-->
+						<el-dialog title="水源详情页" :visible.sync="detailVisible" @close="closeDialog()" :close-on-click-modal="false">                  
+                            <div id="detailDialog"></div>
+                        </el-dialog>
 					</div>
                 </div>
                     <!-- main-container -->
