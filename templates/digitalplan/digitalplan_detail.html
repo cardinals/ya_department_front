@@ -1,65 +1,41 @@
 <html>
 
+
 <head>
     <script src="../../static/js/vue.js"></script>
     <script src="../../static/js/elementUI.js"></script>
-    <script src="../../static/js/digitalplan_detail.js"></script>
+    <script src="../../static/js/digitalplan/digitalplan_detail.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan_detail.css">
 </head>
+
 <body class="fw f14 main-index-body">
     <!--详情界面-->
-        <div id="detailDisplay">
-            <div class="dib" id="basic-Inform-Title">
-                <div class="detailBox" style="display: inline-flex;">
-                <div class="imgWidth">
-                    <img src="../../static/images/danwei4.jpg">
+    <div id="detailDisplay">
+        <div class="nameBox">
+            <div id="basic-Inform-Picture">
+                <img src="../../static/images/danwei4.jpg">
+                <br>
+                <el-button type="primary" @click="openPlan">预案在线预览</el-button>
+                <br>
+                <el-button type="primary" @click="downloadPlan">&nbsp;&nbsp;&nbsp;&nbsp;预案下载&nbsp;&nbsp;&nbsp;</el-button>
+            </div>
+            <div class="dib">
+                <div>
+                    <h3 class="dib inform-h3">{{detailData.yamc||"无"}}</h3>
+                    <span class="companyStatus dib">预案名称</span>
                 </div>
-                <div class="detailBox">
-                <div class="yamc_Single">
-                    <div>
-                        <dl class="inform-left">
-                            <dt class="dtdlStyle">预案名称：</dt>
-                            <dd class="dtdlStyle">{{detailData.yamc||"无"}}</dd>
-                        </dl>
-                    </div>
-                    <div style="margin-top: 15px;">
-                        <dl class="inform-left">
-                            <dt class="dtdlStyle">预案对象：</dt>
-                            <dd class="dtdlStyle">{{detailData.dxmc||"无"}}</dd>
-                        </dl>
-                    </div>
+                <div>
+                    <h3 class="dib yadxtitle">{{detailData.dxmc||"无"}}</h3>
+                    <span class="companyStatus dib">预案对象</span>
                 </div>
+            </div>
+            <template>
                 <div class="inform-div">
-                    <div class="leftDetail"> 
+                    <div class="leftDetail">
                         <div class="inform-margin">
                             <dl class="inform-left">
                                 <dt class="dtdlStyle">预案类型：</dt>
                                 <dd class="dtdlStyle">{{detailData.yalxdm||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">预案版本：</dt>
-                                <dd class="dtdlStyle">{{detailData.yabbh||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">编制单位：</dt>
-                                <dd class="dtdlStyle">{{detailData.zzdwmc||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">编制日期：</dt>
-                                <dd class="dtdlStyle">{{this.detailYMD||"无"}}</dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div>   
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">预案种类：</dt>
-                                <dd class="dtdlStyle">{{detailData.yazl||"无"}}</dd>
                             </dl>
                         </div>
                         <div class="inform-margin">
@@ -70,8 +46,40 @@
                         </div>
                         <div class="inform-margin">
                             <dl class="inform-left">
-                                <dt class="dtdlStyle">编制者：</dt>
+                                <dt class="dtdlStyle">制作机构：</dt>
+                                <dd class="dtdlStyle">{{detailData.jgmc||"无"}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作人名称：</dt>
                                 <dd class="dtdlStyle">{{detailData.zzrmc||"无"}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作时间：</dt>
+                                <dd class="dtdlStyle">{{this.detail_zzsj||"无"}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="leftDetail">
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">审核状态：</dt>
+                                <dd class="dtdlStyle">{{detailData.shzt||"无"}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">审核人：</dt>
+                                <dd class="dtdlStyle">{{detailData.shrmc||"无"}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">审核时间：</dt>
+                                <dd class="dtdlStyle">{{this.detail_shsj||"无"}}</dd>
                             </dl>
                         </div>
                         <div class="inform-margin">
@@ -82,25 +90,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </template>
         </div>
-                <br>
-                <div class="openPlan" style="margin-top: 15px;">
-                    <el-button type="primary" @click="openPlan">预案在线预览</el-button>
-                    <el-button type="primary" @click="downloadPlan">预案下载</el-button>
-                </div>
-                <!-- lxy-start -->
-
-                <el-upload class="upload-demo" style="margin-top: 15px;" ref="upload" action="http://localhost/dpapi/danger/insertImage" :data="upLoadData" :on-preview="handlePreview"
+        <!--<el-upload class="upload-demo" style="margin-top: 15px;" ref="upload" action="http://localhost/dpapi/danger/insertImage" :data="upLoadData" :on-preview="handlePreview"
                     :on-remove="handleRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList"
                     :auto-upload="false">
                     <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                     <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                </el-upload>
+                </el-upload> -->
 
-                <!-- lxy-end -->
-            </div>
-        </div>
+    </div>
 
 </body>
 

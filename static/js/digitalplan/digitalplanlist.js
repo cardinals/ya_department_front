@@ -227,7 +227,7 @@ new Vue({
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
-            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.pkid;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid;
             history.pushState(null, null, shortURL)
             //异步加载详情页
             $(function () {
