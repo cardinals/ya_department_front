@@ -112,7 +112,11 @@ new Vue({
         },
         //获取所有车辆类型
         getAllTypesData: function (){
-            axios.get('/api/codelist/getCarTypes/CLLX').then(function(res){
+            var params= {
+                codetype : "CLLX",
+                list : [1,2,4,6,8]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
                 this.allTypesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
@@ -120,7 +124,11 @@ new Vue({
         },
         //获取所有车辆状态
         getAllStatesData: function (){
-            axios.get('/api/codelist/getCarStates/CLZT').then(function(res){
+            var params= {
+                codetype : "CLZT",
+                list : [2,4]
+            };
+            axios.post('/api/codelist/getCodelisttree',params).then(function(res){
                 this.allStatesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
