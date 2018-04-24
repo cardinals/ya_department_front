@@ -4,32 +4,32 @@ new Vue({
     el: '#app',
     data: function () {
         return {
-            visible: false,
             //搜索表单
             searchForm: {
-                ssdz: "",
-                cllx: "",
-                cphm: "",
-                clzt: "",
-                sbll: [0,1000],
-                zsl: [0,1000]
+                dzmc: "",
+                dzdz: "",
+                dzlx: ""
             },
             tableData: [],
-            allTeamsData: [],
-            allTypesData: [],
-            allStatesData: [],
-            //级联选择器匹配结果集字段
+            dzlxData:[],
+            
             props: {
                 value: 'codeValue',
                 label: 'codeName',
                 children: 'children'
             },
-            rowdata: '',
+            defaultKeys: [],
+            //树结构配置
+            treeDefaultProps: {
+                children: 'children',
+                label: 'formationinfo'
+            },
+            //资源列表是否显示
+            planDetailVisible: false,
             //表高度变量
             tableheight: 443,
             //显示加载中样
             loading: false,
-            labelPosition: 'right',
             //多选值
             multipleSelection: [],
             //当前页
@@ -37,9 +37,11 @@ new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 10,
-            //行数据保存
-            rowdata: {},
+            total: 0,
+            //预案详情页
+            detailData: [],
+            //详情页日期
+            detailYMD:"",
             //序号
             indexData: 0,
             //删除的弹出框
@@ -48,42 +50,55 @@ new Vue({
             addFormVisible: false,
             addLoading: false,
             addFormRules: {
-                permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
             },
+           
             //选中的值显示
             sels: [],
             //选中的序号
             selectIndex: -1,
-            //树结构配置
-            defaultProps: {
-                children: 'children',
-                label: 'codeName',
-                value: 'codeValue'
+            //编辑界面是否显示
+            editFormVisible: false,
+            editLoading: false,
+            editFormRules: {
             },
-
+            defaultProps:{
+                value:'codeValue',
+                label:'codeName'
+            }
         }
     },
     created:function(){
+        this.getDzlxData();
         this.searchClick();
-        this.getAllTypesData();
-        this.getAllStatesData();
     },
-    methods: {
+
+    methods: {       
+        //队站类型下拉框加载
+        getDzlxData: function(){
+            axios.get('/api/codelist/getDzlxTree/JGXZ').then(function(res){
+                var lxdata = res.data.result;
+                //队站类型只显示 ：总队、支队、大队、中队、其他消防队伍
+                var lx_show_list = ["02","03","05","06","09"];
+                for(var i in lxdata){
+                    var start_dzlx = lxdata[i].codeValue.substring(0,2);
+                    if(lx_show_list.toString().indexOf(start_dzlx) > -1)
+                        this.dzlxData.push(lxdata[i]);
+                }
+            }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        
         //表格查询事件
         searchClick: function () {
             this.loading=true;
             var _self = this;
             var params={
-                ssdz :this.searchForm.ssdz,
-                cllx :this.searchForm.cllx[this.searchForm.cllx.length-1],
-                cphm :this.searchForm.cphm,
-                clzt :this.searchForm.clzt[this.searchForm.clzt.length-1],
-                sbll_min :this.searchForm.sbll[0],
-                sbll_max :this.searchForm.sbll[1],
-                zsl_min :this.searchForm.zsl[0],
-                zsl_max :this.searchForm.zsl[1]
+                dzmc:this.searchForm.dzmc,
+                dzdz:this.searchForm.dzdz,
+                dzlx :this.searchForm.dzlx[this.searchForm.dzlx.length-1],
             };
-            axios.post('/dpapi/fireengine/list',params).then(function(res){
+            axios.post('/dpapi/xfdz/list',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
@@ -94,12 +109,9 @@ new Vue({
         },
         //清空查询条件
         clearClick: function () {
-            this.searchForm.ssdz="";
-            this.searchForm.cllx=[];
-            this.searchForm.cphm="";
-            this.searchForm.clzt=[];
-            this.searchForm.sbll=[0,1000];
-            this.searchForm.zsl=[0,1000];
+            this.searchForm.dzmc = "",
+            this.searchForm.dzdz = "",
+            this.searchForm.dzlx = []
         },
         //数据为空时显示‘无’
         dataFormat: function (row, column) {
@@ -109,30 +121,6 @@ new Vue({
             } else {
                 return rowDate;
             }
-        },
-        //获取所有车辆类型
-        getAllTypesData: function (){
-            var params= {
-                codetype : "CLLX",
-                list : [1,2,4,6,8]
-            };
-            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
-                this.allTypesData=res.data.result;
-            }.bind(this),function(error){
-                console.log(error);
-            })
-        },
-        //获取所有车辆状态
-        getAllStatesData: function (){
-            var params= {
-                codetype : "CLZT",
-                list : [2,4]
-            };
-            axios.post('/api/codelist/getCodelisttree',params).then(function(res){
-                this.allStatesData=res.data.result;
-            }.bind(this),function(error){
-                console.log(error);
-            })
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -154,7 +142,7 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
+            // console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -166,19 +154,27 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //打开详情页
-        detailClick(val) {
-            window.location.href = "fireengine_detail.html?ID=" + val.id;
+        //打开预案详情页
+        planDetails: function (val) {
+            var _self = this;
+            _self.planDetailVisible = true;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.dzid +"&dzlx=" +val.dzlx;
+            history.pushState(null, null, shortURL)
+            //异步加载详情页
+            $(function () {
+                $.ajax({
+                    url: '../../../templates/basicinfo/firestation_detail.html',
+                    cache: true,
+                    async: true,
+                    success: function (html) {
+                        $("#detailDialog").html(html);
+                    }
+                });
+            })
         },
         //关闭详情页
         closeDialog: function (val) {
-            this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
+            this.planDetailVisible = false;        
         }
     }
 })

@@ -76,8 +76,8 @@ new Vue({
             sels: [],
             //选中的序号
             selectIndex: -1,
-            
-           
+            //详情页显示flag
+            detailVisible:false,
         }
     },
     created: function () {
@@ -94,6 +94,7 @@ new Vue({
         this.searchXfmtSZ_data();
         this.searchTrsyLX_data();
         this.searchTrsyYWKSQ_data();
+        this.searchGXZD_data();
     },
     methods: {
         handleNodeClick(data) {
@@ -188,7 +189,12 @@ new Vue({
             })
         },
         searchGXZD_data:function () {
-            
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.GXZD_data = res.data.result;
+
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         searchXZ_data:function () {
             axios.get('/api/codelist/getCodetype/SYXZ').then(function (res) {
@@ -338,7 +344,21 @@ new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            window.location.href = "firewater_detail.html?id=" + val.uuid + "&sylx=" + val.sylx;
+            //window.location.href = "firewater_detail.html?id=" + val.uuid + "&sylx=" + val.sylx;
+            this.detailVisible = true;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.uuid + "&sylx=" + val.sylx;
+            history.pushState(null, null, shortURL)
+            //异步加载详情页
+            $(function () {
+                $.ajax({
+                    url: '../../../templates/basicinfo/firewater_detail.html',
+                    cache: true,
+                    async: true,
+                    success: function (html) {
+                        $("#detailDialog").html(html);
+                    }
+                });
+            })
         },
         //表格重新加载数据
         loadingData: function () {
@@ -365,13 +385,8 @@ new Vue({
         },
         
         closeDialog: function (val) {
-            this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
+            this.detailVisible = false;
+            
         }
     },
 

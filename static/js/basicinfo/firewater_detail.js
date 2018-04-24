@@ -1,84 +1,73 @@
-//axios默认设置cookie
-axios.defaults.withCredentials = true;
 new Vue({
-    el: '#app',
+    el: "#detailDisplay",
     data: function () {
         return {
-            activeName: "first",      
-            urls: ['inform.html', 'inform2.html'],
-            //显示加载中样
-            loading: false,
-            labelPosition: 'right',
-            //基本数据保存
-            rowdata: { },
-            //序号
-            indexData: 0,
-            //地图经度
-            bdLon:0,
-            //地图纬度
-            bdLat:0,
-            //发送至邮箱是否显示
-            emailDialogVisible: false,
-            email: "",
-            //信息分享是否显示
-            shareDialogVisible: false,
-            //信息打印是否显示
-            printDialogVisible: false,             
-    }
-},
-    mounted: function () {
-        this.loading=true;
-        var url = location.search;
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            if(str.indexOf("&") != -1){
-                var sylxStr = str.substr(str.indexOf("&")+1);
-                str = str.substr(0,str.indexOf("&"));
-            }
-            var id = str.substring(3);
-            sylxStr = sylxStr.substring(5);
-            var start_sylx = sylxStr.substring(0,2);
-            switch(start_sylx){
-                case '11':
-                     var div=document.getElementById("XHS");
-                     div.style.display = "";
-                     break;
-                case '13':
-                     var div=document.getElementById("XFSC");
-                     div.style.display = "";
-                     break;
-                case '12':
-                     var div=document.getElementById("XFSH");
-                     div.style.display = "";
-                     break;
-                case '21':
-                     var div=document.getElementById("XFMT");
-                     div.style.display = "";
-                     break;
-                case '29':
-                     var div=document.getElementById("TRSY");
-                     div.style.display = "";
-                     break;
-            }
-            var params = {
-                uuid : id,
-                sylx : start_sylx
-            }
-            axios.post('/dpapi/xfsy/findSyAndSxByVo', params).then(function (res) {
-                this.rowdata = res.data.result;
-                this.bdLat = this.rowdata.bdLat;
-                this.bdLon = this.rowdata.bdLon;
-                this.loading=false;
-                this.initMap();//创建和初始化地图
-            }.bind(this), function (error) {
-                console.log(error);
-            })
+            activeName: "first",  
+            //页面获取的pkid
+            id:"",
+            //页面获取的水源类型
+            sylx:"",
+            //详情Data
+            detailData: {},
+           //地图经度
+           bdLon:0,
+           //地图纬度
+           bdLat:0,
            
         }
     },
+    created: function () {
+        //取得选中行id
+        this.id = this.GetQueryString("id");
+        console.log(this.id);
+        //获取选中行水源类型
+        this.sylx = this.GetQueryString("sylx");
+        history.back();
+        //console.log(this.sylx);
+        var start_sylx = this.sylx.substring(0,2);
+        switch(start_sylx){
+            case '11':
+                 var div=document.getElementById("XHS");
+                 div.style.display = "";
+                 break;
+            case '13':
+                 var div=document.getElementById("XFSC");
+                 div.style.display = "";
+                 break;
+            case '12':
+                 var div=document.getElementById("XFSH");
+                 div.style.display = "";
+                 break;
+            case '21':
+                 var div=document.getElementById("XFMT");
+                 div.style.display = "";
+                 break;
+            case '29':
+                 var div=document.getElementById("TRSY");
+                 div.style.display = "";
+                 break;
+        }
+        var params = {
+            uuid : this.id,
+            sylx : start_sylx
+        }
+        axios.post('/dpapi/xfsy/findSyAndSxByVo', params).then(function (res) {
+            this.detailData = res.data.result;
+            this.bdLat = this.detailData.bdLat;
+            this.bdLon = this.detailData.bdLon;
+            this.loading=false;
+            this.initMap();//创建和初始化地图
+        }.bind(this), function (error) {
+            console.log(error);
+        })
+    },
+
     methods: {
-        handleNodeClick(data) {
-            //console.log(data);
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
         },
         //创建和初始化地图函数：
         initMap: function(){
@@ -112,46 +101,12 @@ new Vue({
             var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
             map.addControl(ctrl_sca);
         },
-        //标签页
-        handleClick: function (e) {
-           // console.log(e);
-        },
-        begindateChange(val) {
-            //console.log(val);
-            this.searchForm.begintime = val;
-        },
-        enddateChange(val) {
-            //console.log(val);
-            this.searchForm.endtime = val;
-        },
-        //发送至邮箱
-        openEmail: function () {
-            this.emailDialogVisible = true;
-        },
-        closeEmailDialog: function () {
-            this.emailDialogVisible = false;
-            this.email = "";
-        },
-        //信息分享
-        openShare: function () {
-            this.shareDialogVisible = true;
-        },
-        closeShareDialog: function () {
-            this.shareDialogVisible = false;
-        },
-        //信息打印
-        openPrinter: function () {
-            window.print();
-        },
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                console.info("加载数据成功");
-                _self.loading = false;
-            }, 300);
-        },
-    },
-
+        handleClick: function (tab, event) {
+          /*
+            if(tab.name == "second"){
+                this.initMap();
+            }
+            */
+         },
+    }
 })

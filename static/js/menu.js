@@ -132,6 +132,10 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/dangerinfo/danger"){
                 realUrl="http://localhost/templates/basicinfo/danger_list.html"
             }
+            // 7
+            else if(this.model.url=="/auxiliarydecision/firecalculation"){
+                realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
+            }
             return realUrl;
         }
     },

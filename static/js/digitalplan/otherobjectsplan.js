@@ -109,7 +109,11 @@ new Vue({
     methods: {       
         //预案类型
         getYalxdmData: function(){
-            axios.get('/api/codelist/getCodelisttree/YALX').then(function(res){
+            var params= {
+                codetype : "YALX",
+                list : [1,2]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
                 this.yalxdmData = res.data.result;
             }.bind(this),function(error){
                 console.log(error);
