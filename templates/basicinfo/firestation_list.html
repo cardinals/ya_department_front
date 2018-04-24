@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="header_box"></div>
+	<div class="left-sidebar">
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="46"></big-tree>
+		</div>
+    </div>
+    <div id="app">
+		<div class="main-box">
+				<div class="main-container" v-loading="loading" element-loading-text="加载中">
+					<div id="lib :: main_container_header('消防队站','消防队站')"></div>
+					<div id="tableView">
+						<el-row>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row :gutter="40">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">队站名称</label>
+										<el-input size="small" v-model="searchForm.dzmc" placeholder="队站名称"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">队站地址</label>
+										<el-input size="small" v-model="searchForm.dzdz" placeholder="队站地址"></el-input>
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">队站类型</label>
+										<el-cascader :options ="dzlxData" :props ="props" size="small" v-model="searchForm.dzlx" placeholder="全部" class="searchSelect" clearable change-on-select></el-cascader>
+									</el-col>
+								</el-row>
+								<div>
+									<el-form>
+										<el-col :span="12" class="btnEditDelete">
+											<el-form-item align="left">
+												<!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
+												<!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
+											</el-form-item>
+										</el-col>
+										<el-col :span="12"></el-col>
+										<el-col :span="12" class="btnSearchPlus">
+											<el-form-item>
+												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+												<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+						</el-row>
+						<div class="table_container">
+								<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+									class="tableStyle" :height="tableheight">
+									<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
+									<el-table-column prop="dzmc" label="队站名称" show-overflow-tooltip min-width="25%" align="center">
+										<template slot-scope="scope">
+											<a @click="planDetails(scope.row)">{{scope.row.dzmc}}</a>
+										</template>
+									</el-table-column>
+									<el-table-column prop="dzbm" label="队站编码" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+									<el-table-column prop="dzdz" label="地址" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+									<el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="15%" align="center"></el-table-column>
+                                    <el-table-column prop="lxdh" label="联系电话" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                    <el-table-column prop="sxdsl" label="所辖队数量" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                    <el-table-column prop="sfdljj" label="是否独立接警" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                </el-table>
+		
+								<!--列表底部工具条和分页符-->
+								<el-row type="flex" justify="end">
+									<el-col :span="18">
+										<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+											:page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+										</el-pagination>
+									</el-col>
+								</el-row>
+                            </div>
+                            <!--详情界面-->
+                       <el-dialog title="消防队站详情页面" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">                  
+                            <div id="detailDialog"></div>
+                        </el-dialog>
+					</div>
+				</div>
+				<!-- main-container -->
+				</div>
+        </div>
+	</div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/basicinfo/firestation_list.js"></script>
+
+</html>
