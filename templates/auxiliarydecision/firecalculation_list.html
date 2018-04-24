@@ -72,14 +72,14 @@
                                     <a @click="calculateDetails(scope.row)">{{scope.row.gsmc}}</a>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="gslb" show-overflow-tooltip label="公式类别" min-width="15%" align="center":formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="lbmc" show-overflow-tooltip label="公式类别" min-width="15%" align="center":formatter="dataFormat"></el-table-column>
                             <el-table-column prop="gssm" show-overflow-tooltip label="公式说明" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
                             <el-table-column prop="jsgs" show-overflow-tooltip label="计算公式" min-width="13%" align="center" :formatter="dataFormat"></el-table-column>
                             <el-table-column prop="jsgsdw" show-overflow-tooltip label="公式单位" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
                             <el-table-column prop="sfqy" show-overflow-tooltip label="启用/禁用" min-width="13%" align="center">
                                 <template slot-scope="scope"> 
                                     <el-switch
-                                    v-model="scope.row.sfqy"
+                                    v-model="(scope.row.sfqy=='1'?true:false)"
                                     active-text="启用"
                                     inactive-text="禁用">
                                     </el-switch>
@@ -87,7 +87,7 @@
                             </el-table-column>
                             <el-table-column show-overflow-tooltip label="操作" min-width="13%" align="center">
                                 <template slot-scope="scope">
-                                    <el-button type="text" @click="editClick(scope.row.uuid)">修改</el-button>
+                                    <el-button type="text" @click="editClick(scope.row)">修改</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -118,7 +118,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">-->
                                             <el-form-item label="公式类别">
-                                                <el-select size="small" v-model="addFormulaForm.selected_GSLB" placeholder="公式类别" class="addEditFormInput" clearable>
+                                                <el-select size="small" v-model="addFormulaForm.gslb" placeholder="公式类别" class="addEditFormInput" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
                                             </el-form-item>
@@ -176,7 +176,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">-->
                                             <el-form-item label="公式类别">
-                                                <el-select size="small" v-model="editFormulaForm.selected_GSLB" placeholder="公式类别" class="addEditFormInput" clearable>
+                                                <el-select size="small" v-model="editFormulaForm.gslb" placeholder="公式类别" class="addEditFormInput" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
                                             </el-form-item>

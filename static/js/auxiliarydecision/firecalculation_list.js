@@ -19,6 +19,8 @@ new Vue({
             tableData: [],
             //公式类别数据
             GSLB_data:[],
+            //参数类型数据
+            CSLX_data:[],
             //后台返回全部资源列表
             defaultKeys: ['17'],
 
@@ -65,14 +67,10 @@ new Vue({
                 gssm: "",
                 jsgs: "",
                 jsgsdw: "",
-                selected_GSLB:""
+                gslb:""
             },
             addParamForm: {
-                gsmc: "",
-                gssm: "",
-                jsgs: "",
-                jsgsdw: "",
-                selected_GSLB:"",
+
                 domains: [{
                     value: ''
                 }]
@@ -93,14 +91,10 @@ new Vue({
                 gssm: "",
                 jsgs: "",
                 jsgsdw: "",
-                selected_GSLB:""
+                gslb:""
             },
             editParamForm: {
-                gsmc: "",
-                gssm: "",
-                jsgs: "",
-                jsgsdw: "",
-                selected_GSLB:"",
+
                 domains: [{
                     value: ''
                 }]
@@ -127,26 +121,45 @@ new Vue({
         }
     },
     created: function () {
-        this.getAllRoles();
+        this.GSLB();
+        this.CSLX();
         this.searchClick();
     },
     methods: {
-        //所有的角色列表
-        getAllRoles: function () {
-            axios.get('/api/role/getAll').then(function (res) {
-                this.allRoles = res.data.result;
+        //公式类别下拉框
+        GSLB: function () {
+            axios.get('/api/codelist/getCodetype/GSLB').then(function (res) {
+                this.GSLB_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
-        getAllResources: function () {
-            axios.get('/api/resource/getAll').then(function (res) {
-                this.allResourceList = res.data.result;
+        //参数类型下拉框
+        CSLX: function () {
+            axios.get('/api/codelist/getCodetype/CSLX').then(function (res) {
+                this.CSLX_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //查询，初始化
+        searchClick: function () {
+            var _self = this;
+            _self.loading = true;//表格重新加载
+            var params = {
+                gsmc:this.searchForm.GSMC,
+                gslb:this.searchForm.selected_GSLB,
+                sfqy:this.searchForm.SFQY
+            };
 
+            axios.post('/dpapi/firecalculationlist/findByVO', params).then(function (res) {
+                this.tableData = res.data.result;
+                this.total = res.data.result.length;
+                _self.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
         //日期控件变化时格式化
         dateChange(val) {
             this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
@@ -160,26 +173,6 @@ new Vue({
                 return '无';
             } else {
                 return rowDate;
-            }
-        },
-        //表格中日期格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
             }
         },
         //新增页面增加参数表单
@@ -234,36 +227,6 @@ new Vue({
             this.searchForm.selected_GSLB="";
             this.searchForm.SFQY="";
         },
-        //查询，初始化
-        searchClick: function () {
-            var _self = this;
-            _self.loading = true;//表格重新加载
-            var params = {
-                gsmc:this.searchForm.GSMC,
-                gslb:this.searchForm.selected_GSLB,
-                sfqy:this.searchForm.SFQY
-            };
-
-            axios.post('/api/role/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
-                _self.loading = false;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
-
-        //资源详情
-        resourceDetails: function (id) {
-            var _self = this;
-            _self.resourceVisible = true;
-            axios.get('/api/resource/getResource/' + id).then(function (res) {
-                this.resourceList = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-
-        },
 
         handleNodeClick(data) {
         },
@@ -287,25 +250,26 @@ new Vue({
         addClick: function () {
             var _self = this;
             _self.addFormVisible = true;
-            this.getAllResources();
         },
         //新建：提交
         addSubmit: function (val1,val2) {
             var _self = this;
-            axios.get('/api/role/getNum/' + this.addForm.rolename).then(function (res) {
+            axios.get('/dpapi/firecalculationlist/getNum/' + this.val1.gsmc).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
                         message: "角色名已存在!",
                         type: "error"
                     });
                 } else {
-                    val.resource = this.$refs.tree.getCheckedNodes();
                     var params = {
-                        rolename: val.rolename,
-                        roleinfo: val.roleinfo,
-                        resources: val.resource
+                        gsmc: val1.gsmc,
+                        gslb: val1.gslb,
+                        gssm: val1.gssm,
+                        jsgs: val1.jsgs,
+                        jsgsdw: val1.jsgsdw,
+        
                     }
-                    axios.post('/api/role/insertByVO', params).then(function (res) {
+                    axios.post('/dpapi/firecalculationlist/insertByVO', params).then(function (res) {
                         var addData = res.data.result;
                         addData.createTime = new Date();
                         _self.tableData.unshift(addData);
@@ -335,17 +299,17 @@ new Vue({
             var ids = [];
             for (var i = 0; i < multipleSelection.length; i++) {
                 var row = multipleSelection[i];
-                ids.push(row.roleid);
+                ids.push(row.uuid);
             }
             this.$confirm("确认删除吗？", "提示", { type: "warning" })
                 .then(function () {
                     var params = {
                         ids: ids
                     }
-                    axios.post('/api/role/deleteByIds', params).then(function (res) {
+                    axios.post('/dpapi/firecalculationlist/deleteByIds', params).then(function (res) {
                         for (var d = 0; d < ids.length; d++) {
                             for (var k = 0; k < _self.tableData.length; k++) {
-                                if (_self.tableData[k].roleid == ids[d]) {
+                                if (_self.tableData[k].uuid == ids[d]) {
                                     _self.tableData.splice(k, 1);
                                 }
                             }
@@ -381,19 +345,10 @@ new Vue({
         //修改：弹出Dialog
         editClick: function (val) {
             var _self = this;
-            var uuid = val;
-            axios.get('/api/resource/getChildren/' + uuid).then(function (res) {
-                this.defaultCheckKeys = res.data.result;
-                //获取选择的行号
-                for (var k = 0; k < _self.tableData.length; k++) {
-                    if (_self.tableData[k].roleid == roleid) {
-                        _self.selectIndex = k;
-                    }
-                }
-
-                //直接从table中取值放在form表单中
-                this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-                this.getAllResources();
+            var uuid = val.uuid;
+            axios.get('/dpapi/firecalculationlist/doFindById/' + uuid).then(function (res) {
+                this.editParamForm = res.data.result;
+                this.editFormulaForm = val;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -402,15 +357,17 @@ new Vue({
 
         //修改：保存按钮
         editSubmit: function (val1,val2) {
-            val.resource = this.$refs.tree.getCheckedNodes();
 
             var params = {
-                roleid: val.roleid,
-                rolename: val.rolename,
-                roleinfo: val.roleinfo,
-                resources: val.resource
+                uuid: val1.uuid,
+                gsmc: val1.gsmc,
+                gslb: val1.gslb,
+                gssm: val1.gssm,
+                jsgs: val1.jsgs,
+                jsgsdw: val1.jsgsdw,
+
             };
-            axios.post('/api/role/updateByVO', params).then(function (res) {
+            axios.post('/dpapi/firecalculationlist/updateByVO', params).then(function (res) {
                 this.tableData[this.selectIndex].rolename = val.rolename;
                 this.tableData[this.selectIndex].roleinfo = val.roleinfo;
                 this.tableData[this.selectIndex].alterName = res.data.result.alterName;
