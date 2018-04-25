@@ -119,9 +119,18 @@ new Vue({
         // },
         //预案类型级联选择
         YALX_tree: function () {
-            axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
-                this.YALX_dataTree = res.data.result;
-            }.bind(this), function (error) {
+            // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
+            //     this.YALX_dataTree = res.data.result;
+            // }.bind(this), function (error) {
+            //     console.log(error);
+            // })
+            var params= {
+                codetype : "YALX",
+                list : [1,2,4,6,8]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
+                this.YALX_dataTree=res.data.result;
+            }.bind(this),function(error){
                 console.log(error);
             })
         },
