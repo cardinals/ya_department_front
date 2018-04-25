@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/auxiliarydecision/firecalculation.css">
     <title>火场计算</title>
 </head>
 
@@ -28,7 +29,7 @@
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">公式类别</label>
-                                    <el-select size="small" v-model="searchForm.selected_GSLB" placeholder="公式类别" class="searchSelect" clearable>
+                                    <el-select v-model="searchForm.selected_GSLB" placeholder="公式类别" class="gslbSelect" clearable>
                                         <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
@@ -104,53 +105,83 @@
                     </div>
 
                     <!--新建界面-->
-                    <el-dialog title="新增角色" :visible.sync="addFormVisible" @close="closeDialog(addFormulaForm,addParamForm)" :close-on-click-modal="false">
-                        <el-tabs v-model="activeName" style="height: 200px;">
+                    <el-dialog title="新增公式" :visible.sync="addFormVisible" @close="closeDialog(addFormulaForm,addParamForm)" :close-on-click-modal="false">
+                        <el-tabs v-model="activeName">
                             <el-tab-pane name="first" label="公式信息">
-                                <el-form :model="addFormulaForm" label-width="80px" :rules="addFormRules" ref="addFormulaForm">
-                                    <!--<el-row>
+                                <el-form :model="addFormulaForm" label-width="107px" :rules="addFormRules" ref="addFormulaForm">
+                                    <el-row style="margin-top: 5%"> 
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                        <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">-->
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式名称" prop="gsmc">
-                                                <el-input class="addEditFormInput" v-model="addFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
+                                                <el-input v-model="addFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
                                             </el-form-item>
-                                        <!--</el-col>
+                                        </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
+                                        <!--<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">-->
-                                            <el-form-item label="公式类别">
-                                                <el-select size="small" v-model="addFormulaForm.gslb" placeholder="公式类别" class="addEditFormInput" clearable>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
+                                            <el-form-item label="公式类别" prop="gslb">
+                                                <el-select v-model="addFormulaForm.gslb" placeholder="公式类别" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式说明" prop="gssm">
-                                                <el-input class="addEditFormInput" v-model="addFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
+                                                <el-input v-model="addFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式" prop="jsgs">
-                                                <el-input class="addEditFormInput" v-model="addFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
+                                                <el-input v-model="addFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式单位" prop="jsgsdw">
-                                                <el-input class="addEditFormInput" v-model="addFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
+                                                <el-input v-model="addFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
                                         <!--</el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                     </el-row>-->
                                 </el-form>
                             </el-tab-pane>
                             <el-tab-pane name="second" label="参数信息">
-                                <el-form :model="addParamForm" :rules="addFormRules" ref="addParamForm">
+                                {{this.addParamForm}}
+                                <el-form class="paramForm" :model="addParamForm" :rules="addFormRules" ref="addParamForm">
                                     <el-form-item
                                         v-for="(domain, index) in addParamForm.domains"
-                                        :label="'域名' + index"
                                         :key="domain.key"
-                                        :prop="'domains.' + index + '.value'"
+                                        :prop="['domains.' + index + '.csmc','domains.' + index + '.jldw','domains.' + index + '.mrz']"
                                         :rules="{
                                         required: true, message: '域名不能为空', trigger: 'blur'
                                         }"
                                     >
-                                        <el-input v-model="domain.value"></el-input><el-button @click.prevent="removeAddDomain(domain)">删除</el-button>
+                                        <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.csmc" style="width: 100px"></el-input>
+                                        <label class="el-form-item__label" style="float:none !important;display: none">参数类型</label><el-input v-model="domain.value" style="width: 50px;display: none"></el-input>
+                                        <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 100px"></el-input>
+                                        <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 100px"></el-input>
+                                        <el-button @click.prevent="removeAddDomain(domain)">删除</el-button>
                                     </el-form-item>
                                     <el-form-item>
-                                        <el-button @click="addDomain">新增域名</el-button>
+                                        <el-button @click="addDomain">新增参数</el-button>
                                     </el-form-item>
                                 </el-form>
                             </el-tab-pane>
@@ -162,33 +193,57 @@
                     </el-dialog>
 
                     <!--修改界面-->
-                    <el-dialog title="修改角色" :visible.sync="editFormVisible" :close-on-click-modal="false">
-                        <el-tabs v-model="activeName" style="height: 200px;">
+                    <el-dialog title="修改公式" :visible.sync="editFormVisible" :close-on-click-modal="false">
+                        <el-tabs v-model="activeName">
                             <el-tab-pane name="first" label="公式信息">
-                                <el-form :model="editFormulaForm" label-width="80px" :rules="editFormRules" ref="editFormulaForm">
-                                    <!--<el-row>
+                                <el-form :model="editFormulaForm" label-width="107px" :rules="editFormRules" ref="editFormulaForm">
+                                    <el-row style="margin-top: 5%"> 
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                        <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">-->
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式名称" prop="gsmc">
                                                 <el-input class="addEditFormInput" v-model="editFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
                                             </el-form-item>
-                                        <!--</el-col>
+                                        </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                        <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">-->
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式类别">
-                                                <el-select size="small" v-model="editFormulaForm.gslb" placeholder="公式类别" class="addEditFormInput" clearable>
+                                                <el-select v-model="editFormulaForm.gslb" placeholder="公式类别" class="addEditFormInput" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式说明" prop="gssm">
                                                 <el-input class="addEditFormInput" v-model="editFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式" prop="jsgs">
                                                 <el-input class="addEditFormInput" v-model="editFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式单位" prop="jsgsdw">
                                                 <el-input class="addEditFormInput" v-model="editFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
                                             </el-form-item>
+                                        </el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                    </el-row>
                                         <!--</el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                     </el-row>-->
@@ -199,19 +254,19 @@
                                     <el-form-item
                                         v-for="(domain, index) in editParamForm.domains"
                                         :key="domain.key"
-                                        :prop="'domains.' + index + '.value'"
+                                        :prop="['domains.' + index + '.csmc','domains.' + index + '.jldw','domains.' + index + '.mrz']"
                                         :rules="{
                                         required: true, message: '域名不能为空', trigger: 'blur'
                                         }"
                                     >
-                                    <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.value" style="width: 50px"></el-input>
-                                    <label class="el-form-item__label" style="float:none !important;">参数类型</label><el-input v-model="domain.value" style="width: 50px"></el-input>
-                                    <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.value" style="width: 50px"></el-input>
-                                    <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.value" style="width: 50px"></el-input>
+                                    <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.csmc" style="width: 99px"></el-input>
+                                    <label class="el-form-item__label" style="float:none !important;display: none">参数类型</label><el-input v-model="domain.value" style="width: 50px;display: none"></el-input>
+                                    <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 99px"></el-input>
+                                    <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 99px"></el-input>
                                     <el-button @click.prevent="removeEditDomain(domain)">删除</el-button>
                                     </el-form-item>
                                     <el-form-item>
-                                        <el-button @click="editDomain">新增域名</el-button>
+                                        <el-button @click="editDomain">新增参数</el-button>
                                     </el-form-item>
                                 </el-form>
                             </el-tab-pane>
@@ -226,22 +281,45 @@
                         <el-form :model="calculateForm" label-width="80px" :rules="calculateFormRules" ref="calculateForm">
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="公式名称" prop="gsmc">
-                                        <el-input v-model="calculateForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
+                                    <el-form-item label="公式名称：" prop="gsmc">
+                                        <label>{{calculateForm.gsmc}}</label>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="公式说明" prop="gssm">
-                                        <el-input v-model="calculateForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
+                                    <el-form-item label="公式说明：" prop="gssm">
+                                        <label>{{calculateForm.gssm}}</label>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="计算公式" prop="jsgs">
-                                        <el-input v-model="calculateForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
+                                    <el-form-item label="计算公式：" prop="jsgs">
+                                        <label>{{calculateForm.jsgs}}</label>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col>
+                                    <el-form-item
+                                    v-for="(domain, index) in calculateForm.domains"
+                                    :label="domain.csmc"+"："
+                                    :key="domain.key"
+                                    :prop="'domains.' + index + '.csmc'"
+                                    :rules="{
+                                        required: true, message: '域名不能为空', trigger: 'blur'
+                                    }"
+                                    >
+                                        <el-input v-model="domain.mrz" auto-complete="off"></el-input>
+                                        <label>{{domain.jldwdm}}</label>
+                                    </el-form-item>   
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="20">
+                                    <el-form-item label="计算结果：" prop="jsgs">
+                                        <label>{{calculateForm.jsjg}}</label>
                                     </el-form-item>
                                 </el-col>
                             </el-row>

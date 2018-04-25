@@ -46,7 +46,12 @@ new Vue({
                 gsmc:'',
                 gssm:'',
                 jsgs:'',
-
+                domains: [{
+                    csmc: '',
+                    jldwdm:'',
+                    mrz:''
+                }],
+                jsjg:""
             },
             calculateFormRules:{
 
@@ -57,7 +62,7 @@ new Vue({
             addFormVisible: false,
             addFormRules: {
                 gsmc: [{ required: true, message: "请输入公式名称", trigger: "blur" }],
-                gsmc: [{ required: true, message: "请输入公式名称", trigger: "blur" }],
+                gssm: [{ required: true, message: "请输入公式说明", trigger: "blur" }],
                 jsgs: [{ required: true, message: "请输入计算公式", trigger: "blur" }],
                 jsgsdw: [{ required: true, message: "请输入计算公式单位", trigger: "blur" }]
             },
@@ -72,7 +77,9 @@ new Vue({
             addParamForm: {
 
                 domains: [{
-                    value: ''
+                    csmc: '',
+                    jldwdm:'',
+                    mrz:''
                 }]
             },
             //选中的序号
@@ -81,7 +88,7 @@ new Vue({
             editFormVisible: false,
             editFormRules: {
                 gsmc: [{ required: true, message: "请输入公式名称", trigger: "blur" }],
-                gsmc: [{ required: true, message: "请输入公式名称", trigger: "blur" }],
+                gssm: [{ required: true, message: "请输入公式说明", trigger: "blur" }],
                 jsgs: [{ required: true, message: "请输入计算公式", trigger: "blur" }],
                 jsgsdw: [{ required: true, message: "请输入计算公式单位", trigger: "blur" }]
             },
@@ -96,7 +103,9 @@ new Vue({
             editParamForm: {
 
                 domains: [{
-                    value: ''
+                    csmc: '',
+                    jldwdm:'',
+                    mrz:''
                 }]
             },
             //树状选中状态
@@ -178,15 +187,19 @@ new Vue({
         //新增页面增加参数表单
         addDomain() {
             this.addParamForm.domains.push({
-              value: '',
-              key: Date.now()
+                csmc: '',
+                jldwdm: '',
+                mrz: '',
+                key: Date.now()
             });
         },
         //修改页面增加参数表单
         editDomain() {
             this.editParamForm.domains.push({
-              value: '',
-              key: Date.now()
+                csmc: '',
+                jldwdm: '',
+                mrz: '',
+                key: Date.now()
             });
         },
         //新增页面删除参数
@@ -207,19 +220,31 @@ new Vue({
         calculateDetails: function (val) {
             var _self = this;
             _self.calculateVisible = true;
-            this.calculateForm.gsmc=val.gsmc;
-            this.calculateForm.gssm=val.gssm;
-            this.calculateForm.jsgs=val.jsgs;
+            var uuid = val.uuid;
+            axios.get('/dpapi/firecalculationlist/doFindById/' + uuid).then(function (res) {
+                this.calculateForm.gsmc = val.gsmc;
+                this.calculateForm.gssm = val.gssm;
+                this.calculateForm.jsgs = val.jsgs;
+                this.calculateForm.domains = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+
         },
         //火场计算
         calculate:function(val){
-        
+            //this.calculateForm.jsjg = 
         },
         resetDialog:function(val){
-        
+            this.calculateForm.domains = [{csmc: '',jldwdm:'',mrz:''}];
+            this.calculateForm.jsjg = "";
         },
         closeCalculate:function(val){
-
+            this.calculateForm.domains = null;
+            this.calculateForm.jsjg = "";
+            this.calculateForm.gsmc = "";
+            this.calculateForm.gssm = "";
+            this.calculateForm.jsgs = "";
         },
         //清空
         clearClick: function () {
@@ -254,7 +279,7 @@ new Vue({
         //新建：提交
         addSubmit: function (val1,val2) {
             var _self = this;
-            axios.get('/dpapi/firecalculationlist/getNum/' + this.val1.gsmc).then(function (res) {
+            axios.get('/dpapi/firecalculationlist/getNum/' + this.addFormulaForm.gsmc).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
                         message: "角色名已存在!",
@@ -262,16 +287,15 @@ new Vue({
                     });
                 } else {
                     var params = {
-                        gsmc: val1.gsmc,
-                        gslb: val1.gslb,
-                        gssm: val1.gssm,
-                        jsgs: val1.jsgs,
-                        jsgsdw: val1.jsgsdw,
-        
+                        gsmc: this.addFormulaForm.gsmc,
+                        gslb: this.addFormulaForm.gslb,
+                        gssm: this.addFormulaForm.gssm,
+                        jsgs: this.addFormulaForm.jsgs,
+                        jsgsdw: this.addFormulaForm.jsgsdw,
+                        firecalculationparams:this.addParamForm.domains
                     }
                     axios.post('/dpapi/firecalculationlist/insertByVO', params).then(function (res) {
                         var addData = res.data.result;
-                        addData.createTime = new Date();
                         _self.tableData.unshift(addData);
                         _self.total = _self.tableData.length;
                     }.bind(this), function (error) {
@@ -347,7 +371,8 @@ new Vue({
             var _self = this;
             var uuid = val.uuid;
             axios.get('/dpapi/firecalculationlist/doFindById/' + uuid).then(function (res) {
-                this.editParamForm = res.data.result;
+                this.editParamForm.domains = res.data.result;
+                console.log(this.editParamForm);
                 this.editFormulaForm = val;
             }.bind(this), function (error) {
                 console.log(error)
@@ -377,12 +402,17 @@ new Vue({
                 console.log(error)
             })
             this.editFormVisible = false;
+            _self.loadingData();
         },
 
         closeDialog: function (val1,val2) {
             this.addFormVisible = false;
-            val.rolename = "";
-            val.roleinfo = "";
+            this.addFormulaForm.gsmc = "";
+            this.addFormulaForm.gslb = "";
+            this.addFormulaForm.gssm = "";
+            this.addFormulaForm.jsgs = "";
+            this.addFormulaForm.jsgsdw = "";
+            this.addParamForm.domains = [{value1: '',value2:'',value3:''}]
         }
     },
 
