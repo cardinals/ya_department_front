@@ -79,7 +79,7 @@
                             <el-table-column prop="sfqy" show-overflow-tooltip label="启用/禁用" min-width="13%" align="center">
                                 <template slot-scope="scope"> 
                                     <el-switch
-                                    v-model="(scope.row.sfqy=='1'?true:false)"
+                                    v-model="scope.row.sfqy =='1'?true:false"
                                     active-text="启用"
                                     inactive-text="禁用">
                                     </el-switch>

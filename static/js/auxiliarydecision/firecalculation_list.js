@@ -13,7 +13,7 @@ new Vue({
             searchForm: {
                 GSMC: '',
                 selected_GSLB:'',
-                SFQY:-1
+                SFQY:''
             },
             //表数据
             tableData: [],
@@ -383,8 +383,6 @@ new Vue({
             this.addFormVisible = false;
             val.rolename = "";
             val.roleinfo = "";
-            this.defaultCheckKeys = [];
-            this.$refs["addForm"].resetFields();
         }
     },
 
