@@ -117,7 +117,7 @@ new Vue({
                 symc: this.searchForm.symc,
                 sydz: this.searchForm.sydz,
                 sylx: this.searchForm.sylx,
-                gxdz: this.searchForm.gxdz,
+                dzbm: this.searchForm.gxdz.substr(0,2),
                 xz: this.searchForm.xz,
                 kyzt: this.searchForm.kyzt,
                 xhs_gwid: this.searchForm.xhs_gwid,
