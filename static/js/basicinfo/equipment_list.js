@@ -122,9 +122,13 @@ new Vue({
         },
         //装备类型级联选择数据
         getAllTypesDataTree: function () {
-            axios.get('/api/codelist/getCarTypes/ZBQCLB').then(function (res) {
-                this.allTypesDataTree = res.data.result;
-            }.bind(this), function (error) {
+            var params= {
+                codetype : "ZBQCLB",
+                list : [1,2,4,6,8]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
+                this.allTypesDataTree=res.data.result;
+            }.bind(this),function(error){
                 console.log(error);
             })
         },

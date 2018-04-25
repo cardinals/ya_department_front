@@ -64,9 +64,13 @@ new Vue({
         },
         //药剂类型级联选择器数据
         getAllYjlxDataTree: function () {
-            axios.get('/api/codelist/getCarTypes/YJLX').then(function (res) {
-                this.allYjlxDataTree = res.data.result;
-            }.bind(this), function (error) {
+            var params= {
+                codetype : "YJLX",
+                list : [1,2,4,6,8]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
+                this.allYjlxDataTree=res.data.result;
+            }.bind(this),function(error){
                 console.log(error);
             })
         },
