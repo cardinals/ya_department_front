@@ -39,7 +39,7 @@
                     <div class="inform-content" style="width: 100%;margin-bottom: 0px;margin-top: 40px">
                         <template>
                             <el-tabs type="border-card">
-                                <el-tab-pane label="基本信息1" v-if="isShow">
+                                <el-tab-pane label="基本信息" v-if="isShow">
                                     <div class="inform-div" style="min-height:150px">
                                         <div class="left-inform" style="width: 250px">
                                             <div>
@@ -95,9 +95,9 @@
                                         </div>
                                     </div>
                                 </el-tab-pane>
-                                <el-tab-pane label="基本信息2" v-if="!isShow">
+                                <el-tab-pane label="基本信息" v-if="!isShow">
                                     <div class="inform-div" style="min-height:150px">
-                                        <div class="left-inform">
+                                        <div class="left-inform" style="width: 250px">
                                             <div>
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">管辖单位：</dt>
@@ -117,9 +117,10 @@
                                                 </dl>
                                             </div>         
                                         </div>
+                                        <div class="right-inform" style="width: 250px"></div>
                                     </div>
                                 </el-tab-pane>
-                                <el-tab-pane label="人员信息1" v-if="isShow">
+                                <el-tab-pane label="人员信息" v-if="isShow">
                                     <div class="inform-div" style="min-height:150px">
                                         <div class="left-inform" style="width: 250px">
                                             <div>
@@ -175,9 +176,9 @@
                                         </div>
                                     </div>
                                 </el-tab-pane>
-                                <el-tab-pane label="人员信息2" v-if="!isShow">
+                                <el-tab-pane label="人员信息" v-if="!isShow">
                                     <div class="inform-div" style="min-height:150px">
-                                        <div class="left-inform">
+                                        <div class="left-inform" style="width: 250px">
                                             <div>
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">消防队员总人数：</dt>
@@ -203,6 +204,7 @@
                                                 </dl>
                                             </div>          
                                         </div>
+                                        <div class="right-inform" style="width: 250px"></div>
                                     </div>
                                 </el-tab-pane>
                             </el-tabs>

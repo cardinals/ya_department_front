@@ -665,13 +665,13 @@ font-family:"微软雅黑";
 }
 
 .frame_left{
-  float:left;width:30%;height: 490px;border: 1px solid #bfcbd9;background: #eff0f1;
- 
+  float:left;width:30%;height: 490px;border: 5px solid #C5C5C5;background: #F5F5F5;
+  box-shadow: 2px 4px 6px #c0c0c0; 
 }
 
 .frame_right{
-  float:left;margin-left:0.3%;width: 69.7%;height: 490px; border:1px solid #bfcbd9;background: #eff0f1;
-  overflow-x:hidden;
+  float:left;margin-left:0.3%;width: 69.7%;height: 490px; border:5px solid #C5C5C5;background: #F5F5F5;
+  overflow-x:hidden; box-shadow: 2px 4px 6px #c0c0c0;
 }
 
 .src_name{
@@ -681,6 +681,7 @@ font-family:"微软雅黑";
   color:#333;
 }
 .src_slt{
+  margin-top: 30px;
   overflow-x:hidden;
-  height:450px;
+  height:360px;
 }

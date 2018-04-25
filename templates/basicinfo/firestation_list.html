@@ -58,15 +58,15 @@
 									<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
 									<el-table-column prop="dzmc" label="队站名称" show-overflow-tooltip min-width="25%" align="center">
 										<template slot-scope="scope">
-											<a @click="planDetails(scope.row)">{{scope.row.dzmc}}</a>
+											<a @click="details(scope.row)">{{scope.row.dzmc||"无"}}</a>
 										</template>
 									</el-table-column>
-									<el-table-column prop="dzbm" label="队站编码" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-									<el-table-column prop="dzdz" label="地址" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
-									<el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="15%" align="center"></el-table-column>
-                                    <el-table-column prop="lxdh" label="联系电话" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                                    <el-table-column prop="sxdsl" label="所辖队数量" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                                    <el-table-column prop="sfdljj" label="是否独立接警" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+									<el-table-column prop="dzbm" label="队站编码" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+									<el-table-column prop="dzdz" label="地址" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+									<el-table-column prop="lxr" label="联系人" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+                                    <el-table-column prop="lxdh" label="联系电话" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+                                    <el-table-column prop="sxdsl" label="所辖队数量" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+                                    <el-table-column prop="sfdljj" label="是否独立接警" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat2"></el-table-column>
                                 </el-table>
 		
 								<!--列表底部工具条和分页符-->
@@ -79,7 +79,7 @@
 								</el-row>
                             </div>
                             <!--详情界面-->
-                       <el-dialog title="消防队站详情页面" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">                  
+                       <el-dialog title="消防队站详情页面" :visible.sync="detailVisible" @close="closeDialog()" :close-on-click-modal="false">                  
                             <div id="detailDialog"></div>
                         </el-dialog>
 					</div>
