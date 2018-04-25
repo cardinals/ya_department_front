@@ -12,59 +12,29 @@ new Vue({
             },
             tableData: [],
             dzlxData:[],
-            
             props: {
                 value: 'codeValue',
                 label: 'codeName',
                 children: 'children'
             },
-            defaultKeys: [],
-            //树结构配置
-            treeDefaultProps: {
-                children: 'children',
-                label: 'formationinfo'
-            },
             //资源列表是否显示
-            planDetailVisible: false,
+            detailVisible: false,
             //表高度变量
             tableheight: 443,
-            //显示加载中样
+            //显示加载中样式
             loading: false,
-            //多选值
-            multipleSelection: [],
             //当前页
             currentPage: 1,
             //分页大小
             pageSize: 10,
             //总记录数
             total: 0,
-            //预案详情页
-            detailData: [],
-            //详情页日期
-            detailYMD:"",
             //序号
             indexData: 0,
-            //删除的弹出框
-            deleteVisible: false,
-            //新建页面是否显示
-            addFormVisible: false,
-            addLoading: false,
-            addFormRules: {
-            },
-           
             //选中的值显示
             sels: [],
             //选中的序号
             selectIndex: -1,
-            //编辑界面是否显示
-            editFormVisible: false,
-            editLoading: false,
-            editFormRules: {
-            },
-            defaultProps:{
-                value:'codeValue',
-                label:'codeName'
-            }
         }
     },
     created:function(){
@@ -115,11 +85,26 @@ new Vue({
         },
         //数据为空时显示‘无’
         dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
+            var rowData = row[column.property];
+            if (rowData == null || rowData == "") {
                 return '无';
             } else {
-                return rowDate;
+                return rowData;
+            }
+        },
+        //是否独立接警列格式化（是大队、支队的属性，其他队站类型这个字段什么都不显示）
+        dataFormat2: function(row, column){
+            var rowData = row[column.property];
+            var dzlx = row.dzlx;
+            dzlx = dzlx.substr(0,2);
+            if(dzlx =="05" || dzlx =="03"){
+                if (rowData == null || rowData == "") {
+                    return '无';
+                } else {
+                    return rowData;
+                }
+            }else{
+                return '-';
             }
         },
         //表格勾选事件
@@ -154,10 +139,9 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //打开预案详情页
-        planDetails: function (val) {
-            var _self = this;
-            _self.planDetailVisible = true;
+        //打开详情页
+        details: function (val) {
+            this.detailVisible = true;
             var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.dzid +"&dzlx=" +val.dzlx;
             history.pushState(null, null, shortURL)
             //异步加载详情页
@@ -174,7 +158,7 @@ new Vue({
         },
         //关闭详情页
         closeDialog: function (val) {
-            this.planDetailVisible = false;        
+            this.detailVisible = false;        
         }
     }
 })

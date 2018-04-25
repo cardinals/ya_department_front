@@ -14,8 +14,9 @@ new Vue({
         }
     },
     created: function () {
-        //取得选中行pkid
+        //取得选中行id
         this.id = this.GetQueryString("id");
+        //取得选中行的队站类型
         this.dzlx = this.GetQueryString("dzlx");
         //如果是【其他消防队站】则显示不同tab页
         var str = this.dzlx.substr(0,2);
@@ -40,7 +41,6 @@ new Vue({
        
         //根据dzid查询队站详情
         xfdzDetails: function (id) {
-            debugger;
             axios.get('/dpapi/xfdz/' + id).then(function (res) {
                 this.detailData = res.data.result;
             }.bind(this), function (error) {
@@ -48,11 +48,5 @@ new Vue({
             })
 
         },
-        
-       
-
-        
-        
-
     }
 })
