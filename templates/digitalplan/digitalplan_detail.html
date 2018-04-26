@@ -1,106 +1,216 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <script src="../../static/js/vue.js"></script>
-    <script src="../../static/js/elementUI.js"></script>
-    <script src="../../static/js/digitalplan/digitalplan_detail.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan_detail.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/planobject/importantunits_detail.css">
+    <title>预案管理</title>
 </head>
 
 <body class="fw f14 main-index-body">
-    <!--详情界面-->
-    <div id="detailDisplay">
-        <div class="nameBox">
-            <div id="basic-Inform-Picture">
-                <img src="../../static/images/danwei4.jpg">
-                <br>
-                <el-button type="primary" @click="openPlan">预案在线预览</el-button>
-                <br>
-                <el-button type="primary" @click="downloadPlan">&nbsp;&nbsp;&nbsp;&nbsp;预案下载&nbsp;&nbsp;&nbsp;</el-button>
-            </div>
-            <div class="dib">
-                <div>
-                    <h3 class="dib inform-h3">{{detailData.yamc||"无"}}</h3>
-                    <span class="companyStatus dib">预案名称</span>
-                </div>
-                <div>
-                    <h3 class="dib yadxtitle">{{detailData.dxmc||"无"}}</h3>
-                    <span class="companyStatus dib">预案对象</span>
-                </div>
-            </div>
-            <template>
-                <div class="inform-div">
-                    <div class="leftDetail">
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">预案类型：</dt>
+    <div id="header_box"></div>
+    <div class="left-sidebar">
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <div id="menu-box">
+            <big-tree default-active="31"></big-tree>
+        </div>
+    </div>
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <div id="lib :: main_container_header('预案管理','预案管理')"></div>
+                <div id="tableView">
+                    <div class="nameBox">
+                        <div id="basic-Inform-Picture">
+                            <img src="../../static/images/danwei.jpg">
+                        </div>
+                        <div class="dib" id="basic-Inform-Title">
+                            <div>
+                                <h3 class="dib inform-h3">{{detailData.yamc||"无"}}</h3>
+                                <span class="companyStatus dib" title="预案级别">{{detailData.yajb||"无"}}</span>
+                            </div>
+                            <dl>
+                                <img src="../../static/images/location.png">
+                                <dt class="dib inform-small-title">预案对象</dt>
+                                <dd class="dtdlStyle">{{detailData.dxmc||"无"}}</dd>
+                                <br>
+                                <img src="../../static/images/date.png">
+                                <dt class="dib inform-small-title">预案类型：</dt>
                                 <dd class="dtdlStyle">{{detailData.yalxdm||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">是否跨区域：</dt>
+                                <br>
+                                <img src="../../static/images/phone.png">
+                                <dt class="dib inform-small-title">是否跨区域：</dt>
                                 <dd class="dtdlStyle">{{detailData.sfkqy||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">制作机构：</dt>
-                                <dd class="dtdlStyle">{{detailData.jgmc||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">制作人名称：</dt>
-                                <dd class="dtdlStyle">{{detailData.zzrmc||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">制作时间：</dt>
-                                <dd class="dtdlStyle">{{this.detail_zzsj||"无"}}</dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="leftDetail">
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">审核状态：</dt>
-                                <dd class="dtdlStyle">{{detailData.shzt||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">审核人：</dt>
-                                <dd class="dtdlStyle">{{detailData.shrmc||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">审核时间：</dt>
-                                <dd class="dtdlStyle">{{this.detail_shsj||"无"}}</dd>
-                            </dl>
-                        </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">备注：</dt>
+                                <br>
+                                <img src="../../static/images/postcode.png">
+                                <dt class="dib inform-small-title">备注：</dt>
                                 <dd class="dtdlStyle">{{detailData.bz||"无"}}</dd>
                             </dl>
                         </div>
+                        <div style="float: right">
+                            <el-button type="primary" icon="document" style="width:120px" @click="openPrinter">信息打印</el-button>
+                            <br>
+                            <el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button>
+                            <br>
+                            <el-button type="primary" icon="share" style="margin-top:5%;width:120px" @click="downloadPlan">预案下载</el-button>
+                        </div>
+                    </div>
+                    <div class="inform-content">
+                        <template>
+                            <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+                                <el-tab-pane label="基本信息" name="first">
+                                    <div class="inform-div">
+                                        <div class="left-inform">
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">制作机构：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.jgmc||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">制作人名称：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.zzrmc||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">制作时间：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.zzsj||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <!-- <dl class="inform-left">
+                                                    <dt class="dtdlStyle">单位性质：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.dwxz||"无"}}</dd>
+                                                </dl> -->
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">审核状态：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.shzt||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">审核人：</dt>
+                                                    <dd class="dtdlStyle">{{this.detail_shsj||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">审核时间：</dt>
+                                                    <dd class="dtdlStyle">{{detailData.shsj||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="灾情信息" name="second">
+                                    <!-- <div class="inform-div">
+                                        <div class="left-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">法人代表或主要负责人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.frdb||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">法人代表身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.frdbsfz||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">法人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.frdbdh||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle"></dt>
+                                                    <dd class="dtdlStyle"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全责任人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.aqzrr||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全责任人身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.aqzrrsfz||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全责任人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.aqzrrdh||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                        <div class="right-inform">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全管理人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.aqglr||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全管理人身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.aqglrsfz||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">消防安全管理人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.aqglrdh||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle"></dt>
+                                                    <dd class="dtdlStyle"></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">专兼职消防管理人：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zjzxfglr||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">专兼职消防管理人身份证号码：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zjzxfglrsfz||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">专兼职消防管理人电话：</dt>
+                                                    <dd class="dtdlStyle">{{rowdata.zjzxfglrdh||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </el-tab-pane>
+                            </el-tabs>
+                        </template>
+
                     </div>
                 </div>
-            </template>
+            </div>
+
+            <!-- main-container -->
         </div>
-        <!--<el-upload class="upload-demo" style="margin-top: 15px;" ref="upload" action="http://localhost/dpapi/danger/insertImage" :data="upLoadData" :on-preview="handlePreview"
-                    :on-remove="handleRemove" multiple :limit="3" :on-exceed="handleExceed" :file-list="fileList"
-                    :auto-upload="false">
-                    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                    <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                </el-upload> -->
-
     </div>
-
 </body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/digitalplan/digitalplan_detail.js"></script>
 
 </html>
