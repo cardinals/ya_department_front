@@ -21,10 +21,10 @@
 <body class="fw f14 main-index-body">
 	<div id="header_box"></div>
 	<div class="left-sidebar">
-			<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-			<div id="menu-box">
-					<big-tree default-active="52"></big-tree>
-			</div>
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="13"></big-tree>
+		</div>
 	</div>
 
 	  <div id="app">
@@ -36,12 +36,12 @@
 					<!-- type="primary" icon="search" size="small" @click="searchClick" -->
 						<div><h5 class="src_name">组织机构树</h5>
 							<div style="height:1px;padding: 5px;">
-								<el-input placeholder="输入关键字进行过滤" v-model="filterText">
+								<el-input placeholder="查询" v-model="filterText">
 								</el-input>
 							</div> 
 						</div>
-							<div scroll="no" class="src_slt">
-								<el-tree
+						<div scroll="no" class="src_slt">
+							<el-tree
 									class="filter-tree"
 									:data="tableData"
 									:props="defaultProps"
@@ -54,9 +54,9 @@
 											font-weight:100px;
 											border:none;
 											"
-									>
-								</el-tree>
-							</div>
+								>
+							</el-tree>
+						</div>
 							
 				</div>
 				<div class="frame_right" scroll="no">
@@ -67,7 +67,6 @@
 											<dt class="dtdlStyle">机构名称：</dt>
 											<!-- <dd class="dtdlStyle">{{detailData.jgmc||'无'}}</dd> -->
 											<dd class="dtdlStyle">{{detailData.jgmc||"无"}}</dd>
-
 										</dl>
 									</div> 
 									<div class="inform-margin">
@@ -140,6 +139,5 @@
 </body>
 <script src="../../static/js/lib.js"></script>
 <script src="../../static/js/menu.js"></script>
-<script src="../../static/js/digitalplan/organization_list.js"></script>
-
+<script src="../../static/js/system/organization_list.js"></script>
 </html>

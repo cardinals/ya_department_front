@@ -1,18 +1,20 @@
 new Vue({
-    el: "#detailDisplay",
+    el: "#app",
     data: function () {
         return {
+            activeName: "first",
             //页面获取的pkid
             pkid: "",
             //详情Data
             detailData: {},
-            //详情页日期
-            detail_zzsj: "",
-            detail_shsj: "",
+            // //详情页日期
+            // detail_zzsj: "",
+            // detail_shsj: "",
             //预案类型Data
             YALX_data: [],
             //审核状态Data
-            SHZT_data: [],            
+            SHZT_data: [],
+            loading: false,
             //测试Data
             detailTestData: {
                 pkid: "67833B5FB1232169E053B077770AE86",
@@ -40,16 +42,36 @@ new Vue({
         }
     },
     created: function () {
+        this.loading = true;
+        debugger
+        var url = location.search;
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            var ID = str.substring(3);
+            this.pkid = ID;
+        }
         this.YALX();//预案类型
         // this.SHZT();//审核状态
-        history.back();
+        // history.back();
     },
-    mounted: function () {
-        this.pkid = this.GetQueryString("pkid");//取得选中行pkid
-        // this.planDetails(this.pkid);
-    },
+    // mounted: function () {
+    //     // this.pkid = this.GetQueryString("pkid");//取得选中行pkid
+    //     // this.planDetails(this.pkid);
+    //     this.loading = true;
+    //     debugger
+    //     var url = location.search;
+    //     if (url.indexOf("?") != -1) {
+    //         var str = url.substr(1);
+    //         var ID = str.substring(3);
+    //         this.pkid = ID;
+    //     }
+    // },
 
     methods: {
+        //标签页
+        handleClick: function (e) {
+            console.log(e);
+        },
         //根据参数部分和参数名来获取参数值 
         GetQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -76,26 +98,25 @@ new Vue({
         },
         //预案详情
         planDetails: function (val) {
-            
             var _self = this;
+            this.loading = true;
             // if (val == "67833B5FB1232169E053B077770AE86") {
             //     this.detailData = this.detailTestData;
             // }
             // else {
             axios.get('/dpapi/digitalplanlist/doFindById/' + val).then(function (res) {
-                this.detailData = null;
                 this.detailData = res.data.result;
                 //制作时间格式化
                 if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
-                    this.detail_zzsj = '';
+                    this.detailData.zzsj = '';
                 } else {
-                    this.detail_zzsj = this.dateFormat(this.detailData.zzsj);
+                    this.detailData.zzsj = this.dateFormat(this.detailData.zzsj);
                 }
                 //审核时间格式化
                 if (this.detailData.shsj == null || this.detailData.shsj == "") {
-                    this.detail_shsj = '';
+                    this.detailData.shsj = '';
                 } else {
-                    this.detail_shsj = this.dateFormat(this.detailData.shsj);
+                    this.detailData.shsj = this.dateFormat(this.detailData.shsj);
                 }
                 //预案类型转码
                 for (var k = 0; k < this.YALX_data.length; k++) {
@@ -110,7 +131,7 @@ new Vue({
                     }
                 }
                 this.detailData.sfkqy = (this.detailData.sfkqy == 1 ? "是" : "否");
-                _self.planDetailVisible = true;
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -154,6 +175,17 @@ new Vue({
         },
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        //信息打印
+        openPrinter: function () {
+            // 1.设置要打印的区域 div的className
+            var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
+            // 2. 复制给body，并执行window.print打印功能
+            document.body.innerHTML = newstr
+            window.print()
+            // 重新加载页面，以刷新数据
+            window.location.reload();
+
         },
 
     }

@@ -8,6 +8,26 @@ new Vue({
             this.$refs.tree2.filter(val);
         }
     },
+
+    data: function () {
+        return {
+            filterText: '',
+            //搜索表单
+            searchForm: {
+                jgsearch: "",
+            },
+            //表数据
+            tableData: [],//Grid中数据
+            detailData:[],
+            //角色对应资源
+            resourceList: [],
+            defaultProps: {
+                children: 'children',
+                label: 'resourceinfo'
+            }
+        };
+    },
+
     created: function () {
         //取得选中行pkid
         this.pkid = this.GetQueryString("pkid");
@@ -22,36 +42,15 @@ new Vue({
         }.bind(this), function (error) {
             console.log(error)
         }),
-            this.total = this.tableData.length;
-
-
-        // axios.get('/dpapi/organization/doFindById/' + val).then(function (res) {
-        //     this.detailData = null;
-        //     this.detailData = res.data.result;
-
-
-        //     for (var k = 0; k < this.yalxdm.length; k++) {
-        //         if (this.yalxdm[k].codeValue == this.detailData.yalxdm) {
-        //             this.detailData.yalxdm = this.yalxdm[k].codeName;
-        //         }
-        //     }
-
-        //     this.detailData.sfkqy = (this.detailData.sfkqy == 1 ? "是" : "否");
-        //     _self.planDetailVisible = true;
-        // }.bind(this), function (error) {
-        //     console.log(error)
-        // })
-
-
+        this.total = this.tableData.length;
     },
 
     methods: {
         //过滤输入框
         filterNode(value, tableData) {
             if (!value) return true;
-            return tableData.label.indexOf(value) !== -1;
+            return tableData.resourceinfo.indexOf(value) !== -1;
         },
-
 
         //获取节点
         currentNodeChange: function (val) {
@@ -196,24 +195,6 @@ new Vue({
         handleNodeClick(data) {
             console.log(data);
         }
-    },
-    data: function () {
-        return {
-            filterText: '',
-            //搜索表单
-            searchForm: {
-                jgsearch: "",
-            },
-            //表数据
-            tableData: [],//Grid中数据
-            detailData:[],
-            //角色对应资源
-            resourceList: [],
-            defaultProps: {
-                children: 'children',
-                label: 'resourceinfo'
-            }
-        };
     }
 
 })

@@ -20,19 +20,19 @@ new Vue({
         }
     },
     mounted: function () {
-        // this.loading = true;
-        // if (url.indexOf("?") != -1) {
-        //     var url = location.href;
-        //     var tmp1 = url.split("?")[1];
-        //     this.ID = decodeURI(tmp1.split("=")[1]);
-        //     this.uuid = ID;
-        //     axios.get('/dpapi/otherobjects/' + this.uuid).then(function (res) {
-        //         this.rowdata = res.data.result;
-        //         this.loading = false;
-        //     }.bind(this), function (error) {
-        //         console.log(error)
-        //     })
-        // }
+        this.loading = true;
+        var url = location.href;
+        if (url.indexOf("?") != -1) {
+            var tmp1 = url.split("?")[1];
+            this.ID = decodeURI(tmp1.split("=")[1]);
+            this.uuid = this.ID;
+            axios.get('/dpapi/otherobjects/' + this.uuid).then(function (res) {
+                this.rowdata = res.data.result;
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        }
     },
 
     methods: {
