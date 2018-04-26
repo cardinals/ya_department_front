@@ -164,7 +164,6 @@
                                 </el-form>
                             </el-tab-pane>
                             <el-tab-pane name="second" label="参数信息">
-                                {{this.addParamForm}}
                                 <el-form class="paramForm" :model="addParamForm" :rules="addFormRules" ref="addParamForm">
                                     <el-form-item
                                         v-for="(domain, index) in addParamForm.domains"
@@ -176,6 +175,7 @@
                                     >
                                         <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.csmc" style="width: 100px"></el-input>
                                         <label class="el-form-item__label" style="float:none !important;display: none">参数类型</label><el-input v-model="domain.value" style="width: 50px;display: none"></el-input>
+                                        <label class="el-form-item__label" style="float:none !important;display: none">顺序号</label><el-input v-model="index" style="width: 50px;display: none"></el-input>
                                         <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 100px"></el-input>
                                         <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 100px"></el-input>
                                         <el-button @click.prevent="removeAddDomain(domain)">删除</el-button>
@@ -278,25 +278,25 @@
                     </el-dialog>
                     <!--计算界面-->
 					<el-dialog title="火场计算" :visible.sync="calculateVisible" @close="closeDialog(calculateForm)" :close-on-click-modal="false">
-                        <el-form :model="calculateForm" label-width="80px" :rules="calculateFormRules" ref="calculateForm">
+                        <el-form :model="calculateForm" label-width="107px" :rules="calculateFormRules" ref="calculateForm">
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="公式名称：" prop="gsmc">
-                                        <label>{{calculateForm.gsmc}}</label>
+                                    <el-form-item label="公式名称" prop="gsmc">
+                                        <span>{{calculateForm.gsmc}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="公式说明：" prop="gssm">
-                                        <label>{{calculateForm.gssm}}</label>
+                                    <el-form-item label="公式说明" prop="gssm">
+                                        <span>{{calculateForm.gssm}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="计算公式：" prop="jsgs">
-                                        <label>{{calculateForm.jsgs}}</label>
+                                    <el-form-item label="计算公式" prop="jsgs">
+                                        <span>{{calculateForm.jsgs}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -304,7 +304,7 @@
                                 <el-col>
                                     <el-form-item
                                     v-for="(domain, index) in calculateForm.domains"
-                                    :label="domain.csmc"+"："
+                                    :label="domain.csmc"
                                     :key="domain.key"
                                     :prop="'domains.' + index + '.csmc'"
                                     :rules="{
@@ -312,14 +312,15 @@
                                     }"
                                     >
                                         <el-input v-model="domain.mrz" auto-complete="off"></el-input>
-                                        <label>{{domain.jldwdm}}</label>
+                                        <span>{{domain.jldwdm}}</span>
                                     </el-form-item>   
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="计算结果：" prop="jsgs">
-                                        <label>{{calculateForm.jsjg}}</label>
+                                    <el-form-item label="计算结果" prop="jsgs">
+                                        <el-input v-model="calculateForm.jsjg" auto-complete="off"></el-input>
+                                        <span>{{calculateForm.gsdw}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>

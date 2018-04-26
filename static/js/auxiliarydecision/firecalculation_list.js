@@ -4,6 +4,7 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            addIndex:0,
             activeName:'first',
             visible: false,
             tableheight: 441,//表高度变量
@@ -79,7 +80,8 @@ new Vue({
                 domains: [{
                     csmc: '',
                     jldwdm:'',
-                    mrz:''
+                    mrz:'',
+                    sxh:0
                 }]
             },
             //选中的序号
@@ -103,6 +105,7 @@ new Vue({
             editParamForm: {
 
                 domains: [{
+                    uuid:'',
                     csmc: '',
                     jldwdm:'',
                     mrz:''
@@ -186,10 +189,12 @@ new Vue({
         },
         //新增页面增加参数表单
         addDomain() {
+            this.addIndex++;
             this.addParamForm.domains.push({
                 csmc: '',
                 jldwdm: '',
                 mrz: '',
+                sxh:this.addIndex,
                 key: Date.now()
             });
         },
@@ -292,12 +297,14 @@ new Vue({
                         gssm: this.addFormulaForm.gssm,
                         jsgs: this.addFormulaForm.jsgs,
                         jsgsdw: this.addFormulaForm.jsgsdw,
+                        sfqy: "1",
                         firecalculationparams:this.addParamForm.domains
                     }
                     axios.post('/dpapi/firecalculationlist/insertByVO', params).then(function (res) {
-                        var addData = res.data.result;
+                        var addData = this.addFormulaForm;
                         _self.tableData.unshift(addData);
                         _self.total = _self.tableData.length;
+                        this.addIndex = 0;
                     }.bind(this), function (error) {
                         console.log(error)
                     })
@@ -370,10 +377,18 @@ new Vue({
         editClick: function (val) {
             var _self = this;
             var uuid = val.uuid;
+            var editData = {};
+            //获取选择行userid
+            for (var k = 0; k < _self.tableData.length; k++) {
+                if (_self.tableData[k].uuid == uuid) {
+                    _self.selectIndex = k;
+                    editData = _self.tableData[k];
+                }
+            }
             axios.get('/dpapi/firecalculationlist/doFindById/' + uuid).then(function (res) {
                 this.editParamForm.domains = res.data.result;
-                console.log(this.editParamForm);
-                this.editFormulaForm = val;
+                console.log(this.editParamForm.domains);
+                this.editFormulaForm = editData;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -384,20 +399,22 @@ new Vue({
         editSubmit: function (val1,val2) {
 
             var params = {
-                uuid: val1.uuid,
-                gsmc: val1.gsmc,
-                gslb: val1.gslb,
-                gssm: val1.gssm,
-                jsgs: val1.jsgs,
-                jsgsdw: val1.jsgsdw,
-
+                uuid: this.editFormulaForm.uuid,
+                gsmc: this.editFormulaForm.gsmc,
+                gslb: this.editFormulaForm.gslb,
+                gssm: this.editFormulaForm.gssm,
+                jsgs: this.editFormulaForm.jsgs,
+                jsgsdw: this.editFormulaForm.jsgsdw,
+                sfqy: this.editFormulaForm.sfqy,
+                firecalculationparams:this.editParamForm.domains
             };
             axios.post('/dpapi/firecalculationlist/updateByVO', params).then(function (res) {
-                this.tableData[this.selectIndex].rolename = val.rolename;
-                this.tableData[this.selectIndex].roleinfo = val.roleinfo;
-                this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                this.tableData[this.selectIndex].alterTime = new Date();
-                this.tableData[this.selectIndex].resources = val.resource;
+                this.tableData[this.selectIndex].gsmc = this.editFormulaForm.gsmc;
+                this.tableData[this.selectIndex].gslb = this.editFormulaForm.gslb;
+                this.tableData[this.selectIndex].gssm = this.editFormulaForm.gssm;
+                this.tableData[this.selectIndex].jsgs = this.editFormulaForm.jsgs;
+                this.tableData[this.selectIndex].jsgsdw = this.editFormulaForm.jsgsdw;
+                this.tableData[this.selectIndex].sfqy = this.editFormulaForm.sfqy;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -412,7 +429,8 @@ new Vue({
             this.addFormulaForm.gssm = "";
             this.addFormulaForm.jsgs = "";
             this.addFormulaForm.jsgsdw = "";
-            this.addParamForm.domains = [{value1: '',value2:'',value3:''}]
+            this.addParamForm.domains = [{csmc: '',jldwdm:'',mrz:'',sxh:0}];
+            this.activeName = 'first';
         }
     },
 
