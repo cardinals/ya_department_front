@@ -29,131 +29,113 @@
 
 	  <div id="app">
 			<div class="main-box">
-					<div class="main-container">
-					<div id="lib :: main_container_header('组织机构','组织机构')"></div>
-					<div class="frame" >
-		  <div class="frame_left">
-			  <!-- type="primary" icon="search" size="small" @click="searchClick" -->
-				<div><h5 class="src_name">组织机构树</h5>
-					<div style="height:1px;padding: 5px;">
-						<el-input placeholder="输入关键字进行过滤" v-model="filterText">
-						</el-input>
-					</div> 
-				</div>
-					<div scroll="no" class="src_slt">
-						 <el-tree
-						    show-checkbox
-							class="filter-tree"
-							:data="tableData"
-							:props="defaultProps"
-							default-expand-all
-							:filter-node-method="filterNode"
-							ref="tree2"
-							style=" font-weight:bold;
-									width:100%;
-									font-weight:100px;
-									border:none;
-									"
-							>
-						  </el-tree>
-						<!-- <el-tree 
-									:data="tableData" 
-									node-key="resourceid"
-									:default-expanded-keys="['17']" 
-									:props="defaultProps" 
-									@node-click="handleNodeClick" 
+				<div class="main-container">
+				<div id="lib :: main_container_header('组织机构','组织机构')"></div>
+				<div class="frame" >
+				<div class="frame_left">
+					<!-- type="primary" icon="search" size="small" @click="searchClick" -->
+						<div><h5 class="src_name">组织机构树</h5>
+							<div style="height:1px;padding: 5px;">
+								<el-input placeholder="输入关键字进行过滤" v-model="filterText">
+								</el-input>
+							</div> 
+						</div>
+							<div scroll="no" class="src_slt">
+								<el-tree
+									class="filter-tree"
+									:data="tableData"
+									:props="defaultProps"
+									default-expand-all
+									:filter-node-method="filterNode"
+									ref="tree2"
+									@current-change="currentNodeChange"
 									style=" font-weight:bold;
-									width:100%;
-									font-weight:100px;
-									border:none;
-									"
-									:expand-on-click-node="false"
-						>
-							<span class="custom-tree-node" slot-scope="{ node, data }">
-								<span>{{ node.label }}</span>
-							</span>
-						</el-tree> -->
-						
-					</div>
-					<div class="ml200 mt5">
-						<el-button @click="getCheckedNodes">详情</el-button>
-					</div>
-		  </div>
-		  <div class="frame_right" scroll="no">
-				<h5 class="src_name">组织机构详情</h5>
+											width:100%;
+											font-weight:100px;
+											border:none;
+											"
+									>
+								</el-tree>
+							</div>
+							
+				</div>
+				<div class="frame_right" scroll="no">
+						<h5 class="src_name">组织机构详情</h5>
 								<el-from>
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">机构名称：</dt>
 											<!-- <dd class="dtdlStyle">{{detailData.jgmc||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.jgmc||"无"}}</dd>
+
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">机构简称：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.jgjc||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.jgjc||'无'}}</dd>
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">机构性质：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.jgxzdm||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.jgxzdm||'无'}}</dd>
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">机构地址：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.jgdz||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.jgdz||'无'}}</dd>
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">机构描述：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.jgms||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.jgms||'无'}}</dd>
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">行政区划：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.xzqh||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.xzqh||'无'}}</dd>
 										</dl>
 									</div> 
 								    <div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">联系人：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.lxr||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.lxr||'无'}}</dd>
 										</dl>
 									</div>
 								    <div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">联系电话：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.lxdh||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.lxdh||'无'}}</dd>
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">传真号码：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.czhm||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.czhm||'无'}}</dd>
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">辖区面积：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.xqmj||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.xqmj||'无'}}</dd>
 										</dl>
 									</div> 
 									<div class="inform-margin">
 										<dl class="inform-left">
 											<dt class="dtdlStyle">辖区范围：</dt>
-											<!-- <dd class="dtdlStyle">{{detailData.xqfw||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.xqfw||'无'}}</dd>
 										</dl>
 									</div>
 						       </el-from>
-			</div>
-				</div>
+					</div>
 			</div>
 		</div>
 	</div>
+</div>
 		
 </body>
 <script src="../../static/js/lib.js"></script>
