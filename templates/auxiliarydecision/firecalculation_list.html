@@ -29,13 +29,13 @@
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">公式类别</label>
-                                    <el-select v-model="searchForm.selected_GSLB" placeholder="公式类别" class="gslbSelect" clearable>
+                                    <el-select size="small" v-model="searchForm.selected_GSLB" placeholder="公式类别" class="gslbSelect" clearable>
                                         <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">是否启用</label>
-                                    <el-radio-group v-model="searchForm.SFQY" auto-complete="off">
+                                    <el-radio-group style="vertical-align:middle;" size="small" v-model="searchForm.SFQY" auto-complete="off">
                                         <el-radio class="radio" :label="'0'">否</el-radio>
                                         <el-radio class="radio" :label="'1'">是</el-radio>
                                     </el-radio-group>
@@ -80,7 +80,7 @@
                             <el-table-column prop="sfqy" show-overflow-tooltip label="启用/禁用" min-width="13%" align="center">
                                 <template slot-scope="scope"> 
                                     <el-switch
-                                    v-model="scope.row.sfqy =='1'?true:false"
+                                    v-model="scope.row.sfqy"
                                     active-text="启用"
                                     inactive-text="禁用">
                                     </el-switch>
@@ -201,7 +201,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式名称" prop="gsmc">
-                                                <el-input class="addEditFormInput" v-model="editFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
+                                                <el-input v-model="editFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -210,7 +210,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式类别">
-                                                <el-select v-model="editFormulaForm.gslb" placeholder="公式类别" class="addEditFormInput" clearable>
+                                                <el-select v-model="editFormulaForm.gslb" placeholder="公式类别" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
                                             </el-form-item>
@@ -221,7 +221,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式说明" prop="gssm">
-                                                <el-input class="addEditFormInput" v-model="editFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
+                                                <el-input v-model="editFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -230,7 +230,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式" prop="jsgs">
-                                                <el-input class="addEditFormInput" v-model="editFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
+                                                <el-input v-model="editFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -239,7 +239,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式单位" prop="jsgsdw">
-                                                <el-input class="addEditFormInput" v-model="editFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
+                                                <el-input v-model="editFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -318,9 +318,9 @@
                             </el-row>
                             <el-row>
                                 <el-col :span="20">
-                                    <el-form-item label="计算结果" prop="jsgs">
-                                        <el-input v-model="calculateForm.jsjg" auto-complete="off"></el-input>
-                                        <span>{{calculateForm.gsdw}}</span>
+                                    <el-form-item label="计算结果" prop="jsjg">
+                                        <el-input v-model="jsjg" auto-complete="off"></el-input>
+                                        <span>{{calculateForm.jsgsdw}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>

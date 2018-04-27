@@ -4,9 +4,14 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            //计算结果
+            jsjg:"",
+            //新增顺序号
             addIndex:0,
+            //编辑顺序号
+            editIndex:0,
+            //tab页位置
             activeName:'first',
-            visible: false,
             tableheight: 441,//表高度变量
             //角色下拉框
             allRoles: [],
@@ -166,6 +171,9 @@ new Vue({
 
             axios.post('/dpapi/firecalculationlist/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
+                for(var i = 0; i<this.tableData.length; i++){
+                    this.tableData[i].sfqy=(this.tableData[i].sfqy == "1"?true:false);
+                }
                 this.total = res.data.result.length;
                 _self.loading = false;
             }.bind(this), function (error) {
@@ -200,10 +208,12 @@ new Vue({
         },
         //修改页面增加参数表单
         editDomain() {
+            this.editIndex++;
             this.editParamForm.domains.push({
                 csmc: '',
                 jldwdm: '',
                 mrz: '',
+                sxh:this.editIndex,
                 key: Date.now()
             });
         },
@@ -230,6 +240,7 @@ new Vue({
                 this.calculateForm.gsmc = val.gsmc;
                 this.calculateForm.gssm = val.gssm;
                 this.calculateForm.jsgs = val.jsgs;
+                this.calculateForm.jsgsdw = val.jsgsdw;
                 this.calculateForm.domains = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
@@ -238,18 +249,32 @@ new Vue({
         },
         //火场计算
         calculate:function(val){
-            //this.calculateForm.jsjg = 
+            var params = {
+                gsmc: this.calculateForm.gsmc,
+                gssm: this.calculateForm.gssm,
+                jsgs: this.calculateForm.jsgs,
+                firecalculationparams:this.calculateForm.domains
+            }
+            axios.post('/dpapi/firecalculationlist/doCalculate', params).then(function (res) {
+                this.jsjg = res.data;
+                //alert(res.data);
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         resetDialog:function(val){
-            this.calculateForm.domains = [{csmc: '',jldwdm:'',mrz:''}];
-            this.calculateForm.jsjg = "";
+            for(var i = 0; i<this.calculateForm.domains.length; i++){
+                this.calculateForm.domains[i].mrz = '';
+            }
+            this.jsjg = "";
         },
         closeCalculate:function(val){
+            this.calculateVisible = false;
             this.calculateForm.domains = null;
             this.calculateForm.jsjg = "";
             this.calculateForm.gsmc = "";
             this.calculateForm.gssm = "";
-            this.calculateForm.jsgs = "";
+            this.jsgs = "";
         },
         //清空
         clearClick: function () {
@@ -279,6 +304,13 @@ new Vue({
         //新建：弹出Dialog
         addClick: function () {
             var _self = this;
+            this.addFormulaForm.gsmc = "";
+            this.addFormulaForm.gslb = "";
+            this.addFormulaForm.gssm = "";
+            this.addFormulaForm.jsgs = "";
+            this.addFormulaForm.jsgsdw = "";
+            this.addParamForm.domains = [{csmc: '',jldwdm:'',mrz:'',sxh:0}];
+            this.activeName = 'first';
             _self.addFormVisible = true;
         },
         //新建：提交
@@ -301,14 +333,21 @@ new Vue({
                         firecalculationparams:this.addParamForm.domains
                     }
                     axios.post('/dpapi/firecalculationlist/insertByVO', params).then(function (res) {
-                        var addData = this.addFormulaForm;
-                        _self.tableData.unshift(addData);
-                        _self.total = _self.tableData.length;
-                        this.addIndex = 0;
+                        if(res.data.msg=="算式内参数与输入参数个数不符!请重新输入。"){
+                            _self.$message({
+                                message: res.data.msg,
+                                type: "error"
+                            });
+                        }
+                        else{
+                            this.addIndex = 0;
+                        }
                     }.bind(this), function (error) {
                         console.log(error)
                     })
                     this.addFormVisible = false;
+                    this.searchClick();
+                    _self.total = _self.tableData.length;
                     _self.loadingData();//重新加载数据
                 }
             }.bind(this), function (error) {
@@ -377,17 +416,25 @@ new Vue({
         editClick: function (val) {
             var _self = this;
             var uuid = val.uuid;
-            var editData = {};
-            //获取选择行userid
-            for (var k = 0; k < _self.tableData.length; k++) {
-                if (_self.tableData[k].uuid == uuid) {
-                    _self.selectIndex = k;
-                    editData = _self.tableData[k];
-                }
-            }
+            var editData = {
+                uuid:"",
+                gsmc: "",
+                gssm: "",
+                jsgs: "",
+                jsgsdw: "",
+                gslb:"",
+                sfqy:""
+            };
             axios.get('/dpapi/firecalculationlist/doFindById/' + uuid).then(function (res) {
                 this.editParamForm.domains = res.data.result;
-                console.log(this.editParamForm.domains);
+                this.editIndex = this.editParamForm.domains.length-1;
+                editData.uuid = val.uuid;
+                editData.gsmc = val.gsmc;
+                editData.gssm = val.gssm;
+                editData.jsgs = val.jsgs;
+                editData.jsgsdw = val.jsgsdw;
+                editData.gslb = val.gslb;
+                editData.sfqy = (val.sfqy?"1":"0");
                 this.editFormulaForm = editData;
             }.bind(this), function (error) {
                 console.log(error)
@@ -397,7 +444,7 @@ new Vue({
 
         //修改：保存按钮
         editSubmit: function (val1,val2) {
-
+            var _self = this;
             var params = {
                 uuid: this.editFormulaForm.uuid,
                 gsmc: this.editFormulaForm.gsmc,
@@ -409,17 +456,22 @@ new Vue({
                 firecalculationparams:this.editParamForm.domains
             };
             axios.post('/dpapi/firecalculationlist/updateByVO', params).then(function (res) {
-                this.tableData[this.selectIndex].gsmc = this.editFormulaForm.gsmc;
-                this.tableData[this.selectIndex].gslb = this.editFormulaForm.gslb;
-                this.tableData[this.selectIndex].gssm = this.editFormulaForm.gssm;
-                this.tableData[this.selectIndex].jsgs = this.editFormulaForm.jsgs;
-                this.tableData[this.selectIndex].jsgsdw = this.editFormulaForm.jsgsdw;
-                this.tableData[this.selectIndex].sfqy = this.editFormulaForm.sfqy;
+                if(res.data.msg=="算式内参数与输入参数个数不符!请重新输入。"){
+                    _self.$message({
+                        message: res.data.msg,
+                        type: "error"
+                    });
+                }
+                else{
+                    this.searchClick();
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
             this.editFormVisible = false;
-            _self.loadingData();
+            this.editIndex = 0;
+            _self.total = _self.tableData.length;
+            _self.loadingData();//重新加载数据
         },
 
         closeDialog: function (val1,val2) {

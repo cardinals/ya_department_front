@@ -1,3 +1,6 @@
 .el-select{
     width: 100%;
 }
+.el-message{
+    z-index: 10001 !important;
+}
