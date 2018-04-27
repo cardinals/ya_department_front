@@ -80,6 +80,16 @@ treeMenuTemplate.push('</li>');
                 realUrl="http://localhost/templates/home.html"
             }
             // 2
+            else if(this.model.url=="/planobject/importantunits"){
+                realUrl="http://localhost/templates/planobject/importantunits_list.html"
+            }
+            else if(this.model.url=="/planobject/otherobjects"){
+                realUrl="http://localhost/templates/planobject/otherobjects_list.html"
+            }
+            else if(this.model.url=="/planobject/bwjwplan"){
+                realUrl="http://localhost/templates/planobject/bwjwplan_list.html"
+            }
+            // 3
             else if(this.model.url=="/digitalplan/digitalplan"){
                 realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
             }
@@ -91,13 +101,6 @@ treeMenuTemplate.push('</li>');
             }
             else if(this.model.url=="/digitalplan/advancedsearch"){
                 realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
-            }
-            // 3
-            else if(this.model.url=="/planobject/importantunits"){
-                realUrl="http://localhost/templates/planobject/importantunits_list.html"
-            }
-            else if(this.model.url=="/planobject/otherobjects"){
-                realUrl="http://localhost/templates/planobject/otherobjects_list.html"
             }
             // 4
             else if(this.model.url=="/basicinfo/firewater"){
