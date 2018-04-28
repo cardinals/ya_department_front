@@ -1,0 +1,40 @@
+.searchLabel {
+    width: 155px;
+    vertical-align: middle;
+    line-height: 8px;
+}
+.el-select-dropdown__item.selected {
+    color:#000;
+    background-color: #fff;
+}
+.el-select-dropdown__item.selected.hover {
+    background-color: #e4e8f1;
+}
+input[type=checkbox]{
+    margin: 0 4px 0 0;
+}
+.el-input__inner{
+    height: 30px;
+}
+.el-form--inline .el-form-item {
+    margin-right: 0;
+}
+.digitalList-right{
+    width:405px;
+}
+.detailDisplay{
+    display: inline-flex;
+}
+.imgWidth{
+    width: 150px;
+}
+.leftDetail{
+    width: 220px;
+}
+.el-form-item{
+    margin-bottom: 10px;
+}
+.cell{  
+    display: block;  
+    width: 100%;  
+} 
