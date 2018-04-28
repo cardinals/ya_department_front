@@ -356,12 +356,13 @@ new Vue({
                         }
                         else{
                             this.addIndex = 0;
+                            this.searchClick();
+                            this.addFormVisible = false;
                         }
                     }.bind(this), function (error) {
                         console.log(error)
                     })
-                    this.addFormVisible = false;
-                    this.searchClick();
+
                     _self.total = _self.tableData.length;
                     _self.loadingData();//重新加载数据
                 }
@@ -478,12 +479,12 @@ new Vue({
                     });
                 }
                 else{
-                    this.searchClick();
+                    this.editFormVisible = false;
                 }
             }.bind(this), function (error) {
                 console.log(error)
             })
-            this.editFormVisible = false;
+            this.searchClick();
             this.editIndex = 0;
             _self.total = _self.tableData.length;
             _self.loadingData();//重新加载数据
