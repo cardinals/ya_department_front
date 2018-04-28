@@ -274,7 +274,7 @@ new Vue({
             this.calculateForm.jsjg = "";
             this.calculateForm.gsmc = "";
             this.calculateForm.gssm = "";
-            this.jsgs = "";
+            this.jsjg = "";
         },
         //清空
         clearClick: function () {
