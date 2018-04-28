@@ -208,6 +208,11 @@ new Vue({
             }
         },
         //预案详情
+        planDetails(val) {
+            window.location.href = "digitalplan_detail.html?ID=" + val.uuid;
+            //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
+        },
+        /** 
         planDetails: function (val) {
             var _self = this;
             _self.planDetailVisible = true;
@@ -225,6 +230,7 @@ new Vue({
                 });
             })
         },
+        */
         //预案预览
         openPlan: function () {
             window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
