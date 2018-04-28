@@ -102,6 +102,9 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/digitalplan/advancedsearch"){
                 realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
             }
+            else if(this.model.url=="/digitalplan/digitalplan_approve"){
+                realUrl="http://localhost/templates/digitalplan/digitalplan_approve.html"
+            }
             // 4
             else if(this.model.url=="/basicinfo/firewater"){
                 realUrl="http://localhost/templates/basicinfo/firewater_list.html"
