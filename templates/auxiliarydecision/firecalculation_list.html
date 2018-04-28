@@ -158,26 +158,30 @@
                                 </el-form>
                             </el-tab-pane>
                             <el-tab-pane name="second" label="参数信息">
-                                <el-form class="paramForm" :model="addParamForm" :rules="addFormRules" ref="addParamForm">
-                                    <el-form-item
-                                        v-for="(domain, index) in addParamForm.domains"
-                                        :key="domain.key"
-                                        :prop="['domains.' + index + '.csmc','domains.' + index + '.jldw','domains.' + index + '.mrz']"
-                                        :rules="{
-                                        required: true, message: '域名不能为空', trigger: 'blur'
-                                        }"
-                                    >
-                                        <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.csmc" style="width: 99px"></el-input>
-                                        <label class="el-form-item__label" style="float:none !important;display: none">参数类型</label><el-input v-model="domain.value" style="width: 50px;display: none"></el-input>
-                                        <label class="el-form-item__label" style="float:none !important;display: none">顺序号</label><el-input v-model="index" style="width: 50px;display: none"></el-input>
-                                        <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 99px"></el-input>
-                                        <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 99px"></el-input>
-                                        <el-button type="danger" icon="delete" @click.prevent="removeAddDomain(domain)" class="is-circle"></el-button>
-                                    </el-form-item>
-                                    <el-form-item>
-                                        <el-button type="success" @click="addDomain">新增参数</el-button>
-                                    </el-form-item>
-                                </el-form>
+                                <el-table class="tableStyle" border id="table" :data="addParamForm.domains" @selection-change="selectionChange">
+                                        <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+                                        <el-table-column prop="csmc" show-overflow-tooltip label="参数名称" min-width="12%" align="center">
+                                            <template slot-scope="scope">  
+                                                <el-input size="small" v-model="scope.row.csmc" ></el-input>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column prop="jldwdm" show-overflow-tooltip label="计量单位" min-width="10%" align="center">
+                                            <template slot-scope="scope">  
+                                                <el-input size="small" v-model="scope.row.jldwdm" ></el-input>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column prop="mrz" show-overflow-tooltip label="默认值" min-width="12%" align="center">
+                                            <template slot-scope="scope">  
+                                                <el-input size="small" v-model="scope.row.mrz" ></el-input>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column show-overflow-tooltip label="操作" min-width="11%" align="center">
+                                            <template slot-scope="scope">
+                                                <el-button type="danger" size="mini" icon="delete" @click.prevent="removeAddDomain(scope.row)" class="is-circle"></el-button>
+                                            </template>
+                                        </el-table-column>
+                                    </el-table>
+                                    <el-button style="margin-top: 15px" type="success" @click="addDomain">新增参数</el-button>
                             </el-tab-pane>
                         </el-tabs>
                         <div slot="footer" class="dialog-footer">
@@ -241,25 +245,30 @@
                                 </el-form>
                             </el-tab-pane>
                             <el-tab-pane name="second" label="参数信息">
-                                <el-form class="paramForm" :model="editParamForm" :rules="editFormRules" ref="editParamForm">
-                                    <el-form-item
-                                        v-for="(domain, index) in editParamForm.domains"
-                                        :key="domain.key"
-                                        :prop="['domains.' + index + '.csmc','domains.' + index + '.jldw','domains.' + index + '.mrz']"
-                                        :rules="{
-                                        required: true, message: '域名不能为空', trigger: 'blur'
-                                        }"
-                                    >
-                                    <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.csmc" style="width: 99px"></el-input>
-                                    <label class="el-form-item__label" style="float:none !important;display: none">参数类型</label><el-input v-model="domain.value" style="width: 50px;display: none"></el-input>
-                                    <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 99px"></el-input>
-                                    <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 99px"></el-input>
-                                    <el-button type="danger" icon="delete" @click.prevent="removeEditDomain(domain)" class="is-circle"></el-button>
-                                    </el-form-item>
-                                    <el-form-item>
-                                        <el-button type="success" @click="editDomain">新增参数</el-button>
-                                    </el-form-item>
-                                </el-form>
+                                <el-table class="tableStyle" border id="table" :data="editParamForm.domains" @selection-change="selectionChange">
+                                    <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+                                    <el-table-column prop="csmc" show-overflow-tooltip label="参数名称" min-width="12%" align="center">
+                                        <template slot-scope="scope">  
+                                            <el-input size="small" v-model="scope.row.csmc" ></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="jldwdm" show-overflow-tooltip label="计量单位" min-width="10%" align="center">
+                                        <template slot-scope="scope">  
+                                            <el-input size="small" v-model="scope.row.jldwdm" ></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column prop="mrz" show-overflow-tooltip label="默认值" min-width="12%" align="center">
+                                        <template slot-scope="scope">  
+                                            <el-input size="small" v-model="scope.row.mrz" ></el-input>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column show-overflow-tooltip label="操作" min-width="11%" align="center">
+                                        <template slot-scope="scope">
+                                            <el-button type="danger" size="mini" icon="delete" @click.prevent="removeEditDomain(scope.row)" class="is-circle"></el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                                <el-button style="margin-top: 15px" type="success" @click="editDomain">新增参数</el-button>
                             </el-tab-pane>
                         </el-tabs>
                         <div slot="footer" class="dialog-footer">
