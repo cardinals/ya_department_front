@@ -35,10 +35,9 @@
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">是否启用</label>
-                                    <el-radio-group style="vertical-align:middle;" size="small" v-model="searchForm.SFQY" auto-complete="off">
-                                        <el-radio class="radio" :label="'0'">否</el-radio>
-                                        <el-radio class="radio" :label="'1'">是</el-radio>
-                                    </el-radio-group>
+                                    <el-select size="small" v-model="searchForm.SFQY" placeholder="是否启用" class="gslbSelect" clearable>
+                                        <el-option v-for="item in sfqyData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+                                    </el-select>
                                 </el-col>
                             </el-row>
                             <div>
@@ -68,16 +67,16 @@
 
                             <el-table-column type="selection" min-width="5%"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                            <el-table-column prop="gsmc" show-overflow-tooltip label="公式名称" min-width="12%" align="center" :formatter="dataFormat">
+                            <el-table-column prop="gsmc" show-overflow-tooltip label="公式名称" min-width="28%" align="center" :formatter="dataFormat">
                                 <template slot-scope="scope">
                                     <a @click="calculateDetails(scope.row)">{{scope.row.gsmc}}</a>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="lbmc" show-overflow-tooltip label="公式类别" min-width="15%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="gssm" show-overflow-tooltip label="公式说明" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="jsgs" show-overflow-tooltip label="计算公式" min-width="13%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="jsgsdw" show-overflow-tooltip label="公式单位" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="sfqy" show-overflow-tooltip label="启用/禁用" min-width="13%" align="center">
+                            <el-table-column prop="lbmc" show-overflow-tooltip label="类别" min-width="10%" align="center":formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="gssm" show-overflow-tooltip label="说明" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="jsgs" show-overflow-tooltip label="内容" min-width="12%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="jsgsdw" show-overflow-tooltip label="单位" min-width="9%" align="center":formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="sfqy" show-overflow-tooltip label="启用/禁用" min-width="11%" align="center">
                                 <template slot-scope="scope"> 
                                     <el-switch
                                     v-model="scope.row.sfqy"
@@ -86,7 +85,7 @@
                                     </el-switch>
                                 </template>
                             </el-table-column>
-                            <el-table-column show-overflow-tooltip label="操作" min-width="13%" align="center">
+                            <el-table-column show-overflow-tooltip label="操作" min-width="11%" align="center">
                                 <template slot-scope="scope">
                                     <el-button type="text" @click="editClick(scope.row)">修改</el-button>
                                 </template>
@@ -118,8 +117,6 @@
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                     </el-row>
-                                        <!--<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                        <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">-->
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
@@ -158,9 +155,6 @@
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                     </el-row>
-                                        <!--</el-col>
-                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-                                    </el-row>-->
                                 </el-form>
                             </el-tab-pane>
                             <el-tab-pane name="second" label="参数信息">
@@ -173,15 +167,15 @@
                                         required: true, message: '域名不能为空', trigger: 'blur'
                                         }"
                                     >
-                                        <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.csmc" style="width: 100px"></el-input>
+                                        <label class="el-form-item__label" style="float:none !important;">参数名称</label><el-input v-model="domain.csmc" style="width: 99px"></el-input>
                                         <label class="el-form-item__label" style="float:none !important;display: none">参数类型</label><el-input v-model="domain.value" style="width: 50px;display: none"></el-input>
                                         <label class="el-form-item__label" style="float:none !important;display: none">顺序号</label><el-input v-model="index" style="width: 50px;display: none"></el-input>
-                                        <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 100px"></el-input>
-                                        <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 100px"></el-input>
-                                        <el-button @click.prevent="removeAddDomain(domain)">删除</el-button>
+                                        <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 99px"></el-input>
+                                        <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 99px"></el-input>
+                                        <el-button type="danger" icon="delete" @click.prevent="removeAddDomain(domain)" class="is-circle"></el-button>
                                     </el-form-item>
                                     <el-form-item>
-                                        <el-button @click="addDomain">新增参数</el-button>
+                                        <el-button type="success" @click="addDomain">新增参数</el-button>
                                     </el-form-item>
                                 </el-form>
                             </el-tab-pane>
@@ -263,10 +257,10 @@
                                     <label class="el-form-item__label" style="float:none !important;display: none">参数类型</label><el-input v-model="domain.value" style="width: 50px;display: none"></el-input>
                                     <label class="el-form-item__label" style="float:none !important;">计量单位</label><el-input v-model="domain.jldwdm" style="width: 99px"></el-input>
                                     <label class="el-form-item__label" style="float:none !important;">默认值</label><el-input v-model="domain.mrz" style="width: 99px"></el-input>
-                                    <el-button @click.prevent="removeEditDomain(domain)">删除</el-button>
+                                    <el-button type="danger" icon="delete" @click.prevent="removeEditDomain(domain)" class="is-circle"></el-button>
                                     </el-form-item>
                                     <el-form-item>
-                                        <el-button @click="editDomain">新增参数</el-button>
+                                        <el-button type="success" @click="editDomain">新增参数</el-button>
                                     </el-form-item>
                                 </el-form>
                             </el-tab-pane>
@@ -281,21 +275,21 @@
                         <el-form :model="calculateForm" label-width="107px" :rules="calculateFormRules" ref="calculateForm">
                             <el-row>
                                 <el-col :span="24">
-                                    <el-form-item label="公式名称" prop="gsmc">
+                                    <el-form-item class="calculateForm" label="公式名称" prop="gsmc">
                                         <span>{{calculateForm.gsmc}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
-                                    <el-form-item label="公式说明" prop="gssm">
+                                    <el-form-item class="calculateForm" label="公式说明" prop="gssm">
                                         <span>{{calculateForm.gssm}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
-                                    <el-form-item label="计算公式" prop="jsgs">
+                                    <el-form-item class="calculateForm" label="计算公式" prop="jsgs">
                                         <span>{{calculateForm.jsgs}}</span>
                                     </el-form-item>
                                 </el-col>
@@ -310,18 +304,19 @@
                                     :rules="{
                                         required: true, message: '域名不能为空', trigger: 'blur'
                                     }"
+                                    class="calculateForm"
                                     >
                                         <div style="display: inline-flex;">
-                                            <el-input v-model="domain.mrz" auto-complete="off"></el-input>
+                                            <el-input size="small" v-model="domain.mrz" auto-complete="off"></el-input>
                                             <span>&nbsp;&nbsp;{{domain.jldwdm}}</span>
                                         </div>    
                                     </el-form-item>   
                                 </el-col>
                             </el-row>
                             <el-row>
-                                <el-form-item label="计算结果" prop="jsjg">
+                                <el-form-item class="calculateForm" label="计算结果" prop="jsjg">
                                     <div style="display: inline-flex;">
-                                        <el-input v-model="jsjg" auto-complete="off"></el-input>
+                                        <el-input size="small" v-model="jsjg" auto-complete="off"></el-input>
                                         <span>&nbsp;&nbsp;{{calculateForm.jsgsdw}}</span>
                                     </div>
                                 </el-form-item>

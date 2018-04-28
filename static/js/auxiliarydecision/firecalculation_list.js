@@ -10,6 +10,21 @@ new Vue({
             addIndex:0,
             //编辑顺序号
             editIndex:0,
+            //是否启用下拉框
+            sfqyData: [
+                {
+                    codeName:"全部",
+                    codeValue:""
+                },
+                {
+                    codeName:"是",
+                    codeValue:"1"
+                },
+                {
+                    codeName:"否",
+                    codeValue:"0"
+                }
+            ],
             //tab页位置
             activeName:'first',
             tableheight: 441,//表高度变量
