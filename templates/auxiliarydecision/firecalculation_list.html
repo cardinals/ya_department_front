@@ -280,21 +280,21 @@
 					<el-dialog title="火场计算" :visible.sync="calculateVisible" @close="closeDialog(calculateForm)" :close-on-click-modal="false">
                         <el-form :model="calculateForm" label-width="107px" :rules="calculateFormRules" ref="calculateForm">
                             <el-row>
-                                <el-col :span="20">
+                                <el-col :span="24">
                                     <el-form-item label="公式名称" prop="gsmc">
                                         <span>{{calculateForm.gsmc}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
-                                <el-col :span="20">
+                                <el-col :span="24">
                                     <el-form-item label="公式说明" prop="gssm">
                                         <span>{{calculateForm.gssm}}</span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
-                                <el-col :span="20">
+                                <el-col :span="24">
                                     <el-form-item label="计算公式" prop="jsgs">
                                         <span>{{calculateForm.jsgs}}</span>
                                     </el-form-item>
@@ -311,18 +311,20 @@
                                         required: true, message: '域名不能为空', trigger: 'blur'
                                     }"
                                     >
-                                        <el-input v-model="domain.mrz" auto-complete="off"></el-input>
-                                        <span>{{domain.jldwdm}}</span>
+                                        <div style="display: inline-flex;">
+                                            <el-input v-model="domain.mrz" auto-complete="off"></el-input>
+                                            <span>&nbsp;&nbsp;{{domain.jldwdm}}</span>
+                                        </div>    
                                     </el-form-item>   
                                 </el-col>
                             </el-row>
                             <el-row>
-                                <el-col :span="20">
-                                    <el-form-item label="计算结果" prop="jsjg">
+                                <el-form-item label="计算结果" prop="jsjg">
+                                    <div style="display: inline-flex;">
                                         <el-input v-model="jsjg" auto-complete="off"></el-input>
-                                        <span>{{calculateForm.jsgsdw}}</span>
-                                    </el-form-item>
-                                </el-col>
+                                        <span>&nbsp;&nbsp;{{calculateForm.jsgsdw}}</span>
+                                    </div>
+                                </el-form-item>
                             </el-row>
                         </el-form>
                         <div slot="footer" class="dialog-footer">
