@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan_add.css">
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="header_box"></div>
+	<div class="left-sidebar">
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="21"></big-tree>
+		</div>
+	</div>
+	<div id="app">
+		<div class="main-box">
+			<div class="main-container" v-loading="loading" element-loading-text="加载中">
+				<div id="inforView">
+					<el-row>
+						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+							<el-row class="mb5">
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">预案对象</label>
+									<el-input size="small" v-model="addForm.dwmc" @focus="keyunitList" placeholder="预案对象"></el-input>
+								</el-col>
+								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">预案编号</label>
+									<el-input size="small" placeholder="保存后系统自动生成" disabled></el-input>
+								</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
+							</el-row>
+							<el-row class="mb5">
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">预案名称</label>
+									<el-input size="small" v-model="addForm.yamc" placeholder="预案名称"></el-input>
+								</el-col>
+								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">预案状态</label>
+									<el-select size="small" v-model="addForm.yazt" placeholder="预案状态" class="searchSelect" clearable disabled>
+										<el-option v-for="item in YAZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+									</el-select>
+								</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
+							</el-row>
+							<el-row class="mb5">
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">预案类型</label>
+									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalx" placeholder="预案类型" class="searchSelect"
+									 clearable change-on-select></el-cascader>
+								</el-col>
+								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">制作机构</label>
+									<el-cascader :props="defaultProps" size="small" v-model="addForm.zzjg" placeholder="制作机构" class="searchSelect" clearable
+									 change-on-select disabled></el-cascader>
+								</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
+							</el-row>
+							<el-row class="mb5">
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">预案级别</label>
+									<el-select size="small" v-model="addForm.yajb" placeholder="预案级别" class="searchSelect" clearable>
+										<el-option v-for="item in YAJB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+									</el-select>
+								</el-col>
+								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">制作人</label>
+									<el-input size="small" v-model="addForm.zzrmc" placeholder="制作人" disabled></el-input>
+								</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
+							</el-row>
+							<el-row class="mb5">
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">是否跨区域</label>
+									<el-select size="small" v-model="addForm.sfkqy" placeholder="是否跨区域" class="searchSelect" clearable>
+										<el-option v-for="item in SFKQY_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+									</el-select>
+								</el-col>
+								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+									<label class="el-form-item__label searchLabel">制作时间</label>
+									<el-input size="small" v-model="addForm.dwmc" placeholder="制作时间" disabled></el-input>
+								</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
+							</el-row>
+							<el-row class="mb5">
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+								<el-col :xs="17" :sm="17" :md="17" :lg="17" :xl="17" class="searchInline">
+									<label class="el-form-item__label searchLabel">备注</label>
+									<el-input size="small" v-model="addForm.bz" placeholder="备注"></el-input>
+								</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
+							</el-row>
+							<el-row>
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+								<el-col :xs="17" :sm="17" :md="17" :lg="17" :xl="17">
+									<el-upload class="upload-demo" ref="upload" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
+										<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+										<el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+										<div slot="tip" class="el-upload__tip"></div>
+									</el-upload>
+								</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
+							</el-row>
+						</el-form>
+					</el-row>
+				</div>
+				<div>
+					<el-row>
+						<el-form :inline="true" class="el-form demo-form-inline">
+							<el-row>
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">
+									<!-- <el-button class="btn_last" @click="last" :disabled="disabled_last">上一步</el-button> -->
+								</el-col>
+								<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">&nbsp;</el-col>
+								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">
+									<el-button class="btn_save" @click="save">保存</el-button>
+									<el-button class="btn_submit" @click="submit">提交</el-button>
+								</el-col>
+								<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">&nbsp;</el-col>
+								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">
+									<!-- <el-button class="btn_next" @click="next" :disabled="disabled_next">下一步</el-button> -->
+								</el-col>
+							</el-row>
+						</el-form>
+					</el-row>
+				</div>
+
+				<!--详情界面-->
+				<el-dialog title="选择重点单位" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
+					<div id="detailDialog"></div>
+				</el-dialog>
+			</div>
+			<!-- main-container -->
+		</div>
+	</div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/digitalplan/digitalplan_add.js"></script>
+
+</html>
