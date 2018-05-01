@@ -151,6 +151,10 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/auxiliarydecision/firecalculation"){
                 realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
             }
+            // 8
+            else if(this.model.url=="/building_zoning"){
+                realUrl="http://localhost/templates/buildingzoning/building_zoning_list.html"
+            }
             return realUrl;
         }
     },
