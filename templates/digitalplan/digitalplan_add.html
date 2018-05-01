@@ -11,7 +11,7 @@
 	<div class="left-sidebar">
 		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
 		<div id="menu-box">
-			<big-tree default-active="21"></big-tree>
+			<big-tree default-active="31"></big-tree>
 		</div>
 	</div>
 	<div id="app">
@@ -24,7 +24,7 @@
 								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">预案对象</label>
-									<el-input size="small" v-model="addForm.dwmc" @focus="keyunitList" placeholder="预案对象"></el-input>
+									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象"></el-input>
 								</el-col>
 								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
@@ -52,7 +52,7 @@
 								<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">预案类型</label>
-									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalx" placeholder="预案类型" class="searchSelect"
+									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalxdm" placeholder="预案类型" class="searchSelect"
 									 clearable change-on-select></el-cascader>
 								</el-col>
 								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
@@ -89,7 +89,7 @@
 								<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">制作时间</label>
-									<el-input size="small" v-model="addForm.dwmc" placeholder="制作时间" disabled></el-input>
+									<el-input size="small" v-model="addForm.zzsj" placeholder="制作时间" disabled></el-input>
 								</el-col>
 								<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">&nbsp;</el-col>
 							</el-row>

@@ -43,7 +43,6 @@ new Vue({
     },
     created: function () {
         this.loading = true;
-        debugger
         var url = location.search;
         if (url.indexOf("?") != -1) {
             var str = url.substr(1);

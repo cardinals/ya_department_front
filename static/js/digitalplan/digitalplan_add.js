@@ -14,29 +14,30 @@ new Vue({
                 yajb: "",//预案级别
                 yazt: "",//预案状态
                 sfkqy: "",//是否跨区域
-                zzrmc:"",
-                zzjg:"",
+                zzrmc: "",
+                zzjg: "",
+                zzsj: "",
                 bz: ""//备注
             },
-            //0新增，1修改
-            status: '0',
+            //0新增
+            status: '',
             loading: false,
             YALX_dataTree: [],
             YAJB_data: [],
-            YAZT_data:[],
+            YAZT_data: [],
             SFKQY_data: [
                 {
-                    codeName:"是",
-                    codeValue:"1"
+                    codeName: "是",
+                    codeValue: "1"
                 },
                 {
-                    codeName:"否",
-                    codeValue:"0"
+                    codeName: "否",
+                    codeValue: "0"
                 }
             ],
-            role_data:{},
-            tableData:[],
-            selectedZDDW:{},
+            role_data: {},
+            detailData: {},
+            selectedZDDW: {},
             planDetailVisible: false,
             //树结构配置
             defaultProps: {
@@ -54,13 +55,17 @@ new Vue({
         }
     },
     created: function () {
+
         this.YALX_tree();
-        
         this.YAJB();
         this.YAZT();
-        
+        var url = location.search;
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            this.status = str.substring(3);
+        }
     },
-    mounted:function(){
+    mounted: function () {
         this.searchClick();
     },
     methods: {
@@ -91,7 +96,7 @@ new Vue({
             })
         },
         //预案状态下拉框
-        YAZT:function(){
+        YAZT: function () {
             axios.get('/api/codelist/getCodetype/YAZT').then(function (res) {
                 this.YAZT_data = res.data.result;
             }.bind(this), function (error) {
@@ -102,14 +107,36 @@ new Vue({
         searchClick: function () {
             axios.post('/api/shiro').then(function (res) {
                 this.role_data = res.data;
-                this.addForm.zzrmc=this.role_data.realName;
+                this.addForm.zzrmc = this.role_data.realName;
                 // this.addForm.zzjg=this.role_data.zzjgid;
             }.bind(this), function (error) {
                 console.log(error);
             })
-           if(this.status==0){
+            if (this.status == 0) {
                 this.addForm.yazt = '01';
-           }
+            } else {
+                axios.get('/dpapi/digitalplanlist/doFindById/' + this.status).then(function (res) {
+                    // debugger
+                    this.detailData = res.data.result;
+                    this.addForm = this.detailData;
+                    //制作时间格式化
+                    if (this.addForm.zzsj == null || this.addForm.zzsj == "") {
+                        this.addForm.zzsj = '无';
+                    } else {
+                        this.addForm.zzsj = this.dateFormat(this.addForm.zzsj);
+                    }
+                    
+                    // if (this.addForm.yalxdm.endsWith("0000")) {
+                    //     this.addForm.yalxdm[0] = this.addForm.yalxdm;
+                    // } else {
+                    //     // this.addForm.yalxdm[0]=this.addForm.yalxdm;
+                    // }
+                    this.addForm.sfkqy = (this.addForm.sfkqy == 1 ? "是" : "否");
+                    this.loading = false;
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
         },
         //重点单位选择弹出页
         keyunitList: function (val) {
@@ -149,21 +176,19 @@ new Vue({
                 return [year, month, day].join('-')
             }
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
-        //保存点击事件
+        // endsWith:function (String) {
+        //     //判断当前字符串是否以str结束  
+        //     if (typeof String.prototype.endsWith != 'function') {
+        //         String.prototype.endsWith = function (str) {
+        //             return this.slice(-str.length) == str;
+        //         };
+        //     }
+        // },
         save: function () {
             var params = {
                 dxid: this.addForm.dwid,
                 yamc: this.addForm.yamc,
-                yalxdm: this.addForm.yalx[this.addForm.yalx.length - 1],
+                yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
                 yazt: this.addForm.yazt,
                 yajb: this.addForm.yajb,
                 sfkqy: this.addForm.sfkqy,
@@ -172,51 +197,15 @@ new Vue({
                 // zzrid: this.role_data.userid,
             };
             axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
-                debugger
                 alert("success");
                 // res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
-            
+
         },
         //提交点击事件
         submit: function () {
-        },
-        //保存点击事件
-        editSubmit: function (val) {
-            var _self = this;
-            this.tableData[this.selectIndex].permissionname = val.permissionname;
-            this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-            this.tableData[this.selectIndex].create_name = val.create_name;
-            this.tableData[this.selectIndex].create_time = val.create_time;
-            this.tableData[this.selectIndex].alter_name = val.alter_name;
-            this.tableData[this.selectIndex].alter_time = val.alter_time;
-            this.editFormVisible = false;
-            _self.loadingData();//重新加载数据
-            console.info(this.editForm);
-        },
-        //新建提交点击事件
-        addSubmit: function (val) {
-            var _self = this;
-            this.tableData.unshift({
-                permissionname: val.permissionname,
-                permissioninfo: val.permissioninfo,
-                create_name: val.create_name,
-                create_time: val.create_time,
-                alter_name: val.alter_name,
-                alter_time: val.alter_time
-            });
-            this.addFormVisible = false;
-            _self.total = _self.tableData.length;
-            _self.loadingData();//重新加载数据
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
-            console.info(this.addForm);
         },
         closeDialog: function (val) {
             this.planDetailVisible = false;
