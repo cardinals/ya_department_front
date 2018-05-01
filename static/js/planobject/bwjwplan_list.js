@@ -16,7 +16,9 @@ new Vue({
             },
             tableData: [],
             xfgxData:[],
+            allSsdzData:[],
             XFGX_data: [],
+           
             props: {
                 value: 'codeValue',
                 label: 'codeName',
@@ -91,7 +93,7 @@ new Vue({
         }
     },
     created: function () {
-
+        this.getAllSszdData();
          this.searchXFGX_data();
         //this.searchXZQY_data();
         this.searchClick();
@@ -103,6 +105,15 @@ new Vue({
         },
         handleChange(value) {
             console.log(value);
+        },
+         //所属队站下拉框数据
+         getAllSszdData: function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.allSsdzData = res.data.result;
+
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         //表格查询事件
         searchClick: function () {

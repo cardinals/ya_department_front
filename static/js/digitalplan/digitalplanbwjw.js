@@ -219,9 +219,13 @@ new Vue({
         },
         //预案类型级联
         YALXTree: function () {
-            axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
-                this.yalxdmDataTree = res.data.result;
-            }.bind(this), function (error) {
+            var params= {
+                codetype : "YALX",
+                list : [1,2,4,6,8]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
+                this.yalxdmDataTree=res.data.result;
+            }.bind(this),function(error){
                 console.log(error);
             })
         },
