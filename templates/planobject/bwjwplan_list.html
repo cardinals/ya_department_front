@@ -21,7 +21,7 @@
                 <div id="lib :: main_container_header('预案对象保卫警卫','预案对象保卫警卫')"></div>
                 <div id="tableView">
                     <el-row>
-                        	<el-form label-width="155px" :inline="true" class="el-form demo-form-inline">
+                        	   <el-form label-width="155px" :inline="true" class="el-form demo-form-inline">
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
@@ -44,9 +44,10 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                             <el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
                                             <label class="el-form-item__label searchLabel">消防管辖</label>
-                                            <el-input size="small" v-model="searchForm.xfgx" placeholder="消防管辖"></el-input>
+                                            <el-cascader :options="xfgxData" :props="props" size="small" v-model="searchForm.xfgx" placeholder="消防管辖" class="searchSelect"
+                                             clearable change-on-select></el-cascader>
                                             </el-col>
-                                            <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+                                        <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                     </el-row>
                                     <div>
                                         <el-form>

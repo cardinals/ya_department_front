@@ -17,6 +17,11 @@ new Vue({
             tableData: [],
             xfgxData:[],
             XFGX_data: [],
+            props: {
+                value: 'codeValue',
+                label: 'codeName',
+                children: 'children'
+            },
             selected_XFGX: [],
 
             XZQY_data: [],
@@ -112,11 +117,8 @@ new Vue({
             this.loading = true;
             var params = {
                 hdzt: this.searchForm.hdzt,
-                // begintime: this.searchForm.lrsj[0],
-                // endtime: this.searchForm.lrsj[1],
-                // xzqy: this.searchForm.xzqy,
                 cxsj: this.searchForm.cxsj,
-                hdzt: this.searchForm.hdzt,
+                zcbdw: this.searchForm.zcbdw,
                 xfgx: this.searchForm.xfgx
             };
             axios.post('/dpapi/bwjwplan/findByVO', params).then(function (res) {
