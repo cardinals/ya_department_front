@@ -27,7 +27,7 @@ new Vue({
             ],
             //tab页位置
             activeName:'first',
-            tableheight: 441,//表高度变量
+            tableheight: 443,//表高度变量
             //角色下拉框
             allRoles: [],
             //查询表单
@@ -480,12 +480,12 @@ new Vue({
                 }
                 else{
                     this.editFormVisible = false;
+                    this.editIndex = 0;
+                    this.searchClick();
                 }
             }.bind(this), function (error) {
                 console.log(error)
             })
-            this.searchClick();
-            this.editIndex = 0;
             _self.total = _self.tableData.length;
             _self.loadingData();//重新加载数据
         },

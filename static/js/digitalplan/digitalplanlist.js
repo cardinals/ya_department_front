@@ -114,9 +114,6 @@ new Vue({
         },
         handleChange(value) {
         },
-        // handleExceed(files, fileList) {
-        //     this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-        // },
         //预案类型级联选择
         YALX_tree: function () {
             // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
@@ -232,28 +229,11 @@ new Vue({
                 return rowDate;
             }
         },
-        //预案详情
+        //预案详情跳转
         planDetails(val) {
             window.location.href = "digitalplan_detail.html?ID=" + val.uuid;
             //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
-        // planDetails: function (val) {
-        //     var _self = this;
-        //     _self.planDetailVisible = true;
-        //     var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid;
-        //     history.pushState(null, null, shortURL)
-        //     //异步加载详情页
-        //     $(function () {
-        //         $.ajax({
-        //             url: '../../../templates/digitalplan/digitalplan_detail.html',
-        //             cache: true,
-        //             async: true,
-        //             success: function (html) {
-        //                 $("#detailDialog").html(html);
-        //             }
-        //         });
-        //     })
-        // },
         //预案预览
         openPlan: function () {
             window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
