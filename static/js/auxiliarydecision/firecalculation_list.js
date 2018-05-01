@@ -27,7 +27,7 @@ new Vue({
             ],
             //tab页位置
             activeName:'first',
-            tableheight: 441,//表高度变量
+            tableheight: 443,//表高度变量
             //角色下拉框
             allRoles: [],
             //查询表单
