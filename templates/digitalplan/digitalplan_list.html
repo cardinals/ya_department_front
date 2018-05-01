@@ -86,10 +86,10 @@
                                 </template>
                             </el-table-column>
                             <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
                             <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="shzt" label="审核状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="yazt" label="预案状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="shztmc" label="审核状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="yaztmc" label="预案状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
                             <el-table-column label="操作" min-width="7%" align="center">
                                 <template slot-scope="scope">
                                     <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>

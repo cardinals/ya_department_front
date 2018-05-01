@@ -102,8 +102,8 @@ new Vue({
         this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
         this.SHZT();//审核状态下拉框
-        this.YALX();//预案类型table转码
-        this.ZZJG();//制作机构table转码
+        // this.YALX();//预案类型table转码
+        // this.ZZJG();//制作机构table转码
     },
     mounted: function () {
         this.searchClick();//条件查询
@@ -156,22 +156,22 @@ new Vue({
             })
         },
         //预案类型table转码
-        YALX: function () {
-            axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
-                this.YALX_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
+        // YALX: function () {
+        //     axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
+        //         this.YALX_data = res.data.result;
+        //     }.bind(this), function (error) {
+        //         console.log(error);
+        //     })
+        // },
         //制作机构table转码(暂无表)
-        ZZJG: function () {
-            // axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
-            //     this.YALX_data = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
-            // this.YALX();//预案类型table转码
-        },
+        // ZZJG: function () {
+        //     // axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
+        //     //     this.YALX_data = res.data.result;
+        //     // }.bind(this), function (error) {
+        //     //     console.log(error);
+        //     // })
+        //     // this.YALX();//预案类型table转码
+        // },
         //表格查询事件
         searchClick: function () {
             this.loading = true;//表格重新加载
@@ -185,21 +185,21 @@ new Vue({
             }
             axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
-                for (var i = 0; i < this.tableData.length; i++) {
-                    //预案类型转码
-                    for (var k = 0; k < this.YALX_data.length; k++) {
-                        if (this.YALX_data[k].codeValue == this.tableData[i].yalxdm) {
-                            this.tableData[i].yalxdm = this.YALX_data[k].codeName;
-                        }
-                    }
-                    //审核状态转码
-                    for (var h = 0; h < this.SHZT_data.length; h++) {
-                        if (this.SHZT_data[h].codeValue == this.tableData[i].shzt) {
-                            this.tableData[i].shzt = this.SHZT_data[h].codeName;
-                        }
-                    }
-                    //制作机构转码（暂无）
-                }
+                // for (var i = 0; i < this.tableData.length; i++) {
+                //     //预案类型转码
+                //     // for (var k = 0; k < this.YALX_data.length; k++) {
+                //     //     if (this.YALX_data[k].codeValue == this.tableData[i].yalxdm) {
+                //     //         this.tableData[i].yalxdm = this.YALX_data[k].codeName;
+                //     //     }
+                //     // }
+                //     // //审核状态转码
+                //     // for (var h = 0; h < this.SHZT_data.length; h++) {
+                //     //     if (this.SHZT_data[h].codeValue == this.tableData[i].shzt) {
+                //     //         this.tableData[i].shzt = this.SHZT_data[h].codeName;
+                //     //     }
+                //     // }
+                //     //制作机构转码（暂无）
+                // }
                 // this.tableData.unshift(this.testData);
                 this.total = this.tableData.length;
                 this.loading = false;
