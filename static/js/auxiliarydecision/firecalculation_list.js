@@ -480,12 +480,12 @@ new Vue({
                 }
                 else{
                     this.editFormVisible = false;
+                    this.editIndex = 0;
+                    this.searchClick();
                 }
             }.bind(this), function (error) {
                 console.log(error)
             })
-            this.searchClick();
-            this.editIndex = 0;
             _self.total = _self.tableData.length;
             _self.loadingData();//重新加载数据
         },

@@ -277,8 +277,8 @@
                         </div>
                     </el-dialog>
                     <!--计算界面-->
-					<el-dialog title="火场计算" :visible.sync="calculateVisible" @close="closeDialog(calculateForm)" :close-on-click-modal="false">
-                        <el-form :model="calculateForm" label-width="107px" :rules="calculateFormRules" ref="calculateForm">
+					<el-dialog title="火场计算" :visible.sync="calculateVisible" @close="closeCalculate(calculateForm)" :close-on-click-modal="false">
+                        <el-form :model="calculateForm" label-width="150px" :rules="calculateFormRules" ref="calculateForm">
                             <el-row>
                                 <el-col :span="24">
                                     <el-form-item class="calculateForm" label="公式名称" prop="gsmc">
@@ -314,7 +314,7 @@
                                     >
                                         <div style="display: inline-flex;">
                                             <el-input size="small" v-model="domain.mrz" auto-complete="off"></el-input>
-                                            <span>&nbsp;&nbsp;{{domain.jldwdm}}</span>
+                                            <span style="width: 100px">&nbsp;&nbsp;{{domain.jldwdm}}</span>
                                         </div>    
                                     </el-form-item>   
                                 </el-col>
@@ -323,7 +323,7 @@
                                 <el-form-item class="calculateForm" label="计算结果" prop="jsjg">
                                     <div style="display: inline-flex;">
                                         <el-input size="small" v-model="jsjg" auto-complete="off"></el-input>
-                                        <span>&nbsp;&nbsp;{{calculateForm.jsgsdw}}</span>
+                                        <span style="width: 100px">&nbsp;&nbsp;{{calculateForm.jsgsdw}}</span>
                                     </div>
                                 </el-form-item>
                             </el-row>
