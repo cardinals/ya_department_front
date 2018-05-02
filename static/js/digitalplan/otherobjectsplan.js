@@ -26,16 +26,17 @@ new Vue({
                 codeValue: '0',
                 codeName: '否'
             }],
+            defaultKeys: [],
+            //树结构配置
             props: {
                 value: 'codeValue',
                 label: 'codeName',
                 children: 'children'
             },
-            defaultKeys: [],
-            //树结构配置
-            treeDefaultProps: {
-                children: 'children',
-                label: 'formationinfo'
+            jgidprops: {
+                value: 'uuid',
+                label: 'jgjc',
+                children: 'children'
             },
             //资源列表是否显示
             planDetailVisible: false,
@@ -102,7 +103,7 @@ new Vue({
     },
     created:function(){
         this.getYalxdmData();
-        // this.getJgidData();
+        this.getJgidData();
         this.searchClick();
     },
 
@@ -121,7 +122,7 @@ new Vue({
         },
         //制作机构
         getJgidData: function(){
-            axios.get('/api/codelist/getCodetype/YAZL').then(function(res){
+            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
                 this.jgidData = res.data.result;
             }.bind(this),function(error){
                 console.log(error);
@@ -136,10 +137,10 @@ new Vue({
                 dxmc :this.searchForm.dxmc,
                 yalxdm :this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
                 sfkqy :this.searchForm.sfkqy,
-                jgid :this.searchForm.jgid,
+                jgid :this.searchForm.jgid[this.searchForm.jgid.length-1],
                 // cjsj :this.searchForm.cjsj
-                cjsj_begintime:this.searchForm.cjsj[0],
-                cjsj_endtime:this.searchForm.cjsj[1]
+                // cjsj_begintime:this.searchForm.cjsj[0],
+                // cjsj_endtime:this.searchForm.cjsj[1]
             };
             axios.post('/dpapi/otherobjectsplan/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
