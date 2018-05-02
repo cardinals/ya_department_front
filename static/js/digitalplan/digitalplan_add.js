@@ -135,7 +135,6 @@ new Vue({
                         this.addForm.yalxdm=[];
                         this.addForm.yalxdm.push(yalx1,yalx2);
                     }
-                    this.addForm.sfkqy = (this.addForm.sfkqy == 1 ? "是" : "否");
                     this.loading = false;
                 }.bind(this), function (error) {
                     console.log(error)
@@ -237,6 +236,7 @@ new Vue({
                     console.log(error);
                 })
             }else{
+                debugger
                 var params = {
                     uuid: this.status,
                     dxid: this.addForm.dwid,
