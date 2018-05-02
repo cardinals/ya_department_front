@@ -24,25 +24,30 @@ new Vue({
             defaultProps: {
                 children: 'children',
                 label: 'resourceinfo'
-            }
+            },
+            jgidprops: {
+                label: 'jgjc',
+                children: 'children'
+            },
         };
     },
 
     created: function () {
         //取得选中行pkid
-        this.pkid = this.GetQueryString("pkid");
-        this.YALX();
+        // this.pkid = this.GetQueryString("pkid");
+        // this.YALX();
         // history.back();
         // this.planDetails(this.pkid);
+        this.getJgidData();
     },
     mounted: function () {
-        axios.get('http://localhost/api/resource/getAll').then(function (res) {
-            console.log(res.data.result);
-            this.tableData = res.data.result;
-        }.bind(this), function (error) {
-            console.log(error)
-        }),
-        this.total = this.tableData.length;
+        // axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+        //     console.log(res.data.result);
+        //     this.tableData = res.data.result;
+        // }.bind(this), function (error) {
+        //     console.log(error)
+        // }),
+        // this.total = this.tableData.length;
     },
 
     methods: {
@@ -50,6 +55,16 @@ new Vue({
         filterNode(value, tableData) {
             if (!value) return true;
             return tableData.resourceinfo.indexOf(value) !== -1;
+        },
+
+        //获取所有机构
+        getJgidData: function(){
+            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+                this.tableData = res.data.result;
+                console.log(this.tableData);
+            }.bind(this),function(error){
+                console.log(error);
+            }) 
         },
 
         //获取节点
