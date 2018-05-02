@@ -18,7 +18,7 @@ new Vue({
             },
             //表数据
             tableData: [],//Grid中数据
-            detailData:[],
+            detailData:{},
             //角色对应资源
             resourceList: [],
             defaultProps: {
@@ -41,20 +41,14 @@ new Vue({
         this.getJgidData();
     },
     mounted: function () {
-        // axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
-        //     console.log(res.data.result);
-        //     this.tableData = res.data.result;
-        // }.bind(this), function (error) {
-        //     console.log(error)
-        // }),
-        // this.total = this.tableData.length;
+        
     },
 
     methods: {
         //过滤输入框
         filterNode(value, tableData) {
             if (!value) return true;
-            return tableData.resourceinfo.indexOf(value) !== -1;
+            return tableData.jgjc.indexOf(value) !== -1;
         },
 
         //获取所有机构
@@ -69,10 +63,11 @@ new Vue({
 
         //获取节点
         currentNodeChange: function (val) {
-            // val.jgid;
-            val.resourceid='14111442';
+            //  val.jgid;
+            // val.resourceid='14111442';
             // debugger   
-            axios.get('/dpapi/organization/doFindById/' + val.resourceid).then(function (res) {
+            axios.get('/dpapi/organization/doFindById/' + val.uuid).then(function (res) {
+                // debugger
                 this.detailData = res.data.result[0];
             }.bind(this), function (error) {
                 console.log(error);
@@ -85,15 +80,7 @@ new Vue({
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
         },
-        //机构名称
-        // JGMC: function () {
-        //     axios.get('/api/codelist/getCodetype/JGMC').then(function (res) {
-        //         this.detailData.jgmc = res.data.result;
-        //         this.planDetails(this.pkid);
-        //     }.bind(this), function (error) {
-        //         console.log(error);
-        //     })
-        // },
+        
         //机构简称
         JGJC: function () {
             axios.get('/api/codelist/getCodetype/JGJC').then(function (res) {
