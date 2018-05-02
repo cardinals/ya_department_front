@@ -295,7 +295,8 @@ new Vue({
             this.searchForm.dxmc="";
             this.searchForm.yalxdm=[];
             this.searchForm.sfkqy="";
-            this.searchForm.jgid="";
+            this.searchForm.jgid=[];
+           
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
         },
         //时间格式
