@@ -14,7 +14,6 @@ new Vue({
             },
             tableData: [],
             allYjlxDataTree: [],//药剂类型级联选择器数据
-            allYjlxData: [],//药剂类型table转码数据
             allSsdzData: [],//所属队站下拉框数据
             //表高度变量
             tableheight: 450,
@@ -55,7 +54,6 @@ new Vue({
     created: function () {
         this.getAllSszdData();//消防队站下拉框数据（到总队级）
         this.getAllYjlxDataTree(); //药剂类型级联选择器数据
-        this.getAllYjlxData();//table里药剂类型转码数据
         this.searchClick();
     },
     methods: {
@@ -74,19 +72,10 @@ new Vue({
                 console.log(error);
             })
         },
-        //药剂类型table转码用数据
-        getAllYjlxData: function () {
-            axios.get('/api/codelist/getCodetype/YJLX').then(function (res) {
-                this.allYjlxData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         //所属队站下拉框数据
         getAllSszdData: function () {
             axios.get('/dpapi/util/doSearchContingents').then(function (res) {
                 this.allSsdzData = res.data.result;
-
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -106,13 +95,6 @@ new Vue({
             axios.post('/dpapi/firedrug/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                for (var i = 0; i < this.tableData.length; i++) {
-                    for (var k = 0; k < this.allYjlxData.length; k++) {
-                        if (this.allYjlxData[k].codeValue == this.tableData[i].yjlx) {
-                            this.tableData[i].yjlx = this.allYjlxData[k].codeName;
-                        }
-                    }
-                }
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error);

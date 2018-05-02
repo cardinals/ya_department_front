@@ -13,18 +13,14 @@ new Vue({
                 kcsl: ""
             },
             tableData: [],
-            allTypesData: [],//装备类型table转码数据
             allTypesDataTree: [],//装备类型级联选择数据
             allSsdzData: [],//消防队站下拉框数据（到总队级）
-            allXzqhData: [],//行政区划table转码数据
             rowdata: '',
             //表高度变量
             tableheight: 450,
             //显示加载中样
             loading: false,
             labelPosition: 'right',
-            //多选值
-            multipleSelection: [],
             //当前页
             currentPage: 1,
             //分页大小
@@ -37,18 +33,6 @@ new Vue({
             },
             //序号
             indexData: 0,
-            //删除的弹出框
-            deleteVisible: false,
-            //新建页面是否显示
-            addFormVisible: false,
-            addLoading: false,
-            addFormRules: {
-                permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
-            },
-            //选中的值显示
-            sels: [],
-            //选中的序号
-            selectIndex: -1,
             //树结构配置
             defaultProps: {
                 children: 'children',
@@ -61,9 +45,7 @@ new Vue({
     created: function () {
         this.getAllSszdData();//消防队站下拉框数据（到总队级）
         this.getAllTypesDataTree();//装备类型级联选择数据
-        this.getAllTypesData();//装备类型table转码数据
-        this.getAllXzqhData();//行政区划table转码数据
-        // this.searchClick();
+        this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -71,7 +53,7 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
-            // this.loading = true;
+            this.loading = true;
             var _self = this;
             var params = {
                 zbmc: this.searchForm.zbmc,
@@ -82,13 +64,11 @@ new Vue({
             };
             axios.post('/dpapi/equipmentsource/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
-                //行政区划转码
-                for (var i = 0; i < this.tableData.length; i++) {
-                    for (var k = 0; k < this.allXzqhData.length; k++) {
-                        if (this.allXzqhData[k].codeValue == this.tableData[i].xzqy) {
-                            this.tableData[i].xzqy = this.allXzqhData[k].codeName;
-                        }
-                    }
+                for(var i=0;i<this.tableData.length;i++){
+                    this.tableData[i].zcbl = parseInt(this.tableData[i].kcsl) 
+                                            + parseInt(this.tableData[i].zzsl) 
+                                            + parseInt(this.tableData[i].ztsl)
+                                            + parseInt(this.tableData[i].wxsl)
                 }
                 this.total = res.data.result.length;
                 this.loading = false;
@@ -103,32 +83,15 @@ new Vue({
             this.searchForm.zblx = [];
             this.searchForm.kcsl = [];
         },
-        //行政区划数据
-        getAllXzqhData: function () {
-            axios.get('/api/codelist/getCodetype/XZQH').then(function (res) {
-                this.allXzqhData = res.data.result;
-                this.searchClick();
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //装备类型转码数据
-        getAllTypesData: function () {
-            axios.get('/api/codelist/getCodetype/ZBQCLB').then(function (res) {
-                this.allTypesData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         //装备类型级联选择数据
         getAllTypesDataTree: function () {
-            var params= {
-                codetype : "ZBQCLB",
-                list : [1,2,4,6,8]
+            var params = {
+                codetype: "ZBQCLX",
+                list: [1, 2, 4, 6, 8]
             };
-            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
-                this.allTypesDataTree=res.data.result;
-            }.bind(this),function(error){
+            axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
+                this.allTypesDataTree = res.data.result;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },

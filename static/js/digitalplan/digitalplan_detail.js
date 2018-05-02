@@ -7,13 +7,6 @@ new Vue({
             pkid: "",
             //详情Data
             detailData: {},
-            // //详情页日期
-            // detail_zzsj: "",
-            // detail_shsj: "",
-            //预案类型Data
-            YALX_data: [],
-            //审核状态Data
-            SHZT_data: [],
             loading: false,
             //测试Data
             detailTestData: {
@@ -49,22 +42,8 @@ new Vue({
             var ID = str.substring(3);
             this.pkid = ID;
         }
-        this.YALX();//预案类型
-        // this.SHZT();//审核状态
-        // history.back();
+        this.planDetails(this.pkid);
     },
-    // mounted: function () {
-    //     // this.pkid = this.GetQueryString("pkid");//取得选中行pkid
-    //     // this.planDetails(this.pkid);
-    //     this.loading = true;
-    //     debugger
-    //     var url = location.search;
-    //     if (url.indexOf("?") != -1) {
-    //         var str = url.substr(1);
-    //         var ID = str.substring(3);
-    //         this.pkid = ID;
-    //     }
-    // },
 
     methods: {
         //标签页
@@ -77,32 +56,10 @@ new Vue({
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
         },
-        //预案类型
-        YALX: function () {
-            axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
-                this.YALX_data = res.data.result;
-                this.SHZT();//审核状态
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //审核状态
-        SHZT: function () {
-            axios.get('/api/codelist/getCodetype/SHZT').then(function (res) {
-                this.SHZT_data = res.data.result;
-                this.planDetails(this.pkid);
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         //预案详情
         planDetails: function (val) {
             var _self = this;
             this.loading = true;
-            // if (val == "67833B5FB1232169E053B077770AE86") {
-            //     this.detailData = this.detailTestData;
-            // }
-            // else {
             axios.get('/dpapi/digitalplanlist/doFindById/' + val).then(function (res) {
                 this.detailData = res.data.result;
                 //制作时间格式化
@@ -117,25 +74,11 @@ new Vue({
                 } else {
                     this.detailData.shsj = this.dateFormat(this.detailData.shsj);
                 }
-                //预案类型转码
-                for (var k = 0; k < this.YALX_data.length; k++) {
-                    if (this.YALX_data[k].codeValue == this.detailData.yalxdm) {
-                        this.detailData.yalxdm = this.YALX_data[k].codeName;
-                    }
-                }
-                //审核状态转码
-                for (var k = 0; k < this.SHZT_data.length; k++) {
-                    if (this.SHZT_data[k].codeValue == this.detailData.shzt) {
-                        this.detailData.shzt = this.SHZT_data[k].codeName;
-                    }
-                }
                 this.detailData.sfkqy = (this.detailData.sfkqy == 1 ? "是" : "否");
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
-            // }
-
         },
         //日期格式化
         dateFormat: function (val) {
