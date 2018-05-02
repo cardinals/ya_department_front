@@ -46,10 +46,11 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">制作机构</label>
-										<el-select size="small" v-model="searchForm.jgid" placeholder="制作机构" class="searchSelect" clearable>
+										<!-- <el-select size="small" v-model="searchForm.jgid" placeholder="制作机构" class="searchSelect" clearable>
 											<el-option v-for="item in jgidData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
 											</el-option>
-										</el-select>
+										</el-select> -->
+										<el-cascader :options ="jgidData" :props ="jgidprops" size="small" v-model="searchForm.jgid" placeholder="制作机构" class="searchSelect" clearable change-on-select></el-cascader>
 									</el-col>
 									<!-- <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">创建时间</label>

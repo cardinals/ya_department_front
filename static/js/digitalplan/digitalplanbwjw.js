@@ -119,6 +119,11 @@ new Vue({
                 label: 'codeName',
                 children: 'children'
             },
+            jgidprops: {
+                children: 'children',
+                label: 'jgjc',
+                value: 'jgjc',
+            },
             defaultKeys: [],
             //树结构配置
             treeDefaultProps: {
@@ -192,6 +197,7 @@ new Vue({
         
         this.YALXTree();
         this.YALX();
+        this.getJgidData();
         // this.DXLX();
         // this.YAZL();
         // this.searchClick();
@@ -206,6 +212,17 @@ new Vue({
         },
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+
+        //获取所有机构
+        getJgidData: function(){
+            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+               
+                this.jgidData = res.data.result;
+                console.log(this.tableData);
+            }.bind(this),function(error){
+                console.log(error);
+            }) 
         },
 
         //预案类型table转码

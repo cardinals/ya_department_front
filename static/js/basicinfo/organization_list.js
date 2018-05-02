@@ -45,6 +45,7 @@ new Vue({
     },
 
     methods: {
+
         //过滤输入框
         filterNode(value, tableData) {
             if (!value) return true;
@@ -54,6 +55,7 @@ new Vue({
         //获取所有机构
         getJgidData: function(){
             axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+               
                 this.tableData = res.data.result;
                 console.log(this.tableData);
             }.bind(this),function(error){
