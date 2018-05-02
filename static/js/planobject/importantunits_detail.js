@@ -8,6 +8,7 @@ new Vue({
             pkid: "",
             //表数据
             tableData: [],//基本数据
+            zdbwData: [],//重点部位数据
             yuData: [],//预案数据
 
             //表高度变量
@@ -60,64 +61,24 @@ new Vue({
             selectIndex: -1,
             //编辑界面是否显示
             editFormVisible: false,
-            editLoading: false,
-            editFormRules: {
-                permissionname: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
-            },
-            //编辑界面数据
-            editForm: {
-                DWMC: "",
-                DWDJ: "",
-                DWXZ: "",
-                XZQY: "",
-                DWDZ: "",
-                ZDMJ: "",
-                XFGXJGID: ""
-            },
 
         }
     },
-
     mounted: function () {
         this.loading = true;
-        var url = location.search;
+        var url = location.href;
         if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            var ID = str.substring(3);
-            this.pkid = ID;
-            axios.get('/dpapi/keyunit/doFindDetailById/' + this.pkid).then(function (res) {
-                this.tableData = res.data.result[0];
-                this.rowdata = this.tableData;
-                // this.yuData = res.data.result.YAJBXX;
-                // for (var i = 0; i < this.tableData.length; i++) {
-                //     if (this.tableData[i].ID == ID) {
-                //         this.rowdata = this.tableData[i];
-                //     }
-                // }
-                // for (var k = 0; k < this.yuData.length; k++) {
-                //     if (this.yuData[k].ID == ID) {
-                //         this.yudata = this.yuData[k];
-                //     }
-                //     console.log(this.yudata);
-                // }
+            var tmp1 = url.split("?")[1];
+            this.ID = decodeURI(tmp1.split("=")[1]);
+            this.uuid = this.ID;
+            axios.get('/dpapi/importantunits/' + this.uuid).then(function (res) {
+                this.tableData = res.data.result;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
         }
     },
-
-    // created: function () {
-    //     debugger
-    //     this.pkid = pkid;
-    //     axios.get('/dpapi/keyunit/doFindDetaiById' + this.pkid).then(function(res){
-    //         this.tableData = res.data.result;
-    //         this.total = res.data.result.length;
-    //         this.rowdata = this.tableData;
-    //     }.bind(this),function(error){
-    //         console.log(error)
-    //     })
-    // },
     methods: {
         handleNodeClick(data) {
             console.log(data);
