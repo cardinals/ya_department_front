@@ -5,3 +5,6 @@ input[type=file] {
     display: none;
 }
 
+.main-container {
+    padding: 20px;
+}

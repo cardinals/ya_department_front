@@ -10,7 +10,7 @@ new Vue({
                 dwid: "",//重点单位
                 dwmc: "",
                 yamc: "",//预案名称
-                yalxdm: "",//预案类型
+                yalxdm: [],//预案类型
                 yajb: "",//预案级别
                 yazt: "",//预案状态
                 sfkqy: "",//是否跨区域
@@ -116,7 +116,6 @@ new Vue({
                 this.addForm.yazt = '01';
             } else {
                 axios.get('/dpapi/digitalplanlist/doFindById/' + this.status).then(function (res) {
-                    // debugger
                     this.detailData = res.data.result;
                     this.addForm = this.detailData;
                     //制作时间格式化
@@ -125,12 +124,17 @@ new Vue({
                     } else {
                         this.addForm.zzsj = this.dateFormat(this.addForm.zzsj);
                     }
-                    
-                    // if (this.addForm.yalxdm.endsWith("0000")) {
-                    //     this.addForm.yalxdm[0] = this.addForm.yalxdm;
-                    // } else {
-                    //     // this.addForm.yalxdm[0]=this.addForm.yalxdm;
-                    // }
+                    //预案类型格式化
+                    if (this.addForm.yalxdm.endsWith("0000")) {
+                        var yalx = this.addForm.yalxdm;
+                        this.addForm.yalxdm=[];
+                        this.addForm.yalxdm.push(yalx);
+                    } else {
+                        var yalx1 = this.addForm.yalxdm.substring(0,1) +'0000'
+                        var yalx2 = this.addForm.yalxdm
+                        this.addForm.yalxdm=[];
+                        this.addForm.yalxdm.push(yalx1,yalx2);
+                    }
                     this.addForm.sfkqy = (this.addForm.sfkqy == 1 ? "是" : "否");
                     this.loading = false;
                 }.bind(this), function (error) {
@@ -157,55 +161,101 @@ new Vue({
             })
         },
         //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
+        dateFormat: function (val) {
+            var date = new Date(val);
+            if (date == undefined) {
+                return val;
             }
+            var month = '' + (date.getMonth() + 1),
+                day = '' + date.getDate(),
+                year = date.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            var newDate = [year, month, day].join('-');
+            return newDate;
         },
-        // endsWith:function (String) {
-        //     //判断当前字符串是否以str结束  
-        //     if (typeof String.prototype.endsWith != 'function') {
-        //         String.prototype.endsWith = function (str) {
-        //             return this.slice(-str.length) == str;
-        //         };
-        //     }
-        // },
+        //提交保存事件
         save: function () {
-            var params = {
-                dxid: this.addForm.dwid,
-                yamc: this.addForm.yamc,
-                yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
-                yazt: this.addForm.yazt,
-                yajb: this.addForm.yajb,
-                sfkqy: this.addForm.sfkqy,
-                bz: this.addForm.bz,
-                // jgid: this.role_data.jgid,
-                // zzrid: this.role_data.userid,
-            };
-            axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
-                alert("success");
-                // res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
+            if(this.status == 0){
+                var params = {
+                    dxid: this.addForm.dwid,
+                    yamc: this.addForm.yamc,
+                    yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                    yazt: this.addForm.yazt,
+                    yajb: this.addForm.yajb,
+                    sfkqy: this.addForm.sfkqy,
+                    bz: this.addForm.bz,
+                    // jgid: this.role_data.jgid,
+                    // zzrid: this.role_data.userid,
+                };
+                axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
+                    alert("成功保存"+res.data.result.length+"条预案");
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }else{
+                var params = {
+                    uuid: this.status,
+                    dxid: this.addForm.dwid,
+                    yamc: this.addForm.yamc,
+                    yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                    yazt: this.addForm.yazt,
+                    yajb: this.addForm.yajb,
+                    sfkqy: this.addForm.sfkqy,
+                    bz: this.addForm.bz,
+                    // jgid: this.role_data.jgid,
+                    // zzrid: this.role_data.userid,
+                };
+                axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
+                    alert("成功修改"+res.data.result.length+"条预案");
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+            
 
         },
         //提交点击事件
         submit: function () {
+            if(this.status == 0){
+                var params = {
+                    dxid: this.addForm.dwid,
+                    yamc: this.addForm.yamc,
+                    yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                    yazt: '03',
+                    yajb: this.addForm.yajb,
+                    sfkqy: this.addForm.sfkqy,
+                    bz: this.addForm.bz,
+                    // jgid: this.role_data.jgid,
+                    // zzrid: this.role_data.userid,
+                };
+                axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
+                    alert("成功提交"+res.data.result.length+"条预案");
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }else{
+                var params = {
+                    uuid: this.status,
+                    dxid: this.addForm.dwid,
+                    yamc: this.addForm.yamc,
+                    yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                    yazt: '03',
+                    yajb: this.addForm.yajb,
+                    sfkqy: this.addForm.sfkqy,
+                    bz: this.addForm.bz,
+                    // jgid: this.role_data.jgid,
+                    // zzrid: this.role_data.userid,
+                };
+                axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
+                    alert("成功提交"+res.data.result.length+"条预案");
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+            
         },
         closeDialog: function (val) {
             this.planDetailVisible = false;
