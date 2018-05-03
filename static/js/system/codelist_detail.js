@@ -71,7 +71,6 @@ new Vue({
             if(r!=null)return  unescape(r[2]); return null;
         },
         handleNodeClick(data) {
-            console.log(data);
         },
 
         //日期控件格式化
@@ -81,12 +80,20 @@ new Vue({
         enddateChange(val) {
             this.searchForm.createTimeEnd = val;
         },
-
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
         //表格中日期格式化
         dateFormat: function (row, column) {
             var rowDate = row[column.property];
             if (rowDate == null || rowDate == "") {
-                return '';
+                return '无';
             } else {
                 var date = new Date(rowDate);
                 if (date == undefined) {
@@ -276,7 +283,6 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -284,7 +290,6 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },

@@ -8,8 +8,7 @@ new Vue({
             //搜索表单
             searchForm: {
                 codetype: "",
-                createTimeBegin: "",
-                createTimeEnd: ""
+                createTime:new Array()
             },
             tableData: [],
             //表高度变量
@@ -66,22 +65,28 @@ new Vue({
     },
     methods: {
         handleNodeClick(data) {
-            console.log(data);
         },
-
-        //日期控件格式化
-        begindateChange(val) {
-            this.searchForm.createTimeBegin = val;
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
         },
-        enddateChange(val) {
-            this.searchForm.createTimeEnd = val;
+        //日期控件变化时格式化
+        dateChange(val) {
+            this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
+            this.searchForm.createTime.push(val.substring(0,val.indexOf("至")));
+            this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
         },
 
         //表格中日期格式化
         dateFormat: function (row, column) {
             var rowDate = row[column.property];
             if (rowDate == null || rowDate == "") {
-                return '';
+                return '无';
             } else {
                 var date = new Date(rowDate);
                 if (date == undefined) {
@@ -105,18 +110,11 @@ new Vue({
         //查询，初始化
         searchClick: function () {
             var _self = this;
-            if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
-                _self.$message({
-                    message: "时间选择错误！",
-                    type: "error"
-                });
-                return;
-            }
             _self.loading = true;//表格重新加载
             var params = {
                 codetype: this.searchForm.codetype,
-                createTimeBegin: this.searchForm.createTimeBegin,
-                createTimeEnd: this.searchForm.createTimeEnd
+                createTimeBegin: this.searchForm.createTime[0],
+                createTimeEnd: this.searchForm.createTime[1]
             };
 
             axios.post('/api/codelist/findByVO', params).then(function (res) {
@@ -291,7 +289,6 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -299,7 +296,6 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },

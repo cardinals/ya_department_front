@@ -11,14 +11,44 @@ new Vue({
                 symc: '',
                 sydz: '',
                 sylx: '',
-                qsxs: '',
-                jgid: ''
+                gxdz: '',
+                xz: '',
+                kyzt:'',
+                xhs_gwid:'',
+                xhs_szxs:'',
+                xhs_gwxs:'',
+                xhs_jkxs:'',
+                xfsh_gwid:'',
+                xfsh_shgd:'',
+                xfsh_jscd:'',
+                xfsc_rl:'',
+                xfsc_gwxs:'',
+                xfsc_tcwz:'',
+                xfmt_tcwz:'',
+                xfmt_ksq:'',
+                xfmt_sz:'',
+                trsy_trsylx:'',
+                trsy_ywksq:''
             },
             tableData: [],
             SYLX_data: [],
-            selected_SYLX: [],
-            QSXS_data: [],
+            GXZD_data:[],
+            XZ_data:[],
+            KYZT_data:[],
+            xhs_szxs_data:[],
+            xhs_gwxs_data:[],
+            xhs_jkxs_data:[],
+            xfsh_jscd_data:[],
+            xfsc_gwxs_data:[],
+            xfmt_sz_data:[],
+            trsy_trsylx_data:[],
+            trsy_ywksq_data:[],
             rowdata: '',
+            isXhsSelectShow:false,
+            isXfshSelectShow:false,
+            isXfscSelectShow:false,
+            isXfmtSelectShow:false,
+            isTrsySelectShow:false,
             //表高度变量
             tableheight: 443,
             //显示加载中样
@@ -40,48 +70,31 @@ new Vue({
             indexData: 0,
             //删除的弹出框
             deleteVisible: false,
-            //新建页面是否显示
-            addFormVisible: false,
-            addLoading: false,
-            addFormRules: {
-                permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
-            },
-            //新建数据
-            addForm: {
-                DWMC: "",
-                DWDJ: "",
-                DWXZ: "",
-                XZQY: "",
-                DWDZ: "",
-                ZDMJ: "",
-                XFGXJGID: ""
-            },
+            
+            
             //选中的值显示
             sels: [],
             //选中的序号
             selectIndex: -1,
-            //编辑界面是否显示
-            editFormVisible: false,
-            editLoading: false,
-            editFormRules: {
-                permissionname: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
-            },
-            //编辑界面数据
-            editForm: {
-                DWMC: "",
-                DWDJ: "",
-                DWXZ: "",
-                XZQY: "",
-                DWDZ: "",
-                ZDMJ: "",
-                XFGXJGID: ""
-            },
+            //详情页显示flag
+            detailVisible:false,
         }
     },
     created: function () {
         this.searchClick();
         this.searchSYLX_data();
-        this.searchQSXS_data();
+        this.searchGXZD_data();
+        this.searchKYZT_data();
+        this.searchXZ_data();
+        this.searchXhsSZXS_data();
+        this.searchXhsGWXS_data();
+        this.searchXhsJKXS_data();
+        this.searchXfshJSCD_data();
+        this.searchXfscGWXS_data();
+        this.searchXfmtSZ_data();
+        this.searchTrsyLX_data();
+        this.searchTrsyYWKSQ_data();
+        this.searchGXZD_data();
     },
     methods: {
         handleNodeClick(data) {
@@ -93,22 +106,38 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             this.loading=true;
-            //水源类型多选，array拼接成字符串
+            /*水源类型多选，array拼接成字符串
              this.searchForm.sylx = '';
              if (this.selected_SYLX.length > 0) {
                  for (var i = 0; i < this.selected_SYLX.length; i++) {
                      this.searchForm.sylx += '\'' + this.selected_SYLX[i] + '\',';
                  }
-             }
+             }*/
             var params = {
                 symc: this.searchForm.symc,
                 sydz: this.searchForm.sydz,
-                jgid: this.searchForm.jgid,
-                qsxs: this.searchForm.qsxs,
-                sylx: this.searchForm.sylx
+                sylx: this.searchForm.sylx,
+                dzbm: this.searchForm.gxdz.substr(0,2),
+                xz: this.searchForm.xz,
+                kyzt: this.searchForm.kyzt,
+                xhs_gwid: this.searchForm.xhs_gwid,
+                xhs_szxs: this.searchForm.xhs_szxs,
+                xhs_gwxs: this.searchForm.xhs_gwxs,
+                xhs_jkxs: this.searchForm.xhs_jkxs,
+                xfsh_gwid: this.searchForm.xfsh_gwid,
+                xfsh_shgd: this.searchForm.xfsh_shgd,
+                xfsh_jscd: this.searchForm.xfsh_jscd,
+                xfsc_rl: this.searchForm.xfsc_rl,
+                xfsc_gwxs: this.searchForm.xfsc_gwxs,
+                xfsc_tcwz: this.searchForm.xfsc_tcwz,
+                xfmt_tcwz: this.searchForm.xfmt_tcwz,
+                xfmt_ksq: this.searchForm.xfmt_ksq,
+                xfmt_sz: this.searchForm.xfmt_sz,
+                trsy_trsylx: this.searchForm.trsy_trsylx,
+                trsy_ywksq: this.searchForm.trsy_ywksq
             }
-            axios.post('/dpapi/shuiyuan/findByVO', params).then(function (res) {
-                console.log(res.data.result);
+            axios.post('/dpapi/xfsy/findlist', params).then(function (res) {
+              //  console.log(res.data.result);
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loadingData();
@@ -117,28 +146,192 @@ new Vue({
                 console.log(error)
             })
         },
+        //清空查询条件
         clearClick: function () {
             this.searchForm.symc = "";
             this.searchForm.sydz = "";
-            this.searchForm.jgid = "";
-            this.searchForm.qsxs = "";
             this.searchForm.sylx = "";
-            this.selected_SYLX = [];
-
+            this.searchForm.gxdz = "";
+            this.searchForm.xz = "";
+            this.searchForm.kyzt = "";
+            this.clearOthers();
         },
+        //清空关联表查询条件
+        clearOthers: function(){
+            this.searchForm.xhs_gwid = "";
+            this.searchForm.xhs_szxs = "";
+            this.searchForm.xhs_gwxs = "";
+            this.searchForm.xhs_jkxs = "";
+            this.searchForm.xfsh_gwid = "";
+            this.searchForm.xfsh_shgd = "";
+            this.searchForm.xfsh_jscd = "";
+            this.searchForm.xfsc_rl = "";
+            this.searchForm.xfsc_gwxs = "";
+            this.searchForm.xfsc_tcwz = "";
+            this.searchForm.xfmt_tcwz = "";
+            this.searchForm.xfmt_ksq = "";
+            this.searchForm.xfmt_sz = "";
+            this.searchForm.trsy_trsylx = "";
+            this.searchForm.trsy_ywksq = "";
+        },
+        //下拉框数据加载
         searchSYLX_data: function () {
             axios.get('/api/codelist/getCodetype/SYLX').then(function (res) {
-                this.SYLX_data = res.data.result;
+                //水源类型数据只显示大类即以00结尾的类型
+                var lxdata = res.data.result;
+                for(var i in lxdata){
+                    var end_sylx = lxdata[i].codeValue.substring(2,4);
+                    if(end_sylx =="00")
+                        this.SYLX_data.push(lxdata[i]);
+                }
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
-        searchQSXS_data: function () {
-            axios.get('/api/codelist/getCodetype/GSFS').then(function (res) {
-                this.QSXS_data = res.data.result;
+        searchGXZD_data:function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.GXZD_data = res.data.result;
+
             }.bind(this), function (error) {
                 console.log(error);
             })
+        },
+        searchXZ_data:function () {
+            axios.get('/api/codelist/getCodetype/SYXZ').then(function (res) {
+                //水源性质数据只显示市政 即以111开头的类型
+                var xzdata = res.data.result;
+                for(var i in xzdata){
+                    var start_sylx = xzdata[i].codeValue.substring(0,3);
+                    if(start_sylx =="111")
+                        this.XZ_data.push(xzdata[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchKYZT_data:function () {
+            axios.get('/api/codelist/getCodetype/SYKYZT').then(function (res) {
+                this.KYZT_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //消火栓查询条件加载
+        searchXhsSZXS_data:function () {
+            axios.get('/api/codelist/getCodetype/SZXS').then(function (res) {
+                this.xhs_szxs_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchXhsGWXS_data:function () {
+            axios.get('/api/codelist/getCodetype/GWXS').then(function (res) {
+                this.xhs_gwxs_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchXhsJKXS_data:function () {
+            axios.get('/api/codelist/getCodetype/XHSJKXS').then(function (res) {
+                this.xhs_jkxs_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchXfshJSCD_data:function () {
+            axios.get('/api/codelist/getCodetype/SYSHJSCD').then(function (res) {
+                this.xfsh_jscd_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchXfscGWXS_data:function () {
+            axios.get('/api/codelist/getCodetype/GWXS').then(function (res) {
+                this.xfsc_gwxs_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchXfmtSZ_data:function () {
+            axios.get('/api/codelist/getCodetype/SYSZ').then(function (res) {
+                this.xfmt_sz_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchTrsyLX_data:function () {
+            axios.get('/api/codelist/getCodetype/TRSYLX').then(function (res) {
+                this.trsy_trsylx_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        searchTrsyYWKSQ_data:function () {
+            axios.get('/api/codelist/getCodetype/SYYWKSQ').then(function (res) {
+                this.trsy_ywksq_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
+        selectsylx:function(){
+        //console.log(this.searchForm.sylx);
+           switch(this.searchForm.sylx){
+               case '1100':
+                    this.clearOthers();
+                    this.isXfshSelectShow = false;
+                    this.isXfscSelectShow = false;
+                    this.isXfmtSelectShow = false;
+                    this.isTrsySelectShow = false;
+                    this.isXhsSelectShow = true;
+                    break;
+                case '1200':
+                    this.clearOthers();
+                    this.isXfscSelectShow = false;
+                    this.isXfmtSelectShow = false;
+                    this.isTrsySelectShow = false;
+                    this.isXhsSelectShow = false;
+                    this.isXfshSelectShow = true;
+                    break;
+                case '1300':
+                    this.clearOthers();
+                    this.isXfmtSelectShow = false;
+                    this.isTrsySelectShow = false;
+                    this.isXhsSelectShow = false;
+                    this.isXfshSelectShow = false;
+                    this.isXfscSelectShow = true;
+                    break;
+                case '2100':
+                    this.clearOthers();
+                    this.isTrsySelectShow = false;
+                    this.isXhsSelectShow = false;
+                    this.isXfshSelectShow = false;
+                    this.isXfscSelectShow = false;
+                    this.isXfmtSelectShow = true;
+                    break;
+                case '2900':
+                    this.clearOthers();
+                    this.isXhsSelectShow = false;
+                    this.isXfshSelectShow = false;
+                    this.isXfscSelectShow = false;
+                    this.isXfmtSelectShow = false;
+                    this.isTrsySelectShow = true;
+                    break;
+                default :
+                    this.clearOthers();
+                    this.isXhsSelectShow = false;
+                    this.isXfshSelectShow = false;
+                    this.isXfscSelectShow = false;
+                    this.isXfmtSelectShow = false;
+                    this.isTrsySelectShow = false;
+           }
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -149,26 +342,23 @@ new Vue({
             //this.sels = sels
             console.info(val);
         },
+        //点击进入详情页
         informClick(val) {
-            window.location.href = "firewater_detail.html?id=" + val.id;
-        },
-        createdateChange(val) {
-            console.log(val);
-            this.addForm.create_time = val;
-            this.editForm.create_time = val;
-        },
-        alterdateChange(val) {
-            console.log(val);
-            this.addForm.alter_time = val;
-            this.editForm.alter_time = val;
-        },
-        begindateChange(val) {
-            console.log(val);
-            this.searchForm.begintime = val;
-        },
-        enddateChange(val) {
-            console.log(val);
-            this.searchForm.endtime = val;
+            //window.location.href = "firewater_detail.html?id=" + val.uuid + "&sylx=" + val.sylx;
+            this.detailVisible = true;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.uuid + "&sylx=" + val.sylx;
+            history.pushState(null, null, shortURL)
+            //异步加载详情页
+            $(function () {
+                $.ajax({
+                    url: '../../../templates/basicinfo/firewater_detail.html',
+                    cache: true,
+                    async: true,
+                    success: function (html) {
+                        $("#detailDialog").html(html);
+                    }
+                });
+            })
         },
         //表格重新加载数据
         loadingData: function () {
@@ -179,77 +369,9 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-        //表格删除事件
-        // deleteClick: function(index,row) {
-        // var _self = this;
-        // this.$confirm("确认删除" + row.realname + "吗?", "提示", {
-        // 	type: "warning",
-        // 	confirmButtonText: '确定',
-        // 	cancelButtonText: '取消'
-        // })
-        // 	.then(function() {
-        // 	_self.tableData.splice(index,1);
-        // 	_self.$message({
-        // 		message: row.realname + "删除成功",
-        // 		type: "success"
-        // 	});
-        // 	_self.loadingData(); //重新加载数据
-        // 	})
-        // 	.catch(function(e) {
-        // 	if (e != "cancel") console.log("出现错误：" + e);
-        // 	});
-        // },
-        /*
-                //新建事件
-                addClick: function () {
-                    var _self = this;
-                    _self.addFormVisible = true;
-        
-                },
-                //删除所选，批量删除
-                removeSelection: function () {
-                    var _self = this;
-                    var multipleSelection = this.multipleSelection;
-                    if (multipleSelection.length < 1) {
-                        _self.$message({
-                            message: "请至少选中一条记录",
-                            type: "error"
-                        });
-                        return;
-                    }
-                    //var ids = "";
-                    var ids = [];
-                    for (var i = 0; i < multipleSelection.length; i++) {
-                        var row = multipleSelection[i];
-                        //ids += row.realname + ",";
-                        ids.push(row.permissionname);
-                    }
-                    this.$confirm("确认删除" + ids + "吗?", "提示", {
-                        type: "warning"
-                    })
-                        .then(function () {
-                            for (var d = 0; d < ids.length; d++) {
-                                for (var k = 0; k < _self.tableData.length; k++) {
-                                    if (_self.tableData[k].permissionname == ids[d]) {
-                                        _self.tableData.splice(k, 1);
-                                    }
-                                }
-                            }
-                            _self.$message({
-                                message: ids + "删除成功",
-                                type: "success"
-                            });
-                            _self.total = _self.tableData.length;
-                            _self.loadingData(); //重新加载数据
-                        })
-                        .catch(function (e) {
-                            if (e != "cancel") console.log("出现错误：" + e);
-                        });
-                },
-            */
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
+          //  console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -257,90 +379,14 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
+        //    console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //表格编辑事件
-        editClick: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
-                    message: "请至少选中一条记录",
-                    type: "error"
-                });
-                return;
-            }
-            else if (multipleSelection.length > 1) {
-                _self.$message({
-                    message: "只能选一条记录进行编辑",
-                    type: "error"
-                });
-                return;
-            }
-            //var ids = "";
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                //ids += row.realname + ",";
-                ids.push(row.permissionname);
-            }
-            for (var d = 0; d < ids.length; d++) {
-                for (var k = 0; k < _self.tableData.length; k++) {
-                    if (_self.tableData[k].permissionname == ids[d]) {
-                        _self.selectIndex = k;
-                    }
-                }
-            }
-            this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-            //this.editForm.sex=(row.sex == "男"?1:0);
-            this.editFormVisible = true;
-        },
-        //保存点击事件
-        editSubmit: function (val) {
-            var _self = this;
-            this.tableData[this.selectIndex].permissionname = val.permissionname;
-            this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-            this.tableData[this.selectIndex].create_name = val.create_name;
-            this.tableData[this.selectIndex].create_time = val.create_time;
-            this.tableData[this.selectIndex].alter_name = val.alter_name;
-            this.tableData[this.selectIndex].alter_time = val.alter_time;
-            this.editFormVisible = false;
-            _self.loadingData();//重新加载数据
-            console.info(this.editForm);
-        },
-        //新建提交点击事件
-        addSubmit: function (val) {
-            var _self = this;
-            this.tableData.unshift({
-                permissionname: val.permissionname,
-                permissioninfo: val.permissioninfo,
-                create_name: val.create_name,
-                create_time: val.create_time,
-                alter_name: val.alter_name,
-                alter_time: val.alter_time
-            });
-            this.addFormVisible = false;
-            _self.total = _self.tableData.length;
-            _self.loadingData();//重新加载数据
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
-            console.info(this.addForm);
-
-        },
+        
         closeDialog: function (val) {
-            this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
+            this.detailVisible = false;
+            
         }
     },
 

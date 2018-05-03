@@ -16,7 +16,6 @@ $("#header_box").load("../../templates/header_box.html");
 //退出登录
 function logOut(){
     $('#login-out-form')[0].submit();
-    //alert("gg");
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
@@ -24,7 +23,6 @@ var menuData=[];
 //var menuData=[{"resourceid":"18","resourcename":null,"resourceinfo":"首页","url":"/home","seqno":null,"index":"1","icon":null,"type":null,"parentId":"-1","children":[]},{"resourceid":"17","resourcename":null,"resourceinfo":"系统管理","url":"","seqno":null,"index":"2","icon":null,"type":null,"parentId":"-1","children":[{"resourceid":"1","resourcename":null,"resourceinfo":"用户管理","url":"/user","seqno":null,"index":"21","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"6","resourcename":null,"resourceinfo":"角色管理","url":"/role","seqno":null,"index":"22","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"19","resourcename":null,"resourceinfo":"资源管理","url":"/resource","seqno":null,"index":"23","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"24","resourcename":null,"resourceinfo":"权限管理","url":"/permission","seqno":null,"index":"24","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"12","resourcename":null,"resourceinfo":"代码集管理","url":"/codelist","seqno":null,"index":"25","icon":null,"type":null,"parentId":"17","children":null}]}];
 axios.get('http://localhost/api/getMenu')				
         .then(function(res){
-        console.log(240);   
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
             menuData.push({
@@ -34,7 +32,6 @@ axios.get('http://localhost/api/getMenu')
                 "url":obj.url,
             });
         }
-        console.log(menuData);
     }.bind(this),function(error){
         console.log(error);
         window.location.href = "http://localhost/templates/login.html";
@@ -78,9 +75,59 @@ treeMenuTemplate.push('</li>');
                 return "javascript:;";
             }
             var realUrl="";
+            // 1
             if(this.model.url=="/home"){
                 realUrl="http://localhost/templates/home.html"
             }
+            // 2
+            else if(this.model.url=="/planobject/importantunits"){
+                realUrl="http://localhost/templates/planobject/importantunits_list.html"
+            }
+            else if(this.model.url=="/planobject/otherobjects"){
+                realUrl="http://localhost/templates/planobject/otherobjects_list.html"
+            }
+            else if(this.model.url=="/planobject/bwjwplan"){
+                realUrl="http://localhost/templates/planobject/bwjwplan_list.html"
+            }
+            // 3
+            else if(this.model.url=="/digitalplan/digitalplan"){
+                realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
+            }
+            else if(this.model.url=="/digitalplan/xfbwjw"){
+                realUrl="http://localhost/templates/digitalplan/xfbwjw_list.html"
+            }
+            else if(this.model.url=="/digitalplan/otherobjectsplan"){
+                realUrl="http://localhost/templates/digitalplan/otherobjectsplan_list.html"
+            }
+            else if(this.model.url=="/digitalplan/advancedsearch"){
+                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
+            }
+            else if(this.model.url=="/digitalplan/digitalplan_approve"){
+                realUrl="http://localhost/templates/digitalplan/digitalplan_approve.html"
+            }
+            // 4
+            else if(this.model.url=="/basicinfo/firewater"){
+                realUrl="http://localhost/templates/basicinfo/firewater_list.html"
+            }
+            else if(this.model.url=="/basicinfo/equipment"){
+                realUrl="http://localhost/templates/basicinfo/equipment_list.html"
+            }
+            else if(this.model.url=="/basicinfo/equipmentstock"){
+                realUrl="http://localhost/templates/basicinfo/equipmentstock_list.html"
+            }
+            else if(this.model.url=="/basicinfo/fireengine"){
+                realUrl="http://localhost/templates/basicinfo/fireengine_list.html"
+            }
+            else if(this.model.url=="/basicinfo/firedrug"){
+                realUrl="http://localhost/templates/basicinfo/firedrug_list.html"
+            }
+            else if(this.model.url=="/basicinfo/firestation"){
+                realUrl="http://localhost/templates/basicinfo/firestation_list.html"
+            }
+            else if(this.model.url=="/basicinfo/organization"){
+                realUrl="http://localhost/templates/basicinfo/organization_list.html"
+            }
+            // 5
             else if(this.model.url=="/user"){
                 realUrl="http://localhost/templates/system/user_list.html"
             }
@@ -96,28 +143,17 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/codelist"){
                 realUrl="http://localhost/templates/system/code_list.html"
             }
-            else if(this.model.url=="/digitalplan/digitalplan"){
-                realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
+            // 6
+            else if(this.model.url=="/dangerinfo/danger"){
+                realUrl="http://localhost/templates/auxiliarydecision/danger_list.html"
             }
-
-            else if(this.model.url=="/digitalplan/advancedsearch"){
-                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
+            // 7
+            else if(this.model.url=="/auxiliarydecision/firecalculation"){
+                realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
             }
-
-            else if(this.model.url=="/planobject/importantunits"){
-                realUrl="http://localhost/templates/planobject/importantunits_list.html"
-            }
-            else if(this.model.url=="/basicinfo/firewater"){
-                realUrl="http://localhost/templates/basicinfo/firewater_list.html"
-            }
-            else if(this.model.url=="/basicinfo/fireengine"){
-                realUrl="http://localhost/templates/basicinfo/fireengine_list.html"
-            }
-            else if(this.model.url=="/basicinfo/equipment"){
-                realUrl="http://localhost/templates/basicinfo/equipment_list.html"
-            }
-            else if(this.model.url=="/basicinfo/equipmentstock"){
-                realUrl="http://localhost/templates/basicinfo/equipmentstock_list.html"
+            // 8
+            else if(this.model.url=="/building_zoning"){
+                realUrl="http://localhost/templates/buildingzoning/building_zoning_list.html"
             }
             return realUrl;
         }

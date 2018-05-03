@@ -21,28 +21,34 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="125px" :inline="true" class="el-form demo-form-inline">
-							<el-row :gutter="20">
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">仓库名称</label>
-									<el-input size="small" v-model="searchForm.ckmc" placeholder="仓库名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.ckmc" placeholder="仓库名称"></el-input>
 								</el-col>
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">装备器材名称</label>
-									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.zbqcmc" placeholder="装备器材名称"></el-input>
 								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
-							<el-row :gutter="20">
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">货位名称</label>
-									<el-input size="small" v-model="searchForm.hwmc" placeholder="货位名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.hwmc" placeholder="货位名称"></el-input>
 								</el-col>
-								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10" class="searchInline">
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">所属消防机构</label>
-									<el-input size="small" v-model="searchForm.ssxfjg" placeholder="所属消防机构名称" class="inputWidth"></el-input>
+									<el-input size="small" v-model="searchForm.ssxfjg" placeholder="所属消防机构名称"></el-input>
 									<!-- <el-select size="small" v-model="searchForm.ssxfjg" class="inputWidth" clearable>
                                             <el-option v-for="ssxfjg in allSSXFJGData" :label="ssxfjg.codeName" :value="ssxfjg.codeValue" :key="ssxfjg.codeName"></el-option>
                                         </el-select> -->
 								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
 							<div>
 								<el-form>
@@ -65,23 +71,23 @@
 					<div class="table_container">
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
 						 class="tableStyle" :height="tableheight">
-							<el-table-column type="selection"></el-table-column>
+							<!-- <el-table-column type="selection"></el-table-column> -->
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="ckmc" label="仓库名称" show-overflow-tooltip min-width="9%" align="center">
+							<el-table-column prop="ckmc" label="仓库名称" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat">
 								<template slot-scope="scope">
 									<a @click="detailClick(scope.row)" type="text">{{scope.row.ckmc}}</a>
 								</template>
 							</el-table-column>
-							<el-table-column prop="hwmc" label="货位名称" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="zbqcmc" label="装备器材名称" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-							<el-table-column prop="yxqz" label="有效期至" show-overflow-tooltip min-width="9%" align="center" :formatter="dateFormat"></el-table-column>
-							<el-table-column prop="kcsl" label="库存数量" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="lysl" label="领用数量" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="zzsl" label="装载数量" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="wxsl" label="维修数量" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="ztsl" label="在途数量" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="jldw" label="计量单位" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
-							<el-table-column prop="ssxfjgid" label="所属消防机构" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="hwmc" label="货位名称" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="zbqcmc" label="装备器材名称" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="yxqz" label="有效期至" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="kcsl" label="库存数量" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="lysl" label="领用数量" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="zzsl" label="装载数量" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="wxsl" label="维修数量" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="ztsl" label="在途数量" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="jldw" label="计量单位" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="ssxfjgid" label="所属消防机构" show-overflow-tooltip min-width="9%" align="center" :formatter="dataFormat"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->

@@ -43,6 +43,10 @@ body{height:100%;overflow:hidden;}
 .inform-margin{
     margin-top: 15px;
 }
+.margin-left{
+    margin-top: 15px;
+    margin-left: 65px;
+}
 /*.single-search-left{
 
 }
@@ -112,7 +116,7 @@ body{height:100%;overflow:hidden;}
     width:180px;
 }
 #basic-Inform-Title{
-    margin-left: 20px;
+    margin-left: 5%;
 }
 #basic-Inform-Picture{
     float: left;
@@ -143,7 +147,7 @@ body{height:100%;overflow:hidden;}
     z-index: 8;
 }
 .searchLabel{
-    width: 84px; 
+    width: 150px; 
     vertical-align: middle; 
     line-height: 8px;
 }
@@ -158,4 +162,10 @@ body{height:100%;overflow:hidden;}
 }
 .el-table__body-wrapper{
     overflow: hidden;
+}
+.searchDatePicker{
+    width: 100% !important;
+}
+.el-input__icon{
+    height: 82%;
 }

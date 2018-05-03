@@ -1,0 +1,95 @@
+<html>
+<head>
+    <script src="../../static/js/vue.js"></script>
+    <script src="../../static/js/elementUI.js"></script>
+    <script src="../../static/js/digitalplanbwjw_detail.js"></script>
+</head>
+<body class="fw f14 main-index-body">
+    <!--详情界面-->
+        <div id="detailDisplay">
+            <div class="dib" id="basic-Inform-Title">
+                <div class="detailBox" style="display: inline-flex;">
+                <div class="imgWidth">
+                 <img src="../../static/images/danwei4.jpg">
+                </div>
+             <div class="detailBox">
+                <div class="yamc_Single">
+                    <div>
+                        <dl class="inform-left">
+                            <dt class="dtdlStyle">预案名称：</dt>
+                            <dd class="dtdlStyle">{{detailData.yamc||'无'}}</dd>
+                        </dl>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <dl class="inform-left">
+                            <dt class="dtdlStyle">预案对象：</dt>
+                            <dd class="dtdlStyle">{{detailData.dxmc||'无'}}</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="inform-div">
+                    <div class="leftDetail"> 
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">预案类型：</dt>
+                                <dd class="dtdlStyle">{{detailData.yalxdm||'无'}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">是否跨区域：</dt>
+                                <dd class="dtdlStyle">{{detailData.sfkqy||'无'}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作机构：</dt>
+                                <dd class="dtdlStyle">{{detailData.jgmc||'无'}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作人名称：</dt>
+                                <dd class="dtdlStyle">{{detailData.zzrmc||'无'}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                                <dt class="dtdlStyle">制作时间：</dt>
+                                <dd class="dtdlStyle">{{this.zzsj||'无'}}</dd>
+                            </dl>
+                        </div>
+                        <div class="inform-margin">
+                           <dl class="inform-left">
+                               <dt class="dtdlStyle">创建人：</dt>
+                               <dd class="dtdlStyle">{{detailData.cjrmc||'无'}}</dd>
+                           </dl>
+                        </div>
+                        <div class="inform-margin">
+                           <dl class="inform-left">
+                              <dt class="dtdlStyle">创建时间：</dt>
+                              <dd class="dtdlStyle">{{this.cjsj||'无'}}</dd>
+                           </dl>
+                        </div>
+                        <div class="inform-margin">
+                           <dl class="inform-left">
+                               <dt class="dtdlStyle">修改人：</dt>
+                               <dd class="dtdlStyle">{{detailData.xgrmc||'无'}}</dd>
+                           </dl>
+                        </div>
+                        <div class="inform-margin">
+                            <dl class="inform-left">
+                               <dt class="dtdlStyle">修改时间：</dt>
+                               <dd class="dtdlStyle">{{this.xgsj||'无'}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

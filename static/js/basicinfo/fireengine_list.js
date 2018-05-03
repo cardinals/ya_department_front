@@ -7,13 +7,23 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                zblxdm: "",
-                cldjdm: "",
-                cphm:""
+                ssdz: "",
+                cllx: "",
+                cphm: "",
+                clzt: "",
+                sbll: [0,1000],
+                zsl: [0,1000]
             },
             tableData: [],
+            allTeamsData: [],
             allTypesData: [],
-            allLevelsData:[],
+            allStatesData: [],
+            //级联选择器匹配结果集字段
+            props: {
+                value: 'codeValue',
+                label: 'codeName',
+                children: 'children'
+            },
             rowdata: '',
             //表高度变量
             tableheight: 443,
@@ -29,9 +39,7 @@ new Vue({
             //总记录数
             total: 10,
             //行数据保存
-            rowdata: {
-
-            },
+            rowdata: {},
             //序号
             indexData: 0,
             //删除的弹出框
@@ -46,8 +54,8 @@ new Vue({
             sels: [],
             //选中的序号
             selectIndex: -1,
-             //树结构配置
-             defaultProps: {
+            //树结构配置
+            defaultProps: {
                 children: 'children',
                 label: 'codeName',
                 value: 'codeValue'
@@ -58,20 +66,22 @@ new Vue({
     created:function(){
         this.searchClick();
         this.getAllTypesData();
-        this.getAllLevelsData();
+        this.getAllStatesData();
     },
     methods: {
-        handleNodeClick(data) {
-            console.log(data);
-        },
         //表格查询事件
         searchClick: function () {
             this.loading=true;
             var _self = this;
             var params={
-                zblxdm :this.searchForm.zblxdm,
-                cldjdm :this.searchForm.cldjdm,
+                ssdz :this.searchForm.ssdz,
+                cllx :this.searchForm.cllx[this.searchForm.cllx.length-1],
                 cphm :this.searchForm.cphm,
+                clzt :this.searchForm.clzt[this.searchForm.clzt.length-1],
+                sbll_min :this.searchForm.sbll[0],
+                sbll_max :this.searchForm.sbll[1],
+                zsl_min :this.searchForm.zsl[0],
+                zsl_max :this.searchForm.zsl[1]
             };
             axios.post('/dpapi/fireengine/list',params).then(function(res){
                 this.tableData = res.data.result;
@@ -82,21 +92,44 @@ new Vue({
                 console.log(error);
             })
         },
+        //清空查询条件
         clearClick: function () {
-            this.searchForm.zblxdm="";
-            this.searchForm.cldjdm="";
+            this.searchForm.ssdz="";
+            this.searchForm.cllx=[];
             this.searchForm.cphm="";
+            this.searchForm.clzt=[];
+            this.searchForm.sbll=[0,1000];
+            this.searchForm.zsl=[0,1000];
         },
+        //数据为空时显示‘无’
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
+        },
+        //获取所有车辆类型
         getAllTypesData: function (){
-            axios.get('/api/codelist/getCodetype/CA01').then(function(res){
+            var params= {
+                codetype : "CLLX",
+                list : [1,2,4,6,8]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
                 this.allTypesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
         },
-        getAllLevelsData: function (){
-            axios.get('/api/codelist/getCodetype/CLDJ').then(function(res){
-                this.allLevelsData=res.data.result;
+        //获取所有车辆状态
+        getAllStatesData: function (){
+            var params= {
+                codetype : "CLZT",
+                list : [2,4]
+            };
+            axios.post('/api/codelist/getCodelisttree',params).then(function(res){
+                this.allStatesData=res.data.result;
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -109,9 +142,6 @@ new Vue({
             this.multipleSelection = val;
             //this.sels = sels
             console.info(val);
-        },
-        detailClick(val) {
-            window.location.href = "fireengine_detail.html?ID=" + val.id;
         },
         //表格重新加载数据
         loadingData: function () {
@@ -132,82 +162,15 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
+            // console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //表格编辑事件
-        // editClick: function () {
-        //     var _self = this;
-        //     var multipleSelection = this.multipleSelection;
-        //     if (multipleSelection.length < 1) {
-        //         _self.$message({
-        //             message: "请至少选中一条记录",
-        //             type: "error"
-        //         });
-        //         return;
-        //     }
-        //     else if (multipleSelection.length > 1) {
-        //         _self.$message({
-        //             message: "只能选一条记录进行编辑",
-        //             type: "error"
-        //         });
-        //         return;
-        //     }
-        //     //var ids = "";
-        //     var ids = [];
-        //     for (var i = 0; i < multipleSelection.length; i++) {
-        //         var row = multipleSelection[i];
-        //         //ids += row.realname + ",";
-        //         ids.push(row.permissionname);
-        //     }
-        //     for (var d = 0; d < ids.length; d++) {
-        //         for (var k = 0; k < _self.tableData.length; k++) {
-        //             if (_self.tableData[k].permissionname == ids[d]) {
-        //                 _self.selectIndex = k;
-        //             }
-        //         }
-        //     }
-        //     this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-        //     //this.editForm.sex=(row.sex == "男"?1:0);
-        //     this.editFormVisible = true;
-        // },
-        //保存点击事件
-        // editSubmit: function (val) {
-        //     var _self = this;
-        //     this.tableData[this.selectIndex].permissionname = val.permissionname;
-        //     this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-        //     this.tableData[this.selectIndex].create_name = val.create_name;
-        //     this.tableData[this.selectIndex].create_time = val.create_time;
-        //     this.tableData[this.selectIndex].alter_name = val.alter_name;
-        //     this.tableData[this.selectIndex].alter_time = val.alter_time;
-        //     this.editFormVisible = false;
-        //     _self.loadingData();//重新加载数据
-        //     console.info(this.editForm);
-        // },
-        // //新建提交点击事件
-        // addSubmit: function (val) {
-        //     var _self = this;
-        //     this.tableData.unshift({
-        //         permissionname: val.permissionname,
-        //         permissioninfo: val.permissioninfo,
-        //         create_name: val.create_name,
-        //         create_time: val.create_time,
-        //         alter_name: val.alter_name,
-        //         alter_time: val.alter_time
-        //     });
-        //     this.addFormVisible = false;
-        //     _self.total = _self.tableData.length;
-        //     _self.loadingData();//重新加载数据
-        //     val.permissionname = "";
-        //     val.permissioninfo = "";
-        //     val.create_name = "";
-        //     val.create_time = "";
-        //     val.alter_name = "";
-        //     val.alter_time = "";
-        //     console.info(this.addForm);
-
-        // },
+        //打开详情页
+        detailClick(val) {
+            window.location.href = "fireengine_detail.html?ID=" + val.id;
+        },
+        //关闭详情页
         closeDialog: function (val) {
             this.addFormVisible = false;
             val.permissionname = "";
@@ -217,6 +180,5 @@ new Vue({
             val.alter_name = "";
             val.alter_time = "";
         }
-    },
-
+    }
 })

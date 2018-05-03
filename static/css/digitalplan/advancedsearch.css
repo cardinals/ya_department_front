@@ -60,3 +60,12 @@ label {
     border: 0;
     border-radius: 4px;
 }
+.el-button--primary,.el-button--clear{
+    margin: 3px 0;
+}
+.el-form-item__label{
+    width: 100px;
+}
+.el-form-item__content {
+    padding-left: 100px;
+}

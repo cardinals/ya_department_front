@@ -1,220 +1,112 @@
-//axios默认设置cookie
-axios.defaults.withCredentials = true;
 new Vue({
-    el: '#app',
+    el: "#detailDisplay",
     data: function () {
         return {
-            activeName: "first",      
-            urls: ['inform.html', 'inform2.html'],
-            //表高度变量
-            tableheight: 474,
-            //显示加载中样
-            loading: false,
-            labelPosition: 'right',
-            //多选值
-            multipleSelection: [],
-           /*
-            //当前页
-            currentPage: 1,
-            //分页大小
-            pageSize: 10,
-            //总记录数
-            total: 0,
-            */
-
-            //基本数据保存
-            rowdata: { },
-            //消火栓数据保存
-            XHSdata: { },
-            //消防水车数据保存
-            XFSCdata: { },
-            //消防水鹤数据保存
-            XFSHdata:{ },
-            //消防取水码头
-            XFQSMTdata:{},
-            //天然水源
-            TRSYdata:{},
-            //数据水源类型
-            SYLX:{},
-            //水源属性信息ID
-            sysxxxid:[],
-        //序号
-        indexData: 0,
-        //发送至邮箱是否显示
-        emailDialogVisible: false,
-        email: "",
-        //信息分享是否显示
-        shareDialogVisible: false,
-        //信息打印是否显示
-        printDialogVisible: false,
-        //删除的弹出框
-        deleteVisible: false,
-        //新建页面是否显示
-        addFormVisible: false,
-        addLoading: false,
-        addFormRules: {
-
-        },
-        //新建数据
-        addForm: {
-            DWMC: "",
-            DWDJ: "",
-            DWXZ: "",
-            XZQY: "",
-            DWDZ: "",
-            ZDMJ: "",
-            XFGXJGID: ""
-        },
-        //选中的值显示
-        sels: [],
-            //选中的序号
-            selectIndex: -1,
-            //编辑界面是否显示
-            editFormVisible: false,
-            editLoading: false,
-            editFormRules: {
-            permissionname: [{ required: true, message: "请输入角色名称", trigger: "blur" }]
-        },
-        //编辑界面数据
-        editForm: {
-            DWMC: "",
-            DWDJ: "",
-            DWXZ: "",
-            XZQY: "",
-            DWDZ: "",
-            ZDMJ: "",
-            XFGXJGID: ""
-        },
-
-    }
-},
-    mounted: function () {
-        this.loading=true;
-        var url = location.search;
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            var ID = str.substring(3);
-            var params = {
-                id : ID,
-            }
-         
-            axios.post('/dpapi/shuiyuan/findById', params).then(function (res) {
-                this.rowdata = res.data.result;
-                this.SYLX = res.data.result.sylx;
-                this.sysxxxid = res.data.result.sysxxxid;
-                this.loadingJCXX(this.SYLX,this.sysxxxid);
-                this.loading=false;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-  
+            activeName: "first",  
+            //页面获取的pkid
+            id:"",
+            //页面获取的水源类型
+            sylx:"",
+            //详情Data
+            detailData: {},
+           //地图经度
+           bdLon:0,
+           //地图纬度
+           bdLat:0,
+           
         }
     },
-    methods: {
-        handleNodeClick(data) {
-            console.log(data);
-        },
-        //标签页
-        handleClick: function (e) {
-            console.log(e);
-        },
-        begindateChange(val) {
-            console.log(val);
-            this.searchForm.begintime = val;
-        },
-        enddateChange(val) {
-            console.log(val);
-            this.searchForm.endtime = val;
-        },
-        //发送至邮箱
-        openEmail: function () {
-            this.emailDialogVisible = true;
-        },
-        closeEmailDialog: function () {
-            this.emailDialogVisible = false;
-            this.email = "";
-        },
-        //信息分享
-        openShare: function () {
-            this.shareDialogVisible = true;
-        },
-        closeShareDialog: function () {
-            this.shareDialogVisible = false;
-        },
-        //信息打印
-        openPrinter: function () {
-            window.print();
-        },
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                console.info("加载数据成功");
-                _self.loading = false;
-            }, 300);
-        },
-        //分类加载基础信息tab
-        loadingJCXX: function(SYLX,id){          
-            switch (SYLX) {
-                case '1100':
-                    var div=document.getElementById("XHS");
-                    div.style.display = "";
-                    axios.get('/dpapi/xhs/'+ id).then(function (res) {
-                        this.XHSdata = res.data.result;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    break;
-                case '1300':
-                    var div=document.getElementById("XFSC");
-                    div.style.display = "";
-                    axios.get('/dpapi/xfsc/'+ id).then(function (res) {
-                        this.XFSCdata = res.data.result;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    break;
-                case '1200':
-                    var div=document.getElementById("XFSH");
-                    div.style.display = "";
-                    axios.get('/dpapi/xfsh/'+ id).then(function (res) {
-                        this.XFSHdata = res.data.result;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    break;
-                case '2100':
-                    var div=document.getElementById("XFQSMT");
-                    div.style.display = "";
-                /*
-                    axios.get('/dpapi/xfmt/'+ id).then(function (res) {
-                        this.XFQSMTdata = res.data.result;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    */
-                    var params = {
-                        id : id,
-                    }
-                    axios.post('/dpapi/xfmt/findById', params).then(function (res) {
-                        this.XFQSMTdata = res.data.result;
-                        this.TRSYdata = this.XFQSMTdata.trsy[0];
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    break;
-                case '2000':
-                    var div=document.getElementById("TRSY");
-                    div.style.display = "";
-                    axios.get('/dpapi/trsy/'+ id).then(function (res) {
-                        this.TRSYdata = res.data.result;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    break;
-            }
-        },
+    created: function () {
+        //取得选中行id
+        this.id = this.GetQueryString("id");
+        console.log(this.id);
+        //获取选中行水源类型
+        this.sylx = this.GetQueryString("sylx");
+        history.back();
+        //console.log(this.sylx);
+        var start_sylx = this.sylx.substring(0,2);
+        switch(start_sylx){
+            case '11':
+                 var div=document.getElementById("XHS");
+                 div.style.display = "";
+                 break;
+            case '13':
+                 var div=document.getElementById("XFSC");
+                 div.style.display = "";
+                 break;
+            case '12':
+                 var div=document.getElementById("XFSH");
+                 div.style.display = "";
+                 break;
+            case '21':
+                 var div=document.getElementById("XFMT");
+                 div.style.display = "";
+                 break;
+            case '29':
+                 var div=document.getElementById("TRSY");
+                 div.style.display = "";
+                 break;
+        }
+        var params = {
+            uuid : this.id,
+            sylx : start_sylx
+        }
+        axios.post('/dpapi/xfsy/findSyAndSxByVo', params).then(function (res) {
+            this.detailData = res.data.result;
+            this.bdLat = this.detailData.bdLat;
+            this.bdLon = this.detailData.bdLon;
+            this.loading=false;
+            this.initMap();//创建和初始化地图
+        }.bind(this), function (error) {
+            console.log(error);
+        })
     },
 
+    methods: {
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        },
+        //创建和初始化地图函数：
+        initMap: function(){
+            this.createMap();//创建地图
+            this.setMapEvent();//设置地图事件
+            this.addMapControl();//向地图添加控件
+        },
+        //创建地图函数：
+        createMap: function(){
+            var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+            var point = new BMap.Point(this.bdLon,this.bdLat);//定义一个中心点坐标
+            map.centerAndZoom(point,15);//设定地图的中心点和坐标并将地图显示在地图容器中
+            window.map = map;//将map变量存储在全局
+        },
+        //地图事件设置函数：
+        setMapEvent:function(){
+            map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+            map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+            map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+            map.enableKeyboard();//启用键盘上下左右键移动地图
+        },
+        //地图控件添加函数：
+        addMapControl:function(){
+            //向地图中添加缩放控件
+            var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+            map.addControl(ctrl_nav);
+            //向地图中添加缩略图控件
+            var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:0});
+            map.addControl(ctrl_ove);
+            //向地图中添加比例尺控件
+            var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+            map.addControl(ctrl_sca);
+        },
+        handleClick: function (tab, event) {
+          /*
+            if(tab.name == "second"){
+                this.initMap();
+            }
+            */
+         },
+    }
 })

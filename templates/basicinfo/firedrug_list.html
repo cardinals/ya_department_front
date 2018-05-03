@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/basicinfo/firedrug.css">
+</head>
+
+<body class="fw f14 main-index-body">
+	<div id="header_box"></div>
+	<div class="left-sidebar">
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="45"></big-tree>
+		</div>
+	</div>
+	<div id="app">
+		<div class="main-box">
+			<div class="main-container" v-loading="loading" element-loading-text="加载中">
+				<div id="lib :: main_container_header('消防药剂信息','消防药剂信息')"></div>
+				<div id="tableView">
+					<el-row>
+						<el-form label-width="110px" :inline="true" class="el-form demo-form-inline">
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">药剂类型</label>
+									<el-cascader :options="allYjlxDataTree" :props="defaultProps" size="small" v-model="searchForm.yjlx" placeholder="全部" class="searchSelect"
+									 clearable change-on-select></el-cascader>
+								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">所属队站</label>
+									<!-- <el-input size="small" v-model="searchForm.ssdz" placeholder="所属队站" class="searchSelect"></el-input> -->
+									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allSsdzData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+									</el-select>
+								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<!-- <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="searchInline">
+									<label class="el-form-item__label searchLabel">是否消耗性装备</label>
+									<el-checkbox></el-checkbox>
+								</el-col> -->
+							</el-row>
+							<el-row>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">储备量</label>
+									<el-slider v-model="searchForm.cbl" range :max="1000" class="searchSelect"></el-slider>
+								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">车载量</label>
+									<el-slider v-model="searchForm.czl" range :max="1000" class="searchSelect"></el-slider>
+								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+							</el-row>
+							<div>
+								<el-form>
+									<el-col :span="12" class="btnEditDelete">
+										<el-form-item align="left">
+										</el-form-item>
+									</el-col>
+									<el-col :span="12"></el-col>
+									<el-col :span="12" class="btnSearchPlus">
+										<el-form-item>
+											<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+											<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+										</el-form-item>
+									</el-col>
+								</el-form>
+							</div>
+						</el-form>
+					</el-row>
+
+					<div class="table_container">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
+						 class="tableStyle" :height="tableheight">
+							<!-- <el-table-column type="selection" min-width="5%"></el-table-column> -->
+							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+							<el-table-column prop="yjmc" label="药剂名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="dzmc" label="所属队站" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="yjlxmc" label="药剂类型" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="sccj" label="生产厂家" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="pc" label="批次" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="cbl" label="储备量(t)" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="czl" label="车载量(t)" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+						</el-table>
+
+						<!--列表底部工具条和分页符-->
+						<el-row type="flex" justify="end">
+							<el-col :span="18">
+								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+								</el-pagination>
+							</el-col>
+						</el-row>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/basicinfo/firedrug_list.js"></script>
+
+</html>

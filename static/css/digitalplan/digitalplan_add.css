@@ -1,0 +1,10 @@
+#inforView,#uploadView {
+    padding: 60px 60px 20px;
+}
+input[type=file] {
+    display: none;
+}
+
+.main-container {
+    padding: 20px;
+}

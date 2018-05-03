@@ -1,5 +1,5 @@
 //axios默认设置cookie
-axios.defaults.withCredentials = true;	
+axios.defaults.withCredentials = true;
 new Vue({
     el: '#app',
     data: function () {
@@ -7,21 +7,20 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                zbqcmc: "",
-                equipmenttype: "",
-                sfxhxqc:""
+                zbmc: "",
+                ssdz: "",
+                zblx: "",
+                kcsl: ""
             },
             tableData: [],
-            allTypesData: [],
-            
+            allTypesDataTree: [],//装备类型级联选择数据
+            allSsdzData: [],//消防队站下拉框数据（到总队级）
             rowdata: '',
             //表高度变量
             tableheight: 450,
             //显示加载中样
             loading: false,
             labelPosition: 'right',
-            //多选值
-            multipleSelection: [],
             //当前页
             currentPage: 1,
             //分页大小
@@ -34,20 +33,8 @@ new Vue({
             },
             //序号
             indexData: 0,
-            //删除的弹出框
-            deleteVisible: false,
-            //新建页面是否显示
-            addFormVisible: false,
-            addLoading: false,
-            addFormRules: {
-                permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
-            },
-            //选中的值显示
-            sels: [],
-            //选中的序号
-            selectIndex: -1,
-             //树结构配置
-             defaultProps: {
+            //树结构配置
+            defaultProps: {
                 children: 'children',
                 label: 'codeName',
                 value: 'codeValue'
@@ -55,9 +42,10 @@ new Vue({
 
         }
     },
-    created:function(){
+    created: function () {
+        this.getAllSszdData();//消防队站下拉框数据（到总队级）
+        this.getAllTypesDataTree();//装备类型级联选择数据
         this.searchClick();
-        this.getAllTypesData();
     },
     methods: {
         handleNodeClick(data) {
@@ -67,31 +55,63 @@ new Vue({
         searchClick: function () {
             this.loading = true;
             var _self = this;
-            var params={
-                zbqcmc:this.searchForm.zbqcmc,
-                // begintime: this.searchForm.begintime,
-                // endtime: this.searchForm.endtime,
-                // xzqy_id: this.searchForm.xzqy,
-                // xfgx_id: this.searchForm.xfgx
+            var params = {
+                zbmc: this.searchForm.zbmc,
+                ssdz: this.searchForm.ssdz,
+                xssd: this.searchForm.zblx[this.searchForm.zblx.length - 1],
+                kcsl_min: this.searchForm.kcsl[0],
+                kcsl_max: this.searchForm.kcsl[1]
             };
-            axios.post('/dpapi/equipmentsource/findByVO',params).then(function(res){
+            axios.post('/dpapi/equipmentsource/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
+                for(var i=0;i<this.tableData.length;i++){
+                    this.tableData[i].zcbl = parseInt(this.tableData[i].kcsl) 
+                                            + parseInt(this.tableData[i].zzsl) 
+                                            + parseInt(this.tableData[i].ztsl)
+                                            + parseInt(this.tableData[i].wxsl)
+                }
                 this.total = res.data.result.length;
-                this.rowdata = this.tableData;
-                this.loading=false;
-            }.bind(this),function(error){
+                this.loading = false;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //清空查询条件
         clearClick: function () {
-            // this.searchForm.
+            this.searchForm.zbmc = "";
+            this.searchForm.ssdz = "";
+            this.searchForm.zblx = [];
+            this.searchForm.kcsl = [];
         },
-        getAllTypesData: function (){
-            axios.get('/api/codelist/getCodetype/QCFL').then(function(res){
-                this.allTypesData=res.data.result;
-            }.bind(this),function(error){
+        //装备类型级联选择数据
+        getAllTypesDataTree: function () {
+            var params = {
+                codetype: "ZBQCLX",
+                list: [1, 2, 4, 6, 8]
+            };
+            axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
+                this.allTypesDataTree = res.data.result;
+            }.bind(this), function (error) {
                 console.log(error);
             })
+        },
+        //所属队站下拉框数据
+        getAllSszdData: function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.allSsdzData = res.data.result;
+
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -102,6 +122,7 @@ new Vue({
             //this.sels = sels
             console.info(val);
         },
+        //跳转至详情页
         detailClick(val) {
             window.location.href = "equipment_detail.html?ID=" + val.id;
         },
@@ -128,87 +149,7 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //表格编辑事件
-        // editClick: function () {
-        //     var _self = this;
-        //     var multipleSelection = this.multipleSelection;
-        //     if (multipleSelection.length < 1) {
-        //         _self.$message({
-        //             message: "请至少选中一条记录",
-        //             type: "error"
-        //         });
-        //         return;
-        //     }
-        //     else if (multipleSelection.length > 1) {
-        //         _self.$message({
-        //             message: "只能选一条记录进行编辑",
-        //             type: "error"
-        //         });
-        //         return;
-        //     }
-        //     //var ids = "";
-        //     var ids = [];
-        //     for (var i = 0; i < multipleSelection.length; i++) {
-        //         var row = multipleSelection[i];
-        //         //ids += row.realname + ",";
-        //         ids.push(row.permissionname);
-        //     }
-        //     for (var d = 0; d < ids.length; d++) {
-        //         for (var k = 0; k < _self.tableData.length; k++) {
-        //             if (_self.tableData[k].permissionname == ids[d]) {
-        //                 _self.selectIndex = k;
-        //             }
-        //         }
-        //     }
-        //     this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-        //     //this.editForm.sex=(row.sex == "男"?1:0);
-        //     this.editFormVisible = true;
-        // },
-        //保存点击事件
-        // editSubmit: function (val) {
-        //     var _self = this;
-        //     this.tableData[this.selectIndex].permissionname = val.permissionname;
-        //     this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-        //     this.tableData[this.selectIndex].create_name = val.create_name;
-        //     this.tableData[this.selectIndex].create_time = val.create_time;
-        //     this.tableData[this.selectIndex].alter_name = val.alter_name;
-        //     this.tableData[this.selectIndex].alter_time = val.alter_time;
-        //     this.editFormVisible = false;
-        //     _self.loadingData();//重新加载数据
-        //     console.info(this.editForm);
-        // },
-        // //新建提交点击事件
-        // addSubmit: function (val) {
-        //     var _self = this;
-        //     this.tableData.unshift({
-        //         permissionname: val.permissionname,
-        //         permissioninfo: val.permissioninfo,
-        //         create_name: val.create_name,
-        //         create_time: val.create_time,
-        //         alter_name: val.alter_name,
-        //         alter_time: val.alter_time
-        //     });
-        //     this.addFormVisible = false;
-        //     _self.total = _self.tableData.length;
-        //     _self.loadingData();//重新加载数据
-        //     val.permissionname = "";
-        //     val.permissioninfo = "";
-        //     val.create_name = "";
-        //     val.create_time = "";
-        //     val.alter_name = "";
-        //     val.alter_time = "";
-        //     console.info(this.addForm);
 
-        // },
-        closeDialog: function (val) {
-            this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
-        }
     },
 
 })

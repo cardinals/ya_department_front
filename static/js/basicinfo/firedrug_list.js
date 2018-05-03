@@ -1,5 +1,5 @@
 //axios默认设置cookie
-axios.defaults.withCredentials = true;	
+axios.defaults.withCredentials = true;
 new Vue({
     el: '#app',
     data: function () {
@@ -7,16 +7,14 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                NAME: "",
-                ALIAS: "",
-                ENGLISH_NAME:"",
-                option_LXDM:"",
-                option_PROPERTY:""
+                ssdz: "",
+                yjlx: "",
+                cbl: [0, 1000],
+                czl: [0, 1000],
             },
             tableData: [],
-            LXDM_data:[],
-            PROPERTY_data: [],
-            
+            allYjlxDataTree: [],//药剂类型级联选择器数据
+            allSsdzData: [],//所属队站下拉框数据
             //表高度变量
             tableheight: 450,
             //显示加载中样
@@ -30,10 +28,6 @@ new Vue({
             pageSize: 10,
             //总记录数
             total: 10,
-            //行数据保存
-            rowdata: {
-
-            },
             //序号
             indexData: 0,
             //删除的弹出框
@@ -48,8 +42,8 @@ new Vue({
             sels: [],
             //选中的序号
             selectIndex: -1,
-             //树结构配置
-             defaultProps: {
+            //树结构配置
+            defaultProps: {
                 children: 'children',
                 label: 'codeName',
                 value: 'codeValue'
@@ -57,55 +51,71 @@ new Vue({
 
         }
     },
-    created:function(){
-        this.getLXDMData();
-        this.getPROPERTYData();
+    created: function () {
+        this.getAllSszdData();//消防队站下拉框数据（到总队级）
+        this.getAllYjlxDataTree(); //药剂类型级联选择器数据
         this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
-            console.log(data);
+            // console.log(data);
+        },
+        //药剂类型级联选择器数据
+        getAllYjlxDataTree: function () {
+            var params= {
+                codetype : "YJLX",
+                list : [1,2,4,6,8]
+            };
+            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
+                this.allYjlxDataTree=res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        //所属队站下拉框数据
+        getAllSszdData: function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.allSsdzData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         //表格查询事件
         searchClick: function () {
+            this.loading = true;
             var _self = this;
-            _self.loading = true;//表格重新加载
-            var params={
-                name:this.searchForm.NAME,
-                alias: this.searchForm.ALIAS,
-                englishName: this.searchForm.ENGLISH_NAME,
-                //type: this.searchForm.option_LXDM,
-                //property: this.searchForm.option_PROPERTY
+            var params = {
+                ssdz: this.searchForm.ssdz,
+                yjlx: this.searchForm.yjlx[this.searchForm.yjlx.length - 1],
+                cbl_min: this.searchForm.cbl[0],
+                cbl_max: this.searchForm.cbl[1],
+                czl_min: this.searchForm.czl[0],
+                czl_max: this.searchForm.czl[1]
             };
-            axios.post('/dpapi/danger/findByVO',params).then(function(res){
+            axios.post('/dpapi/firedrug/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                _self.loading = false;
-            }.bind(this),function(error){
+                this.loading = false;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //清空
         clearClick: function () {
-            this.searchForm.NAME="";
-            this.searchForm.ENGLISH_NAME="";
-            this.searchForm.ALIAS="";
-            this.searchForm.option_LXDM=[];
-            this.searchForm.option_PROPERTY=[];
-            this.$refs.tree.setCheckedKeys([]);
+            this.searchForm.ssdz = "";
+            this.searchForm.yjlx = "";
+            this.searchForm.cbl = [];
+            this.searchForm.czl = []
         },
-        getLXDMData: function (){
-            axios.get('/api/codelist/getCodetype/HXPFL').then(function(res){
-                this.LXDM_data=res.data.result;
-            }.bind(this),function(error){
-                console.log(error);
-            })
-        },
-        getPROPERTYData: function (){
-            axios.get('/api/codelist/getCodetype/HXPZT').then(function(res){
-                this.PROPERTY_data=res.data.result;
-            }.bind(this),function(error){
-                console.log(error);
-            })
+
+        //表格数据格式化
+        dataFormat: function (row, column) {
+            var rowDate = row[column.property];
+            if (rowDate == null || rowDate == "") {
+                return '无';
+            } else {
+                return rowDate;
+            }
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -113,11 +123,10 @@ new Vue({
                 var row = val[i];
             }
             this.multipleSelection = val;
+            //this.sels = sels
             console.info(val);
         },
-        detailClick(val) {
-            window.location.href = "danger_detail.html?ID=" + val.id;
-        },
+
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
@@ -129,7 +138,7 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
+            // console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -137,20 +146,11 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
+            // console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-       
-        closeDialog: function (val) {
-            this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
-        }
+
     },
 
 })

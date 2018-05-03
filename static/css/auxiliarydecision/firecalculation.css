@@ -1,0 +1,19 @@
+.el-select{
+    width: 100%;
+}
+.el-message{
+    z-index: 10001 !important;
+}
+.calculateForm{
+    margin-bottom: 0px !important;
+}
+.is-circle{
+    border-radius: 50%;
+    padding: 12px;
+}
+.el-dialog__footer{
+    text-align: center;
+}
+.el-tabs__header{
+    margin: 0 0 5px;
+}

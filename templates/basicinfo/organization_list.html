@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/planobject/importantunits.css">
+</head>
+<style>
+	.custom-tree-node {
+	  flex: 1;
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  font-size: 14px;
+	  padding-right: 8px;
+	}
+</style>
+
+<body class="fw f14 main-index-body">
+	<div id="header_box"></div>
+	<div class="left-sidebar">
+		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+		<div id="menu-box">
+			<big-tree default-active="47"></big-tree>
+		</div>
+	</div>
+
+	  <div id="app">
+			<div class="main-box">
+				<div class="main-container">
+				<div id="lib :: main_container_header('组织机构','组织机构')"></div>
+				<div class="frame" >
+				<div class="frame_left">
+					<!-- type="primary" icon="search" size="small" @click="searchClick" -->
+						<div><h5 class="src_name">组织机构树</h5>
+							<div style="height:1px;padding: 5px;">
+								<el-input placeholder="查询" v-model="filterText">
+								</el-input>
+							</div> 
+						</div>
+						<div scroll="no" class="src_slt">
+							<el-tree
+									class="filter-tree"
+									:data="tableData"
+									:props="jgidprops"
+									accordion
+									:filter-node-method="filterNode"
+									node-key="uuid"
+									ref="tree2"
+									@current-change="currentNodeChange"
+									style=" font-weight:bold;
+											width:100%;
+											font-weight:100px;
+											border:none;
+											"
+								>
+							</el-tree>
+						</div>
+							
+				</div>
+				<div class="frame_right" scroll="no">
+						<h5 class="src_name">组织机构详情</h5>
+								<el-from>
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">机构名称：</dt>
+											<!-- <dd class="dtdlStyle">{{detailData.jgmc||'无'}}</dd> -->
+											<dd class="dtdlStyle">{{detailData.jgmc||"无"}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">机构简称：</dt>
+											<dd class="dtdlStyle">{{detailData.jgjc||'无'}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">机构性质：</dt>
+											<dd class="dtdlStyle">{{detailData.jgxzdm||'无'}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">机构地址：</dt>
+											<dd class="dtdlStyle">{{detailData.jgdz||'无'}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">机构描述：</dt>
+											<dd class="dtdlStyle">{{detailData.jgms||'无'}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">行政区划：</dt>
+											<dd class="dtdlStyle">{{detailData.xzqh||'无'}}</dd>
+										</dl>
+									</div> 
+								    <div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">联系人：</dt>
+											<dd class="dtdlStyle">{{detailData.lxr||'无'}}</dd>
+										</dl>
+									</div>
+								    <div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">联系电话：</dt>
+											<dd class="dtdlStyle">{{detailData.lxdh||'无'}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">传真号码：</dt>
+											<dd class="dtdlStyle">{{detailData.czhm||'无'}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">辖区面积：</dt>
+											<dd class="dtdlStyle">{{detailData.xqmj||'无'}}</dd>
+										</dl>
+									</div> 
+									<div class="margin-left">
+										<dl class="inform-left">
+											<dt class="dtdlStyle">辖区范围：</dt>
+											<dd class="dtdlStyle">{{detailData.xqfw||'无'}}</dd>
+										</dl>
+									</div>
+						       </el-from>
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+		
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/menu.js"></script>
+<script src="../../static/js/basicinfo/organization_list.js"></script>
+</html>
