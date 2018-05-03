@@ -1,10 +1,17 @@
-#inforView,#uploadView {
-    padding: 60px 60px 20px;
-}
 input[type=file] {
     display: none;
 }
 
 .main-container {
-    padding: 20px;
+    padding: 40px 20px 20px;
+}
+.el-form-item {
+    width: 400px;
+    margin-bottom: 10px;
+}
+.el-form-item__content {
+    width: 70%;
+}
+.el-form-item__error {
+    padding-top: 0;
 }

@@ -205,12 +205,15 @@ new Vue({
             window.location.href = "digitalplan_add.html?ID=" + 0;
         },
         handleEdit(row) {
-            if(row.yazt=='01'){
+            if (row.yazt == '01') {
                 window.location.href = "digitalplan_add.html?ID=" + row.uuid;
-            }else{
-                alert("仅编辑中和已驳回状态预案可编辑！");
+            } else {
+                this.$message({
+                    message: "仅编辑中和已驳回状态预案可编辑",
+                    showClose: true,
+                });
             }
-            
+
         },
 
         //预案预览
