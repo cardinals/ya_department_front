@@ -157,8 +157,8 @@ new Vue({
             this.searchForm.dxmc="";
             this.searchForm.yalxdm=[];
             this.searchForm.sfkqy="";
-            this.searchForm.jgid="";
-            this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
+            this.searchForm.jgid=[];
+            // this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
         },
         //数据为空时显示‘无’
         dataFormat: function (row, column) {

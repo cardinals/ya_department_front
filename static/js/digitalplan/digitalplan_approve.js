@@ -126,7 +126,7 @@ new Vue({
         },
         //审核状态下拉框
         SHZT: function () {
-            axios.get('/api/codelist/getCodetype/SHZT').then(function (res) {
+            axios.get('/api/codelist/getCodetype/YASHZT').then(function (res) {
                 this.SHZT_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -163,22 +163,6 @@ new Vue({
             }
             axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
-                for (var i = 0; i < this.tableData.length; i++) {
-                    //预案类型转码
-                    for (var k = 0; k < this.YALX_data.length; k++) {
-                        if (this.YALX_data[k].codeValue == this.tableData[i].yalxdm) {
-                            this.tableData[i].yalxdm = this.YALX_data[k].codeName;
-                        }
-                    }
-                    //审核状态转码
-                    for (var h = 0; h < this.SHZT_data.length; h++) {
-                        if (this.SHZT_data[h].codeValue == this.tableData[i].shzt) {
-                            this.tableData[i].shzt = this.SHZT_data[h].codeName;
-                        }
-                    }
-                    //制作机构转码（暂无）
-                }
-                // this.tableData.unshift(this.testData);
                 this.total = this.tableData.length;
                 this.loading = false;
             }.bind(this), function (error) {
@@ -330,7 +314,8 @@ new Vue({
             };
             //console.log(params);
             axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
-                this.tableData[this.data_index].shzt = res.data.result.shzt;
+                //this.tableData[this.data_index].shzt = res.data.result.shzt;
+                this.searchClick();
             }.bind(this), function (error) {
                 console.log(error)
                 })
