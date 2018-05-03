@@ -11,7 +11,7 @@
     <div class="left-sidebar">
         <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
         <div id="menu-box">
-            <big-tree default-active="35"></big-tree>
+            <big-tree default-active="36"></big-tree>
         </div>
     </div>
     <div id="app">
@@ -62,7 +62,7 @@
                                     <el-col :span="12" class="btnEditDelete">
                                         <el-form-item align="left">
                                             <!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
-                                            <el-button type="danger" icon="edit" size="small" @click="approve">审核</el-button>
+                                            <el-button type="warning" icon="star-off" size="small" @click="approve">分发</el-button>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12"></el-col>
@@ -80,20 +80,20 @@
                         <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                         @row-click = "showRow" class="tableStyle" :height="tableheight">
                         <el-table-column min-width="5%">
-                                <template scope="scope">
-                                    <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
-                                </template>
-                            </el-table-column>
-                            <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-                            <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
-                                <template slot-scope="scope">
-                                    <a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="14%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="shztmc" label="审核状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+                            <template scope="scope">
+                                <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
+                            </template>
+                        </el-table-column>
+                        <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
+                        <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
+                            <template slot-scope="scope">
+                                <a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center" :formatter="dataFormat"></el-table-column>
+                        <el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="14%" align="center" :formatter="dataFormat"></el-table-column>
+                        <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+                        <el-table-column prop="shzt" label="审核状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
                         </el-table>
 
                         <!--列表底部工具条和分页符-->
@@ -110,21 +110,26 @@
                         <div id="detailDialog"></div>
                     </el-dialog>
                     <!--审批界面-->
-                    <el-dialog title="预案审批" :visible.sync="approveFormVisible" @close="closeDialog(approveForm)" :close-on-click-modal="false">
+                    <el-dialog title="预案分发" :visible.sync="approveFormVisible" @close="closeDialog(approveForm)" :close-on-click-modal="false">
 						<el-form :model="approveForm" label-width="80px" ref="approveForm">
                             <el-row>
 								<el-col :span="20">
-									<el-form-item label="审核状态" prop="shzt">
-										<el-radio-group v-model="approveForm.shzt" auto-complete="off">
-											<el-radio v-for="item in SHZT_data" :label="item.codeValue">{{item.codeName}}</el-radio>
-										</el-radio-group>
-									</el-form-item>
+									<el-form-item label="分发选择" style="padding: 10px;" prop="shzt">
+										<!-- <el-radio-group v-model="approveForm.shzt" auto-complete="off">
+                                            <el-radio v-for="item in SHZT_data" :label="item.codeValue">{{item.codeName}}</el-radio>
+                                        </el-radio-group>  -->
+
+                                        <el-checkbox-group size="small" v-model="checkedYalx">
+                                            <el-checkbox-button @change="handleCheckedYalxChange" v-for="item in allSsdzData" :label="item.codeName" :key="item.codeName" :value="item.codeValue"></el-checkbox-button>
+                                        </el-checkbox-group>
+
+                                    </el-form-item>
 								</el-col>
 							</el-row>
 						</el-form>
 						<div slot="footer" class="dialog-footer">
 							<el-button @click.native="closeDialog(approveForm)">取消</el-button>
-							<el-button type="primary" @click.native="approveSubmit(approveForm)">提交</el-button>
+							<el-button type="primary" @click.native="approveSubmit(approveForm)">分发</el-button>
 						</div>
 					</el-dialog>
                 </div>
@@ -135,6 +140,6 @@
 </body>
 <script src="../../static/js/lib.js"></script>
 <script src="../../static/js/menu.js"></script>
-<script src="../../static/js/digitalplan/digitalplan_approve.js"></script>
+<script src="../../static/js/digitalplan/digitalplan_distribute.js"></script>
 
 </html>

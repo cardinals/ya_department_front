@@ -11,3 +11,6 @@ input[type=checkbox]{
 .el-input__inner{
     height: 30px;
 }
+.el-message{
+    z-index: 10005 !important;
+}

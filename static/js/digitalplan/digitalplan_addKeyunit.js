@@ -84,10 +84,7 @@ new Vue({
             _self.loadingData(); //重新加载数据
         },
         selectRow: function (val) {
-            debugger
-            // this.addForm.dwmc = val.dwmc;
-            // this.addForm.dwid = val.uuid;
-            // this.closeDialog();
+            
         }
     },
 
