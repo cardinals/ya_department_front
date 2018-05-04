@@ -3,12 +3,13 @@ new Vue({
     data: function () {
         return {
             activeName: "first",
-            //页面获取的pkid
-            pkid: "",
-            //基础信息Data
-            basicDetailData: {},
-            //灾情设定Data
-            disasterSetData:{},
+            
+            pkid: "",//页面获取的pkid
+
+            basicDetailData: {},//基础信息Data
+            disasterSetData: {},//灾情设定Data
+            forcedevData: {},//力量部署Data
+
             loading: false,
             //测试Data
             detailTestData: {
@@ -46,6 +47,7 @@ new Vue({
         }
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
+        this.forcedev(this.pkid);
     },
 
     methods: {
@@ -86,6 +88,14 @@ new Vue({
         disasterSet: function (val) {
             axios.get('/dpapi/disasterset/doFindByPlanId/' + val).then(function (res) {
                 this.disasterSetData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //力量部署
+        forcedev: function (val) {
+            axios.get('/dpapi/forcedev/doFindByPlanId/' + val).then(function (res) {
+                this.forcedevData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })

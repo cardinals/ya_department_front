@@ -176,6 +176,36 @@
                                         </div>
                                     </el-card>
                                 </el-tab-pane>
+                                <el-tab-pane label="力量部署" name="third" style="width:100%;">
+                                    <el-card v-for="item in forcedevData" class="mb10 mr10" style="background-color:#F5F5F5;width:48%;float:left;">
+                                        <div style="width:100%;">
+                                            <div>
+                                                <dl class="inform-left">
+                                                    <span class="companyStatus dib" title="调集方案类型" style="margin:0 5px;">{{item.djfalxmc||"无"}}</span>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">队站名称：</dt>
+                                                    <dd class="dtdlStyle">{{item.dzmc||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">停靠位置：</dt>
+                                                    <dd class="dtdlStyle">{{item.tkwz||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="inform-margin">
+                                                <dl class="inform-left">
+                                                    <dt class="dtdlStyle">车辆装备提示：</dt>
+                                                    <dd class="dtdlStyle">{{item.clzbts||"无"}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </el-card>
+
+                                </el-tab-pane>
                             </el-tabs>
                         </template>
 
