@@ -185,7 +185,7 @@ new Vue({
             var params = {
                 dwmc: this.searchForm.dwmc
             };
-            axios.post('/dpapi/keyunits/findByVO', params).then(function (res) {
+            axios.post('/dpapi/importantunits/list', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.loading2 = false;
