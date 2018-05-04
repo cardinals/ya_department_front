@@ -5,8 +5,10 @@ new Vue({
             activeName: "first",
             //页面获取的pkid
             pkid: "",
-            //详情Data
-            detailData: {},
+            //基础信息Data
+            basicDetailData: {},
+            //灾情设定Data
+            disasterSetData:{},
             loading: false,
             //测试Data
             detailTestData: {
@@ -43,6 +45,7 @@ new Vue({
             this.pkid = ID;
         }
         this.planDetails(this.pkid);
+        this.disasterSet(this.pkid);
     },
 
     methods: {
@@ -56,26 +59,33 @@ new Vue({
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
         },
-        //预案详情
+        //预案详情基本信息
         planDetails: function (val) {
-            var _self = this;
             this.loading = true;
             axios.get('/dpapi/digitalplanlist/doFindById/' + val).then(function (res) {
-                this.detailData = res.data.result;
+                this.basicDetailData = res.data.result;
                 //制作时间格式化
-                if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
-                    this.detailData.zzsj = '';
+                if (this.basicDetailData.zzsj == null || this.basicDetailData.zzsj == "") {
+                    this.basicDetailData.zzsj = '';
                 } else {
-                    this.detailData.zzsj = this.dateFormat(this.detailData.zzsj);
+                    this.basicDetailData.zzsj = this.dateFormat(this.basicDetailData.zzsj);
                 }
                 //审核时间格式化
-                if (this.detailData.shsj == null || this.detailData.shsj == "") {
-                    this.detailData.shsj = '';
+                if (this.basicDetailData.shsj == null || this.basicDetailData.shsj == "") {
+                    this.basicDetailData.shsj = '';
                 } else {
-                    this.detailData.shsj = this.dateFormat(this.detailData.shsj);
+                    this.basicDetailData.shsj = this.dateFormat(this.basicDetailData.shsj);
                 }
-                this.detailData.sfkqy = (this.detailData.sfkqy == 1 ? "是" : "否");
+                this.basicDetailData.sfkqy = (this.basicDetailData.sfkqy == 1 ? "是" : "否");
                 this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //灾情设定
+        disasterSet: function (val) {
+            axios.get('/dpapi/disasterset/doFindByPlanId/' + val).then(function (res) {
+                this.disasterSetData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
