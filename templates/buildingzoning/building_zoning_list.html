@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    </head>
+	<body class="fw f14 main-index-body">
+		<div id="header_box"></div>
+        <div class="left-sidebar">
+            <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+            <div id="menu-box">
+                <big-tree default-active="81"></big-tree>
+            </div>
+        </div>
+        <div id="app">
+            <div class="main-box">
+                <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                    <div id="danger"></div>
+                    <div id="tableView">
+						<el-row>
+							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+								<el-row :gutter="40">
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">建筑分区名称</label>
+										<el-input size="small" v-model="searchForm.fqmc" placeholder="建筑分区名称"></el-input>
+									</el-col>
+                                    
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">建筑分区类型</label>
+										<el-select size="small" v-model="searchForm.option_FQLX" placeholder="全部" class="searchSelect" clearable >
+											<el-option 
+												v-for="item in JZFL_data" 
+												:key="item.codeName" 
+												:label="item.codeName" 
+												:value="item.codeValue">
+											</el-option>
+										</el-select>
+                                    </el-col>
+                                    <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+										<label class="el-form-item__label searchLabel">建筑分区位置</label>
+										<el-input size="small" v-model="searchForm.fqwz" placeholder="建筑分区位置"></el-input>
+									</el-col>
+								</el-row>
+								
+								<div>
+									<el-form>
+										<el-col :span="12" class="btnEditDelete">
+											<el-form-item align="left">
+												<!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
+												<!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
+											</el-form-item>
+										</el-col>
+										<el-col :span="12"></el-col>
+										<el-col :span="12" class="btnSearchPlus">
+											<el-form-item>
+												<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+												<el-button type="clear" icon="delete" size="small" @click="clearClick">清空</el-button>
+											</el-form-item>
+										</el-col>
+									</el-form>
+								</div>
+							</el-form>
+						</el-row>
+
+						<div class="table_container"> 
+							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+								<el-table-column prop="name" label="建筑分区名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
+                                    <template slot-scope="scope">
+                                        <a @click="detailClick(scope.row)">{{scope.row.fqmc}}</a>
+                                    </template>
+								</el-table-column>
+								<el-table-column prop="fqlxmc" label="建筑分区类型" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="fqwz" label="建筑分区位置" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="xqxclx" label="辖区行车路线" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="yjddsc" label="预计到达时长" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+                                
+							</el-table>
+
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination 
+										@size-change="pageSizeChange" 
+										@current-change="currentPageChange" 
+										:current-page="currentPage" 
+										:page-sizes="[10, 20, 30, 50]"
+										 :page-size="pageSize" 
+										 layout="total, sizes, prev, pager, next, jumper" 
+										 :total=parseInt(total)>
+									</el-pagination>
+								</el-col>
+							</el-row>
+                        </div>
+					</div>
+                </div>
+                    <!-- main-container -->
+            </div>
+        </div>
+    </body>
+	<script src="../../static/js/lib.js" ></script>
+    <script src="../../static/js/menu.js" ></script>
+    <script src="../../static/js/buildingzoning/building_zoning_list.js" ></script>
+</html>
