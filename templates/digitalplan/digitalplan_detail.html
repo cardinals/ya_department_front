@@ -107,7 +107,7 @@
                                     </div>
                                 </el-tab-pane>
                                 <el-tab-pane label="灾情设定" name="second">
-                                    <el-card v-for="item in disasterSetData" class="mb10" style="background-color:#F5F5F5">
+                                    <el-card v-for="item in disasterSetData" class="mb10 cardBack">
                                         <div class="inform-div">
                                             <div class="left-inform">
                                                 <div>
@@ -176,8 +176,8 @@
                                         </div>
                                     </el-card>
                                 </el-tab-pane>
-                                <el-tab-pane label="力量部署" name="third" style="width:100%;">
-                                    <el-card v-for="item in forcedevData" class="mb10 mr10" style="background-color:#F5F5F5;width:48%;float:left;">
+                                <el-tab-pane label="力量部署" name="third">
+                                    <el-card v-for="item in forcedevData" class="mb10 mr10 cardBack">
                                         <div style="width:100%;">
                                             <div>
                                                 <dl class="inform-left">
@@ -204,7 +204,36 @@
                                             </div>
                                         </div>
                                     </el-card>
-
+                                </el-tab-pane>
+                                <el-tab-pane label="要点提示" name="forth">
+                                    <el-card class="mb10 mr10 cardBack">
+                                        <el-row class="mb5">
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong>战术要点：</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{forcedevData.zsyd||"无"}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card class="mb10 mr10 cardBack">
+                                        <el-row class="mb5">
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong>特别警示：</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{forcedevData.tbjs||"无"}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
                                 </el-tab-pane>
                             </el-tabs>
                         </template>

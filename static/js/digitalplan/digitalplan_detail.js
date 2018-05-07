@@ -9,6 +9,7 @@ new Vue({
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
             forcedevData: {},//力量部署Data
+            keypointsData:{},//要点提示Data
 
             loading: false,
             //测试Data
@@ -48,6 +49,7 @@ new Vue({
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
         this.forcedev(this.pkid);
+        this.keypoints(this.pkid);
     },
 
     methods: {
@@ -96,6 +98,14 @@ new Vue({
         forcedev: function (val) {
             axios.get('/dpapi/forcedev/doFindByPlanId/' + val).then(function (res) {
                 this.forcedevData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //要点提示
+        keypoints: function (val) {
+            axios.get('/dpapi/keypoints/doFindByPlanId/' + val).then(function (res) {
+                this.keypointsData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
