@@ -25,7 +25,7 @@ new Vue({
             //预案id
             uuid:"",
             //预案类型
-            yalx_data: [{ codeValue: "", codeName: "全部" }],
+            allSsdzData: [{ codeValue: "", codeName: "全部" }],
             checkedYalx: ['全部'],
             tableData: [],
             YALX_dataTree: [],//预案类型级联选择
@@ -69,6 +69,7 @@ new Vue({
             },
             radio:"",
             data_index:"",
+            dzName:""
 
         }
     },
@@ -107,7 +108,7 @@ new Vue({
          //所属队站下拉框数据
          getAllSszdData: function () {
             axios.get('/dpapi/util/doSearchContingents').then(function (res) {
-                debugger
+                
                 this.allSsdzData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -174,22 +175,24 @@ new Vue({
         },
         //预案类型全选
         handleCheckedYalxChange(value) {
+            this.dzName = value.currentTarget.defaultValue;
             if (value.currentTarget.defaultValue == "全部") {
                 this.checkedYalx = [];
                 if (value.currentTarget.checked == true) {
-                    for (var i = 0; i < this.yalx_data.length; i++) {
-                        this.checkedYalx.push(this.yalx_data[i].codeName);
+                    for (var i = 0; i < this.allSsdzData.length; i++) {
+                        this.checkedYalx.push(this.allSsdzData[i].codeName);
                     }
                 }
-            } else {
+            }
+            else {
                 if (value.currentTarget.checked == false) {
-                    for (var i = 0; i < this.checkedYazl.length; i++) {
+                    for (var i = 0; i < this.allSsdzData.length; i++) {
                         if (this.checkedYalx[i] == "全部") {
                             this.checkedYalx.splice(i, 1);
                         }
                     }
                 } else if (value.currentTarget.checked == true) {
-                    if (this.checkedYalx.length == this.yalx_data.length - 1) {
+                    if (this.checkedYalx.length == this.allSsdzData.length - 1) {
                         this.checkedYalx.push('全部');
                     }
                 }
@@ -367,15 +370,17 @@ new Vue({
             this.approveForm = Object.assign({},row);
             this.approveFormVisible = true;
         },
-        //保存点击事件
+        //分发点击事件
         approveSubmit: function (val) {
             //审核状态改变才调用后台approveByVO方法
-        if(val.shzt !=this.tableData[this.data_index].shzt){
+        //if(val.shzt !=this.tableData[this.data_index].shzt){
             var params = {
                 shzt: val.shzt,
                 shrid:this.shrid,
                 shrmc:this.shrmc,
-                uuid:this.uuid
+                uuid:this.uuid,
+                dzName:this.dzName
+
             };
             //console.log(params);
             axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
@@ -385,9 +390,9 @@ new Vue({
                 })
             this.approveFormVisible = false;
             this.loadingData();
-        }else{ 
+        /*}else{ 
             this.$alert('当前分发状态未改变');
-        }
+        }*/
         },
     },
 
