@@ -174,7 +174,7 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
 
         me.setDefaultCursor(map.getDefaultCursor());
 
-        // init map control
+        // init map control 
         var top_left_navigation = new BMap.NavigationControl();
         map.addControl(top_left_navigation);
 
