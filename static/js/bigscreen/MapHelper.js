@@ -1338,9 +1338,7 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         labelStyle.color = 'rgb(108, 159, 65)';
         label.setStyle(labelStyle);
         overlay.setLabel(label);
-
         overlay.entity = record;
-
         var info = me.getQydInfoWindowHtml(record);
         overlay.addEventListener('click', function(evt) {
             if (me.getIsMeasuringDis() || me.getIsMeasuringArea()) {
@@ -1352,16 +1350,13 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
 
             me.setCurrentOverlay(evt.target);
         });
-
         return overlay;
     },
-
     _createCompFireEngine: function(map, record) {
         var overlay;
         var me = this;
         var bdLon = record.get('bdLon'),
             baLat = record.get('bdLat');
-
         var online = record.get('online');
         var iconFireEngine = me.ICON_FIREENGINE_OFFLINE;
         if (online) {
@@ -1375,7 +1370,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         overlay = new BMap.Marker(pt, {
             icon: icon
         });
-
         /* cuihj 20171008 comment out
         var strName = record.get('depName') + record.get('vendor');
         strName = me.formatLabel(strName);
@@ -1391,9 +1385,7 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         labelStyle.color = 'rgb(108, 159, 65)';
         label.setStyle(labelStyle);
         overlay.setLabel(label);*/
-
         overlay.entity = record;
-
         var info = me.getFireEngineInfoWindowHtml(record);
         overlay.addEventListener('click', function(evt) {
             if (me.getIsMeasuringDis() || me.getIsMeasuringArea()) {
@@ -1402,10 +1394,8 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
             var record = evt.target.entity;
             var point = new BMap.Point(record.get('bdLon'), record.get('bdLat'));
             me.openQydInfoWindow(info, point);
-
             me.setCurrentOverlay(evt.target);
         });
-
         return overlay;
     },
 
@@ -1413,7 +1403,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         var me = this;
         var attachController = me.getAttachController();
         var map = attachController.getMap();
-
         return map;
     },
 
@@ -1422,7 +1411,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         if (len <= 6) {
             return strname;
         }
-
         var result = "";
         var cnt = parseInt(len / 6);
         var index = 0;
@@ -1430,7 +1418,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
             index = i * 6;
             result += strname.slice(index, index + 6) + "<br/>";
         }
-
         if (len % 6) {
             result += strname.slice(index + 6, len);
         }

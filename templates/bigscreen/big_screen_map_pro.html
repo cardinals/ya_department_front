@@ -20,7 +20,6 @@
             <div class="map-menu-left p10 map-bg">
                 <!-- 收缩按钮 -->
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-
                 <div id="menu-box" class="f12">
                     <el-form ref="form" :model="form" label-width="80px">
                         <div class="search_top">
@@ -103,42 +102,38 @@
                             <img src="../../static/images/icon-china.png" />
                         </a>
                     </div>
-                    <div style="width:30px;margin-top:180px;margin-left:110px;">
-                        <div id="r-result" style="margin-top: -100px;">
-                            <input type="button" onclick="showOver()" value="显示" />
-                            <input type="button" onclick="hideOver()" value="隐藏" />
-                        </div>
+                    <div style="width:30px;margin-top:120px;margin-left:100px;">
 
+                        <div id="r-result" class="icon" type="button" class="btn btn-success">
+                            <input class="glyphicon glyphicon-home" style="color:#008B00" type="button" @click="showOvera()" value="显" />
+                        </div>
+                        <div id="r-result" class="icon" type="button" class="btn btn-success">
+                            <input class="glyphicon glyphicon-home" style="color:#008B00" type="button" @click="hideOvera()" value="隐" />
+                        </div>
                         <div class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="消防主体">
                             <span class="glyphicon glyphicon-home" style="color:#008B00"></span>
                         </div>
-
                         <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="数字化预案">
                             <span class="glyphicon glyphicon-tasks" style="color:#00688B"></span>
                         </div>
-
                         <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="附近500m水源">
                             <span class="glyphicon glyphicon-tint" style="color:#7B68EE"></span>
                         </div>
-
                         <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="附近1000m水源">
                             <span class="glyphicon glyphicon-tint" style="color:#7B68EE"></span>
                         </div>
-
                         <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="附近500m消防力量">
                             <span class="glyphicon glyphicon-user" style="color:#FF4500"></span>
                         </div>
-
                         <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="附近1000m消防力量">
                             <span class="glyphicon glyphicon-user" style="color:#FF4500"></span>
                         </div>
-
                     </div>
                 </div>
             </div>

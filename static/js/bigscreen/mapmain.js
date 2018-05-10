@@ -5,10 +5,14 @@ var vm = new Vue({
     el: "#app",
     data: {
         city: '',
+        marker: [],
+        clusterer: null,
         marker1: '',
         marker2: '',
         marker3: '',
         markerData: [],
+        zzData: [],
+        syData: [],
         form: {
             delivery1: true,
             delivery2: true,
@@ -81,8 +85,7 @@ var vm = new Vue({
                 XFGXJGID: "沈阳市消防局",
                 DWDH: "1234567",
                 ID: "3"
-            }
-            ,
+            },
             {
                 DWMC: "沈阳市城市规划管理局",
                 DWDJ: "市厅级",
@@ -163,7 +166,6 @@ var vm = new Vue({
         ]
     },
     methods: {
-
         getMarker1: function () {
             if (this.form.delivery1) {
                 this.marker1.show();
@@ -194,7 +196,7 @@ var vm = new Vue({
         getBoundary: function (map) {
             var bdary = new BMap.Boundary();
             bdary.get(this.city, function (rs) { //获取行政区域
-                // map.clearOverlays(); //清除地图覆盖物 
+
                 var count = rs.boundaries.length; //行政区域的点有多少个
                 for (var i = 0; i < count; i++) {
                     var ply = new BMap.Polygon(rs.boundaries[i], { strokeWeight: 2, strokeColor: "#ff0000" }); //建立多边形覆盖物
@@ -204,87 +206,112 @@ var vm = new Vue({
                 }
             });
         },
-
+        //获取重点单位
         getPoint: function () {
             // debugger;
             var params = {};
             axios.post('/dpapi/importantunits/list', params).then(function (res) {
                 this.markerData = res.data.result;
-                if(this.markerData !== []){
+                if (this.markerData !== []) {
+
                     this.drawMap();
                 }
-                console.log(this.markerData);
+
             }.bind(this), function (error) {
                 console.log(error);
             })
-            
         },
-        showOver: function () {
-            if(!marker){
-                return;
+        //组织机构
+        getJgidData: function () {
+            var params = {};
+            axios.post('/dpapi/organization/getOrganizationtree', params).then(function (res) {
+                this.zzData = res.data.result;
+                if (this.zzData !== []) {
+                    // this.getSyData();
+                    this.drawMap();
+                }
+                console.log(this.zzData);
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //水源
+        getSyData: function () {
+            // debugger;
+            var params = {
+                symc: "",
+                sydz: "",
+                sylx: "",
+                dzbm: "",
+                xz: "",
+                kyzt: "",
+                xhs_gwid: "",
+                xhs_szxs: "",
+                xhs_gwxs: "",
+                xhs_jkxs: "",
+                xfsh_gwid: "",
+                xfsh_shgd: "",
+                xfsh_jscd: "",
+                xfsc_rl: "",
+                xfsc_gwxs: "",
+                xfsc_tcwz: "",
+                xfmt_tcwz: "",
+                xfmt_ksq: "",
+                xfmt_sz: "",
+                trsy_trsylx: "",
+                trsy_ywksq: ""
             }
-            marker.show(); polyline.show(); circle.show();
-        },
-        // hideOver: function () {
-        //     marker.hide(); polyline.hide(); circle.hide();
-        // },
-        drawMap: function () {
-            //百度地图API功能
-            var content =
-                '<div style="margin:0;line-height:20px;padding:2px;width:320px">' +
-                '<img src="../../static/images/zdqy.png" alt="" style="border-radius:5px; box-shadow: 1px 2px 1px rgba(0,0,128,0.5);float:left;zoom:1;overflow:hidden;width:100px;height:140px;margin-right:3px;"/>' +
-                '<br/>单位名称：泰安市城建局' +
-                '<br/>单位地址：法防路36号' +
-                '<br/>单位电话：123456' +
-                '<br/>消防管辖：泰安市消防塔湾分队' +
-                '</div>'
-                +
-                '<div style="border:1px solid rgba(0,0,128,0.5);margin-top:50px;padding:5px;border-radius:5px;width:100%;box-shadow: 1px 2px 1px rgba(0,0,128,0.5);">' +
-                '二维预案' +
-                '<a style="color:blue;margin-left:80px;">' +
-                '预览' +
-                '</a>' +
-                '<a style="color:red;margin-left:90px;">' +
-                '下载' +
-                '</a>' +
-                '</div>' +
-                '<div style="margin-bottom:10px;border:1px solid rgba(0,0,128,0.5);margin-top:10px;padding:5px;border-radius:5px;width:100%;box-shadow: 1px 2px 1px rgba(0,0,128,0.5);">' +
-                '三维预案' +
-                '<a style="color:blue;margin-left:80px;">' +
-                '预览' +
-                '</a>' +
-                '<a style="color:red;margin-left:90px;" onclick="downloadPlan()">' +
-                '下载' +
-                '</a>' +
-                '</div>'
+            axios.post('/dpapi/xfsy/findlist', params).then(function (res) {
+                this.syData = res.data.result;
+                if (this.syData !== []) {
+                    this.drawMap();
+                }
+                console.log(this.syData);
+            }.bind(this), function (error) {
+                console.log(error);
+            })
 
-//             var content =
-//                 '<div class="app-map-infowindow water-xhs-infowindow" style=" min-height: 184px;background-position: right bottom; background-repeat: no-repeat;" >'+
-//   '<h3 class="title" style=" margin: 0; padding: 0 12px;height: 32px;line-height: 32px; font-size: 16px;color: #666; border-bottom: 1px solid #ccc;white-space:nowrap;overflow:hidden; text-overflow:ellipsis;">'+
-//                 '重点单位'+
-//                 '</h3>'+
-//                 '<div class="summary" style=" height: 32px; line-height: 32px;color: #999;">'+
-//                 'aaaa'+
-//                 '</div>'+
-//                 '<table cellpadding="0" cellspacing="0" class="content">'+
-//                 '<tr>'+
-//                 '<td><strong>单位名称：</strong>泰安市城建局</td>'+
-//                 '</tr>'+
-//                 '<tr>'+
-//                 '<td><strong>单位地址：</strong>法防路36号</td>'+
-//                 '</tr>'+
-//                 '<tr>'+
-//                 '<td><strong>单位电话：</strong>123456</td>'+
-//                 '</tr>'+
-//                 '<tr>'+
-//                 '<td><strong>消防管辖：</strong>泰安市消防塔湾分队</td>'+
-//                 '</tr>'+
-//                 '</table>'+
-//                 '<div class="bbar"><b class="btn" onclick="onClickInfoWindowDetail()"><img src="../../static/images/marker_hydrant_map.png"> 详情</b></div>'+
-//                 '<div class="x-clear"></div>'+
-//                 '</div>'
+        },
+        showOvera: function () {
+            this.clusterer.addMarkers(this.marker);
+        },
+        hideOvera: function () {
+
+            this.clusterer.removeMarkers(this.marker);
+
+        },
+        drawMap: function () {
+
+            var content =
+                '<div class="app-map-infowindow water-xhs-infowindow" style=" min-height: 184px;background-position: right bottom; background-repeat: no-repeat;" >' +
+                '<h3 class="title" style=" margin: 0; padding: 0 12px;height: 32px;line-height: 32px; font-size: 16px;color: #666; border-bottom: 1px solid #ccc;white-space:nowrap;overflow:hidden; text-overflow:ellipsis;">' +
+                '重点单位' +
+                '</h3>' +
+                '<div class="summary" style=" height: 32px; line-height: 32px;color: #999;">' +
+                '详情' +
+                '</div>' +
+                '<table cellpadding="0" cellspacing="0" class="content">' +
+                '<tr>' +
+                '<td><strong>单位名称：</strong>泰安市城建局</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td><strong>单位地址：</strong>法防路36号</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td><strong>单位电话：</strong>123456</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td><strong>消防管辖：</strong>泰安市消防塔湾分队</td>' +
+                '</tr>' +
+                '</table>' +
+                '<div class="bbar" style="color:#8470FF;"><img src="../../static/images/zqdd.png"><b class="btn" onclick="onClickInfoWindowDetail()">总队级预案-预览</b></div>' +
+                '<div class="bbar" style="color:#8470FF;"><img src="../../static/images/zqdd.png"><b class="btn" onclick="onClickInfoWindowDetail()">支队级预案-预览</b></div>' +
+                '<div class="bbar" style="color:#8470FF;"><img src="../../static/images/zqdd.png"><b class="btn" onclick="onClickInfoWindowDetail()">大中队级预案-预览</b></div>' +
+                '<div class="x-clear"></div>' +
+                '</div>'
                 ;
             var map = new BMap.Map("BMap");    //创建Map实例
+            // debugger;
             var top_left_control = new BMap.ScaleControl({
                 anchor: BMAP_ANCHOR_TOP_LEFT
             });
@@ -307,19 +334,16 @@ var vm = new Vue({
             var myIcon3 = new BMap.Icon("../../static/images/marker_qyd_map.png", new BMap.Size(25, 25));      //创建图标
             var pt = null;
             var markerDatas = [];
-                //文字标注
-                // var label = new BMap.Label("消防力量",{offset:new BMap.Size(-13,20)});
-	            // marker.setLabel(label);
-                //圆形区域检索
-                var Point = new BMap.Point(117.30167748, 39.14533465);
-                var x2 = Point.lng * Math.PI / 180;;
-                var y2 = Point.lat * Math.PI / 180;;
-                var circle = new BMap.Circle(Point, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-                var radius = 1000;
-                var r = 6371004;
-                map.addOverlay(circle);
-                // var local = new BMap.LocalSearch(marker, { renderOptions: { map: marker, autoViewport: false } });
-                // local.searchNearby('消防力量', Point, 1000);
+
+            var Point = new BMap.Point(117.2832435, 39.1429405);
+            var x2 = Point.lng * Math.PI / 180;
+            var y2 = Point.lat * Math.PI / 180;
+            var circle = new BMap.Circle(Point, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+            var radius = 1000;
+            var r = 6371004;
+            map.addOverlay(circle);
+
+            // 重点单位
             for (i = 0; i < this.markerData.length; i++) {
                 var x = this.markerData[i].gisX;
                 var x1 = x * Math.PI / 180;
@@ -327,51 +351,103 @@ var vm = new Vue({
                 var y1 = y * Math.PI / 180;
                 var dx = Math.abs(x1 - x2);
                 var dy = Math.abs(y1 - y2);
-                var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(x1) * Math.cos(x2) * Math.pow(Math.sin(dx / 2), 2);
+                var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
                 var d = r * 2 * Math.asin(Math.sqrt(p));
-                
+
                 if (radius >= d) {
-                    
                     var pt = new BMap.Point(x, y);     // 创建坐标点
-                    var myIcon1 = new BMap.Icon("../../static/images/marker_hydrant_map.png", new BMap.Size(25, 25));      //创建图标
-                    var marker = new BMap.Marker(pt, {icon:myIcon1});
-                   //qqqqqq
+                    var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24));      //创建图标
+                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                    this.marker.push(marker);
                     markerDatas.push(marker);
-    
                     var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
-                   //qqqqq
-                    map.addOverlay(marker)
-    
-                    marker.addEventListener("click", function () {
+                    // map.addOverlay(marker);
+                    marker.addEventListener("click", function (e) {
+                        // debugger;
                         this.openInfoWindow(infoWindow);
                     });
                 }
-            //     var pt = new BMap.Point(x, y);     // 创建坐标点
-            //     var myIcon1 = new BMap.Icon("../../static/images/marker_hydrant_map.png", new BMap.Size(25, 25));      //创建图标
-            //     var marker = new BMap.Marker(pt, {icon:myIcon1});
-            //    //qqqqqq
-            //     markerDatas.push(marker);
 
-            //     var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
-            //    //qqqqq
-            //     map.addOverlay(marker)
+            };
+            //组织机构
+            for (i = 0; i < this.zzData.length; i++) {
 
-            //     marker.addEventListener("click", function () {
-            //         this.openInfoWindow(infoWindow);
-            //     });
+                var x = this.zzData[i].gisX;
+                var x1 = x * Math.PI / 180;
+                var y = this.zzData[i].gisY;
+                var y1 = y * Math.PI / 180;
+                var dx = Math.abs(x1 - x2);
+                var dy = Math.abs(y1 - y2);
+                var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
+                var d = r * 2 * Math.asin(Math.sqrt(p));
+                if (radius >= d) {
+                    var pt = new BMap.Point(x, y);     // 创建坐标点
+                    var myIcon1 = new BMap.Icon("../../static/images/marker_zqzd_map.png", new BMap.Size(24, 24));      //创建图标
+                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                    this.marker = marker;
+                    markerDatas.push(marker);
+                    var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+                    // map.addOverlay(marker);
+                    marker.addEventListener("click", function () {
+                        // debugger;
+                        this.openInfoWindow(infoWindow);
+                    });
+                }
+
+            };
+            //水源
+            // console.log(this.syData);
+            for (i = 0; i < this.syData.length; i++) {
+                var x = this.syData[i].gisX;
+                var x1 = x * Math.PI / 180;
+                var y = this.syData[i].gisY;
+                var y1 = y * Math.PI / 180;
+                var dx = Math.abs(x1 - x2);
+                var dy = Math.abs(y1 - y2);
+                var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
+                var d = r * 2 * Math.asin(Math.sqrt(p));
+                // if (radius >= d) {
+                var pt = new BMap.Point(x, y);     // 创建坐标点
+                var myIcon1 = new BMap.Icon("../../static/images/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
+                var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                this.marker.push(marker);
+                markerDatas.push(marker);
+                var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+                // map.addOverlay(marker);
+                marker.addEventListener("click", function () {
+                    this.openInfoWindow(infoWindow);
+                });
+                // }
             }
+            console.log(this.marker);
+            //悬浮框
 
-                 //悬浮框
-            // debugger;
-            //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
-            // var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markerDatas});
             var markerClusterer = new BMapLib.MarkerClusterer(map);
-            // debugger;
-            // markerClusterer.setStyles([{url:'../../static/images/xhs.png',size: new BMap.Size(72,24),textColor:'#fff'}]);
-                
+            var clustererStyle = [{
+                url: '../../static/images/heart30.png',
+                size: new BMap.Size(30, 26),
+                opt_anchor: [16, 0],
+                textColor: '#ff00ff',
+                opt_textSize: 10
+            }, {
+                url: '../../static/images/heart40.png',
+                size: new BMap.Size(40, 35),
+                opt_anchor: [40, 35],
+                textColor: '#ff0000',
+                opt_textSize: 12
+            }, {
+                url: '../../static/images/heart50.png',
+                size: new BMap.Size(50, 44),
+                opt_anchor: [32, 0],
+                textColor: 'white',
+                opt_textSize: 14
+            }];
+            this.clusterer = markerClusterer;
+            // markerClusterer.setStyles(clustererStyle);
+
             markerClusterer.addMarkers(markerDatas);
-            // debugger;
-            //消防栓标绘
+
+            //弹出框
             var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框 
         },
 
@@ -379,11 +455,12 @@ var vm = new Vue({
     },
     mounted() {
         this.getCity();
-        
         document.title = this.city + '预案情况';
-        // debugger;
+
         this.getPoint();
-        this.showOver();
+        // this.getJgidData();
+        // this.getSyData();
+        // this.showOvera();
         // this.hideOver();
     }
 })
