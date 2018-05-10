@@ -569,6 +569,524 @@
                                         </div>
                                         </el-card>
                                     </div>
+                                    <div style="margin-bottom:12px;" v-show="this.XFSXT">
+                                        <strong style="font-size:20px;">消防水系统:</strong>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isXfbfShow">
+                                            <div slot="header" class="clearfix">
+                                                <strong style="font-size:15px;">消防泵房</strong>
+                                              </div>
+                                            <div v-for="data in xfbfData" style="margin-bottom:20px;">
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">消火栓泵数量：</strong>{{data.xhssl||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">消火栓最大流量(L/s）：</strong>{{data.shszdll||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">喷淋泵数量：</strong>{{data.blbsl||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">喷淋泵最大流量(L/s）：</strong>{{data.blbzdll||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isXfsxShow">
+                                                <div slot="header" class="clearfix">
+                                                    <strong style="font-size:15px;">消防水箱</strong>
+                                                  </div>
+                                                <div v-for="data in xfsxData" style="margin-bottom:20px;">
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                   <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">水箱容量(m³)：</strong>{{data.sxrl||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">补给速度(L/s）：</strong>{{data.bjsd||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isXfscShow">
+                                                <div slot="header" class="clearfix">
+                                                    <strong style="font-size:15px;">消防水池</strong>
+                                                  </div>
+                                                <div v-for="data in xfscData" style="margin-bottom:20px;">
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                   <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">水箱容量(m³)：</strong>{{data.sxrl||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">补给速度(L/s）：</strong>{{data.bjsd||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                   <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">是否有取水口（井）：</strong>{{data.isqsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">取水口（井）位置：</strong>{{data.qsjwz||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isSnxhsShow">
+                                                <div slot="header" class="clearfix">
+                                                    <strong style="font-size:15px;">室内消火栓</strong>
+                                                  </div>
+                                                <div v-for="data in snxhsData" style="margin-bottom:20px;">
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                   <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">数量：</strong>{{data.sl||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.isky||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isSwxhsShow">
+                                                <div slot="header" class="clearfix">
+                                                    <strong style="font-size:15px;">室外消火栓</strong>
+                                                  </div>
+                                                <div v-for="data in swxhsData" style="margin-bottom:20px;">
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                   <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">数量：</strong>{{data.sl||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.isky||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isSbjhqShow">
+                                            <div slot="header" class="clearfix">
+                                                <strong style="font-size:15px;">水泵接合器</strong>
+                                              </div>
+                                            <div v-for="data in sbjhqData" style="margin-bottom:20px;">
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">型号：</strong>{{data.xh||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">安装形式：</strong>{{data.azxs||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">进水口尺寸：</strong>{{data.jskcc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isPlxtShow">
+                                            <div slot="header" class="clearfix">
+                                                <strong style="font-size:15px;">喷淋系统</strong>
+                                              </div>
+                                            <div v-for="data in plxtData" style="margin-bottom:20px;">
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">有无喷淋系统：</strong>{{data.iscz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isLqsxtShow">
+                                            <div slot="header" class="clearfix">
+                                                <strong style="font-size:15px;">冷却水系统</strong>
+                                              </div>
+                                            <div v-for="data in lqsxtData" style="margin-bottom:20px;">
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">有无冷却水系统：</strong>{{data.iscz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">供水强度(L/min.m2)：</strong>{{data.gsqd||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isGdspShow">
+                                            <div slot="header" class="clearfix">
+                                                <strong style="font-size:15px;">固定水炮</strong>
+                                              </div>
+                                            <div v-for="data in gdspData" style="margin-bottom:20px;">
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">数量：</strong>{{data.sl||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.isky||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        </el-card>
+                                        <el-card style="margin-top:20px;background-color:#F5F5F5" v-show="this.isBgdssShow">
+                                            <div slot="header" class="clearfix">
+                                                <strong style="font-size:15px;">半固定设施</strong>
+                                              </div>
+                                            <div v-for="data in bgdssData" style="margin-bottom:20px;">
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.wz||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">数量：</strong>{{data.sl||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建人姓名：</strong>{{data.cjrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">创建时间：</strong>{{data.cjsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改人姓名：</strong>{{data.xgrmc||"无"}}
+                                                    </div>
+                                                </el-col>
+                                                <el-col :span="12">
+                                                    <div>
+                                                        <strong style="cursor: pointer;font-size:15px;">修改时间：</strong>{{data.xgsj||"无"}}
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        </el-card>
+                                    </div>
                                 </el-tab-pane>
                             </el-tabs>
                         </template>

@@ -20,26 +20,68 @@ new Vue({
             chuGuanData:[],
             //安全疏散措施显示标识
             AQSSCS:false,
-            //安全出口显示标识
-            isAqckShow:false,
-            //疏散楼梯显示标识
-            isSsltShow:false,
-            //消防电梯显示标识
-            isXfdtShow:false,
-            //避难层显示标识
-            isBncShow:false,
-            //应急广播显示标识
-            isYjgbShow:false,
+                //安全出口显示标识
+                isAqckShow:false,
+                //疏散楼梯显示标识
+                isSsltShow:false,
+                //消防电梯显示标识
+                isXfdtShow:false,
+                //避难层显示标识
+                isBncShow:false,
+                //应急广播显示标识
+                isYjgbShow:false,
+            //消防水系统显示标识
+            XFSXT:false,
+                //消防泵房显示标识
+                isXfbfShow:false,
+                //消防水箱显示标识
+                isXfsxShow:false,
+                //消防水池显示标识
+                isXfscShow:false,
+                //室内消火栓显示标识
+                isSnxhsShow:false,
+                //室外消火栓显示标识
+                isSwxhsShow:false,
+                //水泵接合器显示标识
+                isSbjhqShow:false,
+                //喷淋系统显示标识
+                isPlxtShow:false,
+                //冷却水系统显示标识
+                isLqsxtShow:false,
+                //固定水炮显示标识
+                isGdspShow:false,
+                //半固定设施显示标识
+                isBgdssShow:false,
             //安全出口data
             aqckData:[],
             //疏散楼梯data
             ssltData:[],
-            //消防电梯
+            //消防电梯data
             xfdtData:[],
-            //避难层
+            //避难层data
             bncData:[],
-            //应急广播
+            //应急广播data
             yjgbData:[],
+            //消防泵房data
+            xfbfData:[],
+            //消防水箱data
+            xfsxData:[],
+            //消防水池
+            xfscData:[],
+            //室内消火栓
+            snxhsData:[],
+            //室外消火栓
+            swxhsData:[],
+            //水泵接合器
+            sbjhqData:[],
+            //喷淋系统
+            plxtData:[],
+            //冷却水系统
+            lqsxtData:[],
+            //固定水炮
+            gdspData:[],
+            //半固定设施
+            bgdssData:[],
         }
     },
    /* created: function () {
@@ -148,26 +190,57 @@ new Vue({
                             break;
                     //消防水系统
                         case'2000':
+                            this.XFSXT = true;
                             break;
                         case'2001':
+                            this.XFSXT = true;
+                            this.isXfbfShow = true;
+                            this.xfbfData = data[i];
                             break;
                         case'2002':
+                            this.XFSXT = true;
+                            this.isXfsxShow = true;
+                            this.xfsxData = data[i];
                             break;
                         case'2003':
+                            this.XFSXT = true;
+                            this.isXfscShow = true;
+                            this.xfscData = data[i];
                             break;
                         case'2004':
+                            this.XFSXT = true;
+                            this.isSnxhsShow = true;
+                            this.snxhsData = data[i];
                             break;
                         case'2005':
+                            this.XFSXT = true;
+                            this.isSwxhsShow = true;
+                            this.swxhsData = data[i];
                             break;
                         case'2006':
+                            this.XFSXT = true;
+                            this.isSbjhqShow = true;
+                            this.sbjhqData = data[i];
                             break;
                         case'2007':
+                            this.XFSXT = true;
+                            this.isPlxtShow = true;
+                            this.plxtData = data[i];
                             break;
                         case'2008':
+                            this.XFSXT = true;
+                            this.isLqsxtShow = true;
+                            this.lqsxtData = data[i];
                             break;
                         case'2009':
+                            this.XFSXT = true;
+                            this.isGdspShow = true;
+                            this.gdspData = data[i];
                             break;
                         case'2010':
+                            this.XFSXT = true;
+                            this.isBgdssShow = true;
+                            this.bgdssData = data[i];
                             break;
                     //泡沫系统
                         case'3000':
