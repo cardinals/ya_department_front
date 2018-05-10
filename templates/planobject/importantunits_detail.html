@@ -52,7 +52,7 @@
                     </div>
                     <div class="inform-content">
                         <template>
-                            <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
+                            <el-tabs v-model="activeName" type="border-card">
                                 <el-tab-pane label="单位信息" name="first">
                                     <div class="inform-div">
                                         <div class="left-inform">
@@ -262,6 +262,7 @@
                                     </div>
                                 </el-tab-pane>
                                 <el-tab-pane label="重点部位信息" name="third">
+                                    <!-- 建筑类重点部位详情 -->
                                     <el-card v-for="data in jzl_zdbwData" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
@@ -302,6 +303,7 @@
                                             </el-col>
                                         </el-row>
                                     </el-card>
+                                    <!-- 装置类重点部位详情 -->
                                     <el-card v-for="data in zzl_zdbwData" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
@@ -371,6 +373,7 @@
                                             </el-col>
                                         </el-row>
                                     </el-card>
+                                    <!-- 储罐类重点部位详情 -->
                                     <el-card v-for="data in cgl_zdbwData" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
@@ -465,49 +468,290 @@
                                         </el-row>
                                     </el-card>
                                 </el-tab-pane>
-                                <!-- <el-tab-pane label="消防设施" name="forth">
-                                    <div class="inform-div">
-                                        <div class="left-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">周围毗邻情况：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zwplqk||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防通道或疏散通道：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.xftd||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">内部消防设施：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.nbxfss||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">防火设施：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.fhss||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防控制室信息：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.xfkzs||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">其他等信息：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.qt||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <el-tab-pane label="功能分区信息" name="forth">
+                                    <!-- 建筑类建筑分区详情 -->
+                                    <el-card v-for="data in jzl_jzfqData" style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑名称：</strong>{{data.fqmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑类型：</strong>{{data.fqlxmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑位置：</strong>{{data.fqwz||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">经度：</strong>{{data.lon||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">纬度：</strong>{{data.lat||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑数量：</strong>{{jzl_jzfqData.length||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">使用性质：</strong>{{data.jzl_jzsyxzmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑结构：</strong>{{data.jzl_jzjgmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">占地面积：</strong>{{data.jzl_zdmj||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑面积：</strong>{{data.jzl_jzmj||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">地上高度：</strong>{{data.jzl_dsgd||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">地下高度：</strong>{{data.jzl_dxgd||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">地上层数：</strong>{{data.jzl_dscs||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">地下层数：</strong>{{data.jzl_dxcs||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">辖区中队行车路线：</strong>{{data.xqxclx||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">预计到达时长：</strong>{{data.yjddsc||"无"}}&nbsp分钟
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">备注：</strong>{{data.bz||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <!-- 装置类建筑分区详情 -->
+                                    <el-card v-for="data in zzl_jzfqData" style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">装置名称：</strong>{{data.fqmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑结构：</strong>{{data.zzl_jzjg||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">装置位置：</strong>{{data.fqwz||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">经度：</strong>{{data.lon||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">纬度：</strong>{{data.lat||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">占地面积：</strong>{{data.zzl_zdmj||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">装置高度：</strong>{{data.zzl_zzgd||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">技术负责人：</strong>{{data.zzl_jsfzr||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">技术负责人联系方式：</strong>{{data.zzl_jsfzrdh||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">辖区中队行车路线：</strong>{{data.xqxclx||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">预计到达时长：</strong>{{data.yjddsc||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">备注：</strong>{{data.bz||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <!-- 储罐类建筑分区详情 -->
+                                    <el-card v-for="data in cgl_jzfqData" style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">罐组名称：</strong>{{data.fqmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.fqwz||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">储罐数量：</strong>{{data.cgl_czsl||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">经度：</strong>{{data.lon||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">纬度：</strong>{{data.lat||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">罐组总容积：</strong>{{data.cgl_zrj||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">储罐间距：</strong>{{data.cgl_cgjg||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">存储介质：</strong>{{data.cgl_ccjzms||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">技术负责人：</strong>{{data.cgl_jsfzr||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">技术负责人联系方式：</strong>{{data.cgl_jsfzrdh||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(东)：</strong>{{data.cgl_blgxd||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(西)：</strong>{{data.cgl_blgxx||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(南)：</strong>{{data.cgl_blgxn||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(北)：</strong>{{data.cgl_blgxb||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">备注：</strong>{{data.bz||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
                                 </el-tab-pane>
-                                <el-tab-pane label="单位位置" name="fifth">
+                                <!-- <el-tab-pane label="单位位置" name="fifth">
                                     <div class="inform-div">
                                         
                                     </div>
