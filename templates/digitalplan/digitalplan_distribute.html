@@ -81,7 +81,8 @@
                         @row-click = "showRow" class="tableStyle" :height="tableheight">
                         <el-table-column min-width="5%">
                             <template scope="scope">
-                                <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>{{radio}}
+                                <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
+                                <!-- {{radio}} -->
                             </template>
                         </el-table-column>
                         <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
@@ -121,7 +122,6 @@
                                         <el-checkbox-group size="small" v-model="checkedYalx">
                                             <el-checkbox @change="handleCheckedYalxChange" v-for="item in allSsdzData" :label="item.codeName" :disabled="item.codeName === '北京总队'" :key="item.codeName" :value="item.codeValue"></el-checkbox>
                                         </el-checkbox-group>
-
                                     </el-form-item>
 								</el-col>
 							</el-row>
