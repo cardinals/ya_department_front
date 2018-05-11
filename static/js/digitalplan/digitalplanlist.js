@@ -149,7 +149,7 @@ new Vue({
         },
         //审核状态下拉框
         SHZT: function () {
-            axios.get('/api/codelist/getCodetype/SHZT').then(function (res) {
+            axios.get('/api/codelist/getCodetype/YASHZT').then(function (res) {
                 this.SHZT_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
