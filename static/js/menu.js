@@ -144,10 +144,10 @@ treeMenuTemplate.push('</li>');
                 realUrl="http://localhost/templates/system/code_list.html"
             }
             // 6
-            else if(this.model.url=="/dangerinfo/danger"){
+            // 7
+            else if(this.model.url=="/auxiliarydecision/danger"){
                 realUrl="http://localhost/templates/auxiliarydecision/danger_list.html"
             }
-            // 7
             else if(this.model.url=="/auxiliarydecision/firecalculation"){
                 realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
             }
