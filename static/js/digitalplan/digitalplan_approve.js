@@ -314,8 +314,9 @@ new Vue({
             };
             //console.log(params);
             axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
-                //this.tableData[this.data_index].shzt = res.data.result.shzt;
-                this.searchClick();
+                //this.searchClick();
+                this.tableData[this.data_index].shztmc = res.data.result.shztmc;
+                this.tableData[this.data_index].shzt = res.data.result.shzt;
             }.bind(this), function (error) {
                 console.log(error)
                 })
