@@ -1,4 +1,3 @@
-
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vm = new Vue({
@@ -196,7 +195,6 @@ var vm = new Vue({
         getBoundary: function (map) {
             var bdary = new BMap.Boundary();
             bdary.get(this.city, function (rs) { //获取行政区域
-
                 var count = rs.boundaries.length; //行政区域的点有多少个
                 for (var i = 0; i < count; i++) {
                     var ply = new BMap.Polygon(rs.boundaries[i], { strokeWeight: 2, strokeColor: "#ff0000" }); //建立多边形覆盖物
@@ -213,7 +211,6 @@ var vm = new Vue({
             axios.post('/dpapi/importantunits/list', params).then(function (res) {
                 this.markerData = res.data.result;
                 if (this.markerData !== []) {
-
                     this.drawMap();
                 }
 
@@ -276,12 +273,9 @@ var vm = new Vue({
             this.clusterer.addMarkers(this.marker);
         },
         hideOvera: function () {
-
             this.clusterer.removeMarkers(this.marker);
-
         },
         drawMap: function () {
-
             var content =
                 '<div class="app-map-infowindow water-xhs-infowindow" style=" min-height: 184px;background-position: right bottom; background-repeat: no-repeat;" >' +
                 '<h3 class="title" style=" margin: 0; padding: 0 12px;height: 32px;line-height: 32px; font-size: 16px;color: #666; border-bottom: 1px solid #ccc;white-space:nowrap;overflow:hidden; text-overflow:ellipsis;">' +
@@ -334,44 +328,45 @@ var vm = new Vue({
             var myIcon3 = new BMap.Icon("../../static/images/marker_qyd_map.png", new BMap.Size(25, 25));      //创建图标
             var pt = null;
             var markerDatas = [];
-
-            var Point = new BMap.Point(117.2832435, 39.1429405);
-            var x2 = Point.lng * Math.PI / 180;
-            var y2 = Point.lat * Math.PI / 180;
-            var circle = new BMap.Circle(Point, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-            var radius = 1000;
-            var r = 6371004;
-            map.addOverlay(circle);
-
+            //  var Point = new BMap.Point(117.2832435, 39.1429405);
+            //  var x2 = Point.lng * Math.PI / 180;
+            //  var y2 = Point.lat * Math.PI / 180;
+            //  var circle = new BMap.Circle(Point, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+            //  var radius = 1000;
+            //  var r = 6371004;
+            //  map.addOverlay(circle);
             // 重点单位
-            for (i = 0; i < this.markerData.length; i++) {
+            for (i = 0; i < this.markerData.length; i++) {  
                 var x = this.markerData[i].gisX;
-                var x1 = x * Math.PI / 180;
+                // var x1 = x * Math.PI / 180;
                 var y = this.markerData[i].gisY;
-                var y1 = y * Math.PI / 180;
-                var dx = Math.abs(x1 - x2);
-                var dy = Math.abs(y1 - y2);
-                var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
-                var d = r * 2 * Math.asin(Math.sqrt(p));
-
-                if (radius >= d) {
-                    var pt = new BMap.Point(x, y);     // 创建坐标点
-                    var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24));      //创建图标
-                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    this.marker.push(marker);
-                    markerDatas.push(marker);
-                    var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
-                    // map.addOverlay(marker);
-                    marker.addEventListener("click", function (e) {
-                        // debugger;
-                        this.openInfoWindow(infoWindow);
-                    });
-                }
-
+                // var gcj = bd_decrypt(x,y);
+                // gcj.lon,gcj.lat
+                // var y1 = y * Math.PI / 180;
+                // var dx = Math.abs(x1 - x2);
+                // var dy = Math.abs(y1 - y2);
+                // var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
+                // var d = r * 2 * Math.asin(Math.sqrt(p));
+                var pt = new BMap.Point(x, y);  // 创建坐标点
+                var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24));      //创建图标
+                var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                this.marker.push(marker);
+                markerDatas.push(marker);
+                var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+                // map.addOverlay(marker);
+                marker.addEventListener("click", function (e) {
+                var marker = e.currentTarget;
+                debugger;
+                var pt = marker.point;
+                this.openInfoWindow(infoWindow);
+                var circle = new BMap.Circle(pt, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                var radius = 1000;
+                var r = 6371004;
+                map.addOverlay(circle);
+                 });
             };
             //组织机构
             for (i = 0; i < this.zzData.length; i++) {
-
                 var x = this.zzData[i].gisX;
                 var x1 = x * Math.PI / 180;
                 var y = this.zzData[i].gisY;
@@ -390,10 +385,9 @@ var vm = new Vue({
                     // map.addOverlay(marker);
                     marker.addEventListener("click", function () {
                         // debugger;
-                        this.openInfoWindow(infoWindow);
+                        this.openInfoWindow(infoWindow);                        
                     });
                 }
-
             };
             //水源
             // console.log(this.syData);
@@ -421,7 +415,6 @@ var vm = new Vue({
             }
             console.log(this.marker);
             //悬浮框
-
             var markerClusterer = new BMapLib.MarkerClusterer(map);
             var clustererStyle = [{
                 url: '../../static/images/heart30.png',
@@ -444,9 +437,7 @@ var vm = new Vue({
             }];
             this.clusterer = markerClusterer;
             // markerClusterer.setStyles(clustererStyle);
-
             markerClusterer.addMarkers(markerDatas);
-
             //弹出框
             var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框 
         },
@@ -456,7 +447,6 @@ var vm = new Vue({
     mounted() {
         this.getCity();
         document.title = this.city + '预案情况';
-
         this.getPoint();
         // this.getJgidData();
         // this.getSyData();
