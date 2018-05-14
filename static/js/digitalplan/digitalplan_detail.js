@@ -3,10 +3,14 @@ new Vue({
     data: function () {
         return {
             activeName: "first",
-            //页面获取的pkid
-            pkid: "",
-            //详情Data
-            detailData: {},
+
+            pkid: "",//页面获取的pkid
+
+            basicDetailData: {},//基础信息Data
+            disasterSetData: {},//灾情设定Data
+            forcedevData: {},//力量部署Data
+            keypointsData: {},//要点提示Data
+
             loading: false,
             //测试Data
             detailTestData: {
@@ -43,6 +47,9 @@ new Vue({
             this.pkid = ID;
         }
         this.planDetails(this.pkid);
+        this.disasterSet(this.pkid);
+        this.forcedev(this.pkid);
+        this.keypoints(this.pkid);
     },
 
     methods: {
@@ -56,26 +63,49 @@ new Vue({
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
         },
-        //预案详情
+        //预案详情基本信息
         planDetails: function (val) {
-            var _self = this;
             this.loading = true;
             axios.get('/dpapi/digitalplanlist/doFindById/' + val).then(function (res) {
-                this.detailData = res.data.result;
+                this.basicDetailData = res.data.result;
                 //制作时间格式化
-                if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
-                    this.detailData.zzsj = '';
+                if (this.basicDetailData.zzsj == null || this.basicDetailData.zzsj == "") {
+                    this.basicDetailData.zzsj = '';
                 } else {
-                    this.detailData.zzsj = this.dateFormat(this.detailData.zzsj);
+                    this.basicDetailData.zzsj = this.dateFormat(this.basicDetailData.zzsj);
                 }
                 //审核时间格式化
-                if (this.detailData.shsj == null || this.detailData.shsj == "") {
-                    this.detailData.shsj = '';
+                if (this.basicDetailData.shsj == null || this.basicDetailData.shsj == "") {
+                    this.basicDetailData.shsj = '';
                 } else {
-                    this.detailData.shsj = this.dateFormat(this.detailData.shsj);
+                    this.basicDetailData.shsj = this.dateFormat(this.basicDetailData.shsj);
                 }
-                this.detailData.sfkqy = (this.detailData.sfkqy == 1 ? "是" : "否");
+                this.basicDetailData.sfkqy = (this.basicDetailData.sfkqy == 1 ? "是" : "否");
                 this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //灾情设定
+        disasterSet: function (val) {
+            axios.get('/dpapi/disasterset/doFindByPlanId/' + val).then(function (res) {
+                this.disasterSetData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //力量部署
+        forcedev: function (val) {
+            axios.get('/dpapi/forcedev/doFindByPlanId/' + val).then(function (res) {
+                this.forcedevData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //要点提示
+        keypoints: function (val) {
+            axios.get('/dpapi/keypoints/doFindByPlanId/' + val).then(function (res) {
+                this.keypointsData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -95,6 +125,17 @@ new Vue({
 
             var newDate = [year, month, day].join('-');
             return newDate;
+        },
+        //信息打印
+        openPrinter: function () {
+            // // 1.设置要打印的区域 div的className
+            // var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
+            // // 2. 复制给body，并执行window.print打印功能
+            // document.body.innerHTML = newstr
+            // window.print()
+            // // 重新加载页面，以刷新数据
+            // window.location.reload();
+            window.open("http://192.168.1.100:8005/planShare/page/" + this.pkid + "/web");
         },
         //预案预览
         openPlan: function () {
@@ -118,17 +159,7 @@ new Vue({
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         },
-        //信息打印
-        openPrinter: function () {
-            // 1.设置要打印的区域 div的className
-            var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
-            // 2. 复制给body，并执行window.print打印功能
-            document.body.innerHTML = newstr
-            window.print()
-            // 重新加载页面，以刷新数据
-            window.location.reload();
 
-        },
 
     }
 })

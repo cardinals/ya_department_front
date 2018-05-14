@@ -24,27 +24,28 @@
                         <div id="basic-Inform-Picture">
                             <img src="../../static/images/danwei.jpg">
                         </div>
-                        <div class="dib" id="basic-Inform-Title">
+                        <div class="dib" id="basic-Inform-Title" style="max-width: 760px;">
                             <div>
-                                <h3 class="dib inform-h3">{{detailData.yamc||"无"}}</h3>
-                                <span class="companyStatus dib" title="预案级别">{{detailData.yajb||"无"}}</span>
+                                <h3 class="dib inform-h3">{{basicDetailData.yamc||"无"}}
+                                    <span class="companyStatus dib" title="预案级别">{{basicDetailData.yajbmc||"无"}}</span>
+                                </h3>
                             </div>
                             <dl>
                                 <img src="../../static/images/location.png">
-                                <dt class="dib inform-small-title">预案对象</dt>
-                                <dd class="dtdlStyle">{{detailData.dxmc||"无"}}</dd>
+                                <dt class="dib inform-small-title">预案对象：</dt>
+                                <dd class="dtdlStyle">{{basicDetailData.dxmc||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/date.png">
                                 <dt class="dib inform-small-title">预案类型：</dt>
-                                <dd class="dtdlStyle">{{detailData.yalxmc||"无"}}</dd>
+                                <dd class="dtdlStyle">{{basicDetailData.yalxmc||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/phone.png">
                                 <dt class="dib inform-small-title">是否跨区域：</dt>
-                                <dd class="dtdlStyle">{{detailData.sfkqy||"无"}}</dd>
+                                <dd class="dtdlStyle">{{basicDetailData.sfkqy||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/postcode.png">
                                 <dt class="dib inform-small-title">备注：</dt>
-                                <dd class="dtdlStyle">{{detailData.bz||"无"}}</dd>
+                                <dd class="dtdlStyle">{{basicDetailData.bz||"无"}}</dd>
                             </dl>
                         </div>
                         <div style="float: right">
@@ -64,19 +65,19 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">制作机构：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.jgmc||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{basicDetailData.jgmc||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">制作人名称：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zzrmc||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{basicDetailData.zzrmc||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">制作时间：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zzsj||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{basicDetailData.zzsj||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -88,115 +89,152 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">审核状态：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.shztmc||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{basicDetailData.shztmc||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">审核人：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.shrmc||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{basicDetailData.shrmc||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">审核时间：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.shsj||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{basicDetailData.shsj||"无"}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
                                     </div>
                                 </el-tab-pane>
-                                <el-tab-pane label="灾情信息" name="second">
-                                    <!-- <div class="inform-div">
-                                        <div class="left-inform">
+                                <el-tab-pane label="灾情设定" name="second">
+                                    <el-card v-for="item in disasterSetData" class="mb10 cardBack">
+                                        <div class="inform-div">
+                                            <div class="left-inform">
+                                                <div>
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">灾情部位：</dt>
+                                                        <dd class="dtdlStyle">{{item.zqbw||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">灾情等级：</dt>
+                                                        <dd class="dtdlStyle">{{item.zqdjmc||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">起火原因：</dt>
+                                                        <dd class="dtdlStyle">{{item.qhyymc||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">工业建筑火灾危险性</dt>
+                                                        <dd class="dtdlStyle">{{item.hzwxxmc||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">灾害场所：</dt>
+                                                        <dd class="dtdlStyle">{{item.zhcsmc||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                            <div class="right-inform">
+                                                <div>
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">燃烧物质：</dt>
+                                                        <dd class="dtdlStyle">{{item.rswzmc||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">起火部位高度：</dt>
+                                                        <dd class="dtdlStyle">{{item.qhbwgd||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">燃烧面积：</dt>
+                                                        <dd class="dtdlStyle">{{item.rsmj||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">灾情描述：</dt>
+                                                        <dd class="dtdlStyle">{{item.zqms||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="inform-margin">
+                                                    <dl class="inform-left">
+                                                        <dt class="dtdlStyle">灾情设定依据：</dt>
+                                                        <dd class="dtdlStyle">{{item.zqsdyj||"无"}}</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </el-card>
+                                </el-tab-pane>
+                                <el-tab-pane label="力量部署" name="third">
+                                    <el-card v-for="item in forcedevData" class="mb10 mr10 cardBack" style="width:49%;float:left;">
+                                        <div style="width:100%;">
                                             <div>
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">法人代表或主要负责人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.frdb||"无"}}</dd>
+                                                    <span class="companyStatus dib" title="调集方案类型" style="margin:0 5px;">{{item.djfalxmc||"无"}}</span>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">法人代表身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.frdbsfz||"无"}}</dd>
+                                                    <dt class="dtdlStyle">队站名称：</dt>
+                                                    <dd class="dtdlStyle">{{item.dzmc||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">法人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.frdbdh||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle"></dt>
-                                                    <dd class="dtdlStyle"></dd>
+                                                    <dt class="dtdlStyle">停靠位置：</dt>
+                                                    <dd class="dtdlStyle">{{item.tkwz||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全责任人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.aqzrr||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全责任人身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.aqzrrsfz||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全责任人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.aqzrrdh||"无"}}</dd>
+                                                    <dt class="dtdlStyle">车辆装备提示：</dt>
+                                                    <dd class="dtdlStyle">{{item.clzbts||"无"}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
-                                        <div class="right-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全管理人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.aqglr||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全管理人身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.aqglrsfz||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防安全管理人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.aqglrdh||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle"></dt>
-                                                    <dd class="dtdlStyle"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">专兼职消防管理人：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zjzxfglr||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">专兼职消防管理人身份证号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zjzxfglrsfz||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">专兼职消防管理人电话：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zjzxfglrdh||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                    </el-card>
+                                </el-tab-pane>
+                                <el-tab-pane label="要点提示" name="forth">
+                                    <el-card class="mb10 mr10 cardBack">
+                                        <el-row class="mb5">
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong>战术要点：</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{forcedevData.zsyd||"无"}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card class="mb10 mr10 cardBack">
+                                        <el-row class="mb5">
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong>特别警示：</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>{{forcedevData.tbjs||"无"}}</div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
                                 </el-tab-pane>
                             </el-tabs>
                         </template>

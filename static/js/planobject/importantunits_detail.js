@@ -5,11 +5,16 @@ new Vue({
     data: function () {
         return {
             activeName: "first",
-            pkid: "",
+            uuid: "",
             //表数据
             tableData: [],//基本数据
-            zdbwData: [],//重点部位数据
-            yuData: [],//预案数据
+            jzl_zdbwData: [],//建筑类重点部位数据
+            zzl_zdbwData: [],//装置类重点部位数据
+            cgl_zdbwData: [],//储罐类重点部位数据
+            jzl_jzfqData: [],//建筑类建筑分区数据
+            zzl_jzfqData: [],//建筑类建筑分区数据
+            cgl_jzfqData: [],//建筑类建筑分区数据
+            yaData: [],//预案数据
 
             //表高度变量
             tableheight: 474,
@@ -65,19 +70,16 @@ new Vue({
         }
     },
     mounted: function () {
-        this.loading = true;
-        var url = location.href;
-        if (url.indexOf("?") != -1) {
-            var tmp1 = url.split("?")[1];
-            this.ID = decodeURI(tmp1.split("=")[1]);
-            this.uuid = this.ID;
-            axios.get('/dpapi/importantunits/' + this.uuid).then(function (res) {
-                this.tableData = res.data.result;
-                this.loading = false;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        }
+        //根据重点单位id获取重点单位详情
+        this.getDetails();
+        //根据重点单位id获取建筑类重点部位详情集合
+        this.getJzlListByZddwId();
+        //根据重点单位id获取装置类重点部位详情集合
+        this.getZzlListByZddwId();
+        //根据重点单位id获取储罐类重点部位详情集合
+        this.getCglListByZddwId();
+        this.getYaListByVo();
+        
     },
     methods: {
         handleNodeClick(data) {
@@ -86,6 +88,85 @@ new Vue({
         //标签页
         handleClick: function (e) {
             console.log(e);
+        },
+        //获取重点单位详情
+        getDetails: function () {
+            this.loading = true;
+            var url = location.href;
+            if (url.indexOf("?") != -1) {
+                var tmp1 = url.split("?")[1];
+                var ID = decodeURI(tmp1.split("=")[1]);
+                this.uuid = ID;
+                axios.get('/dpapi/importantunits/' + ID).then(function (res) {
+                    this.tableData = res.data.result;
+                    this.loading = false;
+                    if (this.tableData !== []) {
+                        //根据重点单位id获取包含的分区详情
+                        this.getJzfqDetailByVo();
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
+        },
+        //根据重点单位id获取建筑类重点部位详情
+        getJzlListByZddwId: function () {
+            axios.get('/dpapi/importantparts/doFindJzlListByZddwId/' + this.uuid).then(function (res) {
+                this.jzl_zdbwData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //根据重点单位id获取装置类重点部位详情
+        getZzlListByZddwId: function () {
+            axios.get('/dpapi/importantparts/doFindZzlListByZddwId/' + this.uuid).then(function (res) {
+                this.zzl_zdbwData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //根据重点单位id获取装置类重点部位详情
+        getCglListByZddwId: function () {
+            axios.get('/dpapi/importantparts/doFindCglListByZddwId/' + this.uuid).then(function (res) {
+                this.cgl_zdbwData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //根据重点单位id获取单体建筑分区信息
+        getJzfqDetailByVo: function () {
+            var params = {
+                uuid: this.tableData.uuid,
+                jzfl: this.tableData.jzfl
+            };
+            axios.post('/dpapi/importantunits/doFindBuildingDetailsByVo/', params).then(function (res) {
+                if (this.tableData.jzfl == 10 || this.tableData.jzfl == 20) {
+                    this.jzl_jzfqData = res.data.result;
+                } else if (this.tableData.jzfl == 30) {
+                    this.zzl_jzfqData = res.data.result;
+                } else if (this.tableData.jzfl == 40) {
+                    this.cgl_jzfqData = res.data.result;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //根据重点单位id获取预案信息
+        getYaListByVo: function () {
+            var params = {
+                dxid: this.uuid,
+            }
+            axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
+                this.yaData = res.data.result;
+                console.log(this.yaData);
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //预案详情跳转
+        planDetails(val) {
+            window.location.href = "../digitalplan/digitalplan_detail.html?ID=" + val.uuid;
+            //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         //二维预案下载
         DownLoadTwoFile: function () {
@@ -104,14 +185,6 @@ new Vue({
             var fileUrl = "../example/文档预案.xlsx";
             document.getElementById("pf").href = fileUrl;
             $("#fp").click();//在执行a标签里面span的click
-        },
-        begindateChange(val) {
-            console.log(val);
-            this.searchForm.begintime = val;
-        },
-        enddateChange(val) {
-            console.log(val);
-            this.searchForm.endtime = val;
         },
         //发送至邮箱
         openEmail: function () {

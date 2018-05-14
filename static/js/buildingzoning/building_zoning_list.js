@@ -1,17 +1,21 @@
 //axios默认设置cookie
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;	
 new Vue({
-    el: '#detailDisplay',
+    el: '#app',
     data: function () {
         return {
             visible: false,
             //搜索表单
             searchForm: {
-                dwmc: ""
+                fqmc: "",
+                option_FQLX:"",
+                fqwz:""
             },
             tableData: [],
+            JZFL_data:[],
+            
             //表高度变量
-            tableheight: 250,
+            tableheight: 450,
             //显示加载中样
             loading: false,
             labelPosition: 'right',
@@ -23,30 +27,38 @@ new Vue({
             pageSize: 10,
             //总记录数
             total: 10,
+            //行数据保存
+            rowdata: {},
             //序号
             indexData: 0,
             //选中的值显示
             sels: [],
             //选中的序号
             selectIndex: -1,
+
         }
     },
-    created: function () {
+    created:function(){
+        this.getJZFLData();
         this.searchClick();
     },
     methods: {
+        handleNodeClick(data) {
+        },
         //表格查询事件
         searchClick: function () {
-            this.loading = true;
             var _self = this;
-            var params = {
-                dwmc: this.searchForm.dwmc
+            _self.loading = true;//表格重新加载
+            var params={
+                fqmc:this.searchForm.fqmc,
+                fqlx:this.searchForm.option_FQLX,
+                fqwz:this.searchForm.fqwz
             };
-            axios.post('/dpapi/keyunits/findByVO', params).then(function (res) {
+            axios.post('/dpapi/building/list',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                this.loading = false;
-            }.bind(this), function (error) {
+                _self.loading = false;
+            }.bind(this),function(error){
                 console.log(error);
             })
         },
@@ -59,7 +71,28 @@ new Vue({
                 return rowDate;
             }
         },
-
+        clearClick: function () {
+            this.searchForm.fqmc="";
+            this.searchForm.option_FQLX="";
+            this.searchForm.fqwz="";
+        },
+        getJZFLData: function (){
+            axios.get('/api/codelist/getCodetype/JZFL').then(function(res){
+                this.JZFL_data=res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        //表格勾选事件
+        selectionChange: function (val) {
+            for (var i = 0; i < val.length; i++) {
+                var row = val[i];
+            }
+            this.multipleSelection = val;
+        },
+        detailClick(val) {
+            window.location.href = "building_zoning_detail.html?id=" + val.fqid +"&fqlx=" +val.fqlx;;
+        },
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
@@ -71,7 +104,6 @@ new Vue({
         },
         //分页大小修改事件
         pageSizeChange: function (val) {
-            // console.log("每页 " + val + " 条");
             this.pageSize = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
@@ -79,12 +111,8 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            // console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
-        },
-        selectRow: function (val) {
-            
         }
     },
 

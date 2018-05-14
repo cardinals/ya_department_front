@@ -11,7 +11,8 @@ new Vue({
                 YAJB: "",
                 ZZJG: "",
                 SHZT: "",
-                shsj:""
+                shsj:"",
+                YALX: [],
             },
             //审批表单
             approveForm: {
@@ -23,15 +24,17 @@ new Vue({
             shrid:"",
             //预案id
             uuid:"",
-
+            //预案类型
+            allSsdzData: [{ codeValue: "", codeName: "全部" }],
+            checkedYalx: ['全部'],
             tableData: [],
             YALX_dataTree: [],//预案类型级联选择
-            YALX_data: [],//预案类型table转码
+            yalx_data: [],//预案类型table转码
             ZZJG_dataTree: [],//制作机构级联选择
             ZZJG_data: [],//制作机构table转码
             YAJB_data: [],//预案级别下拉框
             SHZT_data: [],//审核状态下拉框
-
+            allSsdzData:[],
             //资源列表是否显示
             planDetailVisible: false,
             approveFormVisible:false,
@@ -55,8 +58,6 @@ new Vue({
             indexData: 0,
             //删除的弹出框
             deleteVisible: false,
-           
-            
             //选中的值显示
             sels: [],
             //选中的序号
@@ -68,6 +69,7 @@ new Vue({
             },
             radio:"",
             data_index:"",
+            dzName:""
 
         }
     },
@@ -77,6 +79,7 @@ new Vue({
         this.YAJB();//预案级别下拉框
         this.SHZT();//审核状态下拉框
         this.YALX();//预案类型table转码
+        this.getAllSszdData(),
         this.ZZJG();//制作机构table转码
     },
     mounted:function(){
@@ -91,6 +94,27 @@ new Vue({
         // handleExceed(files, fileList) {
         //     this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         // },
+
+        //预案类型初始化
+         YALX: function () {
+            axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.yalx_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+         //所属队站下拉框数据
+         getAllSszdData: function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                
+                this.allSsdzData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+
         //预案类型级联选择
         YALX_tree: function () {
             // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
@@ -126,7 +150,7 @@ new Vue({
         },
         //审核状态下拉框
         SHZT: function () {
-            axios.get('/api/codelist/getCodetype/YASHZT').then(function (res) {
+            axios.get('/api/codelist/getCodetype/SHZT').then(function (res) {
                 this.SHZT_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -135,7 +159,7 @@ new Vue({
         //预案类型table转码
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
-                this.YALX_data = res.data.result;
+                this.yalx_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -149,6 +173,31 @@ new Vue({
             // })
             // this.YALX();//预案类型table转码
         },
+        //预案类型全选
+        handleCheckedYalxChange(value) {
+            this.dzName = value.currentTarget.defaultValue;
+            if (value.currentTarget.defaultValue == "全部") {
+                this.checkedYalx = [];
+                if (value.currentTarget.checked == true) {
+                    for (var i = 0; i < this.allSsdzData.length; i++) {
+                        this.checkedYalx.push(this.allSsdzData[i].codeName);
+                    }
+                }
+            }
+            else {
+                if (value.currentTarget.checked == false) {
+                    for (var i = 0; i < this.allSsdzData.length; i++) {
+                        if (this.checkedYalx[i] == "全部") {
+                            this.checkedYalx.splice(i, 1);
+                        }
+                    }
+                } else if (value.currentTarget.checked == true) {
+                    if (this.checkedYalx.length == this.allSsdzData.length - 1) {
+                        this.checkedYalx.push('全部');
+                    }
+                }
+            }
+        },
         //表格查询事件
         searchClick: function () {
             this.loading = true;//表格重新加载
@@ -161,8 +210,27 @@ new Vue({
                 begintime: this.searchForm.shsj[0],
                 endtime: this.searchForm.shsj[1],
             }
+             
+           
+
             axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
+                for (var i = 0; i < this.tableData.length; i++) {
+                    //预案类型转码
+                    for (var k = 0; k < this.yalx_data.length; k++) {
+                        if (this.yalx_data[k].codeValue == this.tableData[i].yalxdm) {
+                            this.tableData[i].yalxdm = this.yalx_data[k].codeName;
+                        }
+                    }
+                    //审核状态转码
+                    for (var h = 0; h < this.SHZT_data.length; h++) {
+                        if (this.SHZT_data[h].codeValue == this.tableData[i].shzt) {
+                            this.tableData[i].shzt = this.SHZT_data[h].codeName;
+                        }
+                    }
+                    //制作机构转码（暂无）
+                }
+                // this.tableData.unshift(this.testData);
                 this.total = this.tableData.length;
                 this.loading = false;
             }.bind(this), function (error) {
@@ -172,7 +240,7 @@ new Vue({
         //清空查询条件
         clearClick: function () {
             this.searchForm.YAMC = "";
-            this.searchForm.YALX = "";
+            this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = "";
             this.searchForm.SHZT = "";
@@ -302,29 +370,29 @@ new Vue({
             this.approveForm = Object.assign({},row);
             this.approveFormVisible = true;
         },
-        //保存点击事件
+        //分发点击事件
         approveSubmit: function (val) {
             //审核状态改变才调用后台approveByVO方法
-        if(val.shzt !=this.tableData[this.data_index].shzt){
+        //if(val.shzt !=this.tableData[this.data_index].shzt){
             var params = {
                 shzt: val.shzt,
                 shrid:this.shrid,
                 shrmc:this.shrmc,
-                uuid:this.uuid
+                uuid:this.uuid,
+                dzName:this.dzName
+
             };
             //console.log(params);
             axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
-                //this.searchClick();
-                this.tableData[this.data_index].shztmc = res.data.result.shztmc;
                 this.tableData[this.data_index].shzt = res.data.result.shzt;
             }.bind(this), function (error) {
                 console.log(error)
                 })
             this.approveFormVisible = false;
             this.loadingData();
-        }else{
-            this.$alert('当前审核状态未改变');
-        }
+        /*}else{ 
+            this.$alert('当前分发状态未改变');
+        }*/
         },
     },
 
