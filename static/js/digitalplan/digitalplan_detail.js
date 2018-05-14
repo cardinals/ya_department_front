@@ -135,7 +135,7 @@ new Vue({
             // window.print()
             // // 重新加载页面，以刷新数据
             // window.location.reload();
-            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/web");
+            window.open("http://192.168.1.100:8005/planShare/page/" + this.pkid + "/web");
         },
         //预案预览
         openPlan: function () {
