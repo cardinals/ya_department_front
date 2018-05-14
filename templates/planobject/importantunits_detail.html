@@ -751,79 +751,37 @@
                                         </el-row>
                                     </el-card>
                                 </el-tab-pane>
-                                <!-- <el-tab-pane label="单位位置" name="fifth">
-                                    <div class="inform-div">
-                                        
-                                    </div>
-                                </el-tab-pane>
-                                <el-tab-pane label="预案信息" name="sixth">
-                                    <div class="inform-div">
-                                        <div class="left-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">预案名称：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.yamc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">预案编号：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.yabh||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">部位名称：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.bwmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">保密等级：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.bmdj||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">制作人名称：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.zzrmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">制作日期：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.zzrq||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">数据操作人姓名：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.czyxm||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">对象名称：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.dxmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">业务系统部署：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.ywxtbsid||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">操作机构：</dt>
-                                                    <dd class="dtdlStyle">{{yudata.czjg||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="inform-margin">
+                                <el-tab-pane label="预案信息" name="fifth">
+                                    <el-card v-for="data in yaData" style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div @click="planDetails(data)">
+                                                    <strong style="cursor: pointer;font-size:15px;">预案名称：</strong>{{data.yamc||"无"}}
+                                                    <span class="companyStatus dib" title="预案类别">{{data.yalxmc||"无"}}</span>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">预案编号：</strong>{{data.yabh||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">制作人名称：</strong>{{data.zzrmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">制作日期：</strong>{{data.zzrq||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <!-- <div class="inform-margin">
                                         <a id="ew" href="" class="inform-download-display" download="">
                                             <span id="we"></span>
                                         </a>
@@ -848,8 +806,8 @@
                                             </dd>
                                             <dt class="dtdlStyle inform-download-cursor" @click="DownLoadFile()">文档预案</dt>
                                         </dl>
-                                    </div>
-                                </el-tab-pane> -->
+                                    </div> -->
+                                </el-tab-pane>
                             </el-tabs>
                         </template>
 
