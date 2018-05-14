@@ -126,14 +126,24 @@ new Vue({
             var newDate = [year, month, day].join('-');
             return newDate;
         },
+        //信息打印
+        openPrinter: function () {
+            // // 1.设置要打印的区域 div的className
+            // var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
+            // // 2. 复制给body，并执行window.print打印功能
+            // document.body.innerHTML = newstr
+            // window.print()
+            // // 重新加载页面，以刷新数据
+            // window.location.reload();
+            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/web");
+        },
         //预案预览
         openPlan: function () {
-            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/web");
-            // window.open("http://localhost:8005/planShare/page/1/web");
+            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
         //预案下载
         downloadPlan: function () {
-            // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
+            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
         },
         /**
         * lxy
@@ -149,17 +159,7 @@ new Vue({
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         },
-        //信息打印
-        openPrinter: function () {
-            // 1.设置要打印的区域 div的className
-            var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
-            // 2. 复制给body，并执行window.print打印功能
-            document.body.innerHTML = newstr
-            window.print()
-            // 重新加载页面，以刷新数据
-            window.location.reload();
 
-        },
 
     }
 })
