@@ -328,7 +328,7 @@ var vm = new Vue({
             var myIcon3 = new BMap.Icon("../../static/images/marker_qyd_map.png", new BMap.Size(25, 25));      //创建图标
             var pt = null;
             var markerDatas = [];
-            //  var Point = new BMap.Point(117.2832435, 39.1429405);
+             var Point = new BMap.Point(117.2832435, 39.1429405);
             //  var x2 = Point.lng * Math.PI / 180;
             //  var y2 = Point.lat * Math.PI / 180;
             //  var circle = new BMap.Circle(Point, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
@@ -352,18 +352,18 @@ var vm = new Vue({
                 var marker = new BMap.Marker(pt, { icon: myIcon1 });
                 this.marker.push(marker);
                 markerDatas.push(marker);
-                var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+                // var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
                 // map.addOverlay(marker);
                 marker.addEventListener("click", function (e) {
-                var marker = e.currentTarget;
-                debugger;
-                var pt = marker.point;
-                this.openInfoWindow(infoWindow);
-                var circle = new BMap.Circle(pt, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-                var radius = 1000;
-                var r = 6371004;
-                map.addOverlay(circle);
-                 });
+                    var marker = e.currentTarget;
+                    // debugger;
+                    var pt = marker.point;
+                    this.openInfoWindow(infoWindow);
+                    var circle = new BMap.Circle(pt, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var radius = 1000;
+                    var r = 6371004;
+                    map.addOverlay(circle);
+                });
             };
             //组织机构
             for (i = 0; i < this.zzData.length; i++) {
@@ -384,8 +384,15 @@ var vm = new Vue({
                     var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
                     // map.addOverlay(marker);
                     marker.addEventListener("click", function () {
+                        var marker = e.currentTarget;
                         // debugger;
-                        this.openInfoWindow(infoWindow);                        
+                        var pt = marker.point;
+                        this.openInfoWindow(infoWindow);
+                        var circle = new BMap.Circle(pt, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                        var radius = 1000;
+                        var r = 6371004;
+                        map.addOverlay(circle);
+            
                     });
                 }
             };
@@ -393,13 +400,13 @@ var vm = new Vue({
             // console.log(this.syData);
             for (i = 0; i < this.syData.length; i++) {
                 var x = this.syData[i].gisX;
-                var x1 = x * Math.PI / 180;
+                // var x1 = x * Math.PI / 180;
                 var y = this.syData[i].gisY;
-                var y1 = y * Math.PI / 180;
-                var dx = Math.abs(x1 - x2);
-                var dy = Math.abs(y1 - y2);
-                var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
-                var d = r * 2 * Math.asin(Math.sqrt(p));
+                // var y1 = y * Math.PI / 180;
+                // var dx = Math.abs(x1 - x2);
+                // var dy = Math.abs(y1 - y2);
+                // var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
+                // var d = r * 2 * Math.asin(Math.sqrt(p));
                 // if (radius >= d) {
                 var pt = new BMap.Point(x, y);     // 创建坐标点
                 var myIcon1 = new BMap.Icon("../../static/images/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
@@ -408,8 +415,15 @@ var vm = new Vue({
                 markerDatas.push(marker);
                 var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
                 // map.addOverlay(marker);
-                marker.addEventListener("click", function () {
+                marker.addEventListener("click", function (e) {
                     this.openInfoWindow(infoWindow);
+                    var marker = e.currentTarget;
+                    // debugger;
+                    var pt = marker.point;
+                    var circle = new BMap.Circle(pt, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var radius = 1000;
+                    var r = 6371004;
+                    map.addOverlay(circle);
                 });
                 // }
             }
@@ -438,6 +452,7 @@ var vm = new Vue({
             this.clusterer = markerClusterer;
             // markerClusterer.setStyles(clustererStyle);
             markerClusterer.addMarkers(markerDatas);
+          
             //弹出框
             var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框 
         },
@@ -447,9 +462,9 @@ var vm = new Vue({
     mounted() {
         this.getCity();
         document.title = this.city + '预案情况';
-        this.getPoint();
+        // this.getPoint();
         // this.getJgidData();
-        // this.getSyData();
+        this.getSyData();
         // this.showOvera();
         // this.hideOver();
     }
