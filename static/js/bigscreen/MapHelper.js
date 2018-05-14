@@ -925,7 +925,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
     findGeometryDepartment: function(point) {
         var me = this;
         var ret;
-
         var layerConfigs = me.layerConfigs;
         var collection = layerConfigs['policeDistrict'].collection;
         if (!collection || collection.getCount() == 0) {
@@ -979,11 +978,8 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         var labelStyle = Ext.clone(me.markerLabelStyle);
         labelStyle.color = 'rgb(0, 127, 248)';
         label.setStyle(labelStyle);
-
         overlay.setLabel(label);
-
         overlay.entity = record;
-
         var info = me.getWaterXhsInfoWindowHtml(record);
         overlay.addEventListener('click', function(evt) {
             if (me.getIsMeasuringDis() || me.getIsMeasuringArea()) {
@@ -1000,7 +996,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         var me = this;
         var bdLon = record.get('bdLon'),
             baLat = record.get('bdLat');
-
         var icon = new BMap.Icon(
             me.ICON_W_SH, new BMap.Size(24, 24), {
                 offset: new BMap.Size(12, 24)
@@ -1009,7 +1004,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         overlay = new BMap.Marker(pt, {
             icon: icon
         });
-
         var strName = record.get('name');
         strName = me.formatLabel(strName);
         var xOffset = 6 * (-5);
@@ -1024,9 +1018,7 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
         labelStyle.color = 'rgb(69, 181, 255)';
         label.setStyle(labelStyle);
         overlay.setLabel(label);
-
         overlay.entity = record;
-
         var info = me.getWaterShInfoWindowHtml(record);
         overlay.addEventListener('click', function(evt) {
             if (me.getIsMeasuringDis() || me.getIsMeasuringArea()) {
@@ -2029,7 +2021,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
             '<div class="x-clear"></div>',
             '</div>'
         );
-
         var content = tpl.apply({
             depName: record.get('depName'),
             vendor: record.get('vendor'),
@@ -2046,11 +2037,9 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
     onClickInfoWindowDetail: function() {
         var me = this;
         var currentOverlay = me.getCurrentOverlay();
-
         if (!currentOverlay) {
             return;
         }
-
         var record = currentOverlay.entity;
         var attachController = me.getAttachController();
         attachController.fireEvent('evtViewElementDetail', record);
@@ -2059,11 +2048,9 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
     onClickShare: function() {
         var me = this;
         var currentOverlay = me.getCurrentOverlay();
-
         if (!currentOverlay) {
             return;
         }
-
         var record = currentOverlay.entity;
         var attachController = me.getAttachController();
         attachController.fireEvent('evtOpenShareWindow', record);
@@ -2079,13 +2066,11 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
                 if (response == '' || response == null) {
                     return;
                 }
-
                 var data = Ext.JSON.decode(response);
                 if (data.code == 1000 && data.result != null) {
                     if (data.result.resultType == 0) {
                         var href = "PXY:" + data.result.ip + "|" + data.result.port + "|51fd1678-c022-4478-b670-a6d4815525d5|2400|1";
                     }
-
                     window.location.href = href;
                 } else {
                     alert("请求应用服务器失败");
@@ -2100,11 +2085,9 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
     doGetElementDetail: function() {
         var me = this;
         var currentOverlay = me.getCurrentOverlay();
-
         if (!currentOverlay) {
             return;
         }
-
         var record = currentOverlay.entity;
         var attachController = me.getAttachController();
         attachController.fireEvent('evtLoadElementDetail', record);
