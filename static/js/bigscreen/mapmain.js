@@ -206,14 +206,12 @@ var vm = new Vue({
         },
         //获取重点单位
         getPoint: function () {
-            // debugger;
             var params = {};
             axios.post('/dpapi/importantunits/list', params).then(function (res) {
                 this.markerData = res.data.result;
                 if (this.markerData !== []) {
                     this.drawMap();
                 }
-
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -267,13 +265,14 @@ var vm = new Vue({
             }.bind(this), function (error) {
                 console.log(error);
             })
-
         },
         showOvera: function () {
             this.clusterer.addMarkers(this.marker);
+            map.addOverlay(circle);
         },
         hideOvera: function () {
             this.clusterer.removeMarkers(this.marker);
+            map.clearOverlays();
         },
         drawMap: function () {
             var content =
@@ -282,7 +281,7 @@ var vm = new Vue({
                 '重点单位' +
                 '</h3>' +
                 '<div class="summary" style=" height: 32px; line-height: 32px;color: #999;">' +
-                '详情' +
+                '地址详情' +
                 '</div>' +
                 '<table cellpadding="0" cellspacing="0" class="content">' +
                 '<tr>' +
@@ -298,9 +297,7 @@ var vm = new Vue({
                 '<td><strong>消防管辖：</strong>泰安市消防塔湾分队</td>' +
                 '</tr>' +
                 '</table>' +
-                '<div class="bbar" style="color:#8470FF;"><img src="../../static/images/zqdd.png"><b class="btn" onclick="onClickInfoWindowDetail()">总队级预案-预览</b></div>' +
-                '<div class="bbar" style="color:#8470FF;"><img src="../../static/images/zqdd.png"><b class="btn" onclick="onClickInfoWindowDetail()">支队级预案-预览</b></div>' +
-                '<div class="bbar" style="color:#8470FF;"><img src="../../static/images/zqdd.png"><b class="btn" onclick="onClickInfoWindowDetail()">大中队级预案-预览</b></div>' +
+                '<div class="bbar" style=" position: absolute; bottom: 0; width: 100%; height: 32px; text-align: right;.btn {display: inline-block;padding: 0 32px; margin: 0 2px;height: 32px;line-height: 32px;background-color: darken($white, 3%);border-radius: 2px;border: 1px solid lighten($black-divider-solid, 4%);color: $color;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none; &:hover { background-color: $white;}img { width: 16px;height: 16px;vertical-align: sub;}}   "><b class="btn" onclick="onClickInfoWindowDetail()"><img src="../../static/images/marker_qyd_map.png">预案详情</b></div>' +
                 '<div class="x-clear"></div>' +
                 '</div>'
                 ;
@@ -328,35 +325,18 @@ var vm = new Vue({
             var myIcon3 = new BMap.Icon("../../static/images/marker_qyd_map.png", new BMap.Size(25, 25));      //创建图标
             var pt = null;
             var markerDatas = [];
-             var Point = new BMap.Point(117.2832435, 39.1429405);
-            //  var x2 = Point.lng * Math.PI / 180;
-            //  var y2 = Point.lat * Math.PI / 180;
-            //  var circle = new BMap.Circle(Point, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-            //  var radius = 1000;
-            //  var r = 6371004;
-            //  map.addOverlay(circle);
+            // var Point = new BMap.Point(117.2832435, 39.1429405);
             // 重点单位
-            for (i = 0; i < this.markerData.length; i++) {  
+            for (i = 0; i < this.markerData.length; i++) {
                 var x = this.markerData[i].gisX;
-                // var x1 = x * Math.PI / 180;
                 var y = this.markerData[i].gisY;
-                // var gcj = bd_decrypt(x,y);
-                // gcj.lon,gcj.lat
-                // var y1 = y * Math.PI / 180;
-                // var dx = Math.abs(x1 - x2);
-                // var dy = Math.abs(y1 - y2);
-                // var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
-                // var d = r * 2 * Math.asin(Math.sqrt(p));
                 var pt = new BMap.Point(x, y);  // 创建坐标点
                 var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24));      //创建图标
                 var marker = new BMap.Marker(pt, { icon: myIcon1 });
                 this.marker.push(marker);
                 markerDatas.push(marker);
-                // var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
-                // map.addOverlay(marker);
                 marker.addEventListener("click", function (e) {
                     var marker = e.currentTarget;
-                    // debugger;
                     var pt = marker.point;
                     this.openInfoWindow(infoWindow);
                     var circle = new BMap.Circle(pt, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
@@ -382,7 +362,6 @@ var vm = new Vue({
                     this.marker = marker;
                     markerDatas.push(marker);
                     var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
-                    // map.addOverlay(marker);
                     marker.addEventListener("click", function () {
                         var marker = e.currentTarget;
                         // debugger;
@@ -392,40 +371,31 @@ var vm = new Vue({
                         var radius = 1000;
                         var r = 6371004;
                         map.addOverlay(circle);
-            
+
                     });
                 }
             };
             //水源
-            // console.log(this.syData);
             for (i = 0; i < this.syData.length; i++) {
                 var x = this.syData[i].gisX;
-                // var x1 = x * Math.PI / 180;
                 var y = this.syData[i].gisY;
-                // var y1 = y * Math.PI / 180;
-                // var dx = Math.abs(x1 - x2);
-                // var dy = Math.abs(y1 - y2);
-                // var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
-                // var d = r * 2 * Math.asin(Math.sqrt(p));
-                // if (radius >= d) {
                 var pt = new BMap.Point(x, y);     // 创建坐标点
-                var myIcon1 = new BMap.Icon("../../static/images/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
+                // ../../static/images/marker_naturalwater_map.png
+                var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24));      //创建图标
                 var marker = new BMap.Marker(pt, { icon: myIcon1 });
                 this.marker.push(marker);
                 markerDatas.push(marker);
                 var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
-                // map.addOverlay(marker);
                 marker.addEventListener("click", function (e) {
                     this.openInfoWindow(infoWindow);
                     var marker = e.currentTarget;
-                    // debugger;
                     var pt = marker.point;
-                    var circle = new BMap.Circle(pt, 1000, { fillColor: "red", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var circle = new BMap.Circle(pt, 1000, { fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
                     var radius = 1000;
                     var r = 6371004;
                     map.addOverlay(circle);
                 });
-                // }
+                
             }
             console.log(this.marker);
             //悬浮框
@@ -452,12 +422,9 @@ var vm = new Vue({
             this.clusterer = markerClusterer;
             // markerClusterer.setStyles(clustererStyle);
             markerClusterer.addMarkers(markerDatas);
-          
             //弹出框
             var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框 
         },
-
-
     },
     mounted() {
         this.getCity();
@@ -465,7 +432,5 @@ var vm = new Vue({
         // this.getPoint();
         // this.getJgidData();
         this.getSyData();
-        // this.showOvera();
-        // this.hideOver();
     }
 })
