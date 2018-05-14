@@ -14,7 +14,7 @@ new Vue({
             jzl_jzfqData: [],//建筑类建筑分区数据
             zzl_jzfqData: [],//建筑类建筑分区数据
             cgl_jzfqData: [],//建筑类建筑分区数据
-            yuData: [],//预案数据
+            yaData: [],//预案数据
 
             //表高度变量
             tableheight: 474,
@@ -78,6 +78,7 @@ new Vue({
         this.getZzlListByZddwId();
         //根据重点单位id获取储罐类重点部位详情集合
         this.getCglListByZddwId();
+        this.getYaListByVo();
         
     },
     methods: {
@@ -149,6 +150,23 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
+        },
+        //根据重点单位id获取预案信息
+        getYaListByVo: function () {
+            var params = {
+                dxid: this.uuid,
+            }
+            axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
+                this.yaData = res.data.result;
+                console.log(this.yaData);
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //预案详情跳转
+        planDetails(val) {
+            window.location.href = "../digitalplan/digitalplan_detail.html?ID=" + val.uuid;
+            //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         //二维预案下载
         DownLoadTwoFile: function () {

@@ -11,7 +11,7 @@
     <div class="left-sidebar">
         <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
         <div id="menu-box">
-            <big-tree default-active="8"></big-tree>
+            <big-tree default-active="7"></big-tree>
         </div>
     </div>
     <div id="app">
@@ -538,7 +538,7 @@
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">有无应急广播：</strong>{{data.isyjgb | dataFormat}}
+                                                        <strong style="cursor: pointer;font-size:15px;">有无应急广播：</strong>{{data.isyjgb||"无"}}
                                                     </div>
                                                 </el-col>
                                             </el-row>
