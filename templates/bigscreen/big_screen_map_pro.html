@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -12,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css">
 </head>
-
 <body class="fw map-bg">
     <div id="app">
         <div class="application-box tc abs">
@@ -89,47 +87,50 @@
                             </ul>
                         </div>
                     </el-form>
-                </div>
-                
+                </div>   
             </div>
-
-            <!-- 右侧 -->
+            <!-- bottom -->
             <div class="map-menu-right h456 mt35">
-
-                <div class="meu-box-right">
+                <!-- <div class="meu-box-right"> -->
+                <div>
                     <div class="map-china">
                         <a href="big_screen_map.html">
                             <img src="../../static/images/icon-china.png" />
                         </a>
                     </div>
-                    <div style="width:30px;margin-top:130px;margin-left:120px;">
-                        <div class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="">
-                            <span  type="button" @click="showOvera()"  style="color:#008B00">显</span>
+                    <div style="height: 50px; width:800px;margin-top:350px;margin-left:-520px;">
+
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                            data-content="队伍">
+                            <img src="../../static/images/M_ZYDW.png" />
                         </div>
-                        <div class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="重点单位">
-                            <span class="glyphicon glyphicon-home" type="button" @click="showOvera()"  style="color:#008B00"></span>
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                        data-content="微型消防站">
+                        <img src="../../static/images/M_WXXFZ.png" />
                         </div>
-                        <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="重点单位">
-                            <span class="glyphicon glyphicon-home" type="button" @click="hideOvera()" style="color:#00688B"></span>
+                        <div  @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                            data-content="500m水源">
+                            <img src="../../static/images/M_XFSY_500.png" />
                         </div>
-                        <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                        <div @click="hideOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                            data-content="1000m水源">
+                            <img src="../../static/images/M_XFSY_1000.png" />
+                        </div>
+                        <!-- <div @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                                data-content="力量">
+                                <img src="../../static/images/M_ZQLL.png" />
+                            </div>
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="水源">
-                            <span class="glyphicon glyphicon-tint" type="button" @click="showOvera()" style="color:#7B68EE"></span>
+                            <img src="../../static/images/M_XFSY_1000.png" />
                         </div>
-                        <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="水源">
-                            <span class="glyphicon glyphicon-tint" type="button" @click="hideOvera()" style="color:rgb(105, 104, 107)"></span>
-                        </div>
-                        <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
                             data-content="组织机构">
-                            <span class="glyphicon glyphicon-user" style="color:#FF4500"></span>
-                        </div>
-                        <div class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="组织机构">
-                            <span class="glyphicon glyphicon-user" style="color:rgb(121, 115, 113)"></span>
+                            <img src="../../static/images/M_XFSY_1000.png" />
+                        </div> -->
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                            data-content="消防车辆">
+                            <img src="../../static/images/M_XFCL.png" />
                         </div>
                     </div>
                 </div>
