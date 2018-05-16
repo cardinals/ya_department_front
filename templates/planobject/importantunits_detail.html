@@ -302,6 +302,54 @@
                                                 </div>
                                             </el-col>
                                         </el-row>
+                                        <!-- 危险性介质 -->
+                                        <el-collapse accordion v-if="data.weixianjiezhiList && data.weixianjiezhiList.length > 0">
+                                            <strong>危险性介质</strong>
+                                            <span v-for="wxjzdata in data.weixianjiezhiList">
+                                                <el-collapse-item :title="wxjzdata.jzmc">
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">实际储量：</strong>{{wxjzdata.jzsjcl||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">理化性质：</strong>{{wxjzdata.jzlhtx||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">描述：</strong>{{wxjzdata.jtlcms||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                </el-collapse-item>
+                                            </span>
+                                        </el-collapse>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">危险性分析：</strong>{{data.wxxfx||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">注意事项：</strong>{{data.zysx||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">备注：</strong>{{data.bz||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
                                     </el-card>
                                     <!-- 装置类重点部位详情 -->
                                     <el-card v-for="data in zzl_zdbwData" style="margin-bottom:12px;background-color:#F5F5F5">
@@ -332,7 +380,7 @@
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">装置组成：</strong>{{data.zzl_RESERVE1||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">装置组成：</strong>{{data.zzl_zzzc||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
@@ -345,6 +393,18 @@
                                             <el-col :span="12">
                                                 <div>
                                                     <strong style="cursor: pointer;font-size:15px;">技术负责人联系方式：</strong>{{data.zzl_jsfzrdh||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">原料信息：</strong>{{data.zzl_ylxx||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">产物信息：</strong>{{data.zzl_cwxx||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
@@ -418,6 +478,98 @@
                                                 </div>
                                             </el-col>
                                         </el-row>
+                                        <!-- 储罐信息 -->
+                                        <el-collapse accordion v-if="data.chuguanList && data.chuguanList.length > 0">
+                                            <strong>储罐信息</strong>
+                                            <span v-for="cgdata in data.chuguanList">
+                                                <el-collapse-item :title="cgdata.cgmc">
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">储罐类型：</strong>{{cgdata.cglxmc||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">实际储量：</strong>{{cgdata.cgrl||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">储罐直径：</strong>{{cgdata.cgzj||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">储罐高度：</strong>{{cgdata.cggd||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">储罐周长：</strong>{{cgdata.cgzc||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">罐顶面积：</strong>{{cgdata.gdmj||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">工作压力：</strong>{{cgdata.gzyl||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">存储温度：</strong>{{cgdata.ccwd||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">存储介质名称：</strong>{{cgdata.ccjzmc||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">存储介质理化特性：</strong>{{cgdata.czjzlhtx||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">存储介质实际储量：</strong>{{cgdata.czjzsjcl||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-row>
+                                                        <el-col :span="24">
+                                                            <div>
+                                                                <strong style="cursor: pointer;font-size:15px;">存储介质液位高度：</strong>{{cgdata.czjzywgd||"无"}}
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                </el-collapse-item>
+                                            </span>
+                                        </el-collapse>
                                         <el-row>
                                             <el-col :span="12">
                                                 <div>
@@ -757,14 +909,19 @@
                                             <el-col :span="24">
                                                 <div @click="planDetails(data)">
                                                     <strong style="cursor: pointer;font-size:15px;">预案名称：</strong>{{data.yamc||"无"}}
-                                                    <span class="companyStatus dib" title="预案类别">{{data.yalxmc||"无"}}</span>
+                                                    <span class="companyStatus dib" title="预案级别">{{data.yajbmc||"无"}}</span>
                                                 </div>
                                             </el-col>
                                         </el-row>
                                         <el-row>
-                                            <el-col :span="24">
+                                            <el-col :span="12">
                                                 <div>
                                                     <strong style="cursor: pointer;font-size:15px;">预案编号：</strong>{{data.yabh||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">预案类型：</strong>{{data.yalxmc||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
