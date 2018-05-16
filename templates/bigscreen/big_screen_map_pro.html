@@ -90,30 +90,60 @@
                 </div>   
             </div>
             <!-- bottom -->
+           
             <div class="map-menu-right h456 mt35">
+                <!-- 右侧工具 -->
+            
+            <div class="tool">
+                <div @click="EwOver()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                        data-container="body" data-placement="left" >
+                    <img src="../../static/images/maptool/icon_2d_btn.png" />
+                </div>
+                <div @click="WxOver()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                        data-container="body" data-placement="left" >
+                    <img src="../../static/images/maptool/icon_satellite_btn.png" />
+                </div>
+                <div @click="hideOvera()"  style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"  data-placement="left"
+                data-content="重点单位">
+                <img src="../../static/images/maptool/btn_zddw_back.png"/>
+                </div>
+                <div style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"  data-placement="left"
+                data-content="水源">
+                <img src="../../static/images/maptool/btn_water_back.png"/>
+                </div>
+                <div style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" 
+                data-container="body" data-toggle="popover" data-placement="bottom" 
+                data-content="">
+                    <img src="../../static/images/maptool/btn_option_back.png"/>
+                </div>
+
+
+            </div>
+
                 <!-- <div class="meu-box-right"> -->
                 <div>
-                    <div class="map-china">
+                    <!-- <div class="map-china">
                         <a href="big_screen_map.html">
                             <img src="../../static/images/icon-china.png" />
                         </a>
-                    </div>
+                    </div> -->
                     <div style="height: 50px; width:800px;margin-top:350px;margin-left:-520px;">
-
-                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="队伍">
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"  data-placement="left"
+                           >
                             <img src="../../static/images/M_ZYDW.png" />
                         </div>
-                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"  data-placement="left"
                         data-content="微型消防站">
                         <img src="../../static/images/M_WXXFZ.png" />
                         </div>
-                        <div  @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="500m水源">
+                        <div  @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body"  data-placement="left"
+                            >
+
                             <img src="../../static/images/M_XFSY_500.png" />
                         </div>
-                        <div @click="hideOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
-                            data-content="1000m水源">
+                        <div @click="hideOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-placement="left"
+                            >
+                            
                             <img src="../../static/images/M_XFSY_1000.png" />
                         </div>
                         <!-- <div @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
@@ -128,7 +158,7 @@
                             data-content="组织机构">
                             <img src="../../static/images/M_XFSY_1000.png" />
                         </div> -->
-                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
+                        <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-placement="left"
                             data-content="消防车辆">
                             <img src="../../static/images/M_XFCL.png" />
                         </div>
@@ -143,14 +173,27 @@
 <!-- 引入js -->
 <script src="../../static/js/lib.js"></script>
 <script src="../../static/js/menu.js"></script>
+<script src="../../static/js/bootstrap.min.js"></script>
+<script>
+        $(function (){
+            $("[data-toggle='popover']").popover(
+                {
+                    html:true,
+                    content:"<div'> <img  src='../../static/images/maptool/icon_2d_btn.png'> </div>"+"<img src='../../static/images/maptool/icon_satellite_btn.png'>",
+                    
+                }
+            );
+        });
+</script>
 <!-- 引入地图 -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/mapmain.js" ></script>
-<script>
-    //  $(function () { $("[data-toggle='popover']").popover(); }); 
-</script>
+
+<!-- tooljs的引入 -->
+<script type="text/javascript"></script>
+
 <script>
     $('#menu-toggle-btn').click(function () {
         var left = $('.map-menu-left'),
