@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/planobject/importantunits_detail.css">
-    <title>预案管理</title>
+    <title>重点单位预案详情</title>
 </head>
 
 <body class="fw f14 main-index-body">
@@ -18,7 +18,7 @@
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('预案管理','预案管理')"></div>
+                <div id="lib :: main_container_header('重点单位预案详情','重点单位预案详情')"></div>
                 <div id="tableView">
                     <div class="nameBox">
                         <div id="basic-Inform-Picture">
@@ -36,13 +36,17 @@
                                 <dd class="dtdlStyle">{{basicDetailData.dxmc||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/date.png">
+                                <dt class="dib inform-small-title">预案编码：</dt>
+                                <dd class="dtdlStyle">{{basicDetailData.yabm||"无"}}</dd>
+                                <br>
+                                <img src="../../static/images/date.png">
                                 <dt class="dib inform-small-title">预案类型：</dt>
                                 <dd class="dtdlStyle">{{basicDetailData.yalxmc||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/postcode.png">
-                                <dt class="dib inform-small-title">备注：</dt>
-                                <dd class="dtdlStyle">{{basicDetailData.bz||"无"}}</dd>
-                                <br><br>
+                                <dt class="dib inform-small-title">预案状态：</dt>
+                                <dd class="dtdlStyle">{{basicDetailData.yaztmc||"无"}}</dd>
+                                <br>
                             </dl>
                         </div>
                         <div style="float: right">
@@ -57,54 +61,76 @@
                         <template>
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
                                 <el-tab-pane label="基本信息" name="first">
-                                    <div class="inform-div">
-                                        <div class="left-inform">
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">预案状态：</dt>
-                                                    <dd class="dtdlStyle">{{basicDetailData.yaztmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">制作人名称：</dt>
-                                                    <dd class="dtdlStyle">{{basicDetailData.zzrmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">制作时间：</dt>
-                                                    <dd class="dtdlStyle">{{basicDetailData.zzsj||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">制作机构：</dt>
-                                                    <dd class="dtdlStyle">{{basicDetailData.jgmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">审核状态：</dt>
-                                                    <dd class="dtdlStyle">{{basicDetailData.shztmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">审核人：</dt>
-                                                    <dd class="dtdlStyle">{{basicDetailData.shrmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">审核时间：</dt>
-                                                    <dd class="dtdlStyle">{{basicDetailData.shsj||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <el-card class="mb10 cardBack">
+                                        <el-row class="mb5">
+                                            <el-col :span="24">
+                                                <div style="color: #20a0ff;">
+                                                    <strong>制作情况</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <el-col :span="2" style="text-align: right;">
+                                                <div>制作人名称：</div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div>
+                                                    <strong>{{basicDetailData.zzrmc||"无"}}</strong>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="2" style="text-align: right;">
+                                                <div>制作时间：</div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div>
+                                                    <strong>{{basicDetailData.zzsj||"无"}}</strong>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="2" style="text-align: right;">
+                                                <div>制作机构：</div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div>
+                                                    <strong>{{basicDetailData.jgmc||"无"}}</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card class="mb10 cardBack">
+                                        <el-row class="mb5">
+                                            <el-col :span="24">
+                                                <div style="color: #20a0ff;">
+                                                    <strong>审核情况</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <el-col :span="2" style="text-align: right;">
+                                                <div>审核人：</div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div>
+                                                    <strong>{{basicDetailData.shrmc||"无"}}</strong>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="2" style="text-align: right;">
+                                                <div>审核时间：</div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div>
+                                                    <strong>{{basicDetailData.shsj||"无"}}</strong>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="2" style="text-align: right;">
+                                                <div>审核状态：</div>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div>
+                                                    <strong>{{basicDetailData.shztmc||"无"}}</strong>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="灾情设定与力量部署" name="second">
                                     <el-card v-for="item in disasterSetData" class="mb10 cardBack">

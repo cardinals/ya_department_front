@@ -20,16 +20,16 @@ new Vue({
             searchForm: {
                 YAMC: "",
                 DXMC: "",
-                YALX: "",
+                YALX: [],
                 YAJB: "",
                 ZZJG: "",
-                SHZT: ""
+                YAZT: ""
             },
             tableData: [],
             YALX_dataTree: [],//预案类型级联选择
             ZZJG_dataTree: [],//制作机构级联选择
             YAJB_data: [],//预案级别下拉框
-            SHZT_data: [],//审核状态下拉框
+            YAZT_data: [],//审核状态下拉框
 
             //表高度变量
             tableheight: 443,
@@ -54,7 +54,12 @@ new Vue({
                 value: 'codeValue',
                 label: 'codeName',
                 children: 'children'
-            }
+            },
+            jgidprops: {
+                value: 'uuid',
+                label: 'jgjc',
+                children: 'children'
+            },
 
         }
     },
@@ -62,7 +67,7 @@ new Vue({
         this.YALX_tree();//预案类型级联选择
         this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
-        this.SHZT();//审核状态下拉框
+        this.YAZT();//预案状态下拉框
     },
     mounted: function () {
         this.searchClick();//条件查询
@@ -88,11 +93,11 @@ new Vue({
         },
         //制作机构级联选择(暂无表)
         ZZJG_tree: function () {
-            // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
-            //     this.YALX_dataTree = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
+            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+                this.ZZJG_dataTree = res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
         },
         //预案级别下拉框
         YAJB: function () {
@@ -103,9 +108,9 @@ new Vue({
             })
         },
         //审核状态下拉框
-        SHZT: function () {
-            axios.get('/api/codelist/getCodetype/YASHZT').then(function (res) {
-                this.SHZT_data = res.data.result;
+        YAZT: function () {
+            axios.get('/api/codelist/getCodetype/YAZT').then(function (res) {
+                this.YAZT_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -119,7 +124,7 @@ new Vue({
                 yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1],
                 yajb: this.searchForm.YAJB,
                 // jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
-                shzt: this.searchForm.SHZT
+                yazt: this.searchForm.YAZT
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.tableData = res.data.result;
@@ -133,10 +138,10 @@ new Vue({
         clearClick: function () {
             this.searchForm.YAMC = "";
             this.searchForm.DXMC = "";
-            this.searchForm.YALX = {};
+            this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = "";
-            this.searchForm.SHZT = "";
+            this.searchForm.YAZT = "";
         },
         //表格勾选事件
         selectionChange: function (val) {
