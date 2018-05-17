@@ -169,3 +169,9 @@ body{height:100%;overflow:hidden;}
 .el-input__icon{
     height: 82%;
 }
+.danger_icon{
+    margin-top: -1px;
+}
+.danger_word{
+    margin-top: 5px;
+}

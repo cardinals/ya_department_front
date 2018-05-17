@@ -22,7 +22,7 @@
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="70px" :inline="true" class="el-form demo-form-inline" v-model="searchForm">
-                            <el-row :gutter="40">
+                            <el-row>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">公式名称</label>
                                     <el-input size="small" v-model="searchForm.GSMC" placeholder="公式名称"></el-input>
@@ -35,7 +35,7 @@
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">是否启用</label>
-                                    <el-select size="small" v-model="searchForm.SFQY" placeholder="是否启用" class="gslbSelect" clearable>
+                                    <el-select size="small" v-model="searchForm.SFQY" placeholder="全部" class="gslbSelect" clearable>
                                         <el-option v-for="item in sfqyData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
@@ -112,7 +112,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式名称" prop="gsmc">
-                                                <el-input v-model="addFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
+                                                <el-input size="small" v-model="addFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -121,7 +121,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式类别" prop="gslb">
-                                                <el-select v-model="addFormulaForm.gslb" placeholder="公式类别" clearable>
+                                                <el-select  size="small" v-model="addFormulaForm.gslb" placeholder="公式类别" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
                                             </el-form-item>
@@ -132,7 +132,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式说明" prop="gssm">
-                                                <el-input v-model="addFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
+                                                <el-input size="small" v-model="addFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -141,7 +141,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式" prop="jsgs">
-                                                <el-input v-model="addFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
+                                                <el-input size="small" v-model="addFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -150,7 +150,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式单位" prop="jsgsdw">
-                                                <el-input v-model="addFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
+                                                <el-input size="small" v-model="addFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -185,8 +185,8 @@
                             </el-tab-pane>
                         </el-tabs>
                         <div slot="footer" class="dialog-footer">
-                            <el-button @click.native="closeDialog(addFormulaForm,addParamForm)">取消</el-button>
-                            <el-button type="primary" @click.native="addSubmit(addFormulaForm,addParamForm)">提交</el-button>
+                            <el-button size="small" @click.native="closeDialog(addFormulaForm,addParamForm)">取消</el-button>
+                            <el-button size="small" type="primary" @click.native="addSubmit(addFormulaForm,addParamForm)">提交</el-button>
                         </div>
                     </el-dialog>
 
@@ -199,7 +199,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式名称" prop="gsmc">
-                                                <el-input v-model="editFormulaForm.gsmc" :disabled="true" auto-complete="off" placeholder="公式名称"></el-input>
+                                                <el-input size="small" v-model="editFormulaForm.gsmc" :disabled="true" auto-complete="off" placeholder="公式名称"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -208,7 +208,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式类别">
-                                                <el-select v-model="editFormulaForm.gslb" :disabled="true" placeholder="公式类别" clearable>
+                                                <el-select size="small" v-model="editFormulaForm.gslb" :disabled="true" placeholder="公式类别" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
                                             </el-form-item>
@@ -219,7 +219,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="公式说明" prop="gssm">
-                                                <el-input v-model="editFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
+                                                <el-input size="small" v-model="editFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -228,7 +228,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式" prop="jsgs">
-                                                <el-input v-model="editFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
+                                                <el-input size="small" v-model="editFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -237,7 +237,7 @@
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
                                             <el-form-item label="计算公式单位" prop="jsgsdw">
-                                                <el-input v-model="editFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
+                                                <el-input size="small" v-model="editFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
                                             </el-form-item>
                                         </el-col>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -272,8 +272,8 @@
                             </el-tab-pane>
                         </el-tabs>
                         <div slot="footer" class="dialog-footer">
-                            <el-button @click.native="editFormVisible = false">取消</el-button>
-                            <el-button type="primary" @click.native="editSubmit(editFormulaForm,editParamForm)">提交</el-button>
+                            <el-button size="small" @click.native="editFormVisible = false">取消</el-button>
+                            <el-button size="small" type="primary" @click.native="editSubmit(editFormulaForm,editParamForm)">提交</el-button>
                         </div>
                     </el-dialog>
                     <!--计算界面-->
@@ -329,9 +329,9 @@
                             </el-row>
                         </el-form>
                         <div slot="footer" class="dialog-footer">
-                            <el-button type="primary" @click.native="calculate(calculateForm)">计算</el-button>
-                            <el-button @click.native="resetDialog(calculateForm)">重置</el-button>
-                            <el-button @click.native="closeCalculate(calculateForm)">关闭</el-button>
+                            <el-button size="small" type="primary" @click.native="calculate(calculateForm)">计算</el-button>
+                            <el-button size="small" @click.native="resetDialog(calculateForm)">重置</el-button>
+                            <el-button size="small" @click.native="closeCalculate(calculateForm)">关闭</el-button>
                         </div>
                     </el-dialog>
                 </div>
