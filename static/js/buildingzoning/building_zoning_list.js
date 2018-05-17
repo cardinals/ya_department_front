@@ -7,8 +7,8 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                fqmc: "",
-                option_FQLX:"",
+                jzmc: "",
+                option_JZLX:"",
                 fqwz:""
             },
             tableData: [],
@@ -50,8 +50,8 @@ new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params={
-                fqmc:this.searchForm.fqmc,
-                fqlx:this.searchForm.option_FQLX,
+                jzmc:this.searchForm.jzmc,
+                jzlx:this.searchForm.option_JZLX,
                 fqwz:this.searchForm.fqwz
             };
             axios.post('/dpapi/building/list',params).then(function(res){
@@ -72,8 +72,8 @@ new Vue({
             }
         },
         clearClick: function () {
-            this.searchForm.fqmc="";
-            this.searchForm.option_FQLX="";
+            this.searchForm.jzmc="";
+            this.searchForm.option_JZLX="";
             this.searchForm.fqwz="";
         },
         getJZFLData: function (){
@@ -91,7 +91,7 @@ new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "building_zoning_detail.html?id=" + val.fqid +"&fqlx=" +val.fqlx;;
+            window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx;;
         },
         //表格重新加载数据
         loadingData: function () {
