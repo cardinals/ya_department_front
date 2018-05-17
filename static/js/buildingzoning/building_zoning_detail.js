@@ -196,7 +196,7 @@ new Vue({
                     var chuguan = {
                         pkid : uuid
                     };
-                    this.addChuGuanInfo(chuguan);
+                    // this.addChuGuanInfo(chuguan);
                 }
                 //通过建筑分区id查询消防设施
                 this.loadXfss();

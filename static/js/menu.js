@@ -143,6 +143,9 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/codelist"){
                 realUrl="http://localhost/templates/system/code_list.html"
             }
+            else if(this.model.url=="/imgupload"){
+                realUrl="http://localhost/templates/system/imgupload_list.html"
+            }
             // 6
             // 7
             else if(this.model.url=="/auxiliarydecision/danger"){

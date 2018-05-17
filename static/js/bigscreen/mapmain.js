@@ -191,6 +191,7 @@ var vm = new Vue({
             var tmp1 = url.split("?")[1];
             var city1 = tmp1.split("=")[1];
             this.city = decodeURI(city1);
+            // debugger;后台获取时地名传错
         },
         getBoundary: function (map) {
             var bdary = new BMap.Boundary();
@@ -200,7 +201,7 @@ var vm = new Vue({
                     var ply = new BMap.Polygon(rs.boundaries[i], { strokeWeight: 3, strokeColor: "#ff0000" }); //建立多边形覆盖物
                     ply.setFillColor("none");
                     map.addOverlay(ply); //添加覆盖物
-                    map.setViewport(ply.getPath()); //调整视野 
+                    // map.setViewport(ply.getPath()); //调整视野 
                 }
             });
         },
@@ -275,7 +276,7 @@ var vm = new Vue({
                 '<div class="summary" style=" height: 32px; line-height: 32px;color: #999;">' +
                 '地址详情' +
                 '</div>' +
-                '<img  style="flaot:left;margin-top:10px; margin-left:240px; width: 180px; height: 140px;vertical-align: sub;" src="../../static/images/zddwx.png">' +
+                '<img  style="float:left;margin-top:10px; margin-left:240px; width: 180px; height: 140px;vertical-align: sub;" src="../../static/images/zddwx.png">' +
                 '<table style="float:left;margin-top:-150px;" cellpadding="0" cellspacing="0" class="content">' +
                 '<tr>' +
                 '<td><strong>单位名称：</strong>泰安市城建局</td>' +
@@ -303,23 +304,28 @@ var vm = new Vue({
                 '</div>'
                 ;
             var map = new BMap.Map("BMap");    //创建Map实例
+            // debugger;
+            this.map = map;
+            this.mapType = '2D';
+            // var map = new BMap.Map("BMap",{mapType:BMAP_PERSPECTIVE_MAP});    //创建Map实例
             
             var top_left_control = new BMap.ScaleControl({
                 anchor: BMAP_ANCHOR_TOP_LEFT
             });
             map.addControl(top_left_control);
             //添加地图类型控件
-            map.addControl(new BMap.MapTypeControl({
-                mapTypes: [
-                    BMAP_NORMAL_MAP,
-                    BMAP_HYBRID_MAP
-                ]
-            })
-            );
-            map.setCurrentCity(this.city);      //设置地图显示的城市 此项是必须设置的
-            map.centerAndZoom(this.city,18);       //设置地图中心点
+            // map.addControl(new BMap.MapTypeControl({
+            //     mapTypes: [
+            //         BMAP_NORMAL_MAP,
+            //         BMAP_HYBRID_MAP
+            //     ]
+            // })
+            // );
+            // map.setCurrentCity(this.city);      //设置地图显示的城市 此项是必须设置的
+            map.centerAndZoom(this.city);       //设置地图中心点
+            // debugger;
             map.enableScrollWheelZoom(true);      //开启鼠标滚轮缩放
-            map.setMinZoom(5);       //设置地图最小缩放级别
+            // map.setMinZoom(5);       //设置地图最小缩放级别
             this.getBoundary(map);   //绘制边框
             var myIcon1 = new BMap.Icon("../../static/images/marker_hydrant_map.png", new BMap.Size(25, 25));      //创建图标
             var myIcon2 = new BMap.Icon("../../static/images/marker_xfc_map.png", new BMap.Size(45, 45));      //创建图标
@@ -329,9 +335,11 @@ var vm = new Vue({
             // var Point = new BMap.Point(117.2832435, 39.1429405);
             // 重点单位
             for (i = 0; i < this.markerData.length; i++) {
+                
                 var x = this.markerData[i].gisX;
                 var y = this.markerData[i].gisY;
-                // if (pt == this.city) {
+                var pervison = this.markerData[i].dwdz.substring(0,2);
+                if (pervison == this.city) {
                 var pt = new BMap.Point(x, y);  // 创建坐标点
                 var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24));      //创建图标
                 var marker = new BMap.Marker(pt, { icon: myIcon1 });
@@ -343,11 +351,11 @@ var vm = new Vue({
                     var pt = marker.point;
                     var x2 = pt.lng * Math.PI / 180;
                     var y2 = pt.lat * Math.PI / 180;
-                    var circle = new BMap.Circle(pt, 10000, {strokeColor:"#EA0000", fillColor: "#FFD2D2", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-                    var radius = 10000;
+                    var circle = new BMap.Circle(pt, 100000, {strokeColor:"#EA0000", fillColor: "#FFD2D2", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var radius = 100000;
                     var r = 6371004;
                     map.addOverlay(circle);
-                    //  debugger;
+                    // debugger;
                     //水源
                     for (i = 0; i < vm.syData.length; i++) {
                         var x = vm.syData[i].gisX;
@@ -362,16 +370,16 @@ var vm = new Vue({
                             var pt = new BMap.Point(x, y);     // 创建坐标点
                             var myIcon1 = new BMap.Icon("../../static/images/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
                             var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            // this.marker.push(marker);
+                            // vm.marker.push(marker);
                             // markerDatas.push(marker);
                             var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
                             map.addOverlay(marker);
                         }
                     }
-                    // debugger;
                     this.openInfoWindow(infoWindow);
                 });
-            };
+              };
+         };
             //组织机构
             for (i = 0; i < this.zzData.length; i++) {
                 var x = this.zzData[i].gisX;
@@ -397,39 +405,40 @@ var vm = new Vue({
                         var radius = 1000;
                         var r = 6371004;
                         map.addOverlay(circle);
-
                     });
                 }
             };
-            //水源
-            var Point = new BMap.Point(117.30167748, 39.14533465);
-            var x2 = Point.lng * Math.PI / 180;
-            var y2 = Point.lat * Math.PI / 180;
-            var circle = new BMap.Circle(Point, 10000, { strokeColor:"#EA0000", fillColor: "#FFD2D2", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-            var radius = 10000;
-            var r = 6371004;
-            map.addOverlay(circle);
-            for (i = 0; i < this.syData.length; i++) {
-                var x = this.syData[i].gisX;
-                var x1 = x * Math.PI / 180;
-                var y = this.syData[i].gisY;
-                var y1 = y * Math.PI / 180;
-                var dx = Math.abs(x1 - x2);
-                var dy = Math.abs(y1 - y2);
-                var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
-                var d = r * 2 * Math.asin(Math.sqrt(p));
-                if (radius >= d) {
-                    var pt = new BMap.Point(x, y);     // 创建坐标点
-                    var myIcon1 = new BMap.Icon("../../static/images/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
-                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    this.marker.push(marker);
-                    markerDatas.push(marker);//聚合显示
-                    var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
-                    // map.addOverlay(marker);//分散显示
-                }
-            }
-            console.log(this.marker);
+            //水源( 水源的显示 )
+            // var Point = new BMap.Point(117.30167748, 39.14533465);
+            // var x2 = Point.lng * Math.PI / 180;
+            // var y2 = Point.lat * Math.PI / 180;
+            // var circle = new BMap.Circle(Point, 10000, { strokeColor:"#EA0000", fillColor: "#FFD2D2", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+            // var radius = 10000;
+            // var r = 6371004;
+            // map.addOverlay(circle);
+            // for (i = 0; i < this.syData.length; i++) {
+            //     var x = this.syData[i].gisX;
+            //     var x1 = x * Math.PI / 180;
+            //     var y = this.syData[i].gisY;
+            //     var y1 = y * Math.PI / 180;
+            //     var dx = Math.abs(x1 - x2);
+            //     var dy = Math.abs(y1 - y2);
+            //     var p = Math.pow(Math.sin(dy / 2), 2) + Math.cos(y1) * Math.cos(y2) * Math.pow(Math.sin(dx / 2), 2);
+            //     var d = r * 2 * Math.asin(Math.sqrt(p));
+            //     if (radius >= d) {
+            //         var pt = new BMap.Point(x, y);     // 创建坐标点
+            //         var myIcon1 = new BMap.Icon("../../static/images/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
+            //         var marker = new BMap.Marker(pt, { icon: myIcon1 });
+            //         this.marker.push(marker);
+            //         markerDatas.push(marker);//聚合显示
+            //         var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象
+            //         // map.addOverlay(marker);//分散显示
+            //     }
+            // }
+            // console.log(this.marker);
             //悬浮框
+            // var markerClusterer = new BMapLib.MarkerClusterer(map,{minClusterSize:10});//聚合
+            // var markerClusterer = new BMapLib.MarkerClusterer(map,{isAverangeCenter:true});//聚合点位置
             var markerClusterer = new BMapLib.MarkerClusterer(map);
             var clustererStyle = [{
                 url: '../../static/images/heart30.png',
@@ -459,13 +468,39 @@ var vm = new Vue({
        //显示
        showOvera: function () {
         this.clusterer.addMarkers(this.marker);
-        
+        if(this.marker.length != 0){
+            for (i=0;i<this.marker.length;i++){
+                this.marker[i].show();
+            };
+          }
        },
        hideOvera: function () {
         this.clusterer.removeMarkers(this.marker);
-    }
+        // debugger;
+        if(!this.marker){
+            for (i=0;i<this.marker.length;i++){
+                this.marker[i].hide();
+            };
+        }
+      },
+      EwOver: function (){
+          var map = this.map;
+          var mapType = this.mapType;
+          if(mapType == 'satellite'){
+              map.setMapType(BMAP_NORMAL_MAP);
+              this.mapType = '2D';
+          }
+      },
+      WxOver:function(){
+        var map = this.map;
+        var mapType = this.mapType;
+        if(mapType == '2D'){
+            map.setMapType(BMAP_SATELLITE_MAP);
+            this.mapType = 'satellite';
+        }
+      }
     },
-    mounted() {
+     mounted() {
         this.getCity();
         document.title = this.city + '预案情况';
         this.getPoint();
