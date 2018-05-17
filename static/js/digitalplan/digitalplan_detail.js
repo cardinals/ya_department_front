@@ -48,8 +48,6 @@ new Vue({
         }
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
-        this.forcedev(this.pkid);
-        this.keypoints(this.pkid);
     },
 
     methods: {
@@ -66,7 +64,7 @@ new Vue({
         //预案详情基本信息
         planDetails: function (val) {
             this.loading = true;
-            axios.get('/dpapi/digitalplanlist/doFindById/' + val).then(function (res) {
+            axios.get('/dpapi/digitalplanlist/' + val).then(function (res) {
                 this.basicDetailData = res.data.result;
                 //制作时间格式化
                 if (this.basicDetailData.zzsj == null || this.basicDetailData.zzsj == "") {
@@ -90,22 +88,6 @@ new Vue({
         disasterSet: function (val) {
             axios.get('/dpapi/disasterset/doFindByPlanId/' + val).then(function (res) {
                 this.disasterSetData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
-        //力量部署
-        forcedev: function (val) {
-            axios.get('/dpapi/forcedev/doFindByPlanId/' + val).then(function (res) {
-                this.forcedevData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
-        //要点提示
-        keypoints: function (val) {
-            axios.get('/dpapi/keypoints/doFindByPlanId/' + val).then(function (res) {
-                this.keypointsData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
