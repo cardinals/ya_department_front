@@ -9,7 +9,7 @@ new Vue({
             searchForm: {
                 jzmc: "",
                 option_JZLX:"",
-                fqwz:""
+                jzwz:""
             },
             tableData: [],
             JZFL_data:[],
@@ -52,7 +52,7 @@ new Vue({
             var params={
                 jzmc:this.searchForm.jzmc,
                 jzlx:this.searchForm.option_JZLX,
-                fqwz:this.searchForm.fqwz
+                jzwz:this.searchForm.jzwz
             };
             axios.post('/dpapi/building/list',params).then(function(res){
                 this.tableData = res.data.result;
@@ -74,7 +74,7 @@ new Vue({
         clearClick: function () {
             this.searchForm.jzmc="";
             this.searchForm.option_JZLX="";
-            this.searchForm.fqwz="";
+            this.searchForm.jzwz="";
         },
         getJZFLData: function (){
             axios.get('/api/codelist/getCodetype/JZFL').then(function(res){
