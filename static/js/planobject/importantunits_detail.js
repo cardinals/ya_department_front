@@ -133,7 +133,7 @@ new Vue({
                 console.log(error)
             })
         },
-        //根据重点单位id获取单体建筑分区信息
+        //根据重点单位id获取建筑分区信息
         getJzfqDetailByVo: function () {
             var params = {
                 uuid: this.tableData.uuid,
@@ -156,7 +156,7 @@ new Vue({
             var params = {
                 dxid: this.uuid,
             }
-            axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
+            axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.yaData = res.data.result;
                 console.log(this.yaData);
             }.bind(this), function (error) {

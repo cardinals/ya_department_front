@@ -1,0 +1,9 @@
+.el-upload__input{
+    display: none !important;
+}
+.el-message{
+    z-index: 10001 !important;
+}
+.el-dialog__footer{
+    text-align: center;
+}
