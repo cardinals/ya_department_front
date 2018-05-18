@@ -75,12 +75,12 @@ new Vue({
         this.getDetails();
         //根据重点单位id获取消防队伍信息
         this.getXfllListByZddwIdo();
-        // //根据重点单位id获取建筑类重点部位详情集合
-        // this.getJzlListByZddwId();
-        // //根据重点单位id获取装置类重点部位详情集合
-        // this.getZzlListByZddwId();
-        // //根据重点单位id获取储罐类重点部位详情集合
-        // this.getCglListByZddwId();
+        //根据重点单位id获取建筑类重点部位详情集合
+        this.getJzlListByZddwId();
+        //根据重点单位id获取装置类重点部位详情集合
+        this.getZzlListByZddwId();
+        //根据重点单位id获取储罐类重点部位详情集合
+        this.getCglListByZddwId();
         // this.getYaListByVo();
         
     },
