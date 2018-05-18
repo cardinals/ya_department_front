@@ -4,6 +4,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan_add.css">
+	<title>新增重点单位预案</title>
 </head>
 
 <body class="fw f14 main-index-body">
@@ -17,69 +18,64 @@
 	<div id="app">
 		<div class="main-box">
 			<div class="main-container" v-loading="loading1" element-loading-text="加载中">
-				<div id="inforView">
-					<el-row>
-						<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
-						<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">
-							<el-form label-width="100px" :inline="true" class="el-form demo-form-inline" :rules="rules" ref="addForm" :model="addForm"
-							 label-position="right">
+				<div id="inforView" style="border-bottom:1px solid #20a0ff;" class="mb10">
+					<el-row class="mb5">
+						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+							<div style="color: #20a0ff;">
+								<strong>预案基本信息</strong>
+							</div>
+						</el-col>
+					</el-row>
+					<!-- <el-row> -->
+
+					<el-form :inline="true" class="el-form demo-form-inline" :rules="rules" ref="addForm" :model="addForm" label-position="right">
+						<el-row>
+							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 								<el-form-item label="预案对象" prop="dxmc">
 									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象"></el-input>
 								</el-form-item>
+							</el-col>
+							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 								<el-form-item label="预案名称" prop="yamc">
 									<el-input size="small" v-model="addForm.yamc" placeholder="预案名称"></el-input>
 								</el-form-item>
-								<el-form-item label="预案类型" prop="yalxdm">
-									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalxdm" placeholder="预案类型" class="searchSelect"
-									 clearable change-on-select></el-cascader>
+							</el-col>
+							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+								<el-form-item label="预案编号">
+									<el-input size="small" placeholder="保存后系统自动生成" disabled></el-input>
 								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row>
+							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 								<el-form-item label="预案级别" prop="yajb">
 									<el-select size="small" v-model="addForm.yajb" placeholder="预案级别" class="searchSelect" clearable>
 										<el-option v-for="item in YAJB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-form-item>
-								<el-form-item label="是否跨区域" prop="sfkqy">
-									<el-select size="small" v-model="addForm.sfkqy" placeholder="是否跨区域" class="searchSelect" clearable>
-										<el-option v-for="item in SFKQY_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
-									</el-select>
+							</el-col>
+							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+								<el-form-item label="预案类型" prop="yalxdm">
+									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalxdm" placeholder="预案类型" class="searchSelect"
+									 clearable change-on-select></el-cascader>
 								</el-form-item>
+							</el-col>
+							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 								<el-form-item label="备注">
 									<el-input size="small" v-model="addForm.bz" placeholder="备注"></el-input>
 								</el-form-item>
-							</el-form>
-						</el-col>
-						<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">
-							<el-form label-width="100px" :inline="true" class="el-form demo-form-inline" label-position="right">
-								<el-form-item label="预案编号">
-									<el-input size="small" placeholder="保存后系统自动生成" disabled></el-input>
-								</el-form-item>
-								<el-form-item label="预案状态">
-									<el-select size="small" v-model="addForm.yazt" placeholder="预案状态" class="searchSelect" clearable disabled>
-										<el-option v-for="item in YAZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
-									</el-select>
-								</el-form-item>
-								<el-form-item label="制作机构">
-									<el-cascader :props="defaultProps" size="small" v-model="addForm.zzjg" placeholder="制作机构" class="searchSelect" clearable
-									 change-on-select disabled></el-cascader>
-								</el-form-item>
-								<el-form-item label="制作人">
-									<el-input size="small" v-model="addForm.zzrmc" placeholder="制作人" disabled></el-input>
-								</el-form-item>
-								<el-form-item label="制作时间">
-									<el-input size="small" v-model="addForm.zzsj" placeholder="制作时间" disabled></el-input>
-								</el-form-item>
-							</el-form>
-						</el-col>
-						<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
-					</el-row>
-					<el-row>
+							</el-col>
+						</el-row>
+					</el-form>
+
+					<!-- </el-row> -->
+					<!-- <el-row>
 						<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
 						<el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18">
 							<el-form>
 								<el-form-item>
 									<el-upload class="upload-demo" ref="upload" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
 										<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-										<el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
 										<div slot="tip" class="el-upload__tip"></div>
 									</el-upload>
 								</el-form-item>
@@ -98,20 +94,110 @@
 								<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">&nbsp;</el-col>
 							</el-row>
 						</el-form>
-					</el-row>
+					</el-row> -->
 				</div>
+				<div id="disasterView" class="mb10">
+					<el-row class="mb5">
+						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+							<div style="color: #20a0ff;">
+								<strong>灾情设定与力量部署</strong>
+							</div>
+						</el-col>
+						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+							<el-button type="primary" icon="plus" size="small" style="float:right;" @click="addDomain">新增</el-button>
+						</el-col>
+					</el-row>
+					<el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" style="background-color:#F5F5F5;margin:0;">
+						<el-form-item v-for="(domain, index) in dynamicValidateForm.domains" :key="domain.key" :prop="'domains.' + index + '.value'"
+						 label-position="right" class="disasterForm">
+							<!-- <el-row>
+								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+									<el-form-item :label="'灾情' + index"></el-form-item>
+								</el-col>
+							</el-row> -->
+							<el-card style="background-color:#F5F5F5;" style="width:100%">
+								<div slot="header" class="clearfix" :label="domain.zqIndex+1"><span>灾情</span></div>
+								<el-row>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<el-label>灾情部位</el-label>
+										<el-input v-model="domain.bwmc" size="small"></el-input>
+										<!-- <el-button @click.prevent="removeDomain(domain)">删除</el-button> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="所属建筑"> -->
+										<el-label>所属建筑</el-label>
+										<el-input v-model="domain.jzid" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="燃烧物质"> -->
+										<el-label>燃烧物质</el-label>
+										<el-input v-model="domain.rswz" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+								</el-row>
+								<el-row>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="灾情等级"> -->
+										<el-label>灾情等级</el-label>
+										<el-input v-model="domain.zqdj" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="起火原因"> -->
+										<el-label>起火原因</el-label>
+										<el-input v-model="domain.qhyy" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="燃烧面积"> -->
+										<el-label>燃烧面积</el-label>
+										<el-input v-model="domain.rsmj" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+								</el-row>
+								<el-row>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="灾害场所"> -->
+										<el-label>灾害场所</el-label>
+										<el-input v-model="domain.zhcs" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="火灾危险性"> -->
+										<el-label>火灾危险性</el-label>
+										<el-input v-model="domain.hzwxx" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="起火高度"> -->
+										<el-label>起火高度</el-label>
+										<el-input v-model="domain.qhbwgd" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+								</el-row>
 
+								<!-- <el-form-item> -->
+								<!-- <el-button @click="addDomain">新增域名</el-button>
+								<el-button @click="resetForm('dynamicValidateForm')">重置</el-button> -->
+								<!-- </el-form-item> -->
+							</el-card>
+						</el-form-item>
+					</el-form>
+
+
+				</div>
 				<!--详情界面-->
 				<el-dialog title="选择重点单位" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading2" element-loading-text="加载中">
 						<el-row>
-							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+							<el-form :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="12" class="searchInline">
-										<label class="el-form-item__label searchLabel">单位名称</label>
-										<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称"></el-input>
+									<el-col :span="20" class="searchInline">
+										<label class="el-form-item__label" style="width:90px;">单位名称</label>
+										<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称" clearable></el-input>
 									</el-col>
-									<el-col :span="12" class="btnSearchPlus">
+									<el-col :span="4" class="btnSearchPlus">
 										<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
 									</el-col>
 								</el-row>
