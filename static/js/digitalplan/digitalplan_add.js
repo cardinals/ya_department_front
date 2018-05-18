@@ -6,6 +6,7 @@ new Vue({
         return {
             //主页面------------------------------------------
             visible: false,
+            disasterIndex:0,
             //新建数据
             addForm: {
                 dwid: "",//重点单位
@@ -128,8 +129,10 @@ new Vue({
             }
         },
         addDomain() {
+            this.disasterIndex++;
             // debugger
             this.dynamicValidateForm.domains.push({
+                zqIndex:this.disasterIndex,
                 bwmc: '',
                 jzid: '',
                 rswz: '',

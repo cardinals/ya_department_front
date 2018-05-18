@@ -107,80 +107,81 @@
 							<el-button type="primary" icon="plus" size="small" style="float:right;" @click="addDomain">新增</el-button>
 						</el-col>
 					</el-row>
-					<el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic" style="background-color:#F5F5F5;">
-						<el-form-item v-for="(domain, index) in dynamicValidateForm.domains" :label="'灾情' + index" :key="domain.key" :prop="'domains.' + index + '.value'"
-						 :inline="true" label-position="right">
+					<el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" style="background-color:#F5F5F5;margin:0;">
+						<el-form-item v-for="(domain, index) in dynamicValidateForm.domains" :key="domain.key" :prop="'domains.' + index + '.value'"
+						 label-position="right" class="disasterForm">
 							<!-- <el-row>
 								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 									<el-form-item :label="'灾情' + index"></el-form-item>
 								</el-col>
 							</el-row> -->
-							<el-row>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="灾情部位"> -->
-									<el-label>灾情部位</el-label>
-									<el-input v-model="domain.bwmc" size="small"></el-input>
-									<!-- <el-button @click.prevent="removeDomain(domain)">删除</el-button> -->
-									<!-- </el-form-item> -->
-								</el-col>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="所属建筑"> -->
-									<el-label>所属建筑</el-label>
-									<el-input v-model="domain.jzid" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="燃烧物质"> -->
-									<el-label>燃烧物质</el-label>
-									<el-input v-model="domain.rswz" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-							</el-row>
-							<el-row>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="灾情等级"> -->
-									<el-label>灾情等级</el-label>
-									<el-input v-model="domain.zqdj" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="起火原因"> -->
-									<el-label>起火原因</el-label>
-									<el-input v-model="domain.qhyy" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="燃烧面积"> -->
-									<el-label>燃烧面积</el-label>
-									<el-input v-model="domain.rsmj" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-							</el-row>
-							<el-row>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="灾害场所"> -->
-									<el-label>灾害场所</el-label>
-									<el-input v-model="domain.zhcs" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="火灾危险性"> -->
-									<el-label>火灾危险性</el-label>
-									<el-input v-model="domain.hzwxx" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-									<!-- <el-form-item label="起火高度"> -->
-									<el-label>起火高度</el-label>
-									<el-input v-model="domain.qhbwgd" size="small"></el-input>
-									<!-- </el-form-item> -->
-								</el-col>
-							</el-row>
+							<el-card style="background-color:#F5F5F5;" style="width:100%">
+								<div slot="header" class="clearfix" :label="domain.zqIndex+1"><span>灾情</span></div>
+								<el-row>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<el-label>灾情部位</el-label>
+										<el-input v-model="domain.bwmc" size="small"></el-input>
+										<!-- <el-button @click.prevent="removeDomain(domain)">删除</el-button> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="所属建筑"> -->
+										<el-label>所属建筑</el-label>
+										<el-input v-model="domain.jzid" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="燃烧物质"> -->
+										<el-label>燃烧物质</el-label>
+										<el-input v-model="domain.rswz" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+								</el-row>
+								<el-row>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="灾情等级"> -->
+										<el-label>灾情等级</el-label>
+										<el-input v-model="domain.zqdj" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="起火原因"> -->
+										<el-label>起火原因</el-label>
+										<el-input v-model="domain.qhyy" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="燃烧面积"> -->
+										<el-label>燃烧面积</el-label>
+										<el-input v-model="domain.rsmj" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+								</el-row>
+								<el-row>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="灾害场所"> -->
+										<el-label>灾害场所</el-label>
+										<el-input v-model="domain.zhcs" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="火灾危险性"> -->
+										<el-label>火灾危险性</el-label>
+										<el-input v-model="domain.hzwxx" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+										<!-- <el-form-item label="起火高度"> -->
+										<el-label>起火高度</el-label>
+										<el-input v-model="domain.qhbwgd" size="small"></el-input>
+										<!-- </el-form-item> -->
+									</el-col>
+								</el-row>
 
-							<!-- <el-form-item> -->
-							<!-- <el-button @click="addDomain">新增域名</el-button>
+								<!-- <el-form-item> -->
+								<!-- <el-button @click="addDomain">新增域名</el-button>
 								<el-button @click="resetForm('dynamicValidateForm')">重置</el-button> -->
-							<!-- </el-form-item> -->
+								<!-- </el-form-item> -->
+							</el-card>
 						</el-form-item>
 					</el-form>
 
