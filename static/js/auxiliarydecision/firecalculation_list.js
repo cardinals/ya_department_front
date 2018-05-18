@@ -509,7 +509,12 @@ new Vue({
             this.addFormulaForm.jsgsdw = "";
             this.addParamForm.domains = [{csmc: '',jldwdm:'',mrz:'',sxh:0}];
             this.activeName = 'first';
-        }
+        },
+        //关闭修改Dialog
+        closeEditDialog: function (val1,val2) {
+            this.editFormVisible = false;
+            this.activeName = 'first';
+        },     
     },
 
 })

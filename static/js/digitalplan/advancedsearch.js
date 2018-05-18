@@ -177,43 +177,21 @@ new Vue({
         },
         //单位建筑信息查询事件
         searchDWJZClick:function(){
-            switch(this.DWJZSearchForm.JZLX){
-                case  '':
-                    this.loading = true;
-                    var params = {
-                        jzmc:this.DWJZSearchForm.JZMC,
-                    };
-                    axios.post('/dpapi/building/gjssList', params).then(function (res) {
-                        this.DWJZtableData = res.data.result;
-                        this.total = res.data.result.length;
-                        this.loading = false;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    break;
-                case  '10':
-                case  '20':
-                    this.loading = true;
-                    var params = {
-                        jzmc:this.DWJZSearchForm.JZMC,
-                        jzlx:this.DWJZSearchForm.JZLX,
-                        jzl_jzjg:this.DWJZSearchForm.JZJG,
-                        jzl_dsgd:this.DWJZSearchForm.JZGD
-                    };
-                    axios.post('/dpapi/building/gjssList', params).then(function (res) {
-                        this.DWJZtableData = res.data.result;
-                        this.total = res.data.result.length;
-                        this.loading = false;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    break;
-                case  '30':
-                    break;
-                case  '40':
-                    break;
-            }
-            
+            this.loading = true;
+            var params = {
+                jzmc:this.DWJZSearchForm.JZMC,
+                jzlx:this.DWJZSearchForm.JZLX,
+                jzl_jzsyxz:this.DWJZSearchForm.JZSYXZ.substr(0,1),
+                jzl_jzjg:this.DWJZSearchForm.JZJG,
+                jzl_dsgd:this.DWJZSearchForm.JZGD
+            };
+            axios.post('/dpapi/building/gjssList', params).then(function (res) {
+                this.DWJZtableData = res.data.result;
+                this.total = res.data.result.length;
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         //预案类型初始化
         YALX: function () {
@@ -465,6 +443,11 @@ new Vue({
         },
         clearYADXClick:function(){
 
+        },
+        //单位建筑
+        clearDWJZClick:function(){
+            this.DWJZSearchForm.JZMC="";
+            this.DWJZSearchForm.JZLX="";
         },
         //时间格式
         begindateChange_create(val) {

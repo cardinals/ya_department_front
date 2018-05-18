@@ -31,7 +31,11 @@ new Vue({
             ZZJG_data: [],//制作机构table转码
             YAJB_data: [],//预案级别下拉框
             SHZT_data: [],//审核状态下拉框
-
+            jgidprops: {
+                value: 'uuid',
+                label: 'jgjc',
+                children: 'children'
+            },
             //资源列表是否显示
             planDetailVisible: false,
             approveFormVisible:false,
@@ -76,8 +80,6 @@ new Vue({
         this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
         this.SHZT();//审核状态下拉框
-        this.YALX();//预案类型table转码
-        this.ZZJG();//制作机构table转码
     },
     mounted:function(){
         this.searchClick();//条件查询
@@ -88,16 +90,9 @@ new Vue({
         },
         handleChange(value) {
         },
-        // handleExceed(files, fileList) {
-        //     this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-        // },
+        
         //预案类型级联选择
         YALX_tree: function () {
-            // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
-            //     this.YALX_dataTree = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
             var params= {
                 codetype : "YALX",
                 list : [1,2,4,6,8]
@@ -108,14 +103,7 @@ new Vue({
                 console.log(error);
             })
         },
-        //制作机构级联选择(暂无表)
-        ZZJG_tree: function () {
-            // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
-            //     this.YALX_dataTree = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
-        },
+        
         //预案级别下拉框
         YAJB: function () {
             axios.get('/api/codelist/getCodetype/YAJB').then(function (res) {
@@ -132,36 +120,27 @@ new Vue({
                 console.log(error);
             })
         },
-        //预案类型table转码
-        YALX: function () {
-            axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
-                this.YALX_data = res.data.result;
-            }.bind(this), function (error) {
+        
+        ZZJG_tree: function () {
+            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+                this.ZZJG_dataTree = res.data.result;
+            }.bind(this),function(error){
                 console.log(error);
             })
-        },
-        //制作机构table转码(暂无表)
-        ZZJG: function () {
-            // axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
-            //     this.YALX_data = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
-            // this.YALX();//预案类型table转码
         },
         //表格查询事件
         searchClick: function () {
             this.loading = true;//表格重新加载
             var params = {
                 yamc: this.searchForm.YAMC,
-                yalxdm: this.searchForm.YALX[this.searchForm.YALX.length - 1],
+                yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1], 
                 yajb: this.searchForm.YAJB,
                 // jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
                 shzt: this.searchForm.SHZT,
                 begintime: this.searchForm.shsj[0],
                 endtime: this.searchForm.shsj[1],
             }
-            axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
+            axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loading = false;
@@ -172,9 +151,9 @@ new Vue({
         //清空查询条件
         clearClick: function () {
             this.searchForm.YAMC = "";
-            this.searchForm.YALX = "";
+            this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
-            this.searchForm.ZZJG = "";
+            this.searchForm.ZZJG = [];
             this.searchForm.SHZT = "";
             this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
         },

@@ -27,7 +27,7 @@
                         <div class="dib" id="basic-Inform-Title">
                             <div>
                                 <h3 class="dib inform-h3">{{tableData.dwmc||"无"}}</h3>
-                                <span class="companyStatus dib" title="单位类别">{{tableData.dwlb||"无"}}</span>
+                                <span class="companyStatus dib" title="单位性质">{{tableData.dwxzmc||"无"}}</span>
                             </div>
                             <dl>
                                 <img src="../../static/images/location.png">
@@ -38,10 +38,13 @@
                                 <dt class="dib inform-small-title">行政区划：</dt>
                                 <dd class="dtdlStyle">{{tableData.xzqhmc||"无"}}</dd>
                                 <br>
-                                <img src="../../static/images/date.png">
-                                <dt class="dib inform-small-title">单位成立时间：</dt>
-                                <dd class="dtdlStyle">{{tableData.dwclsj||"无"}}</dd>
+                                <img src="../../static/images/postcode.png">
+                                <dt class="dib inform-small-title">单位概况：</dt>
+                                <dd class="dtdlStyle">{{tableData.dwgk||"无"}}</dd>
                                 <br>
+                                <img src="../../static/images/postcode.png">
+                                <dt class="dib inform-small-title">值班电话：</dt>
+                                <dd class="dtdlStyle">{{tableData.zbdh||"无"}}</dd>
                                 <br>
                             </dl>
                         </div>
@@ -58,32 +61,20 @@
                                         <div class="left-inform">
                                             <div>
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">单位概况：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.dwgk||"无"}}</dd>
+                                                    <dt class="dtdlStyle">建筑分类：</dt>
+                                                    <dd class="dtdlStyle">{{tableData.jzflmc||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">邮政编码：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.yzbm||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">固定资产：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.gdzc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle"></dt>
-                                                    <dd class="dtdlStyle"></dd>
+                                                    <dt class="dtdlStyle">占地面积：</dt>
+                                                    <dd class="dtdlStyle">{{tableData.zdmj||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">地理坐标X：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.gis_x||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{tableData.gisX||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -95,45 +86,33 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">毗邻情况（东）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.blgsd||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{tableData.plqkd||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">毗邻情况（南）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.blgsn||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{tableData.plqkn||"无"}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
                                         <div class="right-inform">
                                             <div>
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">值班电话：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.zbdh||"无"}}</dd>
+                                                    <dt class="dtdlStyle">建筑数量：</dt>
+                                                    <dd class="dtdlStyle">{{tableData.jzsl||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">电子邮箱：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.dzyx||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">职工人数：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.zgrs||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle"></dt>
-                                                    <dd class="dtdlStyle"></dd>
+                                                    <dt class="dtdlStyle">建筑面积：</dt>
+                                                    <dd class="dtdlStyle">{{tableData.jzmj||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">地理坐标Y：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.gis_y||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{tableData.gisY||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -145,13 +124,13 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">毗邻情况（西）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.blgsx||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{tableData.plqkx||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">毗邻情况（北）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.blgsb||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{tableData.plqkb||"无"}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -190,24 +169,6 @@
                                                     <dd class="dtdlStyle"></dd>
                                                 </dl>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防队伍类型：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.xfdwlxmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防队伍车辆数：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.xfdwcls||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防队伍电话：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.xfdwdh||"无"}}</dd>
-                                                </dl>
-                                            </div>
                                         </div>
                                         <div class="right-inform">
                                             <div>
@@ -240,26 +201,53 @@
                                                     <dd class="dtdlStyle"></dd>
                                                 </dl>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防队伍人数：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.xfdwrs||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防队伍联系人：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.xfdwlxs||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防队伍备注：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.xfdwbz||"无"}}</dd>
-                                                </dl>
-                                            </div>
                                         </div>
                                     </div>
+                                    <el-card v-for="data in xfllData" style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div style="color: #20a0ff;">
+                                                    <strong style="cursor: pointer;font-size:15px;">消防队伍</strong>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">队伍类型：</strong>{{data.xfdwlxmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">队伍人数：</strong>{{data.xfdwrs||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">队伍车辆数：</strong>{{data.xfdwcls||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">队伍联系人：</strong>{{data.xfdwlxr||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">队伍电话：</strong>{{data.xfdwdh||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">队伍备注：</strong>{{data.bz||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="重点部位信息" name="third">
                                     <!-- 建筑类重点部位详情 -->
@@ -286,7 +274,7 @@
                                         <el-row>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">建筑结构：</strong>{{data.jzl_jzjg||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑结构：</strong>{{data.jzl_jzjgmc||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">
@@ -317,14 +305,14 @@
                                                     <el-row>
                                                         <el-col :span="24">
                                                             <div>
-                                                                <strong style="cursor: pointer;font-size:15px;">理化性质：</strong>{{wxjzdata.jzlhtx||"无"}}
+                                                                <strong style="cursor: pointer;font-size:15px;">理化特性：</strong>{{wxjzdata.jzlhtx||"无"}}
                                                             </div>
                                                         </el-col>
                                                     </el-row>
                                                     <el-row>
                                                         <el-col :span="24">
                                                             <div>
-                                                                <strong style="cursor: pointer;font-size:15px;">描述：</strong>{{wxjzdata.jtlcms||"无"}}
+                                                                <strong style="cursor: pointer;font-size:15px;">备注：</strong>{{wxjzdata.jzbz||"无"}}
                                                             </div>
                                                         </el-col>
                                                     </el-row>
@@ -549,21 +537,21 @@
                                                     <el-row>
                                                         <el-col :span="24">
                                                             <div>
-                                                                <strong style="cursor: pointer;font-size:15px;">存储介质理化特性：</strong>{{cgdata.czjzlhtx||"无"}}
+                                                                <strong style="cursor: pointer;font-size:15px;">存储介质理化性质：</strong>{{cgdata.ccjzlhxz||"无"}}
                                                             </div>
                                                         </el-col>
                                                     </el-row>
                                                     <el-row>
                                                         <el-col :span="24">
                                                             <div>
-                                                                <strong style="cursor: pointer;font-size:15px;">存储介质实际储量：</strong>{{cgdata.czjzsjcl||"无"}}
+                                                                <strong style="cursor: pointer;font-size:15px;">存储介质实际储量：</strong>{{cgdata.ccjzsjcl||"无"}}
                                                             </div>
                                                         </el-col>
                                                     </el-row>
                                                     <el-row>
                                                         <el-col :span="24">
                                                             <div>
-                                                                <strong style="cursor: pointer;font-size:15px;">存储介质液位高度：</strong>{{cgdata.czjzywgd||"无"}}
+                                                                <strong style="cursor: pointer;font-size:15px;">存储介质液位高度：</strong>{{cgdata.ccjzywgd||"无"}}
                                                             </div>
                                                         </el-col>
                                                     </el-row>
@@ -624,16 +612,21 @@
                                     <!-- 建筑类建筑分区详情 -->
                                     <el-card v-for="data in jzl_jzfqData" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
-                                            <el-col :span="24">
+                                            <el-col :span="12">
                                                 <div>
                                                     <strong style="cursor: pointer;font-size:15px;">建筑名称：</strong>{{data.jzmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑类型：</strong>{{data.jzlxmc||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
                                         <el-row>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">建筑类型：</strong>{{data.jzlxmc||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑情况：</strong>{{data.jzl_jzqk||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">

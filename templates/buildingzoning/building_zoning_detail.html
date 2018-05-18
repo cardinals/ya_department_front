@@ -361,36 +361,7 @@
                                             </el-row>
                                         </el-card>
                                     </div>
-                                    <div id="jz" style="margin-top: 40px">
-                                        <el-card v-for="data in detailData.weixianjiezhiList" style="margin-bottom:12px;background-color:#F5F5F5">
-                                            <el-row>
-                                                <el-col :span="24">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">危险介质名称：</strong>{{data.jzmc||"无"}}
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">实际储量：</strong>{{data.jzsjcl||"无"}}
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">理化性质：</strong>{{data.jzlhtx||"无"}}
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="24">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">描述：</strong>{{data.cgzj||"无"}}
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                        </el-card>
-                                    </div>
+                                    
                                 </el-tab-pane>
                                 <el-tab-pane label="消防设施" name="second">
                                     <div style="margin-bottom:12px;" v-show="this.AQSSCS">

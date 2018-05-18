@@ -17,3 +17,23 @@
 .el-tabs__header{
     margin: 0 0 5px;
 }
+.el-dialog__body{
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+}
+.el-form-item.dialog-form{
+    margin-bottom: 5px;
+}
+.el-dialog--small{
+    height: 65%;
+    display: table;
+}
+.el-table.dialog-table{
+    overflow-y:auto !important;
+    height: 210px;
+}
+.dialog-table .cell, .dialog-table th>div{
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+}
+

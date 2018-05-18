@@ -108,10 +108,10 @@
                         <el-tabs v-model="activeName">
                             <el-tab-pane name="first" label="公式信息">
                                 <el-form :model="addFormulaForm" label-width="107px" :rules="addFormRules" ref="addFormulaForm">
-                                    <el-row style="margin-top: 5%"> 
+                                    <el-row style="margin-top: 2%"> 
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="公式名称" prop="gsmc">
+                                            <el-form-item class="dialog-form" label="公式名称" prop="gsmc">
                                                 <el-input size="small" v-model="addFormulaForm.gsmc" auto-complete="off" placeholder="公式名称"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -120,7 +120,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="公式类别" prop="gslb">
+                                            <el-form-item class="dialog-form" label="公式类别" prop="gslb">
                                                 <el-select  size="small" v-model="addFormulaForm.gslb" placeholder="公式类别" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
@@ -131,7 +131,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="公式说明" prop="gssm">
+                                            <el-form-item class="dialog-form" label="公式说明" prop="gssm">
                                                 <el-input size="small" v-model="addFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -140,7 +140,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="计算公式" prop="jsgs">
+                                            <el-form-item class="dialog-form" label="计算公式" prop="jsgs">
                                                 <el-input size="small" v-model="addFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -149,7 +149,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="计算公式单位" prop="jsgsdw">
+                                            <el-form-item class="dialog-form" label="计算公式单位" prop="jsgsdw">
                                                 <el-input size="small" v-model="addFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -159,24 +159,24 @@
                             </el-tab-pane>
                             <el-tab-pane name="second" label="参数信息">
                                 <el-button style="margin-bottom: 5px;float: right;" size="small" type="success" @click="addDomain">新增参数</el-button>
-                                <el-table class="tableStyle" border id="table" :data="addParamForm.domains" @selection-change="selectionChange">
+                                <el-table class="dialog-table" border id="table" :data="addParamForm.domains" @selection-change="selectionChange">
                                         <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="csmc" show-overflow-tooltip label="参数名称" min-width="12%" align="center">
+                                        <el-table-column prop="csmc" show-overflow-tooltip label="参数名称" width="134px" align="center">
                                             <template slot-scope="scope">  
                                                 <el-input size="small" v-model="scope.row.csmc" ></el-input>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column prop="jldwdm" show-overflow-tooltip label="计量单位" min-width="10%" align="center">
+                                        <el-table-column prop="jldwdm" show-overflow-tooltip label="计量单位" width="134px" align="center">
                                             <template slot-scope="scope">  
                                                 <el-input size="small" v-model="scope.row.jldwdm" ></el-input>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column prop="mrz" show-overflow-tooltip label="默认值" min-width="12%" align="center">
+                                        <el-table-column prop="mrz" show-overflow-tooltip label="默认值" width="133px" align="center">
                                             <template slot-scope="scope">  
                                                 <el-input size="small" v-model="scope.row.mrz" ></el-input>
                                             </template>
                                         </el-table-column>
-                                        <el-table-column show-overflow-tooltip label="操作" min-width="11%" align="center">
+                                        <el-table-column show-overflow-tooltip label="操作" width="133px" align="center">
                                             <template slot-scope="scope">
                                                 <el-button type="danger" size="mini" icon="delete" @click.prevent="removeAddDomain(scope.row)" class="is-circle"></el-button>
                                             </template>
@@ -191,14 +191,14 @@
                     </el-dialog>
 
                     <!--修改界面-->
-                    <el-dialog title="修改公式" :visible.sync="editFormVisible" :close-on-click-modal="false">
+                    <el-dialog title="修改公式" :visible.sync="editFormVisible" @close="closeEditDialog(editFormulaForm,editParamForm)" :close-on-click-modal="false">
                         <el-tabs v-model="activeName">
                             <el-tab-pane name="first" label="公式信息">
                                 <el-form :model="editFormulaForm" label-width="107px" :rules="editFormRules" ref="editFormulaForm">
-                                    <el-row style="margin-top: 5%"> 
+                                    <el-row style="margin-top: 2%"> 
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="公式名称" prop="gsmc">
+                                            <el-form-item class="dialog-form" label="公式名称" prop="gsmc">
                                                 <el-input size="small" v-model="editFormulaForm.gsmc" :disabled="true" auto-complete="off" placeholder="公式名称"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -207,7 +207,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="公式类别">
+                                            <el-form-item class="dialog-form" label="公式类别">
                                                 <el-select size="small" v-model="editFormulaForm.gslb" :disabled="true" placeholder="公式类别" clearable>
                                                     <el-option v-for="item in GSLB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                                 </el-select>
@@ -218,7 +218,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="公式说明" prop="gssm">
+                                            <el-form-item class="dialog-form" label="公式说明" prop="gssm">
                                                 <el-input size="small" v-model="editFormulaForm.gssm" auto-complete="off" placeholder="公式说明"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -227,7 +227,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="计算公式" prop="jsgs">
+                                            <el-form-item class="dialog-form" label="计算公式" prop="jsgs">
                                                 <el-input size="small" v-model="editFormulaForm.jsgs" auto-complete="off" placeholder="计算公式"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -236,7 +236,7 @@
                                     <el-row>
                                         <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20">
-                                            <el-form-item label="计算公式单位" prop="jsgsdw">
+                                            <el-form-item class="dialog-form" label="计算公式单位" prop="jsgsdw">
                                                 <el-input size="small" v-model="editFormulaForm.jsgsdw" auto-complete="off" placeholder="计算公式单位"></el-input>
                                             </el-form-item>
                                         </el-col>
@@ -246,24 +246,24 @@
                             </el-tab-pane>
                             <el-tab-pane name="second" label="参数信息">
                                 <el-button style="margin-bottom: 5px;float: right;" size="small" type="success" @click="editDomain">新增参数</el-button>
-                                <el-table class="tableStyle" border id="table" :data="editParamForm.domains" @selection-change="selectionChange">
+                                <el-table class="dialog-table" border id="table" :data="editParamForm.domains" @selection-change="selectionChange">
                                     <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                                    <el-table-column prop="csmc" show-overflow-tooltip label="参数名称" min-width="12%" align="center">
+                                    <el-table-column prop="csmc" show-overflow-tooltip label="参数名称" width="134px" align="center">
                                         <template slot-scope="scope">  
                                             <el-input size="small" v-model="scope.row.csmc" ></el-input>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column prop="jldwdm" show-overflow-tooltip label="计量单位" min-width="10%" align="center">
+                                    <el-table-column prop="jldwdm" show-overflow-tooltip label="计量单位" width="134px" align="center">
                                         <template slot-scope="scope">  
                                             <el-input size="small" v-model="scope.row.jldwdm" ></el-input>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column prop="mrz" show-overflow-tooltip label="默认值" min-width="12%" align="center">
+                                    <el-table-column prop="mrz" show-overflow-tooltip label="默认值" width="133px" align="center">
                                         <template slot-scope="scope">  
                                             <el-input size="small" v-model="scope.row.mrz" ></el-input>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column show-overflow-tooltip label="操作" min-width="11%" align="center">
+                                    <el-table-column show-overflow-tooltip label="操作" width="133px" align="center">
                                         <template slot-scope="scope">
                                             <el-button type="danger" size="mini" icon="delete" @click.prevent="removeEditDomain(scope.row)" class="is-circle"></el-button>
                                         </template>
@@ -272,7 +272,7 @@
                             </el-tab-pane>
                         </el-tabs>
                         <div slot="footer" class="dialog-footer">
-                            <el-button size="small" @click.native="editFormVisible = false">取消</el-button>
+                            <el-button size="small"  @click.native="closeEditDialog(editFormulaForm,editParamForm)">取消</el-button>
                             <el-button size="small" type="primary" @click.native="editSubmit(editFormulaForm,editParamForm)">提交</el-button>
                         </div>
                     </el-dialog>

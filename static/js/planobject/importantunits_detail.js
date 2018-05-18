@@ -4,10 +4,11 @@ new Vue({
     el: '#app',
     data: function () {
         return {
-            activeName: "first",
+            activeName: "first",//tab页缺省标签
             uuid: "",
             //表数据
             tableData: [],//基本数据
+            xfllData: [],//消防队伍数据
             jzl_zdbwData: [],//建筑类重点部位数据
             zzl_zdbwData: [],//装置类重点部位数据
             cgl_zdbwData: [],//储罐类重点部位数据
@@ -72,13 +73,15 @@ new Vue({
     mounted: function () {
         //根据重点单位id获取重点单位详情
         this.getDetails();
+        //根据重点单位id获取消防队伍信息
+        this.getXfllListByZddwIdo();
         //根据重点单位id获取建筑类重点部位详情集合
         this.getJzlListByZddwId();
         //根据重点单位id获取装置类重点部位详情集合
         this.getZzlListByZddwId();
         //根据重点单位id获取储罐类重点部位详情集合
         this.getCglListByZddwId();
-        this.getYaListByVo();
+        // this.getYaListByVo();
         
     },
     methods: {
@@ -108,6 +111,14 @@ new Vue({
                     console.log(error)
                 })
             }
+        },
+        //根据重点单位id获取消防队伍信息
+        getXfllListByZddwIdo: function () {
+            axios.get('/dpapi/importantunits/doFindXfllListByZddwId/' + this.uuid).then(function (res) {
+                this.xfllData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         //根据重点单位id获取建筑类重点部位详情
         getJzlListByZddwId: function () {

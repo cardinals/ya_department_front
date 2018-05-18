@@ -8,25 +8,25 @@ new Vue({
             //搜索表单
             searchForm: {
                 dwmc: "",
-                dwlb: "",
+                dwxz: "",
                 jzfl: "",
                 fhdj: "",
                 mhdzid: "",
-                xfdwlx: ""
+                xfdwlxmc: ""
             },
             tableData: [],
 
             dwlbData: [],
             jzflData: [],
             fhdjData: [],
-            xfdwlxData: [{
+            xfdwlxmcData: [{
                 codeValue: '全部',
                 codeName: '全部'
             }, {
-                codeValue: '1',
+                codeValue: '有',
                 codeName: '有'
             }, {
-                codeValue: '0',
+                codeValue: '无',
                 codeName: '无'
             }],
             mhdzidData: [],
@@ -122,11 +122,11 @@ new Vue({
             this.loading = true;
             var params = {
                 dwmc: this.searchForm.dwmc,
-                dwlb: this.searchForm.dwlb,
+                dwxz: this.searchForm.dwxz,
                 jzfl: this.searchForm.jzfl,
                 fhdj: this.searchForm.fhdj,
                 mhdzid: this.searchForm.mhdzid,
-                xfdwlx: this.searchForm.xfdwlx
+                xfdwlxmc: this.searchForm.xfdwlxmc
             };
             axios.post('/dpapi/importantunits/list', params).then(function(res){
                 this.tableData = res.data.result;
@@ -138,11 +138,11 @@ new Vue({
         },
         clearClick: function () {
             this.searchForm.dwmc="";
-            this.searchForm.dwlb="";
+            this.searchForm.dwxz="";
             this.searchForm.jzfl="";
             this.searchForm.fhdj="";
             this.searchForm.mhdzid="";
-            this.searchForm.xfdwlx="";
+            this.searchForm.xfdwlxmc="";
         },
         getfhdjData: function () {
             axios.get('/api/codelist/getCodetype/FHDJ').then(function (res) {
