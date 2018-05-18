@@ -14,10 +14,6 @@ new Vue({
                 yalxdm: [],//预案类型
                 yajb: "",//预案级别
                 yazt: "",//预案状态
-                sfkqy: "",//是否跨区域
-                zzrmc: "",
-                zzjg: "",
-                zzsj: "",
                 bz: ""//备注
             },
             //0新增
@@ -27,16 +23,6 @@ new Vue({
             YALX_dataTree: [],
             YAJB_data: [],
             YAZT_data: [],
-            SFKQY_data: [
-                {
-                    codeName: "是",
-                    codeValue: "1"
-                },
-                {
-                    codeName: "否",
-                    codeValue: "0"
-                }
-            ],
             role_data: {},
             detailData: {},
             planDetailVisible: false,
@@ -58,9 +44,6 @@ new Vue({
                 ],
                 yajb: [
                     { required: true, message: '请选择预案级别', trigger: 'change' }
-                ],
-                sfkqy: [
-                    { required: true, message: '请选择是否跨区域', trigger: 'change' }
                 ]
             },
             fileList: [
@@ -85,15 +68,40 @@ new Vue({
             //当前页
             currentPage: 1,
             //分页大小
-            pageSize: 10,
+            pageSize: 5,
             //总记录数
-            total: 10,
+            total: 0,
             //序号
             indexData: 0,
             //选中的值显示
             sels: [],
             //选中的序号
             selectIndex: -1,
+            dynamicValidateForm: {
+                domains: [{
+                    bwmc: '',
+                    jzid: '',
+                    rswz: '',
+                    zqdj: '',
+                    qhyy: '',
+                    rsmj: '',
+                    zhcs: '',
+                    hzwxx: '',
+                    qhbwgd: ''
+                    // zqms: ''
+                    // zqsdyj: '',
+                    // llbs: [{
+                    //     dzid: '',
+                    //     djfalx: '',
+                    //     tkwz: '',
+                    //     clzbts: ''
+                    // }],
+                    // ydts: {
+                    //     zsyd: '',
+                    //     tbjs: ''
+                    // }
+                }]
+            }
         }
     },
     created: function () {
@@ -110,6 +118,43 @@ new Vue({
         this.searchClick();
     },
     methods: {
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
+        },
+        removeDomain(item) {
+            var index = this.dynamicValidateForm.domains.indexOf(item)
+            if (index !== -1) {
+                this.dynamicValidateForm.domains.splice(index, 1)
+            }
+        },
+        addDomain() {
+            // debugger
+            this.dynamicValidateForm.domains.push({
+                bwmc: '',
+                jzid: '',
+                rswz: '',
+                zqdj: '',
+                qhyy: '',
+                rsmj: '',
+                zhcs: '',
+                hzwxx: '',
+                qhbwgd: '',
+                // zqms: '',
+                // zqsdyj: '',
+                // llbs: [{
+                //     dzid: '',
+                //     djfalx: '',
+                //     tkwz: '',
+                //     clzbts: ''
+                // }],
+                // ydts: {
+                //     zsyd: '',
+                //     tbjs: ''
+                // }
+                key: Date.now()
+            });
+        },
+
         //预案类型级联选择
         YALX_tree: function () {
             var params = {
@@ -259,7 +304,6 @@ new Vue({
                             yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
                             yazt: this.addForm.yazt,
                             yajb: this.addForm.yajb,
-                            sfkqy: this.addForm.sfkqy,
                             bz: this.addForm.bz,
                             // jgid: this.role_data.jgid,
                             // zzrid: this.role_data.userid,
@@ -277,7 +321,6 @@ new Vue({
                             yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
                             yazt: this.addForm.yazt,
                             yajb: this.addForm.yajb,
-                            sfkqy: this.addForm.sfkqy,
                             bz: this.addForm.bz,
                             // jgid: this.role_data.jgid,
                             // zzrid: this.role_data.userid,
@@ -308,7 +351,6 @@ new Vue({
                             yazt: '03',
                             shzt: '01',
                             yajb: this.addForm.yajb,
-                            sfkqy: this.addForm.sfkqy,
                             bz: this.addForm.bz,
                             // jgid: this.role_data.jgid,
                             // zzrid: this.role_data.userid,
@@ -328,7 +370,6 @@ new Vue({
                             yazt: '03',
                             shzt: '01',
                             yajb: this.addForm.yajb,
-                            sfkqy: this.addForm.sfkqy,
                             bz: this.addForm.bz,
                             // jgid: this.role_data.jgid,
                             // zzrid: this.role_data.userid,
@@ -344,6 +385,9 @@ new Vue({
                     return false;
                 }
             });
+
+        },
+        add_disaster: function () {
 
         },
         closeDialog: function (val) {
