@@ -130,6 +130,7 @@ new Vue({
         this.JZSYXZ();
         this.JZJG();
       //  this.searchClick();
+        this.searchDWJZClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -185,7 +186,7 @@ new Vue({
                 jzl_jzjg:this.DWJZSearchForm.JZJG,
                 jzl_dsgd:this.DWJZSearchForm.JZGD
             };
-            axios.post('/dpapi/building/gjssList', params).then(function (res) {
+            axios.post('/dpapi/advancedsearch/gjssList', params).then(function (res) {
                 this.DWJZtableData = res.data.result;
                 this.total = res.data.result.length;
                 this.loading = false;
