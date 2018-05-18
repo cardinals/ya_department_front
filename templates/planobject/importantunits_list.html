@@ -27,8 +27,8 @@
 									<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称"></el-input>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-									<label class="el-form-item__label searchLabel">单位类别</label>
-									<el-cascader :options ="dwlbData" :props ="defaultProps" size="small" v-model="searchForm.dwlb" placeholder="单位类别" class="searchSelect" clearable change-on-select></el-cascader>
+									<label class="el-form-item__label searchLabel">单位性质</label>
+									<el-cascader :options ="dwlbData" :props ="defaultProps" size="small" v-model="searchForm.dwxz" placeholder="单位性质" class="searchSelect" clearable change-on-select></el-cascader>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">建筑分类</label>
@@ -52,8 +52,8 @@
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">消防队伍类型</label>
-									<el-select size="small" v-model="searchForm.xfdwlx" placeholder="消防队伍类型" class="searchSelect" clearable>
-										<el-option v-for="item in xfdwlxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+									<el-select size="small" v-model="searchForm.xfdwlxmc" placeholder="消防队伍类型" class="searchSelect" clearable>
+										<el-option v-for="item in xfdwlxmcData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-col>
 							</el-row>
