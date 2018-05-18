@@ -612,21 +612,26 @@
                                     <!-- 建筑类建筑分区详情 -->
                                     <el-card v-for="data in jzl_jzfqData" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
-                                            <el-col :span="24">
+                                            <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">建筑名称：</strong>{{data.fqmc||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑名称：</strong>{{data.jzmc||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑类型：</strong>{{data.jzlxmc||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
                                         <el-row>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">建筑类型：</strong>{{data.fqlxmc||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑情况：</strong>{{data.jzl_jzqk||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">建筑位置：</strong>{{data.fqwz||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">建筑位置：</strong>{{data.jzwz||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
@@ -722,7 +727,7 @@
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">装置名称：</strong>{{data.fqmc||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">装置名称：</strong>{{data.jzmc||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
@@ -734,7 +739,7 @@
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">装置位置：</strong>{{data.fqwz||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">装置位置：</strong>{{data.jzwz||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
@@ -799,19 +804,19 @@
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">罐组名称：</strong>{{data.fqmc||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">罐组名称：</strong>{{data.jzmc||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
                                         <el-row>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.fqwz||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">位置：</strong>{{data.jzwz||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">储罐数量：</strong>{{data.cgl_czsl||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">储罐数量：</strong>{{data.cgl_cgsl||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
@@ -861,24 +866,24 @@
                                         <el-row>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(东)：</strong>{{data.cgl_blgxd||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(东)：</strong>{{data.cgl_plqkd||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(西)：</strong>{{data.cgl_blgxx||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(西)：</strong>{{data.cgl_plqkx||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>
                                         <el-row>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(南)：</strong>{{data.cgl_blgxn||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(南)：</strong>{{data.cgl_plqkn||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(北)：</strong>{{data.cgl_blgxb||"无"}}
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况(北)：</strong>{{data.cgl_plqkb||"无"}}
                                                 </div>
                                             </el-col>
                                         </el-row>

@@ -105,7 +105,7 @@ new Vue({
                     this.loading = false;
                     if (this.tableData !== []) {
                         //根据重点单位id获取包含的分区详情
-                        // this.getJzfqDetailByVo();
+                        this.getJzfqDetailByVo();
                     }
                 }.bind(this), function (error) {
                     console.log(error)
