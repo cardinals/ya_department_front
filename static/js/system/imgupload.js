@@ -405,7 +405,12 @@ new Vue({
             val.mobile = '';
             val.email ='';
             this.$refs["addForm"].resetFields();
-        }
+            this.$refs.upload.clearFiles();
+        },
+        closeEditDialog: function (val) {
+            this.editFormVisible = false;
+            this.$refs.upload.clearFiles();
+        },
     },
 
 })

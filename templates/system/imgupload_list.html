@@ -152,7 +152,7 @@
 					</el-dialog>
 
 					<!--修改界面-->
-					<el-dialog title="修改" :visible.sync="editFormVisible" :close-on-click-modal="false">
+					<el-dialog title="修改" :visible.sync="editFormVisible"  @close="closeEditDialog(editForm)" :close-on-click-modal="false">
 						<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 							<el-row>
 								<el-col :span="8">
@@ -194,7 +194,7 @@
                             </el-row>
 						</el-form>
 						<div slot="footer" class="dialog-footer">
-							<el-button size="small" @click.native="editFormVisible = false">取消</el-button>
+							<el-button size="small" @click.native="closeEditDialog(editForm)">取消</el-button>
 							<el-button size="small" type="primary" @click.native="editSubmit(editForm)">提交</el-button>
 						</div>
 					</el-dialog>
