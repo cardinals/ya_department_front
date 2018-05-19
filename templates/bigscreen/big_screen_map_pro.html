@@ -13,11 +13,10 @@
 </head>
 <body class="fw map-bg">
     <div id="app">
-        <div class="application-box tc abs">
+        <div class="application-boxs tc abs">
             <!-- 左侧 -->
             <div class="map-menu-left p10 map-bg">
-                <!-- 收缩按钮 -->
-                <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+              <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
                 <div id="menu-box" class="f12">
                     <el-form ref="form" :model="form" label-width="80px">
                         <div class="search_top">
@@ -52,11 +51,6 @@
                                 </el-collapse-item>
                             </el-collapse>
                         </div>
-                        <!-- <table border="0" style="color:#ffffff;font-size:15px;position:absolute;top:100px;left:60px;border-collapse:separate; border-spacing:0px 12px;">
-                                    <tr v-for = "data in tableData" >
-                                        <td>{{data.DWMC}}</td>
-                                    </tr>
-                                </table>  -->
                         <div class="menu-box-main">
                             <el-card v-for="data in tableData" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
                                 <div slot="header">
@@ -89,45 +83,78 @@
                     </el-form>
                 </div>   
             </div>
+
+        
+
             <!-- bottom -->
-           
+                <!-- <div class="map-china">
+                    <a href="big_screen_map.html">
+                        <img src="../../static/images/icon-china.png" />
+                    </a>
+                </div> -->
             <div class="map-menu-right h456 mt35">
                 <!-- 右侧工具 -->
-            
-            <div class="tool">
-                <div @click="EwOver()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
-                        data-container="body" data-placement="left" >
-                    <img src="../../static/images/maptool/icon_2d_btn.png" />
-                </div>
-                <div @click="WxOver()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
-                        data-container="body" data-placement="left" >
-                    <img src="../../static/images/maptool/icon_satellite_btn.png" />
-                </div>
-                <div @click="hideOvera()"  style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"  data-placement="left"
-                data-content="重点单位">
-                <img src="../../static/images/maptool/btn_zddw_back.png"/>
-                </div>
-                <div style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"  data-placement="left"
-                data-content="水源">
-                <img src="../../static/images/maptool/btn_water_back.png"/>
-                </div>
-                <div style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" 
-                data-container="body" data-toggle="popover" data-placement="bottom" 
-                data-content="">
-                    <img src="../../static/images/maptool/btn_option_back.png"/>
-                </div>
+            <div class="tool">    
+                <!-- <div style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" 
+                    data-container="body" data-toggle="popover" data-placement="bottom" 
+                    data-content="">
+                      
+                        <img src="../../static/images/maptool/btn_option_back.png"/>
+                </div> -->
 
+               <div @click="Reset()" style="width:40px;height:58px;margin:5px;" class="icont" type="button" class="btn btn-success" data-container="body"  data-placement="left"
+                    data-content="水源">
+                   <img src="../../static/images/maptool/Refresh.png"/>
+               </div>
+
+                <!-- <div class="mapx" >
+                    <div @click="EwOver()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                            data-container="body" data-placement="left" >
+                        <img src="../../static/images/maptool/icon_2d_btn.png" />
+                    </div>
+                    <div @click="WxOver()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                            data-container="body" data-placement="left" >
+                        <img src="../../static/images/maptool/icon_satellite_btn.png" />
+                    </div>
+                 </div> -->
+
+                <div @click="showOverzddw()"  style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"  data-placement="left"
+                     data-content="重点单位">
+                     <img src="../../static/images/maptool/btn_zddw_back.png"/>
+                </div>
+                <div @click="showOvera()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"  data-placement="left"
+                     data-content="水源">
+                    <img src="../../static/images/maptool/btn_water_back.png"/>
+                </div>
+                <div class="dropdown">
+                        <div style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" 
+                        type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
+                        data-toggle="dropdown">
+                                <img src="../../static/images/maptool/btn_option_back.png"/>
+                        </div>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"  style="width:200px;height:300px;margin-top: 50px;">
+                           
+                            <li role="presentation">选项</li>
+                            <li role="presentation">
+                                <div @click="EwOver()" style="width:60px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                                        data-container="body" data-placement="left" >
+                                    <img src="../../static/images/maptool/icon_2d_btn.png" />
+                                </div>
+                            </li>
+                            <li role="presentation">
+                                <div @click="WxOver()" style="width:60px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                                        data-container="body" data-placement="left" >
+                                <img src="../../static/images/maptool/icon_satellite_btn.png" />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
 
             </div>
 
                 <!-- <div class="meu-box-right"> -->
                 <div>
-                    <!-- <div class="map-china">
-                        <a href="big_screen_map.html">
-                            <img src="../../static/images/icon-china.png" />
-                        </a>
-                    </div> -->
-                    <div style="height: 50px; width:800px;margin-top:350px;margin-left:-520px;">
+                    <div style="height: 50px; width:800px;margin-top:550px;margin-left:-520px;">
                         <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"  data-placement="left"
                            >
                             <img src="../../static/images/M_ZYDW.png" />
@@ -136,14 +163,11 @@
                         data-content="微型消防站">
                         <img src="../../static/images/M_WXXFZ.png" />
                         </div>
-                        <div  @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body"  data-placement="left"
-                            >
-
+                        <!-- <div  @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body"  data-placement="left">
                             <img src="../../static/images/M_XFSY_500.png" />
-                        </div>
-                        <div @click="hideOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-placement="left"
+                        </div> -->
+                        <div @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body" data-placement="left"
                             >
-                            
                             <img src="../../static/images/M_XFSY_1000.png" />
                         </div>
                         <!-- <div @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" type="button" class="btn btn-success" data-container="body" data-toggle="popover" data-placement="left"
@@ -167,6 +191,26 @@
             </div>
             <div id="BMap" class="map-main tc">
             </div>
+
+            <div class="search" style="position:fixed;top:10px;left: 300px;">
+                    <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    搜索消防库
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">消防库</a></li>
+                                    <li><a href="#">总队库</a></li>
+                                 
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input  style="width: 300px;"  type="search" class="form-control" placeholder="名称|编号|地址~">
+                            <a style="position:fixed;left: 670px;top:11px;color: #000;"   class="glyphicon glyphicon-remove btn form-control-feedback" style="pointer-events: auto"></a>
+                    </div><!-- /input-group -->
+
+             </div>
+
         </div>
     </div>
 </body>
@@ -179,7 +223,7 @@
             $("[data-toggle='popover']").popover(
                 {
                     html:true,
-                    content:"<div'> <img  src='../../static/images/maptool/icon_2d_btn.png'> </div>"+"<img src='../../static/images/maptool/icon_satellite_btn.png'>",
+                    content:"<div> <img  src='../../static/images/maptool/icon_2d_btn.png'> </div>"+"<img src='../../static/images/maptool/icon_satellite_btn.png'>",
                     
                 }
             );
