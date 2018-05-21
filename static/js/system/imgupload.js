@@ -91,10 +91,16 @@ new Vue({
         this.searchClick();
     },
     methods: {
-         // 文件上传前
+         //文件上传前
         beforeImgUpload (file) {
             const self = this;  //this必须赋值
             self.upLoadData.picName = self.picName;
+            const isLt2M = file.size / 1024 / 1024 < 0.5;
+            if (!isLt2M) {
+                this.$message.error('上传图片大小不能超过 500kb!');
+                fileList.splice(0,fileList.length);
+            }
+            return isLt2M;
         },
         //图片上传
         submitUpload() {
@@ -114,6 +120,17 @@ new Vue({
                 fileList.splice(1,fileList.length-1);
                 this.$message.warning('限制选择 1 个图片！');
             }
+            const isLt2M = file.size / 1024 / 1024 < 0.5;
+            if (!isLt2M) {
+                this.$message.error('上传图片大小不能超过 500kb!');
+                fileList.splice(0,fileList.length);
+            }
+            return isLt2M;
+        },
+        handleSuccess(response, file, fileList){
+            fileList.splice(0,fileList.length);
+            this.addFormVisible = false;
+            this.editFormVisible = false;
         },
         //清空
         clearClick: function () {
@@ -247,15 +264,12 @@ new Vue({
                         }
                         this.picName = val.picName;
                         axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
-                            var addData = res.data.result;
-                            _self.tableData.unshift(addData);
                             _self.total = _self.tableData.length;
                             this.submitUpload();
                             this.searchClick();
                         }.bind(this),function(error){
                             console.log(error)
                         })
-                        this.addFormVisible = false;
                         _self.loadingData();//重新加载数据
                     }
                 }.bind(this),function(error){
@@ -313,7 +327,6 @@ new Vue({
                 }.bind(this), function (error) {
                     console.log(error)
                 })
-                this.editFormVisible = false;
                 _self.loadingData();
             }
             else{
@@ -392,7 +405,12 @@ new Vue({
             val.mobile = '';
             val.email ='';
             this.$refs["addForm"].resetFields();
-        }
+            this.$refs.upload.clearFiles();
+        },
+        closeEditDialog: function (val) {
+            this.editFormVisible = false;
+            this.$refs.upload.clearFiles();
+        },
     },
 
 })

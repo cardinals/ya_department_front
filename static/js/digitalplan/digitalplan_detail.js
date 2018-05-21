@@ -48,8 +48,6 @@ new Vue({
         }
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
-        this.forcedev(this.pkid);
-        this.keypoints(this.pkid);
     },
 
     methods: {
@@ -66,7 +64,7 @@ new Vue({
         //预案详情基本信息
         planDetails: function (val) {
             this.loading = true;
-            axios.get('/dpapi/digitalplanlist/doFindById/' + val).then(function (res) {
+            axios.get('/dpapi/digitalplanlist/' + val).then(function (res) {
                 this.basicDetailData = res.data.result;
                 //制作时间格式化
                 if (this.basicDetailData.zzsj == null || this.basicDetailData.zzsj == "") {
@@ -90,22 +88,6 @@ new Vue({
         disasterSet: function (val) {
             axios.get('/dpapi/disasterset/doFindByPlanId/' + val).then(function (res) {
                 this.disasterSetData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
-        //力量部署
-        forcedev: function (val) {
-            axios.get('/dpapi/forcedev/doFindByPlanId/' + val).then(function (res) {
-                this.forcedevData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
-        //要点提示
-        keypoints: function (val) {
-            axios.get('/dpapi/keypoints/doFindByPlanId/' + val).then(function (res) {
-                this.keypointsData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -143,7 +125,7 @@ new Vue({
         },
         //预案下载
         downloadPlan: function () {
-            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
+            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");
         },
         /**
         * lxy

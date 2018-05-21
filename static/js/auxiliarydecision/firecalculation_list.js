@@ -13,10 +13,6 @@ new Vue({
             //是否启用下拉框
             sfqyData: [
                 {
-                    codeName:"全部",
-                    codeValue:""
-                },
-                {
                     codeName:"是",
                     codeValue:"1"
                 },
@@ -74,6 +70,8 @@ new Vue({
                 }],
                 jsjg:""
             },
+            //计算数据
+            calculateMrzData: [],
             calculateFormRules:{
 
             },
@@ -251,12 +249,18 @@ new Vue({
             var _self = this;
             _self.calculateVisible = true;
             var uuid = val.uuid;
+            var calculateData =[];
+            
             axios.get('/dpapi/firecalculationlist/doFindById/' + uuid).then(function (res) {
                 this.calculateForm.gsmc = val.gsmc;
                 this.calculateForm.gssm = val.gssm;
                 this.calculateForm.jsgs = val.jsgs;
                 this.calculateForm.jsgsdw = val.jsgsdw;
                 this.calculateForm.domains = res.data.result;
+                calculateData = res.data.result;
+                for(var i = 0;i<calculateData.length;i++){
+                    this.calculateMrzData.push(calculateData[i].mrz);
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -279,7 +283,13 @@ new Vue({
         },
         resetDialog:function(val){
             for(var i = 0; i<this.calculateForm.domains.length; i++){
-                this.calculateForm.domains[i].mrz = '';
+                if(this.calculateMrzData[i] == '' || this.calculateMrzData[i] == null)
+                {
+                    this.calculateForm.domains[i].mrz = '';
+                }
+                else if(this.calculateMrzData[i] != ''){
+                    this.calculateForm.domains[i].mrz = this.calculateMrzData[i];
+                }
             }
             this.jsjg = "";
         },
@@ -499,7 +509,12 @@ new Vue({
             this.addFormulaForm.jsgsdw = "";
             this.addParamForm.domains = [{csmc: '',jldwdm:'',mrz:'',sxh:0}];
             this.activeName = 'first';
-        }
+        },
+        //关闭修改Dialog
+        closeEditDialog: function (val1,val2) {
+            this.editFormVisible = false;
+            this.activeName = 'first';
+        },     
     },
 
 })

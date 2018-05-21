@@ -90,7 +90,7 @@
 									:current-page="currentPage"
 									 :page-sizes="[10, 20, 30, 50]" 
 									 :page-size="pageSize" 
-									 layout="total, sizes, prev, pager, next, jumper" 
+									 layout="total, prev, pager, next, jumper" 
 									 :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
@@ -99,7 +99,7 @@
 					<!--图片预览-->
 					<el-dialog title="图片预览" :visible.sync="imgViewVisible" :close-on-click-modal="false">
 						<div id="flagImage" style="margin-top: 3%">
-							<img id="flag">
+							<img id="flag" style="height:100px;width: 100px;">
 						</div>
 					</el-dialog>
 
@@ -133,6 +133,7 @@
 									:on-remove="handleRemove"
 									:on-exceed="handleExceed"
 									:on-change = "handleChange"
+									:on-success = "handleSuccess"
 									:auto-upload="false"
 									:before-upload="beforeImgUpload"
 									multiple
@@ -151,7 +152,7 @@
 					</el-dialog>
 
 					<!--修改界面-->
-					<el-dialog title="修改" :visible.sync="editFormVisible" :close-on-click-modal="false">
+					<el-dialog title="修改" :visible.sync="editFormVisible"  @close="closeEditDialog(editForm)" :close-on-click-modal="false">
 						<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 							<el-row>
 								<el-col :span="8">
@@ -180,6 +181,7 @@
 									:on-remove="handleRemove"
 									:on-exceed="handleExceed"
 									:on-change = "handleChange"
+									:on-success = "handleSuccess"
 									:auto-upload="false"
 									:before-upload="beforeImgUpload"
 									multiple
@@ -192,7 +194,7 @@
                             </el-row>
 						</el-form>
 						<div slot="footer" class="dialog-footer">
-							<el-button size="small" @click.native="editFormVisible = false">取消</el-button>
+							<el-button size="small" @click.native="closeEditDialog(editForm)">取消</el-button>
 							<el-button size="small" type="primary" @click.native="editSubmit(editForm)">提交</el-button>
 						</div>
 					</el-dialog>

@@ -4,6 +4,11 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            activeName: "first",  
+            isZddw:false,
+            isDtjz:false,
+            isJzl:false,
+            isZzl:false,
             /**lxy start */
             fileList: [
                 { name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
@@ -14,140 +19,80 @@ new Vue({
                 id: 1
             },
             /**lxy end */
-            //搜索表单
-            searchForm: {
-                YAMC: "",
-                YAZL: [],
-                YADXZL: [],
-                YALX: [],
-                YALB: [],
-                SFKQ: '全部',
-                LRSJ: '全部',
+            //预案搜索表单
+           yuAnSearchForm: {
+                YAMC:"",
+                YADX:"",
+                YALX:"",
+                YAJB:"",
+                SHZT:"",
+                LRSJ:"",
                 begintime_create: "",
                 endtime_create: ""
             },
-            tableData: [
-                // {
-                //     YAMC: "防火器材预案",
-                //     YALX: "指挥",
-                //     DXMC: "沈阳市消防局",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "1997-01-12",
-                //     YALB: "二维预案",
-                //     ID: "1"
-                // },
-                // {
-                //     YAMC: "疏散预案",
-                //     YALX: "疏散",
-                //     DXMC: "沈河区消防局",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "1999-04-21",
-                //     YALB: "二维预案",
-                //     ID: "2"
-                // },
-                // {
-                //     YAMC: "路线预案",
-                //     YALX: "指挥",
-                //     DXMC: "沈阳工业园区",
-                //     DXLX: "化工园区",
-                //     BZDW: "个体",
-                //     LRSJ: "2012-04-25",
-                //     YALB: "三维预案",
-                //     ID: "3"
-                // },
-                // {
-                //     YAMC: "合作预案",
-                //     YALX: "合作计划",
-                //     DXMC: "消防总部",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "1983-02-05",
-                //     YALB: "二维预案",
-                //     ID: "4"
-                // },
-                // {
-                //     YAMC: "水源分布预案",
-                //     YALX: "水源",
-                //     DXMC: "北京市消防大队",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "1973-10-05",
-                //     YALB: "三维预案",
-                //     ID: "5"
-                // },
-                // {
-                //     YAMC: "安全出口预案",
-                //     YALX: "调度",
-                //     DXMC: "和平区消防大队",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "1993-05-20",
-                //     YALB: "二维预案",
-                //     ID: "6"
-                // },
-                // {
-                //     YAMC: "设备转移预案",
-                //     YALX: "调度",
-                //     DXMC: "金融中心",
-                //     DXLX: "大型综合体",
-                //     BZDW: "政府部门",
-                //     LRSJ: "1989-09-04",
-                //     YALB: "三维预案",
-                //     ID: "7"
-                // },
-                // {
-                //     YAMC: "救援预案",
-                //     YALX: "指挥",
-                //     DXMC: "辽宁省消防厅",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "2007-11-12",
-                //     YALB: "文档预案",
-                //     ID: "8"
-                // },
-                // {
-                //     YAMC: "消防车辆预案",
-                //     YALX: "调度",
-                //     DXMC: "大东区消防分队",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "2009-06-23",
-                //     YALB: "二维预案",
-                //     ID: "9"
-                // },
-                // {
-                //     YAMC: "相邻建筑预案",
-                //     YALX: "指挥",
-                //     DXMC: "沈阳市消防局",
-                //     DXLX: "消防部队",
-                //     BZDW: "公安部",
-                //     LRSJ: "2006-12-6",
-                //     YALB: "三维预案",
-                //     ID: "10"
-                // }
-            ],
+            //预案对象搜索表单
+            YADXSearchForm: {
+                DXMC:"",
+                YADX:"",
+                XFGX:"",
+                DWXZ:"",
+                XZQH:"",
+                FHDJ:"",
+                DWJZQK:""
+            },
+            //单位建筑搜索表单
+            DWJZSearchForm:{
+                JZMC:"",
+                JZLX:"",
+                JZSYXZ:"",
+                JZJG:"",
+                JZGD:"",
+            },
+            tableData: [],
+            DWJZtableData: [],
+            
             //详情页显示
             planDetailVisible: false,
-            //预案种类
-            yazl_data: [{ codeValue: "", codeName: "全部" }],
-            checkedYazl: ['全部'],
-            //对象种类
-            dxzl_data: [{ codeValue: "", codeName: "全部" }],
-            checkedDxzl: ['全部'],
+            //预案对象
+            yadx_data: [
+                { codeValue: "", codeName: "全部" },
+                { codeValue: "zddw", codeName: "重点单位" },
+                { codeValue: "bwjw", codeName: "消防保卫警卫" },
+                { codeValue: "others", codeName: "其他对象" }],
             //预案类型
             yalx_data: [{ codeValue: "", codeName: "全部" }],
-            checkedYalx: ['全部'],
-            //是否跨区
-            sfkq_data: ['全部', '是', '否'],
+            //预案级别
+            yajb_data: [{ codeValue: "", codeName: "全部" }],
+            //审核状态
+            shzt_data: [{ codeValue: "", codeName: "全部" }],
             //录入时间
-            lrsj_data: ['全部', '今日', '昨日', '最近7日', '最近30日', '自定义时间'],
-            //树结构配置
-            defaultProps: {
-                children: 'children',
-                label: 'formationinfo'
-            },
+            lrsj_data: [
+                { codeValue: "", codeName: "全部" },
+                { codeValue: "today", codeName: "今日" },
+                { codeValue: "yesterday", codeName: "昨日" },
+                { codeValue: "lastweek", codeName: "最近7日" },
+                { codeValue: "lastmonth", codeName: "最近30日" },
+                { codeValue: "others", codeName: "自定义时间" }],
+            //消防管辖
+            xfgx_data:[{ codeValue: "", codeName: "全部" }],
+            //单位性质
+            dwxz_data:[{ codeValue: "", codeName: "全部" }],
+            //行政区划
+            xzqh_data:[{ codeValue: "", codeName: "全部" }],
+            //防火等级
+            fhdj_data:[{ codeValue: "", codeName: "全部" }],
+            //单位建筑情况
+            dwjzqk_data:[{ codeValue: "", codeName: "全部" }],
+            //建筑使用性质
+            jzsyxz_data:[{ codeValue: "", codeName: "全部" }],
+            //建筑结构
+            jzjg_data:[{ codeValue: "", codeName: "全部" }],
+            //建筑高度
+            jzgd_data:[{ codeValue: "", codeName: "全部" },
+            { codeValue: "1", codeName: "<=50m" },
+            { codeValue: "2", codeName: ">50m且<=100m" },
+            { codeValue: "3", codeName: ">100m" }],
+            
             //资源列表是否显示
             planDetailVisible: false,
             //显示加载中样
@@ -173,10 +118,19 @@ new Vue({
         }
     },
     created: function () {
-        this.YAZL();
-        this.DXLX();
+     //   this.YADX();
         this.YALX();
-        this.searchClick();
+        this.YAJB();
+        this.SHZT();
+        this.XFGX();
+        this.DWXZ();
+        this.XZQH();
+        this.FHDJ();
+        this.DWJZQK();
+        this.JZSYXZ();
+        this.JZJG();
+      //  this.searchClick();
+        this.searchDWJZClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -198,9 +152,9 @@ new Vue({
             this.loading = true;
             var _self = this;
             var params = {
-                yamc: this.searchForm.yamc,
-                // createTimeBegin: this.searchForm.createTimeBegin,
-                // createTimeEnd: this.searchForm.createTimeEnd
+                yamc: this.yuAnSearchForm.yamc,
+                // createTimeBegin: this.yuAnSearchForm.createTimeBegin,
+                // createTimeEnd: this.yuAnSearchForm.createTimeEnd
             };
             axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
@@ -218,36 +172,179 @@ new Vue({
             })
             _self.total = _self.tableData.length;
         },
-        //预案种类初始化
-        YAZL: function () {
-            axios.get('/api/codelist/getCodetype/YAZL').then(function (res) {
-                for (var i = 0; i < res.data.result.length; i++) {
-                    this.yazl_data.push(res.data.result[i]);
-                }
-            }.bind(this), function (error) {
-                console.log(error);
-            })
+        //预案对象查询事件
+        searchYADXClick:function(){
+
         },
-        //对象类型初始化
-        DXLX: function () {
-            axios.get('/api/codelist/getCodetype/YADXLX').then(function (res) {
-                for (var i = 0; i < res.data.result.length; i++) {
-                    this.dxzl_data.push(res.data.result[i]);
-                }
+        //单位建筑信息查询事件
+        searchDWJZClick:function(){
+            this.loading = true;
+            var params = {
+                jzmc:this.DWJZSearchForm.JZMC,
+                jzlx:this.DWJZSearchForm.JZLX,
+                jzl_jzsyxz:this.DWJZSearchForm.JZSYXZ.substr(0,1),
+                jzl_jzjg:this.DWJZSearchForm.JZJG,
+                jzl_dsgd:this.DWJZSearchForm.JZGD
+            };
+            axios.post('/dpapi/advancedsearch/gjssList', params).then(function (res) {
+                this.DWJZtableData = res.data.result;
+                this.total = res.data.result.length;
+                this.loading = false;
             }.bind(this), function (error) {
-                console.log(error);
+                console.log(error)
             })
         },
         //预案类型初始化
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    this.yalx_data.push(res.data.result[i]);
+                    if(res.data.result[i].codeValue.substr(1,4) == '0000')
+                        this.yalx_data.push(res.data.result[i]);
                 }
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //预案级别初始化
+        YAJB:function(){
+            axios.get('/api/codelist/getCodetype/YAJB').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.yajb_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //审核状态初始化
+        SHZT:function(){
+            axios.get('/api/codelist/getCodetype/YASHZT').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.shzt_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //消防管辖初始化
+        XFGX:function(){
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.xfgx_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //单位性质初始化
+        DWXZ:function(){
+            axios.get('/api/codelist/getCodetype/ZDDWLB').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    if(res.data.result[i].codeValue.substr(2,4) == '000')
+                        this.dwxz_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //行政区划初始化
+        XZQH:function(){
+            axios.get('/api/codelist/getXzqh/XZQH').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.xzqh_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //防火等级初始化
+        FHDJ:function(){
+            axios.get('/api/codelist/getCodetype/FHDJ').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.fhdj_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //单位建筑情况初始化
+        DWJZQK:function(){
+            axios.get('/api/codelist/getCodetype/JZFL').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.dwjzqk_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            }) 
+        },
+        //建筑使用性质初始化
+        JZSYXZ:function(){
+            axios.get('/api/codelist/getCodetype/JZSYXZ').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    if(res.data.result[i].codeValue.substr(1,3) == '000')
+                    this.jzsyxz_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //建筑结构初始化
+        JZJG:function(){
+            axios.get('/api/codelist/getCodetype/JZJG').then(function (res) {
+                for (var i = 0; i < res.data.result.length; i++) {
+                    this.jzjg_data.push(res.data.result[i]);
+                }
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+       
+
+        //预案对象信息中对象类型为重点单位时显示其他搜索条件
+        isZddwShow:function(){
+            if(this.YADXSearchForm.YADX == "zddw")
+                this.isZddw = true;
+            else{
+                this.isZddw = false;
+                this.YADXSearchForm.DWXZ="";
+                this.YADXSearchForm.XZQH="";
+                this.YADXSearchForm.FHDJ="";
+                this.YADXSearchForm.DWJZQK="";
+            }
+        },
+        //根据建筑类型展示不同的查询条件
+        selectJzlx:function(){
+            switch(this.DWJZSearchForm.JZLX){
+                case '':
+                    this.isZzl = false;
+                    this.isJzl = false;
+                    this.isDtjz = false;
+                    break;
+                case '10':
+                    this.isDtjz = true;
+                    this.isJzl = false;
+                    this.isZzl = false;
+                    break;
+                case '20':
+                    this.isJzl = true;
+                    this.isDtjz = false;
+                    this.isZzl = false;
+                    break;
+                case '30':
+                    this.isZzl = true;
+                    this.isJzl = false;
+                    this.isDtjz = false;
+                    break;
+                case '40':
+                    this.isZzl = false;
+                    this.isJzl = false;
+                    this.isDtjz = false;
+                    break;
+            }
+            this.DWJZSearchForm.JZSYXZ="";
+            this.DWJZSearchForm.JZJG="";
+            this.DWJZSearchForm.JZGD="";
+        },
+        /* 
         //预案种类全选
         handleCheckedYazlChange(value) {
             if (value.currentTarget.defaultValue == "全部") {
@@ -316,7 +413,7 @@ new Vue({
                     }
                 }
             }
-        },
+        },*/
         //预案详情
         planDetails: function (val) {
             var _self = this;
@@ -336,24 +433,31 @@ new Vue({
             })
         },
         clearClick: function () {
-            this.searchForm.YAMC = "";
-            this.searchForm.selected_YALX = [];
-            this.searchForm.DXMC = "";
-            this.searchForm.option_DXLX = [];
-            this.searchForm.option_YALB = [];
-            this.searchForm.begintime_create = "";
-            this.searchForm.endtime_create = "";
+            this.yuAnSearchForm.YAMC = "";
+            this.yuAnSearchForm.selected_YALX = [];
+            this.yuAnSearchForm.DXMC = "";
+            this.yuAnSearchForm.option_DXLX = [];
+            this.yuAnSearchForm.option_YALB = [];
+            this.yuAnSearchForm.begintime_create = "";
+            this.yuAnSearchForm.endtime_create = "";
             this.$refs.tree.setCheckedKeys([]);
         },
+        clearYADXClick:function(){
 
+        },
+        //单位建筑
+        clearDWJZClick:function(){
+            this.DWJZSearchForm.JZMC="";
+            this.DWJZSearchForm.JZLX="";
+        },
         //时间格式
         begindateChange_create(val) {
             console.log(val);
-            this.searchForm.begintime_create = val;
+            this.yuAnSearchForm.begintime_create = val;
         },
         enddateChange_create(val) {
             console.log(val);
-            this.searchForm.endtime_create = val;
+            this.yuAnSearchForm.endtime_create = val;
         },
         //时间格式化
         dateFormat: function (row, column) {

@@ -7,9 +7,9 @@ new Vue({
             visible: false,
             //搜索表单
             searchForm: {
-                fqmc: "",
-                option_FQLX:"",
-                fqwz:""
+                jzmc: "",
+                option_JZLX:"",
+                jzwz:""
             },
             tableData: [],
             JZFL_data:[],
@@ -50,9 +50,9 @@ new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params={
-                fqmc:this.searchForm.fqmc,
-                fqlx:this.searchForm.option_FQLX,
-                fqwz:this.searchForm.fqwz
+                jzmc:this.searchForm.jzmc,
+                jzlx:this.searchForm.option_JZLX,
+                jzwz:this.searchForm.jzwz
             };
             axios.post('/dpapi/building/list',params).then(function(res){
                 this.tableData = res.data.result;
@@ -72,9 +72,9 @@ new Vue({
             }
         },
         clearClick: function () {
-            this.searchForm.fqmc="";
-            this.searchForm.option_FQLX="";
-            this.searchForm.fqwz="";
+            this.searchForm.jzmc="";
+            this.searchForm.option_JZLX="";
+            this.searchForm.jzwz="";
         },
         getJZFLData: function (){
             axios.get('/api/codelist/getCodetype/JZFL').then(function(res){
@@ -91,7 +91,7 @@ new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "building_zoning_detail.html?id=" + val.fqid +"&fqlx=" +val.fqlx;;
+            window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx;;
         },
         //表格重新加载数据
         loadingData: function () {

@@ -10,3 +10,6 @@ dl {
 .cardBack{
     background-color:#F5F5F5;
 }
+.cardBorder{
+    border-top: 1px solid #d1dbe5;
+}

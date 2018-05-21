@@ -22,14 +22,14 @@
                     <div class="nameBox">
                         <div class="dib" id="Title-jzl" v-show="isJzlShow">
                             <div>
-                                <h3 class="dib inform-h3">{{detailData.fqmc||"无"}}</h3>
+                                <h3 class="dib inform-h3">{{detailData.jzmc||"无"}}</h3>
                             </div>
                             <dl>
                                 <dt class="dib inform-small-title">建筑类型：</dt>
                                 <dd class="dtdlStyle">{{detailData.jzl_jzqkmc||"无"}}</dd>
                                 <br>
                                 <dt class="dib inform-small-title">位置：</dt>
-                                <dd class="dtdlStyle">{{detailData.fqwz||"无"}}</dd>
+                                <dd class="dtdlStyle">{{detailData.jzwz||"无"}}</dd>
                                 <br>
                                 <dt class="dib inform-small-title">经度：</dt>
                                 <dd class="dtdlStyle">{{detailData.lon||"无"}}</dd>
@@ -46,11 +46,11 @@
                         </div>
                         <div class="dib" id="Title-zzl" v-show="isZzlShow">
                             <div>
-                                <h3 class="dib inform-h3">{{detailData.fqmc||"无"}}</h3>
+                                <h3 class="dib inform-h3">{{detailData.jzmc||"无"}}</h3>
                             </div>
                             <dl>
                                 <dt class="dib inform-small-title">位置：</dt>
-                                <dd class="dtdlStyle">{{detailData.fqwz||"无"}}</dd>
+                                <dd class="dtdlStyle">{{detailData.jzwz||"无"}}</dd>
                                 <br>
                                 <dt class="dib inform-small-title">经度：</dt>
                                 <dd class="dtdlStyle">{{detailData.lon||"无"}}</dd>
@@ -67,11 +67,11 @@
                         </div>
                         <div class="dib" id="Title-cgl" v-show="isCglShow">
                             <div>
-                                <h3 class="dib inform-h3">{{detailData.fqmc||"无"}}</h3>
+                                <h3 class="dib inform-h3">{{detailData.jzmc||"无"}}</h3>
                             </div>
                             <dl>
                                 <dt class="dib inform-small-title">位置：</dt>
-                                <dd class="dtdlStyle">{{detailData.fqwz||"无"}}</dd>
+                                <dd class="dtdlStyle">{{detailData.jzwz||"无"}}</dd>
                                 <br>
                                 <dt class="dib inform-small-title">经度：</dt>
                                 <dd class="dtdlStyle">{{detailData.lon||"无"}}</dd>
@@ -163,36 +163,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="jz" style="margin-top: 40px">
-                                        <el-card v-for="data in detailData.weixianjiezhiList" style="margin-bottom:12px;background-color:#F5F5F5">
-                                            <el-row>
-                                                <el-col :span="24">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">危险介质名称：</strong>{{data.jzmc||"无"}}
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">实际储量：</strong>{{data.jzsjcl||"无"}}
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">理化性质：</strong>{{data.jzlhtx||"无"}}
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="24">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">描述：</strong>{{data.cgzj||"无"}}
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                        </el-card>
-                                    </div>
                                     <div class="inform-div" v-show="isZzlShow">
                                         <div class="left-inform">
                                             <div>
@@ -270,7 +240,7 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">罐组储罐储量：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.cgl_czsl||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.cgl_cgsl||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -308,25 +278,25 @@
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">罐组毗邻情况(东)：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.cgl_blgxd||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.cgl_plqkd||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">罐组毗邻情况(南)：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.cgl_blgxn||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.cgl_plqkn||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">罐组毗邻情况(西)：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.cgl_blgxx||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.cgl_plqkx||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">罐组毗邻情况(北)：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.cgl_blgxb||"无"}}</dd>
+                                                    <dd class="dtdlStyle">{{detailData.cgl_plqkb||"无"}}</dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -391,6 +361,7 @@
                                             </el-row>
                                         </el-card>
                                     </div>
+                                    
                                 </el-tab-pane>
                                 <el-tab-pane label="消防设施" name="second">
                                     <div style="margin-bottom:12px;" v-show="this.AQSSCS">
@@ -575,7 +546,7 @@
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">有无应急广播：</strong>{{data.isyjgb||"无"}}
+                                                        <strong style="cursor: pointer;font-size:15px;">有无应急广播：</strong>{{data.ywyjgb||"无"}}
                                                     </div>
                                                 </el-col>
                                             </el-row>
@@ -747,7 +718,7 @@
                                                 <el-row>
                                                    <el-col :span="12">
                                                         <div>
-                                                            <strong style="cursor: pointer;font-size:15px;">是否有取水口（井）：</strong>{{data.isqsj||"无"}}
+                                                            <strong style="cursor: pointer;font-size:15px;">是否有取水口（井）：</strong>{{data.ywqsj||"无"}}
                                                         </div>
                                                     </el-col>
                                                     <el-col :span="12">
@@ -802,7 +773,7 @@
                                                     </el-col>
                                                     <el-col :span="12">
                                                         <div>
-                                                            <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.isky||"无"}}
+                                                            <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.sfky||"无"}}
                                                         </div>
                                                     </el-col>
                                                 </el-row>
@@ -852,7 +823,7 @@
                                                     </el-col>
                                                     <el-col :span="12">
                                                         <div>
-                                                            <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.isky||"无"}}
+                                                            <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.sfky||"无"}}
                                                         </div>
                                                     </el-col>
                                                 </el-row>
@@ -950,7 +921,7 @@
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">有无喷淋系统：</strong>{{data.iscz||"无"}}
+                                                        <strong style="cursor: pointer;font-size:15px;">有无喷淋系统：</strong>{{data.ywplxt||"无"}}
                                                     </div>
                                                 </el-col>
                                             </el-row>
@@ -995,7 +966,7 @@
                                             <el-row>
                                                 <el-col :span="12">
                                                     <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">有无冷却水系统：</strong>{{data.iscz||"无"}}
+                                                        <strong style="cursor: pointer;font-size:15px;">有无冷却水系统：</strong>{{data.ywlqsxt||"无"}}
                                                     </div>
                                                 </el-col>
                                                 <el-col :span="12">
@@ -1244,7 +1215,7 @@
                                                 </el-col>
                                                 <el-col :span="12">
                                                     <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.isky||"无"}}
+                                                        <strong style="cursor: pointer;font-size:15px;">是否可用：</strong>{{data.sfky||"无"}}
                                                     </div>
                                                 </el-col>
                                             </el-row>

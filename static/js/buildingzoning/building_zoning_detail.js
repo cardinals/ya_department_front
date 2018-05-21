@@ -6,7 +6,7 @@ new Vue({
             //页面获取的id
             id: "",
             //页面获取的分区类型
-            fqlx:"",
+            jzlx:"",
             //详情Data
             detailData: {},
             loading: false,
@@ -154,9 +154,9 @@ new Vue({
         this.loading = true;
         //取得选中行id
         this.id = this.GetQueryString("id");
-        this.fqlx = this.GetQueryString("fqlx");
+        this.jzlx = this.GetQueryString("jzlx");
         this.details();
-        switch(this.fqlx){
+        switch(this.jzlx){
             case "30":
                 this.isZzlShow = true;
                 break;
@@ -185,19 +185,19 @@ new Vue({
         //详情
         details: function () {
             var params = {
-                fqid : this.id,
-                fqlx : this.fqlx
+                jzid : this.id,
+                jzlx : this.jzlx
             }
             axios.post('/dpapi/building/findFqDetailByVo', params).then(function (res) {
                 this.detailData = res.data.result;
-                var num = this.detailData.cgl_czsl;
+                /*var num = this.detailData.cgl_cgsl;
                 var uuid = this.detailData.cgl_uuid;
                 if(num > 0){
                     var chuguan = {
                         pkid : uuid
                     };
                     // this.addChuGuanInfo(chuguan);
-                }
+                }*/
                 //通过建筑分区id查询消防设施
                 this.loadXfss();
                 this.loading=false;
@@ -206,19 +206,10 @@ new Vue({
             })
 
         },
-        //追加罐组中每个储罐情况
-        addChuGuanInfo:function(chuguan){
-            axios.post('/dpapi/building/findChuGuanList', chuguan).then(function (res) {
-                this.chuGuanData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-            
-        },
         //通过建筑分区id查询消防设施
         loadXfss:function(){
             var params = {
-                jbxx_fqid:this.id
+                jbxx_jzid:this.id
             }
             axios.post('/dpapi/firefacilities/doFindlist', params).then(function (res) {
                 var data = res.data.result;

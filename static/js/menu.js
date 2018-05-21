@@ -143,15 +143,17 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/codelist"){
                 realUrl="http://localhost/templates/system/code_list.html"
             }
+            else if(this.model.url=="/imgupload"){
+                realUrl="http://localhost/templates/system/imgupload_list.html"
+            }
             // 6
-            // 7
             else if(this.model.url=="/auxiliarydecision/danger"){
                 realUrl="http://localhost/templates/auxiliarydecision/danger_list.html"
             }
             else if(this.model.url=="/auxiliarydecision/firecalculation"){
                 realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
             }
-            // 8
+            // 7
             else if(this.model.url=="/building_zoning"){
                 realUrl="http://localhost/templates/buildingzoning/building_zoning_list.html"
             }

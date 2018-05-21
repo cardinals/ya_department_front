@@ -20,21 +20,17 @@ new Vue({
             searchForm: {
                 YAMC: "",
                 DXMC: "",
-                YALX: "",
+                YALX: [],
                 YAJB: "",
                 ZZJG: "",
-                SHZT: ""
+                YAZT: ""
             },
             tableData: [],
             YALX_dataTree: [],//预案类型级联选择
-            YALX_data: [],//预案类型table转码
             ZZJG_dataTree: [],//制作机构级联选择
-            ZZJG_data: [],//制作机构table转码
             YAJB_data: [],//预案级别下拉框
-            SHZT_data: [],//审核状态下拉框
+            YAZT_data: [],//审核状态下拉框
 
-            //资源列表是否显示
-            planDetailVisible: false,
             //表高度变量
             tableheight: 443,
             //显示加载中样
@@ -47,53 +43,23 @@ new Vue({
             pageSize: 10,
             //总记录数
             total: 0,
-            //预案详情页
-            detailData: [],
-            //详情页日期
-            detailYMD: "",
             //序号
             indexData: 0,
-            //删除的弹出框
-            deleteVisible: false,
-            //新建页面是否显示
-            addFormVisible: false,
-            addLoading: false,
-            addFormRules: {
-            },
-            //新建数据
-            addForm: {
-                YAMC: "",
-                DWDJ: "",
-                DXMC: "",
-                YALX: "",
-                DWDZ: "",
-                ZDMJ: "",
-                XFGXJGID: ""
-            },
             //选中的值显示
             sels: [],
             //选中的序号
             selectIndex: -1,
-            //编辑界面是否显示
-            editFormVisible: false,
-            editLoading: false,
-            editFormRules: {
-            },
-            //编辑界面数据
-            planDetail: {
-                YAMC: "",
-                DWDJ: "",
-                DXMC: "",
-                YALX: "",
-                DWDZ: "",
-                ZDMJ: "",
-                XFGXJGID: ""
-            },
+            //级联下拉框
             defaultProps: {
                 value: 'codeValue',
                 label: 'codeName',
                 children: 'children'
-            }
+            },
+            jgidprops: {
+                value: 'uuid',
+                label: 'jgjc',
+                children: 'children'
+            },
 
         }
     },
@@ -101,19 +67,13 @@ new Vue({
         this.YALX_tree();//预案类型级联选择
         this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
-        this.SHZT();//审核状态下拉框
-        // this.YALX();//预案类型table转码
-        // this.ZZJG();//制作机构table转码
+        this.YAZT();//预案状态下拉框
     },
     mounted: function () {
         this.searchClick();//条件查询
     },
 
     methods: {
-        handleNodeClick(data) {
-        },
-        handleChange(value) {
-        },
         //预案类型级联选择
         YALX_tree: function () {
             // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
@@ -133,11 +93,11 @@ new Vue({
         },
         //制作机构级联选择(暂无表)
         ZZJG_tree: function () {
-            // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
-            //     this.YALX_dataTree = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
+            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+                this.ZZJG_dataTree = res.data.result;
+            }.bind(this),function(error){
+                console.log(error);
+            })
         },
         //预案级别下拉框
         YAJB: function () {
@@ -148,9 +108,9 @@ new Vue({
             })
         },
         //审核状态下拉框
-        SHZT: function () {
-            axios.get('/api/codelist/getCodetype/YASHZT').then(function (res) {
-                this.SHZT_data = res.data.result;
+        YAZT: function () {
+            axios.get('/api/codelist/getCodetype/YAZT').then(function (res) {
+                this.YAZT_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -161,12 +121,12 @@ new Vue({
             var params = {
                 yamc: this.searchForm.YAMC,
                 dxmc: this.searchForm.DXMC,
-                yalxdm: this.searchForm.YALX[this.searchForm.YALX.length - 1],
+                yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1],
                 yajb: this.searchForm.YAJB,
                 // jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
-                shzt: this.searchForm.SHZT
+                yazt: this.searchForm.YAZT
             }
-            axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
+            axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loading = false;
@@ -178,10 +138,10 @@ new Vue({
         clearClick: function () {
             this.searchForm.YAMC = "";
             this.searchForm.DXMC = "";
-            this.searchForm.YALX = "";
+            this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = "";
-            this.searchForm.SHZT = "";
+            this.searchForm.YAZT = "";
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -201,12 +161,14 @@ new Vue({
             window.location.href = "digitalplan_detail.html?ID=" + val.uuid;
             //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
+        //预案新增跳转
         addClick() {
             window.location.href = "digitalplan_add.html?ID=" + 0;
         },
+        //预案编辑跳转
         handleEdit(row) {
-            if (row.yazt == '01') {
-                window.location.href = "digitalplan_add.html?ID=" + row.uuid;
+            if (row.yazt == '01' || row.yazt == '04') {
+                // window.location.href = "digitalplan_add.html?ID=" + row.uuid;
             } else {
                 this.$message({
                     message: "仅编辑中和已驳回状态预案可编辑",
@@ -246,13 +208,10 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        closeDialog: function (val) {
-            this.planDetailVisible = false;
-        }
+
         /**
         * lxy
         */
-        ,
         submitUpload() {
             this.upLoadData = { id: 2 };
             this.$refs.upload.submit();

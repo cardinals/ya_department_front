@@ -32,51 +32,51 @@
                                 <dl>
                                     <div class="inform-div">
                                         <div style="width:280px">
-                                            <img src="../../static/images/name.png">
+                                            <img class="danger_icon" src="../../static/images/name.png">
                                             <dt class="dib inform-small-title">中文名：</dt>
                                             <dd class="dtdlStyle">{{detailData.name||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/englishName.png">
-                                            <dt class="dib inform-small-title">英文名：</dt>
+                                            <img class="danger_icon" src="../../static/images/englishName.png">
+                                            <dt class="dib inform-small-title danger_word">英文名：</dt>
                                             <dd class="dtdlStyle">{{detailData.englishName||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/expression.png">
-                                            <dt class="dib inform-small-title">分子式：</dt>
+                                            <img class="danger_icon" src="../../static/images/expression.png">
+                                            <dt class="dib inform-small-title danger_word">分子式：</dt>
                                             <dd class="dtdlStyle">{{detailData.expression||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/thesaurus.png">
-                                            <dt class="dib inform-small-title">同义词：</dt>
+                                            <img class="danger_icon" src="../../static/images/thesaurus.png">
+                                            <dt class="dib inform-small-title danger_word">同义词：</dt>
                                             <dd class="dtdlStyle">{{detailData.thesaurus||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/alias.png">
-                                            <dt class="dib inform-small-title">别名: </dt>
+                                            <img class="danger_icon" src="../../static/images/alias.png">
+                                            <dt class="dib inform-small-title danger_word">别名: </dt>
                                             <dd class="dtdlStyle">{{detailData.alias||"无"}}</dd>
                                         </div>
                                         <div style="width: 280px;">
-                                            <img src="../../static/images/danger.png">
+                                            <img class="danger_icon" src="../../static/images/danger.png">
                                             <dt class="dib inform-small-title">国际危险号：</dt>
                                             <dd class="dtdlStyle">{{detailData.dangerId||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/cas.png">
-                                            <dt class="dib inform-small-title">CAS：</dt>
+                                            <img class="danger_icon" src="../../static/images/cas.png">
+                                            <dt class="dib inform-small-title danger_word">CAS：</dt>
                                             <dd class="dtdlStyle">{{detailData.cas||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/gbId.png">
-                                            <dt class="dib inform-small-title">国标号：</dt>
+                                            <img class="danger_icon" src="../../static/images/gbId.png">
+                                            <dt class="dib inform-small-title danger_word">国标号：</dt>
                                             <dd class="dtdlStyle">{{detailData.gbId||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/caution.png">
-                                            <dt class="dib inform-small-title">特别警示：</dt>
+                                            <img class="danger_icon" src="../../static/images/caution.png">
+                                            <dt class="dib inform-small-title danger_word">特别警示：</dt>
                                             <dd class="dtdlStyle">{{detailData.caution||"无"}}</dd>
                                             <br>
-                                            <img src="../../static/images/hwplx.png">
-                                            <dt class="dib inform-small-title">类型：</dt>
+                                            <img class="danger_icon" src="../../static/images/hwplx.png">
+                                            <dt class="dib inform-small-title danger_word">类型：</dt>
                                             <dd class="dtdlStyle">{{detailData.dmz||"无"}}</dd>
                                         </div>
                                     </div>
                                     <br>
-                                    <img src="../../static/images/mainApplication.png">
-                                    <dt class="dib inform-small-title">主要用途：</dt>
+                                    <img class="danger_icon" src="../../static/images/mainApplication.png">
+                                    <dt class="dib inform-small-title danger_word">主要用途：</dt>
                                     <dd class="dtdlStyle">{{detailData.mainApplication||"无"}}</dd>
                                 </dl>
                             </div>
@@ -87,11 +87,9 @@
                             <el-tabs v-model="activeName" type="border-card">
                                 <el-tab-pane label="性质信息" name="first">
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">性状：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">性状</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.property||"无"}}</div>
@@ -99,11 +97,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">毒性：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">毒性</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.poisionProperty||"无"}}</div>
@@ -111,11 +107,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">危险性/症状：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">危险性/症状</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.symptom||"无"}}</div>
@@ -123,11 +117,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">燃烧爆炸特性：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">燃烧爆炸特性</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.bernProperty||"无"}}</div>
@@ -135,11 +127,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">空气中允许极限及测定：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">空气中允许极限及测定</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.airDetermine||"无"}}</div>
@@ -147,11 +137,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">水中允许极限及测定：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">水中允许极限及测定</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.waterDetermine||"无"}}</div>
@@ -161,11 +149,9 @@
                                 </el-tab-pane>
                                 <el-tab-pane label="处置措施" name="second">
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">储存：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">储存</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.store||"无"}}</div>
@@ -173,11 +159,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">运输：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">运输</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.traffic||"无"}}</div>
@@ -185,11 +169,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">隔离：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">隔离</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.seprarate||"无"}}</div>
@@ -197,11 +179,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">急救措施/灭火：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">急救措施/灭火</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.firstaid||"无"}}</div>
@@ -209,11 +189,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">防护措施：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">防护措施</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.defendWay||"无"}}</div>
@@ -221,11 +199,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">处置措施：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">处置措施</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.dispose||"无"}}</div>
@@ -233,11 +209,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">泄露处理：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">泄露处理</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.leakWay||"无"}}</div>
@@ -245,11 +219,9 @@
                                         </el-row>
                                     </el-card>
                                     <el-card style="margin-bottom:12px;background-color:#F5F5F5">
-                                        <el-row>
-                                            <el-col :span="24">
-                                                <div><strong style="cursor: pointer;font-size:15px;">公众安全：</strong></div>
-                                            </el-col>
-                                        </el-row>
+                                        <div slot="header" class="clearfix">
+                                            <strong style="cursor: pointer;font-size:15px;">公众安全</strong>
+                                        </div>
                                         <el-row>
                                             <el-col :span="24">
                                                 <div>{{detailData.publicSafety||"无"}}</div>
