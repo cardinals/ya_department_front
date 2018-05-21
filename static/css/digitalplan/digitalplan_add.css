@@ -2,14 +2,14 @@ input[type=file] {
     display: none;
 }
 .el-input{
-    width: 280px;
+    width: 230px;
 }
 .main-container {
     padding: 40px 20px 20px;
 }
 .el-form-item {
-    width: 98%;
-    margin-bottom: 10px;
+    width: 100%;
+    margin-bottom: 0;
 }
 .el-form-item__content {
     margin-left: 0 !important; 
@@ -21,6 +21,12 @@ input[type=file] {
 .el-card__header{
     padding: 0px 20px;
     color: #20a0ff;
+}
+.el-card__body{
+    padding: 15px;    
+}
+.el-textarea {
+    width: 90%;
 }
 /* .disasterForm{
     width:100%;
