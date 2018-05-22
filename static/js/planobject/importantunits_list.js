@@ -147,9 +147,9 @@ new Vue({
             this.searchForm.xfdwlxmc="";
         },
         getdwxzData: function () {
-            axios.get('/api/codelist/getCodetype/DWXZ').then(function (res) {
+            axios.get('/api/codelist/getCodeTypeOrderByNum/DWXZ').then(function (res) {
                 this.dwxzData = res.data.result;
-                this.dwxzData.sort(this.compare('value'));
+                // this.dwxzData.sort(this.compare('value'));
                 // console.log(this.dwxzData);
             }.bind(this), function (error) {
                 console.log(error);
