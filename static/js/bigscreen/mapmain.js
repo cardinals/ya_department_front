@@ -3,32 +3,14 @@ axios.defaults.withCredentials = true;
 var vm = new Vue({
     el: "#app",
     data: {
-        //获取数据
-        searchForm: {
-            dwmc: "",
-            dwxz: "",
-            jzfl: "",
-            fhdj: "",
-            mhdzid: "",
-            xfdwlxmc: ""
-        },
-        //获取数据
-        addForm: {
-            DWMC: "",
-            DWDJ: "",
-            DWXZ: "",
-            XZQY: "",
-            DWDZ: "",
-            ZDMJ: "",
-            XFGXJGID: ""
-        },
-
+        
         city: '',
         marker: [],
         clusterer: null,
         marker1: '',
         marker2: '',
         marker3: '',
+        uuid:'',
         markerData: [],
         zzData: [],
         syData: [],
@@ -228,14 +210,8 @@ var vm = new Vue({
         //获取重点单位
         getPoint: function () {
             var params = {
-
-                dwmc: "",
-                dwxz: this.searchForm.dwxz,
-                jzfl: this.searchForm.jzfl,
-                fhdj: this.searchForm.fhdj,
-                mhdzid: this.searchForm.mhdzid,
-                xfdwlxmc: this.searchForm.xfdwlxmc
-
+              dwmc:"",
+              dwdz:"",
             };
             axios.post('/dpapi/importantunits/list', params).then(function (res) {
                 this.markerData = res.data.result;
@@ -244,6 +220,16 @@ var vm = new Vue({
                 }
             }.bind(this), function (error) {
                 console.log(error);
+            })
+        },
+        //获取重点单位详情
+        getDetails: function () {
+            axios.get('/dpapi/importantunits/' + this.uuid).then(function (res) {
+                // alert(uuid);
+                // vm.uuid=this.uuid;
+                this.tableData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
             })
         },
         //按照省市区来获取重点单位
@@ -372,15 +358,17 @@ var vm = new Vue({
             // });
             // map.setMinZoom(5);       //设置地图最小缩放级别
             // this.getBoundary(map);   //绘制边框
+
         },
         drawMap: function () {
+
             var content =
             '<div class="app-map-infowindow zddw-infowindow" style="height:255px;background-image: url(../../static/images/zddw_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">'+
             '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">'+
-            '{dwmc}'+
+            '{{tableData.dwmc}}'+
             '</h3>'+
             '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">'+
-            '周口市迎宾路216-13号'+
+            '{tableData.dwdz}'+
             '</div>'+
             '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:643px;white-space: normal;">'+
             '<tr>'+
@@ -435,13 +423,12 @@ var vm = new Vue({
             '</tr>'+
             '</table>'+
             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">'+
-            '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickInfoWindowDetail()"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>'+
+            '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickInfoWindowDetail()"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>'+
             '</div>'+
             '<div class="x-clear"></div>'+
             '</div>'
                 ;
             this.sycontent = sycontent;
-
             // var pt = null;
             var map = this.map;
             // map.removeEventListener("tilesload");
@@ -525,11 +512,20 @@ var vm = new Vue({
                         if(vm.cityName == zddwCityName){
                             var point = new BMap.Point(zddws[i].gisX,zddws[i].gisY);
                             var marker = new BMap.Marker(point, { icon: myIcon1 });
-                            
+
+                            marker.uuid=zddws[i].uuid;
+
                              marker.addEventListener("click", function (e) {   
+
+                                alert(e.target.uuid);
                                 vm.removeAllMarkers(vm.circlez);
+                                
+                                vm.getDetails();//调用重点单位方法
+                                // vm.removeAllMarkers(vm.iconz);//清除
                                 var circlez = [];//清除圆
                                 vm.circlez = circlez;//清除圆
+                                // var iconz = [];//清除图标
+                                // vm.iconz = iconz;//清除图标
                                 var pt = e.target.getPosition(); 
                                 var map = vm.map;
                                 map.centerAndZoom(pt,16);
@@ -537,6 +533,7 @@ var vm = new Vue({
                                 this.openInfoWindow(infoWindow);
                                 var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24,24)); //点击后的新图标
                                 var marker = e.currentTarget;
+
                                 marker.setIcon(myIcon2);//设置新图标
                                 var pt = marker.point;// this.removeAllMarkers(zddws);//点击后清除圆圈的样式
                                 
@@ -545,6 +542,7 @@ var vm = new Vue({
                                 var r = 6371004;
                                 map.addOverlay(circle);
                                 circlez.push(circle);//清除圆
+                                // iconz.push(myIcon2);//清除图标
 
                               });
                             zddwp.push(marker);
@@ -573,7 +571,14 @@ var vm = new Vue({
             this.cityp = cityp;
             // this.clusterer = markerClusterer;
             //弹出框
-            var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框 
+            var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象//悬浮框
+            //点击任意处释放
+            // marker.addEventListener("click", function (e) { 
+            //     var vmarker = e.target;
+            //     var pt = vmarker.getPosition();
+            //     vm.removeAllMarkers(vm.circlez);
+            //   })
+
         },
 
 //重置
@@ -590,7 +595,7 @@ Reset:function(){
     },
 //清除点击后的圆   
 removeAllMarkers:function(markers){
-        
+
         var map = vm.map;
         if(markers != null && markers.length != 0){
             for (i=0;i<markers.length;i++){
@@ -624,6 +629,18 @@ removeAllMarkers:function(markers){
                             this.openInfoWindow(infoWindow);
                         });
                         map.addOverlay(marker);
+                        var label = new BMap.Label("周口消防栓",{offset:new BMap.Size(-20,35)});
+                        label.setStyle({ 
+                            fontSize: '12px',
+                            fontWeight: 'bold',
+                            border: '0',
+                            padding: '2px 4px',
+                            textAlign: 'center',
+                            color:'red',
+                            borderRadius:'5px',
+                            paddingRight:'68px',
+                             });
+                        marker.setLabel(label);
                         // marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画
                     }
                 }
@@ -698,6 +715,7 @@ showOverzddw: function () {
         this.getPoint();
         //this.getJgidData();
         this.getSyData();
+        this.getDetails();
         // this.getzddwList();
     }
 })
