@@ -33,7 +33,7 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">预案类型</label>
-										<el-cascader :options ="yalxdmDataTree" :props ="props" size="small" v-model="searchForm.yalxdm" placeholder="预案类型" class="searchSelect" clearable change-on-select></el-cascader>
+										<el-cascader :options ="yalxdmDataTree" :props ="props" size="small" v-model="searchForm.yalx" placeholder="预案类型" class="searchSelect" clearable change-on-select></el-cascader>
 									</el-col>
 								</el-row>
 
@@ -89,7 +89,7 @@
 										</template>
 									</el-table-column>
 									<el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
-									<el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+									<el-table-column prop="yalx" label="预案类型" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
 									<el-table-column prop="sfkqy" label="跨区域" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
                                     <el-table-column prop="jgid" label="制作机构" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
                                 </el-table>
