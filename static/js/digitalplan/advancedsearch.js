@@ -11,18 +11,8 @@ new Vue({
             isZzl:false,
             yaxx_lrsj:"",
             isZdy:false,
-            /**lxy start */
-            fileList: [
-                { name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
-            ],
-
-            upLoadData: {
-                id: 1
-            },
-            /**lxy end */
             //预案搜索表单
-           yuAnSearchForm: {
+            yuAnSearchForm: {
                 YAMC:"",
                 YADX:"",
                 YALX:"",
@@ -58,8 +48,6 @@ new Vue({
             //单位建筑
             DWJZtableData:[],
             
-            //详情页显示
-            planDetailVisible: false,
             //预案对象
             yadx_data: [
                 { codeValue: "", codeName: "全部" },
@@ -100,7 +88,7 @@ new Vue({
             { codeValue: "2", codeName: ">50m且<=100m" },
             { codeValue: "3", codeName: ">100m" }],
             
-            //资源列表是否显示
+            //保卫警卫详情页是否显示
             planDetailVisible: false,
             //显示加载中样
             loading: false,
@@ -110,22 +98,9 @@ new Vue({
             pageSize: 10,
             //预案信息总记录数
             total: 10,
-            //预案对象信息总记录数
-            //total_2: 10,
-            //单位建筑总记录数
-           // total_3: 10,
-            //预案详情页
-            detailData: [],
-            //详情页日期
-            detailYMD: "",
             //序号
             indexData: 0,
-            //删除的弹出框
-            deleteVisible: false,
-            //选中的值显示
-            sels: [],
-            //选中的序号
-            selectIndex: -1,
+           
         }
     },
     created: function () {
@@ -434,25 +409,72 @@ new Vue({
                 }
             }
         },*/
-        //预案详情
-        planDetails: function (val) {
-            var _self = this;
-            _self.planDetailVisible = true;
-            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.pkid;
-            history.pushState(null, null, shortURL)
-            //异步加载详情页
-            $(function () {
-                $.ajax({
-                    url: '../../../templates/digitalplan/digitalplan_detail.html',
-                    cache: true,
-                    async: true,
-                    success: function (html) {
-                        $("#detailDialog").html(html);
-                    }
-                });
-            })
+        //预案详情跳转
+        planDetails(val) {
+            switch(val.yadxType){
+                case '重点单位':
+                    window.location.href = "digitalplan_detail.html?ID=" + val.uuid;
+                    break;
+                case '消防保卫警卫':
+                    var _self = this;
+                    _self.planDetailVisible = true;
+                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid;
+                    history.pushState(null, null, shortURL)
+                    //异步加载详情页
+                    $(function () {
+                        $.ajax({
+                            url: '../../../templates/digitalplan/digitalplanbwjw_detail.html',
+                            cache: true,
+                            async: true,
+                            success: function (html) {
+                                $("#detailDialog").html(html);
+                            }
+                        });
+                    });
+                    break;
+                case '其他对象':
+                    var _self = this;
+                    _self.planDetailVisible = true;
+                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?uuid=" + val.uuid;
+                    history.pushState(null, null, shortURL)
+                    //异步加载详情页
+                    $(function () {
+                        $.ajax({
+                            url: '../../../templates/digitalplan/otherobjectsplan_detail.html',
+                            cache: true,
+                            async: true,
+                            success: function (html) {
+                                $("#detailDialog").html(html);
+                            }
+                        });
+                    });
+                    break;
+            }
         },
-        
+        //预案对象详情跳转
+        /**如果对象类型为重点单位点击预案名称跳转到详情页，
+         * 如果对象类型为消防保卫警卫、其他对象
+         * 则跳转到这两个页面的查询页面，直接查询其对象。
+         */
+        YadxDetails(val) {
+            switch(val.yadxType){
+            case '重点单位':
+                window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid;
+                break;
+            case '消防保卫警卫':
+                window.location.href = "../planobject/bwjwplan_list.html?id=" + val.uuid;
+                break;
+            case '其他对象':
+                window.location.href = "../planobject/otherobjects_list.html?id=" + val.uuid;
+                break;
+            }
+            
+        },
+        //单位建筑详情跳转
+        buildingDetails(val) {
+            window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx;
+        },
+
         clearClick: function () {
             this.yuAnSearchForm.YAMC = "";
             this.yuAnSearchForm.YADX = "";
@@ -599,22 +621,8 @@ new Vue({
         
         closeDialog: function (val) {
             this.planDetailVisible = false;
-        }
-        /**
-        * lxy
-        */
-        ,
-        submitUpload() {
-            this.upLoadData = { id: 2 };
-            this.$refs.upload.submit();
         },
-        handleRemove(file, fileList) {
-
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            console.log(file);
-        }
+        
     },
 
 })

@@ -91,7 +91,7 @@ new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx;;
+            window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx;
         },
         //表格重新加载数据
         loadingData: function () {
