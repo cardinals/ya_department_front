@@ -4,6 +4,9 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            //显示加载中样
+            loading: false,
+            loading1: false,
             //主页面------------------------------------------
             visible: false,
             //0新增
@@ -19,9 +22,11 @@ new Vue({
                 bz: "",//备注
                 disasterList: []
             },
-            //灾情、力量部署、要点提示
+            //灾情设定
             dynamicValidateForm: [{
                 bwmc: '',
+                zdbwid: '',
+                jzmc: '',
                 jzid: '',
                 rswz: '',
                 zqdj: '',
@@ -32,18 +37,20 @@ new Vue({
                 qhbwgd: '',
                 zqms: '',
                 zqsdyj: '',
+                //力量部署
                 forcedevList: [{
                     dzid: '',
                     djfalx: '',
                     tkwz: '',
                     clzbts: ''
                 }],
+                //要点提示
                 keypointsMap: {
                     zsyd: '',
                     tbjs: '',
                 }
             }],
-            loading1: false,
+
             //预案基本信息data
             YALX_dataTree: [],
             YAJB_data: [],
@@ -51,6 +58,7 @@ new Vue({
             role_data: {},
             detailData: {},
             //灾情信息data
+            zqIndex: '',
             RSWZ_dataTree: [],
             ZQDJ_dataTree: [],
             QHYY_data: [],
@@ -85,32 +93,65 @@ new Vue({
                 { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
             ],
             //重点单位弹出页---------------------------------------------------
-            planDetailVisible: false,
-            loading2: false,
+            unitsListVisible: false,
+            loading_units: false,
+            //当前页
+            currentPage_units: 1,
+            //分页大小
+            pageSize_units: 5,
+            //总记录数
+            total_units: 0,
             //搜索表单
-            searchForm: {
+            searchForm_units: {
                 dwmc: ""
             },
-            tableData: [],
+            tableData_units: [],
             //表高度变量
-            tableheight: 250,
-            //显示加载中样
-            loading: false,
-            labelPosition: 'right',
-            //多选值
-            multipleSelection: [],
+            tableheight_units: 250,
+
+            //灾情部位弹出页---------------------------------------------------
+            partsListVisible: false,
+            loading_parts: false,
             //当前页
-            currentPage: 1,
+            currentPage_parts: 1,
             //分页大小
-            pageSize: 5,
+            pageSize_parts: 5,
             //总记录数
-            total: 0,
+            total_parts: 0,
+            //搜索表单
+            searchForm_parts: {
+                zdbwmc: ""
+            },
+            tableData_parts: [],
+            //表高度变量
+            tableheight_parts: 250,
+
+            //所属建筑弹出页---------------------------------------------------
+            buildingListVisible: false,
+            loading_building: false,
+            //当前页
+            currentPage_building: 1,
+            //分页大小
+            pageSize_building: 5,
+            //总记录数
+            total_building: 0,
+            //搜索表单
+            searchForm_building: {
+                zdbwmc: ""
+            },
+            tableData_building: [],
+            //表高度变量
+            tableheight_building: 250,
+            // labelPosition: 'right',
+            //多选值
+            // multipleSelection: [],
+
             //序号
-            indexData: 0,
+            // indexData: 0,
             //选中的值显示
-            sels: [],
+            // sels: [],
             //选中的序号
-            selectIndex: -1,
+            // selectIndex: -1,
 
         }
     },
@@ -146,6 +187,8 @@ new Vue({
         addDomain() {
             this.dynamicValidateForm.push({
                 bwmc: '',
+                zdbwid: '',
+                jzmc: '',
                 jzid: '',
                 rswz: '',
                 zqdj: '',
@@ -310,21 +353,124 @@ new Vue({
                 })
             }
         },
-        //重点单位选择弹出页
+        //重点单位选择弹出页---------------------------------------------------------------
         keyunitList: function (val) {
-            this.planDetailVisible = true;
-            this.loading2 = true;
+            this.unitsListVisible = true;
+            this.loading_units = true;
             var params = {
-                dwmc: this.searchForm.dwmc
+                dwmc: this.searchForm_units.dwmc
             };
             axios.post('/dpapi/importantunits/list', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
-                this.loading2 = false;
+                this.tableData_units = res.data.result;
+                this.total_units = res.data.result.length;
+                this.loading_units = false;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //当前页修改事件
+        currentPageChange_units: function (val) {
+            this.currentPage_units = val;
+            // console.log("当前页: " + val);
+            var _self = this;
+            _self.loadingData(); //重新加载数据
+        },
+        //选择重点单位，返回单位名称和id
+        selectRow_units: function (val) {
+            this.addForm.dxmc = val.dwmc;
+            this.addForm.dxid = val.uuid;
+            this.unitsListVisible = false;
+        },
+        //重点单位弹出页关闭
+        closeDialog_units: function (val) {
+            this.unitsListVisible = false;
+        },
+        //灾情部位选择弹出页---------------------------------------------------------------
+        partsList: function (val) {
+            this.zqIndex = val;
+            if (this.addForm.dxid == null || this.addForm.dxid == "") {
+                this.$message({
+                    message: "请先选择预案对象",
+                    showClose: true,
+                });
+            } else {
+                this.partsListVisible = true;
+                this.loading_parts = true;
+                var params = {
+                    zddwid: this.addForm.dxid,
+                    zdbwmc: this.searchForm_parts.zdbwmc
+                };
+                axios.post('/dpapi/importantparts/list', params).then(function (res) {
+                    this.tableData_parts = res.data.result;
+                    this.total_parts = res.data.result.length;
+                    this.loading_parts = false;
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+        },
+        //当前页修改事件
+        currentPageChange_parts: function (val) {
+            this.currentPage_parts = val;
+            // console.log("当前页: " + val);
+            var _self = this;
+            _self.loadingData(); //重新加载数据
+        },
+        //选择重点部位，返回重点部位名称和id
+        selectRow_parts: function (val) {
+            var index = this.zqIndex;
+            this.dynamicValidateForm[index].zdbwid = val.zdbwid
+            this.dynamicValidateForm[index].bwmc = val.zdbwmc
+            this.partsListVisible = false;
+        },
+        //灾情部位弹出页关闭
+        closeDialog_parts: function (val) {
+            this.partsListVisible = false;
+        },
+        //所属建筑选择弹出页---------------------------------------------------------------
+        buildingList: function (val) {
+            this.zqIndex = val;
+            if (this.addForm.dxid == null || this.addForm.dxid == "") {
+                this.$message({
+                    message: "请先选择预案对象",
+                    showClose: true,
+                });
+            } else {
+                this.buildingListVisible = true;
+                this.loading_building = true;
+                var params = {
+                    zddwid: this.addForm.dxid,
+                    jzmc: this.searchForm_building.jzmc
+                };
+                axios.post('/dpapi/digitalplanlist/doSearchJzListByZddwId', params).then(function (res) {
+                    this.tableData_building = res.data.result;
+                    this.total_building = res.data.result.length;
+                    this.loading_building = false;
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+        },
+        //当前页修改事件
+        currentPageChange_building: function (val) {
+            this.currentPage_building = val;
+            // console.log("当前页: " + val);
+            var _self = this;
+            _self.loadingData(); //重新加载数据
+        },
+        //选择建筑，返回建筑名称和id
+        selectRow_building: function (val) {
+            var index = this.zqIndex;
+            this.dynamicValidateForm[index].jzid = val.jzid
+            this.dynamicValidateForm[index].jzmc = val.jzmc
+            this.buildingListVisible = false;
+        },
+        //灾情部位弹出页关闭
+        closeDialog_building: function (val) {
+            this.buildingListVisible = false;
+        },
+
+
         //表格数据格式化
         dataFormat: function (row, column) {
             var rowDate = row[column.property];
@@ -344,25 +490,7 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            // console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        selectRow: function (val) {
-            this.addForm.dxmc = val.dwmc;
-            this.addForm.dxid = val.uuid;
-            this.planDetailVisible = false;
-        },
+
         //时间格式化
         dateFormat: function (val) {
             var date = new Date(val);
@@ -383,7 +511,7 @@ new Vue({
         save: function (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    if (this.status == 0) {
+                    if (this.status == 0) {//新增
                         var params = {
                             dxid: this.addForm.dxid,
                             dxmc: this.addForm.dxmc,
@@ -392,18 +520,21 @@ new Vue({
                             yazt: '01',
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
-                            disasterList: this.dynamicValidateForm
+                            disasterList: this.dynamicValidateForm,
+                            zzrid: this.role_data.userid,
+                            zzrmc: this.role_data.realName
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
+                            
+                            window.location.href = "digitalplan_list.html";
                             this.$message({
                                 message: "成功保存预案",
                                 showClose: true,
                             });
-                            window.location.href = "digitalplan_list.html";
                         }.bind(this), function (error) {
                             console.log(error);
                         })
-                    } else {
+                    } else {//修改
                         var params = {
                             uuid: this.status,
                             dxid: this.addForm.dwid,
@@ -431,24 +562,30 @@ new Vue({
         submit: function (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    if (this.status == 0) {
+                    if (this.status == 0) { //新增
                         var params = {
-                            dxid: this.addForm.dwid,
+                            dxid: this.addForm.dxid,
+                            dxmc: this.addForm.dxmc,
                             yamc: this.addForm.yamc,
-                            yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                            yalx: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
                             yazt: '03',
                             shzt: '01',
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
-                            disasterList: this.dynamicValidateForm.domains
+                            disasterList: this.dynamicValidateForm,
+                            zzrid: this.role_data.userid,
+                            zzrmc: this.role_data.realName
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
-                            alert("成功提交" + res.data.result.length + "条预案");
+                            this.$message({
+                                message: "成功提交预案",
+                                showClose: true,
+                            });
+                            window.location.href = "digitalplan_list.html";
                         }.bind(this), function (error) {
                             console.log(error);
                         })
-                    } else {
-                        debugger
+                    } else { //修改
                         var params = {
                             uuid: this.status,
                             dxid: this.addForm.dwid,
@@ -477,9 +614,7 @@ new Vue({
         add_disaster: function () {
 
         },
-        closeDialog: function (val) {
-            this.planDetailVisible = false;
-        },
+
         submitUpload() {
             this.upLoadData = { id: 2 };
             this.$refs.upload.submit();

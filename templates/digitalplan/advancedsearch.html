@@ -135,7 +135,7 @@
                                     <el-card v-for="data in YADXtableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
-                                                <div><strong  @click="planDetails(data)" style="cursor: pointer;font-size:20px;">{{data.dxmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yalxdm !== null">{{data.yadxType}}</el-tag></div>
+                                                <div><strong  @click="YadxDetails(data)" style="cursor: pointer;font-size:20px;">{{data.dxmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yalxdm !== null">{{data.yadxType}}</el-tag></div>
                                             </el-col>
                                         </el-row>
                                         <el-row>
@@ -195,7 +195,7 @@
                                     <el-card v-for="data in DWJZtableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
-                                                <div><strong  @click="planDetails(data)" style="cursor: pointer;font-size:20px;">{{data.jzmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.jzlxmc !== null">{{data.jzlxmc}}</el-tag></div>
+                                                <div><strong  @click="buildingDetails(data)" style="cursor: pointer;font-size:20px;">{{data.jzmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.jzlxmc !== null">{{data.jzlxmc}}</el-tag></div>
                                             </el-col>
                                         </el-row>
                                         <el-row>

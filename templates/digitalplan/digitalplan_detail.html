@@ -175,7 +175,7 @@
                                                 </el-col>
                                                 <el-col :span="4">
                                                     <div>
-                                                        <strong>{{item.hzwxxmc||"无"}}</strong>
+                                                        <strong>{{item.hzwxxmc||"无"}}级</strong>
                                                     </div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
@@ -183,7 +183,7 @@
                                                 </el-col>
                                                 <el-col :span="4">
                                                     <div>
-                                                        <strong>{{item.rswzmc||"无"}}</strong>
+                                                        <strong>{{item.rsmj||"无"}}㎡</strong>
                                                     </div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
@@ -209,7 +209,7 @@
                                                 </el-col>
                                                 <el-col :span="4">
                                                     <div>
-                                                        <strong>{{item.qhbwgd||"无"}}</strong>
+                                                        <strong>{{item.qhbwgd||"无"}}m</strong>
                                                     </div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
@@ -277,10 +277,7 @@
                                                     <div>战术要点：</div>
                                                 </el-col>
                                                 <el-col :span="21">
-                                                    <!-- <div v-if="item.keypointsMap==null">
-                                                        <strong>无</strong>
-                                                    </div> -->
-                                                    <div v-else>
+                                                    <div>
                                                         <strong>{{item.keypointsMap.zsyd||"无"}}</strong>
                                                     </div>
                                                 </el-col>
@@ -290,10 +287,7 @@
                                                     <div> 特别警示：</div>
                                                 </el-col>
                                                 <el-col :span="21">
-                                                    <!-- <div v-if="item.keypointsMap==null">
-                                                        <strong>无</strong>
-                                                    </div> -->
-                                                    <div v-else>
+                                                    <div>
                                                         <strong>{{item.keypointsMap.tbjs||"无"}}</strong>
                                                     </div>
                                                 </el-col>

@@ -168,6 +168,21 @@ var vm = new Vue({
             }
         ]
     },
+    mounted() {
+        this.getCity();
+        document.title = this.city + '预案情况';
+        this.getShengZddwDate();//省
+        // this.getShiZddwDate();//城市
+        // this.getPoint();//各区的点
+        // this.getSyData();//获取水源
+        // this.getProvincez();
+        // this.getShiZddwDate('440000');
+        // this.getPoint();
+        // this.getJgidData();
+        // this.getSyData();
+        // this.getDetails();
+        // this.getzddwList();
+    },
     methods: {
         getMarker1: function () {
             if (this.form.delivery1) {
@@ -208,36 +223,6 @@ var vm = new Vue({
                 }
             });
         },
-        //获取重点单位
-        getPoint: function () {
-            var params = {
-                dwmc: "",
-                dwdz: "",
-            };
-            axios.post('/dpapi/importantunits/list', params).then(function (res) {
-                this.markerData = res.data.result;
-                if (this.markerData !== []) {
-                }
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //获取重点单位详情
-        getDetails: function (uuid) {
-            axios.get('/dpapi/importantunits/' + this.uuid).then(function (res) {
-                this.tableData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
-        //获取水源详情
-        getSyDetails: function (uuid) {
-            axios.get('/dpapi/xfsy/findlist' + this.uuid).then(function (res) {
-                this.shuiData = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        },
         //获取省份
         getShengZddwDate: function () {
             var params = {};
@@ -256,11 +241,45 @@ var vm = new Vue({
             };
             axios.post('/dpapi/map/getShiMapByVO', params).then(function (res) {
                 this.ShiZddwDate = res.data.result;
+                this.drawMap();
                 console.log(this.ShiZddwDate);
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //获取重点单位
+        getPoint: function () {
+                var params = {
+                    dwmc: "",
+                    dwdz: "",
+                    // xzqh: xzqh,
+                };
+                axios.post('/dpapi/importantunits/list', params).then(function (res) {
+                    this.markerData = res.data.result;
+                    if (this.markerData !== []) {
+                        this.drawMap();
+                    }
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+        },
+        //获取重点单位详情
+        getDetails: function (uuid) {
+            axios.get('/dpapi/importantunits/' + this.uuid).then(function (res) {
+                this.tableData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //获取水源详情
+        getSyDetails: function (uuid) {
+            axios.get('/dpapi/xfsy/findlist' + this.uuid).then(function (res) {
+                this.shuiData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        
         //组织机构
         getJgidData: function () {
             var params = {};
@@ -309,20 +328,7 @@ var vm = new Vue({
                 console.log(error);
             })
         },
-        getProvincez: function () {
-            var params = {
-            }
-            axios.post('/dpapi/getMapByVO', params).then(function (res) {
-                this.provinces = res.data.result;
-                if (this.provinces !== []) {
-                    // this.drawMap();
-                    this.initMap();
-                }
-                console.log(this.provinces);
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
+       
         initMap: function () {
             var map = new BMap.Map("BMap");    //创建Map实例
             this.map = map;
@@ -434,18 +440,16 @@ var vm = new Vue({
                 ;
             this.sycontent = sycontent;
             var map = this.map;
-            // map.removeEventListener("tilesload");
             var myIcon1 = new BMap.Icon("../../static/images/maptool/zddw.png", new BMap.Size(70, 70));      //创建图标
             var province = [];
             this.province = province;
-            // var provinces = [[113.64964385,34.7566100641,3000,'河南'],[113.307649675,23.1200491021,5000,'广东']];
             var provinces = this.ShengZddwDate;
             //数据库表
             for (var i = 0; i < provinces.length; i++) {
-                var pt = new BMap.Point(provinces[i][0], provinces[i][1]);
+                var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                 var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                // var label = new BMap.Label("我是文字标注哦",{offset:new BMap.Size(20,-10)});
-                var label = new BMap.Label(provinces[i][2]);
+                var label = new BMap.Label(provinces[i].zddwsl);
+                marker.province=provinces[i];
                 label.setStyle({
                     fontSize: '10px',
                     fontWeight: 'bold',
@@ -456,12 +460,13 @@ var vm = new Vue({
                     marginLeft: '22px',
                     marginTop: '4px',
                     color: '#fff',
-                    backgroundColor: '',
+                    backgroundColor: '',  
                 });
                 marker.addEventListener("click", function (e) {
-
-                    //xzqh
-                    this.getShiZddwDate(provinces.xzqh);
+                    //获取行政区划
+                    var xzqh = e.target.province.xzqh;
+                    //获取省行政区划代码
+                    vm.getShiZddwDate(xzqh);
                     var pmarker = e.target;
                     var pt = pmarker.getPosition();
                     vm.prvinceName = pmarker.entity[3];
@@ -473,6 +478,7 @@ var vm = new Vue({
                         var marker = citys[i];
                         var city = marker.entity;
                         var cityProvinceName = city[4];
+                        marker.show();
                         if (vm.prvinceName == cityProvinceName) {
                             marker.show();
                         } else {
@@ -486,13 +492,12 @@ var vm = new Vue({
                 marker.setLabel(label);
             }
             var cityp = [];
-            // var citys = [[112.447524769, 34.6573678177, 200, '洛阳', '河南'], [114.519207, 33.789059, 300, '周口', '河南'], []];
             var citys = this.ShiZddwDate;
             //数据库表
             for (var i = 0; i < citys.length; i++) {
-                var pt = new BMap.Point(citys[i][0], citys[i][1]);
+                var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                 var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                var label = new BMap.Label(citys[i][2]);
+                var label = new BMap.Label(citys[i].zddwsl);
                 label.setStyle({
                     fontSize: '10px',
                     fontWeight: 'bold',
@@ -507,7 +512,8 @@ var vm = new Vue({
                 });
                 marker.setLabel(label);
                 marker.addEventListener("click", function (e) {
-                    this.getPoint(xzqh);//获取点坐标
+                    // var m = e.target.province.xzqh;
+                    // vm.getPoint(m);//获取点坐标
                     var cmarker = e.target;
                     var pt = cmarker.getPosition();
                     var zddws = vm.markerData;
@@ -519,7 +525,7 @@ var vm = new Vue({
                     vm.zddwp = zddwp;
                     for (var i = 0; i < zddws.length; i++) {
                         var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24)); //创建图标
-                        var zddwCityName = zddws[i].dwdz.substring(5, 3);
+                        var zddwCityName = zddws[i].dwdz.substring(5, 3);//判断城市名修改成判断行政区域
                         if (vm.cityName == zddwCityName) {
                             var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
                             var marker = new BMap.Marker(point, { icon: myIcon1 });
@@ -590,7 +596,6 @@ var vm = new Vue({
         },
         //清除点击后的圆   
         removeAllMarkers: function (markers) {
-
             var map = vm.map;
             if (markers != null && markers.length != 0) {
                 for (i = 0; i < markers.length; i++) {
@@ -647,7 +652,6 @@ var vm = new Vue({
             var xmax = bounds.getNorthEast().lng;
             var ymin = bounds.getSouthWest().lat;
             var ymax = bounds.getNorthEast().lat;
-
             for (i = 0; i < vm.markerData.length; i++) {
                 var x = vm.markerData[i].gisX;
                 var y = vm.markerData[i].gisY;
@@ -701,16 +705,5 @@ var vm = new Vue({
             }
             }
         },
-        mounted() {
-            this.getCity();
-            document.title = this.city + '预案情况';
-            this.getShengZddwDate();
-            // this.getProvincez();
-            // this.getShiZddwDate('440000');
-            // this.getPoint();
-            // this.getJgidData();
-            // this.getSyData();
-            // this.getDetails();
-            // this.getzddwList();
-        }
+        
     })
