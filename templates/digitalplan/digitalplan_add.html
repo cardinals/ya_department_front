@@ -18,8 +18,8 @@
 	<div id="app">
 		<div class="main-box">
 			<div class="main-container" v-loading="loading1" element-loading-text="加载中">
-				<div id="inforView" style="border-bottom:1px solid #20a0ff;" class="mb10">
-					<el-row class="mb5">
+				<div id="inforView" class="mb10">
+					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 							<div style="color: #20a0ff;">
 								<strong>预案基本信息</strong>
@@ -60,32 +60,16 @@
 							</el-col>
 						</el-row>
 					</el-form>
-
-					<!-- <el-row>
-						<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
-						<el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18">
-							<el-form>
-								<el-form-item>
-									<el-upload class="upload-demo" ref="upload" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
-										<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-										<div slot="tip" class="el-upload__tip"></div>
-									</el-upload>
-								</el-form-item>
-							</el-form>
-						</el-col>
-						<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
-					</el-row>
-					 -->
 				</div>
-				<div id="disasterView" class="mb10 pb10" style="border-bottom:1px solid #20a0ff;">
-					<el-row class="mb5">
+				<div id="disasterView" class="mb10 pb10">
+					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
 						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
 							<div style="color: #20a0ff;">
 								<strong>灾情设定与力量部署</strong>
 							</div>
 						</el-col>
 						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-							<el-button type="primary" icon="plus" size="small" style="float:right;" @click="addDomain">新增</el-button>
+							<el-button type="primary" icon="plus" size="small" class="r" @click="addDomain">新增</el-button>
 						</el-col>
 					</el-row>
 					<el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" style="margin:0;">
@@ -94,12 +78,12 @@
 							<el-card style="background-color:#F5F5F5;width:100%">
 								<div slot="header" class="clearfix">
 									<strong>灾情{{index+1}}</strong>
+									<el-button type="danger" icon="delete" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin:5px 0 0">删除</el-button>
 								</div>
 								<el-row class="tr">
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>灾情部位</el-label>
 										<el-input v-model="domain.bwmc" size="small" @focus="partsList(index)"></el-input>
-										<!-- <el-button @click.prevent="removeDomain(domain)">删除</el-button> -->
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>所属建筑</el-label>
@@ -107,7 +91,6 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>燃烧物质</el-label>
-										<!-- <el-input v-model="domain.rswz" size="small"></el-input> -->
 										<el-cascader :options="RSWZ_dataTree" :props="defaultProps" size="small" v-model="domain.rswz" placeholder="燃烧物质" clearable
 										 change-on-select></el-cascader>
 									</el-col>
@@ -115,7 +98,6 @@
 								<el-row class="tr">
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>灾情等级</el-label>
-										<!-- <el-input v-model="domain.zqdj" size="small"></el-input> -->
 										<el-cascader :options="ZQDJ_dataTree" :props="defaultProps" size="small" v-model="domain.zqdj" placeholder="灾情等级" clearable
 										 change-on-select></el-cascader>
 									</el-col>
@@ -194,7 +176,6 @@
 											</el-col>
 											<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">
 												<el-label>调集方案类型</el-label>
-												<!-- <el-input v-model="llbs.djfalx" size="small"></el-input> -->
 												<el-select size="small" v-model="llbs.djfalx" placeholder="调集方案类型" clearable>
 													<el-option v-for="item in DJFALX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 												</el-select>
@@ -215,13 +196,35 @@
 										</el-row>
 									</el-form-item>
 								</el-form>
-								<!-- <el-button @click="resetForm('dynamicValidateForm')">重置</el-button> -->
 							</el-card>
 						</el-form-item>
 					</el-form>
 				</div>
-				<div>
-					<el-row class="mb5">
+				<!--<div id="uploadPlan">
+					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
+						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+							<div style="color: #20a0ff;">
+								<strong>预案上传</strong>
+							</div>
+						</el-col>
+					</el-row>
+					<el-row>
+						<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+						<el-col :xs="18" :sm="18" :md="18" :lg="18" :xl="18">
+							<el-form>
+								<el-form-item>
+									<el-upload class="upload-demo" ref="upload" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false">
+										<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+										<div slot="tip" class="el-upload__tip"></div>
+									</el-upload>
+								</el-form-item>
+							</el-form>
+						</el-col>
+						<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">&nbsp;</el-col>
+					</el-row>
+				</div>-->
+				<div id="remark">
+					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 							<div style="color: #20a0ff;">
 								<strong>备注</strong>

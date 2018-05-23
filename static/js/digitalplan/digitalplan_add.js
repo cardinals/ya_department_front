@@ -175,13 +175,13 @@ new Vue({
         this.searchClick();
     },
     methods: {
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-        },
+        // resetForm(formName) {
+        //     this.$refs[formName].resetFields();
+        // },
         removeDomain(item) {
-            var index = this.dynamicValidateForm.domains.indexOf(item)
+            var index = this.dynamicValidateForm.indexOf(item)
             if (index !== -1) {
-                this.dynamicValidateForm.domains.splice(index, 1)
+                this.dynamicValidateForm.splice(index, 1)
             }
         },
         addDomain() {
@@ -609,9 +609,6 @@ new Vue({
                     return false;
                 }
             });
-
-        },
-        add_disaster: function () {
 
         },
 
