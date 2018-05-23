@@ -9,6 +9,8 @@ new Vue({
             isDtjz:false,
             isJzl:false,
             isZzl:false,
+            yaxx_lrsj:"",
+            isZdy:false,
             /**lxy start */
             fileList: [
                 { name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
@@ -27,6 +29,7 @@ new Vue({
                 YAJB:"",
                 SHZT:"",
                 LRSJ:"",
+                yaxx_lrsj:"",
                 begintime_create: "",
                 endtime_create: ""
             },
@@ -48,17 +51,21 @@ new Vue({
                 JZJG:"",
                 JZGD:"",
             },
-            tableData: [],
-            DWJZtableData: [],
+            //预案信息
+            tableData:[],
+            //预案对象
+            YADXtableData:[],
+            //单位建筑
+            DWJZtableData:[],
             
             //详情页显示
             planDetailVisible: false,
             //预案对象
             yadx_data: [
                 { codeValue: "", codeName: "全部" },
-                { codeValue: "zddw", codeName: "重点单位" },
-                { codeValue: "bwjw", codeName: "消防保卫警卫" },
-                { codeValue: "others", codeName: "其他对象" }],
+                { codeValue: "1", codeName: "重点单位" },
+                { codeValue: "2", codeName: "消防保卫警卫" },
+                { codeValue: "3", codeName: "其他对象" }],
             //预案类型
             yalx_data: [{ codeValue: "", codeName: "全部" }],
             //预案级别
@@ -101,8 +108,12 @@ new Vue({
             currentPage: 1,
             //分页大小
             pageSize: 10,
-            //总记录数
+            //预案信息总记录数
             total: 10,
+            //预案对象信息总记录数
+            //total_2: 10,
+            //单位建筑总记录数
+           // total_3: 10,
             //预案详情页
             detailData: [],
             //详情页日期
@@ -129,8 +140,8 @@ new Vue({
         this.DWJZQK();
         this.JZSYXZ();
         this.JZJG();
-      //  this.searchClick();
-        this.searchDWJZClick();
+        //预案信息
+        this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -144,28 +155,22 @@ new Vue({
             _self.loadingData(); //重新加载数据
         },
 
-        handleExceed(files, fileList) {
-            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-        },
-        //表格查询事件
+        //高级搜索-预案搜索 查询事件
         searchClick: function () {
             this.loading = true;
             var _self = this;
             var params = {
-                yamc: this.yuAnSearchForm.yamc,
-                // createTimeBegin: this.yuAnSearchForm.createTimeBegin,
-                // createTimeEnd: this.yuAnSearchForm.createTimeEnd
+                yamc : this.yuAnSearchForm.YAMC,
+                yadxType : this.yuAnSearchForm.YADX,
+                yalx : this.yuAnSearchForm.YALX.substr(0,1),
+                yajb : this.yuAnSearchForm.YAJB,
+                shzt : this.yuAnSearchForm.SHZT,
+                begintime: this.yuAnSearchForm.begintime_create,
+                endtime: this.yuAnSearchForm.endtime_create
             };
-            axios.post('/dpapi/digitalplanlist/findByVO', params).then(function (res) {
+            axios.post('/dpapi/advancedsearch/gjssYaxxList', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
-                for (var i = 0; i < this.tableData.length; i++) {
-                    for (var k = 0; k < this.yalx_data.length; k++) {
-                        if (this.yalx_data[k].codeValue == this.tableData[i].yalxdm) {
-                            this.tableData[i].yalxdm = this.yalx_data[k].codeName;
-                        }
-                    }
-                }
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -174,7 +179,23 @@ new Vue({
         },
         //预案对象查询事件
         searchYADXClick:function(){
-
+            this.loading = true;
+            var params = {
+                dxmc : this.YADXSearchForm.DXMC,
+                yadxType : this.YADXSearchForm.YADX,
+                xfgx : this.YADXSearchForm.XFGX.substr(0,2),
+                dwxz : this.YADXSearchForm.DWXZ,
+                xzqh : this.YADXSearchForm.XZQH,
+                fhdj : this.YADXSearchForm.FHDJ,
+                jzfl : this.YADXSearchForm.DWJZQK
+            };
+            axios.post('/dpapi/advancedsearch/gjssYadxList', params).then(function (res) {
+                this.YADXtableData = res.data.result;
+                this.total = res.data.result.length;
+                this.loading = false;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         //单位建筑信息查询事件
         searchDWJZClick:function(){
@@ -186,7 +207,7 @@ new Vue({
                 jzl_jzjg:this.DWJZSearchForm.JZJG,
                 jzl_dsgd:this.DWJZSearchForm.JZGD
             };
-            axios.post('/dpapi/advancedsearch/gjssList', params).then(function (res) {
+            axios.post('/dpapi/advancedsearch/gjssDwjzList', params).then(function (res) {
                 this.DWJZtableData = res.data.result;
                 this.total = res.data.result.length;
                 this.loading = false;
@@ -237,10 +258,9 @@ new Vue({
         },
         //单位性质初始化
         DWXZ:function(){
-            axios.get('/api/codelist/getCodetype/ZDDWLB').then(function (res) {
+            axios.get('/api/codelist/getCodetype/DWXZ').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    if(res.data.result[i].codeValue.substr(2,4) == '000')
-                        this.dwxz_data.push(res.data.result[i]);
+                    this.dwxz_data.push(res.data.result[i]);
                 }
             }.bind(this), function (error) {
                 console.log(error);
@@ -301,7 +321,7 @@ new Vue({
 
         //预案对象信息中对象类型为重点单位时显示其他搜索条件
         isZddwShow:function(){
-            if(this.YADXSearchForm.YADX == "zddw")
+            if(this.YADXSearchForm.YADX == "1")
                 this.isZddw = true;
             else{
                 this.isZddw = false;
@@ -432,68 +452,126 @@ new Vue({
                 });
             })
         },
+        
         clearClick: function () {
             this.yuAnSearchForm.YAMC = "";
-            this.yuAnSearchForm.selected_YALX = [];
-            this.yuAnSearchForm.DXMC = "";
-            this.yuAnSearchForm.option_DXLX = [];
-            this.yuAnSearchForm.option_YALB = [];
+            this.yuAnSearchForm.YADX = "";
+            this.yuAnSearchForm.YALX = "";
+            this.yuAnSearchForm.YAJB = "";
+            this.yuAnSearchForm.SHZT = "";
+            this.yuAnSearchForm.LRSJ = "";
             this.yuAnSearchForm.begintime_create = "";
             this.yuAnSearchForm.endtime_create = "";
-            this.$refs.tree.setCheckedKeys([]);
         },
         clearYADXClick:function(){
-
+            this.YADXSearchForm.DXMC = "";
+            this.YADXSearchForm.YADX = "";
+            this.YADXSearchForm.XFGX = "";
         },
         //单位建筑
         clearDWJZClick:function(){
             this.DWJZSearchForm.JZMC="";
             this.DWJZSearchForm.JZLX="";
         },
-        //时间格式
-        begindateChange_create(val) {
-            console.log(val);
-            this.yuAnSearchForm.begintime_create = val;
-        },
-        enddateChange_create(val) {
-            console.log(val);
-            this.yuAnSearchForm.endtime_create = val;
-        },
-        //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
+        //获取制作时间范围
+        lrsjFormat:function(){
+            switch(this.yuAnSearchForm.LRSJ){
+                case '':
+                    this.isZdy = false;
+                    this.yuAnSearchForm.begintime_create = "";
+                    this.yuAnSearchForm.endtime_create = "";
+                    break;
+                case 'today':
+                    this.isZdy = false;
+                    var date = new Date();      //当前时间
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    var day = date.getDate();
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
+                    this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day;
+                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day; 
+                    break;
+                case 'yesterday':
+                    this.isZdy = false;
+                    var date = new Date();
+                    date.setTime(date.getTime() - 3600 * 1000 * 24);
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    var day = date.getDate();
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
+                    this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day;
+                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day; 
+                    break;
+                case 'lastweek':
+                    this.isZdy = false;
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    var day = date.getDate();
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
+                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day;
+                    
+                    date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
                     year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
+                    this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day; 
+                    break;
+                case 'lastmonth':
+                    this.isZdy = false;
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    var day = date.getDate();
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
+                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day;
+                    
+                    date.setTime(date.getTime() - 3600 * 1000 * 24 * 30);
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
+                    this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day;
+                    break;
+                case 'others':
+                    this.isZdy = true;
+                    //清空自定义时间控件的值
+                    this.yaxx_lrsj = "";
+                    break;
+            }
+            
+        },
+        //自定义时间
+        timeChange(val) {
+            if(val == ""){
+                this.yuAnSearchForm.begintime_create = "";
+                this.yuAnSearchForm.endtime_create = "";
+            }else{
+                this.yuAnSearchForm.begintime_create = val.substring(0,val.indexOf("至"));
+                this.yuAnSearchForm.endtime_create = val.substring(val.indexOf("至")+1)
+            }
+        },
+        //点击tab页时，数据加载
+        handleClick(tab, event) {
+            if(tab.index == 0){
+                this.clearClick();
+                this.searchClick();
+            }else if(tab.index == 1){
+                this.clearYADXClick();
+                this.searchYADXClick();
+            }else if(tab.index == 2){
+                this.clearDWJZClick();
+                this.searchDWJZClick();
             }
         },
 
-        //表格勾选事件
-        selectionChange: function (val) {
-            this.multipleSelection = val;
-            console.info(val);
-        },
-        //预案下载
-        downloadPlan: function () {
-            /*var params = ;
-            axios.post('/api/resource/getResource/' + val.ID,params).then(function (res) {
-                this.resourceList = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error)
-            })*/
-        },
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
@@ -504,73 +582,6 @@ new Vue({
             }, 300);
         },
 
-        //新建事件
-        addClick: function () {
-            var _self = this;
-            _self.addFormVisible = true;
-
-        },
-        //新建提交点击事件
-        addSubmit: function (val) {
-            var _self = this;
-            this.tableData.unshift({
-                permissionname: val.permissionname,
-                permissioninfo: val.permissioninfo,
-                create_name: val.create_name,
-                create_time: val.create_time,
-                alter_name: val.alter_name,
-                alter_time: val.alter_time
-            });
-            this.addFormVisible = false;
-            _self.total = _self.tableData.length;
-            _self.loadingData();//重新加载数据
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
-            console.info(this.addForm);
-
-        },
-        //删除所选，批量删除
-        removeSelection: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
-                    message: "请至少选中一条记录",
-                    type: "error"
-                });
-                return;
-            }
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                ids.push(row.permissionname);
-            }
-            this.$confirm("确认删除" + ids + "吗?", "提示", {
-                type: "warning"
-            })
-                .then(function () {
-                    for (var d = 0; d < ids.length; d++) {
-                        for (var k = 0; k < _self.tableData.length; k++) {
-                            if (_self.tableData[k].permissionname == ids[d]) {
-                                _self.tableData.splice(k, 1);
-                            }
-                        }
-                    }
-                    _self.$message({
-                        message: ids + "删除成功",
-                        type: "success"
-                    });
-                    _self.total = _self.tableData.length;
-                    _self.loadingData(); //重新加载数据
-                })
-                .catch(function (e) {
-                    if (e != "cancel") console.log("出现错误：" + e);
-                });
-        },
         //分页大小修改事件
         pageSizeChange: function (val) {
             console.log("每页 " + val + " 条");
@@ -585,55 +596,7 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //表格编辑事件
-        editClick: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
-                    message: "请至少选中一条记录",
-                    type: "error"
-                });
-                return;
-            }
-            else if (multipleSelection.length > 1) {
-                _self.$message({
-                    message: "只能选一条记录进行编辑",
-                    type: "error"
-                });
-                return;
-            }
-            //var ids = "";
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                //ids += row.realname + ",";
-                ids.push(row.permissionname);
-            }
-            for (var d = 0; d < ids.length; d++) {
-                for (var k = 0; k < _self.tableData.length; k++) {
-                    if (_self.tableData[k].permissionname == ids[d]) {
-                        _self.selectIndex = k;
-                    }
-                }
-            }
-            this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-            //this.editForm.sex=(row.sex == "男"?1:0);
-            this.editFormVisible = true;
-        },
-        //保存点击事件
-        editSubmit: function (val) {
-            var _self = this;
-            this.tableData[this.selectIndex].permissionname = val.permissionname;
-            this.tableData[this.selectIndex].permissioninfo = val.permissioninfo;
-            this.tableData[this.selectIndex].create_name = val.create_name;
-            this.tableData[this.selectIndex].create_time = val.create_time;
-            this.tableData[this.selectIndex].alter_name = val.alter_name;
-            this.tableData[this.selectIndex].alter_time = val.alter_time;
-            this.editFormVisible = false;
-            _self.loadingData();//重新加载数据
-            console.info(this.editForm);
-        },
+        
         closeDialog: function (val) {
             this.planDetailVisible = false;
         }
