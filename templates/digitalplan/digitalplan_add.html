@@ -28,31 +28,35 @@
 					</el-row>
 					<el-form :inline="true" class="el-form demo-form-inline" :rules="rules" ref="addForm" :model="addForm" label-position="right">
 						<el-row>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案对象" prop="dxmc">
 									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" clearable></el-input>
 								</el-form-item>
 							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案名称" prop="yamc">
 									<el-input size="small" v-model="addForm.yamc" placeholder="预案名称" clearable></el-input>
 								</el-form-item>
 							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案编号">
 									<el-input size="small" placeholder="保存后系统自动生成" disabled></el-input>
 								</el-form-item>
 							</el-col>
+							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 						</el-row>
 						<el-row>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案级别" prop="yajb">
 									<el-select size="small" v-model="addForm.yajb" placeholder="预案级别" class="searchSelect" clearable>
 										<el-option v-for="item in YAJB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-form-item>
 							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
+							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案类型" prop="yalxdm">
 									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalxdm" placeholder="预案类型" class="searchSelect"
 									 clearable change-on-select></el-cascader>
@@ -225,7 +229,7 @@
 												</el-select>
 											</el-col>
 											<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">
-													<el-button type="danger" icon="delete" size="small" @click.prevent="removellbs(llbs,index)" class="r" style="margin:5px 0 0">删除</el-button>
+												<el-button type="danger" icon="delete" size="small" @click.prevent="removellbs(llbs,index)" class="r" style="margin:5px 0 0">删除</el-button>
 											</el-col>
 										</el-row>
 										<el-row class="tr">
@@ -408,39 +412,39 @@
 				</el-dialog>
 				<!--选择所属建筑界面-->
 				<el-dialog title="选择消防队站" :visible.sync="fireStaListVisible" @close="closeDialog_fireSta()" :close-on-click-modal="false">
-						<div id="tableView" v-loading="loading_fireSta" element-loading-text="加载中">
-							<el-row>
-								<el-form :inline="true" class="el-form demo-form-inline">
-									<el-row>
-										<el-col :span="20" class="searchInline">
-											<label class="el-form-item__label" style="width:90px;">队站名称</label>
-											<el-input size="small" v-model="searchForm_fireSta.dzmc" placeholder="队站名称" clearable></el-input>
-										</el-col>
-										<el-col :span="4" class="btnSearchPlus">
-											<el-button type="primary" icon="search" size="small" @click="fireStaList">查询</el-button>
-										</el-col>
-									</el-row>
-								</el-form>
-							</el-row>
-							<div class="table_container">
-								<el-table border id="table" :data="tableData_fireSta.slice((currentPage_fireSta-1)*pageSize_fireSta,currentPage_fireSta*pageSize_fireSta)"
-								 class="tableStyle" :height="tableheight_fireSta" @row-click="selectRow_fireSta">
-									<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-									<el-table-column prop="dzmc" label="队站名称" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-									<el-table-column prop="dzlxmc" label="队站类型" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-									<el-table-column prop="dzdz" label="队站地址" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-								</el-table>
-								<!--列表底部工具条和分页符-->
-								<el-row type="flex" justify="end">
-									<el-col :span="18">
-										<el-pagination @current-change="currentPageChange_fireSta" :current-page="currentPage_fireSta" :page-size="pageSize_fireSta"
-										 layout="total, prev, pager, next, jumper" :total=parseInt(total_fireSta)>
-										</el-pagination>
+					<div id="tableView" v-loading="loading_fireSta" element-loading-text="加载中">
+						<el-row>
+							<el-form :inline="true" class="el-form demo-form-inline">
+								<el-row>
+									<el-col :span="20" class="searchInline">
+										<label class="el-form-item__label" style="width:90px;">队站名称</label>
+										<el-input size="small" v-model="searchForm_fireSta.dzmc" placeholder="队站名称" clearable></el-input>
+									</el-col>
+									<el-col :span="4" class="btnSearchPlus">
+										<el-button type="primary" icon="search" size="small" @click="fireStaList">查询</el-button>
 									</el-col>
 								</el-row>
-							</div>
+							</el-form>
+						</el-row>
+						<div class="table_container">
+							<el-table border id="table" :data="tableData_fireSta.slice((currentPage_fireSta-1)*pageSize_fireSta,currentPage_fireSta*pageSize_fireSta)"
+							 class="tableStyle" :height="tableheight_fireSta" @row-click="selectRow_fireSta">
+								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
+								<el-table-column prop="dzmc" label="队站名称" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="dzlxmc" label="队站类型" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="dzdz" label="队站地址" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+							</el-table>
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination @current-change="currentPageChange_fireSta" :current-page="currentPage_fireSta" :page-size="pageSize_fireSta"
+									 layout="total, prev, pager, next, jumper" :total=parseInt(total_fireSta)>
+									</el-pagination>
+								</el-col>
+							</el-row>
 						</div>
-					</el-dialog>
+					</div>
+				</el-dialog>
 			</div>
 		</div>
 	</div>
