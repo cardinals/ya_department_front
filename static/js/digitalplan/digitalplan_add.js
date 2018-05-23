@@ -15,6 +15,7 @@ new Vue({
             addForm: {
                 dxid: "",//重点单位
                 dxmc: "",
+                xzqh: "",
                 yamc: "",//预案名称
                 yalxdm: [],//预案类型
                 yajb: "",//预案级别
@@ -40,6 +41,7 @@ new Vue({
                 //力量部署
                 forcedevList: [{
                     dzid: '',
+                    dzmc: '',
                     djfalx: '',
                     tkwz: '',
                     clzbts: ''
@@ -59,6 +61,7 @@ new Vue({
             detailData: {},
             //灾情信息data
             zqIndex: '',
+            dzIndex: '',
             RSWZ_dataTree: [],
             ZQDJ_dataTree: [],
             QHYY_data: [],
@@ -145,6 +148,23 @@ new Vue({
             tableData_building: [],
             //表高度变量
             tableheight_building: 250,
+
+            //消防队站弹出页---------------------------------------------------
+            fireStaListVisible: false,
+            loading_fireSta: false,
+            //当前页
+            currentPage_fireSta: 1,
+            //分页大小
+            pageSize_fireSta: 5,
+            //总记录数
+            total_fireSta: 0,
+            //搜索表单
+            searchForm_fireSta: {
+                dzmc: ""
+            },
+            tableData_fireSta: [],
+            //表高度变量
+            tableheight_fireSta: 250,
             // labelPosition: 'right',
             //多选值
             // multipleSelection: [],
@@ -189,12 +209,11 @@ new Vue({
             }
         },
         //力量部署删除
-        removellbs(item,num) {
+        removellbs(item, num) {
             var index = this.dynamicValidateForm[num].forcedevList.indexOf(item)
             if (index !== -1) {
                 this.dynamicValidateForm[num].forcedevList.splice(index, 1)
             }
-            
         },
         //灾情增加
         addDomain() {
@@ -214,6 +233,7 @@ new Vue({
                 zqsdyj: '',
                 forcedevList: [{
                     dzid: '',
+                    dzmc: '',
                     djfalx: '',
                     tkwz: '',
                     clzbts: ''
@@ -229,6 +249,7 @@ new Vue({
         addDomainllbs(val) {
             this.dynamicValidateForm[val].forcedevList.push({
                 dzid: '',
+                dzmc: '',
                 djfalx: '',
                 tkwz: '',
                 clzbts: ''
@@ -393,6 +414,7 @@ new Vue({
         selectRow_units: function (val) {
             this.addForm.dxmc = val.dwmc;
             this.addForm.dxid = val.uuid;
+            this.addForm.xzqh = val.xzqh;
             this.unitsListVisible = false;
         },
         //重点单位弹出页关闭
@@ -479,9 +501,54 @@ new Vue({
             this.dynamicValidateForm[index].jzmc = val.jzmc
             this.buildingListVisible = false;
         },
-        //灾情部位弹出页关闭
+        //所属建筑弹出页关闭
         closeDialog_building: function (val) {
             this.buildingListVisible = false;
+        },
+        //消防队站选择弹出页---------------------------------------------------------------
+        fireStaList: function (val,val1) {
+            this.zqIndex = val;
+            this.dzIndex = val1;
+            if (this.addForm.dxid == null || this.addForm.dxid == "") {
+                this.$message({
+                    message: "请先选择预案对象",
+                    showClose: true,
+                });
+            } else {
+                this.fireStaListVisible = true;
+                this.loading_fireSta = true;
+                var params = {
+                    xzqh: this.addForm.xzqh,
+                    dzmc: this.searchForm_fireSta.dzmc
+                };
+                axios.post('/dpapi/xfdz/list', params).then(function (res) {
+                    this.tableData_fireSta = res.data.result;
+                    this.total_fireSta = res.data.result.length;
+                    this.loading_fireSta = false;
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+        },
+        //当前页修改事件
+        currentPageChange_fireSta: function (val) {
+            this.currentPage_fireSta = val;
+            // console.log("当前页: " + val);
+            var _self = this;
+            _self.loadingData(); //重新加载数据
+        },
+        //选择消防队站，返回消防队站名称和id
+        selectRow_fireSta: function (val) {
+            debugger
+            var index = this.zqIndex;
+            var index1 = this.dzIndex;
+            this.dynamicValidateForm[index].forcedevList[index1].dzid = val.zdid
+            this.dynamicValidateForm[index].forcedevList[index1].dzmc = val.dzmc
+            this.fireStaListVisible = false;
+        },
+        //消防队站弹出页关闭
+        closeDialog_fireSta: function (val) {
+            this.fireStaListVisible = false;
         },
 
         //表格数据格式化
@@ -493,7 +560,6 @@ new Vue({
                 return rowDate;
             }
         },
-
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
@@ -539,7 +605,7 @@ new Vue({
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params, this.fileList).then(function (res) {
                             this.upLoadData.yaid = res.data.result.uuid;
-                            if(this.fileList.length>0){
+                            if (this.fileList.length > 0) {
                                 this.submitUpload();//附件上传
                             }
                             this.$message({
@@ -639,9 +705,9 @@ new Vue({
             const isRAR = file.type === 'file/rar';
             if (!isZip && !isRAR) {
                 this.$message.error('仅可上传zip格式压缩文件!');
-                fileList.splice(0,fileList.length);
+                fileList.splice(0, fileList.length);
             }
-            return isZip||isRAR;
+            return isZip || isRAR;
         },
         handleRemove(file, fileList) {
             console.log(file, fileList);
