@@ -105,21 +105,26 @@
                                             <el-radio-button v-for="item in yadx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
-                                    <el-form-item label="消防管辖">
-                                        <el-radio-group size="medium" v-model="YADXSearchForm.XFGX">
+                                    <el-form-item label="消防管辖" id="xfgxDiv" style="height:34px;overflow:hidden;">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.XFGX" style="float: left;width: 96%;">
                                             <el-radio-button v-for="item in xfgx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
+                                        <el-button id="xfgxSpread" size="mini" type="primary" plain style="float: right;margin-top: 7px;" @click="spread">展开</el-button>
+                                        
                                     </el-form-item>
-                                    <el-form-item label="单位性质" v-show = "isZddw" style="margin-top: 2px;margin-bottom: 2px;">
-                                        <el-radio-group size="medium" v-model="YADXSearchForm.DWXZ">
+                                    <el-form-item label="单位性质" id="dwxzDiv" v-show = "isZddw" style="margin-top:2px;margin-bottom:2px;height:34px;overflow:hidden;">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.DWXZ" style="float: left;width: 96%;">
                                             <el-radio-button v-for="item in dwxz_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
+                                        <el-button id="dwxzSpread" size="mini" type="primary" plain style="float: right;margin-top: 7px;" @click="spread_dwxz">展开</el-button>
                                     </el-form-item>
+                                    <!--
                                     <el-form-item label="行政区划" v-show = "isZddw">
                                         <el-radio-group size="medium" v-model="YADXSearchForm.XZQH">
                                             <el-radio-button v-for="item in xzqh_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
+                                    -->
                                     <el-form-item label="防火等级" v-show = "isZddw">
                                         <el-radio-group size="medium" v-model="YADXSearchForm.FHDJ">
                                             <el-radio-button v-for="item in fhdj_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>

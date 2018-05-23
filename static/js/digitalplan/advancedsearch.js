@@ -593,7 +593,29 @@ new Vue({
                 this.searchDWJZClick();
             }
         },
-
+        //展开 收起
+        spread:function(){
+            var a = document.getElementById("xfgxSpread").innerText;  
+            if(a=="展开"){
+                document.getElementById('xfgxDiv').style.height='auto';
+                document.getElementById("xfgxSpread").innerText="收起";
+            }else if(a=="收起"){
+                document.getElementById('xfgxDiv').style.height='34px';
+                document.getElementById("xfgxSpread").innerText="展开";
+            }
+            
+        },
+        spread_dwxz:function(){
+            var a = document.getElementById("dwxzSpread").innerText;  
+            if(a=="展开"){
+                document.getElementById('dwxzDiv').style.height='auto';
+                document.getElementById("dwxzSpread").innerText="收起";
+            }else if(a=="收起"){
+                document.getElementById('dwxzDiv').style.height='34px';
+                document.getElementById("dwxzSpread").innerText="展开";
+            }
+            
+        },
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
