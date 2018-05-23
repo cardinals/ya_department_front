@@ -87,11 +87,14 @@ new Vue({
                 ]
             },
             fileList: [
-                { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
+                // { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
+                // { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
+                // { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
+                // { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
             ],
+            upLoadData: {
+                yaid: ""
+            },
             //重点单位弹出页---------------------------------------------------
             unitsListVisible: false,
             loading_units: false,
@@ -178,12 +181,22 @@ new Vue({
         // resetForm(formName) {
         //     this.$refs[formName].resetFields();
         // },
+        //灾情删除
         removeDomain(item) {
             var index = this.dynamicValidateForm.indexOf(item)
             if (index !== -1) {
                 this.dynamicValidateForm.splice(index, 1)
             }
         },
+        //力量部署删除
+        removellbs(item,num) {
+            var index = this.dynamicValidateForm[num].forcedevList.indexOf(item)
+            if (index !== -1) {
+                this.dynamicValidateForm[num].forcedevList.splice(index, 1)
+            }
+            
+        },
+        //灾情增加
         addDomain() {
             this.dynamicValidateForm.push({
                 bwmc: '',
@@ -212,6 +225,7 @@ new Vue({
                 key: Date.now()
             });
         },
+        //力量部署增加
         addDomainllbs(val) {
             this.dynamicValidateForm[val].forcedevList.push({
                 dzid: '',
@@ -470,7 +484,6 @@ new Vue({
             this.buildingListVisible = false;
         },
 
-
         //表格数据格式化
         dataFormat: function (row, column) {
             var rowDate = row[column.property];
@@ -524,13 +537,18 @@ new Vue({
                             zzrid: this.role_data.userid,
                             zzrmc: this.role_data.realName
                         };
-                        axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
-                            
-                            window.location.href = "digitalplan_list.html";
+                        axios.post('/dpapi/digitalplanlist/insertByVO', params, this.fileList).then(function (res) {
+                            this.upLoadData.yaid = res.data.result.uuid;
+                            if(this.fileList.length>0){
+                                this.submitUpload();//附件上传
+                            }
                             this.$message({
                                 message: "成功保存预案",
                                 showClose: true,
+                                duration: 0,
+                                onClose: window.location.href = "digitalplan_list.html"
                             });
+                            // window.location.href = "digitalplan_list.html";
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -555,8 +573,6 @@ new Vue({
                     return false;
                 }
             });
-
-
         },
         //提交点击事件
         submit: function (formName) {
@@ -613,12 +629,25 @@ new Vue({
         },
 
         submitUpload() {
-            this.upLoadData = { id: 2 };
+            // this.upLoadData = { id: 2 };
             this.$refs.upload.submit();
         },
+        //上传前格式校验
+        beforeUpload(file) {
+            const self = this;  //this必须赋值
+            const isZip = file.type === 'file/zip';
+            const isRAR = file.type === 'file/rar';
+            if (!isZip && !isRAR) {
+                this.$message.error('仅可上传zip格式压缩文件!');
+                fileList.splice(0,fileList.length);
+            }
+            return isZip||isRAR;
+        },
         handleRemove(file, fileList) {
+            console.log(file, fileList);
         },
         handlePreview(file) {
+            console.log(file);
         },
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);

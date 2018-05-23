@@ -207,7 +207,7 @@
 									</el-col>
 								</el-row>
 								<el-form :model="domain.forcedevList" ref="domain.forcedevList" label-width="100px" style="margin:0;">
-									<el-form-item v-for="llbs in domain.forcedevList" :key="llbs.key" :prop="'forcedevList.' + index + '.value'" label-position="right">
+									<el-form-item v-for="llbs in domain.forcedevList" :key="llbs.key" :prop="'forcedevList.value'" label-position="right">
 										<el-row class="tr">
 											<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
 												<el-label class="mr5">消防队站</el-label>
@@ -224,7 +224,9 @@
 													<el-option v-for="item in DJFALX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 												</el-select>
 											</el-col>
-											<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9"></el-col>
+											<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9">
+													<el-button type="danger" icon="delete" size="small" @click.prevent="removellbs(llbs,index)" class="r" style="margin:5px 0 0">删除</el-button>
+											</el-col>
 										</el-row>
 										<el-row class="tr">
 											<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
