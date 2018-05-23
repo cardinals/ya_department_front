@@ -8,7 +8,9 @@ new Vue({
             searchForm: {
                 dxmc: '',
                 dxdz: '',
-                xfgx: ''
+                xfgx: '',
+                //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
+                uuid:""
             },
             tableData: [],
             xfgxData: [],
@@ -73,7 +75,12 @@ new Vue({
         searchClick: function () {
             this.loading=true;
             var _self = this;
+            //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
+            this.searchForm.uuid = this.GetQueryString("id");
             var params={
+                //add by yushch
+                uuid : this.searchForm.uuid,
+                //end add
                 dxmc :this.searchForm.dxmc,
                 dxdz :this.searchForm.dxdz,
                 xfgx :this.searchForm.xfgx,
@@ -138,6 +145,12 @@ new Vue({
         //点击进入详情页
         informClick(val) {
             window.location.replace("otherobjects_detail.html?ID=" + val.uuid);
-        }
+        },
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        },
     }
 })
