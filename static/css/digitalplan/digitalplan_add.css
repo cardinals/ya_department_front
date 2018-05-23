@@ -28,3 +28,6 @@ input[type=file] {
 .el-textarea {
     width: 90%;
 }
+.el-message{
+    z-index: 10005 !important;
+}

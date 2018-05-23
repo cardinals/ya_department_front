@@ -98,12 +98,12 @@
 								<el-row class="tr">
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>灾情部位</el-label>
-										<el-input v-model="domain.bwmc" size="small"></el-input>
+										<el-input v-model="domain.bwmc" size="small" @focus="partsList(index)"></el-input>
 										<!-- <el-button @click.prevent="removeDomain(domain)">删除</el-button> -->
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>所属建筑</el-label>
-										<el-input v-model="domain.jzid" size="small"></el-input>
+										<el-input v-model="domain.jzmc" size="small" @focus="buildingList(index)"></el-input>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>燃烧物质</el-label>
@@ -146,6 +146,18 @@
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
 										<el-label>起火高度</el-label>
 										<el-input v-model="domain.qhbwgd" size="small"></el-input>
+									</el-col>
+								</el-row>
+								<el-row class="tr">
+									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+										<el-label>灾情描述</el-label>
+										<el-input size="small" v-model="domain.zqms" placeholder="灾情描述" type="textarea" autosize></el-input>
+									</el-col>
+								</el-row>
+								<el-row class="tr">
+									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+										<el-label>灾情设定依据</el-label>
+										<el-input size="small" v-model="domain.zqsdyj" placeholder="灾情设定依据" type="textarea" autosize></el-input>
 									</el-col>
 								</el-row>
 								<el-row style="border-bottom: 1px solid #d1dbe5;" class="mt5 mb5">
@@ -234,25 +246,25 @@
 						</el-row>
 					</el-form>
 				</el-row>
-				<!--详情界面-->
-				<el-dialog title="选择重点单位" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
-					<div id="tableView" v-loading="loading2" element-loading-text="加载中">
+				<!--选择重点单位界面-->
+				<el-dialog title="选择重点单位" :visible.sync="unitsListVisible" @close="closeDialog_units()" :close-on-click-modal="false">
+					<div id="tableView" v-loading="loading_units" element-loading-text="加载中">
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
 								<el-row>
 									<el-col :span="20" class="searchInline">
 										<label class="el-form-item__label" style="width:90px;">单位名称</label>
-										<el-input size="small" v-model="searchForm.dwmc" placeholder="单位名称" clearable></el-input>
+										<el-input size="small" v-model="searchForm_units.dwmc" placeholder="单位名称" clearable></el-input>
 									</el-col>
 									<el-col :span="4" class="btnSearchPlus">
-										<el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
+										<el-button type="primary" icon="search" size="small" @click="keyunitList">查询</el-button>
 									</el-col>
 								</el-row>
 							</el-form>
 						</el-row>
 						<div class="table_container">
-							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" class="tableStyle" :height="tableheight"
-							 @row-click="selectRow">
+							<el-table border id="table" :data="tableData_units.slice((currentPage_units-1)*pageSize_units,currentPage_units*pageSize_units)"
+							 class="tableStyle" :height="tableheight_units" @row-click="selectRow_units">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
 								<el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="40%" align="center" :formatter="dataFormat"></el-table-column>
 								<el-table-column prop="dwlbmc" label="单位类别" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
@@ -261,8 +273,78 @@
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">
 								<el-col :span="18">
-									<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
-									 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+									<el-pagination @current-change="currentPageChange_units" :current-page="currentPage_units" :page-size="pageSize_units" layout="total, prev, pager, next, jumper"
+									 :total=parseInt(total_units)>
+									</el-pagination>
+								</el-col>
+							</el-row>
+						</div>
+					</div>
+				</el-dialog>
+				<!--选择灾情部位界面-->
+				<el-dialog title="选择灾情部位" :visible.sync="partsListVisible" @close="closeDialog_parts()" :close-on-click-modal="false">
+					<div id="tableView" v-loading="loading_parts" element-loading-text="加载中">
+						<el-row>
+							<el-form :inline="true" class="el-form demo-form-inline">
+								<el-row>
+									<el-col :span="20" class="searchInline">
+										<label class="el-form-item__label" style="width:90px;">部位名称</label>
+										<el-input size="small" v-model="searchForm_parts.zdbwmc" placeholder="部位名称" clearable></el-input>
+									</el-col>
+									<el-col :span="4" class="btnSearchPlus">
+										<el-button type="primary" icon="search" size="small" @click="partsList">查询</el-button>
+									</el-col>
+								</el-row>
+							</el-form>
+						</el-row>
+						<div class="table_container">
+							<el-table border id="table" :data="tableData_parts.slice((currentPage_parts-1)*pageSize_parts,currentPage_parts*pageSize_parts)"
+							 class="tableStyle" :height="tableheight_parts" @row-click="selectRow_parts">
+								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
+								<el-table-column prop="zdbwmc" label="部位名称" show-overflow-tooltip min-width="40%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="zdbwlxmc" label="部位类型" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="zdbwwz" label="部位位置" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+							</el-table>
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination @current-change="currentPageChange_parts" :current-page="currentPage_parts" :page-size="pageSize_parts" layout="total, prev, pager, next, jumper"
+									 :total=parseInt(total_parts)>
+									</el-pagination>
+								</el-col>
+							</el-row>
+						</div>
+					</div>
+				</el-dialog>
+				<!--选择所属建筑界面-->
+				<el-dialog title="选择所属建筑" :visible.sync="buildingListVisible" @close="closeDialog_building()" :close-on-click-modal="false">
+					<div id="tableView" v-loading="loading_building" element-loading-text="加载中">
+						<el-row>
+							<el-form :inline="true" class="el-form demo-form-inline">
+								<el-row>
+									<el-col :span="20" class="searchInline">
+										<label class="el-form-item__label" style="width:90px;">建筑名称</label>
+										<el-input size="small" v-model="searchForm_building.jzmc" placeholder="建筑名称" clearable></el-input>
+									</el-col>
+									<el-col :span="4" class="btnSearchPlus">
+										<el-button type="primary" icon="search" size="small" @click="buildingList">查询</el-button>
+									</el-col>
+								</el-row>
+							</el-form>
+						</el-row>
+						<div class="table_container">
+							<el-table border id="table" :data="tableData_building.slice((currentPage_building-1)*pageSize_building,currentPage_building*pageSize_building)"
+							 class="tableStyle" :height="tableheight_building" @row-click="selectRow_building">
+								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
+								<el-table-column prop="jzmc" label="建筑名称" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="jzlxmc" label="建筑类型" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="jzwz" label="建筑位置" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+							</el-table>
+							<!--列表底部工具条和分页符-->
+							<el-row type="flex" justify="end">
+								<el-col :span="18">
+									<el-pagination @current-change="currentPageChange_building" :current-page="currentPage_building" :page-size="pageSize_building"
+									 layout="total, prev, pager, next, jumper" :total=parseInt(total_building)>
 									</el-pagination>
 								</el-col>
 							</el-row>
