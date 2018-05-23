@@ -8,7 +8,7 @@ new Vue({
             searchForm: {
                 yamc: "",
                 dxmc: "",
-                yalxdm: "",
+                yalx: "",
                 sfkqy: "",
                 jgid: "",
                 cjsj: new Array()
@@ -260,7 +260,7 @@ new Vue({
             // this.loading = true;//表格重新加载
             var params = {
                 yamc:this.searchForm.yamc,
-                yalxdm:this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
+                yalx:this.searchForm.yalx[this.searchForm.yalx.length-1],
                 dxmc:this.searchForm.dxmc,
                 // begintime_create:this.searchForm.cjsj[0],
                 // endtime_create:this.searchForm.cjsj[1],
@@ -271,8 +271,8 @@ new Vue({
                 for (var i = 0; i < this.tableData.length; i++) {
                     //预案类型转码
                     for (var k = 0; k < this.yalxdmData.length; k++) {
-                        if (this.yalxdmData[k].codeValue == this.tableData[i].yalxdm) {
-                            this.tableData[i].yalxdm = this.yalxdmData[k].codeName;
+                        if (this.yalxdmData[k].codeValue == this.tableData[i].yalx) {
+                            this.tableData[i].yalx = this.yalxdmData[k].codeName;
                         }
                     }
                     //是否跨区域转码
@@ -293,7 +293,7 @@ new Vue({
         clearClick: function () {
             this.searchForm.yamc="";
             this.searchForm.dxmc="";
-            this.searchForm.yalxdm=[];
+            this.searchForm.yalx=[];
             this.searchForm.sfkqy="";
             this.searchForm.jgid=[];
            

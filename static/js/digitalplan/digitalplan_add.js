@@ -6,33 +6,64 @@ new Vue({
         return {
             //主页面------------------------------------------
             visible: false,
-            disasterIndex:0,
+            //0新增
+            status: '',
             //新建数据
             addForm: {
-                dwid: "",//重点单位
-                dwmc: "",
+                dxid: "",//重点单位
+                dxmc: "",
                 yamc: "",//预案名称
                 yalxdm: [],//预案类型
                 yajb: "",//预案级别
                 yazt: "",//预案状态
-                bz: ""//备注
+                bz: "",//备注
+                disasterList: []
             },
-            //0新增
-            status: '',
+            //灾情、力量部署、要点提示
+            dynamicValidateForm: [{
+                bwmc: '',
+                jzid: '',
+                rswz: '',
+                zqdj: '',
+                qhyy: '',
+                rsmj: '',
+                zhcs: '',
+                hzwxx: '',
+                qhbwgd: '',
+                zqms: '',
+                zqsdyj: '',
+                forcedevList: [{
+                    dzid: '',
+                    djfalx: '',
+                    tkwz: '',
+                    clzbts: ''
+                }],
+                keypointsMap: {
+                    zsyd: '',
+                    tbjs: '',
+                }
+            }],
             loading1: false,
-            loading2: false,
+            //预案基本信息data
             YALX_dataTree: [],
             YAJB_data: [],
             YAZT_data: [],
             role_data: {},
             detailData: {},
-            planDetailVisible: false,
+            //灾情信息data
+            RSWZ_dataTree: [],
+            ZQDJ_dataTree: [],
+            QHYY_data: [],
+            ZHCS_data: [],
+            HZWXX_data: [],
+            DJFALX_data: [],
             //树结构配置
             defaultProps: {
                 children: 'children',
                 label: 'codeName',
                 value: 'codeValue'
             },
+            //校验规则
             rules: {
                 dxmc: [
                     { required: true, message: '请选择预案对象', trigger: 'blur' }
@@ -53,7 +84,9 @@ new Vue({
                 { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
                 { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
             ],
-            //弹出页---------------------------------------------------
+            //重点单位弹出页---------------------------------------------------
+            planDetailVisible: false,
+            loading2: false,
             //搜索表单
             searchForm: {
                 dwmc: ""
@@ -78,37 +111,19 @@ new Vue({
             sels: [],
             //选中的序号
             selectIndex: -1,
-            dynamicValidateForm: {
-                domains: [{
-                    bwmc: '',
-                    jzid: '',
-                    rswz: '',
-                    zqdj: '',
-                    qhyy: '',
-                    rsmj: '',
-                    zhcs: '',
-                    hzwxx: '',
-                    qhbwgd: ''
-                    // zqms: ''
-                    // zqsdyj: '',
-                    // llbs: [{
-                    //     dzid: '',
-                    //     djfalx: '',
-                    //     tkwz: '',
-                    //     clzbts: ''
-                    // }],
-                    // ydts: {
-                    //     zsyd: '',
-                    //     tbjs: ''
-                    // }
-                }]
-            }
+
         }
     },
     created: function () {
         this.YALX_tree();
+        this.RSWZ_tree();
+        this.ZQDJ_tree();
         this.YAJB();
         this.YAZT();
+        this.QHYY();
+        this.ZHCS();
+        this.HZWXX();
+        this.DJFALX();
     },
     mounted: function () {
         var url = location.search;
@@ -129,10 +144,7 @@ new Vue({
             }
         },
         addDomain() {
-            this.disasterIndex++;
-            // debugger
-            this.dynamicValidateForm.domains.push({
-                zqIndex:this.disasterIndex,
+            this.dynamicValidateForm.push({
                 bwmc: '',
                 jzid: '',
                 rswz: '',
@@ -142,20 +154,28 @@ new Vue({
                 zhcs: '',
                 hzwxx: '',
                 qhbwgd: '',
-                // zqms: '',
-                // zqsdyj: '',
-                // llbs: [{
-                //     dzid: '',
-                //     djfalx: '',
-                //     tkwz: '',
-                //     clzbts: ''
-                // }],
-                // ydts: {
-                //     zsyd: '',
-                //     tbjs: ''
-                // }
+                zqms: '',
+                zqsdyj: '',
+                forcedevList: [{
+                    dzid: '',
+                    djfalx: '',
+                    tkwz: '',
+                    clzbts: ''
+                }],
+                keypointsMap: {
+                    zsyd: '',
+                    tbjs: '',
+                },
                 key: Date.now()
             });
+        },
+        addDomainllbs(val) {
+            this.dynamicValidateForm[val].forcedevList.push({
+                dzid: '',
+                djfalx: '',
+                tkwz: '',
+                clzbts: ''
+            })
         },
 
         //预案类型级联选择
@@ -166,6 +186,40 @@ new Vue({
             };
             axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
                 this.YALX_dataTree = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //燃烧物质级联选择
+        RSWZ_tree: function () {
+            // var params = {
+            //     codetype: "RSWZ",
+            //     list: [1, 3]
+            // };
+            // axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
+            //     this.RSWZ_dataTree = res.data.result;
+            // }.bind(this), function (error) {
+            //     console.log(error);
+            // })
+            axios.get('/api/codelist/getCodetype/RSWZ').then(function (res) {
+                this.RSWZ_dataTree = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //灾情等级级联选择
+        ZQDJ_tree: function () {
+            // var params = {
+            //     codetype: "ZQDJ",
+            //     list: [1, 4]
+            // };
+            // axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
+            //     this.ZQDJ_dataTree = res.data.result;
+            // }.bind(this), function (error) {
+            //     console.log(error);
+            // })
+            axios.get('/api/codelist/getCodetype/ZQDJ').then(function (res) {
+                this.ZQDJ_dataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -186,13 +240,43 @@ new Vue({
                 console.log(error);
             })
         },
+        //起火原因下拉框
+        QHYY: function () {
+            axios.get('/api/codelist/getCodetype/QHYY').then(function (res) {
+                this.QHYY_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //灾害场所下拉框
+        ZHCS: function () {
+            axios.get('/api/codelist/getCodetype/ZHCS').then(function (res) {
+                this.ZHCS_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //火灾危险性下拉框
+        HZWXX: function () {
+            axios.get('/api/codelist/getCodetype/HZWXX').then(function (res) {
+                this.HZWXX_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        //调集方案类型下拉框
+        DJFALX: function () {
+            axios.get('/api/codelist/getCodetype/DJFALX').then(function (res) {
+                this.DJFALX_data = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
         //初始化查询（制作机构、制作人）
         searchClick: function () {
             this.loading1 = true;
             axios.post('/api/shiro').then(function (res) {
                 this.role_data = res.data;
-                this.addForm.zzrmc = this.role_data.realName;
-                // this.addForm.zzjg=this.role_data.zzjgid;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -278,7 +362,6 @@ new Vue({
             this.addForm.dxmc = val.dwmc;
             this.addForm.dxid = val.uuid;
             this.planDetailVisible = false;
-            // this.closeDialog();
         },
         //时间格式化
         dateFormat: function (val) {
@@ -302,17 +385,21 @@ new Vue({
                 if (valid) {
                     if (this.status == 0) {
                         var params = {
-                            dxid: this.addForm.dwid,
+                            dxid: this.addForm.dxid,
+                            dxmc: this.addForm.dxmc,
                             yamc: this.addForm.yamc,
-                            yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
-                            yazt: this.addForm.yazt,
+                            yalx: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                            yazt: '01',
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
-                            // jgid: this.role_data.jgid,
-                            // zzrid: this.role_data.userid,
+                            disasterList: this.dynamicValidateForm
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
-                            alert("成功保存" + res.data.result.length + "条预案");
+                            this.$message({
+                                message: "成功保存预案",
+                                showClose: true,
+                            });
+                            window.location.href = "digitalplan_list.html";
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -325,8 +412,6 @@ new Vue({
                             yazt: this.addForm.yazt,
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
-                            // jgid: this.role_data.jgid,
-                            // zzrid: this.role_data.userid,
                         };
                         axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
                             alert("成功修改" + res.data.result.length + "条预案");
@@ -355,8 +440,7 @@ new Vue({
                             shzt: '01',
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
-                            // jgid: this.role_data.jgid,
-                            // zzrid: this.role_data.userid,
+                            disasterList: this.dynamicValidateForm.domains
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
                             alert("成功提交" + res.data.result.length + "条预案");

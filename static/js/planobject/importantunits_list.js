@@ -11,14 +11,15 @@ new Vue({
                 dwxz: "",
                 jzfl: "",
                 fhdj: "",
-                mhdzid: "",
+                mhdzbm: "",
                 xfdwlxmc: ""
             },
             tableData: [],
-
-            dwlbData: [],
+            //单位性质下拉框
+            dwxzData: [],
             jzflData: [],
             fhdjData: [],
+            mhdzidData: [],
             xfdwlxmcData: [{
                 codeValue: '全部',
                 codeName: '全部'
@@ -29,7 +30,6 @@ new Vue({
                 codeValue: '无',
                 codeName: '无'
             }],
-            mhdzidData: [],
 
             XFGX_data: [],
             selected_XFGX: [],
@@ -105,7 +105,9 @@ new Vue({
         }
     },
     created: function () {
+        this.getdwxzData();
         this.getfhdjData();
+        this.getmhdziddata();
         this.getjzflData();
         this.searchClick();
     },
@@ -125,7 +127,7 @@ new Vue({
                 dwxz: this.searchForm.dwxz,
                 jzfl: this.searchForm.jzfl,
                 fhdj: this.searchForm.fhdj,
-                mhdzid: this.searchForm.mhdzid,
+                mhdzbm: this.searchForm.mhdzbm,
                 xfdwlxmc: this.searchForm.xfdwlxmc
             };
             axios.post('/dpapi/importantunits/list', params).then(function(res){
@@ -141,12 +143,35 @@ new Vue({
             this.searchForm.dwxz="";
             this.searchForm.jzfl="";
             this.searchForm.fhdj="";
-            this.searchForm.mhdzid="";
+            this.searchForm.mhdzbm="";
             this.searchForm.xfdwlxmc="";
+        },
+        getdwxzData: function () {
+            axios.get('/api/codelist/getCodeTypeOrderByNum/DWXZ').then(function (res) {
+                this.dwxzData = res.data.result;
+                // this.dwxzData.sort(this.compare('value'));
+                // console.log(this.dwxzData);
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        compare: function (property) {
+            return function (a, b) {
+                var value1 = parseInt(a[property]);
+                var value2 = parseInt(b[property]);
+                return value1 - value2;
+            }
         },
         getfhdjData: function () {
             axios.get('/api/codelist/getCodetype/FHDJ').then(function (res) {
                 this.fhdjData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
+        getmhdziddata:function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.mhdzidData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -180,17 +205,10 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
+            // console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
         }
