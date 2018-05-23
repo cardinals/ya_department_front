@@ -31,27 +31,27 @@
                                         </el-col>
                                     </el-row>
                                     <el-form-item label="预案对象">
-                                        <el-radio-group size="small" v-model="yuAnSearchForm.YADX">
+                                        <el-radio-group size="medium" v-model="yuAnSearchForm.YADX">
                                             <el-radio-button v-for="item in yadx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="预案类型">
-                                        <el-radio-group size="small" v-model="yuAnSearchForm.YALX">
+                                        <el-radio-group size="medium" v-model="yuAnSearchForm.YALX">
                                             <el-radio-button v-for="item in yalx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="预案级别">
-                                        <el-radio-group size="small" v-model="yuAnSearchForm.YAJB">
+                                        <el-radio-group size="medium" v-model="yuAnSearchForm.YAJB">
                                             <el-radio-button v-for="item in yajb_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="审核状态">
-                                        <el-radio-group size="small" v-model="yuAnSearchForm.SHZT">
+                                        <el-radio-group size="medium" v-model="yuAnSearchForm.SHZT">
                                             <el-radio-button v-for="item in shzt_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="制作时间">
-                                        <el-radio-group size="small" v-model="yuAnSearchForm.LRSJ" @change="lrsjFormat">
+                                        <el-radio-group size="medium" v-model="yuAnSearchForm.LRSJ" @change="lrsjFormat">
                                             <el-radio-button v-for="item in lrsj_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                         <el-date-picker v-model="yaxx_lrsj" type="daterange" placeholder="录入时间" format="yyyy/MM/dd" value-format="yyyy/MM/dd" range-separator="至"
@@ -68,7 +68,7 @@
                                                 </div>
                                             </el-col>
                                         </el-row>
-                                        <el-row>
+                                        <el-row style="margin-top: 15px">
                                             <el-col :span="12">
                                                 <div>对象名称：{{data.dxmc}}</div>
                                             </el-col>
@@ -101,32 +101,32 @@
                                         </el-col>
                                     </el-row>
                                     <el-form-item label="对象类型">
-                                        <el-radio-group size="small" v-model="YADXSearchForm.YADX" @change="isZddwShow">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.YADX" @change="isZddwShow">
                                             <el-radio-button v-for="item in yadx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="消防管辖">
-                                        <el-radio-group size="small" v-model="YADXSearchForm.XFGX">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.XFGX">
                                             <el-radio-button v-for="item in xfgx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
-                                    <el-form-item label="单位性质" v-show = "isZddw">
-                                        <el-radio-group size="small" v-model="YADXSearchForm.DWXZ">
+                                    <el-form-item label="单位性质" v-show = "isZddw" style="margin-top: 2px;margin-bottom: 2px;">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.DWXZ">
                                             <el-radio-button v-for="item in dwxz_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="行政区划" v-show = "isZddw">
-                                        <el-radio-group size="small" v-model="YADXSearchForm.XZQH">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.XZQH">
                                             <el-radio-button v-for="item in xzqh_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="防火等级" v-show = "isZddw">
-                                        <el-radio-group size="small" v-model="YADXSearchForm.FHDJ">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.FHDJ">
                                             <el-radio-button v-for="item in fhdj_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
-                                    <el-form-item label="单位建筑情况" v-show = "isZddw">
-                                        <el-radio-group size="small" v-model="YADXSearchForm.DWJZQK">
+                                    <el-form-item label="建筑情况" v-show = "isZddw">
+                                        <el-radio-group size="medium" v-model="YADXSearchForm.DWJZQK">
                                             <el-radio-button v-for="item in dwjzqk_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
@@ -138,7 +138,7 @@
                                                 <div><strong  @click="YadxDetails(data)" style="cursor: pointer;font-size:20px;">{{data.dxmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yalxdm !== null">{{data.yadxType}}</el-tag></div>
                                             </el-col>
                                         </el-row>
-                                        <el-row>
+                                        <el-row style="margin-top: 15px">
                                             <el-col :span="12">
                                                 <div>对象地址：{{data.dxdz}}</div>
                                             </el-col>
@@ -162,8 +162,8 @@
                                 <el-form :model="DWJZSearchForm" class="el-form demo-form-inline">
                                     <el-row>
                                         <el-col :xs="20" :sm="20" :md="20" :lg="20" :xl="20" class="searchInline">
-                                            <label class="el-form-item__label searchLabel" style="width: 140px">建筑名称/建筑位置</label>
-                                            <el-input size="medium" v-model="DWJZSearchForm.JZMC" placeholder="建筑名称/建筑位置" style="width:80%;"></el-input>
+                                            <label class="el-form-item__label searchLabel">名称/位置</label>
+                                            <el-input size="medium" v-model="DWJZSearchForm.JZMC" placeholder="建筑名称/建筑位置" style="width:85%;"></el-input>
                                         </el-col>
                                         <el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3" class="searchInline">
                                             <el-button type="primary" icon="search" size="small" @click="searchDWJZClick">查询</el-button>
@@ -171,22 +171,22 @@
                                         </el-col>
                                     </el-row>
                                     <el-form-item label="建筑类型">
-                                        <el-radio-group size="small" v-model="DWJZSearchForm.JZLX" @change="selectJzlx">
+                                        <el-radio-group size="medium" v-model="DWJZSearchForm.JZLX" @change="selectJzlx">
                                             <el-radio-button v-for="item in dwjzqk_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
-                                    <el-form-item label="建筑使用性质" v-show="isDtjz||isJzl">
-                                        <el-radio-group size="small" v-model="DWJZSearchForm.JZSYXZ">
+                                    <el-form-item label="使用性质" v-show="isDtjz||isJzl">
+                                        <el-radio-group size="medium" v-model="DWJZSearchForm.JZSYXZ">
                                             <el-radio-button v-for="item in jzsyxz_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="建筑结构" v-show="isDtjz||isJzl||isZzl">
-                                        <el-radio-group size="small" v-model="DWJZSearchForm.JZJG">
+                                        <el-radio-group size="medium" v-model="DWJZSearchForm.JZJG">
                                             <el-radio-button v-for="item in jzjg_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="建筑高度" v-show="isDtjz||isJzl">
-                                        <el-radio-group size="small" v-model="DWJZSearchForm.JZGD">
+                                        <el-radio-group size="medium" v-model="DWJZSearchForm.JZGD">
                                             <el-radio-button v-for="item in jzgd_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
@@ -198,16 +198,14 @@
                                                 <div><strong  @click="buildingDetails(data)" style="cursor: pointer;font-size:20px;">{{data.jzmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.jzlxmc !== null">{{data.jzlxmc}}</el-tag></div>
                                             </el-col>
                                         </el-row>
-                                        <el-row>
-                                            <el-col :span="20">
+                                        <el-row style="margin-top: 15px">
+                                            <el-col :span="8">
                                                 <div>建筑位置：{{data.jzwz}}</div>
                                             </el-col>
-                                        </el-row>
-                                        <el-row>
-                                            <el-col :span="12">
+                                            <el-col :span="8">
                                                 <div>经度：{{data.lon}}</div>
                                             </el-col>
-                                            <el-col :span="12">
+                                            <el-col :span="8">
                                                 <div>纬度：{{data.lat}}</div>
                                             </el-col>
                                         </el-row>

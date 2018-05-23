@@ -53,8 +53,9 @@ label {
     /* border-left: 1px solid #bfcbd9; */
     margin: 0 2px;
 }
-.el-radio-button--small .el-radio-button__inner {
+.el-radio-button--medium .el-radio-button__inner {
     border-radius: 4px;
+    font-weight: 520;
 }
 .el-radio-button:last-child .el-radio-button__inner {
     border: 0;
@@ -65,6 +66,8 @@ label {
 }
 .el-form-item__label{
     width: 100px;
+    line-height: 1.5;
+    font-size: 16px;
 }
 .el-form-item__content {
     padding-left: 100px;

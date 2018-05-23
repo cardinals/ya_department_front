@@ -13,3 +13,6 @@ dl {
 .cardBorder{
     border-top: 1px solid #d1dbe5;
 }
+.el-card__header {
+    padding: 8px 15px;
+}

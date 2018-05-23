@@ -62,16 +62,19 @@
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
                                 <el-tab-pane label="基本信息" name="first">
                                     <el-card class="mb10 cardBack">
-                                        <el-row class="mb5">
+                                        <div slot="header" class="clearfix">
+                                            <strong style="color: #20a0ff;">制作情况</strong>
+                                        </div>
+                                        <!-- <el-row class="mb5">
                                             <el-col :span="24">
                                                 <div style="color: #20a0ff;">
                                                     <strong>制作情况</strong>
                                                 </div>
                                             </el-col>
-                                        </el-row>
+                                        </el-row> -->
                                         <el-row class="mb5">
                                             <el-col :span="2" style="text-align: right;">
-                                                <div>制作人名称：</div>
+                                                <div>制作人：</div>
                                             </el-col>
                                             <el-col :span="6">
                                                 <div>
@@ -97,13 +100,16 @@
                                         </el-row>
                                     </el-card>
                                     <el-card class="mb10 cardBack">
-                                        <el-row class="mb5">
+                                        <!-- <el-row class="mb5">
                                             <el-col :span="24">
                                                 <div style="color: #20a0ff;">
                                                     <strong>审核情况</strong>
                                                 </div>
                                             </el-col>
-                                        </el-row>
+                                        </el-row> -->
+                                        <div slot="header" class="clearfix">
+                                            <strong style="color: #20a0ff;">审核情况</strong>
+                                        </div>
                                         <el-row class="mb5">
                                             <el-col :span="2" style="text-align: right;">
                                                 <div>审核人：</div>
@@ -134,15 +140,19 @@
                                 </el-tab-pane>
                                 <el-tab-pane label="灾情设定与力量部署" name="second">
                                     <el-card v-for="item in disasterSetData" class="mb10 cardBack">
+                                        <div slot="header" class="clearfix">
+                                            <strong style="color: #20a0ff;">灾情部位 -{{item.zqbw||"无"}}</strong>
+                                        </div>
                                         <div name="灾情部位" class="pb5">
-                                            <el-row class="mb5">
+
+                                            <!-- <el-row class="mb5">
                                                 <el-col :span="24">
                                                     <div style="color: #20a0ff;">
                                                         <strong>灾情部位 -</strong>
-                                                        <strong>{{item.zqbw||"无"}}</strong>
+                                                        <strong></strong>
                                                     </div>
                                                 </el-col>
-                                            </el-row>
+                                            </el-row> -->
                                             <el-row class="mb5">
                                                 <el-col :span="3" style="text-align: right;">
                                                     <div>灾情等级：</div>
