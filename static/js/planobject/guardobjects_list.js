@@ -5,6 +5,8 @@ new Vue({
     data: function () {
         return {
             visible: false,
+            //菜单编号
+            activeIndex: '',
             //搜索表单
             searchForm: {
                 hdzt: "",
@@ -96,8 +98,13 @@ new Vue({
         }
     },
     created: function () {
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
+
         this.getAllSszdData();
-         this.searchXFGX_data();
+        this.searchXFGX_data();
         //this.searchXZQY_data();
         this.searchClick();
         // this.xfgxdata();
@@ -239,7 +246,7 @@ new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            window.location.href = "bwjwplan_detail.html?ID=" + val.uuid;
+            window.location.href = "guardobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {

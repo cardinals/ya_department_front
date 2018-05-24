@@ -18,21 +18,18 @@ new Vue({
     },
 
     mounted: function () {
-        var url = location.search;
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            var ID = str.substring(3);
-            this.id = ID;
-            axios.get('/dpapi/danger/doFindById/' + this.id).then(function (res) {
-                this.tableData = res.data.result;
-                this.detailData = this.tableData;
-                var photo = document.getElementById("flag");
-                this.photo64 =  this.detailData.photo64;
-                photo.src = "data:image/png;base64,"+this.photo64;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        }
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
+        this.id = getQueryString("ID");
+        axios.get('/dpapi/danger/doFindById/' + this.id).then(function (res) {
+            this.tableData = res.data.result;
+            this.detailData = this.tableData;
+            var photo = document.getElementById("flag");
+            this.photo64 =  this.detailData.photo64;
+            photo.src = "data:image/png;base64,"+this.photo64;
+        }.bind(this), function (error) {
+            console.log(error)
+        })
     },
 
     methods: {

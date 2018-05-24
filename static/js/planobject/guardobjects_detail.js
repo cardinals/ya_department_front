@@ -112,6 +112,9 @@ new Vue({
     },
 
     mounted: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
+
         this.loading = true;
         var url = location.search;
         if (url.indexOf("?") != -1) {

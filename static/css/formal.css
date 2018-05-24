@@ -187,3 +187,10 @@ body{height:100%;overflow:hidden;}
 .card_title_font{
     font-size:14px;
 }
+.detailTable td,.detailTable th{
+    height: 25px;
+}
+.detailTable{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}

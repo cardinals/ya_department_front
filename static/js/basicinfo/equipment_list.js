@@ -43,6 +43,8 @@ new Vue({
         }
     },
     created: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.getAllSszdData();//消防队站下拉框数据（到总队级）
         this.getAllTypesDataTree();//装备类型级联选择数据
         this.searchClick();

@@ -151,6 +151,8 @@ new Vue({
         }
     },
     created: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.GSLB();
         this.CSLX();
         this.searchClick();
