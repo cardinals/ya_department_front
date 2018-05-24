@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>数据同步情况</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/tagscloud2.css">
+    <script type="text/javascript" src="../../static/js/jquery-3.2.1.min.js"></script>
+    <script src="../../static/js/echarts-2/echarts-all.js"></script>
+    <script src="../../static/js/echarts-4/echarts.js"></script>
+    <script src="../../static/js/vue.js"></script>
+    <script src="../../static/js/vue.min.js"></script>
+
+    <style>
+    .sync-text {font: 20px "微软雅黑";color: #9cc0eb;text-align: right;}
+    .sync-text-strong {line-height: 1.2;font-size: 1.5em;color: #f7cb29;text-align: right;}
+    .sync-map {background: url(../../static/images/sync-map.png)no-repeat center center; background-size: auto 100%;}
+    .sync-aperture {width: 40px; height: 40px;}
+    .sync-flash {width: 55px; height: 55px; background-image: url(../../static/images/sync-green.png); background-repeat: no-repeat; background-size: cover; position: absolute; animation:sync-Flash 2s infinite linear;}
+    .sync-blue {background-image: url(../../static/images/sync-blue.png);}
+    .sync-yellow {background-image: url(../../static/images/sync-yellow.png);}
+    .sync-orange {background-image: url(../../static/images/sync-orange.png);}
+    .sync-red {background-image: url(../../static/images/sync-red.png);}
+    .sync-beijing {top: 104px; left: 373px; animation-delay:-1.5s;}
+    .sync-liaoning {top: 96px; left: 419px; animation-delay:-1.5s;}
+    .sync-jiangsu {top: 175px; left: 411px; animation-delay:-1.5s;}
+    .sync-title {height: 25px; line-height: 25px; color: #fff; font-size: 16px; background: url(../../static/images/sync-title.png) no-repeat center center;}
+    .libta-table td.sync-num{color: #1bd3ff;}
+    @keyframes sync-Flash{
+        from{transform: scale(0.1);}
+        to{transform: scale(1);}
+    }
+    </style>
+</head>
+
+<body class="fw map-bg">
+    <div id="app">
+        <div class="application-box tc abs">
+            <div class="application-div h70">
+                <!-- <div class="h100 w25 l">
+                    <div class="application-div h33 p3">
+                        <div id="l1" class="application-text map-bg2 p20 pr20">
+                            <div class="sync-text">目前接入总队总量</div>
+                            <div class="sync-text">
+                                <span class="sync-text-strong" v-text = "this.syncState.mqjrzdsl"></span>个</div>
+                        </div>
+                    </div>
+                    <div class="application-div h33 p3">
+                        <div id="l2" class="application-text map-bg2 p20 pr20">
+                            <div class="sync-text">接通总队数量</div>
+                            <div class="sync-text">
+                                <span class="sync-text-strong" v-text = "this.syncState.jtzdsl"></span>个</div>
+                        </div>
+                    </div>
+                    <div class="application-div h33 p3">
+                        <div id="l3" class="application-text map-bg2 p20 pr20">
+                            <div class="sync-text">故障总队数量</div>
+                            <div class="sync-text">
+                                <span class="sync-text-strong" v-text = "this.syncState.gzzdsl"></span>个</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h100 w50 l p3">
+                    <div id="map" class="application-text sync-map">
+                        <div id="beijing" class="sync-flash sync-aperture sync-beijing"></div>
+                        <div id="liaoning" class="sync-flash sync-yellow sync-aperture sync-liaoning"></div>
+                        <div id="jiangsu" class="sync-flash sync-red sync-aperture sync-jiangsu"></div>
+                        <div id="chongqing" class="sync-flash sync-aperture sync-chongqing"></div>
+                        <div id="xizang" class="sync-flash sync-aperture sync-xizang"></div>
+                        <div id="neimenggu" class="sync-flash sync-aperture sync-neimenggu"></div>
+                        <div id="guangxi" class="sync-flash sync-aperture sync-guangxi"></div>
+                        <div id="zhejiang" class="sync-flash sync-aperture sync-zhejiang"></div>
+                    </div>
+                </div> -->
+                <div class="h100 w75 l p3">
+                    <div class="application-div h100 sync-map">
+
+                    </div>
+                </div>
+                <div class="h100 w25 l">
+                    <div class="application-div h25 p3">
+                        <div id="r1" class="application-text map-bg2 p10 pr20">
+                            <div class="sync-text">累计同步数据量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.ljtbsjl"></span>条</div>
+                        </div>
+                    </div>
+                    <div class="application-div h25 p3">
+                        <div id="r2" class="application-text map-bg2 p10 pr20">
+                            <div class="sync-text">今日同步数据量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.jrtbsjl"></span>条</div>
+                        </div>
+                    </div>
+                    <div class="application-div h25 p3">
+                        <div id="r3" class="application-text map-bg2 p10 pr20">
+                            <div class="sync-text">累计同步文件量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.ljtbwjl"></span>个</div>
+                        </div>
+                    </div>
+                    <div class="application-div h25 p3">
+                        <div id="r4" class="application-text map-bg2 p10 pr20">
+                            <div class="sync-text">今日同步文件量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.jrtbwjl"></span>个</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="application-div h30 p3">
+                <div class="sync-title h15 w100">
+                    <span class="application-name">数据采集看板</span>
+                </div>
+                <div id="t1" class="h85 w25 l">
+                    <table class="libta-table h99 w99">
+                        <tr><td width="30%">北京</td><td width="20%" class="sync-num" v-text = "this.provincesData.beijing + '万'"></td><td width="30%">河北</td><td width="20%" class="sync-num" v-text = "this.provincesData.hebei + '万'"></td></tr>
+                        <tr><td>天津</td><td class="sync-num" v-text = "this.provincesData.tianjin + '万'"></td><td>山西</td><td class="sync-num" v-text = "this.provincesData.shanxi + '万'"></td></tr>
+                        <tr><td>上海</td><td class="sync-num" v-text = "this.provincesData.shanghai + '万'"></td><td>内蒙古</td><td class="sync-num" v-text = "this.provincesData.neimenggu + '万'"></td></tr>
+                        <tr><td>重庆</td><td class="sync-num" v-text = "this.provincesData.chongqing + '万'"></td><td>辽宁</td><td class="sync-num" v-text = "this.provincesData.liaoning + '万'"></td></tr>
+                    </table>
+                </div>
+                <div id="t2" class="h85 w25 l">
+                    <table class="libta-table h99 w99">
+                        <tr><td width="30%">吉林</td><td width="20%" class="sync-num"v-text = "this.provincesData.jilin + '万'"></td><td width="30%">安徽</td><td width="20%" class="sync-num" v-text = "this.provincesData.anhui + '万'"></td></tr>
+                        <tr><td>黑龙江</td><td class="sync-num" v-text = "this.provincesData.heilongjiang + '万'"></td><td>福建</td><td class="sync-num" v-text = "this.provincesData.fujian + '万'"></td></tr>
+                        <tr><td>江苏</td><td class="sync-num" v-text = "this.provincesData.jiangsu + '万'"></td><td>江西</td><td class="sync-num" v-text = "this.provincesData.jiangxi + '万'"></td></tr>
+                        <tr><td>浙江</td><td class="sync-num" v-text = "this.provincesData.zhejiang + '万'"></td><td>山东</td><td class="sync-num" v-text = "this.provincesData.shandong + '万'"></td></tr>
+                    </table>
+                </div>
+                <div id="t3" class="h85 w25 l">
+                    <table class="libta-table h99 w99">
+                        <tr><td width="30%">河南</td><td width="20%" class="sync-num" v-text = "this.provincesData.henan + '万'"></td><td width="30%">广西</td><td width="20%" class="sync-num" v-text = "this.provincesData.guangxi + '万'"></td></tr>
+                        <tr><td>湖北</td><td class="sync-num" v-text = "this.provincesData.hubei + '万'"></td><td>海南</td><td class="sync-num" v-text = "this.provincesData.hainan + '万'"></td></tr>
+                        <tr><td>湖南</td><td class="sync-num" v-text = "this.provincesData.hunan + '万'"></td><td>四川</td><td class="sync-num" v-text = "this.provincesData.sichuan + '万'"></td></tr>
+                        <tr><td>广东</td><td class="sync-num" v-text = "this.provincesData.guangdong + '万'"></td><td>贵州</td><td class="sync-num" v-text = "this.provincesData.guizhou + '万'"></td></tr>
+                    </table>
+                </div>
+                <div  id="t4" class="h85 w25 l">
+                    <table class="libta-table h99 w99">
+                        <tr><td width="30%">云南</td><td width="20%" class="sync-num" v-text = "this.provincesData.yunnan + '万'"></td><td width="30%">青海</td><td width="20%" class="sync-num" v-text = "this.provincesData.qinghai + '万'"></td></tr>
+                        <tr><td>西藏</td><td class="sync-num" v-text = "this.provincesData.xizang + '万'"></td><td>宁夏</td><td class="sync-num" v-text = "this.provincesData.ningxia + '万'"></td></tr>
+                        <tr><td>陕西</td><td class="sync-num" v-text = "this.provincesData.shaanxi + '万'"></td><td>新疆</td><td class="sync-num" v-text = "this.provincesData.xinjiang + '万'"></td></tr>
+                        <tr><td>甘肃</td><td class="sync-num" v-text = "this.provincesData.gansu + '万'"></td><td></td><td></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../static/js/bigscreen/big_screen_sync.js"></script>
+</html>
