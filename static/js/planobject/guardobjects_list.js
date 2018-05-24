@@ -246,7 +246,7 @@ new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            window.location.href = "bwjwplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+            window.location.href = "guardobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {
