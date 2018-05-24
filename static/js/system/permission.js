@@ -56,6 +56,8 @@ new Vue({
         }
     },
     created: function () {
+        //菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.getAllPermissions();
         this.searchClick();
     },
