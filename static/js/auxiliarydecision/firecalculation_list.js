@@ -296,6 +296,7 @@ new Vue({
         closeCalculate:function(val){
             this.calculateVisible = false;
             this.calculateForm.domains = null;
+            this.calculateMrzData.splice(0,this.calculateMrzData.length);
             this.calculateForm.jsjg = "";
             this.calculateForm.gsmc = "";
             this.calculateForm.gssm = "";
@@ -499,7 +500,20 @@ new Vue({
             _self.total = _self.tableData.length;
             _self.loadingData();//重新加载数据
         },
-
+        submitIfUse:function($event,val){
+            var _self = this;
+            var params = {
+                uuid: val.uuid,
+                sfqy: ($event?"1":"0")
+            };
+            axios.post('/dpapi/firecalculationlist/updateBySfqy', params).then(function (res) {
+                this.searchClick();
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            _self.total = _self.tableData.length;
+            _self.loadingData();//重新加载数据
+        },
         closeDialog: function (val1,val2) {
             this.addFormVisible = false;
             this.addFormulaForm.gsmc = "";

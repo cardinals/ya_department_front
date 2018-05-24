@@ -30,7 +30,7 @@
 }
 .el-table.dialog-table{
     overflow-y:auto !important;
-    height: 210px;
+    height: 202px;
 }
 .dialog-table .cell, .dialog-table th>div{
     padding-left: 4px !important;
