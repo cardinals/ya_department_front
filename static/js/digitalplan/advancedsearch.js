@@ -4,6 +4,8 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            //菜单编码
+            activeIndex: '',
             activeName: "first",  
             isZddw:false,
             isDtjz:false,
@@ -104,8 +106,11 @@ new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
+
      //   this.YADX();
         this.YALX();
         this.YAJB();
@@ -415,17 +420,17 @@ new Vue({
         planDetails(val) {
             switch(val.yadxType){
                 case '重点单位':
-                    window.location.href = "digitalplan_detail.html?ID=" + val.uuid;
+                    window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
                     break;
                 case '消防保卫警卫':
                     var _self = this;
                     _self.planDetailVisible = true;
-                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid;
+                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid + "&index=" + this.activeIndex;
                     history.pushState(null, null, shortURL)
                     //异步加载详情页
                     $(function () {
                         $.ajax({
-                            url: '../../../templates/digitalplan/digitalplanbwjw_detail.html',
+                            url: '../../../templates/digitalplan/guardobjectsplan_detail.html',
                             cache: true,
                             async: true,
                             success: function (html) {
@@ -437,7 +442,7 @@ new Vue({
                 case '其他对象':
                     var _self = this;
                     _self.planDetailVisible = true;
-                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?uuid=" + val.uuid;
+                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?uuid=" + val.uuid + "&index=" + this.activeIndex;
                     history.pushState(null, null, shortURL)
                     //异步加载详情页
                     $(function () {
@@ -461,20 +466,20 @@ new Vue({
         YadxDetails(val) {
             switch(val.yadxType){
             case '重点单位':
-                window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid;
+                window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
                 break;
             case '消防保卫警卫':
-                window.location.href = "../planobject/bwjwplan_list.html?id=" + val.uuid;
+                window.location.href = "../planobject/guardobjects_list.html?id=" + val.uuid + "&index=" + this.activeIndex;
                 break;
             case '其他对象':
-                window.location.href = "../planobject/otherobjects_list.html?id=" + val.uuid;
+                window.location.href = "../planobject/otherobjects_list.html?id=" + val.uuid + "&index=" + this.activeIndex;
                 break;
             }
             
         },
         //单位建筑详情跳转
         buildingDetails(val) {
-            window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx;
+            window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex;
         },
 
         clearClick: function () {
