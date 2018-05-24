@@ -20,9 +20,8 @@ function logOut(){
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var menuData=[];
-//var menuData=[{"resourceid":"18","resourcename":null,"resourceinfo":"首页","url":"/home","seqno":null,"index":"1","icon":null,"type":null,"parentId":"-1","children":[]},{"resourceid":"17","resourcename":null,"resourceinfo":"系统管理","url":"","seqno":null,"index":"2","icon":null,"type":null,"parentId":"-1","children":[{"resourceid":"1","resourcename":null,"resourceinfo":"用户管理","url":"/user","seqno":null,"index":"21","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"6","resourcename":null,"resourceinfo":"角色管理","url":"/role","seqno":null,"index":"22","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"19","resourcename":null,"resourceinfo":"资源管理","url":"/resource","seqno":null,"index":"23","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"24","resourcename":null,"resourceinfo":"权限管理","url":"/permission","seqno":null,"index":"24","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"12","resourcename":null,"resourceinfo":"代码集管理","url":"/codelist","seqno":null,"index":"25","icon":null,"type":null,"parentId":"17","children":null}]}];
 axios.get('http://localhost/api/getMenu')				
-        .then(function(res){
+    .then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
             menuData.push({
@@ -31,11 +30,11 @@ axios.get('http://localhost/api/getMenu')
                 "children":obj.children,
                 "url":obj.url,
             });
-        }
-    }.bind(this),function(error){
-        console.log(error);
-        window.location.href = "http://localhost/templates/login.html";
-    });   
+    }
+}.bind(this),function(error){
+    console.log(error);
+    window.location.href = "http://localhost/templates/login.html";
+});   
 
 // 定义树节点
 var treeMenuTemplate = [];
@@ -129,7 +128,7 @@ treeMenuTemplate.push('</li>');
             }
             // 5
             else if(this.model.url=="/user"){
-                realUrl="http://localhost/templates/system/user_list.html"
+                realUrl="http://localhost/templates/system/user_list.html";
             }
             else if(this.model.url=="/role"){
                 realUrl="http://localhost/templates/system/role_list.html"
@@ -141,7 +140,7 @@ treeMenuTemplate.push('</li>');
                 realUrl="http://localhost/templates/system/resource_list.html"
             }
             else if(this.model.url=="/codelist"){
-                realUrl="http://localhost/templates/system/code_list.html"
+                realUrl="http://localhost/templates/system/codelist_list.html"
             }
             else if(this.model.url=="/imgupload"){
                 realUrl="http://localhost/templates/system/imgupload_list.html"
@@ -157,7 +156,7 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/building_zoning"){
                 realUrl="http://localhost/templates/buildingzoning/building_zoning_list.html"
             }
-            return realUrl;
+            return realUrl+"?index="+this.model.index;
         }
     },
 
@@ -204,17 +203,20 @@ bigTreeTemplate.push('</div>');
 
 Vue.component('big-tree', {
     template: bigTreeTemplate.join(''),
-
+    
     props: ['defaultActive'],
 
     created: function () {
-
-     },
+        var value = $("#activeIndex").val();
+        this.defaultActive = value;
+    },
 
     data: function () {
         return {
             theModel: menuData,
-            theLevel: 1
+            theLevel: 1,
+            //菜单选中
+            activeIndex: '1',
         };
     },
 
