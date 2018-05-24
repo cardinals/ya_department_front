@@ -194,7 +194,8 @@ new Vue({
         }
     },
     created: function () {
-        
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.YALXTree();
         this.YALX();
         this.getJgidData();
