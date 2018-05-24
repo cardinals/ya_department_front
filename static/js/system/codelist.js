@@ -4,6 +4,8 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            //菜单选中
+            activeIndex: '',
             visible: false,
             //搜索表单
             searchForm: {
@@ -61,6 +63,10 @@ new Vue({
         deep: true
     },
     created: function () {
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
         this.searchClick();
     },
     methods: {
@@ -104,7 +110,7 @@ new Vue({
         },
 
         codetypeCilck: function (val) {
-            window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid);
+            window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
         },
 
         //查询，初始化
