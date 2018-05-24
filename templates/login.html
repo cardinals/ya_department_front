@@ -11,86 +11,82 @@
 
 <body>
     <div id="app">
-      <!--logo-->
-        <div class="logo_box">
-            <div class="logo logo_box_img">
-              <!--<img th:src="@{/images/LOGO3.png}"/>-->
-            </div>
-        </div>
-
-      <!--center-->
-        <div class="cen_outside">
-            <div class="cenLogin">
-                <div class="Login_Cen">
-                    <div class="Login">
-                        <div class="Login_n">
-                          <div class="Login_nTop">用户登录</div>
-                          <form id="login-form" autocomplete="off" name="login-form" action="/api/login" method="post">
-                                <ul>
-                                    <li class="I1">
-                                        <i id="icon-user"></i>
-                                        <input type="text" class="inputstyle" v-model="username" name="username" id="username" placeholder="用户名">
-                                    </li>
-                                    <li class="I2">
-                                        <i id="icon-password"></i>
-                                        <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
-                                    </li>
-                                    <li class="I3">
-                                        <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
-                                        <a href="javascript:;" @click="reloadCode()">
-                                          <img v-bind:src="src"  id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom" width="50" height="20">
-                                        </a>
-                                    </li>
-                                </ul>
-                                <p>
-                                  <input type="checkbox" name="rememberMe" id="rememberMe"/>&nbsp;&nbsp;
-                                  <a>记住我</a>
-                                </p>
-                                <div class="LoginBtn">
-                                  <a @click="login()">登录</a>
-                                </div>
-                          </form>
-                        </div>
-                    </div>
+        <div class="application-box tc abs">
+            <!--logo-->
+            <div class="login_top">
+                <div class="logo login_top_logo">
+                    <!--<img th:src="@{/images/LOGO3.png}"/>-->
                 </div>
             </div>
-        </div>
 
-    <!--footer-->
-    <!-- <div class="footer">
-      建议您使用IE9+、FireFox、Google Chrome，分辨率1280*800及以上浏览本网站，获得更好用户体验
-      <br /> 版权所有 © 2017 公安部消防局 公安部沈阳消防研究所 V1.0.1
-      <br />
-    </div> -->
-  </div>
+            <!--center-->
+            <div class="login_center">
+                    <div class="Login_img">
+                        <div class="Login">
+                            <div class="Login_n">
+                                <div class="Login_nTop">用户登录</div>
+                                <form id="login-form" autocomplete="off" name="login-form" action="/api/login" method="post">
+                                    <ul>
+                                        <li class="I1">
+                                            <i id="icon-user"></i>
+                                            <input type="text" class="inputstyle" v-model="username" name="username" id="username" placeholder="用户名">
+                                        </li>
+                                        <li class="I2">
+                                            <i id="icon-password"></i>
+                                            <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
+                                        </li>
+                                        <li class="I3">
+                                            <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
+                                            <a href="javascript:;" @click="reloadCode()">
+                                                <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom"
+                                                    width="50" height="20">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
+                                        <a>记住我</a>
+                                    </p>
+                                    <div class="LoginBtn">
+                                        <a @click="login()">登录</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <!--footer-->
+            <div class="login_footer">
+                <span class="login_footer_text">
+                    copyright © 公安部沈阳消防研究所ICP备1300840号-2
+                </span>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script src="../static/js/vue.min.js"></script>
 <script src="../static/js/jquery-3.2.1.min.js"></script>
 <script src="../static/js/axios.min.js"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    //var msg = [[${msg}]];
-    /*]]>*/
-</script>
 <script>
     $('#username').focus();
     var vm = new Vue({
         el: "#app",
         data: {
-          username: "",
-          password: "",
-          validateCode: "",
-          messages:"",
-          src: "/api/imageCode"
+            username: "",
+            password: "",
+            validateCode: "",
+            messages: "",
+            src: "/api/imageCode"
         },
-        created:function(){
-            axios.get('/api/shiro').then(function(res){
-                if(res.data != null && res.data.username != null && res.data.username != ""){
+        created: function () {
+            axios.get('/api/shiro').then(function (res) {
+                if (res.data != null && res.data.username != null && res.data.username != "") {
                     window.location.href = "../templates/bigscreen/big_screen_all.html";
                 }
                 console.log(res.data);
-            }.bind(this),function(error){
+            }.bind(this), function (error) {
                 console.log(error);
             });
         },
@@ -99,13 +95,13 @@
                 var username = $('#username').val();
                 var password = $('#password').val();
                 var checkCode = $('#validateCode').val();
-                if(username == null || username == ''){
+                if (username == null || username == '') {
                     alert("用户名不能为空！")
-                }else if(password == null || password == ''){
+                } else if (password == null || password == '') {
                     alert("密码不能为空！")
-                }else if(checkCode == null || checkCode == ''){
+                } else if (checkCode == null || checkCode == '') {
                     alert("验证码不能为空！")
-                }else{
+                } else {
                     $('#login-form').submit();
                     var _self = this;
                     // this.messages = msg;
@@ -118,8 +114,8 @@
                 this.username = "";
                 this.password = "";
             },
-            reloadCode(){
-                $('#checkCode').attr('src','/api/imageCode?' + ((new Date()).valueOf()));
+            reloadCode() {
+                $('#checkCode').attr('src', '/api/imageCode?' + ((new Date()).valueOf()));
             }
         }
     });
