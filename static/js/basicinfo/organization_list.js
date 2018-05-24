@@ -33,6 +33,8 @@ new Vue({
     },
 
     created: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         //取得选中行pkid
         // this.pkid = this.GetQueryString("pkid");
         // this.YALX();
