@@ -4,6 +4,8 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            //菜单编号
+            activeIndex: '',
             //搜索表单
             searchForm: {
                 YAMC: "",
@@ -82,6 +84,10 @@ new Vue({
         this.SHZT();//审核状态下拉框
     },
     mounted:function(){
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
         this.searchClick();//条件查询
     },
 
@@ -172,7 +178,7 @@ new Vue({
         },
         //预案详情
         planDetails(val) {
-            window.location.href = "digitalplan_detail.html?ID=" + val.uuid;
+            window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
             //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         /** 
