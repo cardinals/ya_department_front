@@ -4,8 +4,6 @@ new Vue({
     el: '#app',
     data: function () {
         return {
-            //菜单编号
-            activeIndex: '',
             activeName: "first",
             pkid: "",
             //表数据

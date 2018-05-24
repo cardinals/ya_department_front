@@ -5,6 +5,8 @@ new Vue({
     data: function () {
         return {
             visible: false,
+            //菜单编号
+            activeIndex: '',
             //搜索表单
             searchForm: {
                 hdzt: "",
