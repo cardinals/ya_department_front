@@ -18,18 +18,16 @@
 	<div id="app">
 		<div class="main-box">
 			<div class="main-container" v-loading="loading1" element-loading-text="加载中">
-				<div id="inforView" class="mb10">
-					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
+				<div id="inforView">
+					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-							<div style="color: #20a0ff;">
-								<strong>预案基本信息</strong>
-							</div>
+							<strong style="color: #20a0ff;">预案基本信息</strong>
 						</el-col>
 					</el-row>
 					<el-form :inline="true" class="el-form demo-form-inline" :rules="rules" ref="addForm" :model="addForm" label-position="right">
 						<el-row>
 							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案对象" prop="dxmc">
+								<el-form-item label="预案对象">
 									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" clearable></el-input>
 								</el-form-item>
 							</el-col>
@@ -65,14 +63,14 @@
 						</el-row>
 					</el-form>
 				</div>
-				<div id="disasterView" class="mb10 pb10">
+				<div id="disasterView" class="pb10">
 					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
-						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" style="line-height: 29px;">
 							<div style="color: #20a0ff;">
 								<strong>灾情设定与力量部署</strong>
 							</div>
 						</el-col>
-						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
+						<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12" class="pb1">
 							<el-button type="primary" icon="plus" size="small" class="r" @click="addDomain">新增</el-button>
 						</el-col>
 					</el-row>
@@ -179,9 +177,9 @@
 									</el-col>
 									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 								</el-row>
-								<el-row style="border-bottom: 1px solid #d1dbe5;" class="mt5 mb5">
+								<el-row style="border-bottom: 1px solid #d1dbe5;line-height: 29px;" class="mt5">
 									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-										<div style="color: #20a0ff;">要点提示</div>
+										<span style="color: #20a0ff;">要点提示</span>
 									</el-col>
 								</el-row>
 								<el-row class="tr">
@@ -202,7 +200,7 @@
 									</el-col>
 									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 								</el-row>
-								<el-row style="border-bottom: 1px solid #d1dbe5;" class="mt5 mb5">
+								<el-row style="border-bottom: 1px solid #d1dbe5;    line-height: 29px;" class="mt5">
 									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
 										<div style="color: #20a0ff;">力量部署</div>
 									</el-col>
@@ -258,19 +256,26 @@
 					</el-form>
 				</div>
 				<div id="uploadPlan">
-					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
+					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-							<div style="color: #20a0ff;">
-								<strong>预案上传</strong>
-							</div>
+							<strong style="color: #20a0ff;">预案上传</strong>
 						</el-col>
 					</el-row>
 					<el-row>
 						<el-col :xs="14" :sm="14" :md="14" :lg="14" :xl="14">
 							<el-form>
 								<el-form-item>
-									<el-upload class="upload-demo" ref="upload" action="/dpapi/yafjxz/upload" :data="upLoadData" :on-preview="handlePreview"
-									 :on-remove="handleRemove" :on-exceed="handleExceed" :before-upload="beforeUpload" :file-list="fileList" :auto-upload="false">
+									<el-upload class="upload-demo" 
+											ref="upload" 
+											action="/dpapi/yafjxz/upload" 
+											:data="upLoadData" 
+											:on-preview="handlePreview"
+											:on-remove="handleRemove" 
+											:on-exceed="handleExceed"
+											:on-success="handleSuccess"
+											:file-list="fileList" 
+											:auto-upload="false"
+											>
 										<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
 										<span slot="tip" class="el-upload__tip ml10">只能上传zip/rar压缩文件</span>
 									</el-upload>
@@ -281,11 +286,9 @@
 					</el-row>
 				</div>
 				<div id="remark">
-					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;">
+					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-							<div style="color: #20a0ff;">
-								<strong>备注</strong>
-							</div>
+							<strong style="color: #20a0ff;">备注</strong>
 						</el-col>
 					</el-row>
 					<el-row>
@@ -411,7 +414,7 @@
 						</div>
 					</div>
 				</el-dialog>
-				<!--选择所属建筑界面-->
+				<!--选择消防队站界面-->
 				<el-dialog title="选择消防队站" :visible.sync="fireStaListVisible" @close="closeDialog_fireSta()" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading_fireSta" element-loading-text="加载中">
 						<el-row>

@@ -24,34 +24,7 @@ new Vue({
                 disasterList: []
             },
             //灾情设定
-            dynamicValidateForm: [{
-                bwmc: '',
-                zdbwid: '',
-                jzmc: '',
-                jzid: '',
-                rswz: '',
-                zqdj: '',
-                qhyy: '',
-                rsmj: '',
-                zhcs: '',
-                hzwxx: '',
-                qhbwgd: '',
-                zqms: '',
-                zqsdyj: '',
-                //力量部署
-                forcedevList: [{
-                    dzid: '',
-                    dzmc: '',
-                    djfalx: '',
-                    tkwz: '',
-                    clzbts: ''
-                }],
-                //要点提示
-                keypointsMap: {
-                    zsyd: '',
-                    tbjs: '',
-                }
-            }],
+            dynamicValidateForm: [],
 
             //预案基本信息data
             YALX_dataTree: [],
@@ -231,13 +204,7 @@ new Vue({
                 qhbwgd: '',
                 zqms: '',
                 zqsdyj: '',
-                forcedevList: [{
-                    dzid: '',
-                    dzmc: '',
-                    djfalx: '',
-                    tkwz: '',
-                    clzbts: ''
-                }],
+                forcedevList: [],
                 keypointsMap: {
                     zsyd: '',
                     tbjs: '',
@@ -506,7 +473,7 @@ new Vue({
             this.buildingListVisible = false;
         },
         //消防队站选择弹出页---------------------------------------------------------------
-        fireStaList: function (val,val1) {
+        fireStaList: function (val, val1) {
             this.zqIndex = val;
             this.dzIndex = val1;
             if (this.addForm.dxid == null || this.addForm.dxid == "") {
@@ -603,18 +570,9 @@ new Vue({
                             zzrid: this.role_data.userid,
                             zzrmc: this.role_data.realName
                         };
-                        axios.post('/dpapi/digitalplanlist/insertByVO', params, this.fileList).then(function (res) {
+                        axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
                             this.upLoadData.yaid = res.data.result.uuid;
-                            if (this.fileList.length > 0) {
-                                this.submitUpload();//附件上传
-                            }
-                            this.$message({
-                                message: "成功保存预案",
-                                showClose: true,
-                                duration: 0,
-                                onClose: window.location.href = "digitalplan_list.html"
-                            });
-                            // window.location.href = "digitalplan_list.html";
+                            this.submitUpload();//附件上传
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -640,6 +598,16 @@ new Vue({
                 }
             });
         },
+        //附件上传回调方法
+        handleSuccess(response, file, fileList) {
+            this.$message({
+                message: "成功保存预案",
+                showClose: true,
+                duration: 0
+            });
+            window.location.href = "digitalplan_list.html";
+        },
+
         //提交点击事件
         submit: function (formName) {
             this.$refs[formName].validate((valid) => {
@@ -691,9 +659,8 @@ new Vue({
                     return false;
                 }
             });
-
         },
-
+        //附件上传
         submitUpload() {
             // this.upLoadData = { id: 2 };
             this.$refs.upload.submit();
@@ -705,10 +672,11 @@ new Vue({
             const isRAR = file.type === 'file/rar';
             if (!isZip && !isRAR) {
                 this.$message.error('仅可上传zip格式压缩文件!');
-                fileList.splice(0, fileList.length);
+                this.fileList.splice(0, this.fileList.length);
             }
             return isZip || isRAR;
         },
+        //附件移除
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
