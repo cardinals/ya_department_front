@@ -175,3 +175,15 @@ body{height:100%;overflow:hidden;}
 .detail_margin{
     margin-top: 5px;
 }
+.detail_picture_size{
+    width: 100px;
+    height: 120px;
+}
+.card_style{
+    margin-bottom:12px;
+    background-color:#F5FAFC;
+    width: 100%
+}
+.card_title_font{
+    font-size:14px;
+}
