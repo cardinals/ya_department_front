@@ -151,6 +151,8 @@ new Vue({
    /* created: function () {
     },*/
      mounted: function () {
+         //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.loading = true;
         //取得选中行id
         this.id = this.GetQueryString("id");

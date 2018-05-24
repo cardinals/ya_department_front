@@ -5,6 +5,8 @@ new Vue({
     data: function () {
         return {
             visible: false,
+            //菜单编码
+            activeIndex: '',
             //搜索表单
             searchForm: {
                 jzmc: "",
@@ -39,6 +41,10 @@ new Vue({
         }
     },
     created:function(){
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
         this.getJZFLData();
         this.searchClick();
     },
@@ -91,7 +97,7 @@ new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx;
+            window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {
