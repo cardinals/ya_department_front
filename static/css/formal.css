@@ -175,3 +175,7 @@ body{height:100%;overflow:hidden;}
 .detail_margin{
     margin-top: 5px;
 }
+.detail_picture_size{
+    width: 100px;
+    height: 120px;
+}
