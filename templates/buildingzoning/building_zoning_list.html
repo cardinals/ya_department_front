@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     </head>
 	<body class="fw f14 main-index-body">
 		<div id="header_box"></div>
         <div class="left-sidebar">
             <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
             <div id="menu-box">
-                <big-tree default-active="7"></big-tree>
+                <big-tree default-active="6"></big-tree>
             </div>
         </div>
         <div id="app">
@@ -18,14 +18,14 @@
                     <div id="tableView">
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-								<el-row :gutter="40">
+								<el-row>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">建筑分区名称</label>
-										<el-input size="small" v-model="searchForm.jzmc" placeholder="建筑分区名称"></el-input>
+										<label class="el-form-item__label searchLabel">建筑名称</label>
+										<el-input size="small" v-model="searchForm.jzmc" placeholder="建筑名称"></el-input>
 									</el-col>
                                     
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">建筑分区类型</label>
+										<label class="el-form-item__label searchLabel">建筑类型</label>
 										<el-select size="small" v-model="searchForm.option_JZLX" placeholder="全部" class="searchSelect" clearable >
 											<el-option 
 												v-for="item in JZFL_data" 
@@ -34,10 +34,10 @@
 												:value="item.codeValue">
 											</el-option>
 										</el-select>
-                                    </el-col>
+									</el-col>
                                     <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">建筑分区位置</label>
-										<el-input size="small" v-model="searchForm.jzwz" placeholder="建筑分区位置"></el-input>
+										<label class="el-form-item__label searchLabel">建筑位置</label>
+										<el-input size="small" v-model="searchForm.jzwz" placeholder="建筑位置"></el-input>
 									</el-col>
 								</el-row>
 								
@@ -65,15 +65,15 @@
 							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-								<el-table-column prop="name" label="建筑分区名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
+								<el-table-column prop="name" label="建筑名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
                                     <template slot-scope="scope">
-                                        <a @click="detailClick(scope.row)">{{scope.row.jzmc}}</a>
+                                        <a @click="detailClick(scope.row)" v-text="scope.row.jzmc"></a>
                                     </template>
 								</el-table-column>
-								<el-table-column prop="jzlxmc" label="建筑分区类型" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="jzwz" label="建筑分区位置" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="xqxclx" label="辖区行车路线" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="yjddsc" label="预计到达时长" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="jzlxmc" label="建筑类型" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="jzwz" label="建筑位置" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="xqxclx" label="辖区行车路线" show-overflow-tooltip min-width="22%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="yjddsc" label="预计到达时长(min)" show-overflow-tooltip min-width="18%" align="center" :formatter="dataFormat"></el-table-column>
                                 
 							</el-table>
 
