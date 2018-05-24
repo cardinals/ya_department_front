@@ -21,7 +21,7 @@ new Vue({
             //图片预览
             imgPreviewData:{},
             //表高度变量
-            tableheight: 441,
+            tableheight: 443,
             //显示加载中样
             loading: false,          
             labelPosition: 'right',
@@ -87,6 +87,8 @@ new Vue({
         }
     },
     created: function () {
+        //菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.getAllTypes();
         this.searchClick();
     },

@@ -81,6 +81,8 @@ new Vue({
         }
     },
     created: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.searchClick();
         this.searchSYLX_data();
         this.searchGXZD_data();

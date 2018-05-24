@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>全国数据总览</title>
+	<link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/app.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/sync.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/tagscloud2.css">
+	<script type="text/javascript" src="../../static/js/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
+
+</head>
+
+<style>
+	*{ margin: 0; padding: 0; list-style: none; text-decoration: none; font-weight: normal; -webkit-tap-highlight-color:rgba(0,0,0,0); box-sizing: border-box;}
+     .center-in-center{
+        position: fixed;
+        top:270px;
+        left: 642px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+		}
+		.map_bottom{
+         height:107px;
+		 width:593px;
+		 position:fixed;
+		 left:345px;
+		 top:431px;
+		
+		}
+		.map_left{
+         height:300px;
+		 width:220px;
+		 position: fixed;
+		 left: 50px;
+	
+		}
+
+		.map_right{
+         height:309px;
+		 width:295px;
+		 position: fixed;
+		 top:116px;
+		 left: 944px;
+		}
+
+		.top_br{
+			 padding:10px;border-radius:10px;box-shadow:0px 0px 30px 10px #3399ff  inset;
+
+		}
+		
+</style>
+
+<body class="fw map-bg" >
+	<div id="app">
+		<div class="application-box tc abs">
+			<!-- 头部分 -->
+			<div class="application-div h20">
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_unit.png);"></div>
+						<div class="application-name2">重点单位总数（个)</div>
+						<div class="application-num2" v-text=zddw></div>
+					</div>
+				</div>
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_building.png);"></div>
+						<div class="application-name2">建筑信息总数（个）</div>
+						<div class="application-num2" v-text=jzxx></div>
+					</div>
+				</div>
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_emergency.png);"></div>
+						<div class="application-name2">数字化预案总数（个）</div>
+						<div class="application-num2" v-text=szhya></div>
+					</div>
+				</div>
+				<div class="h100 w25 l p5">
+					<div class="application-text map-bg2">
+						<div class="application-imge2" style="background-image: url(../../static/images/icon_ranks.png);"></div>
+						<div class="application-name2">消防队站总数（个）</div>
+						<div class="application-num2" v-text=xfdz></div>
+					</div>
+				</div>
+			</div>
+			<!-- 左侧部分 -->
+            <div class="l h80 w25">
+				<div class="application-div h60 p5">
+					<div class="application-text map-bg2">
+						<div id="top10Bar" class="application-text"></div>
+					</div>
+				</div>
+				<!-- <div class="application-div h30 p5">
+					<div class="application-text map-bg2">
+						
+					</div>
+				</div> -->
+				<div class="application-div h40 p5">
+					<div class="application-text flex map-bg2">
+						<div id="tagscloud" class="application-text">
+							<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
+							<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
+							<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
+							<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
+							<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
+							<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
+							<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
+							<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
+							<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
+							<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 中央部分 -->
+			<div class="l h80 w50">
+				<div class="application-div h100">
+					<div id="map" class="application-text"></div>
+				</div>
+				<!-- <div class="application-div h25">
+					<div id="barmax" class="application-text"></div>
+				</div> -->
+			</div>
+			<!-- 右侧部分 -->
+			<div class="l h80 w25">
+				<div class="application-div h50 p5">
+					<div class="application-text map-bg2">
+						<!-- <div class="txlf">预案总数排行(top10)</div> -->
+						<div id="pie" class="application-text"></div>
+					</div>
+				</div>
+				<div class="application-div h50 p5">
+					<div class="application-text map-bg2">
+						<div id="bar" class="application-text"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /application-box -->
+	</div>
+	
+</body>
+<script src="../../static/js/echarts-2/echarts-all.js"></script>
+<script src="../../static/js/echarts-4/echarts.js"></script>
+<script type="text/javascript" src="../../static/js/vue.js"></script>
+<script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script>
+<script type="text/javascript" src="../../static/js/bigscreen/big_screen_overview.js"></script>
+</html>

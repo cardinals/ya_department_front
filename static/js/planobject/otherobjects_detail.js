@@ -20,19 +20,24 @@ new Vue({
         }
     },
     mounted: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.loading = true;
-        var url = location.href;
-        if (url.indexOf("?") != -1) {
-            var tmp1 = url.split("?")[1];
-            this.ID = decodeURI(tmp1.split("=")[1]);
-            this.uuid = this.ID;
-            axios.get('/dpapi/otherobjects/' + this.uuid).then(function (res) {
-                this.rowdata = res.data.result;
-                this.loading = false;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        }
+        this.uuid = getQueryString("id");
+        axios.get('/dpapi/otherobjects/doFindById/' + this.uuid).then(function (res) {
+            this.rowdata = res.data.result;
+            //显示图片
+            var photo64 = this.rowdata.photo64;
+            var photo = document.getElementById("photo");
+            if(photo64 == "" || photo64 == null){
+                photo.src = "../../static/images/no-picture.png";
+            }else{
+                photo.src = "data:image/png;base64,"+photo64;
+            }
+            this.loading = false;
+        }.bind(this), function (error) {
+            console.log(error)
+        })
     },
 
     methods: {

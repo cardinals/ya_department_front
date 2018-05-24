@@ -5,6 +5,8 @@ new Vue({
     data: function () {
         return {
             visible: false,
+            //菜单编号
+            activeIndex: '',
             //搜索表单
             searchForm: {
                 NAME: "",
@@ -18,7 +20,7 @@ new Vue({
             LXDM_data:[],
             
             //表高度变量
-            tableheight: 450,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             labelPosition: 'right',
@@ -58,6 +60,11 @@ new Vue({
         }
     },
     created:function(){
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
+        
         this.getLXDMData();
         this.searchClick();
     },
@@ -136,7 +143,7 @@ new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "danger_detail.html?ID=" + val.uuid;
+            window.location.href = "danger_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {

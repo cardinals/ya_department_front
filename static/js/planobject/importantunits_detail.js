@@ -201,6 +201,8 @@ new Vue({
         }
     },
     mounted: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         //根据重点单位id获取重点单位详情
         this.getDetails();
         //根据重点单位id获取消防队伍信息
@@ -228,22 +230,18 @@ new Vue({
         //获取重点单位详情
         getDetails: function () {
             this.loading = true;
-            var url = location.href;
-            if (url.indexOf("?") != -1) {
-                var tmp1 = url.split("?")[1];
-                var ID = decodeURI(tmp1.split("=")[1]);
-                this.uuid = ID;
-                axios.get('/dpapi/importantunits/' + ID).then(function (res) {
-                    this.tableData = res.data.result;
-                    this.loading = false;
-                    if (this.tableData !== []) {
-                        //根据重点单位id获取包含的分区详情
-                        this.getJzfqDetailByVo();
-                    }
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-            }
+            var ID = getQueryString("ID");
+            axios.get('/dpapi/importantunits/' + ID).then(function (res) {
+                this.tableData = res.data.result;
+                this.loading = false;
+                if (this.tableData !== []) {
+                    //根据重点单位id获取包含的分区详情
+                    this.getJzfqDetailByVo();
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            
         },
         //根据重点单位id获取消防队伍信息
         getXfllListByZddwIdo: function () {

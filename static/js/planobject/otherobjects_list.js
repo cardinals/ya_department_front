@@ -4,13 +4,15 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            //菜单编号
+            activeIndex: '',
             //搜索表单
             searchForm: {
                 dxmc: '',
                 dxdz: '',
                 xfgx: '',
                 //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
-                uuid:""
+                uuid: ''
             },
             tableData: [],
             xfgxData: [],
@@ -67,16 +69,30 @@ new Vue({
         }
     },
     created:function(){
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
+        //消防管辖下拉框
+        this.getxfgxData();
         this.searchClick();
     },
 
     methods: {
+        //消防管辖下拉框
+        getxfgxData:function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.xfgxData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
         //表格查询事件
         searchClick: function () {
             this.loading=true;
             var _self = this;
             //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
-            this.searchForm.uuid = this.GetQueryString("id");
+            this.searchForm.uuid = getQueryString("id");
             var params={
                 //add by yushch
                 uuid : this.searchForm.uuid,
@@ -144,13 +160,7 @@ new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            window.location.replace("otherobjects_detail.html?ID=" + val.uuid);
-        },
-        //根据参数部分和参数名来获取参数值 
-        GetQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]); return null;
-        },
+            window.location.replace("otherobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex);
+        }
     }
 })

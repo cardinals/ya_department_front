@@ -126,11 +126,11 @@ new Vue({
         }
     },
     created: function () {
+        //菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.searchClick();
     },
     methods: {
-
-
         //表格查询事件
         searchClick: function () {
             var _self = this;

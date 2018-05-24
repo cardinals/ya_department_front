@@ -8,16 +8,15 @@ a{ text-decoration:none; font-size:14px;}
 body,html{ width:100%; height:100%;}
 
 /* top */
-body{ background:#2546a5 url(../images/login-bg.jpg) no-repeat center center;}
-.logo_box{width:1100px;margin:0 auto;overflow:hidden; padding-top:40px;}
-.logo_box_img{width:585px;height:78px;background-image:url(../images/LOGO3.png);}
+/* body{ background:#2546a5 url(../images/login-bg.jpg) no-repeat center center;} */
+.login_top{width:100%;height:64px;overflow:hidden;background:#ffffff}
+.login_top_logo{width:585px;height:50px;background: url(../images/LOGO4.png)no-repeat center center; background-size: auto 100%; position: relative; top: 50%; transform: translateY(-50%); margin-left: 130px; z-index:1;}
 .logo{ float:left;}
 .logo img{ width:80%;}
 
 /* center */
-.cen_outside{ width:100%; overflow:hidden;}
-.cenLogin{width:1250px;height:450px;position:absolute;top:50%;left:50%;margin:-225px 0 0 -625px;  background:url(../images/loginCenter-bg.png) no-repeat left center;}
-.Login_Cen{ width:1120px; margin:0 auto; overflow:hidden;}
+.login_center{ width:100%; height:466px; overflow:hidden; background:url(../images/loginCenter.png) no-repeat 0 0; background-size: 100% auto;}
+.Login_img{ width:1120px; margin:0 auto; overflow:hidden; background: url(../images/loginCenter-img.png) no-repeat left center; background-size: auto 100%;}
 .Login{ width:420px; height:450px; float:right; background:url(../images/loginBox-bg.png) no-repeat 0 0; overflow:hidden;}
 .Login_n{ width:360px; height:390px; margin:29px 0 0 32px;}
 .Login_nTop{height:64px; line-height:72px; font-size:20px; border-bottom: 1px solid #d6d6d6; padding-left:30px; }
@@ -54,7 +53,8 @@ body{ background:#2546a5 url(../images/login-bg.jpg) no-repeat center center;}
 .LoginBtn a:hover{ display:block; width:296px; height:39px; line-height:39px; margin:0 auto; background:url(../images/loginButton-hover.jpg) repeat-x;border-radius:4px; color:#FFF; font-size:16px; font-family:"微软雅黑"; text-align:center; border:1px solid #ab7a3b;}
  
 /* footer */
-.footer{ width:100%; text-align:center; font-size:12px; text-align:center; color:#95a0cc; position:fixed; bottom:0px; padding-bottom:40px;}
+.login_footer{ width:100%; text-align:center; font-size:12px; text-align:center; background:#ffffff; bottom:0px;padding-top: 10px; padding-bottom: 0px;}
+.login_footer_text{ position: relative; top: 50%; transform: translateY(-50%);}
 
 /* 输入框 */
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */

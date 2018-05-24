@@ -4,24 +4,26 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/planobject/importantunits.css">
+    <title>其他对象</title>
 </head>
 
 <body class="fw f14 main-index-body">
     <div id="header_box"></div>
     <div class="left-sidebar">
         <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <input type="hidden" id="activeIndex"/>
         <div id="menu-box">
-            <big-tree default-active="22"></big-tree>
+            <big-tree default-active=""></big-tree>
         </div>
     </div>
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
+                <div id="lib :: main_container_header('其他对象','其他对象')"></div>
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-                            <el-row :gutter="40">
+                            <el-row>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">对象名称</label>
                                     <el-input size="small" v-model="searchForm.dxmc" placeholder="对象名称"></el-input>
@@ -32,8 +34,9 @@
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">消防管辖</label>
-                                    <el-cascader :options="xfgxData" :props="props" size="small" v-model="searchForm.xfgx" placeholder="消防管辖" class="searchSelect"
-                                        clearable change-on-select></el-cascader>
+                                    <el-select size="small" v-model="searchForm.xfgx" placeholder="全部" class="searchSelect" clearable>
+                                            <el-option v-for="item in xfgxData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+                                    </el-select>
                                 </el-col>
                             </el-row>
                             <div>
@@ -61,11 +64,11 @@
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
                             <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat">
                                 <template slot-scope="scope">
-                                    <a @click="informClick(scope.row)">{{scope.row.dxmc}}</a>
+                                    <a @click="informClick(scope.row)" v-text=scope.row.dxmc></a>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="dxdz" label="对象地址" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="xfgx" label="消防管辖" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="dxdz" label="对象地址" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="xfgxmc" label="消防管辖" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
                             <el-table-column prop="lxdh" label="联系电话" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
                         </el-table>
     
@@ -85,7 +88,6 @@
     </div>
 </body>
 <script src="../../static/js/lib.js"></script>
-<script src="../../static/js/menu.js"></script>
 <script src="../../static/js/planobject/otherobjects_list.js"></script>
-
+<script src="../../static/js/menu.js"></script>
 </html>

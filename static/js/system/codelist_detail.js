@@ -51,8 +51,11 @@ new Vue({
         }
     },
     created: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
+        
         this.loading = true; //重新加载数据
-        this.codeid = this.GetQueryString("codeid");
+        this.codeid = getQueryString("codeid");
         axios.get('/api/codelist/detail/doFindById/' + this.codeid).then(function (res) {
             this.tableData = res.data.result;
             this.total = res.data.result.length;
@@ -60,16 +63,8 @@ new Vue({
         }.bind(this), function (error) {
             console.log(error)
         })
-
-        //设置菜单选中项
-        $('#defaultActive').val(25);
     },
     methods: {
-        GetQueryString(name) {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if(r!=null)return  unescape(r[2]); return null;
-        },
         handleNodeClick(data) {
         },
 
