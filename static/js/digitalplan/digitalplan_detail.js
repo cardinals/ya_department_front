@@ -39,13 +39,10 @@ new Vue({
         }
     },
     created: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.loading = true;
-        var url = location.search;
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            var ID = str.substring(3);
-            this.pkid = ID;
-        }
+        this.pkid  = getQueryString("ID");
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
     },

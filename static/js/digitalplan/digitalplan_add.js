@@ -152,6 +152,8 @@ new Vue({
         }
     },
     created: function () {
+        //设置菜单选中
+        $("#activeIndex").val(getQueryString("index"));
         this.YALX_tree();
         this.RSWZ_tree();
         this.ZQDJ_tree();
@@ -163,11 +165,12 @@ new Vue({
         this.DJFALX();
     },
     mounted: function () {
-        var url = location.search;
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            this.status = str.substring(3);
-        }
+        this.status = getQueryString("ID");
+        // var url = location.search;
+        // if (url.indexOf("?") != -1) {
+        //     var str = url.substr(1);
+        //     this.status = str.substring(3);
+        // }
         this.searchClick();
     },
     methods: {

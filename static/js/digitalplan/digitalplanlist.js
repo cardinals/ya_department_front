@@ -4,6 +4,8 @@ new Vue({
     el: '#app',
     data: function () {
         return {
+            //菜单编码
+            activeIndex: '',
             /**lxy start */
             // fileList: [
             //     { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
@@ -64,6 +66,11 @@ new Vue({
         }
     },
     created: function () {
+        //菜单选中
+        var index = getQueryString("index");
+        $("#activeIndex").val(index);
+        this.activeIndex = index;
+
         this.YALX_tree();//预案类型级联选择
         this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
@@ -158,12 +165,12 @@ new Vue({
         },
         //预案详情跳转
         planDetails(val) {
-            window.location.href = "digitalplan_detail.html?ID=" + val.uuid;
+            window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
             //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         //预案新增跳转
         addClick() {
-            window.location.href = "digitalplan_add.html?ID=" + 0;
+            window.location.href = "digitalplan_add.html?ID=" + 0 + "&index=" + this.activeIndex;
         },
         //预案编辑跳转
         handleEdit(row) {
