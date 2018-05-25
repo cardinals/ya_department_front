@@ -23,23 +23,23 @@
                     <div class="nameBox">
                         <div class="dib">
                             <div>
-                                <h3 class="dib inform-h3" v-text="detailData.jzmc||'无'"></h3>&nbsp&nbsp
-                                <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="detailData.jzlxmc !== null" v-text="detailData.jzlxmc||'无'"></el-tag>
+                                <h3 class="dib inform-h3" v-text="detailData.jzmc"></h3>&nbsp&nbsp
+                                <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="detailData.jzlxmc !== null" v-text="detailData.jzlxmc"></el-tag>
                             </div>
                             <dl>
-                                <dt class="dib inform-small-title">位置：</dt>
+                                <dt class="dib inform-small-title detail_margin">位置：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.jzwz||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">经度：</dt>
+                                <dt class="dib inform-small-title detail_margin">经度：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.lon||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">纬度：</dt>
+                                <dt class="dib inform-small-title detail_margin">纬度：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.lat||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">辖区行车路线：</dt>
+                                <dt class="dib inform-small-title detail_margin">辖区行车路线：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.xqxclx||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">预计到达时长：</dt>
+                                <dt class="dib inform-small-title detail_margin">预计到达时长：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.yjddsc||'无'"></dd>
                             </dl>
                         </div>
@@ -311,7 +311,7 @@
                                         </div>
                                     </div>
                                     <div id="cg" style="margin-top: 40px">
-                                        <el-card v-for="data in detailData.chuguanList" style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-card v-for="data in detailData.chuguanList" class="card_style">
                                             <el-row>
                                                 <el-col :span="24">
                                                     <div>
@@ -379,6 +379,9 @@
                                         <div slot="header" class="clearfix">
                                             <strong class="card_title_fonts">安全疏散措施</strong>
                                         </div>
+                                        <div v-if="this.AQSSCS === false">
+                                            <strong>无</strong>
+                                        </div>
                                         <div v-if="this.isAqckShow">
                                             <strong>安全出口</strong>
                                             <el-table :data="aqckData" border class="detailTable">
@@ -423,19 +426,277 @@
                                         <div slot="header" class="clearfix">
                                             <strong class="card_title_fonts">消防水系统</strong>
                                         </div>
+                                        <div v-if="this.XFSXT === false">
+                                            <strong>无</strong>
+                                        </div>
                                         <div v-if="this.isXfbfShow">
                                             <strong>消防泵房</strong>
                                             <el-table :data="xfbfData" border class="detailTable">
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="xhssl" label="消火栓泵数量" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="shszdll" label="消火栓最大流量(L/s）" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="xhszdll" label="消火栓最大流量(L/s）" align="center" width="130" ></el-table-column>
                                                 <el-table-column prop="blbsl" label="喷淋泵数量" align="center" width="130" ></el-table-column>
                                                 <el-table-column prop="plbzdll" label="喷淋泵最大流量(L/s）" align="center" width="130" ></el-table-column>
                                             </el-table>
                                         </div>
+                                        <div v-if="this.isXfsxShow">
+                                            <strong>消防水箱</strong>
+                                            <el-table :data="xfsxData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sxrl" label="水箱容量(m³)" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="bjsd" label="补给速度(L/s）" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isXfscShow">
+                                            <strong>消防水池</strong>
+                                            <el-table :data="xfscData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sxrl" label="水箱容量(m³)" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="bjsd" label="补给速度(L/s）" align="center" width="150" ></el-table-column>
+                                                <el-table-column prop="ywqsj" label="是否有取水口（井）" align="center" width="180" ></el-table-column>
+                                                <el-table-column prop="qsjwz" label="取水口（井）位置" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isSnxhsShow">
+                                            <strong>室内消火栓</strong>
+                                            <el-table :data="snxhsData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="sfky" label="是否可用" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isSwxhsShow">
+                                            <strong>室外消火栓</strong>
+                                            <el-table :data="swxhsData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="sfky" label="是否可用" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isSbjhqShow">
+                                            <strong>水泵接合器</strong>
+                                            <el-table :data="sbjhqData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="xh" label="型号" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="azxsmc" label="安装形式" align="center" width="130" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="jskcc" label="进水口尺寸" align="center" width="130" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isPlxtShow">
+                                            <strong>喷淋系统</strong>
+                                            <el-table :data="plxtData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="ywplxt" label="有无喷淋系统" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isLqsxtShow">
+                                            <strong>冷却水系统</strong>
+                                            <el-table :data="lqsxtData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="ywlqsxt" label="有无冷却水系统" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="gsqd" label="供水强度(L/min.m2)" align="center" width="200" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isGdspShow">
+                                            <strong>固定水炮</strong>
+                                            <el-table :data="gdspData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="isky" label="是否可用" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isBgdssShow">
+                                            <strong>半固定设施</strong>
+                                            <el-table :data="bgdssData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
                                     </el-card>
-
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_fonts">泡沫系统</strong>
+                                        </div>
+                                        <div v-if="this.PMXT === false">
+                                            <strong>无</strong>
+                                        </div>
+                                        <div v-if="this.isPmbfShow">
+                                            <strong>泡沫泵房</strong>
+                                            <el-table :data="pmbfData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="pmylxmc" label="泡沫液类型" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="pmycl" label="泡沫液储量(t)" align="center" width="130" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="pmbzdll" label="泡沫泵最大流量(L/s)" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isPmxhsShow">
+                                            <strong>泡沫消火栓</strong>
+                                            <el-table :data="pmxhsData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="isky" label="是否可用" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isGdpmpShow">
+                                            <strong>固定泡沫炮</strong>
+                                            <el-table :data="gdpmpData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="sfky" label="是否可用" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isPmfsqShow">
+                                            <strong>泡沫发生器</strong>
+                                            <el-table :data="pmfsqData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="xh" label="型号" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="ll" label="流量(L/s)" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isPmBgdssShow">
+                                            <strong>半固定设施</strong>
+                                            <el-table :data="pmBgdssData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_fonts">蒸汽灭火系统</strong>
+                                        </div>
+                                        <div v-if="this.ZQMHXT === false">
+                                            <strong>无</strong>
+                                        </div>
+                                        <div v-if="this.isGdsShow">
+                                            <strong>固定式</strong>
+                                            <el-table :data="gdsData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="edyl" label="额定压力(Mpa)" align="center" width="200" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isBgdsShow">
+                                            <strong>半固定式</strong>
+                                            <el-table :data="bgdsData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="edyl" label="额定压力(Mpa)" align="center" width="200" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_fonts">消防控制室</strong>
+                                        </div>
+                                        <div v-if="this.XFKZS === false">
+                                            <strong>无</strong>
+                                        </div>
+                                        <div v-if="this.XFKZS">
+                                            <el-table :data="xfkzsData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="iszdbj" label="自动报警是否可用" align="center" width="200" ></el-table-column>
+                                                <el-table-column prop="isldkz" label="联动控制是否可用" align="center" width="200" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_fonts">防排烟措施</strong>
+                                        </div>
+                                        <div v-if="this.FPYCS === false">
+                                            <strong>无</strong>
+                                        </div>
+                                        <div v-if="this.isPycykShow">
+                                            <strong>排烟口/出烟口</strong>
+                                            <el-table :data="pycykData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isFpyxtShow">
+                                            <strong>防排烟系统</strong>
+                                            <el-table :data="fpyxtData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="qbwz" label="系统启闭位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="isky" label="是否可用" align="center" width="130" ></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_fonts">防火分区</strong>
+                                        </div>
+                                        <div v-if="this.FHFQ === false">
+                                            <strong>无</strong>
+                                        </div>
+                                        <div v-if="this.FHFQ">
+                                            <el-table :data="fhfqData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="qywz" label="区域位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="qymj" label="区域面积(m2)" align="center" width="160" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="fgss" label="分隔设施" align="center" width="160" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="fgwz" label="分隔位置" align="center" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_fonts">其他灭火系统</strong>
+                                        </div>
+                                        <div v-if="this.QTMHXT === false">
+                                            <strong>无</strong>
+                                        </div>
+                                        <div v-if="this.isQtmhxtShow">
+                                            <strong>气体灭火系统</strong>
+                                            <el-table :data="qtmhxtData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="qbwz" label="起闭位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="zyfw" label="作用范围" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                        <div v-if="this.isGfmhxtShow">
+                                            <strong>干粉灭火系统</strong>
+                                            <el-table :data="gfmhxtData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="qbwz" label="起闭位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="zyfw" label="作用范围" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_fonts">其他消防设施</strong>
+                                        </div>
+                                        <div v-if="this.QTXFSS === false">
+                                            <strong>无</strong>
+                                        </div>
+                                        <div v-if="this.QTXFSS">
+                                            <el-table :data="qtxfssData" border class="detailTable">
+                                                <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="ms" label="描述" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
                                 </el-tab-pane>
                             </el-tabs>
                         </template>
