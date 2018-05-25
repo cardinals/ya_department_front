@@ -512,7 +512,7 @@ new Vue({
             debugger
             var index = this.zqIndex;
             var index1 = this.dzIndex;
-            this.dynamicValidateForm[index].forcedevList[index1].dzid = val.zdid
+            this.dynamicValidateForm[index].forcedevList[index1].dzid = val.dzid
             this.dynamicValidateForm[index].forcedevList[index1].dzmc = val.dzmc
             this.fireStaListVisible = false;
         },

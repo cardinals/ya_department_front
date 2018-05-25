@@ -28,7 +28,7 @@
 					<el-form :inline="true" class="el-form demo-form-inline" :rules="rules" ref="addForm" :model="addForm" label-position="right">
 						<el-row>
 							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案对象">
+								<el-form-item label="预案对象" prop="dxmc">
 									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" clearable></el-input>
 								</el-form-item>
 							</el-col>

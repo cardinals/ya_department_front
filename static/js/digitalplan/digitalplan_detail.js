@@ -4,12 +4,10 @@ new Vue({
         return {
             activeName: "first",
 
-            pkid: "",//页面获取的pkid
+            pkid: "",//页面获取的预案id
 
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
-            forcedevData: {},//力量部署Data
-            keypointsData: {},//要点提示Data
 
             loading: false,
             //测试Data
@@ -42,7 +40,7 @@ new Vue({
         //设置菜单选中
         $("#activeIndex").val(getQueryString("index"));
         this.loading = true;
-        this.pkid  = getQueryString("ID");
+        this.pkid = getQueryString("ID");
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
     },
@@ -107,28 +105,32 @@ new Vue({
         },
         //信息打印
         openPrinter: function () {
-            // // 1.设置要打印的区域 div的className
-            // var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
-            // // 2. 复制给body，并执行window.print打印功能
-            // document.body.innerHTML = newstr
-            // window.print()
-            // // 重新加载页面，以刷新数据
-            // window.location.reload();
-            window.open("http://192.168.1.100:8005/planShare/page/" + this.pkid + "/web");
+            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/web");
         },
         //预案预览
         openPlan: function () {
-            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
+            axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
+                var yllj = res.data.result[0].yllj;
+                window.open("http://localhost:8090/upload/" + yllj);
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
         //预案下载
         downloadPlan: function () {
-            window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");
+            axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
+                var xzlj = res.data.result[0].xzlj;
+                window.open("http://localhost:8090/upload/" + xzlj);
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");
         },
         /**
         * lxy
         */
         submitUpload() {
-            this.upLoadData = { id: 2 };
             this.$refs.upload.submit();
         },
         handleRemove(file, fileList) {
