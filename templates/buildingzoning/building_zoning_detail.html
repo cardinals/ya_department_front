@@ -23,23 +23,23 @@
                     <div class="nameBox">
                         <div class="dib">
                             <div>
-                                <h3 class="dib inform-h3" v-text="detailData.jzmc||'无'"></h3>&nbsp&nbsp
-                                <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="detailData.jzlxmc !== null" v-text="detailData.jzlxmc||'无'"></el-tag>
+                                <h3 class="dib inform-h3" v-text="detailData.jzmc"></h3>&nbsp&nbsp
+                                <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="detailData.jzlxmc !== null" v-text="detailData.jzlxmc"></el-tag>
                             </div>
                             <dl>
-                                <dt class="dib inform-small-title">位置：</dt>
+                                <dt class="dib inform-small-title detail_margin">位置：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.jzwz||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">经度：</dt>
+                                <dt class="dib inform-small-title detail_margin">经度：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.lon||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">纬度：</dt>
+                                <dt class="dib inform-small-title detail_margin">纬度：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.lat||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">辖区行车路线：</dt>
+                                <dt class="dib inform-small-title detail_margin">辖区行车路线：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.xqxclx||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title">预计到达时长：</dt>
+                                <dt class="dib inform-small-title detail_margin">预计到达时长：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.yjddsc||'无'"></dd>
                             </dl>
                         </div>
@@ -311,7 +311,7 @@
                                         </div>
                                     </div>
                                     <div id="cg" style="margin-top: 40px">
-                                        <el-card v-for="data in detailData.chuguanList" style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <el-card v-for="data in detailData.chuguanList" class="card_style">
                                             <el-row>
                                                 <el-col :span="24">
                                                     <div>
@@ -435,7 +435,7 @@
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="xhssl" label="消火栓泵数量" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="shszdll" label="消火栓最大流量(L/s）" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="xhszdll" label="消火栓最大流量(L/s）" align="center" width="130" ></el-table-column>
                                                 <el-table-column prop="blbsl" label="喷淋泵数量" align="center" width="130" ></el-table-column>
                                                 <el-table-column prop="plbzdll" label="喷淋泵最大流量(L/s）" align="center" width="130" ></el-table-column>
                                             </el-table>
@@ -457,7 +457,7 @@
                                                 <el-table-column prop="sxrl" label="水箱容量(m³)" align="center" width="130" ></el-table-column>
                                                 <el-table-column prop="bjsd" label="补给速度(L/s）" align="center" width="150" ></el-table-column>
                                                 <el-table-column prop="ywqsj" label="是否有取水口（井）" align="center" width="180" ></el-table-column>
-                                                <el-table-column prop="qsjwz" label="取水口（井）位置" align="center" width="150" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="qsjwz" label="取水口（井）位置" align="center" width="200" show-overflow-tooltip></el-table-column>
                                             </el-table>
                                         </div>
                                         <div v-if="this.isSnxhsShow">
@@ -484,8 +484,8 @@
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="xh" label="型号" align="center" width="200" show-overflow-tooltip></el-table-column>
-                                                <el-table-column prop="azxsmc" label="安装形式" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="jskcc" label="进水口尺寸" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="azxsmc" label="安装形式" align="center" width="130" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="jskcc" label="进水口尺寸" align="center" width="130" show-overflow-tooltip></el-table-column>
                                             </el-table>
                                         </div>
                                         <div v-if="this.isPlxtShow">
@@ -535,9 +535,9 @@
                                             <el-table :data="pmbfData" border class="detailTable">
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                                <el-table-column prop="pmylxmc" label="泡沫液类型" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="pmycl" label="泡沫液储量(t)" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="pmbzdll" label="泡沫泵最大流量(L/s)" align="center" width="200" ></el-table-column>
+                                                <el-table-column prop="pmylxmc" label="泡沫液类型" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="pmycl" label="泡沫液储量(t)" align="center" width="130" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="pmbzdll" label="泡沫泵最大流量(L/s)" align="center" width="200" show-overflow-tooltip></el-table-column>
                                             </el-table>
                                         </div>
                                         <div v-if="this.isPmxhsShow">
@@ -562,7 +562,7 @@
                                             <el-table :data="pmfsqData" border class="detailTable">
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                                <el-table-column prop="xh" label="型号" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="xh" label="型号" align="center" width="200" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="sl" label="数量" align="center" width="130" ></el-table-column>
                                                 <el-table-column prop="ll" label="流量(L/s)" align="center" width="130" ></el-table-column>
                                             </el-table>
@@ -652,9 +652,9 @@
                                             <el-table :data="fhfqData" border class="detailTable">
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="qywz" label="区域位置" align="center" show-overflow-tooltip></el-table-column>
-                                                <el-table-column prop="qymj" label="区域面积(m2)" align="center" width="160" ></el-table-column>
+                                                <el-table-column prop="qymj" label="区域面积(m2)" align="center" width="160" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="fgss" label="分隔设施" align="center" width="160" show-overflow-tooltip></el-table-column>
-                                                <el-table-column prop="fgwz" label="分割位置" align="center" show-overflow-tooltip></el-table-column>
+                                                <el-table-column prop="fgwz" label="分隔位置" align="center" show-overflow-tooltip></el-table-column>
                                             </el-table>
                                         </div>
                                     </el-card>
