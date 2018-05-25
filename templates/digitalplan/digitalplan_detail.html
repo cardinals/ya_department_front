@@ -10,12 +10,12 @@
 <body class="fw f14 main-index-body">
     <div id="header_box"></div>
     <div class="left-sidebar">
-		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-		<input type="hidden" id="activeIndex"/>
-		<div id="menu-box">
-			<big-tree default-active=""></big-tree>
-		</div>
-	</div>
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <input type="hidden" id="activeIndex" />
+        <div id="menu-box">
+            <big-tree default-active=""></big-tree>
+        </div>
+    </div>
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
@@ -34,19 +34,19 @@
                             <dl>
                                 <img src="../../static/images/location.png">
                                 <dt class="dib inform-small-title">预案对象：</dt>
-                                <dd class="dtdlStyle">{{basicDetailData.dxmc||"无"}}</dd>
+                                <dd class="dtdlStyle" v-text="basicDetailData.dxmc||'无'"></dd>
                                 <br>
                                 <img src="../../static/images/date.png">
                                 <dt class="dib inform-small-title">预案编码：</dt>
-                                <dd class="dtdlStyle">{{basicDetailData.yabm||"无"}}</dd>
+                                <dd class="dtdlStyle" v-text="basicDetailData.yabm||'无'"></dd>
                                 <br>
                                 <img src="../../static/images/date.png">
                                 <dt class="dib inform-small-title">预案类型：</dt>
-                                <dd class="dtdlStyle">{{basicDetailData.yalxmc||"无"}}</dd>
+                                <dd class="dtdlStyle" v-text="basicDetailData.yalxmc||'无'"></dd>
                                 <br>
                                 <img src="../../static/images/postcode.png">
                                 <dt class="dib inform-small-title">预案状态：</dt>
-                                <dd class="dtdlStyle">{{basicDetailData.yaztmc||"无"}}</dd>
+                                <dd class="dtdlStyle" v-text="basicDetailData.yaztmc||'无'"></dd>
                                 <br>
                             </dl>
                         </div>
@@ -62,45 +62,32 @@
                         <template>
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
                                 <el-tab-pane label="基本信息" name="first">
-                                    <el-card class="mb10 cardBack">
+                                    <el-card class="mb10 card_style ">
                                         <div slot="header" class="clearfix">
-                                            <strong style="color: #20a0ff;">制作情况</strong>
+                                            <strong class="card_title_fonts" style="color: #20a0ff;">制作情况</strong>
                                         </div>
-                                        <!-- <el-row class="mb5">
-                                            <el-col :span="24">
-                                                <div style="color: #20a0ff;">
-                                                    <strong>制作情况</strong>
-                                                </div>
-                                            </el-col>
-                                        </el-row> -->
                                         <el-row class="mb5">
                                             <el-col :span="2" style="text-align: right;">
-                                                <div>制作人：</div>
+                                                <strong>制作人：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div>
-                                                    <strong>{{basicDetailData.zzrmc||"无"}}</strong>
-                                                </div>
+                                                <div v-text="basicDetailData.zzrmc||'无'"></div>
                                             </el-col>
                                             <el-col :span="2" style="text-align: right;">
-                                                <div>制作时间：</div>
+                                                <strong>制作时间：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div>
-                                                    <strong>{{basicDetailData.zzsj||"无"}}</strong>
-                                                </div>
+                                                <div v-text="basicDetailData.zzsj||'无'"></div>
                                             </el-col>
                                             <el-col :span="2" style="text-align: right;">
-                                                <div>制作机构：</div>
+                                                <strong>制作机构：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div>
-                                                    <strong>{{basicDetailData.jgmc||"无"}}</strong>
-                                                </div>
+                                                <div v-text="basicDetailData.jgmc||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card class="mb10 cardBack">
+                                    <el-card class="mb10 card_style">
                                         <!-- <el-row class="mb5">
                                             <el-col :span="24">
                                                 <div style="color: #20a0ff;">
@@ -113,123 +100,96 @@
                                         </div>
                                         <el-row class="mb5">
                                             <el-col :span="2" style="text-align: right;">
-                                                <div>审核人：</div>
+                                                <strong>审核人：</strong>
                                             </el-col>
                                             <el-col :span="6">
                                                 <div>
-                                                    <strong>{{basicDetailData.shrmc||"无"}}</strong>
+                                                    {{basicDetailData.shrmc||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="2" style="text-align: right;">
-                                                <div>审核时间：</div>
+                                                <strong>审核时间：</strong>
                                             </el-col>
                                             <el-col :span="6">
                                                 <div>
-                                                    <strong>{{basicDetailData.shsj||"无"}}</strong>
+                                                    {{basicDetailData.shsj||"无"}}
                                                 </div>
                                             </el-col>
                                             <el-col :span="2" style="text-align: right;">
-                                                <div>审核状态：</div>
+                                                <strong>审核状态：</strong>
                                             </el-col>
                                             <el-col :span="6">
                                                 <div>
-                                                    <strong>{{basicDetailData.shztmc||"无"}}</strong>
+                                                    {{basicDetailData.shztmc||"无"}}</strong>
                                                 </div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="灾情设定与力量部署" name="second">
-                                    <el-card v-for="item in disasterSetData" class="mb10 cardBack">
+                                    <el-card v-for="item in disasterSetData" class="mb10 card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="color: #20a0ff;">灾情部位 -{{item.zqbw||"无"}}</strong>
+                                            <strong class="card_title_fonts" style="color: #20a0ff;">灾情部位 -{{item.zqbw||"无"}}</strong>
                                         </div>
                                         <div name="灾情部位" class="pb5">
-
-                                            <!-- <el-row class="mb5">
-                                                <el-col :span="24">
-                                                    <div style="color: #20a0ff;">
-                                                        <strong>灾情部位 -</strong>
-                                                        <strong></strong>
-                                                    </div>
-                                                </el-col>
-                                            </el-row> -->
                                             <el-row class="mb5">
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>灾情等级：</div>
+                                                    <strong>灾情等级：</strong>
                                                 </el-col>
                                                 <el-col :span="4">
-                                                    <div>
-                                                        <strong>{{item.zqdjmc||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.zqdjmc||'无'"></div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>燃烧物质：</div>
+                                                    <strong>燃烧物质：</strong>
                                                 </el-col>
                                                 <el-col :span="4">
-                                                    <div>
-                                                        <strong>{{item.rswzmc||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.rswzmc||'无'"></div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>灾害场所：</div>
+                                                    <strong>灾害场所：</strong>
                                                 </el-col>
                                                 <el-col :span="7">
-                                                    <div>
-                                                        <strong>{{item.zhcsmc||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.zhcsmc||'无'"></div>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="mb5">
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>火灾危险性：</div>
+                                                    <strong>火灾危险性：</strong>
                                                 </el-col>
                                                 <el-col :span="4">
-                                                    <div>
-                                                        <strong>{{item.hzwxxmc||"无"}}级</strong>
-                                                    </div>
+                                                    <div v-text="item.hzwxxmc||'--'">级</div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>燃烧面积：</div>
+                                                    <strong>燃烧面积：</strong>
                                                 </el-col>
                                                 <el-col :span="4">
-                                                    <div>
-                                                        <strong>{{item.rsmj||"无"}}㎡</strong>
-                                                    </div>
+                                                    <div v-text="item.rsmj||'--'">㎡</div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>灾情描述：</div>
+                                                    <strong>灾情描述：</strong>
                                                 </el-col>
                                                 <el-col :span="7">
-                                                    <div>
-                                                        <strong>{{item.zqms||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.zqms||'无'"></div>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="mb5">
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>起火原因：</div>
+                                                    <strong>起火原因：</strong>
                                                 </el-col>
                                                 <el-col :span="4">
-                                                    <div>
-                                                        <strong>{{item.qhyymc||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.qhyymc||'无'"></div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>起火高度：</div>
+                                                    <strong>起火高度：</strong>
                                                 </el-col>
                                                 <el-col :span="4">
-                                                    <div>
-                                                        <strong>{{item.qhbwgd||"无"}}m</strong>
-                                                    </div>
+                                                    <div v-text="item.qhbwgd||'无'"></div>
                                                 </el-col>
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>灾情设定依据：</div>
+                                                    <strong>灾情设定依据：</strong>
                                                 </el-col>
                                                 <el-col :span="7">
-                                                    <div>
-                                                        <strong>{{item.zqsdyj||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.zqsdyj||'无'"></div>
                                                 </el-col>
                                             </el-row>
                                         </div>
@@ -246,30 +206,24 @@
                                                 </el-row>
                                                 <el-row class="mb5">
                                                     <el-col :span="3" style="text-align: right;">
-                                                        <div>队站名称：</div>
+                                                        <strong>队站名称：</strong>
                                                     </el-col>
                                                     <el-col :span="4">
-                                                        <div>
-                                                            <strong>{{forcedev.dzmc||"无"}}</strong>
-                                                        </div>
+                                                        <div v-text="forcedev.dzmc||'无'"></div>
                                                     </el-col>
                                                     <el-col :span="3" style="text-align: right;">
-                                                        <div>停靠位置：</div>
+                                                        <strong>停靠位置：</strong>
                                                     </el-col>
                                                     <el-col :span="14">
-                                                        <div>
-                                                            <strong>{{forcedev.tkwz||"无"}}</strong>
-                                                        </div>
+                                                        <div v-text="forcedev.tkwz||'无'"></div>
                                                     </el-col>
                                                 </el-row>
                                                 <el-row class="mb5">
                                                     <el-col :span="3" style="text-align: right;">
-                                                        <div>车辆装备提示：</div>
+                                                        <strong>车辆装备提示：</strong>
                                                     </el-col>
                                                     <el-col :span="21">
-                                                        <div>
-                                                            <strong>{{forcedev.clzbts||"无"}}</strong>
-                                                        </div>
+                                                        <div v-text="forcedev.clzbts||'无'"></div>
                                                     </el-col>
                                                 </el-row>
                                             </div>
@@ -285,22 +239,18 @@
                                             </el-row>
                                             <el-row class="mb5">
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div>战术要点：</div>
+                                                    <strong>战术要点：</strong>
                                                 </el-col>
                                                 <el-col :span="21">
-                                                    <div>
-                                                        <strong>{{item.keypointsMap.zsyd||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.keypointsMap.zsyd||'无'"></div>
                                                 </el-col>
                                             </el-row>
                                             <el-row class="mb5">
                                                 <el-col :span="3" style="text-align: right;">
-                                                    <div> 特别警示：</div>
+                                                    <strong> 特别警示：</strong>
                                                 </el-col>
                                                 <el-col :span="21">
-                                                    <div>
-                                                        <strong>{{item.keypointsMap.tbjs||"无"}}</strong>
-                                                    </div>
+                                                    <div v-text="item.keypointsMap.tbjs||'无'"></div>
                                                 </el-col>
                                             </el-row>
                                         </div>

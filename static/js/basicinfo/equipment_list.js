@@ -64,7 +64,7 @@ new Vue({
                 kcsl_min: this.searchForm.kcsl[0],
                 kcsl_max: this.searchForm.kcsl[1]
             };
-            axios.post('/dpapi/equipmentsource/findByVO', params).then(function (res) {
+            axios.post('/dpapi/equipmentsource/list', params).then(function (res) {
                 this.tableData = res.data.result;
                 for(var i=0;i<this.tableData.length;i++){
                     this.tableData[i].zcbl = parseInt(this.tableData[i].kcsl) 

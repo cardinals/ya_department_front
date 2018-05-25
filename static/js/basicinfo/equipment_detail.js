@@ -24,7 +24,7 @@ new Vue({
             // alert(str);  
             var ID = str.substring(3);
             this.id = ID;
-            axios.get('/dpapi/equipmentsource/doFindDetailById/' + this.id).then(function (res) {
+            axios.get('/dpapi/equipmentsource/' + this.id).then(function (res) {
                 this.tableData = res.data.result[0];
                 this.rowdata = this.tableData;
             }.bind(this), function (error) {

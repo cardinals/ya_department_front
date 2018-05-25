@@ -62,12 +62,8 @@ new Vue({
                     { required: true, message: '请选择预案级别', trigger: 'change' }
                 ]
             },
-            fileList: [
-                // { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                // { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                // { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                // { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
-            ],
+            //上传文件Data
+            fileList: [],
             upLoadData: {
                 yaid: ""
             },
@@ -86,7 +82,7 @@ new Vue({
             },
             tableData_units: [],
             //表高度变量
-            tableheight_units: 250,
+            tableheight_units: 243,
 
             //灾情部位弹出页---------------------------------------------------
             partsListVisible: false,
@@ -103,7 +99,7 @@ new Vue({
             },
             tableData_parts: [],
             //表高度变量
-            tableheight_parts: 250,
+            tableheight_parts: 243,
 
             //所属建筑弹出页---------------------------------------------------
             buildingListVisible: false,
@@ -120,7 +116,7 @@ new Vue({
             },
             tableData_building: [],
             //表高度变量
-            tableheight_building: 250,
+            tableheight_building: 243,
 
             //消防队站弹出页---------------------------------------------------
             fireStaListVisible: false,
@@ -137,7 +133,7 @@ new Vue({
             },
             tableData_fireSta: [],
             //表高度变量
-            tableheight_fireSta: 250,
+            tableheight_fireSta: 243,
             // labelPosition: 'right',
             //多选值
             // multipleSelection: [],
@@ -174,9 +170,6 @@ new Vue({
         this.searchClick();
     },
     methods: {
-        // resetForm(formName) {
-        //     this.$refs[formName].resetFields();
-        // },
         //灾情删除
         removeDomain(item) {
             var index = this.dynamicValidateForm.indexOf(item)
@@ -575,6 +568,10 @@ new Vue({
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
                             this.upLoadData.yaid = res.data.result.uuid;
+                            this.$message({
+                                message: "成功保存预案信息",
+                                showClose: true
+                            });
                             this.submitUpload();//附件上传
                         }.bind(this), function (error) {
                             console.log(error);
@@ -604,7 +601,7 @@ new Vue({
         //附件上传回调方法
         handleSuccess(response, file, fileList) {
             this.$message({
-                message: "成功保存预案",
+                message: "成功上传预案附件",
                 showClose: true,
                 duration: 0
             });
@@ -665,7 +662,6 @@ new Vue({
         },
         //附件上传
         submitUpload() {
-            // this.upLoadData = { id: 2 };
             this.$refs.upload.submit();
         },
         //上传前格式校验
