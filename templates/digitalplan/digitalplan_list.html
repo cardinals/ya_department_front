@@ -11,12 +11,12 @@
 <body class="fw f14 main-index-body">
     <div id="header_box"></div>
     <div class="left-sidebar">
-		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-		<input type="hidden" id="activeIndex"/>
-		<div id="menu-box">
-			<big-tree default-active=""></big-tree>
-		</div>
-	</div>
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <input type="hidden" id="activeIndex" />
+        <div id="menu-box">
+            <big-tree default-active=""></big-tree>
+        </div>
+    </div>
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
@@ -63,8 +63,7 @@
                                     <el-col :span="12" class="btnEditDelete">
                                         <el-form-item align="left">
                                             <el-button type="primary" icon="edit" size="small" @click="addClick">新增</el-button>
-                                            <!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
-                                            <!-- <el-button type="danger" icon="delete" size="small" @click="removeSelection">删除</el-button>   -->
+                                            <el-button type="danger" icon="delete" size="small" @click="deleteClick">删除</el-button>  
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12"></el-col>
@@ -79,8 +78,11 @@
                         </el-form>
                     </el-row>
                     <div class="table_container">
-                        <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
-                            class="tableStyle" :height="tableheight">
+                        <el-table id="table" border class="tableStyle" :height="tableheight"
+                                ref="multipleTable"
+                                :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
+                                @selection-change="selectionChange">
+                            <el-table-column type="selection" width="45"></el-table-column>
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
                             <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
                                 <template slot-scope="scope">
@@ -102,8 +104,8 @@
                         <!--列表底部工具条和分页符-->
                         <el-row type="flex" justify="end">
                             <el-col :span="18">
-                                <el-pagination @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
-                                    :page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+                                <el-pagination @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]" :page-size="pageSize"
+                                    layout="total, prev, pager, next, jumper" :total=parseInt(total)>
                                 </el-pagination>
                             </el-col>
                         </el-row>

@@ -6,18 +6,6 @@ new Vue({
         return {
             //菜单编码
             activeIndex: '',
-            /**lxy start */
-            // fileList: [
-            //     { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-            //     { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-            //     { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-            //     { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
-            // ],
-
-            // upLoadData: {
-            //     id: 1
-            // },
-            /**lxy end */
             //搜索表单
             searchForm: {
                 YAMC: "",
@@ -28,6 +16,7 @@ new Vue({
                 YAZT: ""
             },
             tableData: [],
+            role_data: {},//当前用户信息
             YALX_dataTree: [],//预案类型级联选择
             ZZJG_dataTree: [],//制作机构级联选择
             YAJB_data: [],//预案级别下拉框
@@ -78,9 +67,18 @@ new Vue({
     },
     mounted: function () {
         this.searchClick();//条件查询
+        this.roleData();//当前用户信息
     },
 
     methods: {
+        //获取当前用户信息
+        roleData: function () {
+            axios.post('/api/shiro').then(function (res) {
+                this.role_data = res.data;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
+        },
         //预案类型级联选择
         YALX_tree: function () {
             // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
@@ -100,9 +98,9 @@ new Vue({
         },
         //制作机构级联选择(暂无表)
         ZZJG_tree: function () {
-            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+            axios.post('/dpapi/organization/getOrganizationtree').then(function (res) {
                 this.ZZJG_dataTree = res.data.result;
-            }.bind(this),function(error){
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
@@ -164,16 +162,16 @@ new Vue({
             }
         },
         //预案详情跳转
-        planDetails(val) {
+        planDetails: function (val) {
             window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
             //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         //预案新增跳转
-        addClick() {
+        addClick: function () {
             window.location.href = "digitalplan_add.html?ID=" + 0 + "&index=" + this.activeIndex;
         },
         //预案编辑跳转
-        handleEdit(row) {
+        handleEdit: function (row) {
             if (row.yazt == '01' || row.yazt == '04') {
                 // window.location.href = "digitalplan_add.html?ID=" + row.uuid;
             } else {
@@ -182,7 +180,22 @@ new Vue({
                     showClose: true,
                 });
             }
-
+        },
+        //预案删除
+        deleteClick: function () {
+            var params = {
+                xgrid: this.role_data.userid,
+                xgrmc: this.role_data.realName
+            }
+            axios.post('/dpapi/digitalplanlist/doDeleteDigitalplan', this.multipleSelection).then(function (res) {
+                this.$message({
+                    message: "成功删除" + res.data.result + "条预案",
+                    showClose: true,
+                    onClose: this.searchClick()
+                });
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
 
         //预案预览
@@ -214,20 +227,7 @@ new Vue({
             this.currentPage = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
-        },
-
-        /**
-        * lxy
-        */
-        submitUpload() {
-            this.upLoadData = { id: 2 };
-            this.$refs.upload.submit();
-        },
-        handleRemove(file, fileList) {
-        },
-        handlePreview(file) {
         }
-
     },
 
 })
