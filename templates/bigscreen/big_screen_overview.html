@@ -17,45 +17,6 @@
 
 <style>
 	*{ margin: 0; padding: 0; list-style: none; text-decoration: none; font-weight: normal; -webkit-tap-highlight-color:rgba(0,0,0,0); box-sizing: border-box;}
-     .center-in-center{
-        position: fixed;
-        top:270px;
-        left: 642px;
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            -o-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-		}
-		.map_bottom{
-         height:107px;
-		 width:593px;
-		 position:fixed;
-		 left:345px;
-		 top:431px;
-		
-		}
-		.map_left{
-         height:300px;
-		 width:220px;
-		 position: fixed;
-		 left: 50px;
-	
-		}
-
-		.map_right{
-         height:309px;
-		 width:295px;
-		 position: fixed;
-		 top:116px;
-		 left: 944px;
-		}
-
-		.top_br{
-			 padding:10px;border-radius:10px;box-shadow:0px 0px 30px 10px #3399ff  inset;
-
-		}
-		
 </style>
 
 <body class="fw map-bg" >
@@ -96,7 +57,8 @@
             <div class="l h80 w25">
 				<div class="application-div h60 p5">
 					<div class="application-text map-bg2">
-						<div id="top10Bar" class="application-text"></div>
+						<div class="application-subtitle l">总队预案数量排行(top10)</div>
+						<div id="top10Bar" class="application-boxs"></div>
 					</div>
 				</div>
 				<!-- <div class="application-div h30 p5">
@@ -106,17 +68,19 @@
 				</div> -->
 				<div class="application-div h40 p5">
 					<div class="application-text flex map-bg2">
-						<div id="tagscloud" class="application-text">
-							<a class="tagc1" style="font-size:15px;">辽宁省人民法院</a>
-							<a class="tagc2" style="font-size:15px;">辽宁省政府</a>
-							<a class="tagc3" style="font-size:15px;">辽宁省就业局</a>
-							<a class="tagc2" style="font-size:15px;">沈阳市城市规划管理局</a>
-							<a class="tagc2" style="font-size:15px;">沈阳市公安局</a>
-							<a class="tagc1" style="font-size:15px;">沈阳市地铁二号线</a>
-							<a class="tagc2" style="font-size:15px;">青岛市塑性加工园</a>
-							<a class="tagc3" style="font-size:15px;">泰安市城建局</a>
-							<a class="tagc2" style="font-size:15px;">河北省国土资源厅</a>
-							<a class="tagc2" style="font-size:15px;">秦皇岛市林业局</a>
+
+						<div id="tagscloud" class="application-boxs">
+							<!-- <a class="tagc1" v-for="data in tagscloudData" v-text="data.zddwmc"></a> -->
+							<a class="tagc1" v-text="'辽宁省人民法院'"></a>
+							<a class="tagc2" v-text="'辽宁省政府'"></a>
+							<a class="tagc3" v-text="'辽宁省就业局'"></a>
+							<a class="tagc4" v-text="'沈阳市城市规划管理局'"></a>
+							<a class="tagc2" v-text="'沈阳市公安局'"></a>
+							<a class="tagc3" v-text="'沈阳市地铁二号线'"></a>
+							<a class="tagc3" v-text="'青岛市塑性加工园'"></a>
+							<a class="tagc4" v-text="'泰安市城建局'"></a>
+							<a class="tagc2" v-text="'河北省国土资源厅'"></a>
+							<a class="tagc1" v-text="'秦皇岛市林业局'"></a>
 						</div>
 					</div>
 				</div>
@@ -134,13 +98,14 @@
 			<div class="l h80 w25">
 				<div class="application-div h50 p5">
 					<div class="application-text map-bg2">
-						<!-- <div class="txlf">预案总数排行(top10)</div> -->
-						<div id="pie" class="application-text"></div>
+						<div class="application-subtitle l">各级重点单位占比</div>
+						<div id="pie" class="application-boxs"></div>
 					</div>
 				</div>
 				<div class="application-div h50 p5">
 					<div class="application-text map-bg2">
-						<div id="bar" class="application-text"></div>
+						<div class="application-subtitle l">各类数字化预案数量</div>
+						<div id="bar" class="application-boxs"></div>
 					</div>
 				</div>
 			</div>
