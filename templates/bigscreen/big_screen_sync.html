@@ -33,14 +33,32 @@
     .sync-cityBox{width: 232px; height: 197px; background: url(../../static/images/sync-test.png) no-repeat center center;background-size: auto 100%; display: block; position: absolute; top: -17px; left: 4px; visibility: hidden; opacity: 0;}
     .sync-city:hover .sync-cityBox{visibility: visible; opacity: 1;}
     .sync-beijing {top: 109px; left: 632px;}
+    .sync-heilongjiang {top: 36px; left: 702px;}
+    .sync-jilin {top: 72px; left: 702px;}
     .sync-liaoning {top: 101px; left: 678px;}
+    .sync-shandong {top: 153px; left: 644px;}
+    .sync-hebei {top: 140px; left: 620px;}
+    .sync-henan {top: 165px; left: 620px;}
+    .sync-shanxi {top: 149px; left: 598px;}
+    .sync-shaanxi {top: 160px; left: 580px;}
     .sync-jiangsu {top: 183px; left: 670px;}
+    .sync-anhui {top: 201px; left: 652px;}
     .sync-guizhou {top: 238px; left: 565px;}
     .sync-sichuan {top: 192px; left: 525px;}
+    .sync-xinjiang {top: 109px; left: 395px;}
+    .sync-qinghai {top: 167px; left: 468px;}
     .sync-xizang {top: 205px; left: 413px;}
     .sync-neimenggu {top: 115px; left: 573px;}
+    .sync-ningxia {top: 143px; left: 552px;}
+    .sync-gansu {top: 150px; left: 534px;}
+    .sync-yunnan {top: 265px; left: 509px;}
+    .sync-guangxi {top: 265px; left: 584px;}
     .sync-guangdong {top: 285px; left: 611px;}
+    .sync-hunan {top: 242px; left: 606px;}
+    .sync-jiangxi {top: 243px; left: 637px;}
+    .sync-fujian {top: 261px; left: 656px;}
     .sync-zhejiang {top: 208px; left: 672px;}
+    .sync-hainan {top: 319px; left: 590px;}
     .sync-title {height: 25px; line-height: 25px; color: #fff; font-size: 16px; background: url(../../static/images/sync-title.png) no-repeat center center;}
     .libta-table td.sync-num{color: #1bd3ff;}
     @keyframes sync-Flash{
@@ -97,14 +115,32 @@
                             <div class="sync-cityBox"></div>
                         </a>
                         <div id="beijing" class="sync-flash sync-aperture sync-beijing"></div>
-                        <div id="liaoning" class="sync-flash sync-yellow sync-aperture sync-liaoning"></div>
+                        <div id="heilongjiang" class="sync-flash sync-yellow sync-aperture sync-heilongjiang"></div>
+                        <div id="jilin" class="sync-flash sync-blue sync-aperture sync-jilin"></div>
+                        <div id="liaoning" class="sync-flash sync-aperture sync-liaoning"></div>
+                        <div id="shandong" class="sync-flash sync-yellow sync-aperture sync-shandong"></div>
+                        <div id="hebei" class="sync-flash sync-red sync-aperture sync-hebei"></div>
+                        <div id="henan" class="sync-flash sync-blue sync-aperture sync-henan"></div>
+                        <div id="shanxi" class="sync-flash sync-aperture sync-shanxi"></div>
+                        <div id="shaanxi" class="sync-flash sync-blue sync-aperture sync-shaanxi"></div>
                         <div id="jiangsu" class="sync-flash sync-red sync-aperture sync-jiangsu"></div>
+                        <div id="anhui" class="sync-flash sync-yellow sync-aperture sync-anhui"></div>
                         <div id="guizhou" class="sync-flash sync-aperture sync-guizhou"></div>
                         <div id="sichuan" class="sync-flash sync-yellow sync-aperture sync-sichuan"></div>
+                        <div id="xinjiang" class="sync-flash sync-red sync-aperture sync-xinjiang"></div>
+                        <div id="qinghai" class="sync-flash sync-aperture sync-qinghai"></div>
                         <div id="xizang" class="sync-flash sync-yellow sync-aperture sync-xizang"></div>
                         <div id="neimenggu" class="sync-flash sync-blue sync-aperture sync-neimenggu"></div>
-                        <div id="guangdong" class="sync-flash sync-red sync-aperture sync-guangdong"></div>
+                        <div id="ningxia" class="sync-flash sync-aperture sync-ningxia"></div>
+                        <div id="gansu" class="sync-flash sync-yellow sync-aperture sync-gansu"></div>
+                        <div id="yunnan" class="sync-flash sync-red sync-aperture sync-yunnan"></div>
+                        <div id="guangxi" class="sync-flash sync-aperture sync-guangxi"></div>
+                        <div id="guangdong" class="sync-flash sync-yellow sync-aperture sync-guangdong"></div>
+                        <div id="hunan" class="sync-flash sync-blue sync-aperture sync-hunan"></div>
+                        <div id="jiangxi" class="sync-flash sync-red sync-aperture sync-jiangxi"></div>
+                        <div id="fujian" class="sync-flash sync-yellow sync-aperture sync-fujian"></div>
                         <div id="zhejiang" class="sync-flash sync-aperture sync-zhejiang"></div>
+                        <div id="hainan" class="sync-flash sync-blue sync-aperture sync-hainan"></div>
                     </div>
                 </div>
                 <div class="h100 w25 l">
@@ -144,34 +180,34 @@
                 </div>
                 <div id="t1" class="h85 w25 l">
                     <table class="libta-table h99 w99">
-                        <tr><td width="30%">北京</td><td width="20%" class="sync-num" v-text = "this.provincesData.beijing + '万'"></td><td width="30%">河北</td><td width="20%" class="sync-num" v-text = "this.provincesData.hebei + '万'"></td></tr>
-                        <tr><td>天津</td><td class="sync-num" v-text = "this.provincesData.tianjin + '万'"></td><td>山西</td><td class="sync-num" v-text = "this.provincesData.shanxi + '万'"></td></tr>
-                        <tr><td>上海</td><td class="sync-num" v-text = "this.provincesData.shanghai + '万'"></td><td>内蒙古</td><td class="sync-num" v-text = "this.provincesData.neimenggu + '万'"></td></tr>
-                        <tr><td>重庆</td><td class="sync-num" v-text = "this.provincesData.chongqing + '万'"></td><td>辽宁</td><td class="sync-num" v-text = "this.provincesData.liaoning + '万'"></td></tr>
+                        <tr><td width="30%">北京</td><td width="20%" class="sync-num" v-text = "this.provincesData.beijing + '条'"></td><td width="30%">河北</td><td width="20%" class="sync-num" v-text = "this.provincesData.hebei + '条'"></td></tr>
+                        <tr><td>天津</td><td class="sync-num" v-text = "this.provincesData.tianjin + '条'"></td><td>山西</td><td class="sync-num" v-text = "this.provincesData.shanxi + '条'"></td></tr>
+                        <tr><td>上海</td><td class="sync-num" v-text = "this.provincesData.shanghai + '条'"></td><td>内蒙古</td><td class="sync-num" v-text = "this.provincesData.neimenggu + '条'"></td></tr>
+                        <tr><td>重庆</td><td class="sync-num" v-text = "this.provincesData.chongqing + '条'"></td><td>辽宁</td><td class="sync-num" v-text = "this.provincesData.liaoning + '条'"></td></tr>
                     </table>
                 </div>
                 <div id="t2" class="h85 w25 l">
                     <table class="libta-table h99 w99">
-                        <tr><td width="30%">吉林</td><td width="20%" class="sync-num"v-text = "this.provincesData.jilin + '万'"></td><td width="30%">安徽</td><td width="20%" class="sync-num" v-text = "this.provincesData.anhui + '万'"></td></tr>
-                        <tr><td>黑龙江</td><td class="sync-num" v-text = "this.provincesData.heilongjiang + '万'"></td><td>福建</td><td class="sync-num" v-text = "this.provincesData.fujian + '万'"></td></tr>
-                        <tr><td>江苏</td><td class="sync-num" v-text = "this.provincesData.jiangsu + '万'"></td><td>江西</td><td class="sync-num" v-text = "this.provincesData.jiangxi + '万'"></td></tr>
-                        <tr><td>浙江</td><td class="sync-num" v-text = "this.provincesData.zhejiang + '万'"></td><td>山东</td><td class="sync-num" v-text = "this.provincesData.shandong + '万'"></td></tr>
+                        <tr><td width="30%">吉林</td><td width="20%" class="sync-num"v-text = "this.provincesData.jilin + '条'"></td><td width="30%">安徽</td><td width="20%" class="sync-num" v-text = "this.provincesData.anhui + '条'"></td></tr>
+                        <tr><td>黑龙江</td><td class="sync-num" v-text = "this.provincesData.heilongjiang + '条'"></td><td>福建</td><td class="sync-num" v-text = "this.provincesData.fujian + '条'"></td></tr>
+                        <tr><td>江苏</td><td class="sync-num" v-text = "this.provincesData.jiangsu + '条'"></td><td>江西</td><td class="sync-num" v-text = "this.provincesData.jiangxi + '条'"></td></tr>
+                        <tr><td>浙江</td><td class="sync-num" v-text = "this.provincesData.zhejiang + '条'"></td><td>山东</td><td class="sync-num" v-text = "this.provincesData.shandong + '条'"></td></tr>
                     </table>
                 </div>
                 <div id="t3" class="h85 w25 l">
                     <table class="libta-table h99 w99">
-                        <tr><td width="30%">河南</td><td width="20%" class="sync-num" v-text = "this.provincesData.henan + '万'"></td><td width="30%">广西</td><td width="20%" class="sync-num" v-text = "this.provincesData.guangxi + '万'"></td></tr>
-                        <tr><td>湖北</td><td class="sync-num" v-text = "this.provincesData.hubei + '万'"></td><td>海南</td><td class="sync-num" v-text = "this.provincesData.hainan + '万'"></td></tr>
-                        <tr><td>湖南</td><td class="sync-num" v-text = "this.provincesData.hunan + '万'"></td><td>四川</td><td class="sync-num" v-text = "this.provincesData.sichuan + '万'"></td></tr>
-                        <tr><td>广东</td><td class="sync-num" v-text = "this.provincesData.guangdong + '万'"></td><td>贵州</td><td class="sync-num" v-text = "this.provincesData.guizhou + '万'"></td></tr>
+                        <tr><td width="30%">河南</td><td width="20%" class="sync-num" v-text = "this.provincesData.henan + '条'"></td><td width="30%">广西</td><td width="20%" class="sync-num" v-text = "this.provincesData.guangxi + '条'"></td></tr>
+                        <tr><td>湖北</td><td class="sync-num" v-text = "this.provincesData.hubei + '条'"></td><td>海南</td><td class="sync-num" v-text = "this.provincesData.hainan + '条'"></td></tr>
+                        <tr><td>湖南</td><td class="sync-num" v-text = "this.provincesData.hunan + '条'"></td><td>四川</td><td class="sync-num" v-text = "this.provincesData.sichuan + '条'"></td></tr>
+                        <tr><td>广东</td><td class="sync-num" v-text = "this.provincesData.guangdong + '条'"></td><td>贵州</td><td class="sync-num" v-text = "this.provincesData.guizhou + '条'"></td></tr>
                     </table>
                 </div>
                 <div  id="t4" class="h85 w25 l">
                     <table class="libta-table h99 w99">
-                        <tr><td width="30%">云南</td><td width="20%" class="sync-num" v-text = "this.provincesData.yunnan + '万'"></td><td width="30%">青海</td><td width="20%" class="sync-num" v-text = "this.provincesData.qinghai + '万'"></td></tr>
-                        <tr><td>西藏</td><td class="sync-num" v-text = "this.provincesData.xizang + '万'"></td><td>宁夏</td><td class="sync-num" v-text = "this.provincesData.ningxia + '万'"></td></tr>
-                        <tr><td>陕西</td><td class="sync-num" v-text = "this.provincesData.shaanxi + '万'"></td><td>新疆</td><td class="sync-num" v-text = "this.provincesData.xinjiang + '万'"></td></tr>
-                        <tr><td>甘肃</td><td class="sync-num" v-text = "this.provincesData.gansu + '万'"></td><td></td><td></td></tr>
+                        <tr><td width="30%">云南</td><td width="20%" class="sync-num" v-text = "this.provincesData.yunnan + '条'"></td><td width="30%">青海</td><td width="20%" class="sync-num" v-text = "this.provincesData.qinghai + '条'"></td></tr>
+                        <tr><td>西藏</td><td class="sync-num" v-text = "this.provincesData.xizang + '条'"></td><td>宁夏</td><td class="sync-num" v-text = "this.provincesData.ningxia + '条'"></td></tr>
+                        <tr><td>陕西</td><td class="sync-num" v-text = "this.provincesData.shaanxi + '条'"></td><td>新疆</td><td class="sync-num" v-text = "this.provincesData.xinjiang + '条'"></td></tr>
+                        <tr><td>甘肃</td><td class="sync-num" v-text = "this.provincesData.gansu + '条'"></td><td></td><td></td></tr>
                     </table>
                 </div>
             </div>
