@@ -14,6 +14,8 @@ new Vue({
             tableData: [],
             //图片类型
             allTypes: [],
+            //已存图片类型
+            allSavedTypes: [],
             allAddTypeNames:[],
             allEditTypeNames:[],
             //选择的图片名称
@@ -90,6 +92,7 @@ new Vue({
         //菜单选中
         $("#activeIndex").val(getQueryString("index"));
         this.getAllTypes();
+        this.getSavedImgTypes();
         this.searchClick();
     },
     methods: {
@@ -195,10 +198,18 @@ new Vue({
             })
             _self.imgViewVisible = true;
         },
-        //获取所有的角色
+        //获取所有的类型
         getAllTypes: function () {
             axios.get('/api/imgupload/getAll').then(function (res) {
                 this.allTypes = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //获取已有图片类型
+        getSavedImgTypes: function () {
+            axios.get('/api/imgupload/getSaved').then(function (res) {
+                this.allSavedTypes = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
             })
