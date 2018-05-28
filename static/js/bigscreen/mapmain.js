@@ -380,7 +380,7 @@ var vm = new Vue({
             var tmp1 = url.split("?")[1];
             var city1 = tmp1.split("=")[1];
             this.city = decodeURI(city1);
-            // debugger;后台获取时地名传错
+           
         },
         getBoundary: function (map) {
             var bdary = new BMap.Boundary();
@@ -441,7 +441,7 @@ var vm = new Vue({
                 xzqh: xzqh
             };
             axios.post('/dpapi/map/getImportantunitsVO', params).then(function (res) {
-                // debugger
+               
                 this.markerData = res.data.result;
                 this.drawMapb(this.markerData);
                 console.log(this.markerData);
@@ -449,32 +449,7 @@ var vm = new Vue({
                 console.log(error);
             })
         },
-        //获取重点单位详情
-        // getDetails: function (uuid) {
-        //     axios.get('/dpapi/importantunits/' + this.uuid).then(function (res) {
-        //         this.tableData = res.data.result;
-        //     }.bind(this), function (error) {
-        //         console.log(error)
-        //     })
-        //     // debugger
-        //     for(var i = 0; i < this.tableData.length; i++){
-        //         axios.get('/dpapi/digitalplanlist/doFindListByZddwId' + this.tableData[1].uuid).then(function (res) {
-        //         //   debugger  
-        //             var plan = res.data.result;
-        //             for(var k = 0; k < plan.length; k++){
-        //                 if(plan[k].yajb=='01'){
-        //                     this.planData.yaid_1 = plan[k].uuid;
-        //                 }else if(plan[k].yajb=='02'){
-        //                     this.planData.yaid_2 = plan[k].uuid;
-        //                 }else if(plan[k].yajb=='03'){
-        //                     this.planData.yaid_3 = plan[k].uuid;
-        //                 }
-        //             }
-        //         }.bind(this), function (error) {
-        //             console.log(error)
-        //         })
-        //     }
-        // },
+       
         //获取水源详情
         getSyDetails: function (uuid) {
             axios.get('/dpapi/xfsy/findlist' + this.uuid).then(function (res) {
@@ -562,7 +537,7 @@ var vm = new Vue({
                 gisY_max: ymax
             }
             axios.post('/dpapi/importantunits/list', params).then(function (res) {
-                //   debugger;
+               
                 this.markerData = res.data.result;
                 vm.createCluster();//聚合
                 this.getZdsj();
@@ -896,7 +871,7 @@ var vm = new Vue({
                         '</table>' +
                         '<div  class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: left;">' +
                         '<b class="btn" onclick="vm.openPlan_1(\''+uuid+'\')" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                        '<b class="btn" onclick="vm.WxOver()" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">支队预案</b>' +
+                        '<b class="btn"  style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">支队预案</b>' +
                         '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickSwcj()"><img style="width:15px;height:15px;vertical-align: sub;"  src="../../static/images/maptool/icon_3d.png">大（中队）预案</b>' +
                         '<b class="btn" style="font-size:11px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickInfoWindowDetail()"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
                         '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickShare()"><img style="width:15px;height:15px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
@@ -1431,7 +1406,7 @@ var vm = new Vue({
             }
         },
         openPlan_1: function (val) {
-            debugger
+         
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
                 var plan = res.data.result;
                 for (var k = 0; k < plan.length; k++) {
@@ -1446,7 +1421,7 @@ var vm = new Vue({
                 });
             } else {
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.planData.yaid_1).then(function (res) {
-                    debugger  
+                  
                     var yllj = res.data.result[0].yllj;
                     window.open("http://localhost:8090/upload/" + yllj);
                 }.bind(this), function (error) {
