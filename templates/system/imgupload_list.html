@@ -28,7 +28,7 @@
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">图片类型</label>
                                     <el-select size="small" v-model="searchForm.pic_type" placeholder="全部" class="searchSelect" clearable>
-                                        <el-option v-for="type in allTypes" :label="type.codetypeName" :value="type.codetype" :key="type.codetype"></el-option>
+                                        <el-option v-for="type in allSavedTypes" :label="type.picTypename" :value="type.picType" :key="type.picType"></el-option>
                                     </el-select>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
