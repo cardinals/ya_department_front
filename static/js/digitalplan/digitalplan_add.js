@@ -64,6 +64,7 @@ new Vue({
             },
             //上传文件Data
             fileList: [],
+            isFile:'',
             upLoadData: {
                 yaid: ""
             },
@@ -568,11 +569,15 @@ new Vue({
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
                             this.upLoadData.yaid = res.data.result.uuid;
-                            this.$message({
-                                message: "成功保存预案信息",
-                                showClose: true
-                            });
-                            this.submitUpload();//附件上传
+                            if(this.isFile){
+                                this.submitUpload();//附件上传
+                            }else{
+                                this.$message({
+                                    message: "成功保存预案信息",
+                                    showClose: true
+                                });
+                                window.location.href = "digitalplan_list.html";
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -598,13 +603,15 @@ new Vue({
                 }
             });
         },
-        //附件上传回调方法
+        //附件上传成功回调方法
         handleSuccess(response, file, fileList) {
-            this.$message({
-                message: "成功上传预案附件",
-                showClose: true,
-                duration: 0
-            });
+            if (response) {
+                this.$message({
+                    message: "成功上传预案附件",
+                    showClose: true,
+                    duration: 0
+                });
+            }
             window.location.href = "digitalplan_list.html";
         },
 
@@ -665,16 +672,22 @@ new Vue({
             this.$refs.upload.submit();
         },
         //上传前格式校验
-        beforeUpload(file) {
-            const self = this;  //this必须赋值
-            const isZip = file.type === 'file/zip';
-            const isRAR = file.type === 'file/rar';
-            if (!isZip && !isRAR) {
-                this.$message.error('仅可上传zip格式压缩文件!');
-                this.fileList.splice(0, this.fileList.length);
-            }
-            return isZip || isRAR;
-        },
+        // beforeUpload(file) {
+        //     const self = this;  //this必须赋值
+        //     const isZip = file.type === 'application/x-zip-compressed';
+        //     const isRAR = file.name.endsWith("rar");
+        //     if (isZip || isRAR) {
+        //         return true;
+        //     } else {
+        //         this.$message.error({
+        //             message: "附件上传失败！仅可上传zip/rar格式压缩文件!",
+        //             showClose: true,
+        //         });
+        //         // this.$message.error('附件上传失败！仅可上传zip/rar格式压缩文件!');
+        //         this.fileList.splice(0, this.fileList.length);
+        //         return false;
+        //     }
+        // },
         //附件移除
         handleRemove(file, fileList) {
             console.log(file, fileList);
@@ -685,6 +698,14 @@ new Vue({
         handleExceed(files, fileList) {
             this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
         },
+        handleChange: function (file, fileList) {
+            debugger
+            if(fileList.length>0){
+                this.isFile = true;
+            }else{
+                this.isFile = false;
+            }
+        }
     },
 
 })
