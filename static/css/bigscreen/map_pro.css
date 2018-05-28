@@ -16,6 +16,12 @@ color: red;
   font-weight:bold;text-decoration: none;color:black;
 
 }
+.el-pagination__total{
+  color:#fff;
+} 
+/* .el-pagination__jump{
+  color:#fff;
+} */
 .an{
   text-decoration: none;
 }

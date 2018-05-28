@@ -279,7 +279,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
     addSearchAuto: function(fuzzyKeyField) {
         var me = this;
         var map = me.getMap();
-
         var ac = new BMap.Autocomplete({
             "input": fuzzyKeyField.getId() + '-inputEl',
             "location": map
@@ -291,13 +290,12 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
             var local = new BMap.LocalSearch(map, { //智能搜索
                 onSearchComplete: function() {
                     var poi = local.getResults().getPoi(0);
-
+                    alert(poi);
                     me.drawCurrentOverlay(poi);
                 }
             });
             local.search(myValue);
         });
-
         me.setAutoSearch(ac);
     },
 
