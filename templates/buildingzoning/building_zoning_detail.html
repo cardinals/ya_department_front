@@ -21,7 +21,10 @@
                 <div id="lib :: main_container_header('建筑分区','建筑分区')"></div>
                 <div id="tableView">
                     <div class="nameBox">
-                        <div class="dib">
+                        <div id="basic-Inform-Picture">
+                            <img id="photo" class="detail_picture_size">
+                        </div>
+                        <div class="dib" id="basic-Inform-Title">
                             <div>
                                 <h3 class="dib inform-h3" v-text="detailData.jzmc"></h3>&nbsp&nbsp
                                 <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="detailData.jzlxmc !== null" v-text="detailData.jzlxmc"></el-tag>
@@ -94,24 +97,12 @@
                         <template>
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
                                 <el-tab-pane label="基本信息" name="first">
-                                    <div class="inform-div" v-show="isJzlShow">
+                                    <div class="inform-div" v-if="isJzlShow">
                                         <div class="left-inform">
                                             <div>
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">建筑类型：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzqkmc||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
                                                     <dt class="dtdlStyle">使用性质：</dt>
                                                     <dd class="dtdlStyle" v-text="detailData.jzl_jzsyxzmc||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">建筑结构：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzjgmc||'无'"></dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -128,22 +119,8 @@
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">建筑面积：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzmj||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">                                                                              
-                                            <div>
-                                                <dl class="inform-left">
                                                     <dt class="dtdlStyle">地上高度：</dt>
                                                     <dd class="dtdlStyle" v-text="detailData.jzl_dsgd||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地下高度：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dxgd||'无'"></dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
@@ -154,225 +131,256 @@
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地下层数：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dxcs||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
                                                     <dt class="dtdlStyle">备注：</dt>
                                                     <dd class="dtdlStyle" v-text="detailData.jzl_bz||'无'"></dd>
                                                 </dl>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="inform-div" v-show="isZzlShow">
-                                        <div class="left-inform">
+                                        <div class="right-inform">                                                                              
                                             <div>
                                                 <dl class="inform-left">
                                                     <dt class="dtdlStyle">建筑结构：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_jzjgmc||'无'"></dd>
+                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzjgmc||'无'"></dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">占地面积：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_zdmj||'无'"></dd>
+                                                    <dt class="dtdlStyle"></dt>
+                                                    <dd class="dtdlStyle"></dd>
                                                 </dl>
                                             </div>
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">装置高度：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_zzgd||'无'"></dd>
+                                                    <dt class="dtdlStyle">建筑面积：</dt>
+                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzmj||'无'"></dd>
                                                 </dl>
                                             </div>
+
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">装置组成：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_zzzc||'无'"></dd>
+                                                    <dt class="dtdlStyle">地下高度：</dt>
+                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dxgd||'无'"></dd>
                                                 </dl>
                                             </div>
+                                            
                                             <div class="inform-margin">
                                                 <dl class="inform-left">
-                                                    <dt class="dtdlStyle">技术负责人：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_jsfzr||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">技术负责人联系方式：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_jsfzrdh||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">                                                                              
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">原料信息：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_ylxx||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">产物信息：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_cwxx||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">工艺流程：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_gylc||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">备注：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.zzl_bz||'无'"></dd>
+                                                    <dt class="dtdlStyle">地下层数：</dt>
+                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dxcs||'无'"></dd>
                                                 </dl>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="inform-div" v-show="isCglShow">
-                                        <div class="left-inform">
+                                    <div v-if="isZzlShow">
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">装置信息</strong>
+                                            </div>
                                             <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">罐组总容积：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_zrj||'无'"></dd>
-                                                </dl>
+                                                <el-row>
+                                                    <el-col :span="8">
+                                                        <div>
+                                                            <strong class="card_title_font">建筑结构：</strong>
+                                                            <v-text v-text="detailData.zzl_jzjgmc||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="8">
+                                                        <div>
+                                                            <strong class="card_title_font">占地面积：</strong>
+                                                            <v-text v-text="detailData.zzl_zdmj||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="8">
+                                                        <div>
+                                                            <strong class="card_title_font">装置高度：</strong>
+                                                            <v-text v-text="detailData.zzl_zzgd||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="card_title_font">装置组成：</strong>
+                                                            <v-text v-text="detailData.zzl_zzzc||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">罐组储罐储量：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_cgsl||'无'"></dd>
-                                                </dl>
+                                        </el-card>
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">技术负责人</strong>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">存储介质描述：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_ccjzms||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">储罐间距：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_cgjg||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">技术负责人：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_jsfzr||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">技术负责人联系方式：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_jsfzrdh||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">                                                                              
                                             <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">存储介质：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_ccjzms||'无'"></dd>
-                                                </dl>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">负责人：</strong>
+                                                            <v-text v-text="detailData.zzl_jsfzr||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">负责人电话：</strong>
+                                                            <v-text v-text="detailData.zzl_jsfzrdh||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">罐组毗邻情况(东)：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_plqkd||'无'"></dd>
-                                                </dl>
+                                        </el-card>
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">原料信息</strong>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">罐组毗邻情况(南)：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_plqkn||'无'"></dd>
-                                                </dl>
+                                            <div>
+                                                <el-row>
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <v-text v-text="detailData.zzl_ylxx||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">罐组毗邻情况(西)：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_plqkx||'无'"></dd>
-                                                </dl>
+                                        </el-card>
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">产物信息</strong>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">罐组毗邻情况(北)：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_plqkb||'无'"></dd>
-                                                </dl>
+                                            <div>
+                                                <el-row>
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <v-text v-text="detailData.zzl_cwxx||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">备注：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.cgl_bz||'无'"></dd>
-                                                </dl>
+                                        </el-card>
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">工艺流程</strong>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div id="cg" style="margin-top: 40px">
-                                        <el-card v-for="data in detailData.chuguanList" class="card_style">
-                                            <el-row>
-                                                <el-col :span="24">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">储罐名称：</strong>
-                                                        <v-text v-text="data.cgmc||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">储罐类型：</strong>
-                                                        <v-text v-text="data.cglxmc||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">储罐容量：</strong>
-                                                        <v-text v-text="data.cgrl||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">储罐直径：</strong>
-                                                        <v-text v-text="data.cgzj||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">储罐高度：</strong>
-                                                        <v-text v-text="data.cggd||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">储罐周长：</strong>
-                                                        <v-text v-text="data.cgzc||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">罐顶压力：</strong>
-                                                        <v-text v-text="data.gzyl||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="12">
-                                                    <div>
-                                                        <strong style="cursor: pointer;font-size:15px;">存储温度：</strong>
-                                                        <v-text v-text="data.ccwd||'无'"></v-text>
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
+                                            <div>
+                                                <el-row>
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <v-text v-text="detailData.zzl_gylc||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
                                         </el-card>
                                     </div>
-                                    
+                                    <div v-if="isCglShow">
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">罐区信息</strong>
+                                            </div>
+                                            <div>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">罐组总容积：</strong>
+                                                            <v-text v-text="detailData.cgl_zrj||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">储罐数量：</strong>
+                                                            <v-text v-text="detailData.cgl_cgsl||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">储罐间隔：</strong>
+                                                            <v-text v-text="detailData.cgl_cgjg||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">存储介质描述：</strong>
+                                                            <v-text v-text="detailData.cgl_ccjzms||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">技术负责人</strong>
+                                            </div>
+                                            <div>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">负责人：</strong>
+                                                            <v-text v-text="detailData.cgl_jsfzr||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">负责人电话：</strong>
+                                                            <v-text v-text="detailData.cgl_jsfzrdh||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">罐区毗邻情况</strong>
+                                            </div>
+                                            <div>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">东：</strong>
+                                                            <v-text v-text="detailData.cgl_plqkd||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">西：</strong>
+                                                            <v-text v-text="detailData.cgl_plqkx||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">南：</strong>
+                                                            <v-text v-text="detailData.cgl_plqkn||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="12">
+                                                        <div>
+                                                            <strong class="card_title_font">北：</strong>
+                                                            <v-text v-text="detailData.cgl_plqkb||'无'"></v-text>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                        <el-card class="card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_fonts">储罐信息</strong>
+                                            </div>
+                                            <div id="cg">
+                                                <el-table :data="detailData.chuguanList" border class="detailTable">
+                                                    <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                    <el-table-column prop="cgmc" label="储罐名称" align="center" show-overflow-tooltip></el-table-column>
+                                                    <el-table-column prop="cglxmc" label="储罐类型" width="160" align="center" show-overflow-tooltip></el-table-column>
+                                                    <el-table-column prop="cgzj" label="储罐直径" width="95" align="center" show-overflow-tooltip></el-table-column>
+                                                    <el-table-column prop="cggd" label="储罐高度" width="95" align="center" show-overflow-tooltip></el-table-column>
+                                                    <el-table-column prop="cgzc" label="储罐周长" width="95" align="center" show-overflow-tooltip></el-table-column>
+                                                    <el-table-column prop="gzyl" label="罐顶压力" width="95" align="center" show-overflow-tooltip></el-table-column>
+                                                    <el-table-column prop="ccwd" label="存储温度" width="95" align="center" show-overflow-tooltip></el-table-column>
+                                                </el-table>
+                                            </div>
+                                        </el-card>
+                                    </div>
                                 </el-tab-pane>
                                 <el-tab-pane label="消防设施" name="second">
                                     <el-card class="card_style">
