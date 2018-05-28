@@ -97,79 +97,79 @@
                         <template>
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
                                 <el-tab-pane label="基本信息" name="first">
-                                    <div class="inform-div" v-if="isJzlShow">
-                                        <div class="left-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">使用性质：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzsyxzmc||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">功能描述：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_gnms||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">占地面积：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_zdmj||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地上高度：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dsgd||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地上层数：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dscs||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">备注：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_bz||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">                                                                              
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">建筑结构：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzjgmc||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle"></dt>
-                                                    <dd class="dtdlStyle"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">建筑面积：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_jzmj||'无'"></dd>
-                                                </dl>
-                                            </div>
-
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地下高度：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dxgd||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                            
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地下层数：</dt>
-                                                    <dd class="dtdlStyle" v-text="detailData.jzl_dxcs||'无'"></dd>
-                                                </dl>
-                                            </div>
-                                        </div>
+                                    <div v-if="isJzlShow">
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">使用性质：</strong>
+                                                    <v-text v-text="detailData.jzl_jzsyxzmc||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">建筑结构：</strong>
+                                                    <v-text v-text="detailData.jzl_jzjgmc||'无'"></v-text>
+                                                </div>
+                                            </el-col>   
+                                        </el-row>
+                                        <el-row class="inform-margin">
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong class="dtdlStyle">功能描述：</strong>
+                                                    <v-text v-text="detailData.jzl_gnms||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="inform-margin">
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">占地面积：</strong>
+                                                    <v-text v-text="detailData.jzl_zdmj||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">建筑面积：</strong>
+                                                    <v-text v-text="detailData.jzl_jzmj||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="inform-margin">
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">地上高度：</strong>
+                                                    <v-text v-text="detailData.jzl_dsgd||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">地下高度：</strong>
+                                                    <v-text v-text="detailData.jzl_dxgd||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="inform-margin">
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">地上层数：</strong>
+                                                    <v-text v-text="detailData.jzl_dscs||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong class="dtdlStyle">地下层数：</strong>
+                                                    <v-text v-text="detailData.jzl_dxcs||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="inform-margin">
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong class="dtdlStyle">备注：</strong>
+                                                    <v-text v-text="detailData.jzl_bz||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                     <div v-if="isZzlShow">
                                         <el-card class="card_style">
