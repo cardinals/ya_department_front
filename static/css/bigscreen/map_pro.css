@@ -19,9 +19,12 @@ color: red;
 .el-pagination__total{
   color:#fff;
 } 
-/* .el-pagination__jump{
+.el-pagination__jump{
   color:#fff;
-} */
+} 
+.el-pagination__editor{
+  color:#000;
+}
 .an{
   text-decoration: none;
 }
