@@ -184,7 +184,7 @@ body{height:100%;overflow:hidden;}
     background-color:#F5FAFC;
     width: 100%
 }
-.card_title_font{
+.card_title_fonts{
     font-size:14px;
 }
 .detailTable td,.detailTable th{
@@ -193,4 +193,7 @@ body{height:100%;overflow:hidden;}
 .detailTable{
     margin-top: 10px;
     margin-bottom: 20px;
+}
+.el-card__header {
+    padding: 13px 15px;
 }
