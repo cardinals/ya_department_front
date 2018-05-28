@@ -80,7 +80,7 @@
                     <div class="table_container">
                         <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                         @row-click = "showRow" class="tableStyle" :height="tableheight">
-                        <el-table-column min-width="5%">
+                            <el-table-column width="50px">
                                 <template scope="scope">
                                     <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
                                 </template>
@@ -124,8 +124,8 @@
 							</el-row>
 						</el-form>
 						<div slot="footer" class="dialog-footer">
-							<el-button @click.native="closeDialog(approveForm)">取消</el-button>
-							<el-button type="primary" @click.native="approveSubmit(approveForm)">提交</el-button>
+							<el-button size="small" @click.native="closeDialog(approveForm)">取消</el-button>
+							<el-button size="small" type="primary" @click.native="approveSubmit(approveForm)">提交</el-button>
 						</div>
 					</el-dialog>
                 </div>
