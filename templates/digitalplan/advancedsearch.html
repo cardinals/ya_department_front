@@ -33,27 +33,27 @@
                                     </el-row>
                                     <el-form-item label="预案对象">
                                         <el-radio-group size="medium" v-model="yuAnSearchForm.YADX">
-                                            <el-radio-button v-for="item in yadx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in yadx_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="预案类型">
                                         <el-radio-group size="medium" v-model="yuAnSearchForm.YALX">
-                                            <el-radio-button v-for="item in yalx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in yalx_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="预案级别">
                                         <el-radio-group size="medium" v-model="yuAnSearchForm.YAJB">
-                                            <el-radio-button v-for="item in yajb_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in yajb_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="审核状态">
                                         <el-radio-group size="medium" v-model="yuAnSearchForm.SHZT">
-                                            <el-radio-button v-for="item in shzt_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in shzt_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="制作时间">
                                         <el-radio-group size="medium" v-model="yuAnSearchForm.LRSJ" @change="lrsjFormat">
-                                            <el-radio-button v-for="item in lrsj_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in lrsj_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                         <el-date-picker v-model="yaxx_lrsj" type="daterange" placeholder="录入时间" format="yyyy/MM/dd" value-format="yyyy/MM/dd" range-separator="至"
                                             start-placeholder="开始日期" end-placeholder="结束日期" @change="timeChange" v-show="isZdy">
@@ -64,17 +64,17 @@
                                     <el-card v-for="data in tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
-                                                <div><strong @click="planDetails(data)" style="cursor: pointer;font-size:20px;">{{data.yamc}}</strong>&nbsp&nbsp
-                                                    <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yajbmc !== null">{{data.yajbmc}}</el-tag>
+                                                <div><strong @click="planDetails(data)" style="cursor: pointer;font-size:20px;" v-text="data.yamc"></strong>&nbsp&nbsp
+                                                    <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yajbmc !== null" v-text="data.yajbmc"></el-tag>
                                                 </div>
                                             </el-col>
                                         </el-row>
                                         <el-row style="margin-top: 15px">
                                             <el-col :span="12">
-                                                <div>对象名称：{{data.dxmc}}</div>
+                                                <div>对象名称：<v-text v-text="data.dxmc"></v-text></div>
                                             </el-col>
                                             <el-col :span="12">
-                                                <div>预案类型：{{data.yalxmc}}</div>
+                                                <div>预案类型：<v-text v-text="data.yalxmc"></v-text></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -103,19 +103,19 @@
                                     </el-row>
                                     <el-form-item label="对象类型">
                                         <el-radio-group size="medium" v-model="YADXSearchForm.YADX" @change="isZddwShow">
-                                            <el-radio-button v-for="item in yadx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in yadx_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="消防管辖" id="xfgxDiv" style="height:34px;overflow:hidden;">
                                         <el-radio-group size="medium" v-model="YADXSearchForm.XFGX" style="float: left;width: 96%;">
-                                            <el-radio-button v-for="item in xfgx_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in xfgx_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                         <el-button id="xfgxSpread" size="mini" type="primary" plain style="float: right;margin-top: 7px;" @click="spread">展开</el-button>
                                         
                                     </el-form-item>
                                     <el-form-item label="单位性质" id="dwxzDiv" v-show = "isZddw" style="margin-top:2px;margin-bottom:2px;height:34px;overflow:hidden;">
                                         <el-radio-group size="medium" v-model="YADXSearchForm.DWXZ" style="float: left;width: 96%;">
-                                            <el-radio-button v-for="item in dwxz_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in dwxz_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                         <el-button id="dwxzSpread" size="mini" type="primary" plain style="float: right;margin-top: 7px;" @click="spread_dwxz">展开</el-button>
                                     </el-form-item>
@@ -128,12 +128,12 @@
                                     -->
                                     <el-form-item label="防火等级" v-show = "isZddw">
                                         <el-radio-group size="medium" v-model="YADXSearchForm.FHDJ">
-                                            <el-radio-button v-for="item in fhdj_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in fhdj_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="建筑情况" v-show = "isZddw">
                                         <el-radio-group size="medium" v-model="YADXSearchForm.DWJZQK">
-                                            <el-radio-button v-for="item in dwjzqk_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in dwjzqk_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                 </el-form>
@@ -141,15 +141,15 @@
                                     <el-card v-for="data in YADXtableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
-                                                <div><strong  @click="YadxDetails(data)" style="cursor: pointer;font-size:20px;">{{data.dxmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yalxdm !== null">{{data.yadxType}}</el-tag></div>
+                                                <div><strong  @click="YadxDetails(data)" style="cursor: pointer;font-size:20px;" v-text="data.dxmc"></strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yalxdm !== null" v-text="data.yadxType"></el-tag></div>
                                             </el-col>
                                         </el-row>
                                         <el-row style="margin-top: 15px">
                                             <el-col :span="12">
-                                                <div>对象地址：{{data.dxdz}}</div>
+                                                <div>对象地址：<v-text v-text="data.dxdz"></v-text></div>
                                             </el-col>
                                             <el-col :span="12">
-                                                <div>消防管辖：{{data.xfgx}}</div>
+                                                <div>消防管辖：<v-text v-text="data.xfgx"></v-text></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -178,22 +178,22 @@
                                     </el-row>
                                     <el-form-item label="建筑类型">
                                         <el-radio-group size="medium" v-model="DWJZSearchForm.JZLX" @change="selectJzlx">
-                                            <el-radio-button v-for="item in dwjzqk_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in dwjzqk_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="使用性质" v-show="isDtjz||isJzl">
                                         <el-radio-group size="medium" v-model="DWJZSearchForm.JZSYXZ">
-                                            <el-radio-button v-for="item in jzsyxz_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in jzsyxz_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="建筑结构" v-show="isDtjz||isJzl||isZzl">
                                         <el-radio-group size="medium" v-model="DWJZSearchForm.JZJG">
-                                            <el-radio-button v-for="item in jzjg_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in jzjg_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                     <el-form-item label="建筑高度" v-show="isDtjz||isJzl">
                                         <el-radio-group size="medium" v-model="DWJZSearchForm.JZGD">
-                                            <el-radio-button v-for="item in jzgd_data" :label="item.codeValue">{{item.codeName}}</el-radio-button>
+                                            <el-radio-button v-for="item in jzgd_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio-button>
                                         </el-radio-group>
                                     </el-form-item>
                                 </el-form>
@@ -201,18 +201,18 @@
                                     <el-card v-for="data in DWJZtableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
-                                                <div><strong  @click="buildingDetails(data)" style="cursor: pointer;font-size:20px;">{{data.jzmc}}</strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.jzlxmc !== null">{{data.jzlxmc}}</el-tag></div>
+                                                <div><strong  @click="buildingDetails(data)" style="cursor: pointer;font-size:20px;" v-text="data.jzmc"></strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.jzlxmc !== null" v-text="data.jzlxmc"></el-tag></div>
                                             </el-col>
                                         </el-row>
                                         <el-row style="margin-top: 15px">
                                             <el-col :span="8">
-                                                <div>建筑位置：{{data.jzwz}}</div>
+                                                <div>建筑位置：<v-text v-text="data.jzwz"></v-text></div>
                                             </el-col>
                                             <el-col :span="8">
-                                                <div>经度：{{data.lon}}</div>
+                                                <div>经度：<v-text v-text="data.lon"></v-text></div>
                                             </el-col>
                                             <el-col :span="8">
-                                                <div>纬度：{{data.lat}}</div>
+                                                <div>纬度：<v-text v-text="data.lat"></v-text></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
