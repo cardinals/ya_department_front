@@ -66,15 +66,15 @@
 							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 							 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-								<el-table-column prop="name" label="建筑名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
+								<el-table-column prop="name" label="建筑名称" show-overflow-tooltip min-width="20%" align="center">
                                     <template slot-scope="scope">
                                         <a @click="detailClick(scope.row)" v-text="scope.row.jzmc"></a>
                                     </template>
 								</el-table-column>
-								<el-table-column prop="jzlxmc" label="建筑类型" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="jzwz" label="建筑位置" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="xqxclx" label="辖区行车路线" show-overflow-tooltip min-width="22%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="yjddsc" label="预计到达时长(min)" show-overflow-tooltip min-width="18%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="jzlxmc" label="建筑类型" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+								<el-table-column prop="jzwz" label="建筑位置" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+								<el-table-column prop="xqxclx" label="辖区行车路线" show-overflow-tooltip min-width="22%" align="center"></el-table-column>
+								<el-table-column prop="yjddsc" label="预计到达时长(min)" show-overflow-tooltip min-width="18%" align="center"></el-table-column>
                                 
 							</el-table>
 

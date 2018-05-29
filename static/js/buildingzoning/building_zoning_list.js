@@ -69,6 +69,7 @@ new Vue({
             })
         },
         //表格数据格式化
+        /**
         dataFormat: function (row, column) {
             var rowDate = row[column.property];
             if (rowDate == null || rowDate == "") {
@@ -76,7 +77,7 @@ new Vue({
             } else {
                 return rowDate;
             }
-        },
+        }, */
         clearClick: function () {
             this.searchForm.jzmc="";
             this.searchForm.option_JZLX="";
