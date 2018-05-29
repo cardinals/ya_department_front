@@ -770,13 +770,11 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
             map.setViewport(points);
         }
     },
-
+    //路况
     changeTraffic: function() {
         var me = this;
         var map = me.getMap();
-
         var isTrafficOpen = false;
-
         var trafficLayer = me.getTrafficLayer();
         if (trafficLayer == null) {
             trafficLayer = new BMap.TrafficLayer();
@@ -788,7 +786,6 @@ Ext.define('FirePlanGisApp.view.viewport.map.MapHelper', {
             me.setTrafficLayer(null);
             isTrafficOpen = false;
         }
-
         return isTrafficOpen;
     },
 
