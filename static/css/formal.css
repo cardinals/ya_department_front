@@ -15,7 +15,8 @@ body{height:100%;overflow:hidden;}
   height:50px;
 }
 .left-sidebar {
-    position: fixed;
+    position: absolute;
+    bottom: 0px;
 }
 .table_container{
     border: 1px solid #eee;

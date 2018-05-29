@@ -1,3 +1,10 @@
+.main-index-body > #app{
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  bottom: 0px;
+}
+
 .bx{
   height:100px;
   position:relative;
@@ -686,17 +693,16 @@ margin-top: 10px;
   background-color: #20a0ff;
 }
 .main-box {
-  height: 575px;
+  height: 100%;
   padding-left: 240px;
   overflow:auto;
-  margin-top: 50px;
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   -ms-transition-duration: 0.3s;
 }
 .main-container {
-  padding: 20px 20px 60px 20px;
+  padding: 20px 20px 20px 20px;
 }
 .el-button--clear{
   color:#fff;
@@ -741,7 +747,7 @@ margin-top: 10px;
 }
 .left-sidebar div{
   overflow:auto;
-  max-height:530px;
+  /* max-height:530px; */
 }
 .el-col.searchInline{
   display: inline-flex;
