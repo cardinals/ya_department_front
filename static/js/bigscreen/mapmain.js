@@ -6,6 +6,8 @@ $("#zddwxx").hide();
 var vm = new Vue({
     el: "#app",
     data: {
+        isTrafficOpen : 'false',
+        trafficLayer : '',
         city: '',
         marker: [],
         clusterer: null,
@@ -865,8 +867,14 @@ var vm = new Vue({
             },
             //显示队站
             showOverdz: function () {
-                this.getDzData();//获取队站
-
+                var duizhan = document.getElementById("duizhan").value;
+                if(duizhan=='1'){
+                    this.getDzData();//获取队站     
+                    document.getElementById("duizhan").value = "";          
+                }else{
+                    vm.hideMarker(vm.dz);
+                    document.getElementById("duizhan").value = "1";
+                }
             },
             getDzsj: function () {
                 //
@@ -964,7 +972,14 @@ var vm = new Vue({
             },
             //显示水源
             showOvera: function () {
-                this.getSyData();
+                var shuiyuan = document.getElementById("shuiyuan").value;
+                if(shuiyuan=='1'){
+                    this.getSyData();       
+                    document.getElementById("shuiyuan").value = "";          
+                }else{
+                    vm.hideMarker(vm.syy);
+                    document.getElementById("shuiyuan").value = "1";
+                }
             },
             getSysj: function () {
                 var syy = [];
@@ -1060,9 +1075,19 @@ var vm = new Vue({
             },
             //显示车辆
             showOvercl: function () {
-                this.getClData();
+                var cheliang = document.getElementById("cheliang").value;
+                if(cheliang=='1'){
+                    this.getClData();      
+                    document.getElementById("cheliang").value = "";          
+                }else{
+                    vm.hideMarker(vm.cl);
+                    document.getElementById("cheliang").value = "1";
+                }
+
             },
             getClsj: function () {
+                var cl = [];
+                vm.cl = cl;
                 var map = vm.map;
                 for (i = 0; i < vm.clData.length; i++) {
                     var x = vm.clData[i].gisX;
@@ -1134,38 +1159,49 @@ var vm = new Vue({
                         marginLeft: '-9px',
                     });
                     marker.setLabel(label);
-                    // marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画               
+                    // marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画  
+                    cl.push(marker);             
                 }
             },
             //显示微型消防站
             showOverwx: function () {
                 //点击显示再点击消失
-                var map = vm.map;
-                for (var i = 0; i < vm.smallStation.length; i++) {
-                    var x = vm.smallStation[i].gisX;
-                    var y = vm.smallStation[i].gisY;
-                    // var uuid = vm.smallStation[i].uuid;
-                    var pt = new BMap.Point(x, y);
-                    var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd3.png", new BMap.Size(40, 40)); //创建图标
-                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    map.addOverlay(marker);
-                    var label = new BMap.Label(this.formatLabel(vm.smallStation[i].xfzmc), { offset: new BMap.Size(-20, 35) });
-                    label.setStyle({
-                        fontSize: '12px',
-                        fontWeight: 'bold',
-                        border: '0',
-                        textAlign: 'center',
-                        color: '#B094D2',
-                        borderRadius: '5px',
-                        paddingRight: '110px',
-                        paddingTop: '5px',
-                        Width: '5px',
-                        display: 'inline-block',
-                        paddingRight: '80px',
-                        marginLeft: '-9px',
-                    });
-                    marker.setLabel(label);
-                }
+                var wx = document.getElementById("wx").value;
+                if(wx=="1"){
+                    var wx = [];
+                    vm.wx = wx;
+                    var map = vm.map;
+                    for (var i = 0; i < vm.smallStation.length; i++) {
+                            var x = vm.smallStation[i].gisX;
+                            var y = vm.smallStation[i].gisY;
+                            // var uuid = vm.smallStation[i].uuid;
+                            var pt = new BMap.Point(x, y);
+                            var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd3.png", new BMap.Size(40, 40)); //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(vm.smallStation[i].xfzmc), { offset: new BMap.Size(-20, 35) });
+                            label.setStyle({
+                                fontSize: '12px',
+                                fontWeight: 'bold',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#B094D2',
+                                borderRadius: '5px',
+                                paddingRight: '110px',
+                                paddingTop: '5px',
+                                Width: '5px',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-9px',
+                            });
+                            marker.setLabel(label);
+                            wx.push(marker);
+                        }
+                        document.getElementById("wx").value = "";
+                    }else{
+                        vm.hideMarker(vm.wx);
+                        document.getElementById("wx").value = "1";
+                    }                        
             },
             //区域内重点单位全部
             showOverzddw: function () {
@@ -1273,6 +1309,9 @@ var vm = new Vue({
                 var markerClusterer = vm.markerClusterer;
                 markerClusterer.addMarkers(zd);
             },
+
+
+
             //显示图标
             showMarker: function (markers) {
                 if (markers != null && markers.length != 0) {
@@ -1281,6 +1320,8 @@ var vm = new Vue({
                     };
                 }
             },
+
+
             //隐藏图标
             hideMarker: function (markers) {
                 if (markers != null && markers.length != 0) {
@@ -1289,6 +1330,7 @@ var vm = new Vue({
                     };
                 }
             },
+
             openPlan_1: function (val) {
                 axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
                     var plan = res.data.result;
@@ -1360,15 +1402,26 @@ var vm = new Vue({
             //路况
 
             lukuang: function () {
-                
+                // var map = this.map;
+                // var isTrafficOpen = vm.isTrafficOpen;
+                // var trafficLayer = vm.trafficLayer;
+                // if (trafficLayer == null) {
+                //     vm.trafficLayer = new BMap.TrafficLayer();
+                //     vm.trafficLayer=trafficLayer;
+                //     map.addTileLayer(trafficLayer);
+                //     vm.isTrafficOpen = true;
+                // } else {
+                //     map.removeTileLayer(trafficLayer);
+                //     vm.trafficLayer=trafficLayer;
+                //     vm.isTrafficOpen = false;
+                // }
+                //return isTrafficOpen;
                 var map = this.map;
                 var ctrl = new BMapLib.TrafficControl({
                     showPanel: false
                 });
                 map.addControl(ctrl);
-
                 var isTrafficOpenz = document.getElementById("isTrafficOpen").value;
-
                 if (isTrafficOpenz=='1') {
                     ctrl.showTraffic();
                     document.getElementById("isTrafficOpen").value = " ";
