@@ -116,21 +116,21 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
 
         this.loading = true;
-        var url = location.search;
-        if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
-            var ID = str.substring(3);
-            this.uuid = ID;
-            axios.get('/dpapi/bwjwplan/doFindDetailById/' + this.uuid).then(function (res) {
-                debugger
-                this.tableData = res.data.result[0];
-                this.rowdata = this.tableData;
-                
-                this.loading = false;
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-        }
+        this.uuid = getQueryString("ID");
+        axios.get('/dpapi/bwjwplan/doFindDetailById/' + this.uuid).then(function (res) {
+            this.rowdata = res.data.result;
+            //显示图片
+            var photo64 = this.rowdata.photo64;
+            var photo = document.getElementById("photo");
+            if(photo64 == "" || photo64 == null){
+                photo.src = "../../static/images/no-picture.png";
+            }else{
+                photo.src = "data:image/png;base64,"+photo64;
+            }
+            this.loading = false;
+        }.bind(this), function (error) {
+            console.log(error)
+        })
     },
 
     methods: {

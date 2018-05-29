@@ -125,12 +125,6 @@ new Vue({
                 console.log(error);
             })
         },
-        //根据参数部分和参数名来获取参数值 
-        GetQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]); return null;
-        },
         //表格查询事件
         searchClick: function () {
             var _self = this;
@@ -143,7 +137,7 @@ new Vue({
             }
             this.loading = true;
             //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
-            this.searchForm.uuid = this.GetQueryString("id");
+            this.searchForm.uuid = getQueryString("id");
             var params = {
                 //add by yushch
                 uuid : this.searchForm.uuid,
