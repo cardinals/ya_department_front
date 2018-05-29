@@ -17,9 +17,6 @@ new Vue({
             yalxdmData: [],
             jgidData: [],
             sfkqyData: [{
-                codeValue: '全部',
-                codeName: '全部'
-            }, {
                 codeValue: '1',
                 codeName: '是'
             }, {
@@ -137,7 +134,7 @@ new Vue({
             var params={
                 yamc :this.searchForm.yamc,
                 dxmc :this.searchForm.dxmc,
-                yalxdm :this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
+                yalx :this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
                 sfkqy :this.searchForm.sfkqy,
                 jgid :this.searchForm.jgid[this.searchForm.jgid.length-1],
                 // cjsj :this.searchForm.cjsj

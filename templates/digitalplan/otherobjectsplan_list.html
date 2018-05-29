@@ -18,11 +18,11 @@
     <div id="app">
 		<div class="main-box">
 			<div class="main-container" v-loading="loading" element-loading-text="加载中">
-				<div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
+				<div id="lib :: main_container_header('其他对象预案','其他对象预案')"></div>
 				<div id="tableView">
 					<el-row>
-						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-							<el-row :gutter="40">
+						<el-form label-width="65px" :inline="true" class="el-form demo-form-inline">
+							<el-row>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">预案名称</label>
 									<el-input size="small" v-model="searchForm.yamc" placeholder="预案名称"></el-input>
@@ -36,10 +36,10 @@
 									<el-cascader :options ="yalxdmData" :props ="props" size="small" v-model="searchForm.yalxdm" placeholder="预案类型" class="searchSelect" clearable change-on-select></el-cascader>
 								</el-col>
 							</el-row>
-							<el-row :gutter="40">
+							<el-row>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">是否跨区域</label>
-									<el-select size="small" v-model="searchForm.sfkqy" placeholder="是否跨区域" class="searchSelect" clearable>
+									<el-select size="small" v-model="searchForm.sfkqy" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in sfkqyData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-col>
@@ -76,17 +76,17 @@
 					<div class="table_container">
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
 							class="tableStyle" :height="tableheight">
-							<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
-							<el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="30%" align="center":formatter="dataFormat">
+							<el-table-column type="index" label="序号" show-overflow-tooltip width="65px" align="center"></el-table-column>
+							<el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="30%" align="center">
 								<template slot-scope="scope">
 									<a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
 								</template>
 							</el-table-column>
-							<el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="30%" align="center":formatter="dataFormat"></el-table-column>
-							<el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="20%" align="center":formatter="dataFormat"></el-table-column>
-							<el-table-column prop="sfkqymc" label="跨区域" show-overflow-tooltip min-width="10%" align="center":formatter="dataFormat"></el-table-column>
-							<el-table-column prop="jgidmc" label="制作机构" show-overflow-tooltip min-width="20%" align="center":formatter="dataFormat"></el-table-column>
-						</el-table>
+							<el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+							<el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="jgidmc" label="制作机构" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+							<el-table-column prop="sfkqymc" label="跨区域" show-overflow-tooltip min-width="10%" align="center"></el-table-column>					
+						</el-table>	
 			
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
