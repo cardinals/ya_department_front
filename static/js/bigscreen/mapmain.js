@@ -274,7 +274,6 @@ var vm = new Vue({
                         this.shengshizs = res.data.result;
                         this.total = res.data.result.length;
 
-                        //this.getShiZddwDate(xzqh);
                         $("#shengshizs").show();
                         $("#zddwxx").hide();
                     }.bind(this), function (error) {
@@ -354,17 +353,19 @@ var vm = new Vue({
                 this.city = decodeURI(city1);
 
             },
+            //获取省份画圈
             getBoundary: function (map) {
                 var bdary = new BMap.Boundary();
                 bdary.get(this.city, function (rs) { //获取行政区域
                     var count = rs.boundaries.length; //行政区域的点有多少个
                     for (var i = 0; i < count; i++) {
-                        var ply = new BMap.Polygon(rs.boundaries[i], { strokeWeight: 3, strokeColor: "#ff0000" }); //建立多边形覆盖物
+                        var ply = new BMap.Polygon(rs.boundaries[i], { strokeWeight: 3, strokeColor: "red" }); //建立多边形覆盖物
                         ply.setFillColor("none");
                         map.addOverlay(ply); //添加覆盖物 map.setViewport(ply.getPath());调整视野 
                     }
                 });
             },
+
             //获取省份
             getShengZddwDate: function () {
                 var params = {};
@@ -561,6 +562,8 @@ var vm = new Vue({
                 map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
                 vm.createCluster();
                 vm.drawMap();
+                this.getBoundary(map);   //绘制边框
+
             },
             createCluster: function () {
                 var map = vm.map;
@@ -647,8 +650,10 @@ var vm = new Vue({
                         textAlign: 'center',
                         marginLeft: '15px',
                         marginTop: '2px',
-                        color: '#986ACE',
+                        color: '#B094D2',
                         borderRadius: '5px',
+                        opacity:'0.8',
+                        // background:'rgba(0, 0, 0, 0.4)',
                         paddingRight: '58px',
                         marginLeft: '-18px',
                         marginTop: '25px',
@@ -693,12 +698,14 @@ var vm = new Vue({
                         textAlign: 'center',
                         marginLeft: '15px',
                         marginTop: '2px',
-                        color: '#986ACE',
+                        color: '#B094D2',
                         textAlign: 'center',
                         borderRadius: '5px',
                         paddingRight: '47px',
                         marginLeft: '-14px',
                         marginTop: '25px',
+                        opacity:'0.8',
+                        // background:'rgba(0, 0, 0, 0.4)',
                     });
                     marker.setLabel(label);
                     var map = vm.map;
@@ -779,7 +786,7 @@ var vm = new Vue({
                             '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
                             '<b class="btn"  style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">支队预案</b>' +
                             '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:15px;height:15px;vertical-align: sub;"  src="../../static/images/maptool/icon_3d.png">大（中队）预案</b>' +
-                            '<b class="btn" style="font-size:11px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                            '<b class="btn" style="font-size:11px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style=" width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png" >基本信息</b>' +
                             '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:15px;height:15px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
@@ -804,19 +811,18 @@ var vm = new Vue({
                     });
                     var label = new BMap.Label(this.formatLabel(zddws[i].dwmc), { offset: new BMap.Size(-20, 25) });
                     label.setStyle({
-                        fontSize: '12px',
-                        fontWeight: 'bold',
-                        opacity: '0.7',
+                        fontSize: '13px',
+                        fontWeight: 'bolder',
+                        paddingRight: '85px',
                         border: '0',
                         textAlign: 'center',
                         color: '#B094D2',
                         borderRadius: '5px',
-                        paddingRight: '110px',
                         paddingTop: '5px',
                         Width: '5px',
                         display: 'inline-block',
-                        paddingRight: '80px',
                         marginLeft: '-9px',
+                        opacity:'0.9',
                     });
 
                     marker.setLabel(label);
@@ -938,14 +944,14 @@ var vm = new Vue({
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(vm.dzData[i].dzmc), { offset: new BMap.Size(-20, 35) });
                     label.setStyle({
-                        fontSize: '12px',
-                        fontWeight: 'bold',
+                        fontSize: '13px',
+                        fontWeight: 'bolder',
+                        paddingRight: '80px',
                         border: '0',
                         padding: '2px 4px',
                         textAlign: 'center',
                         color: 'red',
                         borderRadius: '5px',
-                        paddingRight: '77px',
                         marginLeft: '-9px',
                         marginTop: '10px',
                     });
@@ -1035,17 +1041,16 @@ var vm = new Vue({
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(vm.syData[i].symc), { offset: new BMap.Size(-20, 25) });
                     label.setStyle({
-                        fontSize: '12px',
-                        fontWeight: 'bold',
+                        fontSize: '13px',
+                        fontWeight: 'bolder',
+                        paddingRight: '86px',
                         border: '0',
                         textAlign: 'center',
                         color: '#7BA860',
                         borderRadius: '5px',
-                        paddingRight: '110px',
                         paddingTop: '5px',
                         Width: '5px',
                         display: 'inline-block',
-                        paddingRight: '80px',
                         marginLeft: '-9px',
                     });
                     marker.setLabel(label);// marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画
@@ -1059,7 +1064,6 @@ var vm = new Vue({
             },
             getClsj: function () {
                 var map = vm.map;
-
                 for (i = 0; i < vm.clData.length; i++) {
                     var x = vm.clData[i].gisX;
                     var y = vm.clData[i].gisY;
@@ -1135,6 +1139,7 @@ var vm = new Vue({
             },
             //显示微型消防站
             showOverwx: function () {
+                //点击显示再点击消失
                 var map = vm.map;
                 for (var i = 0; i < vm.smallStation.length; i++) {
                     var x = vm.smallStation[i].gisX;
@@ -1284,14 +1289,6 @@ var vm = new Vue({
                     };
                 }
             },
-            EwOver: function () {
-                var map = this.map;
-                var mapType = this.mapType;
-                if (mapType == 'satellite') {
-                    map.setMapType(BMAP_NORMAL_MAP);
-                    this.mapType = '2D';
-                }
-            },
             openPlan_1: function (val) {
                 axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
                     var plan = res.data.result;
@@ -1319,6 +1316,14 @@ var vm = new Vue({
                 })
 
             },
+            EwOver: function () {
+                var map = this.map;
+                var mapType = this.mapType;
+                if (mapType == 'satellite') {
+                    map.setMapType(BMAP_NORMAL_MAP);
+                    this.mapType = '2D';
+                }
+            },
             WxOver: function () {
                 var map = this.map;
                 var mapType = this.mapType;
@@ -1327,6 +1332,7 @@ var vm = new Vue({
                     this.mapType = 'satellite';
                 }
             },
+
             //折行显示//文字传进来
             formatLabel: function (strname) {
                 var len = strname.length;
@@ -1352,16 +1358,20 @@ var vm = new Vue({
                 return div;
             },
             //路况
+
             lukuang: function () {
+                
                 var map = this.map;
                 var ctrl = new BMapLib.TrafficControl({
                     showPanel: false
                 });
                 map.addControl(ctrl);
-                var isTrafficOpen = document.getElementById("isTrafficOpen").value;
-                if (isTrafficOpen == '1') {
+
+                var isTrafficOpenz = document.getElementById("isTrafficOpen").value;
+
+                if (isTrafficOpenz=='1') {
                     ctrl.showTraffic();
-                    document.getElementById("isTrafficOpen").value = "";
+                    document.getElementById("isTrafficOpen").value = " ";
                 } else {
                     ctrl.hideTraffic();
                     document.getElementById("isTrafficOpen").value = "1";
