@@ -88,7 +88,7 @@
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
                             <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
                                 <template slot-scope="scope">
-                                    <a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
+                                    <a @click="planDetails(scope.row)" v-text="scope.row.yamc"></a>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center" :formatter="dataFormat"></el-table-column>
@@ -117,7 +117,7 @@
 								<el-col :span="20">
 									<el-form-item label="审核状态" prop="shzt">
 										<el-radio-group v-model="approveForm.shzt" auto-complete="off">
-											<el-radio v-for="item in SHZT_data" :label="item.codeValue">{{item.codeName}}</el-radio>
+											<el-radio v-for="item in SHZT_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio>
 										</el-radio-group>
 									</el-form-item>
 								</el-col>
