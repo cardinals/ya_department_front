@@ -35,7 +35,7 @@
                     <!-- lxy start -->
                     <div class="search_top">
                         <el-select placeholder="请输入地址"   v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r">
-                            <el-option  v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data.xzqh"></el-option> 
+                            <el-option  v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option> 
                         </el-select>
                         <el-button class="l ml5" type="primary" @click="searchClick">搜索</el-button>
                     </div>
@@ -51,14 +51,14 @@
 
                         <div id="zddwxx">
                             <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
-                                <!-- <div @click="shengshiClick(data)"> -->
+                                <div @click="zddwxxClick(data)"> 
                                     <div slot="header">
                                         <strong>{{data.dwmc }}</strong>&nbsp&nbsp
                                         <el-tag color="#0f82ee" size="medium">{{data.dwxzmc}}</el-tag>
                                     </div>
                                     <div class="l cell_bk">地址：{{data.dwdz }}</div>
                                     <div class="l cell_bk">电话：{{data.zbdh }}</div>
-                                <!-- </div>    -->
+                                </div>
                             </el-card>
                         </div>
                     </div>

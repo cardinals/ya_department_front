@@ -20,11 +20,11 @@
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
                 <div id="lib :: main_container_header('建筑分区','建筑分区')"></div>
                 <div id="tableView">
-                    <div class="nameBox">
-                        <div id="basic-Inform-Picture">
+                    <div class="nameBox" style="position:relative;">
+                        <div id="basic-Inform-Picture" style="position: absolute;top: 50%;transform: translateY(-50%);">
                             <img id="photo" class="detail_picture_size">
                         </div>
-                        <div class="dib" id="basic-Inform-Title">
+                        <div class="dib" style="margin-left: 15%">
                             <div>
                                 <h3 class="dib inform-h3" v-text="detailData.jzmc"></h3>&nbsp&nbsp
                                 <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="detailData.jzlxmc !== null" v-text="detailData.jzlxmc"></el-tag>
