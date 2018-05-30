@@ -651,6 +651,12 @@ var vm = new Vue({
             //         vm.removeAllMarkers(vm.circlez);
 
             // })
+            //经纬度的获取
+            map.addEventListener("click", function(e) {
+                document.getElementById('lat').value = e.point.lat;
+                document.getElementById('lng').value = e.point.lng;
+
+            });
 
         },
         createCluster: function () {
