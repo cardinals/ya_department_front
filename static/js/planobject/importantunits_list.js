@@ -22,15 +22,13 @@ new Vue({
             jzflData: [],
             fhdjData: [],
             mhdzidData: [],
-            xfdwlxmcData: [{
-                codeValue: '全部',
-                codeName: '全部'
-            }, {
+            xfdwlxmcData: [
+            {
                 codeValue: '有',
-                codeName: '有'
+                codeName: '有消防队伍'
             }, {
                 codeValue: '无',
-                codeName: '无'
+                codeName: '无消防队伍'
             }],
 
             XFGX_data: [],

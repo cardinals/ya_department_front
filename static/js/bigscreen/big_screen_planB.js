@@ -2,9 +2,9 @@ var vm = new Vue({
     el: "#app",
     data: {
         t1data:[
-            {value:204, name:'卡片预案'},       
-            {value:310, name:'二维预案'},
-            {value:400, name:'三维预案'}
+            {value:204, name:'大中队级预案'},       
+            {value:310, name:'支队级预案'},
+            {value:400, name:'总队级预案'}
         ],
         b1data:[
             {value:540, name:'灭火预案单位'},
@@ -20,7 +20,7 @@ var vm = new Vue({
         t1PieChart:function () {
             var b1PieChart = echarts.init(document.getElementById('t1'));
             var b1option = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title : {
                     text: '按预案种类统计预案数量',
                     x:'center',
@@ -40,7 +40,7 @@ var vm = new Vue({
                     textStyle: {
                         color: '#ccc'
                     },
-                    data: ['卡片预案','二维预案','三维预案']
+                    data: ['大中队级预案','支队级预案','总队级预案']
                 },
                 series : [
                     {
@@ -66,7 +66,7 @@ var vm = new Vue({
         b1PieChart:function () {
             var b1PieChart = echarts.init(document.getElementById('b1'));
             var b1PieChartoption = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title : {
                     text: '按预案对象统计预案数量',
                     x:'center',
@@ -111,7 +111,7 @@ var vm = new Vue({
         t2BarChart: function () {
             var t2BarChart = echarts.init(document.getElementById('t2'));
             t2BarChartOption = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '按总队统计灭火预案情况',
                     left: 'center',
@@ -120,12 +120,12 @@ var vm = new Vue({
                         color: '#ccc'
                     }   
                 },
-                // tooltip: {
-                //     trigger: 'axis',
-                //     axisPointer: {
-                //         type: 'shadow'
-                //     }
-                // },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
                 legend: {
                     x: 'center',
                     y: '15%',
@@ -171,21 +171,21 @@ var vm = new Vue({
                 ],
                 series: [
                     {
-                        name: '卡片预案',
+                        name: '大中队级预案',
                         type: 'bar',
                         barWidth: '60%',
                         stack: 'sum',
                         data: [756,1321,856,746,987,365,335,555,134,753,877,333,234,653,127,756,379,468,952,234,1212,234,653,127,756,379,468,952,234,333,234]
                     },
                     {
-                        name: '二维预案',
+                        name: '支队级预案',
                         type: 'bar',
                         barWidth: '60%',
                         stack: 'sum',
                         data: [756,1321,856,746,987,365,468,952,234,1212,756,1321,856,746,987,365,468,952,234,1212,756,1321,856,746,987,365,468,952,234,1212,546]
                     },
                     {
-                        name: '三维预案',
+                        name: '总队级预案',
                         type: 'bar',
                         barWidth: '60%',
                         stack: 'sum',
@@ -199,7 +199,7 @@ var vm = new Vue({
         b2BarChart: function () {
             var b2BarChart = echarts.init(document.getElementById('b2'));
             b2BarChartOption = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '按总队统计灭火预案对象情况',
                     left: 'center',
@@ -208,12 +208,12 @@ var vm = new Vue({
                         color: '#ccc'
                     }   
                 },
-                // tooltip: {
-                //     trigger: 'axis',
-                //     axisPointer: {
-                //         type: 'shadow'
-                //     }
-                // },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
                 legend: {
                     x: 'center',
                     y: '15%',

@@ -39,7 +39,7 @@ var vm = new Vue({
             {value:230, name:'群体性治安事件'},
             {value:100, name:'恐怖袭击'}
         ],
-        YALXdata:['卡片预案', '二维预案', '三维预案'],
+        YALXdata:['大中队级预案', '支队级预案', '总队级预案'],
         t2data:[
             '化危品火灾爆炸',
             '建筑堆场类',
@@ -57,7 +57,7 @@ var vm = new Vue({
         b1PieChart:function () {
             var b1PieChart = echarts.init(document.getElementById('b1'));
             var b1option = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '化危品火灾爆炸',
                     left: 'center',
@@ -128,7 +128,7 @@ var vm = new Vue({
         b2PieChart:function () {
             var b2PieChart = echarts.init(document.getElementById('b2'));
             var b2option = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '建筑堆场类',
                     left: 'center',
@@ -199,7 +199,7 @@ var vm = new Vue({
         b3PieChart:function () {
             var b3PieChart = echarts.init(document.getElementById('b3'));
             var b3option = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '交通运输类',
                     left: 'center',
@@ -270,7 +270,7 @@ var vm = new Vue({
         b4PieChart:function () {
             var b4PieChart = echarts.init(document.getElementById('b4'));
             var b4option = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '自然灾害事故',
                     left: 'center',
@@ -341,7 +341,7 @@ var vm = new Vue({
         b5PieChart:function () {
             var b5PieChart = echarts.init(document.getElementById('b5'));
             var b5option = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '公共突发事件',
                     left: 'center',
@@ -412,7 +412,7 @@ var vm = new Vue({
         t2BarChart: function () {
             var t2BarChart = echarts.init(document.getElementById('t2'));
             t2BarChartOption = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '按预案类型统计灭火预案情况',
                     left: 'center',
@@ -474,21 +474,21 @@ var vm = new Vue({
                 ],
                 series: [
                     {
-                        name: '卡片预案',
+                        name: '大中队级预案',
                         type: 'bar',
                         barWidth: '40%',
                         stack: '预案',
                         data: [1335,335,555,134,753,877,333,234,653,127]
                     },
                     {
-                        name: '二维预案',
+                        name: '支队级预案',
                         type: 'bar',
                         barWidth: '40%',
                         stack: '预案',
                         data: [756,1321,856,746,987,365,468,952,234,1212]
                     },
                     {
-                        name: '三维预案',
+                        name: '总队级预案',
                         type: 'bar',
                         barWidth: '40%',
                         stack: '预案',
@@ -502,7 +502,7 @@ var vm = new Vue({
         t1FunnelChart: function () {
             var t1FunnelChart = echarts.init(document.getElementById('t1'));   
             t1FunnelChartOption = {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
+                // backgroundColor:'rgba(255, 255, 255, 0.1)',
                 title: {
                     text: '按预案类型统计灭火预案情况',
                     left: 'center',
