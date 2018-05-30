@@ -6,8 +6,8 @@ $("#zddwxx").hide();
 var vm = new Vue({
     el: "#app",
     data: {
-        isTrafficOpen : 'false',
-        trafficLayer : '',
+        //lxy点击重点单位标记上次画的圆
+        circle :new BMap.Circle(),
         city: '',
         marker: [],
         clusterer: null,
@@ -200,6 +200,7 @@ var vm = new Vue({
         dzlxmcData: {},
         lxdhData: {},
         dzjcData: {},
+        dzdzData:{},
         //微型消防站
         smallStation: [
             {
@@ -325,7 +326,7 @@ var vm = new Vue({
         }
     },
     zddwxxClick:function(zddwxx){
-
+        vm.drawMapc(zddwxx);
     },
     // //表格查询事件
     searchClick: function () {
@@ -360,7 +361,7 @@ var vm = new Vue({
             $("#shengshizs").hide();
             $("#zddwxx").show();
         }
-        t
+        
     },
 // lxy end
         getMarker1: function () {
@@ -571,7 +572,7 @@ var vm = new Vue({
                 gisY_max: ymax
             }
             axios.post('/dpapi/importantunits/list', params).then(function (res) {
-                //   debugger;
+            
                 this.markerData = res.data.result;
                 vm.createCluster();//聚合
                 this.getZdsj();
@@ -650,6 +651,12 @@ var vm = new Vue({
             //         vm.removeAllMarkers(vm.circlez);
 
             // })
+            //经纬度的获取
+            map.addEventListener("click", function(e) {
+                document.getElementById('lat').value = e.point.lat;
+                document.getElementById('lng').value = e.point.lng;
+
+            });
 
         },
         createCluster: function () {
@@ -844,12 +851,9 @@ var vm = new Vue({
             }
             this.cityp = cityp;
             //弹出框
-        },
+        },//drawMapbcontents
         drawMapb: function (data) {
-            // //获取点坐标
-            // var xzqh = e.target.province.xzqh;
-            // //获取省行政区划代码
-            // vm.getQuZddwDate(xzqh);
+       
             var zddws = data;
             var map = vm.map;
             var zddwp = [];//将点放到数组当中
@@ -890,36 +894,27 @@ var vm = new Vue({
                     var uuid=e.target.uuid;
                     
                     var contents =
-                        '<div class="app-map-infowindow zddw-infowindow" style="height:255px;background-image: url(../../static/images/zddw_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/zddw_back.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
                         this.infoData +
                         '</h3>' +
                         '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                         this.dwdzData +
                         '</div>' +
-                        '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:643px;white-space: normal;">' +
+                        '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:550px;white-space: normal;">' +
                         '<tr>' +
-                        '<td style="padding: 4px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                        '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
                         '</tr>' +
                         '<tr>' +
-                        '<td style="padding: 4px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td style="padding: 4px;font-size: 14px;" colspan="2">' + '<strong>责任队站：</strong>大队</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td style="padding: 4px;font-size: 14px;">' + '<strong>预案级别：</strong>大队</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td style="padding: 4px;font-size: 14px;">' + '<strong>防火级别：</strong>2</td>' +
+                        '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
                         '</tr>' +
                         '</table>' +
-                        '<div  class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: left;">' +
-                        '<b class="btn" onclick="vm.openPlan_1(\''+uuid+'\')" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                        '<b class="btn" onclick="vm.WxOver()" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">支队预案</b>' +
-                        '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickSwcj()"><img style="width:15px;height:15px;vertical-align: sub;"  src="../../static/images/maptool/icon_3d.png">大（中队）预案</b>' +
-                        '<b class="btn" style="font-size:11px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickInfoWindowDetail()"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
-                        '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickShare()"><img style="width:15px;height:15px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
+                        '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 32px;text-align: left;">' +
+                        '<b class="btn" onclick="vm.openPlan_1(\''+uuid+'\')" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
+                        '<b class="btn" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                        '<b class="btn" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
+                        '<b class="btn" style="font-size:8px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                        '<b class="btn" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
                         '</div>' +
                         '<div class="x-clear"></div>' +
                         '</div>'
@@ -932,6 +927,10 @@ var vm = new Vue({
                     var marker = e.currentTarget;
                     marker.setIcon(myIcon2);
                     var pt = marker.point;// this.removeAllMarkers(zddws);//点击后清除圆圈的样式
+
+                    //隐藏旧圆
+                    var oc=vm.circle;
+                    oc.hide();
                     var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
                     var radius = 1000;
                     var r = 6371004;
@@ -964,6 +963,64 @@ var vm = new Vue({
             var markerClusterer = vm.markerClusterer;
             markerClusterer.addMarkers(zddwp);
         },
+        //点击重点单位事件
+        drawMapc: function (zddw) {
+            //隐藏旧圆
+            var oc=vm.circle;
+             oc.hide();
+            var pt= new BMap.Point(zddw.gisX,zddw.gisY);
+            var map = vm.map;
+            map.centerAndZoom(pt, 16);//防止跳回聚合
+            this.infoData = (zddw.dwmc != null ? zddw.dwmc : '无');
+            this.dwdzData = (zddw.dwdz != null ? zddw.dwdz : '无');
+            this.xfzrrData = (zddw.xfzrr != null ? zddw.xfzrr : '无');
+            this.zbdhData = (zddw.zbdh != null ? zddw.zbdh : '无');
+            this.fhdjData = (zddw.fhdj != null ? zddw.fhdj : '无');
+            this.yajbData = (zddw.yajb != null ? zddw.yajb : '无');
+            var uuid=zddw.uuid;
+            var contents =
+                '<div class="app-map-infowindow zddw-infowindow" style="height:205px;background-image: url(../../static/images/zddw_back.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                this.infoData +
+                '</h3>' +
+                '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                this.dwdzData +
+                '</div>' +
+                '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:550px;white-space: normal;">' +
+                '<tr>' +
+                '<td style="padding: 4px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="padding: 4px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                '</tr>' +
+                '</table>' +
+                '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 32px;text-align: left;">' +
+                '<b class="btn" onclick="vm.openPlan_1(\''+uuid+'\')" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
+                '<b class="btn" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                '<b class="btn" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
+                '<b class="btn" style="font-size:8px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                '<b class="btn" style="font-size:8px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
+                '</div>' +
+                '<div class="x-clear"></div>' +
+                '</div>'
+                ;
+            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+            infoWindow.disableAutoPan();//
+            //lxy
+            vm.map.openInfoWindow(infoWindow,pt);//
+            //设置新图标
+            var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标
+            //lxy
+            var marker = new BMap.Marker(pt,{icon:myIcon2});  
+            var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+            var radius = 1000;
+            var r = 6371004;
+            map.addOverlay(circle);
+            map.addOverlay(marker);
+            vm.chAllMarkers(vm.zdd);
+            vm.zdd = marker;
+            vm.circle=circle;
+        },
         //重置
         Reset: function () {
             location.reload();
@@ -988,170 +1045,6 @@ var vm = new Vue({
 
         },
 
-<<<<<<< HEAD
-            },
-            //替换图标
-            chAllMarkers: function (zdd) {
-                if (zdd != '') {
-                    var myicon1234 = new BMap.Icon("../../static/images/maptool/zddw.png", new BMap.Size(24, 24));
-                    zdd.setIcon(myicon1234);
-                    var map = vm.map;
-                    map.addOverlay(zdd);
-                }
-            },
-            //显示队站
-            showOverdz: function () {
-                var duizhan = document.getElementById("duizhan").value;
-                if(duizhan=='1'){
-                    this.getDzData();//获取队站     
-                    document.getElementById("duizhan").value = "";          
-                }else{
-                    vm.hideMarker(vm.dz);
-                    document.getElementById("duizhan").value = "1";
-                }
-            },
-            getDzsj: function () {
-                //
-                var dz = [];
-                vm.dz = dz;
-                var map = vm.map;
-                for (i = 0; i < vm.dzData.length; i++) {
-                    var x = vm.dzData[i].gisX;
-                    var y = vm.dzData[i].gisY;
-                    var dzid = vm.dzData[i].dzid;
-                    var pt = new BMap.Point(x, y);     // 创建坐标点
-                    var d = vm.dzData[i].dzlx;
-                    //判断队站种类
-                    switch (d) {
-                        case "0200": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd_02.png", new BMap.Size(45, 45));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                        case "0300": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd_03.png", new BMap.Size(45, 45));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                        case "0500": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfdd_05.png", new BMap.Size(45, 45));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                        case "0900": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd_09.png", new BMap.Size(45, 45));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                    };
-                    marker.dzid = dzid;
-                    marker.addEventListener("click", function (e) {
-
-                        var pt = marker.getPosition();
-                        // map.centerAndZoom(pt, 15);
-                        for (var i = 0; i < vm.dzData.length; i++) {
-                            if (e.target.dzid == vm.dzData[i].dzid) {
-                                this.dzlxmcData = (vm.dzData[i].dzlxmc != null ? vm.dzData[i].dzlxmc : '无');
-                                this.dzmcData = (vm.dzData[i].dzmc != null ? vm.dzData[i].dzlxmc : '无');
-                                this.lxdhData = (vm.dzData[i].lxdh != null ? vm.dzData[i].lxdh : '无');
-                                this.dzjcData = (vm.dzData[i].dzjc != null ? vm.dzData[i].dzjc : '无');
-                            }
-                        }
-                        var dzcontent =
-                            '<div class="app-map-infowindow zddw-infowindow" style="height:215px;background-image: url(../../static/images/maptool/zqzd_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
-                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
-                            this.dzmcData +
-                            '</h3>' +
-                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
-                            this.dzmcData +
-                            '</div>' +
-                            '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
-                            '<tr>' +
-                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>队站类型：</strong>' + this.dzlxmcData + '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>值班电话：</strong>' + this.lxdhData + '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>队站：</strong>' + this.dzjcData + '</td>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '</tr>' +
-                            '<tr>' +
-                            '</tr>' +
-                            '</table>' +
-                            '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-
-                            '</div>' +
-                            '<div class="x-clear"></div>' +
-                            '</div>'
-                            ;
-                        var infoWindow = new BMap.InfoWindow(dzcontent);  // 创建信息窗口对象
-                        infoWindow.disableAutoPan();
-                        this.openInfoWindow(infoWindow);
-                    });
-
-                    map.addOverlay(marker);
-                    var label = new BMap.Label(this.formatLabel(vm.dzData[i].dzmc), { offset: new BMap.Size(-20, 35) });
-                    label.setStyle({
-                        fontSize: '13px',
-                        fontWeight: 'bolder',
-                        paddingRight: '80px',
-                        border: '0',
-                        padding: '2px 4px',
-                        textAlign: 'center',
-                        color: 'red',
-                        borderRadius: '5px',
-                        marginLeft: '-9px',
-                        marginTop: '10px',
-                    });
-                    marker.setLabel(label);
-                    dz.push(marker);
-                    // marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画
-                }
-                var markerClusterer = vm.markerClusterer;
-                markerClusterer.addMarkers(dz);
-            },
-            //显示水源
-            showOvera: function () {
-                var shuiyuan = document.getElementById("shuiyuan").value;
-                if(shuiyuan=='1'){
-                    this.getSyData();       
-                    document.getElementById("shuiyuan").value = "";          
-                }else{
-                    vm.hideMarker(vm.syy);
-                    document.getElementById("shuiyuan").value = "1";
-                }
-            },
-            getSysj: function () {
-                var syy = [];
-                vm.syy = syy;
-                var map = vm.map;
-                for (i = 0; i < vm.syData.length; i++) {
-                    var x = vm.syData[i].gisX;
-                    var y = vm.syData[i].gisY;
-                    var uuid = vm.syData[i].uuid;
-                    var pt = new BMap.Point(x, y);     // 创建坐标点
-                    //判断水源种类
-                    var d = vm.syData[i].sylx;
-                    switch (d) {
-                        case '01': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_hydrant_map.png", new BMap.Size(24, 24));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                        case '02': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_crane_map.png", new BMap.Size(24, 24));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                        case '03': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                        case '04': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_pool_map.png", new BMap.Size(24, 24));      //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            break;
-                    };
-                    marker.uuid = uuid;//影响水源这块
-                    marker.addEventListener("click", function (e) {
-                        var pt = marker.getPosition();
-                        // map.centerAndZoom(pt, 14);//不进行放大
-                        for (var i = 0; i < vm.syData.length; i++) {
-                            if (e.target.uuid == vm.syData[i].uuid) {
-                                this.sylxmcData = (vm.syData[i].sylxmc != null ? vm.syData[i].sylxmc : '无');
-                                this.qsxsData = (vm.syData[i].qsxs != null ? vm.syData[i].qsxs : '无');
-                                this.symcData = (vm.syData[i].symc != null ? vm.syData[i].symc : '无');
-                                this.kyztmcData = (vm.syData[i].kyztmc != null ? vm.syData[i].kyztmc : '无');
-                            }
-=======
         //替换图标
         chAllMarkers: function (zdd) {
             if (zdd != '') {
@@ -1164,7 +1057,15 @@ var vm = new Vue({
 
         //显示队站
         showOverdz: function () {
-            this.getDzData();//获取队站
+           
+            var duizhan = document.getElementById("duizhan").value;
+                if(duizhan=='1'){
+                    this.getDzData();//获取队站     
+                    document.getElementById("duizhan").value = "";          
+                }else{
+                    vm.hideMarker(vm.dz);
+                    document.getElementById("duizhan").value = "1";
+                }
 
         },
 
@@ -1202,11 +1103,13 @@ var vm = new Vue({
                     // map.centerAndZoom(pt, 15);
                     for (var i = 0; i < vm.dzData.length; i++) {
                         if (e.target.dzid == vm.dzData[i].dzid) {
+
                             this.dzlxmcData = (vm.dzData[i].dzlxmc != null ? vm.dzData[i].dzlxmc : '无');
-                            this.dzmcData = (vm.dzData[i].dzmc != null ? vm.dzData[i].dzlxmc : '无');
+                            this.dzmcData = (vm.dzData[i].dzmc != null ? vm.dzData[i].dzmc : '无');
                             this.lxdhData = (vm.dzData[i].lxdh != null ? vm.dzData[i].lxdh : '无');
                             this.dzjcData = (vm.dzData[i].dzjc != null ? vm.dzData[i].dzjc : '无');
->>>>>>> 70ce879533de21cccccf12af064593f2665a5964
+                            this.dzdzData = (vm.dzData[i].dzdz !=null ? vm.dzData[i].dzdz:'无');
+
                         }
                     }
                     var dzcontent =
@@ -1215,7 +1118,7 @@ var vm = new Vue({
                         this.dzmcData +
                         '</h3>' +
                         '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
-                        this.dzmcData +
+                        this.dzdzData +
                         '</div>' +
                         '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
                         '<tr>' +
@@ -1234,173 +1137,6 @@ var vm = new Vue({
                         '</table>' +
                         '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
 
-<<<<<<< HEAD
-            },
-            //显示车辆
-            showOvercl: function () {
-                var cheliang = document.getElementById("cheliang").value;
-                if(cheliang=='1'){
-                    this.getClData();      
-                    document.getElementById("cheliang").value = "";          
-                }else{
-                    vm.hideMarker(vm.cl);
-                    document.getElementById("cheliang").value = "1";
-                }
-
-            },
-            getClsj: function () {
-                var cl = [];
-                vm.cl = cl;
-                var map = vm.map;
-                for (i = 0; i < vm.clData.length; i++) {
-                    var x = vm.clData[i].gisX;
-                    var y = vm.clData[i].gisY;
-                    var uuid = vm.clData[i].uuid;
-                    var pt = new BMap.Point(x, y);     // 创建坐标点
-                    //判断水源种类
-                    var myIcon1 = new BMap.Icon("../../static/images/maptool/fireenginexfc.png", new BMap.Size(24, 24));      //创建图标
-                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    // marker.addEventListener("click", function (e) {
-                    //     var marker = e.target;
-                    //     marker.uuid = uuid;
-                    //     var pt = marker.getPosition();
-                    //     map.centerAndZoom(pt, 10);
-                    //     for(var i = 0 ;i<vm.syData.length;i++){
-                    //         if(e.target.uuid == vm.syData[i].uuid){
-                    //             this.sylxmcData = vm.syData[i].sylxmc;
-                    //             this.qsxsData = vm.syData[i].qsxs;
-                    //             this.symcData = vm.syData[i].symc;
-                    //             this.kyztmcData = vm.syData[i].kyztmc;
-                    //         }
-                    //     }
-                    //     var sycontent =
-                    //     '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
-                    //     '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
-                    //     this.symcData +         
-                    //     '</h3>' +
-                    //     '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
-                    //     this.symcData +
-                    //     '</div>' +
-                    //     '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
-                    //     '<tr>' +
-                    //     '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>水源类型：</strong>'+this.sylxmcData+'</td>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>可用状态：</strong>'+this.kyztmcData+'</td>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>取水形式：</strong>'+this.qsxsData+'</td>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '</tr>' +
-                    //     '</table>' +
-                    //     '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                    //     '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickInfoWindowDetail()"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
-                    //     '</div>' +
-                    //     '<div class="x-clear"></div>' +
-                    //     '</div>'
-                    //     ;
-                    //     var infoWindow = new BMap.InfoWindow(sycontent);  // 创建信息窗口对象
-                    //     this.openInfoWindow(infoWindow);
-                    // });
-                    map.addOverlay(marker);
-                    var label = new BMap.Label(this.formatLabel(vm.clData[i].clmc), { offset: new BMap.Size(-20, 25) });
-                    label.setStyle({
-                        fontSize: '12px',
-                        fontWeight: 'bold',
-                        border: '0',
-                        textAlign: 'center',
-                        color: '#7BA860',
-                        borderRadius: '5px',
-                        paddingRight: '110px',
-                        paddingTop: '5px',
-                        Width: '5px',
-                        display: 'inline-block',
-                        paddingRight: '80px',
-                        marginLeft: '-9px',
-                    });
-                    marker.setLabel(label);
-                    // marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画  
-                    cl.push(marker);             
-                }
-            },
-            //显示微型消防站
-            showOverwx: function () {
-                //点击显示再点击消失
-                var wx = document.getElementById("wx").value;
-                if(wx=="1"){
-                    var wx = [];
-                    vm.wx = wx;
-                    var map = vm.map;
-                    for (var i = 0; i < vm.smallStation.length; i++) {
-                            var x = vm.smallStation[i].gisX;
-                            var y = vm.smallStation[i].gisY;
-                            // var uuid = vm.smallStation[i].uuid;
-                            var pt = new BMap.Point(x, y);
-                            var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd3.png", new BMap.Size(40, 40)); //创建图标
-                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                            map.addOverlay(marker);
-                            var label = new BMap.Label(this.formatLabel(vm.smallStation[i].xfzmc), { offset: new BMap.Size(-20, 35) });
-                            label.setStyle({
-                                fontSize: '12px',
-                                fontWeight: 'bold',
-                                border: '0',
-                                textAlign: 'center',
-                                color: '#B094D2',
-                                borderRadius: '5px',
-                                paddingRight: '110px',
-                                paddingTop: '5px',
-                                Width: '5px',
-                                display: 'inline-block',
-                                paddingRight: '80px',
-                                marginLeft: '-9px',
-                            });
-                            marker.setLabel(label);
-                            wx.push(marker);
-                        }
-                        document.getElementById("wx").value = "";
-                    }else{
-                        vm.hideMarker(vm.wx);
-                        document.getElementById("wx").value = "1";
-                    }                        
-            },
-            //区域内重点单位全部
-            showOverzddw: function () {
-                this.getPoint();
-            },
-            getZdsj: function () {
-                var zd = [];
-                vm.zd = zd;
-                var map = vm.map;
-                for (var i = 0; i < vm.markerData.length; i++) {
-                    var x = vm.markerData[i].gisX;
-                    var y = vm.markerData[i].gisY;
-                    var uuid = vm.markerData[i].uuid;
-
-                    var pt = new BMap.Point(x, y);
-                    var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24)); //创建图标
-                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    marker.uuid = uuid;
-                    marker.addEventListener("click", function (e) {
-                        vm.removeAllMarkers(vm.circlez);
-                        var circlez = [];//清除圆
-                        vm.circlez = circlez;//清除圆
-                        // var marker = e.target;
-                        // marker.uuid = uuid;
-                        var pt = marker.getPosition();
-                        // map.centerAndZoom(pt, 16);
-                        for (var i = 0; i < vm.markerData.length; i++) {
-                            if (e.target.uuid == vm.markerData[i].uuid) {
-                                this.infoData = (vm.markerData[i].dwmc != null ? vm.markerData[i].dwmc : '无');
-                                this.dwdzData = (vm.markerData[i].dwdz != null ? vm.markerData[i].dwdz : '无');
-                                this.xfzrrData = (vm.markerData[i].xfzrr != null ? vm.markerData[i].xfzrr : '无');
-                                this.zbdhData = (vm.markerData[i].zbdh != null ? vm.markerData[i].zbdh : '无');
-                                this.fhdjData = (vm.markerData[i].fhdj != null ? vm.markerData[i].fhdj : '无');
-                                this.yajbData = (vm.markerData[i].yajb != null ? vm.markerData[i].yajb : '无');
-                            }
-=======
                         '</div>' +
                         '<div class="x-clear"></div>' +
                         '</div>'
@@ -1409,7 +1145,6 @@ var vm = new Vue({
                     infoWindow.disableAutoPan();
                     this.openInfoWindow(infoWindow);
                 });
->>>>>>> 70ce879533de21cccccf12af064593f2665a5964
 
                 map.addOverlay(marker);
                 var label = new BMap.Label(this.formatLabel(vm.dzData[i].dzmc), { offset: new BMap.Size(-20, 35) });
@@ -1435,8 +1170,14 @@ var vm = new Vue({
 
         //显示水源
         showOvera: function () {
-
-            this.getSyData();
+            var shuiyuan = document.getElementById("shuiyuan").value;
+            if(shuiyuan=='1'){
+                this.getSyData();       
+                document.getElementById("shuiyuan").value = "";          
+            }else{
+                vm.hideMarker(vm.syy);
+                document.getElementById("shuiyuan").value = "1";
+            }
         },
 
         getSysj: function () {
@@ -1513,38 +1254,6 @@ var vm = new Vue({
                     this.openInfoWindow(infoWindow);
                 });
                 var markerClusterer = vm.markerClusterer;
-<<<<<<< HEAD
-                markerClusterer.addMarkers(zd);
-            },
-
-
-
-            //显示图标
-            showMarker: function (markers) {
-                if (markers != null && markers.length != 0) {
-                    for (i = 0; i < markers.length; i++) {
-                        markers[i].show();
-                    };
-                }
-            },
-
-
-            //隐藏图标
-            hideMarker: function (markers) {
-                if (markers != null && markers.length != 0) {
-                    for (i = 0; i < markers.length; i++) {
-                        markers[i].hide();
-                    };
-                }
-            },
-
-            openPlan_1: function (val) {
-                axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
-                    var plan = res.data.result;
-                    for (var k = 0; k < plan.length; k++) {
-                        if (plan[k].yajb == '01') {
-                            this.planData.yaid_1 = plan[k].uuid;
-=======
                 markerClusterer.addMarkers(syy);
                 map.addOverlay(marker);
                 var label = new BMap.Label(this.formatLabel(vm.syData[i].symc), { offset: new BMap.Size(-20, 25) });
@@ -1570,9 +1279,18 @@ var vm = new Vue({
 
         //显示车辆
         showOvercl: function () {
-            this.getClData();
+            var cheliang = document.getElementById("cheliang").value;
+            if(cheliang=='1'){
+                this.getClData();      
+                document.getElementById("cheliang").value = "";          
+            }else{
+                vm.hideMarker(vm.cl);
+                document.getElementById("cheliang").value = "1";
+            }
         },
         getClsj: function () {
+            var cl = [];
+            vm.cl = cl;
             var map = vm.map;
 
             for (i = 0; i < vm.clData.length; i++) {
@@ -1646,12 +1364,17 @@ var vm = new Vue({
                     marginLeft: '-9px',
                 });
                 marker.setLabel(label);
+                cl.push(marker); 
                 // marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画               
             }
         },
 
         //显示微型消防站
         showOverwx: function () {
+            var wx = document.getElementById("wx").value;
+            if(wx=="1"){
+            var wx = [];
+            vm.wx = wx;
             var map = vm.map;
             for (var i = 0; i < vm.smallStation.length; i++) {
                 var x = vm.smallStation[i].gisX;
@@ -1676,8 +1399,13 @@ var vm = new Vue({
                     paddingRight: '80px',
                     marginLeft: '-9px',
                 });
-                marker.setLabel(label);
+                marker.setLabel(label);wx.push(marker);
             }
+                document.getElementById("wx").value = "";
+            }else{
+                vm.hideMarker(vm.wx);
+                document.getElementById("wx").value = "1";
+            }            
         },
 
         //区域内重点单位全部
@@ -1716,7 +1444,6 @@ var vm = new Vue({
                             this.fhdjData = (vm.markerData[i].fhdj != null ? vm.markerData[i].fhdj : '无');
                             this.yajbData = (vm.markerData[i].yajb != null ? vm.markerData[i].yajb : '无');
 
->>>>>>> 70ce879533de21cccccf12af064593f2665a5964
                         }
 
                     }
@@ -1817,7 +1544,7 @@ var vm = new Vue({
             }
         },
         openPlan_1: function (val) {
-            debugger
+        
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
                 var plan = res.data.result;
                 for (var k = 0; k < plan.length; k++) {
@@ -1832,7 +1559,7 @@ var vm = new Vue({
                 });
             } else {
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.planData.yaid_1).then(function (res) {
-                    debugger  
+                  
                     var yllj = res.data.result[0].yllj;
                     window.open("http://localhost:8090/upload/" + yllj);
                 }.bind(this), function (error) {
@@ -1858,35 +1585,6 @@ var vm = new Vue({
         formatLabel: function (strname) {
             var len = strname.length;
 
-<<<<<<< HEAD
-            lukuang: function () {
-                // var map = this.map;
-                // var isTrafficOpen = vm.isTrafficOpen;
-                // var trafficLayer = vm.trafficLayer;
-                // if (trafficLayer == null) {
-                //     vm.trafficLayer = new BMap.TrafficLayer();
-                //     vm.trafficLayer=trafficLayer;
-                //     map.addTileLayer(trafficLayer);
-                //     vm.isTrafficOpen = true;
-                // } else {
-                //     map.removeTileLayer(trafficLayer);
-                //     vm.trafficLayer=trafficLayer;
-                //     vm.isTrafficOpen = false;
-                // }
-                //return isTrafficOpen;
-                var map = this.map;
-                var ctrl = new BMapLib.TrafficControl({
-                    showPanel: false
-                });
-                map.addControl(ctrl);
-                var isTrafficOpenz = document.getElementById("isTrafficOpen").value;
-                if (isTrafficOpenz=='1') {
-                    ctrl.showTraffic();
-                    document.getElementById("isTrafficOpen").value = " ";
-                } else {
-                    ctrl.hideTraffic();
-                    document.getElementById("isTrafficOpen").value = "1";
-=======
             var subInder = 6;
             if (strname.indexOf(":") > 0 && len < 12) {
                 subInder = strname.indexOf(":") + 1;
@@ -1923,7 +1621,6 @@ var vm = new Vue({
                 }else{
                 ctrl.hideTraffic();
                 document.getElementById("isTrafficOpen").value = "1";
->>>>>>> 70ce879533de21cccccf12af064593f2665a5964
                 }
         },
         //百度库搜索
@@ -1948,8 +1645,5 @@ var vm = new Vue({
             });
             me.setAutoSearch(ac);
         }
-
-
     }
-
 })
