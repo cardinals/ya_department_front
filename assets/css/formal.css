@@ -41,6 +41,9 @@ body{height:100%;}
 .inform-left{
     display: inline;
 }
+.inform-margin-left{
+    margin-left: 10%
+}
 .inform-right{
     display: inline;
 }
