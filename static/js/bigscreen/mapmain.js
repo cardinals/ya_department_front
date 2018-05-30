@@ -200,6 +200,7 @@ var vm = new Vue({
         dzlxmcData: {},
         lxdhData: {},
         dzjcData: {},
+        dzdzData:{},
         //微型消防站
         smallStation: [
             {
@@ -1050,6 +1051,7 @@ var vm = new Vue({
 
         //显示队站
         showOverdz: function () {
+           
             var duizhan = document.getElementById("duizhan").value;
                 if(duizhan=='1'){
                     this.getDzData();//获取队站     
@@ -1095,10 +1097,13 @@ var vm = new Vue({
                     // map.centerAndZoom(pt, 15);
                     for (var i = 0; i < vm.dzData.length; i++) {
                         if (e.target.dzid == vm.dzData[i].dzid) {
+
                             this.dzlxmcData = (vm.dzData[i].dzlxmc != null ? vm.dzData[i].dzlxmc : '无');
-                            this.dzmcData = (vm.dzData[i].dzmc != null ? vm.dzData[i].dzlxmc : '无');
+                            this.dzmcData = (vm.dzData[i].dzmc != null ? vm.dzData[i].dzmc : '无');
                             this.lxdhData = (vm.dzData[i].lxdh != null ? vm.dzData[i].lxdh : '无');
                             this.dzjcData = (vm.dzData[i].dzjc != null ? vm.dzData[i].dzjc : '无');
+                            this.dzdzData = (vm.dzData[i].dzdz !=null ? vm.dzData[i].dzdz:'无');
+
                         }
                     }
                     var dzcontent =
@@ -1107,7 +1112,7 @@ var vm = new Vue({
                         this.dzmcData +
                         '</h3>' +
                         '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
-                        this.dzmcData +
+                        this.dzdzData +
                         '</div>' +
                         '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
                         '<tr>' +
