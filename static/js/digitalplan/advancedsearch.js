@@ -469,10 +469,10 @@ new Vue({
                 window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
                 break;
             case '消防保卫警卫':
-                window.location.href = "../planobject/guardobjects_list.html?id=" + val.uuid + "&index=" + this.activeIndex;
+                window.location.href = "../planobject/guardobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex;
                 break;
             case '其他对象':
-                window.location.href = "../planobject/otherobjects_list.html?id=" + val.uuid + "&index=" + this.activeIndex;
+                window.location.href = "../planobject/otherobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex;
                 break;
             }
             
