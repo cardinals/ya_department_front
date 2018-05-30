@@ -117,7 +117,7 @@
                             <el-row>
 								<el-col :span="20">
 									<el-form-item label="审核状态" prop="shzt">
-										<el-radio-group v-model="approveForm.shzt" auto-complete="off">
+										<el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off">
 										<!--	<el-radio v-for="item in SHZT_data" :label="item.codeValue"></el-radio>-->
                                             <el-radio :label="'01'" disabled><v-text>未审核</v-text></el-radio>
                                             <el-radio :label="'02'"><v-text>未通过</v-text></el-radio>
