@@ -12,7 +12,7 @@ new Vue({
                 YALX: "",
                 YAJB: "",
                 ZZJG: "",
-                SHZT: "",
+                SHZT: "01",
                 shsj:""
             },
             //审批表单
@@ -92,11 +92,6 @@ new Vue({
     },
 
     methods: {
-        handleNodeClick(data) {
-        },
-        handleChange(value) {
-        },
-        
         //预案类型级联选择
         YALX_tree: function () {
             var params= {
@@ -126,7 +121,7 @@ new Vue({
                 console.log(error);
             })
         },
-        
+        //制作机构
         ZZJG_tree: function () {
             axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
                 this.ZZJG_dataTree = res.data.result;
@@ -145,6 +140,7 @@ new Vue({
                 shzt: this.searchForm.SHZT,
                 begintime: this.searchForm.shsj[0],
                 endtime: this.searchForm.shsj[1],
+                isApprove:1
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.tableData = res.data.result;
