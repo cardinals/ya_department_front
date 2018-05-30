@@ -12,74 +12,71 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/bigmap.css">
-    <link href="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.css" rel="stylesheet" type="text/css" />
+    <link href="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.css" rel="stylesheet" type="text/css"
+    />
     <!-- 底部控件 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
-    
-    
+
+
 </head>
+
 <body class="fw map-bg">
-        <input id="isTrafficOpen" type="hidden" value="1" />
-        <input id="shuiyuan" type="hidden" value="1" />
-        <input id="duizhan" type="hidden" value="1" />
-        <input id="cheliang" type="hidden" value="1" />
-        <input id="wx" type="hidden" value="1" />
+    <input id="isTrafficOpen" type="hidden" value="1" />
+    <input id="shuiyuan" type="hidden" value="1" />
+    <input id="duizhan" type="hidden" value="1" />
+    <input id="cheliang" type="hidden" value="1" />
+    <input id="wx" type="hidden" value="1" />
     <div id="app">
         <div class="application-boxs tc abs" style="top:0px;">
-           
-        <!-- 左侧 -->
-        <div class="map-menu-left p10 map-bg" >
-            <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-            <div id="menu-box" class="f12">
-                <el-form ref="form" :model="form" label-width="80px">
-                    <!-- lxy start -->
-                    <div class="search_top">
-                        <el-select placeholder="请输入地址"   v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r">
-                            <el-option  v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option> 
-                        </el-select>
-                        <el-button class="l ml5" type="primary" @click="searchClick">搜索</el-button>
-                    </div>
-                    <div >
-                        <div id="shengshizs">
-                            <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) "    :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
-                                <div @click="shengshiClick(data)">
-                                    <div class="l cell_bk">行政区划名称：{{data.xzqhmc }}</div>
-                                    <div class="l cell_bk">重点单位数量：{{data.zddwsl }}</div>
-                                </div>
-                            </el-card>
-                        </div>
 
-                        <div id="zddwxx">
-                            <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
-                                <div @click="zddwxxClick(data)"> 
-                                    <div slot="header">
-                                        <strong>{{data.dwmc }}</strong>&nbsp&nbsp
-                                        <el-tag color="#0f82ee" size="medium">{{data.dwxzmc}}</el-tag>
-                                    </div>
-                                    <div class="l cell_bk">地址：{{data.dwdz }}</div>
-                                    <div class="l cell_bk">电话：{{data.zbdh }}</div>
+            <!-- 左侧 -->
+            <div class="map-menu-left p10 map-bg">
+                <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+                <div id="menu-box" class="f12">
+                    <el-form ref="form" :model="form" label-width="80px">
+                        <!-- lxy start -->
+                        <div style="height: 65%;">
+                            <div class="search_top" style="height: 25px">
+                                <el-select placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r">
+                                    <el-option v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option>
+                                </el-select>
+                                <el-button class="l ml5" type="primary" @click="searchClick">搜索</el-button>
+                            </div>
+                            <div style="margin-top: 10px; overflow-y:auto !important;height: 482px;">
+                                <div id="shengshizs">
+                                    <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
+                                        style="background-color:#708090;color:#fff;">
+                                        <div @click="shengshiClick(data)">
+                                            <div class="l cell_bk">行政区划名称：{{data.xzqhmc }}</div>
+                                            <div class="l cell_bk">重点单位数量：{{data.zddwsl }}</div>
+                                        </div>
+                                    </el-card>
                                 </div>
-                            </el-card>
-                        </div>
-                    </div>
-                    <!--  -->
-                    <div id="zddwxxTool" class="pagenum">
-                               <div type="flex" justify="end">
-                                    <el-pagination
-                                    @current-change="handleCurrentChange"
-                                    :current-page="currentPage"
-                                    :page-size="pageSize"
-                                    :pager-count="5"
-                                    background
-                                    layout="total,jumper"
-                                    :total=parseInt(total)>
+
+                                <div id="zddwxx">
+                                    <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
+                                        <div @click="zddwxxClick(data)">
+                                            <div slot="header">
+                                                <strong>{{data.dwmc }}</strong>&nbsp&nbsp
+                                                <el-tag color="#0f82ee" size="medium">{{data.dwxzmc}}</el-tag>
+                                            </div>
+                                            <div class="l cell_bk">地址：{{data.dwdz }}</div>
+                                            <div class="l cell_bk">电话：{{data.zbdh }}</div>
+                                        </div>
+                                    </el-card>
+                                </div>
+                            </div>
+                            <div id="zddwxxTool" class="pagenum">
+                                <div type="flex" justify="end">
+                                    <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" :pager-count="5" background
+                                        layout="total,jumper" :total=parseInt(total)>
                                     </el-pagination>
                                 </div>
-                                <!-- layout="total,  jumper" -->
-                    </div>
-                </el-form>
-            </div>
-              <!-- lxy end -->
+                            </div>
+                        </div>
+                    </el-form>
+                </div>
+                <!-- lxy end -->
             </div>
             <div id="BMap" class="map-main tc">
             </div>
@@ -113,7 +110,7 @@
                         <ul>
                             <li>
                                 <span>消防队站</span>
-                                <a href="#" @click="showOverdz()" >
+                                <a href="#" @click="showOverdz()">
                                     <img src="../../static/images/dock-1.png">
                                 </a>
                             </li>
@@ -156,7 +153,7 @@
                         </ul>
                     </div>
                 </div>
-               
+
                 <!-- <div @click="showOverdz()"  style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="队站"> 
                     <img src="../../static/images/M_ZYDW.png" />
@@ -187,7 +184,7 @@
                 </div> -->
             </div>
             <!-- 右侧工具 -->
-            <div  style="width: 200px; position:fixed;top:10px;right: 10px;">
+            <div style="width: 200px; position:fixed;top:10px;right: 10px;">
                 <div @click="Reset()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="重置">
                     <img src="../../static/images/maptool/reset.png" />
@@ -215,12 +212,12 @@
                                 <!-- <img style="height:15px;width:43px;" src="../../static/images/maptool/fireengine.png"/> -->
                             </span>
                         </li>
-                  
+
                         <li role="presentation">
                             <div @click="EwOver()" style="width:60px;height:68px;margin:8px;margin-left:25px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_2d_btn.png" />
-                                <p style="color:#757575">平面图</p> 
+                                <p style="color:#757575">平面图</p>
                             </div>
                             <div @click="WxOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
@@ -352,4 +349,5 @@
 		local.search(myValue);
 	}
 </script> -->
+
 </html>
