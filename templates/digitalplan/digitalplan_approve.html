@@ -18,7 +18,7 @@
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
+                <div id="lib :: main_container_header('预案审核','预案审核')"></div>
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
@@ -117,8 +117,12 @@
 								<el-col :span="20">
 									<el-form-item label="审核状态" prop="shzt">
 										<el-radio-group v-model="approveForm.shzt" auto-complete="off">
-											<el-radio v-for="item in SHZT_data" :label="item.codeValue"><v-text v-text="item.codeName"></v-text></el-radio>
-										</el-radio-group>
+										<!--	<el-radio v-for="item in SHZT_data" :label="item.codeValue"></el-radio>-->
+                                            <el-radio :label="'01'" disabled><v-text>未审核</v-text></el-radio>
+                                            <el-radio :label="'02'"><v-text>未通过</v-text></el-radio>
+                                            <el-radio :label="'03'"><v-text>已通过</v-text></el-radio>
+                                            <el-radio :label="'99'"><v-text>其他</v-text></el-radio>
+                                        </el-radio-group>
 									</el-form-item>
 								</el-col>
 							</el-row>
