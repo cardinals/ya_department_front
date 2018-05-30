@@ -4,6 +4,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/planobject/importantunits.css">
+	<title>消防保卫警卫预案</title>
 </head>
 
 <body class="fw f14 main-index-body">
@@ -23,7 +24,7 @@
 						<el-row>
 							<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
 
-								<el-row :gutter="40">
+								<el-row>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">预案名称</label>
 										<el-input size="small" v-model="searchForm.yamc" placeholder="预案名称"></el-input>
@@ -38,7 +39,7 @@
 									</el-col>
 								</el-row>
 
-								<el-row :gutter="40">
+								<el-row>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">是否跨区域</label>
 										<el-select size="small" v-model="searchForm.sfkqy" placeholder="全部" class="searchSelect" clearable>
@@ -47,18 +48,8 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">制作机构</label>
-									<!-- <el-select size="small" v-model="searchForm.jgid" placeholder="制作机构" class="searchSelect" clearable>
-											<el-option v-for="item in jgidData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue">
-											</el-option>
-										</el-select> -->
 										<el-cascader :options ="jgidData" :props ="jgidprops" size="small" v-model="searchForm.jgid" placeholder="制作机构" class="searchSelect" clearable change-on-select></el-cascader>
 									</el-col>
-							    <!--<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">创建时间</label>
-										<el-date-picker type="daterange" @change="bzrqChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.cjsj"
-										 range-separator="至" placeholder="创建时间" start-placeholder="开始日期" end-placeholder="结束日期" class="searchDatePicker">
-										</el-date-picker>
-									</el-col>  -->
 								</el-row>
 								<div>
 									<el-form>
@@ -82,17 +73,16 @@
 						<div class="table_container">
 								<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 									@selection-change="selectionChange" class="tableStyle" :height="tableheight">
-									<!-- <el-table-column type="selection" min-width="5%"></el-table-column> -->
-									<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
-									<el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
+									<el-table-column type="index" label="序号" show-overflow-tooltip width="65px" align="center"></el-table-column>
+									<el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="30%" align="center">
 										<template slot-scope="scope">
-											<a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
+											<a @click="planDetails(scope.row)" v-text="scope.row.yamc"></a>
 										</template>
 									</el-table-column>
-									<el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
-									<el-table-column prop="yalx" label="预案类型" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
-									<el-table-column prop="sfkqy" label="跨区域" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-                                    <el-table-column prop="jgid" label="制作机构" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+									<el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+									<el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="15%" align="center"></el-table-column>
+									<el-table-column prop="jgidmc" label="制作机构" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+									<el-table-column prop="sfkqymc" label="跨区域" show-overflow-tooltip min-width="10%" align="center"	></el-table-column>                                 
                                 </el-table>
 		
 								<!--列表底部工具条和分页符-->
