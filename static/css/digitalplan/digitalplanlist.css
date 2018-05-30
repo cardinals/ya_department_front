@@ -37,3 +37,7 @@
 .el-form-item{
     margin-bottom: 10px;
 }
+.yash_radio .el-radio__inner{
+    width: 16px;
+    height: 16px;
+}

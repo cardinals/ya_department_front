@@ -35,9 +35,13 @@
                                 <dt class="dib inform-small-title">单位地址：</dt>
                                 <dd class="dtdlStyle">{{tableData.dwdz||"无"}}</dd>
                                 <br>
-                                <img src="../../static/images/postcode.png">
+                                <!-- <img src="../../static/images/postcode.png">
                                 <dt class="dib inform-small-title">行政区划：</dt>
                                 <dd class="dtdlStyle">{{tableData.xzqhmc||"无"}}</dd>
+                                <br> -->
+                                <img src="../../static/images/postcode.png">
+                                <dt class="dib inform-small-title">防火等级：</dt>
+                                <dd class="dtdlStyle">{{tableData.fhdjmc||"无"}}</dd>
                                 <br>
                                 <img src="../../static/images/postcode.png">
                                 <dt class="dib inform-small-title">单位概况：</dt>
@@ -46,7 +50,6 @@
                                 <img src="../../static/images/phone.png">
                                 <dt class="dib inform-small-title">值班电话：</dt>
                                 <dd class="dtdlStyle">{{tableData.zbdh||"无"}}</dd>
-                                <br>
                             </dl>
                         </div>
                         <div style="float: right">
@@ -72,30 +75,6 @@
                                                     <dd class="dtdlStyle">{{tableData.zdmj||"无"}}</dd>
                                                 </dl>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地理坐标X：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.gisX||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">经度：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.lon||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">毗邻情况（东）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.plqkd||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">毗邻情况（南）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.plqkn||"无"}}</dd>
-                                                </dl>
-                                            </div>
                                         </div>
                                         <div class="right-inform">
                                             <div>
@@ -110,32 +89,67 @@
                                                     <dd class="dtdlStyle">{{tableData.jzmj||"无"}}</dd>
                                                 </dl>
                                             </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">地理坐标Y：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.gisY||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">纬度：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.lat||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">毗邻情况（西）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.plqkx||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">毗邻情况（北）：</dt>
-                                                    <dd class="dtdlStyle">{{tableData.plqkb||"无"}}</dd>
-                                                </dl>
-                                            </div>
                                         </div>
                                     </div>
+                                    </br/></br/>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <div slot="header">
+                                            <span>坐标信息</span>
+                                        </div>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">GIS_X：</strong>{{tableData.gisX||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">GIS_Y：</strong>{{tableData.gisY||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">精度：</strong>{{tableData.lon||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">维度：</strong>{{tableData.lat||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                        <div slot="header">
+                                            <span>毗邻情况</span>
+                                        </div>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况（东）：</strong>{{tableData.plqkd||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况（西）：</strong>{{tableData.plqkx||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况（南）：</strong>{{tableData.plqkn||"无"}}
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="12">
+                                                <div>
+                                                    <strong style="cursor: pointer;font-size:15px;">毗邻情况（北）：</strong>{{tableData.plqkb||"无"}}
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="消防信息" name="second">
                                     <div class="inform-div">
