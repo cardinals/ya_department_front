@@ -739,7 +739,7 @@ new Vue({
             // debugger
             if (fileList.length == 1) {
                 // this.isFile = true;
-                const isZip = file.type === 'application/x-zip-compressed';
+                const isZip = file.name.endsWith("zip");
                 const isRAR = file.name.endsWith("rar");
                 // if (isZip || isRAR) {
                 //     this.isFile = true;
