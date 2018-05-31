@@ -17,7 +17,7 @@ new Vue({
                 dxmc: "",
                 xzqh: "",
                 yamc: "",//预案名称
-                yalxdm: [],//预案类型
+                yalx: [],//预案类型
                 yajb: "",//预案级别
                 yazt: "",//预案状态
                 bz: "",//备注
@@ -31,7 +31,7 @@ new Vue({
             YAJB_data: [],
             YAZT_data: [],
             role_data: {},
-            detailData: {},
+            // detailData: {},
             //灾情信息data
             zqIndex: '',
             dzIndex: '',
@@ -55,7 +55,7 @@ new Vue({
                 yamc: [
                     { required: true, message: '请输入预案名称', trigger: 'blur' }
                 ],
-                yalxdm: [
+                yalx: [
                     { type: 'array', required: true, message: '请选择预案类型', trigger: 'change' }
                 ],
                 yajb: [
@@ -64,7 +64,7 @@ new Vue({
             },
             //上传文件Data
             fileList: [],
-            isFile:'',
+            isFile: false,
             upLoadData: {
                 yaid: ""
             },
@@ -160,6 +160,7 @@ new Vue({
         this.ZHCS();
         this.HZWXX();
         this.DJFALX();
+        this.roleData();
     },
     mounted: function () {
         this.status = getQueryString("ID");
@@ -188,7 +189,7 @@ new Vue({
         //灾情增加
         addDomain() {
             this.dynamicValidateForm.push({
-                bwmc: '',
+                zqbw: '',
                 zdbwid: '',
                 jzmc: '',
                 jzid: '',
@@ -197,7 +198,7 @@ new Vue({
                 qhyy: '',
                 rsmj: '',
                 zhcs: '',
-                hzwxx: '',
+                gyjzhzwxx: '',
                 qhbwgd: '',
                 zqms: '',
                 zqsdyj: '',
@@ -314,42 +315,68 @@ new Vue({
                 console.log(error);
             })
         },
-        //初始化查询（制作机构、制作人）
-        searchClick: function () {
-            this.loading1 = true;
+        //当前登录用户信息
+        roleData: function () {
             axios.post('/api/shiro').then(function (res) {
                 this.role_data = res.data;
             }.bind(this), function (error) {
                 console.log(error);
             })
-            if (this.status == 0) {
+        },
+        //初始化查询
+        searchClick: function () {
+            this.loading1 = true;
+            if (this.status == 0) {  //新增
                 this.addForm.yazt = '01';
                 this.loading1 = false;
-            } else {
-                axios.get('/dpapi/digitalplanlist/doFindById/' + this.status).then(function (res) {
-                    this.detailData = res.data.result;
-                    this.addForm = this.detailData;
-                    //制作时间格式化
-                    if (this.addForm.zzsj == null || this.addForm.zzsj == "") {
-                        this.addForm.zzsj = '无';
-                    } else {
-                        this.addForm.zzsj = this.dateFormat(this.addForm.zzsj);
-                    }
+            } else {  //修改
+                //预案基本信息查询
+                axios.get('/dpapi/digitalplanlist/' + this.status).then(function (res) {
+                    this.addForm = res.data.result;
                     //预案类型格式化
-                    if (this.addForm.yalxdm.endsWith("0000")) {
-                        var yalx = this.addForm.yalxdm;
-                        this.addForm.yalxdm = [];
-                        this.addForm.yalxdm.push(yalx);
+                    if (this.addForm.yalx.endsWith("0000")) {
+                        var yalx = this.addForm.yalx;
+                        this.addForm.yalx = [];
+                        this.addForm.yalx.push(yalx);
                     } else {
-                        var yalx1 = this.addForm.yalxdm.substring(0, 1) + '0000'
-                        var yalx2 = this.addForm.yalxdm
-                        this.addForm.yalxdm = [];
-                        this.addForm.yalxdm.push(yalx1, yalx2);
+                        var yalx1 = this.addForm.yalx.substring(0, 1) + '0000'
+                        var yalx2 = this.addForm.yalx
+                        this.addForm.yalx = [];
+                        this.addForm.yalx.push(yalx1, yalx2);
                     }
-                    this.loading1 = false;
                 }.bind(this), function (error) {
                     console.log(error)
                 })
+                //灾情设定查询
+                axios.get('/dpapi/disasterset/doFindByPlanId/' + this.status).then(function (res) {
+                    // debugger
+                    this.dynamicValidateForm = res.data.result;
+                    for (var i = 0; i < this.dynamicValidateForm.length; i++) {
+                        //燃烧物质
+                        var rswz = this.dynamicValidateForm[i].rswz;
+                        this.dynamicValidateForm[i].rswz = [];
+                        this.dynamicValidateForm[i].rswz.push(rswz);
+                        //灾情等级
+                        var zqdj = this.dynamicValidateForm[i].zqdj;
+                        this.dynamicValidateForm[i].zqdj = [];
+                        this.dynamicValidateForm[i].zqdj.push(zqdj);
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+                //附件查询
+                axios.get('/dpapi/yafjxz/' + this.status).then(function (res) {
+                    // debugger
+                    // var name = res.data.result[0].wjm;
+                    // var url = "http://localhost:8090/upload/" + res.data.result[0].xzlj
+                    this.fileList = [{
+                        name: res.data.result[0].wjm,
+                        url: "http://localhost:8090/upload/" + res.data.result[0].xzlj
+                    }]
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+                this.loading1 = false;
             }
         },
         //重点单位选择弹出页---------------------------------------------------------------
@@ -420,7 +447,7 @@ new Vue({
         selectRow_parts: function (val) {
             var index = this.zqIndex;
             this.dynamicValidateForm[index].zdbwid = val.zdbwid
-            this.dynamicValidateForm[index].bwmc = val.zdbwmc
+            this.dynamicValidateForm[index].zqbw = val.zdbwmc
             this.partsListVisible = false;
         },
         //灾情部位弹出页关闭
@@ -503,7 +530,6 @@ new Vue({
         },
         //选择消防队站，返回消防队站名称和id
         selectRow_fireSta: function (val) {
-            debugger
             var index = this.zqIndex;
             var index1 = this.dzIndex;
             this.dynamicValidateForm[index].forcedevList[index1].dzid = val.dzid
@@ -559,7 +585,7 @@ new Vue({
                             dxid: this.addForm.dxid,
                             dxmc: this.addForm.dxmc,
                             yamc: this.addForm.yamc,
-                            yalx: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                            yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
                             yazt: '01',
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
@@ -567,11 +593,12 @@ new Vue({
                             zzrid: this.role_data.userid,
                             zzrmc: this.role_data.realName
                         };
+                        // debugger
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
                             this.upLoadData.yaid = res.data.result.uuid;
-                            if(this.isFile){
+                            if (this.isFile) {
                                 this.submitUpload();//附件上传
-                            }else{
+                            } else {
                                 this.$message({
                                     message: "成功保存预案信息",
                                     showClose: true
@@ -584,12 +611,16 @@ new Vue({
                     } else {//修改
                         var params = {
                             uuid: this.status,
-                            dxid: this.addForm.dwid,
+                            dxid: this.addForm.dxid,
+                            dxmc: this.addForm.dxmc,
                             yamc: this.addForm.yamc,
-                            yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
-                            yazt: this.addForm.yazt,
+                            yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
+                            yazt: '01',
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
+                            disasterList: this.dynamicValidateForm,
+                            zzrid: this.role_data.userid,
+                            zzrmc: this.role_data.realName
                         };
                         axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
                             alert("成功修改" + res.data.result.length + "条预案");
@@ -607,7 +638,7 @@ new Vue({
         handleSuccess(response, file, fileList) {
             if (response) {
                 this.$message({
-                    message: "成功上传预案附件",
+                    message: "成功保存预案信息",
                     showClose: true,
                     duration: 0
                 });
@@ -624,7 +655,7 @@ new Vue({
                             dxid: this.addForm.dxid,
                             dxmc: this.addForm.dxmc,
                             yamc: this.addForm.yamc,
-                            yalx: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                            yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
                             yazt: '03',
                             shzt: '01',
                             yajb: this.addForm.yajb,
@@ -634,11 +665,16 @@ new Vue({
                             zzrmc: this.role_data.realName
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
-                            this.$message({
-                                message: "成功提交预案",
-                                showClose: true,
-                            });
-                            window.location.href = "digitalplan_list.html";
+                            this.upLoadData.yaid = res.data.result.uuid;
+                            if (this.isFile) {
+                                this.submitUpload();//附件上传
+                            } else {
+                                this.$message({
+                                    message: "成功保存预案信息",
+                                    showClose: true
+                                });
+                                window.location.href = "digitalplan_list.html";
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -647,7 +683,7 @@ new Vue({
                             uuid: this.status,
                             dxid: this.addForm.dwid,
                             yamc: this.addForm.yamc,
-                            yalxdm: this.addForm.yalxdm[this.addForm.yalxdm.length - 1],
+                            yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
                             yazt: '03',
                             shzt: '01',
                             yajb: this.addForm.yajb,
@@ -691,19 +727,34 @@ new Vue({
         //附件移除
         handleRemove(file, fileList) {
             console.log(file, fileList);
+            this.isFile = false;
         },
         handlePreview(file) {
             console.log(file);
         },
         handleExceed(files, fileList) {
-            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            this.$message.warning('当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件');
         },
         handleChange: function (file, fileList) {
-            debugger
-            if(fileList.length>0){
-                this.isFile = true;
-            }else{
-                this.isFile = false;
+            // debugger
+            if (fileList.length == 1) {
+                // this.isFile = true;
+                const isZip = file.type === 'application/x-zip-compressed';
+                const isRAR = file.name.endsWith("rar");
+                // if (isZip || isRAR) {
+                //     this.isFile = true;
+                // } 
+                if (isZip) {
+                    this.isFile = true;
+                }
+                else {
+                    // this.$message.error('仅可上传zip/rar格式压缩文件!');
+                    this.$message.error('仅可上传zip格式压缩文件!');
+                    this.fileList.splice(0, this.fileList.length);
+                }
+            } else if (fileList.length > 1) {
+                this.$message.warning('当前限制上传 1 个压缩文件');
+                fileList.splice(1, fileList.length - 1);
             }
         }
     },

@@ -56,8 +56,8 @@
 							</el-col>
 							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案类型" prop="yalxdm">
-									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalxdm" placeholder="预案类型" class="searchSelect"
+								<el-form-item label="预案类型" prop="yalx">
+									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalx" placeholder="预案类型" class="searchSelect"
 									 clearable change-on-select></el-cascader>
 								</el-form-item>
 							</el-col>
@@ -88,7 +88,7 @@
 										<el-label class="mr5">灾情部位</el-label>
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
-										<el-input v-model="domain.bwmc" size="small" @focus="partsList(index)" placeholder="灾情部位"></el-input>
+										<el-input v-model="domain.zqbw" size="small" @focus="partsList(index)" placeholder="灾情部位"></el-input>
 									</el-col>
 									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
@@ -147,7 +147,7 @@
 										<el-label class="mr5">火灾危险性</el-label>
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
-										<el-select size="small" v-model="domain.hzwxx" placeholder="火灾危险性" clearable>
+										<el-select size="small" v-model="domain.gyjzhzwxx" placeholder="火灾危险性" clearable>
 											<el-option v-for="item in HZWXX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
