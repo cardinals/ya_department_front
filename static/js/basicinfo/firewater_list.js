@@ -180,12 +180,14 @@ new Vue({
         searchSYLX_data: function () {
             axios.get('/api/codelist/getCodetype/SYLX').then(function (res) {
                 //水源类型数据只显示大类即以00结尾的类型
+                /**
                 var lxdata = res.data.result;
                 for(var i in lxdata){
                     var end_sylx = lxdata[i].codeValue.substring(2,4);
                     if(end_sylx =="00")
                         this.SYLX_data.push(lxdata[i]);
-                }
+                } */
+                this.SYLX_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })

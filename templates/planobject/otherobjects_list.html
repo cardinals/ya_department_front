@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/planobject/importantunits.css">
-    <title>其他对象</title>
+    <title>预案对象-其他对象</title>
 </head>
 
 <body class="fw f14 main-index-body">
@@ -61,15 +61,15 @@
                     <div class="table_container">
                         <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
                             class="tableStyle" :height="tableheight">
-                            <el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
-                            <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat">
+                            <el-table-column type="index" label="序号" show-overflow-tooltip width="65px" align="center"></el-table-column>
+                            <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="30%" align="center">
                                 <template slot-scope="scope">
                                     <a @click="informClick(scope.row)" v-text=scope.row.dxmc></a>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="dxdz" label="对象地址" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="xfgxmc" label="消防管辖" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="lxdh" label="联系电话" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="dxdz" label="对象地址" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+                            <el-table-column prop="xfgxmc" label="消防管辖" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+                            <el-table-column prop="lxdh" label="联系电话" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
                         </el-table>
     
                         <!--列表底部工具条和分页符-->

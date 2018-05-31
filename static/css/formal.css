@@ -15,7 +15,8 @@ body{height:100%;overflow:hidden;}
   height:50px;
 }
 .left-sidebar {
-    position: fixed;
+    position: absolute;
+    bottom: 0px;
 }
 .table_container{
     border: 1px solid #eee;
@@ -176,7 +177,7 @@ body{height:100%;overflow:hidden;}
     margin-top: 5px;
 }
 .detail_picture_size{
-    width: 100px;
+    width: 120px;
     height: 120px;
 }
 .card_style{
@@ -187,10 +188,16 @@ body{height:100%;overflow:hidden;}
 .card_title_font{
     font-size:14px;
 }
+.card_sytitle_font{
+    font-size:12px;
+}
 .detailTable td,.detailTable th{
     height: 25px;
 }
 .detailTable{
     margin-top: 10px;
     margin-bottom: 20px;
+}
+.el-card__header {
+    padding: 13px 15px;
 }

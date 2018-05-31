@@ -27,38 +27,41 @@
     .sync-yellow {background-image: url(../../static/images/sync-yellow.png);}
     .sync-orange {background-image: url(../../static/images/sync-orange.png);}
     .sync-red {background-image: url(../../static/images/sync-red.png);}
-    .sync-ring-img {width: 80px; height: 80px; position: absolute; top: 89px; left: 166px; background: url(../../static/images/sync-ring.png) no-repeat center center;}
+    .sync-ring-img {width: 80px; height: 80px; position: absolute; top: 89px; left: 166px; background: url(../../static/images/sync-ring.png) no-repeat center center;background-size: 80px 80px;}
     .sync-ring {width: 100px; height: 80px; position: absolute; top: 169px; left: 156px; line-height: 25px; color: #fff; font-size: 16px;border: 0px;}
     .sync-city{width: 40px; height: 40px; display: block; position: absolute; top: 116px; left: 638px; z-index: 10; cursor: default;}
-    .sync-cityBox{width: 232px; height: 197px; background: url(../../static/images/sync-test.png) no-repeat center center;background-size: auto 100%; display: block; position: absolute; top: -17px; left: 4px; visibility: hidden; opacity: 0;}
+    .sync-cityBox{width: 232px; height: 197px; background: url(../../static/images/sync-test.png) no-repeat center center;background-size: auto 100%; display: block; position: absolute; top: -19px; left: 0px; visibility: hidden; opacity: 0;}
     .sync-city:hover .sync-cityBox{visibility: visible; opacity: 1;}
-    .sync-beijing {top: 109px; left: 632px;}
-    .sync-heilongjiang {top: 36px; left: 702px;}
-    .sync-jilin {top: 72px; left: 702px;}
-    .sync-liaoning {top: 101px; left: 678px;}
-    .sync-shandong {top: 153px; left: 644px;}
-    .sync-hebei {top: 140px; left: 620px;}
-    .sync-henan {top: 165px; left: 620px;}
-    .sync-shanxi {top: 149px; left: 598px;}
-    .sync-shaanxi {top: 160px; left: 580px;}
-    .sync-jiangsu {top: 183px; left: 670px;}
-    .sync-anhui {top: 201px; left: 652px;}
-    .sync-guizhou {top: 238px; left: 565px;}
-    .sync-sichuan {top: 192px; left: 525px;}
-    .sync-xinjiang {top: 109px; left: 395px;}
-    .sync-qinghai {top: 167px; left: 468px;}
-    .sync-xizang {top: 205px; left: 413px;}
-    .sync-neimenggu {top: 115px; left: 573px;}
-    .sync-ningxia {top: 143px; left: 552px;}
-    .sync-gansu {top: 150px; left: 534px;}
-    .sync-yunnan {top: 265px; left: 509px;}
-    .sync-guangxi {top: 265px; left: 584px;}
-    .sync-guangdong {top: 285px; left: 611px;}
-    .sync-hunan {top: 242px; left: 606px;}
-    .sync-jiangxi {top: 243px; left: 637px;}
-    .sync-fujian {top: 261px; left: 656px;}
-    .sync-zhejiang {top: 208px; left: 672px;}
-    .sync-hainan {top: 319px; left: 590px;}
+    .sync-beijing {top: 107px; left: 628px;}
+    .sync-tianjin {top: 115px; left: 636px;}
+    .sync-heilongjiang {top: 34px; left: 698px;}
+    .sync-jilin {top: 70px; left: 698px;}
+    .sync-liaoning {top: 99px; left: 674px;}
+    .sync-shandong {top: 151px; left: 640px;}
+    .sync-hebei {top: 138px; left: 617px;}
+    .sync-henan {top: 163px; left: 617px;}
+    .sync-shanxi {top: 147px; left: 595px;}
+    .sync-shaanxi {top: 158px; left: 578px;}
+    .sync-jiangsu {top: 181px; left: 666px;}
+    .sync-anhui {top: 199px; left: 648px;}
+    .sync-guizhou {top: 235px; left: 562px;}
+    .sync-chongqing {top: 214px; left: 565px;}
+    .sync-sichuan {top: 190px; left: 523px;}
+    .sync-xinjiang {top: 107px; left: 393px;}
+    .sync-qinghai {top: 165px; left: 466px;}
+    .sync-xizang {top: 203px; left: 411px;}
+    .sync-neimenggu {top: 113px; left: 571px;}
+    .sync-ningxia {top: 141px; left: 550px;}
+    .sync-gansu {top: 148px; left: 531px;}
+    .sync-yunnan {top: 262px; left: 506px;}
+    .sync-guangxi {top: 262px; left: 580px;}
+    .sync-guangdong {top: 282px; left: 607px;}
+    .sync-hunan {top: 239px; left: 603px;}
+    .sync-jiangxi {top: 240px; left: 633px;}
+    .sync-fujian {top: 258px; left: 652px;}
+    .sync-zhejiang {top: 206px; left: 668px;}
+    .sync-shanghai {top: 190px; left: 679px;}
+    .sync-hainan {top: 315px; left: 587px;}
     .sync-title {height: 25px; line-height: 25px; color: #fff; font-size: 16px; background: url(../../static/images/sync-title.png) no-repeat center center;}
     .libta-table td.sync-num{color: #1bd3ff;}
     @keyframes sync-Flash{
@@ -72,42 +75,7 @@
     <div id="app">
         <div class="application-box tc abs">
             <div class="application-div h70">
-                <!-- <div class="h100 w25 l">
-                    <div class="application-div h33 p3">
-                        <div id="l1" class="application-text map-bg2 p20 pr20">
-                            <div class="sync-text">目前接入总队总量</div>
-                            <div class="sync-text">
-                                <span class="sync-text-strong" v-text = "this.syncState.mqjrzdsl"></span>个</div>
-                        </div>
-                    </div>
-                    <div class="application-div h33 p3">
-                        <div id="l2" class="application-text map-bg2 p20 pr20">
-                            <div class="sync-text">接通总队数量</div>
-                            <div class="sync-text">
-                                <span class="sync-text-strong" v-text = "this.syncState.jtzdsl"></span>个</div>
-                        </div>
-                    </div>
-                    <div class="application-div h33 p3">
-                        <div id="l3" class="application-text map-bg2 p20 pr20">
-                            <div class="sync-text">故障总队数量</div>
-                            <div class="sync-text">
-                                <span class="sync-text-strong" v-text = "this.syncState.gzzdsl"></span>个</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="h100 w50 l p3">
-                    <div id="map" class="application-text sync-map">
-                        <div id="beijing" class="sync-flash sync-aperture sync-beijing"></div>
-                        <div id="liaoning" class="sync-flash sync-yellow sync-aperture sync-liaoning"></div>
-                        <div id="jiangsu" class="sync-flash sync-red sync-aperture sync-jiangsu"></div>
-                        <div id="chongqing" class="sync-flash sync-aperture sync-chongqing"></div>
-                        <div id="xizang" class="sync-flash sync-aperture sync-xizang"></div>
-                        <div id="neimenggu" class="sync-flash sync-aperture sync-neimenggu"></div>
-                        <div id="guangxi" class="sync-flash sync-aperture sync-guangxi"></div>
-                        <div id="zhejiang" class="sync-flash sync-aperture sync-zhejiang"></div>
-                    </div>
-                </div> -->
-                <div class="h100 w75 l p3">
+                <div class="h100 w75 l p5">
                     <div class="application-div h100 sync-map">
                         <div class="sync-ring-img"></div>
                         <div class="sync-ring">31个总队数据采集看板</div>
@@ -115,6 +83,7 @@
                             <div class="sync-cityBox"></div>
                         </a>
                         <div id="beijing" class="sync-flash sync-aperture sync-beijing"></div>
+                        <div id="tianjin" class="sync-flash sync-red sync-aperture sync-tianjin"></div>
                         <div id="heilongjiang" class="sync-flash sync-yellow sync-aperture sync-heilongjiang"></div>
                         <div id="jilin" class="sync-flash sync-blue sync-aperture sync-jilin"></div>
                         <div id="liaoning" class="sync-flash sync-aperture sync-liaoning"></div>
@@ -126,6 +95,7 @@
                         <div id="jiangsu" class="sync-flash sync-red sync-aperture sync-jiangsu"></div>
                         <div id="anhui" class="sync-flash sync-yellow sync-aperture sync-anhui"></div>
                         <div id="guizhou" class="sync-flash sync-aperture sync-guizhou"></div>
+                        <div id="chongqing" class="sync-flash sync-blue sync-aperture sync-chongqing"></div>
                         <div id="sichuan" class="sync-flash sync-yellow sync-aperture sync-sichuan"></div>
                         <div id="xinjiang" class="sync-flash sync-red sync-aperture sync-xinjiang"></div>
                         <div id="qinghai" class="sync-flash sync-aperture sync-qinghai"></div>
@@ -140,41 +110,42 @@
                         <div id="jiangxi" class="sync-flash sync-red sync-aperture sync-jiangxi"></div>
                         <div id="fujian" class="sync-flash sync-yellow sync-aperture sync-fujian"></div>
                         <div id="zhejiang" class="sync-flash sync-aperture sync-zhejiang"></div>
+                        <div id="shanghai" class="sync-flash sync-blue sync-aperture sync-shanghai"></div>
                         <div id="hainan" class="sync-flash sync-blue sync-aperture sync-hainan"></div>
                     </div>
                 </div>
                 <div class="h100 w25 l">
-                    <div class="application-div h25 p3">
+                    <div class="application-div h25 p5">
                         <div id="r1" class="application-text map-bg2 p10 pr20">
-                            <div class="sync-image" style="background-image: url(../../static/images/sync-1.png);"></div>
-                            <div class="sync-text">累计同步数据量</div>
-                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.ljtbsjl"></span>条</div>
+                            <div class="sync-image" style="background-image: url(../../static/images/sync-1.png);background-size: 60px 60px;"></div>
+                            <div class="sync-text">服务节点数量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.fwjdsl"></span>条</div>
                         </div>
                     </div>
-                    <div class="application-div h25 p3">
+                    <div class="application-div h25 p5">
                         <div id="r2" class="application-text map-bg2 p10 pr20">
-                            <div class="sync-image" style="background-image: url(../../static/images/sync-2.png);"></div>
-                            <div class="sync-text">今日同步数据量</div>
-                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.jrtbsjl"></span>条</div>
+                            <div class="sync-image" style="background-image: url(../../static/images/sync-2.png);background-size: 60px 60px;"></div>
+                            <div class="sync-text">故障节点数量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.gzjdsl"></span>条</div>
                         </div>
                     </div>
-                    <div class="application-div h25 p3">
+                    <div class="application-div h25 p5">
                         <div id="r3" class="application-text map-bg2 p10 pr20">
-                            <div class="sync-image" style="background-image: url(../../static/images/sync-3.png);"></div>
-                            <div class="sync-text">累计同步文件量</div>
-                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.ljtbwjl"></span>个</div>
+                            <div class="sync-image" style="background-image: url(../../static/images/sync-3.png);background-size: 60px 60px;"></div>
+                            <div class="sync-text">接入系统数量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.jrxtsl"></span>个</div>
                         </div>
                     </div>
-                    <div class="application-div h25 p3">
+                    <div class="application-div h25 p5">
                         <div id="r4" class="application-text map-bg2 p10 pr20">
-                            <div class="sync-image" style="background-image: url(../../static/images/sync-4.png);"></div>
-                            <div class="sync-text">今日同步文件量</div>
-                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.jrtbwjl"></span>个</div>
+                            <div class="sync-image" style="background-image: url(../../static/images/sync-4.png);background-size: 60px 60px;"></div>
+                            <div class="sync-text">数据接口数量</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.sjjksl"></span>个</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="application-div h30 p3">
+            <div class="application-div h30 p5">
                 <div class="sync-title h15 w100">
                     <span class="application-name">数据采集</span>
                 </div>

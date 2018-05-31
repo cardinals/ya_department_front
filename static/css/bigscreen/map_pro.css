@@ -16,6 +16,15 @@ color: red;
   font-weight:bold;text-decoration: none;color:black;
 
 }
+.el-pagination__total{
+  color:#fff;
+} 
+.el-pagination__jump{
+  color:#fff;
+} 
+.el-pagination__editor{
+  color:#000;
+}
 .an{
   text-decoration: none;
 }
@@ -110,3 +119,7 @@ color: red;
   margin: 0; 
 }
 .anchorBL{display:none;}/*左下角百度地图图标隐藏*/
+
+.map-menu-left div::-webkit-scrollbar {
+  display:none;
+}

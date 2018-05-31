@@ -12,110 +12,160 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/app.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/map_pro.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/bigmap.css">
+    <link href="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.css" rel="stylesheet" type="text/css"
+    />
+    <!-- 底部控件 -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
+
+
 </head>
+
 <body class="fw map-bg">
+    <input id="isTrafficOpen" type="hidden" value="1" />
+    <input id="shuiyuan" type="hidden" value="1" />
+    <input id="duizhan" type="hidden" value="1" />
+    <input id="cheliang" type="hidden" value="1" />
+    <input id="wx" type="hidden" value="1" />
+    <input id="zhong" type="hidden" value="1" />
     <div id="app">
-        <div class="application-boxs tc abs">
+        <div class="application-boxs tc abs" style="top:0px;">
+
             <!-- 左侧 -->
-            <!-- <div class="map-menu-left p10 map-bg">
+            <div class="map-menu-left p10 map-bg">
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
                 <div id="menu-box" class="f12">
                     <el-form ref="form" :model="form" label-width="80px">
-                        <div class="search_top">
-                            <el-select placeholder="请输入地址" class="input-with-select map_slt l b_r">
-                                <el-option label="北京" value="北京"></el-option>
-                                <el-option label="天津" value="天津"></el-option>
-                                <el-option label="河北" value="河北"></el-option>
-                            </el-select>
-                            <el-button class="l ml5" type="primary">搜索</el-button>
-                        </div>
-                        <div class="bx">
-                            <el-collapse class="res_slt">
-                                <el-collapse-item title="更多搜索选项" name="4">
-                                    <div>
-                                        <el-dropdown-item>
-                                            <el-input placeholder="主体名称"></el-input>
-                                        </el-dropdown-item>
-                                        <el-dropdown-item style="font-size:1px;" action="" method="get">
-                                            <el-checkbox name="Fruit" label="重点单位"></el-checkbox>
-                                            <br/>
-                                            <el-checkbox name="Fruit" label="重大活动或会议"></el-checkbox>
-                                            <br/>
-                                            <el-checkbox name="Fruit" label="其他对象"></el-checkbox>
-                                        </el-dropdown-item>
-                                        <el-dropdown-item>
-                                            <el-input placeholder="地址"></el-input>
-                                        </el-dropdown-item>
-                                        <el-dropdown-item>
-                                            <el-date-picker class="w190" type="date" placeholder="录入日期"></el-date-picker>
-                                        </el-dropdown-item>
-                                    </div>
-                                </el-collapse-item>
-                            </el-collapse>
-                        </div>
-                        <div class="menu-box-main">
-                            <el-card v-for="data in tableData" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
-                                <div slot="header">
-                                    <strong>{{data.DWMC }}</strong>&nbsp&nbsp
-                                    <el-tag color="#0f82ee" size="medium">{{data.DWXZ}}</el-tag>
+                        <!-- lxy start -->
+                        <div style="height: 65%;">
+                            <div class="search_top" style="height: 25px">
+                                <el-select placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r">
+                                    <el-option v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option>
+                                </el-select>
+                                <el-button class="l ml5" type="primary" @click="searchClick">搜索</el-button>
+                            </div>
+                            <div style="margin-top: 10px; overflow-y:auto !important;height: 482px;">
+                                <div id="shengshizs">
+                                    <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
+                                        style="background-color:#708090;color:#fff;">
+                                        <div @click="shengshiClick(data)">
+                                            <div class="l cell_bk">行政区划名称：{{data.xzqhmc }}</div>
+                                            <div class="l cell_bk">重点单位数量：{{data.zddwsl }}</div>
+                                        </div>
+                                    </el-card>
                                 </div>
-                                <div class="l cell_bk">地址：{{data.DWDZ }}</div>
-                                <div class="l cell_bk">电话：{{data.DWDH }}</div>
-                            </el-card>
-                        </div>
-                        <div class="pagenum">
-                            <ul class="pagination">
-                                <li>
-                                    <a href="#">&laquo;</a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">1</a>
-                                </li>
-                                <li class="disabled">
-                                    <a href="#">/</a>
-                                </li>
-                                <li>
-                                    <a href="#">33</a>
-                                </li>
-                                <li>
-                                    <a href="#">&raquo;</a>
-                                </li>
-                            </ul>
+
+                                <div id="zddwxx">
+                                    <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
+                                        <div @click="zddwxxClick(data)">
+                                            <div slot="header">
+                                                <strong>{{data.dwmc }}</strong>&nbsp&nbsp
+                                                <el-tag color="#0f82ee" size="medium">{{data.dwxzmc}}</el-tag>
+                                            </div>
+                                            <div class="l cell_bk">地址：{{data.dwdz }}</div>
+                                            <div class="l cell_bk">电话：{{data.zbdh }}</div>
+                                        </div>
+                                    </el-card>
+                                </div>
+                            </div>
+                            <div id="zddwxxTool" class="pagenum">
+                                <div type="flex" justify="end">
+                                    <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" :pager-count="5" background
+                                        layout="total,jumper" :total=parseInt(total)>
+                                    </el-pagination>
+                                </div>
+                            </div>
                         </div>
                     </el-form>
                 </div>
-            </div> -->
+                <!-- lxy end -->
+            </div>
             <div id="BMap" class="map-main tc">
             </div>
-            <div class="search" style="position:fixed;top:10px;left: 300px;">
+            <!-- <div class="search" style="position:fixed;top:10px;left: 300px;">
                 <div class="input-group">
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            搜索消防库
+                            搜索百度库
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#">消防库</a>
+                                <a href="#" @click="addSearchAuto">搜索百度库</a>
                             </li>
                             <li>
-                                <a href="#">总队库</a>
+                                <a href="#">搜索消防库</a>
                             </li>
                         </ul>
                     </div>
-                    <!-- /btn-group -->
-                    <input style="width: 300px;" type="search" class="form-control" placeholder="名称|编号|地址~">
+                    <input id="suggestId" style="width: 300px;" type="search" class="form-control" placeholder="名称|编号|地址~">
+                    <div id="r-result">搜索百度库:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
+                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div> 
                     <a style="position:fixed;left: 670px;top:11px;color: #000;" class="glyphicon glyphicon-remove btn form-control-feedback"
-                        style="pointer-events: auto"></a>
+                        style="pointer-events: auto"></a> 
                 </div>
-                <!-- /input-group -->
+             
+            </div> -->
+            <div class="jwd" style="position:fixed;top:13px;right: 220px;"> 
+                 
+
+                    <strong style="color:darkslateblue">经度:</strong><input type="text" id="lng" />
+                    <strong style="color:darkslateblue">纬度:</strong><input type="text" id="lat" />
             </div>
-            <div class="tooltwo" style="position:fixed;top:520px;left:390px;">
-                <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left"> 
+            <div style="position:fixed;bottom:20px;left: 40%;">
+                <div id="container">
+                    <div id="dock">
+                        <ul>
+                            <li>
+                                <span>消防队站</span>
+                                <a href="#" @click="showOverdz()">
+                                    <img src="../../static/images/dock-1.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>微型消防站</span>
+                                <a href="#" @click="showOverwx()">
+                                    <img src="../../static/images/dock-2.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>消防水源</span>
+                                <a href="#" @click="showOvera()">
+                                    <img src="../../static/images/dock-3.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>消防车辆</span>
+                                <a href="#" @click="showOvercl()">
+                                    <img src="../../static/images/dock-4.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>消防药剂</span>
+                                <a href="#">
+                                    <img src="../../static/images/dock-5.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>周围路况</span>
+                                <a href="#" @click="lukuang()">
+                                    <img src="../../static/images/dock-6.png">
+                                </a>
+                            </li>
+                            <li>
+                                <span>装备器材</span>
+                                <a href="#">
+                                    <img src="../../static/images/dock-7.png">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- <div @click="showOverdz()"  style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
+                    data-placement="left" data-content="队站"> 
                     <img src="../../static/images/M_ZYDW.png" />
                 </div>
-                <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
+                <div @click="showOverwx()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="微型消防站">
                     <img src="../../static/images/M_WXXFZ.png" />
                 </div>
@@ -123,24 +173,28 @@
                     data-container="body" data-placement="left">
                     <img src="../../static/images/M_XFSY_1000.png" />
                 </div>
-                <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
+                <div @click="showOvercl()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="消防车辆">
                     <img src="../../static/images/M_XFCL.png" />
                 </div>
-                <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
+                <div @click="lukuang()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
+                    data-placement="left" data-content="路况">
+                    <img src="../../static/images/maptool/M_ZBDL.png" />
+                </div> -->
+                <!-- <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="消防药剂">
                     <img src="../../static/images/maptool/M_MHYJ.png" />
                 </div>
                 <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="装备器材">
                     <img src="../../static/images/maptool/M_TZZB.png" />
-                </div>
+                </div> -->
             </div>
             <!-- 右侧工具 -->
-            <div class="tool" style="position:fixed;top:-5px;left:1000px;">
+            <div style="width: 200px; position:fixed;top:10px;right: 10px;">
                 <div @click="Reset()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="水源">
-                    <img src="../../static/images/maptool/mapresetChecked.png" />
+                    data-placement="left" data-content="重置">
+                    <img src="../../static/images/maptool/reset.png" />
                 </div>
                 <div @click="showOverzddw()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
                     data-container="body" data-placement="left" data-content="重点单位">
@@ -155,20 +209,22 @@
                         id="dropdownMenu1" data-toggle="dropdown">
                         <img src="../../static/images/maptool/btn_option_back.png" />
                     </div>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width:280px;height:170px;margin-top:50px;margin-left: -100px;">
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width:280px;height:160px;margin-top:50px;margin-left: -100px;">
                         <li role="presentation" style="margin:8px;font-weight:bold;font-family:'微软雅黑';">选项
                             <a style="color: #000;margin-top:9px;" class="glyphicon glyphicon-remove btn form-control-feedback" style="pointer-events: auto"></a>
                         </li>
+                        <!-- 路况 -->
                         <li role="presentation" style="padding:8px;font-weight:bold;font-family:'微软雅黑';background:#F6F7F8;">底图
-                            <span style="font-size:12px;margin-left:160px;">路况
-                                <img style="height:15px;width:43px;" src="../../static/images/maptool/fireengine.png"/>
+                            <span style="font-size:12px;margin-left:160px;">
+                                <!-- <img style="height:15px;width:43px;" src="../../static/images/maptool/fireengine.png"/> -->
                             </span>
                         </li>
+
                         <li role="presentation">
                             <div @click="EwOver()" style="width:60px;height:68px;margin:8px;margin-left:25px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_2d_btn.png" />
-                                <p style="color:#757575">平面图</p> 
+                                <p style="color:#757575">平面图</p>
                             </div>
                             <div @click="WxOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
@@ -202,10 +258,19 @@
         );
     });
 </script>
+
+
+
+
 <!-- 引入地图 -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Ot0QAG0LUGqphKatM1QOZDVZPNIfnRO0"></script> -->
+
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="../../static/js/bigscreen/MarkerClusterer.js"></script>
+<!-- <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script> -->
+<script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/mapmain.js"></script>
 <!-- tooljs的引入 -->
 <script type="text/javascript"></script>
@@ -215,7 +280,7 @@
             main = $('.map-main'),
             $this = $(this);
         if (left.hasClass('damin')) {
-            left.removeClass('damin').css('left', '40px');
+            left.removeClass('damin').css('left', '0px');
             main.css('padding-left', '240px');
             setTimeout(function () {
                 $this.removeClass('menu-toggle-bg').css({ "right": "0", "transform": "rotateY(0)" });
@@ -233,4 +298,63 @@
         window.open("http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
     }
 </script>
+
+
+
+<!--百度地址库-->
+<!-- <script type="text/javascript">
+	// 百度地图API功能
+	function G(id) {
+		return document.getElementById(id);
+	}
+
+	var map = new BMap.Map("BMap");
+    map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 5);                 // 初始化地图,设置城市和地图级别。
+
+	var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+		{"input" : "suggestId"
+		,"location" : map
+	});
+
+	ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+	var str = "";
+		var _value = e.fromitem.value;
+		var value = "";
+		if (e.fromitem.index > -1) {
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+		
+		value = "";
+		if (e.toitem.index > -1) {
+			_value = e.toitem.value;
+			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		}    
+		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+		G("searchResultPanel").innerHTML = str;
+	});
+
+	var myValue;
+	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+	var _value = e.item.value;
+		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+		
+		setPlace();
+	});
+
+	function setPlace(){
+		map.clearOverlays();    //清除地图上所有覆盖物
+		function myFun(){
+			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+			map.centerAndZoom(pp, 18);
+			map.addOverlay(new BMap.Marker(pp));    //添加标注
+		}
+		var local = new BMap.LocalSearch(map, { //智能搜索
+		  onSearchComplete: myFun
+		});
+		local.search(myValue);
+	}
+</script> -->
+
 </html>

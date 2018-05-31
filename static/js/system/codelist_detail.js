@@ -152,7 +152,8 @@ new Vue({
         //新建：保存
         addSubmit: function (val) {
             var _self = this;
-            axios.get('/api/codelist/detail/getNum/' + this.addForm.codeValue).then(function (res) {
+            debugger;
+            axios.get('/api/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
                         message: "代码值已存在!",

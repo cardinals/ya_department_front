@@ -114,7 +114,7 @@
                 this.username = "";
                 this.password = "";
             },
-            reloadCode() {
+            reloadCode: function() {
                 $('#checkCode').attr('src', '/api/imageCode?' + ((new Date()).valueOf()));
             }
         }

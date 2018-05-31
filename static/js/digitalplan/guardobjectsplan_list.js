@@ -19,10 +19,6 @@ new Vue({
             jgidData: [],
             sfkqyData: [
                 {
-                    codeName:"全部",
-                    codeValue:""
-                },
-                {
                     codeName:"是",
                     codeValue:"1"
                 },
@@ -32,88 +28,6 @@ new Vue({
                 }
             ],
             defaultKeys: [],
-            //后台返回编制单位列表
-            allFormationList: [
-                {
-                    id: 1,
-                    formationinfo: '系统管理',
-                    children: [{
-                        id: 3,
-                        formationinfo: '用户管理',
-                        children: [{
-                            id: 9,
-                            formationinfo: '查询'
-                        },
-                        {
-                            id: 10,
-                            formationinfo: '新增'
-                        },
-                        {
-                            id: 11,
-                            formationinfo: '修改'
-                        },
-                        {
-                            id: 12,
-                            formationinfo: '删除'
-                        }]
-                    }, {
-                        id: 4,
-                        formationinfo: '角色管理',
-                        children: [{
-                            id: 13,
-                            formationinfo: '查询'
-                        },
-                        {
-                            id: 14,
-                            formationinfo: '新增'
-                        },
-                        {
-                            id: 15,
-                            formationinfo: '修改'
-                        },
-                        {
-                            id: 16,
-                            formationinfo: '删除'
-                        }]
-                    }, {
-                        id: 5,
-                        formationinfo: '权限管理',
-                        children: [{
-                            id: 17,
-                            formationinfo: '查询'
-                        },
-                        {
-                            id: 18,
-                            formationinfo: '新增'
-                        },
-                        {
-                            id: 19,
-                            formationinfo: '修改'
-                        },
-                        {
-                            id: 20,
-                            formationinfo: '删除'
-                        }]
-                    },]
-                },
-                {
-                    id: 2,
-                    formationinfo: '重点单位',
-                    children: [{
-                        id: 6,
-                        formationinfo: '公安部',
-                    },
-                    {
-                        id: 7,
-                        formationinfo: '个体',
-                    },
-                    {
-                        id: 8,
-                        formationinfo: '政府部门',
-                    },
-                    ]
-                }
-            ],
             props: {
                 value: 'codeValue',
                 label: 'codeName',
@@ -122,7 +36,7 @@ new Vue({
             jgidprops: {
                 children: 'children',
                 label: 'jgjc',
-                value: 'jgjc',
+                value: 'uuid',
             },
             defaultKeys: [],
             //树结构配置
@@ -218,9 +132,7 @@ new Vue({
         //获取所有机构
         getJgidData: function(){
             axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
-               
                 this.jgidData = res.data.result;
-                console.log(this.tableData);
             }.bind(this),function(error){
                 console.log(error);
             }) 
@@ -251,21 +163,15 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             var _self = this;
-            if (this.searchForm.createTimeBegin != "" && this.searchForm.createTimeEnd != "" && this.searchForm.createTimeBegin > this.searchForm.createTimeEnd) {
-                _self.$message({
-                    message: "时间选择错误！",
-                    type: "error"
-                });
-                return;
-            }
             // this.loading = true;//表格重新加载
+            console.log(33333);
+            console.log(this.searchForm.jgid);
             var params = {
-                yamc:this.searchForm.yamc,
-                yalx:this.searchForm.yalx[this.searchForm.yalx.length-1],
-                dxmc:this.searchForm.dxmc,
-                // begintime_create:this.searchForm.cjsj[0],
-                // endtime_create:this.searchForm.cjsj[1],
-                sfkqy:this.searchForm.sfkqy
+                yamc: this.searchForm.yamc,
+                yalx: this.searchForm.yalx[this.searchForm.yalx.length-1],
+                dxmc: this.searchForm.dxmc,
+                sfkqy: this.searchForm.sfkqy,
+                jgid: this.searchForm.jgid[this.searchForm.jgid.length-1],
             }
             axios.post('/dpapi/xfbwjw/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
@@ -358,7 +264,7 @@ new Vue({
             //异步加载详情页
             $(function () {
                 $.ajax({
-                    url: '../../../templates/digitalplan/guardobjectsobject_detail.html',
+                    url: '../../../templates/digitalplan/guardobjectsplan_detail.html',
                     cache: true,
                     async: true,
                     success: function (html) {

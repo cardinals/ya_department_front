@@ -17,9 +17,6 @@ new Vue({
             yalxdmData: [],
             jgidData: [],
             sfkqyData: [{
-                codeValue: '全部',
-                codeName: '全部'
-            }, {
                 codeValue: '1',
                 codeName: '是'
             }, {
@@ -137,12 +134,9 @@ new Vue({
             var params={
                 yamc :this.searchForm.yamc,
                 dxmc :this.searchForm.dxmc,
-                yalxdm :this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
+                yalx :this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
                 sfkqy :this.searchForm.sfkqy,
                 jgid :this.searchForm.jgid[this.searchForm.jgid.length-1],
-                // cjsj :this.searchForm.cjsj
-                // cjsj_begintime:this.searchForm.cjsj[0],
-                // cjsj_endtime:this.searchForm.cjsj[1]
             };
             axios.post('/dpapi/otherobjectsplan/findByVO',params).then(function(res){
                 this.tableData = res.data.result;
@@ -160,23 +154,12 @@ new Vue({
             this.searchForm.yalxdm=[];
             this.searchForm.sfkqy="";
             this.searchForm.jgid=[];
-            // this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
-        },
-        //数据为空时显示‘无’
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
         },
         //时间格式
         cjsjChange(val) {
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
             this.searchForm.cjsj.push(val.substring(0,val.indexOf("至")));
             this.searchForm.cjsj.push(val.substring(val.indexOf("至")+1));
-            // console.log(this.searchForm.cjsj);
         },
 
         //表格勾选事件

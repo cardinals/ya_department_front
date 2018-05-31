@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <link rel="stylesheet" type="text/css" href="../../static\css\planobject\importantunits_detail.css">
-    <title>其他对象详情</title>
+    <title>预案对象-消防保卫警卫</title>
 </head>
 
 <body class="fw f14 main-index-body">
@@ -20,173 +20,172 @@
         <div class="main-box">
             <!-- v-loading="loading" element-loading-text="加载中" -->
             <div class="main-container">
-                <div id="lib :: main_container_header('预案对象保卫警卫','预案对象保卫警卫')"></div>
+                <div id="lib :: main_container_header('消防保卫警卫','消防保卫警卫')"></div>
                 <div id="tableView">
                     <div class="nameBox">
                         <div id="basic-Inform-Picture">
-                            <img src="../../static/images/danwei2.jpg">
+                            <img id="photo" class="detail_picture_size">
                         </div>
                         <div class="dib" id="basic-Inform-Title">
                             <div>
-                                <h3 class="dib inform-h3">{{rowdata.hdzt}}</h3>
+                                <h3 class="dib inform-h3" v-text="rowdata.hdzt"></h3>
                             </div>
                             <dl>
                                 <img src="../../static/images/location.png">
-                                <dt class="dib inform-small-title">活动主题：</dt>
-                                <dd class="dtdlStyle">{{rowdata.hdzt||"无"}}</dd>
+                                <dt class="dib inform-small-title detail_margin">活动场所位置：</dt>
+                                <dd class="dtdlStyle" v-text="rowdata.hdcswz||'无'"></dd>
                                 <br>
                                 <img src="../../static/images/postcode.png">
-                                <dt class="dib inform-small-title">主（承）办单位：</dt>
-                                <dd class="dtdlStyle">{{rowdata.zcbdw||"无"}}</dd>
+                                <dt class="dib inform-small-title detail_margin">主（承）办单位：</dt>
+                                <dd class="dtdlStyle" v-text="rowdata.zcbdw||'无'"></dd>
                                 <br>
                                 <img src="../../static/images/date.png">
-                                <dt class="dib inform-small-title">消防管辖：</dt>
-                                <dd class="dtdlStyle">{{rowdata.xfgx||"无"}}</dd>
+                                <dt class="dib inform-small-title detail_margin">消防管辖：</dt>
+                                <dd class="dtdlStyle" v-text="rowdata.xfgxmc||'无'"></dd>
                                 <br>
                                 <img src="../../static/images/phone.png">
-                                <dt class="dib inform-small-title">联系电话：</dt>
-                                <dd class="dtdlStyle">{{rowdata.lxdh||"无"}}</dd>
+                                <dt class="dib inform-small-title detail_margin">联系电话：</dt>
+                                <dd class="dtdlStyle" v-text="rowdata.lxdh||'无'"></dd>
                                 <br>
                             </dl>
                         </div>
-                        <div style="float: right">
+                        <!-- <div style="float: right">
                             <el-button type="primary" icon="share" style="width:120px" @click="openShare">信息分享</el-button>
                             <br>
                             <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openPrinter">信息打印</el-button>
                             <br>
                             <el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openEmail">发送邮箱</el-button>
                             <br>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="inform-content">
                         <template>
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
                                 <el-tab-pane label="基本信息" name="first">
-                                    <div class="inform-div">
-                                        <div class="left-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">主要内容：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zynr||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">规模大小：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.gmdx||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">日程安排：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.rcap||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">持续时间：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.cxsj||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">活动场所位置：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.hdcswz||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">重点部位：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.zdbw||"无"}}</dd>
-                                                    </dl>
-                                            </div>
-                                             <div class="inform-margin">
-                                                 <dl class="inform-left">
-                                                       <dt class="dtdlStyle">创建人：</dt>
-                                                       <dd class="dtdlStyle">{{rowdata.cjrmc||"无"}}</dd>
-                                                 </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                 <dl class="inform-left">
-                                                       <dt class="dtdlStyle">创建时间：</dt>
-                                                       <dd class="dtdlStyle">{{rowdata.cjsj||"无"}}</dd>
-                                                 </dl>
-                                            </div>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">主要内容</strong>
                                         </div>
-                                    </div>
+                                        <div v-text="rowdata.zynr||'无'"></div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">规模大小</strong>
+                                        </div>
+                                        <div v-text="rowdata.gmdx||'无'"></div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">日程安排</strong>
+                                        </div>
+                                        <div v-text="rowdata.rcap||'无'"></div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">持续时间</strong>
+                                        </div>
+                                        <div v-text="rowdata.cxsj||'无'"></div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">重点部位</strong>
+                                        </div>
+                                        <div v-text="rowdata.zdbw||'无'"></div>
+                                    </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="属性信息" name="second">
-                                        <div class="inform-div">
-                                            <div class="left-inform">
-                                                <div>
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">临时用火情况：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.lsyhqk||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">临时用电情况：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.lsydqk||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">临时搭建棚架情况：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.lsdjpjqk||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">消防设施：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.xfss||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">消防水源：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.xfsy||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">疏散通道：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.sstd||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">消防通道：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.xftd||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">周边情况：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.zbqk||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">地理坐标X：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.gis_x||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">地理坐标Y：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.gis_y||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="inform-margin">
-                                                    <dl class="inform-left">
-                                                        <dt class="dtdlStyle">地理位置H：</dt>
-                                                        <dd class="dtdlStyle">{{rowdata.gis_h||"无"}}</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">临时使用情况</strong>
                                         </div>
-                                    </el-tab-pane>
+                                        <div>
+                                            <el-row>
+                                                <el-col :span="24">
+                                                    <div>
+                                                        <strong class="card_title_font">临时用火情况：</strong>
+                                                        <v-text v-text="rowdata.lsyhqk||'无'"></v-text>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="24">
+                                                    <div>
+                                                        <strong class="card_title_font">临时用电情况：</strong>
+                                                        <v-text v-text="rowdata.lsydqk||'无'"></v-text>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="24">
+                                                    <div>
+                                                        <strong class="card_title_font">临时搭建棚架情况：</strong>
+                                                        <v-text v-text="rowdata.lsdjpjqk||'无'"></v-text>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">消防设施情况</strong>
+                                        </div>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong class="card_title_font">消防设施：</strong>
+                                                    <v-text v-text="rowdata.xfss||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong class="card_title_font">消防水源：</strong>
+                                                    <v-text v-text="rowdata.xfsy||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="24">
+                                                <div>
+                                                    <strong class="card_title_font">疏散通道：</strong>
+                                                    <v-text v-text="rowdata.sstd||'无'"></v-text>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">周边情况</strong>
+                                        </div>
+                                        <div v-text="rowdata.zbqk||'无'"></div>
+                                    </el-card>
+                                    <el-card class="card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">地理坐标</strong>
+                                        </div>
+                                        <el-row>
+                                            <el-col :span="8">
+                                                <div>
+                                                    <span>X:</span>
+                                                    <span v-text="rowdata.gis_x||'无'"></span>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <div>
+                                                    <span>Y:</span>
+                                                    <span v-text="rowdata.gis_y||'无'"></span>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <div>
+                                                    <span>H:</span>
+                                                    <span v-text="rowdata.gis_h||'无'"></span>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                </el-tab-pane>
                             </el-tabs>
                         </template>
                     </div>

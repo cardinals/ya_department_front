@@ -3,7 +3,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
-    <title>建筑分区详情</title>
+    <title>单位建筑信息</title>
 </head>
 
 <body class="fw f14 main-index-body">
@@ -20,11 +20,11 @@
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
                 <div id="lib :: main_container_header('建筑分区','建筑分区')"></div>
                 <div id="tableView">
-                    <div class="nameBox">
-                        <div id="basic-Inform-Picture">
+                    <div class="nameBox" style="position:relative;">
+                        <div id="basic-Inform-Picture" style="position: absolute;top: 50%;transform: translateY(-50%);">
                             <img id="photo" class="detail_picture_size">
                         </div>
-                        <div class="dib" id="basic-Inform-Title">
+                        <div class="dib" style="margin-left: 15%">
                             <div>
                                 <h3 class="dib inform-h3" v-text="detailData.jzmc"></h3>&nbsp&nbsp
                                 <el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="detailData.jzlxmc !== null" v-text="detailData.jzlxmc"></el-tag>
@@ -42,7 +42,7 @@
                                 <dt class="dib inform-small-title detail_margin">辖区行车路线：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.xqxclx||'无'"></dd>
                                 <br>
-                                <dt class="dib inform-small-title detail_margin">预计到达时长：</dt>
+                                <dt class="dib inform-small-title detail_margin">预计到达时长(min)：</dt>
                                 <dd class="dtdlStyle" v-text="detailData.yjddsc||'无'"></dd>
                             </dl>
                         </div>
@@ -123,13 +123,13 @@
                                         <el-row class="inform-margin">
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong class="dtdlStyle">占地面积：</strong>
+                                                    <strong class="dtdlStyle">占地面积(㎡)：</strong>
                                                     <v-text v-text="detailData.jzl_zdmj||'无'"></v-text>
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong class="dtdlStyle">建筑面积：</strong>
+                                                    <strong class="dtdlStyle">建筑面积(㎡)：</strong>
                                                     <v-text v-text="detailData.jzl_jzmj||'无'"></v-text>
                                                 </div>
                                             </el-col>
@@ -137,13 +137,13 @@
                                         <el-row class="inform-margin">
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong class="dtdlStyle">地上高度：</strong>
+                                                    <strong class="dtdlStyle">地上高度(m)：</strong>
                                                     <v-text v-text="detailData.jzl_dsgd||'无'"></v-text>
                                                 </div>
                                             </el-col>
                                             <el-col :span="12">
                                                 <div>
-                                                    <strong class="dtdlStyle">地下高度：</strong>
+                                                    <strong class="dtdlStyle">地下高度(m)：</strong>
                                                     <v-text v-text="detailData.jzl_dxgd||'无'"></v-text>
                                                 </div>
                                             </el-col>
@@ -166,7 +166,7 @@
                                             <el-col :span="24">
                                                 <div>
                                                     <strong class="dtdlStyle">备注：</strong>
-                                                    <v-text v-text="detailData.jzl_bz||'无'"></v-text>
+                                                    <v-text v-text="detailData.bz||'无'"></v-text>
                                                 </div>
                                             </el-col>
                                         </el-row>
@@ -174,7 +174,7 @@
                                     <div v-if="isZzlShow">
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">装置信息</strong>
+                                                <strong class="card_title_font">装置信息</strong>
                                             </div>
                                             <div>
                                                 <el-row>
@@ -186,13 +186,13 @@
                                                     </el-col>
                                                     <el-col :span="8">
                                                         <div>
-                                                            <strong class="card_title_font">占地面积：</strong>
+                                                            <strong class="card_title_font">占地面积(㎡)：</strong>
                                                             <v-text v-text="detailData.zzl_zdmj||'无'"></v-text>
                                                         </div>
                                                     </el-col>
                                                     <el-col :span="8">
                                                         <div>
-                                                            <strong class="card_title_font">装置高度：</strong>
+                                                            <strong class="card_title_font">装置高度(m)：</strong>
                                                             <v-text v-text="detailData.zzl_zzgd||'无'"></v-text>
                                                         </div>
                                                     </el-col>
@@ -209,7 +209,7 @@
                                         </el-card>
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">技术负责人</strong>
+                                                <strong class="card_title_font">技术负责人</strong>
                                             </div>
                                             <div>
                                                 <el-row>
@@ -230,7 +230,7 @@
                                         </el-card>
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">原料信息</strong>
+                                                <strong class="card_title_font">原料信息</strong>
                                             </div>
                                             <div>
                                                 <el-row>
@@ -244,7 +244,7 @@
                                         </el-card>
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">产物信息</strong>
+                                                <strong class="card_title_font">产物信息</strong>
                                             </div>
                                             <div>
                                                 <el-row>
@@ -258,7 +258,7 @@
                                         </el-card>
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">工艺流程</strong>
+                                                <strong class="card_title_font">工艺流程</strong>
                                             </div>
                                             <div>
                                                 <el-row>
@@ -274,19 +274,19 @@
                                     <div v-if="isCglShow">
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">罐区信息</strong>
+                                                <strong class="card_title_font">罐区信息</strong>
                                             </div>
                                             <div>
                                                 <el-row>
                                                     <el-col :span="12">
                                                         <div>
-                                                            <strong class="card_title_font">罐组总容积：</strong>
+                                                            <strong class="card_title_font">罐组总容积(m³)：</strong>
                                                             <v-text v-text="detailData.cgl_zrj||'无'"></v-text>
                                                         </div>
                                                     </el-col>
                                                     <el-col :span="12">
                                                         <div>
-                                                            <strong class="card_title_font">储罐数量：</strong>
+                                                            <strong class="card_title_font">储罐数量(个)：</strong>
                                                             <v-text v-text="detailData.cgl_cgsl||'无'"></v-text>
                                                         </div>
                                                     </el-col>
@@ -294,7 +294,7 @@
                                                 <el-row>
                                                     <el-col :span="12">
                                                         <div>
-                                                            <strong class="card_title_font">储罐间隔：</strong>
+                                                            <strong class="card_title_font">储罐间隔(m)：</strong>
                                                             <v-text v-text="detailData.cgl_cgjg||'无'"></v-text>
                                                         </div>
                                                     </el-col>
@@ -309,7 +309,7 @@
                                         </el-card>
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">技术负责人</strong>
+                                                <strong class="card_title_font">技术负责人</strong>
                                             </div>
                                             <div>
                                                 <el-row>
@@ -330,7 +330,7 @@
                                         </el-card>
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">罐区毗邻情况</strong>
+                                                <strong class="card_title_font">罐区毗邻情况</strong>
                                             </div>
                                             <div>
                                                 <el-row>
@@ -365,7 +365,7 @@
                                         </el-card>
                                         <el-card class="card_style">
                                             <div slot="header" class="clearfix">
-                                                <strong class="card_title_fonts">储罐信息</strong>
+                                                <strong class="card_title_font">储罐信息</strong>
                                             </div>
                                             <div id="cg">
                                                 <el-table :data="detailData.chuguanList" border class="detailTable">
@@ -385,10 +385,10 @@
                                 <el-tab-pane label="消防设施" name="second">
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">安全疏散措施</strong>
+                                            <strong class="card_title_font">安全疏散措施</strong>
                                         </div>
                                         <div v-if="this.AQSSCS === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.isAqckShow">
                                             <strong>安全出口</strong>
@@ -415,7 +415,7 @@
                                             </el-table>
                                         </div>
                                         <div v-if="this.isBncShow">
-                                            <strong>避难层</strong>
+                                            <strong>避难)</strong>
                                             <el-table :data="bncData" border class="detailTable">
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
@@ -432,10 +432,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">消防水系统</strong>
+                                            <strong class="card_title_font">消防水系统</strong>
                                         </div>
                                         <div v-if="this.XFSXT === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.isXfbfShow">
                                             <strong>消防泵房</strong>
@@ -443,9 +443,9 @@
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="xhssl" label="消火栓泵数量" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="xhszdll" label="消火栓最大流量(L/s）" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="xhszdll" label="消火栓最大流量(L/s)" align="center" width="130" ></el-table-column>
                                                 <el-table-column prop="blbsl" label="喷淋泵数量" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="plbzdll" label="喷淋泵最大流量(L/s）" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="plbzdll" label="喷淋泵最大流量(L/s)" align="center" width="130" ></el-table-column>
                                             </el-table>
                                         </div>
                                         <div v-if="this.isXfsxShow">
@@ -454,7 +454,7 @@
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="sxrl" label="水箱容量(m³)" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="bjsd" label="补给速度(L/s）" align="center" width="130" ></el-table-column>
+                                                <el-table-column prop="bjsd" label="补给速度(L/s)" align="center" width="130" ></el-table-column>
                                             </el-table>
                                         </div>
                                         <div v-if="this.isXfscShow">
@@ -463,7 +463,7 @@
                                                 <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                 <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
                                                 <el-table-column prop="sxrl" label="水箱容量(m³)" align="center" width="130" ></el-table-column>
-                                                <el-table-column prop="bjsd" label="补给速度(L/s）" align="center" width="150" ></el-table-column>
+                                                <el-table-column prop="bjsd" label="补给速度(L/s)" align="center" width="150" ></el-table-column>
                                                 <el-table-column prop="ywqsj" label="是否有取水口（井）" align="center" width="180" ></el-table-column>
                                                 <el-table-column prop="qsjwz" label="取水口（井）位置" align="center" width="200" show-overflow-tooltip></el-table-column>
                                             </el-table>
@@ -533,10 +533,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">泡沫系统</strong>
+                                            <strong class="card_title_font">泡沫系统</strong>
                                         </div>
                                         <div v-if="this.PMXT === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.isPmbfShow">
                                             <strong>泡沫泵房</strong>
@@ -586,10 +586,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">蒸汽灭火系统</strong>
+                                            <strong class="card_title_font">蒸汽灭火系统</strong>
                                         </div>
                                         <div v-if="this.ZQMHXT === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.isGdsShow">
                                             <strong>固定式</strong>
@@ -612,10 +612,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">消防控制室</strong>
+                                            <strong class="card_title_font">消防控制室</strong>
                                         </div>
                                         <div v-if="this.XFKZS === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.XFKZS">
                                             <el-table :data="xfkzsData" border class="detailTable">
@@ -628,10 +628,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">防排烟措施</strong>
+                                            <strong class="card_title_font">防排烟措施</strong>
                                         </div>
                                         <div v-if="this.FPYCS === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.isPycykShow">
                                             <strong>排烟口/出烟口</strong>
@@ -651,10 +651,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">防火分区</strong>
+                                            <strong class="card_title_font">防火分区</strong>
                                         </div>
                                         <div v-if="this.FHFQ === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.FHFQ">
                                             <el-table :data="fhfqData" border class="detailTable">
@@ -668,10 +668,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">其他灭火系统</strong>
+                                            <strong class="card_title_font">其他灭火系统</strong>
                                         </div>
                                         <div v-if="this.QTMHXT === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.isQtmhxtShow">
                                             <strong>气体灭火系统</strong>
@@ -692,10 +692,10 @@
                                     </el-card>
                                     <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_fonts">其他消防设施</strong>
+                                            <strong class="card_title_font">其他消防设施</strong>
                                         </div>
                                         <div v-if="this.QTXFSS === false">
-                                            <strong>无</strong>
+                                            无
                                         </div>
                                         <div v-if="this.QTXFSS">
                                             <el-table :data="qtxfssData" border class="detailTable">
