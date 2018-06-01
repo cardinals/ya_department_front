@@ -47,15 +47,16 @@ new Vue({
     methods: {       
         //队站类型下拉框加载
         getDzlxData: function(){
-            axios.get('/api/codelist/getDzlxTree/JGXZ').then(function(res){
-                var lxdata = res.data.result;
+            axios.get('/api/codelist/getDzlxTree/DZLX').then(function(res){
+                this.dzlxData = res.data.result;
+               /** 
                 //队站类型只显示 ：总队、支队、大队、中队、其他消防队伍
-                var lx_show_list = ["02","03","05","06","09"];
+                var lx_show_list = ["02","03","05","09","0A"];
                 for(var i in lxdata){
                     var start_dzlx = lxdata[i].codeValue.substring(0,2);
                     if(lx_show_list.toString().indexOf(start_dzlx) > -1)
                         this.dzlxData.push(lxdata[i]);
-                }
+                }*/
             }.bind(this),function(error){
                 console.log(error);
             })
@@ -85,6 +86,7 @@ new Vue({
             this.searchForm.dzdz = "",
             this.searchForm.dzlx = []
         },
+        /** 
         //数据为空时显示‘无’
         dataFormat: function (row, column) {
             var rowData = row[column.property];
@@ -93,31 +95,17 @@ new Vue({
             } else {
                 return rowData;
             }
-        },
-        //是否独立接警列格式化（是大队、支队的属性，其他队站类型这个字段什么都不显示）
+        },*/
+        //如果队站类型为其他消防队伍，管辖水源数、管辖重点单位数为”-“
         dataFormat2: function(row, column){
             var rowData = row[column.property];
             var dzlx = row.dzlx;
             dzlx = dzlx.substr(0,2);
-            if(dzlx =="05" || dzlx =="03"){
-                if (rowData == null || rowData == "") {
-                    return '无';
-                } else {
-                    return rowData;
-                }
-            }else{
-                return '-';
+            if(dzlx =="0A"){
+                return '——';
             }
         },
-        //表格勾选事件
-        selectionChange: function (val) {
-            for (var i = 0; i < val.length; i++) {
-                var row = val[i];
-            }
-            this.multipleSelection = val;
-            //this.sels = sels
-            console.info(val);
-        },
+        
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
