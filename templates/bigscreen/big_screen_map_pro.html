@@ -87,7 +87,7 @@
             <div class="search" style="position:fixed;top:10px;left: 300px;">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="btn btn-default dropdown-toggle" style="height: 34px !important;top:5px;" data-toggle="dropdown">
                             {{searchSource}}
                             <span class="caret"></span>
                         </button>
@@ -100,8 +100,8 @@
                             </li>
                         </ul>
                     </div>
-                    <input id="suggestId" style="width: 300px;" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|编号|地址~">
-                    <input style="width: 300px; display: none;" type="search" class="form-control" placeholder="名称|编号|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
+                    <input id="suggestId" style="width: 240px;top:5px;" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|地址~">
+                    <input style="width: 240px; display: none;top:5px;" type="search" class="form-control" placeholder="名称|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
                     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div> 
                     <a style="position:fixed;left: 670px;top:11px;color: #000;" class="glyphicon glyphicon-remove btn form-control-feedback"
                         style="pointer-events: auto"></a> 
@@ -110,9 +110,9 @@
             <!-- db end -->
             <div class="jwd" style="position:fixed;top:13px;right: 220px;">
                 <strong class="jwcolor">经度:</strong>
-                <input type="text" id="lng" />
+                <input type="text" style="height: 34px !important;" id="lng" />
                 <strong class="jwcolor">纬度:</strong>
-                <input type="text" id="lat" />
+                <input type="text" style="height: 34px !important;" id="lat" />
             </div>
             <div style="position:fixed;bottom:20px;left: 40%;">
                 <div id="container">
