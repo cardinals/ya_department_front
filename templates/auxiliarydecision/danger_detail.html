@@ -27,58 +27,58 @@
                             </div>
                             <div class="dib" id="basic-Inform-Title">
                                 <div>
-                                    <h3 class="dib inform-h3">{{detailData.name||"无"}}</h3>
-                                    <span class="companyStatus dib" title="类型">{{detailData.dmz||"无"}}</span>
+                                    <h3 class="dib inform-h3" v-text="detailData.name||'无'"></h3>
+                                    <span class="companyStatus dib" title="类型" v-text="detailData.dmz||'无'"></span>
                                 </div>
                                 <dl>
                                     <div class="inform-div">
                                         <div style="width:280px">
                                             <img class="danger_icon" src="../../static/images/name.png">
                                             <dt class="dib inform-small-title">中文名：</dt>
-                                            <dd class="dtdlStyle">{{detailData.name||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.name||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/englishName.png">
                                             <dt class="dib inform-small-title detail_margin">英文名：</dt>
-                                            <dd class="dtdlStyle">{{detailData.englishName||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.englishName||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/expression.png">
                                             <dt class="dib inform-small-title detail_margin">分子式：</dt>
-                                            <dd class="dtdlStyle">{{detailData.expression||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.expression||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/thesaurus.png">
                                             <dt class="dib inform-small-title detail_margin">同义词：</dt>
-                                            <dd class="dtdlStyle">{{detailData.thesaurus||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.thesaurus||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/alias.png">
                                             <dt class="dib inform-small-title detail_margin">别名: </dt>
-                                            <dd class="dtdlStyle">{{detailData.alias||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.alias||'无'"></dd>
                                         </div>
                                         <div style="width: 280px;">
                                             <img class="danger_icon" src="../../static/images/danger.png">
                                             <dt class="dib inform-small-title">国际危险号：</dt>
-                                            <dd class="dtdlStyle">{{detailData.dangerId||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.dangerId||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/cas.png">
                                             <dt class="dib inform-small-title detail_margin">CAS：</dt>
-                                            <dd class="dtdlStyle">{{detailData.cas||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.cas||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/gbId.png">
                                             <dt class="dib inform-small-title detail_margin">国标号：</dt>
-                                            <dd class="dtdlStyle">{{detailData.gbId||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.gbId||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/caution.png">
                                             <dt class="dib inform-small-title detail_margin">特别警示：</dt>
-                                            <dd class="dtdlStyle">{{detailData.caution||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.caution||'无'"></dd>
                                             <br>
                                             <img class="danger_icon" src="../../static/images/hwplx.png">
                                             <dt class="dib inform-small-title detail_margin">类型：</dt>
-                                            <dd class="dtdlStyle">{{detailData.dmz||"无"}}</dd>
+                                            <dd class="dtdlStyle" v-text="detailData.dmz||'无'"></dd>
                                         </div>
                                     </div>
                                     <br>
                                     <img class="danger_icon" src="../../static/images/mainApplication.png">
                                     <dt class="dib inform-small-title detail_margin">主要用途：</dt>
-                                    <dd class="dtdlStyle">{{detailData.mainApplication||"无"}}</dd>
+                                    <dd class="dtdlStyle" v-text="detailData.mainApplication||'无'"></dd>
                                 </dl>
                             </div>
                         </div>
@@ -87,145 +87,145 @@
                         <template>
                             <el-tabs v-model="activeName" type="border-card">
                                 <el-tab-pane label="性质信息" name="first">
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">性状</strong>
+                                            <strong class="card_title_font">性状</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.property||"无"}}</div>
+                                                <div v-text="detailData.property||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">毒性</strong>
+                                            <strong class="card_title_font">毒性</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.poisionProperty||"无"}}</div>
+                                                <div v-text="detailData.poisionProperty||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">危险性/症状</strong>
+                                            <strong class="card_title_font">危险性/症状</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.symptom||"无"}}</div>
+                                                <div v-text="detailData.symptom||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">燃烧爆炸特性</strong>
+                                            <strong class="card_title_font">燃烧爆炸特性</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.bernProperty||"无"}}</div>
+                                                <div v-text="detailData.bernProperty||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">空气中允许极限及测定</strong>
+                                            <strong class="card_title_font">空气中允许极限及测定</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.airDetermine||"无"}}</div>
+                                                <div v-text="detailData.airDetermine||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">水中允许极限及测定</strong>
+                                            <strong class="card_title_font">水中允许极限及测定</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.waterDetermine||"无"}}</div>
+                                                <div v-text="detailData.waterDetermine||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="处置措施" name="second">
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">储存</strong>
+                                            <strong class="card_title_font">储存</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.store||"无"}}</div>
+                                                <div v-text="detailData.store||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">运输</strong>
+                                            <strong class="card_title_font">运输</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.traffic||"无"}}</div>
+                                                <div v-text="detailData.traffic||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">隔离</strong>
+                                            <strong class="card_title_font">隔离</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.seprarate||"无"}}</div>
+                                                <div v-text="detailData.seprarate||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">急救措施/灭火</strong>
+                                            <strong class="card_title_font">急救措施/灭火</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.firstaid||"无"}}</div>
+                                                <div v-text="detailData.firstaid||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">防护措施</strong>
+                                            <strong class="card_title_font">防护措施</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.defendWay||"无"}}</div>
+                                                <div v-text="detailData.defendWay||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">处置措施</strong>
+                                            <strong class="card_title_font">处置措施</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.dispose||"无"}}</div>
+                                                <div v-text="detailData.dispose||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">泄露处理</strong>
+                                            <strong class="card_title_font">泄露处理</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.leakWay||"无"}}</div>
+                                                <div v-text="detailData.leakWay||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card class="card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong style="cursor: pointer;font-size:15px;">公众安全</strong>
+                                            <strong class="card_title_font">公众安全</strong>
                                         </div>
                                         <el-row>
                                             <el-col :span="24">
-                                                <div>{{detailData.publicSafety||"无"}}</div>
+                                                <div v-text="detailData.publicSafety||'无'"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>

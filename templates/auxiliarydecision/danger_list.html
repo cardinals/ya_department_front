@@ -83,7 +83,7 @@
 								<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
 								<el-table-column prop="name" label="中文名" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
                                     <template slot-scope="scope">
-                                        <a @click="detailClick(scope.row)">{{scope.row.name}}</a>
+                                        <a @click="detailClick(scope.row)" v-text="scope.row.name"></a>
                                     </template>
 								</el-table-column>
 								<el-table-column prop="englishName" label="英文名" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
