@@ -583,8 +583,17 @@ var vm = new Vue({
                 map.addEventListener("click", function (e) {
                     document.getElementById('lat').value = e.point.lat;
                     document.getElementById('lng').value = e.point.lng;
-
                 });
+            },
+            //除去聚合点
+            removeCluster:function(){
+                var map = vm.map;
+                var markerClusterer = new BMapLib.MarkerClusterer(map);
+                var clustererStyle = [{
+                   
+                }];
+                markerClusterer.setStyles(clustererStyle);
+                vm.markerClusterer = markerClusterer;
             },
             createCluster: function () {
                 var map = vm.map;
@@ -616,11 +625,7 @@ var vm = new Vue({
                 var clustererStyle = [{
                     url: '../../static/images/maptool/trsy.png',
                     size: new BMap.Size(70, 25),
-                    // opt_anchor: [50, 0],
                     textColor: '#fff',
-                    // textAlign:'right',
-                    // opt_textSize: 10,
-                    // Left:10
                 }];
                 markerClusterer.setStyles(clustererStyle);
                 vm.markerClusterer = markerClusterer;
@@ -641,7 +646,6 @@ var vm = new Vue({
             drawMap: function () {
                 var map = this.map;
                 var myIcon1 = new BMap.Icon("../../static/images/maptool/zddw.png", new BMap.Size(70, 70)); //创建图标
-
                 var province = [];
                 this.province = province;
                 var provinces = this.ShengZddwDate;
@@ -891,17 +895,29 @@ var vm = new Vue({
                 vm.zdd = marker;
                 vm.circle = circle;
             },
-            //重置
+            //重置的按钮重新的编写
             Reset: function () {
-                location.reload();
+                location.reload();//重新加载
                 var map = this.map;
                 map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 5);//重定位到原来坐标点
                 var cityps = this.cityp;
                 var proviences = this.province;
                 var zddws = this.zddwp;
+                var syy = this.syy;
+                var cl = this.cl;
+                var dz = this.dz;
+                var wx = this.wx;
+                var circlez = this.circlez;
+                // var markerClusterer = this.markerClusterer;//去掉聚合点
                 this.showMarker(proviences);
                 this.hideMarker(cityps);
-                this.removeAllMarkers(zddws);
+                this.hideMarker(zddws);
+                this.hideMarker(syy);
+                this.hideMarker(cl);
+                this.hideMarker(dz);
+                this.hideMarker(wx);
+                this.hideMarker(circlez);
+                this.removeCluster();
             },
             //清除点击后的圆 //替换图标
             removeAllMarkers: function (markers) {
@@ -911,7 +927,6 @@ var vm = new Vue({
                         map.removeOverlay(markers[i]);
                     };
                 }
-
             },
             //替换图标
             chAllMarkers: function (zdd) {
