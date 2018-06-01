@@ -1,220 +1,424 @@
 <html>
 <head>
     <script src="../../static/js/vue.js"></script>
+    <script src="../../static/js/vue.min.js"></script>
     <script src="../../static/js/elementUI.js"></script>
     <script src="../../static/js/basicinfo/firestation_detail.js"></script>
 </head>
 <body class="fw f14 main-index-body">
     <!--详情界面-->
     <div id="detailDisplay">
-        <div class="dib" id="basic-Inform-Title">
+        <div class="dib">
             <div class="detailBox" style="display: inline-flex;">
                 <div class="detailBox">
                     <div class="xfdz_Single">
                         <div>
                             <dl class="inform-left">
-                                <dt class="dtdlStyle">执勤车辆：</dt>
-                                <dd class="dtdlStyle">{{detailData.zqcl||"无"}}</dd>
+                                <dt class="dtdlStyle">执勤车辆数(台)：</dt>
+                                <dd class="dtdlStyle">{{detailData.zqcls||"无"}}</dd>
                             </dl>
                         </div>
                         <div style="margin-top: 15px;">
                             <dl class="inform-left">
-                                <dt class="dtdlStyle">灭火剂量：</dt>
-                                <dd class="dtdlStyle">{{detailData.mhjl||"无"}}</dd>
+                                <dt class="dtdlStyle">装备器材数(个)：</dt>
+                                <dd class="dtdlStyle">{{detailData.zbqcs||"无"}}</dd>
                             </dl>
                         </div>
                         <div class="inform-margin">
                             <dl class="inform-left">
-                                <dt class="dtdlStyle">水源数量：</dt>
-                                <dd class="dtdlStyle">{{detailData.sysl||"无"}}</dd>
+                                <dt class="dtdlStyle">灭火剂总量(t)：</dt>
+                                <dd class="dtdlStyle">{{detailData.mhjzl||"无"}}</dd>
                             </dl>
                         </div>
-                        <div class="inform-margin">
-                            <dl class="inform-left">
-                                <dt class="dtdlStyle">重点单位数量：</dt>
-                                <dd class="dtdlStyle">{{detailData.zddwsl||"无"}}</dd>
-                            </dl>
-                        </div>
-                        </div>
-                    <div class="inform-content" style="width: 100%;margin-bottom: 0px;margin-top: 40px">
-                        <template>
-                            <el-tabs type="border-card">
-                                <el-tab-pane label="基本信息" v-if="isShow">
-                                    <div class="inform-div" style="min-height:150px">
-                                        <div class="left-inform" style="width: 250px">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">辖区面积：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.xqmj||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">辖区范围：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.xqfw||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">执勤车辆（台）：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zqcl||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">灭火剂量（t）：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.mhjl||"无"}}</dd>
-                                                </dl>
-                                            </div>      
-                                        </div>
-                                        <div class="right-inform" style="width: 250px">                                                                              
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">水源数量：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.sysl||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">重点单位数量：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zddwsl||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">行政区域：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.xzqhmc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">传真号码：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.czhm||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </el-tab-pane>
-                                <el-tab-pane label="基本信息" v-if="!isShow">
-                                    <div class="inform-div" style="min-height:150px">
-                                        <div class="left-inform" style="width: 250px">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">管辖单位：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.xqmj||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">执勤车辆（台）：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zqcl||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">灭火剂总量（t）：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.mhjl||"无"}}</dd>
-                                                </dl>
-                                            </div>         
-                                        </div>
-                                        <div class="right-inform" style="width: 250px"></div>
-                                    </div>
-                                </el-tab-pane>
-                                <el-tab-pane label="人员信息" v-if="isShow">
-                                    <div class="inform-div" style="min-height:150px">
-                                        <div class="left-inform" style="width: 250px">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">现役人数：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.xygbrs||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">政府专职消防员数：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zfzzxfys||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防文员数：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zfwys||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">每日执勤人数：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zqrs||"无"}}</dd>
-                                                </dl>
-                                            </div>      
-                                        </div>
-                                        <div class="right-inform" style="width: 250px">                                                                              
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">队长姓名：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dzcm||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">队长电话：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dzdh||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">指导员/政委名称：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zdymc||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">指导员/政委电话：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zdydh||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </el-tab-pane>
-                                <el-tab-pane label="人员信息" v-if="!isShow">
-                                    <div class="inform-div" style="min-height:150px">
-                                        <div class="left-inform" style="width: 250px">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">消防队员总人数：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.xygbrs||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">每日执勤人数：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.zqrs||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">队长名称：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dzcm||"无"}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">队长电话：</dt>
-                                                    <dd class="dtdlStyle">{{detailData.dzdh||"无"}}</dd>
-                                                </dl>
-                                            </div>          
-                                        </div>
-                                        <div class="right-inform" style="width: 250px"></div>
-                                    </div>
-                                </el-tab-pane>
-                            </el-tabs>
-                        </template> 
                     </div>
                 </div>
             </div>
         </div>
+        <div style="margin-top: 20px">
+            <el-tabs v-model="activeName" style="min-height: 185px">
+                <el-tab-pane name="first" label="基本信息">
+                    <el-row>
+                        <el-col :span="12">
+                            <div>
+                                <strong class="dtdlStyle">辖区面积：</strong>
+                                <v-text v-text="detailData.xqmj||'无'"></v-text>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div>
+                                <strong class="dtdlStyle">辖区范围：</strong>
+                                <v-text v-text="detailData.xqfw||'无'"></v-text>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row class="inform-margin">
+                        <el-col :span="12">
+                            <div>
+                                <strong class="dtdlStyle">经度：</strong>
+                                <v-text v-text="detailData.gisX||'无'"></v-text>
+                            </div>
+                        </el-col>
+                        <el-col :span="12">
+                            <div>
+                                <strong class="dtdlStyle">纬度：</strong>
+                                <v-text v-text="detailData.gisY||'无'"></v-text>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <div v-show="isZongDui">
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">下辖支队数：</strong>
+                                    <v-text v-text="zongddetailData.xxzhids||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">下辖中队数：</strong>
+                                    <v-text v-text="zongddetailData.xxzhongds||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div v-show="isZhiDui">
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">下辖大队数：</strong>
+                                    <v-text v-text="zhiddetailData.xxdads||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">下辖中队数：</strong>
+                                    <v-text v-text="zhiddetailData.xxzhongds||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">是否独立接警：</strong>
+                                    <v-text v-text="zhiddetailData.sfdljj||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div v-show="isDaDui">
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">下辖中队数：</strong>
+                                    <v-text v-text="daddetailData.xxzhongds||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">是否独立接警：</strong>
+                                    <v-text v-text="daddetailData.sfdljj||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane name="second" label="人员信息">
+                    <div v-show="isZongDui">
+                        <el-row>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">现役官兵人数：</strong>
+                                    <v-text v-text="zongddetailData.xygbrs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">政府专职消防员数：</strong>
+                                    <v-text v-text="zongddetailData.zfzzxfys||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">文职雇员数：</strong>
+                                    <v-text v-text="zongddetailData.wzgys||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">总队长：</strong>
+                                    <v-text v-text="zongddetailData.zdzxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">总队长联系方式：</strong>
+                                    <v-text v-text="zongddetailData.zdzlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">总政委：</strong>
+                                    <v-text v-text="zongddetailData.zdzwxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">总政委联系方式：</strong>
+                                    <v-text v-text="zongddetailData.zdzwlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div v-show="isZhiDui">
+                        <el-row>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">现役官兵人数：</strong>
+                                    <v-text v-text="zhiddetailData.xygbrs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">政府专职消防员数：</strong>
+                                    <v-text v-text="zhiddetailData.zfzzxfys||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">文职雇员数：</strong>
+                                    <v-text v-text="zhiddetailData.xfwys||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">支队长：</strong>
+                                    <v-text v-text="zhiddetailData.zdzxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">支队长联系方式：</strong>
+                                    <v-text v-text="zhiddetailData.zdzlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">支队政委：</strong>
+                                    <v-text v-text="zhiddetailData.zdzwxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">支队政委联系方式：</strong>
+                                    <v-text v-text="zhiddetailData.zdzwlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div v-show="isDaDui">
+                        <el-row>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">现役官兵人数：</strong>
+                                    <v-text v-text="daddetailData.xygbrs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">政府专职消防员数：</strong>
+                                    <v-text v-text="daddetailData.zfzzxfys||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">文职雇员数：</strong>
+                                    <v-text v-text="daddetailData.xfwys||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">大队长：</strong>
+                                    <v-text v-text="daddetailData.ddzxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">大队长联系方式：</strong>
+                                    <v-text v-text="daddetailData.ddzlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">教导员：</strong>
+                                    <v-text v-text="daddetailData.jdyxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">教导员联系方式：</strong>
+                                    <v-text v-text="daddetailData.jdylxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副大队长：</strong>
+                                    <v-text v-text="daddetailData.fddzxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副大队长联系方式：</strong>
+                                    <v-text v-text="daddetailData.fddzlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副教导员：</strong>
+                                    <v-text v-text="daddetailData.fjdyxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副教导员联系方式：</strong>
+                                    <v-text v-text="daddetailData.fjdylxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div v-show="isZhongDui">
+                        <el-row>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">现役人数：</strong>
+                                    <v-text v-text="zhongddetailData.xyrs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">政府专职消防员数：</strong>
+                                    <v-text v-text="zhongddetailData.zfzzxfys||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">每日执勤人数：</strong>
+                                    <v-text v-text="zhongddetailData.mrzqrs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">中队长：</strong>
+                                    <v-text v-text="zhongddetailData.zdzxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">中队长联系方式：</strong>
+                                    <v-text v-text="zhongddetailData.zdzlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">指导员：</strong>
+                                    <v-text v-text="daddetailData.zdyxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">指导员联系方式：</strong>
+                                    <v-text v-text="daddetailData.zdylxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副指导员：</strong>
+                                    <v-text v-text="daddetailData.fzdyxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副指导员联系方式：</strong>
+                                    <v-text v-text="daddetailData.fzdylxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副中队长一：</strong>
+                                    <v-text v-text="daddetailData.fzdzxm1||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副中队长一联系方式：</strong>
+                                    <v-text v-text="daddetailData.fzdzlxfs1||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副中队长二：</strong>
+                                    <v-text v-text="daddetailData.fzdzxm2||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副中队长二联系方式：</strong>
+                                    <v-text v-text="daddetailData.fzdzlxfs2||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副中队长三：</strong>
+                                    <v-text v-text="daddetailData.fzdzxm3||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">副中队长三联系方式：</strong>
+                                    <v-text v-text="daddetailData.fzdzlxfs3||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
     </div>
-
 </body>
 
 </html>
