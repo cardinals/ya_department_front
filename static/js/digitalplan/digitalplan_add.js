@@ -602,7 +602,9 @@ new Vue({
                             bz: this.addForm.bz,
                             disasterList: this.dynamicValidateForm,
                             zzrid: this.role_data.userid,
-                            zzrmc: this.role_data.realName
+                            zzrmc: this.role_data.realName,
+                            jgid: this.role_data.organizationVO.uuid,
+                            jgmc: this.role_data.organizationVO.jgmc
                         };
                         // debugger
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
@@ -649,18 +651,6 @@ new Vue({
                 }
             });
         },
-        //附件上传成功回调方法
-        handleSuccess(response, file, fileList) {
-            if (response) {
-                this.$message({
-                    message: "成功保存预案信息",
-                    showClose: true,
-                    duration: 0
-                });
-            }
-            window.location.href = "digitalplan_list.html";
-        },
-
         //提交点击事件
         submit: function (formName) {
             this.$refs[formName].validate((valid) => {
@@ -677,7 +667,9 @@ new Vue({
                             bz: this.addForm.bz,
                             disasterList: this.dynamicValidateForm,
                             zzrid: this.role_data.userid,
-                            zzrmc: this.role_data.realName
+                            zzrmc: this.role_data.realName,
+                            jgid: this.role_data.organizationVO.jgid,
+                            jgmc: this.role_data.organizationVO.jgmc
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
                             this.upLoadData.yaid = res.data.result.uuid;
@@ -685,7 +677,7 @@ new Vue({
                                 this.submitUpload();//附件上传
                             } else {
                                 this.$message({
-                                    message: "成功保存预案信息",
+                                    message: "成功保存并提交预案信息",
                                     showClose: true
                                 });
                                 window.location.href = "digitalplan_list.html";
@@ -696,18 +688,24 @@ new Vue({
                     } else { //修改
                         var params = {
                             uuid: this.status,
-                            dxid: this.addForm.dwid,
+                            dxid: this.addForm.dxid,
+                            dxmc: this.addForm.dxmc,
                             yamc: this.addForm.yamc,
                             yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
                             yazt: '03',
                             shzt: '01',
                             yajb: this.addForm.yajb,
                             bz: this.addForm.bz,
-                            // jgid: this.role_data.jgid,
-                            // zzrid: this.role_data.userid,
+                            disasterList: this.dynamicValidateForm,
+                            zzrid: this.role_data.userid,
+                            zzrmc: this.role_data.realName
                         };
                         axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
-                            alert("成功提交" + res.data.result.length + "条预案");
+                            this.$message({
+                                message: "成功保存并提交预案信息",
+                                showClose: true
+                            });
+                            window.location.href = "digitalplan_list.html";
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -721,6 +719,17 @@ new Vue({
         //附件上传
         submitUpload() {
             this.$refs.upload.submit();
+        },
+        //附件上传成功回调方法
+        handleSuccess(response, file, fileList) {
+            if (response) {
+                this.$message({
+                    message: "成功保存预案信息",
+                    showClose: true,
+                    duration: 0
+                });
+            }
+            window.location.href = "digitalplan_list.html";
         },
         //附件移除
         handleRemove(file, fileList) {

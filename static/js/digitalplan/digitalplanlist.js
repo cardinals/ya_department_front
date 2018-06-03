@@ -128,7 +128,7 @@ new Vue({
                 dxmc: this.searchForm.DXMC,
                 yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1],
                 yajb: this.searchForm.YAJB,
-                // jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
+                // jgid:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
                 yazt: this.searchForm.YAZT
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
@@ -145,7 +145,7 @@ new Vue({
             this.searchForm.DXMC = "";
             this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
-            this.searchForm.ZZJG = "";
+            this.searchForm.ZZJG = [];
             this.searchForm.YAZT = "";
         },
         //表格勾选事件
@@ -156,7 +156,7 @@ new Vue({
         dataFormat: function (row, column) {
             var rowDate = row[column.property];
             if (rowDate == null || rowDate == "") {
-                return '无';
+                return '';
             } else {
                 return rowDate;
             }

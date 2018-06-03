@@ -25,7 +25,7 @@ input[type=file] {
 }
 .el-card__header{
     padding: 0px 20px;
-    color: #20a0ff;
+    /* color: #20a0ff; */
 }
 .el-card__body{
     padding: 15px;    

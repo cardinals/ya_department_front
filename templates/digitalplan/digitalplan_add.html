@@ -80,7 +80,7 @@
 						 label-position="right">
 							<el-card style="background-color:#F5F5F5;width:100%">
 								<div slot="header" class="clearfix">
-									<strong>灾情{{index+1}}</strong>
+									<strong class="card_title_font">灾情{{index+1}}</strong>
 									<el-button type="danger" icon="delete" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin:5px 0 0">删除</el-button>
 								</div>
 								<el-row class="tr">
@@ -180,7 +180,7 @@
 								</el-row>
 								<el-row style="border-bottom: 1px solid #d1dbe5;line-height: 29px;" class="mt5">
 									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-										<span style="color: #20a0ff;">要点提示</span>
+										<strong>要点提示</strong>
 									</el-col>
 								</el-row>
 								<el-row class="tr">
@@ -203,7 +203,7 @@
 								</el-row>
 								<el-row style="border-bottom: 1px solid #d1dbe5;    line-height: 29px;" class="mt5">
 									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-										<div style="color: #20a0ff;">力量部署</div>
+										<strong>力量部署</strong>
 									</el-col>
 									<el-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
 										<el-button type="primary" icon="plus" size="small" style="float:right;" @click="addDomainllbs(index)">新增</el-button>
@@ -302,7 +302,7 @@
 						<el-row>
 							<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">&nbsp;</el-col>
 							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">
-								<el-button type="primary" icon="edit" size="small" class="btn_save" @click="save('addForm')">保存</el-button>
+								<el-button type="success" icon="edit" size="small" class="btn_save" @click="save('addForm')">保存</el-button>
 								<el-button type="primary" icon="edit" size="small" class="btn_submit" @click="submit('addForm')">提交</el-button>
 							</el-col>
 							<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">&nbsp;</el-col>
