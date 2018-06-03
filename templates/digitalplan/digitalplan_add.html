@@ -11,7 +11,7 @@
 	<div id="header_box"></div>
 	<div class="left-sidebar">
 		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-		<input type="hidden" id="activeIndex"/>
+		<input type="hidden" id="activeIndex" />
 		<div id="menu-box">
 			<big-tree default-active=""></big-tree>
 		</div>
@@ -32,7 +32,9 @@
 									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" clearable></el-input>
 								</el-form-item>
 							</el-col>
-							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" style="padding: 4px;">
+								<el-button type="primary" icon="delete" size="small" class="btn_save" @click="clearYadx"></el-button>
+							</el-col>
 							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案名称" prop="yamc">
 									<el-input size="small" v-model="addForm.yamc" placeholder="预案名称" clearable></el-input>
@@ -88,9 +90,11 @@
 										<el-label class="mr5">灾情部位</el-label>
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
-										<el-input v-model="domain.zqbw" size="small" @focus="partsList(index)" placeholder="灾情部位"></el-input>
+										<el-input v-model="domain.zqbw" size="small" placeholder="灾情部位"></el-input>
 									</el-col>
-									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">
+										<el-button type="primary" icon="search" size="small" class="btn_save" @click="partsList(index)"></el-button>
+									</el-col>
 									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
 										<el-label class="mr5">所属建筑</el-label>
 									</el-col>
@@ -315,12 +319,13 @@
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="20" class="searchInline">
+									<el-col :span="18" class="searchInline">
 										<label class="el-form-item__label" style="width:90px;">单位名称</label>
 										<el-input size="small" v-model="searchForm_units.dwmc" placeholder="单位名称" clearable></el-input>
 									</el-col>
-									<el-col :span="4" class="btnSearchPlus">
+									<el-col :span="6" class="btnSearchPlus">
 										<el-button type="primary" icon="search" size="small" @click="keyunitList">查询</el-button>
+										<el-button type="clear" icon="delete" size="small" @click="clearkeyunitList">清空</el-button>
 									</el-col>
 								</el-row>
 							</el-form>
@@ -350,12 +355,13 @@
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="20" class="searchInline">
+									<el-col :span="18" class="searchInline">
 										<label class="el-form-item__label" style="width:90px;">部位名称</label>
 										<el-input size="small" v-model="searchForm_parts.zdbwmc" placeholder="部位名称" clearable></el-input>
 									</el-col>
-									<el-col :span="4" class="btnSearchPlus">
+									<el-col :span="6" class="btnSearchPlus">
 										<el-button type="primary" icon="search" size="small" @click="partsList">查询</el-button>
+										<el-button type="clear" icon="delete" size="small" @click="clearpartsList">清空</el-button>
 									</el-col>
 								</el-row>
 							</el-form>
@@ -385,12 +391,13 @@
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="20" class="searchInline">
+									<el-col :span="18" class="searchInline">
 										<label class="el-form-item__label" style="width:90px;">建筑名称</label>
 										<el-input size="small" v-model="searchForm_building.jzmc" placeholder="建筑名称" clearable></el-input>
 									</el-col>
-									<el-col :span="4" class="btnSearchPlus">
+									<el-col :span="6" class="btnSearchPlus">
 										<el-button type="primary" icon="search" size="small" @click="buildingList">查询</el-button>
+										<el-button type="clear" icon="delete" size="small" @click="clearbuildingList">清空</el-button>
 									</el-col>
 								</el-row>
 							</el-form>
@@ -420,12 +427,13 @@
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
 								<el-row>
-									<el-col :span="20" class="searchInline">
+									<el-col :span="18" class="searchInline">
 										<label class="el-form-item__label" style="width:90px;">队站名称</label>
 										<el-input size="small" v-model="searchForm_fireSta.dzmc" placeholder="队站名称" clearable></el-input>
 									</el-col>
-									<el-col :span="4" class="btnSearchPlus">
+									<el-col :span="6" class="btnSearchPlus">
 										<el-button type="primary" icon="search" size="small" @click="fireStaList">查询</el-button>
+										<el-button type="clear" icon="delete" size="small" @click="clearfireStaList">清空</el-button>
 									</el-col>
 								</el-row>
 							</el-form>

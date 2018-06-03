@@ -423,6 +423,15 @@ new Vue({
         closeDialog_units: function (val) {
             this.unitsListVisible = false;
         },
+        //重点单位查询条件清空
+        clearkeyunitList: function (val) {
+            this.searchForm_units.dwmc="";
+        },
+        //重点单位删除
+        clearYadx: function (val) {
+            this.addForm.dxmc = "";
+            this.addForm.dxid = "";
+        },
         //灾情部位选择弹出页---------------------------------------------------------------
         partsList: function (val) {
             this.zqIndex = val;
@@ -465,6 +474,10 @@ new Vue({
         closeDialog_parts: function (val) {
             this.partsListVisible = false;
         },
+        //灾情部位查询条件清空
+        clearpartsList: function (val) {
+            this.searchForm_parts.zdbwmc="";
+        },
         //所属建筑选择弹出页---------------------------------------------------------------
         buildingList: function (val) {
             this.zqIndex = val;
@@ -506,6 +519,10 @@ new Vue({
         //所属建筑弹出页关闭
         closeDialog_building: function (val) {
             this.buildingListVisible = false;
+        },
+        //所属建筑查询条件清空
+        clearbuildingList: function (val) {
+            this.searchForm_building.jzmc="";
         },
         //消防队站选择弹出页---------------------------------------------------------------
         fireStaList: function (val, val1) {
@@ -550,6 +567,10 @@ new Vue({
         //消防队站弹出页关闭
         closeDialog_fireSta: function (val) {
             this.fireStaListVisible = false;
+        },
+        //消防队站查询条件清空
+        clearfireStaList: function (val) {
+            this.searchForm_fireSta.dzmc="";
         },
 
         //表格数据格式化
