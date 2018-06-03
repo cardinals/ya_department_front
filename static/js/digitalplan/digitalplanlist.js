@@ -173,7 +173,7 @@ new Vue({
         //预案编辑跳转
         handleEdit: function (row) {
             if (row.yazt == '01' || row.yazt == '04') {
-                // window.location.href = "digitalplan_add.html?ID=" + row.uuid;
+                window.location.href = "digitalplan_add.html?ID=" + row.uuid;
             } else {
                 this.$message({
                     message: "仅编辑中和已驳回状态预案可编辑",
