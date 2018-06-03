@@ -70,7 +70,7 @@
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
                             <el-table-column prop="gsmc" show-overflow-tooltip label="公式名称" min-width="25%" align="center" :formatter="dataFormat">
                                 <template slot-scope="scope">
-                                    <a @click="calculateDetails(scope.row)">{{scope.row.gsmc}}</a>
+                                    <a @click="calculateDetails(scope.row)" v-text="scope.row.gsmc"></a>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="lbmc" show-overflow-tooltip label="类别" min-width="16%" align="center":formatter="dataFormat"></el-table-column>
@@ -284,21 +284,21 @@
                             <el-row>
                                 <el-col :span="24">
                                     <el-form-item class="calculateForm" label="公式名称" prop="gsmc">
-                                        <span>{{calculateForm.gsmc}}</span>
+                                        <span v-text="calculateForm.gsmc"></span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
                                     <el-form-item class="calculateForm" label="公式说明" prop="gssm">
-                                        <span>{{calculateForm.gssm}}</span>
+                                        <span v-text="calculateForm.gssm"></span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
                                     <el-form-item class="calculateForm" label="计算公式" prop="jsgs">
-                                        <span>{{calculateForm.jsgs}}</span>
+                                        <span v-text="calculateForm.jsgs"></span>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -316,7 +316,7 @@
                                     >
                                         <div style="display: inline-flex;">
                                             <el-input size="small" v-model="domain.mrz" auto-complete="off"></el-input>
-                                            <span style="width: 100px">&nbsp;&nbsp;{{domain.jldwdm}}</span>
+                                            &nbsp;&nbsp;<span style="width: 100px" v-text="domain.jldwdm"></span>
                                         </div>    
                                     </el-form-item>   
                                 </el-col>
@@ -325,7 +325,7 @@
                                 <el-form-item class="calculateForm" label="计算结果" prop="jsjg">
                                     <div style="display: inline-flex;">
                                         <el-input size="small" v-model="jsjg" auto-complete="off"></el-input>
-                                        <span style="width: 100px">&nbsp;&nbsp;{{calculateForm.jsgsdw}}</span>
+                                        &nbsp;&nbsp;<span style="width: 100px" v-text="calculateForm.jsgsdw"></span>
                                     </div>
                                 </el-form-item>
                             </el-row>

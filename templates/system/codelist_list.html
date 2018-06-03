@@ -75,7 +75,7 @@
                             <el-table-column type="index" show-overflow-tooltip label="序号" align="center" width="65"></el-table-column>
                             <el-table-column prop="codetype" show-overflow-tooltip label="代码类型" min-width="10%" align="center" :formatter="dataFormat">
                                 <template slot-scope="scope">
-                                    <el-button @click="codetypeCilck(scope.row)" type="text">{{scope.row.codetype}}</el-button>
+                                    <el-button @click="codetypeCilck(scope.row)" type="text" v-text="scope.row.codetype"></el-button>
                                 </template>
                             </el-table-column>
                             <el-table-column prop="codetypeName" show-overflow-tooltip label="代码类型" min-width="15%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>

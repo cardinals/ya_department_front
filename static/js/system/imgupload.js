@@ -53,7 +53,8 @@ new Vue({
             addForm: {
                 picType: "",
                 picName: "",
-                roles: []
+                inputPicType:"",
+                inputPicName:""
             },
             //选中的序号
             selectIndex: -1,
@@ -73,7 +74,8 @@ new Vue({
             editForm: {
                 picType: "",
                 picName: "",
-                roles: []
+                inputPicType:"",
+                inputPicName:""
             },
             editFormSelect: [],
             editRoles: [],
@@ -85,7 +87,11 @@ new Vue({
             upLoadData: {
                 picName: ""
             },
-            picName:''
+            picName:'',
+            //新增下拉不可用
+            selectDisabled:false,
+            //修改下拉不可用
+            selectEditDisabled:false
         }
     },
     created: function () {
@@ -112,6 +118,10 @@ new Vue({
             this.$refs.upload.submit();
         },
         handleRemove(file, fileList) {
+            var fs = document.getElementsByName('file');
+            if(fs.length > 0) {
+                fs[0].value=null
+            }
             console.log(file, fileList);
         },
         handlePreview(file) {
@@ -141,6 +151,42 @@ new Vue({
         clearClick: function () {
             this.searchForm.pic_name="";
             this.searchForm.pic_type="";
+        },
+        //新增自行输入
+        inputClick:function(){
+            document.getElementById('inputPicType').style.display = "inline";
+            document.getElementById('inputPicName').style.display = "inline";
+            document.getElementById('closeBtn').style.display = "inline";
+            this.selectDisabled = true;
+            this.addForm.picType = "";
+            this.addForm.picName = "";
+        },
+        //自行输入关闭
+        closeClick:function(){
+            document.getElementById('inputPicType').style.display = "none";
+            document.getElementById('inputPicName').style.display = "none";
+            document.getElementById('closeBtn').style.display = "none";
+            this.selectDisabled = false;
+            this.addForm.inputPicType = "";
+            this.addForm.inputPicName = "";
+        },
+        //修改自行输入
+        inputEditClick:function(){
+            document.getElementById('inputEditPicType').style.display = "inline";
+            document.getElementById('inputEditPicName').style.display = "inline";
+            document.getElementById('closeEditBtn').style.display = "inline";
+            this.selectEditDisabled = true;
+            this.editForm.picType = "";
+            this.editForm.picName = "";
+        },
+        //修改自行输入关闭
+        closeEditClick:function(){
+            document.getElementById('inputEditPicType').style.display = "none";
+            document.getElementById('inputEditPicName').style.display = "none";
+            document.getElementById('closeEditBtn').style.display = "none";
+            this.selectEditDisabled = false;
+            this.editForm.inputPicType = "";
+            this.editForm.inputPicName = "";
         },
         //表格查询事件
         searchClick: function () {
@@ -248,52 +294,97 @@ new Vue({
         //新建提交点击事件
         addSubmit: function (val) {
             var _self = this;
-            if(val.picName!=null && val.picName!="" && val.picType!="" && val.picType!=null)
-            {
-                axios.get('/api/imgupload/getNum/' + this.addForm.picName).then(function(res){
-                    if(res.data.result != 0){
-                        _self.$message({
-                            message: "图片名已存在!",
-                            type: "error"
-                        });
-                    }else{
-                        var picTypename = "";
-                        var picValue = "";
-                        for(var i = 0;i<this.allTypes.length;i++){
-                            if(this.allTypes[i].codetype == val.picType){
-                                picTypename = this.allTypes[i].codetypeName;
+            if(this.selectDisabled == false){  
+                if(val.picName!=null && val.picName!="" && val.picType!="" && val.picType!=null)
+                {
+                    axios.get('/api/imgupload/getNum/' + this.addForm.picName).then(function(res){
+                        if(res.data.result != 0){
+                            _self.$message({
+                                message: "图片名已存在!",
+                                type: "error"
+                            });
+                        }else{
+                            var picTypename = "";
+                            var picValue = "";
+                            for(var i = 0;i<this.allTypes.length;i++){
+                                if(this.allTypes[i].codetype == val.picType){
+                                    picTypename = this.allTypes[i].codetypeName;
+                                }
                             }
-                        }
-                        for(var k = 0;k<this.allAddTypeNames.length;k++){
-                            if(this.allAddTypeNames[k].codeName == val.picName){
-                                picValue = this.allAddTypeNames[k].codeValue;
+                            for(var k = 0;k<this.allAddTypeNames.length;k++){
+                                if(this.allAddTypeNames[k].codeName == val.picName){
+                                    picValue = this.allAddTypeNames[k].codeValue;
+                                }
                             }
+                            var params = {
+                                picName: val.picName,
+                                picType: val.picType,
+                                picValue: picValue,
+                                picTypename: picTypename
+                            }
+                            this.picName = val.picName;
+                            axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
+                                _self.total = _self.tableData.length;
+                                this.submitUpload();
+                                this.searchClick();
+                            }.bind(this),function(error){
+                                console.log(error)
+                            })
+                            _self.loadingData();//重新加载数据
                         }
-                        var params = {
-                            picName: val.picName,
-                            picType: val.picType,
-                            picValue: picValue,
-                            picTypename: picTypename
-                        }
-                        this.picName = val.picName;
-                        axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
-                            _self.total = _self.tableData.length;
-                            this.submitUpload();
-                            this.searchClick();
-                        }.bind(this),function(error){
-                            console.log(error)
-                        })
-                        _self.loadingData();//重新加载数据
-                    }
-                }.bind(this),function(error){
-                    console.log(error)
-                })
+                    }.bind(this),function(error){
+                        console.log(error)
+                    })
+                }
+                else{
+                    _self.$message({
+                        message: "图片类型和图片名称都不能为空!",
+                        type: "error"
+                    });
+                }
             }
             else{
-                _self.$message({
-                    message: "图片类型和图片名称都不能为空!",
-                    type: "error"
-                });
+                if(val.inputPicName!=null && val.inputPicName!="" && val.inputPicType!="" && val.inputPicType!=null)
+                {
+                    axios.get('/api/imgupload/getNum/' + this.addForm.inputPicName).then(function(res){
+                        if(res.data.result != 0){
+                            _self.$message({
+                                message: "图片名已存在!",
+                                type: "error"
+                            });
+                        }else{
+                            var picValue = "";
+                            axios.get('/api/imgupload/getInputNum/' + this.addForm.inputPicType).then(function(res){
+                                picValue = res.data.result + 1 + picValue;         
+                                var params = {
+                                    picName: val.inputPicName,
+                                    picTypename: val.inputPicType,
+                                    picType:val.inputPicType,
+                                    picValue:picValue
+                                }
+                                this.picName = val.inputPicName;
+                                axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
+                                    _self.total = _self.tableData.length;
+                                    this.submitUpload();
+                                    this.searchClick();
+                                }.bind(this),function(error){
+                                    console.log(error)
+                                })
+                            }.bind(this),function(error){
+                                console.log(error)
+                            })
+                            _self.loadingData();//重新加载数据
+                        }
+                    }.bind(this),function(error){
+                        console.log(error)
+                    })
+                }
+                else{
+                    _self.$message({
+                        message: "图片类型和图片名称都不能为空!",
+                        type: "error"
+                    });
+                }
             }
 
         },
@@ -303,6 +394,22 @@ new Vue({
             var pkid = val.pkid;
             axios.get('/api/imgupload/doFindById/' + pkid).then(function (res) {
                 this.editForm = res.data.result;
+                var inCodeTypes = false;
+                for(var i = 0;i<this.allTypes.length;i++){
+                    if(this.allTypes[i].codetype == this.editForm.picType){
+                        inCodeTypes = true;
+                    }
+                }
+                if(!inCodeTypes){
+                    document.getElementById('inputEditPicType').style.display = "inline";
+                    document.getElementById('inputEditPicName').style.display = "inline";
+                    document.getElementById('closeEditBtn').style.display = "inline";
+                    this.selectEditDisabled = true;
+                    this.editForm.inputPicType = this.editForm.picType;
+                    this.editForm.inputPicName = this.editForm.picName;
+                    this.editForm.picType = "";
+                    this.editForm.picName = "";
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -312,42 +419,71 @@ new Vue({
         //保存点击事件
         editSubmit: function (val) {
             var _self = this;
-            if(val.picName!=null && val.picName!="" && val.picType!="" && val.picType!=null)
-            {
-                var picTypename = "";
-                var picValue = "";
-                for(var i = 0;i<this.allTypes.length;i++){
-                    if(this.allTypes[i].codetype == val.picType){
-                        picTypename = this.allTypes[i].codetypeName;
+            if(this.selectEditDisabled == false){  
+                if(val.picName!=null && val.picName!="" && val.picType!="" && val.picType!=null)
+                {
+                    var picTypename = "";
+                    var picValue = "";
+                    for(var i = 0;i<this.allTypes.length;i++){
+                        if(this.allTypes[i].codetype == val.picType){
+                            picTypename = this.allTypes[i].codetypeName;
+                        }
                     }
-                }
-                for(var k = 0;k<this.allEditTypeNames.length;k++){
-                    if(this.allEditTypeNames[k].codeName == val.picName){
-                        picValue = this.allEditTypeNames[k].codeValue;
+                    for(var k = 0;k<this.allEditTypeNames.length;k++){
+                        if(this.allEditTypeNames[k].codeName == val.picName){
+                            picValue = this.allEditTypeNames[k].codeValue;
+                        }
                     }
+                    var params = {
+                        pkid: val.pkid,
+                        picName: val.picName,
+                        picType: val.picType,
+                        picValue: picValue,
+                        picTypename: picTypename
+                    };
+                    this.picName = val.picName;
+                    axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
+                        this.submitUpload();
+                        this.searchClick();
+                        this.editFormVisible = false;
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                    _self.loadingData();
                 }
-                var params = {
-                    pkid: val.pkid,
-                    picName: val.picName,
-                    picType: val.picType,
-                    picValue: picValue,
-                    picTypename: picTypename
-                };
-                this.picName = val.picName;
-                axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
-                    this.submitUpload();
-                    this.searchClick();
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-                _self.loadingData();
+                else{
+                    _self.$message({
+                        message: "图片类型和图片名称都不能为空!",
+                        type: "error"
+                    });
+                } 
             }
             else{
-                _self.$message({
-                    message: "图片类型和图片名称都不能为空!",
-                    type: "error"
-                });
-            } 
+                if(val.inputPicName!=null && val.inputPicName!="" && val.inputPicType!="" && val.inputPicType!=null)
+                {
+                    var params = {
+                        pkid: val.pkid,
+                        picName: val.inputPicName,
+                        picTypename: val.inputPicType,
+                        picType:val.inputPicType
+                    };
+                    this.picName = val.inputPicName;
+                    axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
+                        this.submitUpload();
+                        this.searchClick();
+                        this.editFormVisible = false;
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                    _self.loadingData();
+                }
+                else{
+                    _self.$message({
+                        message: "图片类型和图片名称都不能为空!",
+                        type: "error"
+                    });
+                } 
+            }
         },
         //删除所选，批量删除
         removeSelection: function () {
@@ -409,20 +545,17 @@ new Vue({
         },
         closeDialog: function (val) {
             this.addFormVisible = false;
-            val.username ='';
-            val.realname = '';
-            val.password = '';
-            val.checkPass = '';
-            val.birth = '';
-            val.sex = '';
-            val.mobile = '';
-            val.email ='';
             this.$refs["addForm"].resetFields();
             this.$refs.upload.clearFiles();
+            this.closeClick();
         },
         closeEditDialog: function (val) {
             this.editFormVisible = false;
             this.$refs.upload.clearFiles();
+            document.getElementById('inputEditPicType').style.display = "none";
+            document.getElementById('inputEditPicName').style.display = "none";
+            document.getElementById('closeEditBtn').style.display = "none";
+            this.selectEditDisabled = false;
         },
     },
 

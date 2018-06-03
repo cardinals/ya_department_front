@@ -16,8 +16,12 @@
     />
     <!-- 底部控件 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
+    <style>
+       .jwcolor{ color:darkslateblue;}
 
 
+
+    </style>
 </head>
 
 <body class="fw map-bg">
@@ -29,7 +33,6 @@
     <input id="zhong" type="hidden" value="1" />
     <div id="app">
         <div class="application-boxs tc abs" style="top:0px;">
-
             <!-- 左侧 -->
             <div class="map-menu-left p10 map-bg">
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
@@ -53,7 +56,6 @@
                                         </div>
                                     </el-card>
                                 </div>
-
                                 <div id="zddwxx">
                                     <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
                                         <div @click="zddwxxClick(data)">
@@ -81,35 +83,36 @@
             </div>
             <div id="BMap" class="map-main tc">
             </div>
-            <!-- <div class="search" style="position:fixed;top:10px;left: 300px;">
+            <!-- db start -->
+            <div class="search" style="position:fixed;top:10px;left: 300px;">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            搜索百度库
+                        <button type="button" class="btn btn-default dropdown-toggle" style="height: 34px !important;top:5px;" data-toggle="dropdown">
+                            {{searchSource}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#" @click="addSearchAuto">搜索百度库</a>
+                                <a href="#" @click="showSuggestId()">搜索百度库</a>
                             </li>
                             <li>
-                                <a href="#">搜索消防库</a>
+                                <a href="#" @click="showAdvancedId()">搜索消防库</a>
                             </li>
                         </ul>
                     </div>
-                    <input id="suggestId" style="width: 300px;" type="search" class="form-control" placeholder="名称|编号|地址~">
-                    <div id="r-result">搜索百度库:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
+                    <input id="suggestId" style="width: 240px;top:5px;" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|地址~">
+                    <input style="width: 240px; display: none;top:5px;" type="search" class="form-control" placeholder="名称|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
                     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div> 
                     <a style="position:fixed;left: 670px;top:11px;color: #000;" class="glyphicon glyphicon-remove btn form-control-feedback"
                         style="pointer-events: auto"></a> 
                 </div>
-             
-            </div> -->
-            <div class="jwd" style="position:fixed;top:13px;right: 220px;"> 
-                 
-
-                    <strong style="color:darkslateblue">经度:</strong><input type="text" id="lng" />
-                    <strong style="color:darkslateblue">纬度:</strong><input type="text" id="lat" />
+            </div>
+            <!-- db end -->
+            <div class="jwd" style="position:fixed;top:13px;right: 220px;">
+                <strong class="jwcolor">经度:</strong>
+                <input type="text" style="height: 34px !important;" id="lng" />
+                <strong class="jwcolor">纬度:</strong>
+                <input type="text" style="height: 34px !important;" id="lat" />
             </div>
             <div style="position:fixed;bottom:20px;left: 40%;">
                 <div id="container">
@@ -160,35 +163,6 @@
                         </ul>
                     </div>
                 </div>
-
-                <!-- <div @click="showOverdz()"  style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="队站"> 
-                    <img src="../../static/images/M_ZYDW.png" />
-                </div>
-                <div @click="showOverwx()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="微型消防站">
-                    <img src="../../static/images/M_WXXFZ.png" />
-                </div>
-                <div @click="showOvera()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success"
-                    data-container="body" data-placement="left">
-                    <img src="../../static/images/M_XFSY_1000.png" />
-                </div>
-                <div @click="showOvercl()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="消防车辆">
-                    <img src="../../static/images/M_XFCL.png" />
-                </div>
-                <div @click="lukuang()" style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="路况">
-                    <img src="../../static/images/maptool/M_ZBDL.png" />
-                </div> -->
-                <!-- <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="消防药剂">
-                    <img src="../../static/images/maptool/M_MHYJ.png" />
-                </div>
-                <div style="width: 58px;height: 58px;margin:10px;" class="icon" class="icon" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="装备器材">
-                    <img src="../../static/images/maptool/M_TZZB.png" />
-                </div> -->
             </div>
             <!-- 右侧工具 -->
             <div style="width: 200px; position:fixed;top:10px;right: 10px;">
@@ -219,7 +193,6 @@
                                 <!-- <img style="height:15px;width:43px;" src="../../static/images/maptool/fireengine.png"/> -->
                             </span>
                         </li>
-
                         <li role="presentation">
                             <div @click="EwOver()" style="width:60px;height:68px;margin:8px;margin-left:25px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
@@ -258,18 +231,11 @@
         );
     });
 </script>
-
-
-
-
 <!-- 引入地图 -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
-<!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Ot0QAG0LUGqphKatM1QOZDVZPNIfnRO0"></script> -->
-
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/MarkerClusterer.js"></script>
-<!-- <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script> -->
 <script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/mapmain.js"></script>
 <!-- tooljs的引入 -->
@@ -298,63 +264,4 @@
         window.open("http://10.119.119.232:18080/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
     }
 </script>
-
-
-
-<!--百度地址库-->
-<!-- <script type="text/javascript">
-	// 百度地图API功能
-	function G(id) {
-		return document.getElementById(id);
-	}
-
-	var map = new BMap.Map("BMap");
-    map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 5);                 // 初始化地图,设置城市和地图级别。
-
-	var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-		{"input" : "suggestId"
-		,"location" : map
-	});
-
-	ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
-	var str = "";
-		var _value = e.fromitem.value;
-		var value = "";
-		if (e.fromitem.index > -1) {
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
-		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-		
-		value = "";
-		if (e.toitem.index > -1) {
-			_value = e.toitem.value;
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}    
-		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-		G("searchResultPanel").innerHTML = str;
-	});
-
-	var myValue;
-	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
-	var _value = e.item.value;
-		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-		
-		setPlace();
-	});
-
-	function setPlace(){
-		map.clearOverlays();    //清除地图上所有覆盖物
-		function myFun(){
-			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-			map.centerAndZoom(pp, 18);
-			map.addOverlay(new BMap.Marker(pp));    //添加标注
-		}
-		var local = new BMap.LocalSearch(map, { //智能搜索
-		  onSearchComplete: myFun
-		});
-		local.search(myValue);
-	}
-</script> -->
-
 </html>
