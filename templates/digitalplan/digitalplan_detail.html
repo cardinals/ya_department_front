@@ -61,29 +61,32 @@
                     <div class="inform-content">
                         <template>
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
-                                <el-tab-pane label="基本信息" name="first">
+                                <el-tab-pane label="预案基本信息" name="first">
                                     <el-card class="mb10 card_style ">
                                         <div slot="header" class="clearfix">
                                             <strong class="card_title_font">制作情况</strong>
                                         </div>
                                         <el-row class="mb5">
-                                            <el-col :span="2" style="text-align: right;">
+                                            <el-col :span="2">
                                                 <strong>制作人：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div v-text="basicDetailData.zzrmc||''"></div>&nbsp;
+                                                <div v-if="basicDetailData.zzrmc==null">&nbsp;</div>
+                                                <div v-else v-text="basicDetailData.zzrmc"></div>
                                             </el-col>
-                                            <el-col :span="2" style="text-align: right;">
+                                            <el-col :span="2">
                                                 <strong>制作时间：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div v-text="basicDetailData.zzsj||''"></div>&nbsp;
+                                                <div v-if="basicDetailData.zzsj==null">&nbsp;</div>
+                                                <div v-else v-text="basicDetailData.zzsj"></div>
                                             </el-col>
-                                            <el-col :span="2" style="text-align: right;">
+                                            <el-col :span="2">
                                                 <strong>制作机构：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div v-text="basicDetailData.jgmc||''"></div>&nbsp;
+                                                <div v-if="basicDetailData.jgmc==null">&nbsp;</div>
+                                                <div v-else v-text="basicDetailData.jgmc"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -92,23 +95,26 @@
                                             <strong class="card_title_font">审核情况</strong>
                                         </div>
                                         <el-row class="mb5">
-                                            <el-col :span="2" style="text-align: right;">
+                                            <el-col :span="2">
                                                 <strong>审核人：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div v-text="basicDetailData.shrmc||''"></div>&nbsp;
+                                                <div v-if="basicDetailData.shrmc==null">&nbsp;</div>
+                                                <div v-else v-text="basicDetailData.shrmc"></div>
                                             </el-col>
-                                            <el-col :span="2" style="text-align: right;">
+                                            <el-col :span="2">
                                                 <strong>审核时间：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div v-text="basicDetailData.shsj||''"></div>&nbsp;
+                                                <div v-if="basicDetailData.shsj==null">&nbsp;</div>
+                                                <div v-else v-text="basicDetailData.shsj"></div>
                                             </el-col>
-                                            <el-col :span="2" style="text-align: right;">
+                                            <el-col :span="2">
                                                 <strong>审核状态：</strong>
                                             </el-col>
                                             <el-col :span="6">
-                                                <div v-text="basicDetailData.shztmc||''"></div>&nbsp;
+                                                <div v-if="basicDetailData.shztmc==null">&nbsp;</div>
+                                                <div v-else v-text="basicDetailData.shztmc"></div>
                                             </el-col>
                                         </el-row>
                                     </el-card>
@@ -277,6 +283,106 @@
                                             </el-row>
                                         </div>
                                     </el-card>
+                                </el-tab-pane>
+                                <el-tab-pane label="重点单位信息" name="third">
+                                    <el-card class="mb10 card_style ">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">基本信息</strong>
+                                        </div>
+                                        <el-row class="mb5">
+                                            <el-col :span="2">
+                                                <strong>单位名称：</strong>
+                                            </el-col>
+                                            <el-col :span="10">
+                                                <div v-if="unitDetailData.dwmc==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.dwmc"></div>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <strong>单位性质：</strong>
+                                            </el-col>
+                                            <el-col :span="10">
+                                                <div v-if="unitDetailData.dwxzmc==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.dwxzmc"></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <el-col :span="2">
+                                                <strong>单位地址：</strong>
+                                            </el-col>
+                                            <el-col :span="10">
+                                                <div v-if="unitDetailData.dwdz==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.dwdz"></div>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <strong>防火等级：</strong>
+                                            </el-col>
+                                            <el-col :span="10">
+                                                <div v-if="unitDetailData.fhdjmc==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.fhdjmc"></div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card class="mb10 card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">队站信息</strong>
+                                        </div>
+                                        <el-row class="mb5">
+                                            <el-col :span="2">
+                                                <strong>防火队站：</strong>
+                                            </el-col>
+                                            <el-col :span="10">
+                                                <div v-if="unitDetailData.fhdzidmc==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.fhdzidmc"></div>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <strong>灭火队站：</strong>
+                                            </el-col>
+                                            <el-col :span="10">
+                                                <div v-if="unitDetailData.mhdzidmc==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.mhdzidmc"></div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card class="mb10 card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">消防联系人</strong>
+                                        </div>
+                                        <el-row class="mb5">
+                                            <el-col :span="3">
+                                                <strong>消防责任人：</strong>
+                                            </el-col>
+                                            <el-col :span="9">
+                                                <div v-if="unitDetailData.xfzrr==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.xfzrr"></div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <strong>消防责任人电话：</strong>
+                                            </el-col>
+                                            <el-col :span="9">
+                                                <div v-if="unitDetailData.xfzrrdh==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.xfzrrdh"></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <el-col :span="3">
+                                                <strong>消防管理人：</strong>
+                                            </el-col>
+                                            <el-col :span="9">
+                                                <div v-if="unitDetailData.xfglr==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.xfglr"></div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <strong>消防管理人电话：</strong>
+                                            </el-col>
+                                            <el-col :span="9">
+                                                <div v-if="unitDetailData.xfglrdh==null">&nbsp;</div>
+                                                <div v-else v-text="unitDetailData.xfglrdh"></div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                </el-tab-pane>
+                                <el-tab-pane label="附件信息" name="forth">
+                                    该预案有<span v-text="fjDetailData"></span>个附件
                                 </el-tab-pane>
                             </el-tabs>
                         </template>

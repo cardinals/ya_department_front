@@ -8,32 +8,10 @@ new Vue({
 
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
-
+            unitDetailData: {},//重点单位Data
             loading: false,
-            //测试Data
-            detailTestData: {
-                pkid: "67833B5FB1232169E053B077770AE86",
-                yamc: "物美生活广场及地铁华苑站三维灭火预案",
-                dxmc: "物美生活广场及地铁华苑站",
-                yalxdm: "人员密集场所",
-                yazl: "对象预案",
-                yabbh: "A",
-                sfkqy: "是",
-                zzdwmc: "",
-                zzrmc: "zhuolh@ha",
-                zzrq: "2016-03-16",
-                bz: ""
-            },
-            //上传文件部分个数
-            upLoadData: {
-                id: 1
-            },
-            fileList: [
-                { name: '物美生活广场及地铁华苑站三维灭火预案.html', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: '物美生活广场及地铁华苑站三维灭火预案.unity3d', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: 'jquery.min.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' },
-                { name: 'UnityObject2.js', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100?isUpdated=true' }
-            ],
+            fileList: [],
+            fjDetailData: ''
         }
     },
     created: function () {
@@ -43,6 +21,7 @@ new Vue({
         this.pkid = getQueryString("ID");
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
+        this.fjDetail(this.pkid);
     },
 
     methods: {
@@ -73,16 +52,40 @@ new Vue({
                 } else {
                     this.basicDetailData.shsj = this.dateFormat(this.basicDetailData.shsj);
                 }
-                this.basicDetailData.sfkqy = (this.basicDetailData.sfkqy == 1 ? "是" : "否");
+                this.unitDetail(this.basicDetailData.dxid);
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
-        //灾情设定
+        //灾情设定信息
         disasterSet: function (val) {
             axios.get('/dpapi/disasterset/doFindByPlanId/' + val).then(function (res) {
                 this.disasterSetData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //重点单位信息
+        unitDetail: function (val) {
+            axios.get('/dpapi/importantunits/' + val).then(function (res) {
+                this.unitDetailData = res.data.result;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //附件查询
+        fjDetail: function (val) {
+            axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
+                this.fjDetailData = res.data.result.length;
+                // if (res.data.result.length > 0) {
+
+                // this.fileList = [{
+                //     name: res.data.result[0].wjm,
+                //     url: "http://localhost:8090/upload/" + res.data.result[0].xzlj
+                // }]
+                // }
+
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -109,22 +112,45 @@ new Vue({
         },
         //预案预览
         openPlan: function () {
-            axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
-                var yllj = res.data.result[0].yllj;
-                window.open("http://localhost:8090/upload/" + yllj);
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+            if (this.fjDetailData > 0) {
+                axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
+                    var yllj = res.data.result[0].yllj;
+                    if (yllj == null || yllj == '') {
+                        this.$message({
+                            message: "无可预览文件",
+                            showClose: true
+                        });
+                    }else{
+                        window.open("http://localhost:8090/upload/" + yllj);
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            } else {
+                this.$message({
+                    message: "该预案无附件",
+                    showClose: true
+                });
+            }
+
             // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
         //预案下载
         downloadPlan: function () {
-            axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
-                var xzlj = res.data.result[0].xzlj;
-                window.open("http://localhost:8090/upload/" + xzlj);
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+            if (this.fjDetailData > 0) {
+                axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
+                    var xzlj = res.data.result[0].xzlj;
+                    window.open("http://localhost:8090/upload/" + xzlj);
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }else {
+                this.$message({
+                    message: "无可下载预案",
+                    showClose: true
+                });
+            }
+            
             // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");
         },
         /**
