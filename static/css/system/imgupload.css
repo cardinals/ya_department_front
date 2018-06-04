@@ -7,3 +7,6 @@
 .el-dialog__footer{
     text-align: center;
 }
+.el-form-item.dialog-form{
+    margin-bottom: 6px;
+}

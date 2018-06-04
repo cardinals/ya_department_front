@@ -91,7 +91,11 @@ new Vue({
             //新增下拉不可用
             selectDisabled:false,
             //修改下拉不可用
-            selectEditDisabled:false
+            selectEditDisabled:false,
+            //新增界面手动输入按钮不可用
+            btnAddDisabled:false,
+            //修改界面手动输入按钮不可用
+            btnEditDisabled:false
         }
     },
     created: function () {
@@ -158,6 +162,7 @@ new Vue({
             document.getElementById('inputPicName').style.display = "inline";
             document.getElementById('closeBtn').style.display = "inline";
             this.selectDisabled = true;
+            this.btnAddDisabled = true;
             this.addForm.picType = "";
             this.addForm.picName = "";
         },
@@ -167,6 +172,7 @@ new Vue({
             document.getElementById('inputPicName').style.display = "none";
             document.getElementById('closeBtn').style.display = "none";
             this.selectDisabled = false;
+            this.btnAddDisabled = false;
             this.addForm.inputPicType = "";
             this.addForm.inputPicName = "";
         },
@@ -176,6 +182,7 @@ new Vue({
             document.getElementById('inputEditPicName').style.display = "inline";
             document.getElementById('closeEditBtn').style.display = "inline";
             this.selectEditDisabled = true;
+            this.btnEditDisabled = true;
             this.editForm.picType = "";
             this.editForm.picName = "";
         },
@@ -185,6 +192,7 @@ new Vue({
             document.getElementById('inputEditPicName').style.display = "none";
             document.getElementById('closeEditBtn').style.display = "none";
             this.selectEditDisabled = false;
+            this.btnEditDisabled = false;
             this.editForm.inputPicType = "";
             this.editForm.inputPicName = "";
         },

@@ -104,17 +104,17 @@
 						<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 							<el-row>
 								<el-col :span="10">
-									<el-form-item label="图片类型" prop="picType">
+									<el-form-item class="dialog-form" label="图片类型" prop="picType">
                                         <el-select size="small" v-model="addForm.picType" :disabled="selectDisabled" placeholder="请选择图片类型" @change="getAddTypeNames()" @clear='clearAddTypeNames()' clearable>
                                             <el-option v-for="type in allTypes" :label="type.codetypeName" :value="type.codetype" :key="type.codetype"></el-option>
                                         </el-select>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
-								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;" @click="inputClick()">手动输入</el-button></el-col>
+								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;" @click="inputClick()" :disabled="btnAddDisabled">手动输入</el-button></el-col>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="10">
-									<el-form-item label="图片名称" prop="picName">
+									<el-form-item class="dialog-form" label="图片名称" prop="picName">
                                         <el-select size="small" v-model="addForm.picName" :disabled="selectDisabled" placeholder="请选择图片名称" clearable>
                                             <el-option v-for="typeName in allAddTypeNames" :label="typeName.codeName" :value="typeName.codeName" :key="typeName.codeValue"></el-option>
                                         </el-select>
@@ -123,7 +123,7 @@
 							</el-row>
 							<el-row>
 								<el-col :span="10">
-									<el-form-item label="图片类型" id="inputPicType" style="display: none;" prop="inputPicType">
+									<el-form-item class="dialog-form" label="图片类型" id="inputPicType" style="display: none;" prop="inputPicType">
 										<el-input size="small" v-model="addForm.inputPicType" placeholder="图片类型"></el-input>
 									</el-form-item>
 								</el-col>
@@ -131,7 +131,7 @@
 								<el-col :span="2"><el-button type="danger" size="small"  id="closeBtn"  style="margin-top: 4px;display: none;" @click="closeClick()">选择输入</el-button></el-col>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="10">
-									<el-form-item label="图片名称" id="inputPicName" style="display: none;" prop="inputPicName">
+									<el-form-item class="dialog-form" label="图片名称" id="inputPicName" style="display: none;" prop="inputPicName">
 										<el-input size="small" v-model="addForm.inputPicName" placeholder="图片名称"></el-input>
 									</el-form-item>
 								</el-col>
@@ -169,17 +169,17 @@
 						<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 							<el-row>
 								<el-col :span="10">
-									<el-form-item label="图片类型" prop="picType">
+									<el-form-item class="dialog-form" label="图片类型" prop="picType">
                                         <el-select size="small" v-model="editForm.picType" :disabled="selectEditDisabled" placeholder="请选择图片类型" @change="getEditTypeNames()" @clear='clearEditTypeNames()' clearable>
                                             <el-option v-for="type in allTypes" :label="type.codetypeName" :value="type.codetype" :key="type.codetype"></el-option>
                                         </el-select>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
-								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;" @click="inputEditClick()">手动输入</el-button></el-col>
+								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;" @click="inputEditClick()" :disabled="btnEditDisabled">手动输入</el-button></el-col>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="10">
-									<el-form-item label="图片名称" prop="picName">
+									<el-form-item class="dialog-form" label="图片名称" prop="picName">
                                         <el-select size="small" v-model="editForm.picName" :disabled="selectEditDisabled" placeholder="请选择图片名称" clearable>
                                             <el-option v-for="typeName in allEditTypeNames" :label="typeName.codeName" :value="typeName.codeName" :key="typeName.codeValue"></el-option>
                                         </el-select>
@@ -188,7 +188,7 @@
 							</el-row>
 							<el-row>
 								<el-col :span="10">
-									<el-form-item label="图片类型" id="inputEditPicType" style="display: none;" prop="inputPicType">
+									<el-form-item class="dialog-form" label="图片类型" id="inputEditPicType" style="display: none;" prop="inputPicType">
 										<el-input size="small" v-model="editForm.inputPicType" placeholder="图片类型"></el-input>
 									</el-form-item>
 								</el-col>
@@ -196,7 +196,7 @@
 								<el-col :span="2"><el-button type="danger" size="small"  id="closeEditBtn"  style="margin-top: 4px;display: none;" @click="closeEditClick()">选择输入</el-button></el-col>
 								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="10">
-									<el-form-item label="图片名称" id="inputEditPicName" style="display: none;" prop="inputPicName">
+									<el-form-item class="dialog-form" label="图片名称" id="inputEditPicName" style="display: none;" prop="inputPicName">
 										<el-input size="small" v-model="editForm.inputPicName" placeholder="图片名称"></el-input>
 									</el-form-item>
 								</el-col>
