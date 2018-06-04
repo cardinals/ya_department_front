@@ -205,27 +205,15 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
         //根据重点单位id获取重点单位详情
         this.getDetails();
-        //根据重点单位id获取消防队伍信息
-        this.getXfllListByZddwIdo();
-        //根据重点单位id获取建筑类重点部位详情集合
-        this.getJzlListByZddwId();
-        //根据重点单位id获取装置类重点部位详情集合
-        this.getZzlListByZddwId();
-        //根据重点单位id获取储罐类重点部位详情集合
-        this.getCglListByZddwId();
-        //根据重点单位id获取消防设施信息
-        this.getXfssDetailByVo();
-        //根据重点单位id获取预案信息
-        this.getYaListByVo();
         
     },
     methods: {
         handleNodeClick(data) {
-            console.log(data);
+            // console.log(data);
         },
         //标签页
         handleClick: function (e) {
-            console.log(e);
+            // console.log(e);
         },
         //获取重点单位详情
         getDetails: function () {
@@ -234,26 +222,38 @@ new Vue({
             axios.get('/dpapi/importantunits/' + ID).then(function (res) {
                 this.tableData = res.data.result;
                 this.loading = false;
-                if (this.tableData !== []) {
+                // if (this.tableData !== []) {
+                    //根据重点单位id获取消防队伍信息
+                    this.getXfllListByZddwIdo();
+                    //根据重点单位id获取消防设施信息
+                    this.getXfssDetailByVo();
+                    //根据重点单位id获取建筑类重点部位详情集合
+                    this.getJzlListByZddwId();
+                    //根据重点单位id获取装置类重点部位详情集合
+                    this.getZzlListByZddwId();
+                    //根据重点单位id获取储罐类重点部位详情集合
+                    this.getCglListByZddwId();
                     //根据重点单位id获取包含的分区详情
                     this.getJzfqDetailByVo();
-                }
+                    //根据重点单位id获取预案信息
+                    this.getYaListByVo();
+                // }
             }.bind(this), function (error) {
                 console.log(error)
             })
-            
         },
         //根据重点单位id获取消防队伍信息
         getXfllListByZddwIdo: function () {
-            axios.get('/dpapi/importantunits/doFindXfllListByZddwId/' + this.uuid).then(function (res) {
+            axios.get('/dpapi/importantunits/doFindXfllListByZddwId/' + this.tableData.uuid).then(function (res) {
                 this.xfllData = res.data.result;
+                // console.log(this.xfllData);
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
         //根据重点单位id获取建筑类重点部位详情
         getJzlListByZddwId: function () {
-            axios.get('/dpapi/importantparts/doFindJzlListByZddwId/' + this.uuid).then(function (res) {
+            axios.get('/dpapi/importantparts/doFindJzlListByZddwId/' + this.tableData.uuid).then(function (res) {
                 this.jzl_zdbwData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
@@ -261,7 +261,7 @@ new Vue({
         },
         //根据重点单位id获取装置类重点部位详情
         getZzlListByZddwId: function () {
-            axios.get('/dpapi/importantparts/doFindZzlListByZddwId/' + this.uuid).then(function (res) {
+            axios.get('/dpapi/importantparts/doFindZzlListByZddwId/' + this.tableData.uuid).then(function (res) {
                 this.zzl_zdbwData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
@@ -269,7 +269,7 @@ new Vue({
         },
         //根据重点单位id获取装置类重点部位详情
         getCglListByZddwId: function () {
-            axios.get('/dpapi/importantparts/doFindCglListByZddwId/' + this.uuid).then(function (res) {
+            axios.get('/dpapi/importantparts/doFindCglListByZddwId/' + this.tableData.uuid).then(function (res) {
                 this.cgl_zdbwData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error)
@@ -296,7 +296,7 @@ new Vue({
         //通过重点单位id查询消防设施
         getXfssDetailByVo:function(){
             var params = {
-                uuid:this.uuid
+                uuid:this.tableData.uuid
             }
             axios.post('/dpapi/importantunits/doFindFireFacilitiesDetailsByVo', params).then(function (res) {
                 var data = res.data.result;
@@ -474,11 +474,11 @@ new Vue({
         //根据重点单位id获取预案信息
         getYaListByVo: function () {
             var params = {
-                dxid: this.uuid,
+                dxid: this.tableData.uuid,
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.yaData = res.data.result;
-                console.log(this.yaData);
+                // console.log(this.yaData);
             }.bind(this), function (error) {
                 console.log(error)
             })
