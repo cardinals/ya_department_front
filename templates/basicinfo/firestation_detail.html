@@ -121,6 +121,22 @@
                             </el-col>
                         </el-row>
                     </div>
+                    <div v-show="isQiTaXiaoFangDuiWu">
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">管辖单位：</strong>
+                                    <v-text v-text="qtxfdwdetailData.gxdw||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">管辖单位联系方式：</strong>
+                                    <v-text v-text="qtxfdwdetailData.gxdwlxfs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane name="second" label="人员信息">
                     <div v-show="isZongDui">
@@ -411,6 +427,36 @@
                                 <div>
                                     <strong class="dtdlStyle">副中队长三联系方式：</strong>
                                     <v-text v-text="daddetailData.fzdzlxfs3||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                    <div v-show="isQiTaXiaoFangDuiWu">
+                        <el-row>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">消防队员总人数：</strong>
+                                    <v-text v-text="qtxfdwdetailData.xfdyzrs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">每日执勤人数：</strong>
+                                    <v-text v-text="qtxfdwdetailData.mrzqrs||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="inform-margin">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">队长：</strong>
+                                    <v-text v-text="qtxfdwdetailData.dzxm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">队长联系方式：</strong>
+                                    <v-text v-text="qtxfdwdetailData.dzlxfs||'无'"></v-text>
                                 </div>
                             </el-col>
                         </el-row>
