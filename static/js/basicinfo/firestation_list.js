@@ -132,7 +132,6 @@ new Vue({
         //打开详情页
         details: function (val) {
             if(val.dzbm != '01000000'){
-                debugger;
                 this.detailVisible = true;
                 var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.dzid +"&dzlx=" +val.dzlx;
                 history.pushState(null, null, shortURL)
