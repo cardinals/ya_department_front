@@ -8,7 +8,6 @@ new Vue({
             uuid: "",
             //表数据
             tableData: [],//基本数据
-            xfllData: [],//消防队伍数据
             jzl_zdbwData: [],//建筑类重点部位数据
             zzl_zdbwData: [],//装置类重点部位数据
             cgl_zdbwData: [],//储罐类重点部位数据
@@ -16,6 +15,10 @@ new Vue({
             zzl_jzfqData: [],//建筑类建筑分区数据
             cgl_jzfqData: [],//建筑类建筑分区数据
             yaData: [],//预案数据
+            //消防力量显示标识：
+            XFLL:false,
+            //消防力量数据：
+            xfllData: [],
             //消防措施显示标识：
             //安全疏散措施显示标识
             AQSSCS:false,
@@ -246,6 +249,9 @@ new Vue({
         getXfllListByZddwIdo: function () {
             axios.get('/dpapi/importantunits/doFindXfllListByZddwId/' + this.tableData.uuid).then(function (res) {
                 this.xfllData = res.data.result;
+                if(this.xfllData.length!==0){
+                    this.XFLL=true;
+                }
                 // console.log(this.xfllData);
             }.bind(this), function (error) {
                 console.log(error)
