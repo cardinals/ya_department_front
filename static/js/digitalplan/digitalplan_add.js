@@ -353,19 +353,19 @@ new Vue({
                     this.dynamicValidateForm = res.data.result;
                     for (var i = 0; i < this.dynamicValidateForm.length; i++) {
                         //燃烧物质
-                        if(this.dynamicValidateForm[i].rswz!=null&&this.dynamicValidateForm[i].rswz!=""){
+                        if (this.dynamicValidateForm[i].rswz != null && this.dynamicValidateForm[i].rswz != "") {
                             var rswz = this.dynamicValidateForm[i].rswz;
                             this.dynamicValidateForm[i].rswz = [];
                             this.dynamicValidateForm[i].rswz.push(rswz);
-                        }else{
+                        } else {
                             this.dynamicValidateForm[i].rswz = [];
                         }
                         //灾情等级
-                        if(this.dynamicValidateForm[i].zqdj!=null&&this.dynamicValidateForm[i].zqdj!=""){
+                        if (this.dynamicValidateForm[i].zqdj != null && this.dynamicValidateForm[i].zqdj != "") {
                             var zqdj = this.dynamicValidateForm[i].zqdj;
                             this.dynamicValidateForm[i].zqdj = [];
                             this.dynamicValidateForm[i].zqdj.push(zqdj);
-                        }else{
+                        } else {
                             this.dynamicValidateForm[i].zqdj = [];
                         }
                     }
@@ -379,6 +379,7 @@ new Vue({
                     // var url = "http://localhost:8090/upload/" + res.data.result[0].xzlj
                     if (res.data.result.length > 0) {
                         this.fileList = [{
+                            uuid: res.data.result[0].uuid,
                             name: res.data.result[0].wjm,
                             url: "http://localhost:8090/upload/" + res.data.result[0].xzlj
                         }]
@@ -387,6 +388,7 @@ new Vue({
                 }.bind(this), function (error) {
                     console.log(error)
                 })
+                this.upLoadData.yaid = this.status;
                 this.loading1 = false;
             }
         },
@@ -425,7 +427,7 @@ new Vue({
         },
         //重点单位查询条件清空
         clearkeyunitList: function (val) {
-            this.searchForm_units.dwmc="";
+            this.searchForm_units.dwmc = "";
         },
         //重点单位删除
         clearYadx: function (val) {
@@ -476,7 +478,7 @@ new Vue({
         },
         //灾情部位查询条件清空
         clearpartsList: function (val) {
-            this.searchForm_parts.zdbwmc="";
+            this.searchForm_parts.zdbwmc = "";
         },
         //所属建筑选择弹出页---------------------------------------------------------------
         buildingList: function (val) {
@@ -522,7 +524,7 @@ new Vue({
         },
         //所属建筑查询条件清空
         clearbuildingList: function (val) {
-            this.searchForm_building.jzmc="";
+            this.searchForm_building.jzmc = "";
         },
         //消防队站选择弹出页---------------------------------------------------------------
         fireStaList: function (val, val1) {
@@ -570,7 +572,7 @@ new Vue({
         },
         //消防队站查询条件清空
         clearfireStaList: function (val) {
-            this.searchForm_fireSta.dzmc="";
+            this.searchForm_fireSta.dzmc = "";
         },
 
         //表格数据格式化
@@ -657,11 +659,27 @@ new Vue({
                             zzrmc: this.role_data.realName
                         };
                         axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
-                            this.$message({
-                                message: "成功保存预案信息",
-                                showClose: true
-                            });
-                            window.location.href = "digitalplan_list.html";
+                            if (this.isFile) {
+                                var params1 = {
+                                    yaid: this.status,
+                                    deleteFlag: 'Y',
+                                    xgsj: '1',
+                                    xgrid: this.role_data.userid,
+                                    xgrmc: this.role_data.realName
+                                };
+                                axios.post('/dpapi/yafjxz/doUpdateByVO', params1).then(function (res) {
+                                    // debugger
+                                    this.submitUpload();//附件上传
+                                }.bind(this), function (error) {
+                                    console.log(error);
+                                })
+                            } else {
+                                this.$message({
+                                    message: "成功保存预案信息",
+                                    showClose: true
+                                });
+                                window.location.href = "digitalplan_list.html";
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -722,11 +740,27 @@ new Vue({
                             zzrmc: this.role_data.realName
                         };
                         axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
-                            this.$message({
-                                message: "成功保存并提交预案信息",
-                                showClose: true
-                            });
-                            window.location.href = "digitalplan_list.html";
+                            if (this.isFile) {
+                                var params1 = {
+                                    yaid: this.status,
+                                    deleteFlag: 'Y',
+                                    xgsj: '1',
+                                    xgrid: this.role_data.userid,
+                                    xgrmc: this.role_data.realName
+                                };
+                                axios.post('/dpapi/yafjxz/doUpdateByVO', params1).then(function (res) {
+                                    // debugger
+                                    this.submitUpload();//附件上传
+                                }.bind(this), function (error) {
+                                    console.log(error);
+                                })
+                            } else {
+                                this.$message({
+                                    message: "成功保存预案信息",
+                                    showClose: true
+                                });
+                                window.location.href = "digitalplan_list.html";
+                            }
                         }.bind(this), function (error) {
                             console.log(error);
                         })
@@ -783,6 +817,7 @@ new Vue({
                     this.$message.error('仅可上传zip格式压缩文件!');
                     this.fileList.splice(0, this.fileList.length);
                 }
+
             } else if (fileList.length > 1) {
                 this.$message.warning('当前限制上传 1 个压缩文件');
                 fileList.splice(1, fileList.length - 1);
