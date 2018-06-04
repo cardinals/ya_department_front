@@ -859,7 +859,7 @@ var vm = new Vue({
                             '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
                             '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
                             '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
-                            '<b class="btn" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
                             '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
@@ -1081,6 +1081,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
+                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1122,6 +1123,7 @@ var vm = new Vue({
                     document.getElementById("shuiyuan").value = "1";
                 }
             },
+            //对水源进行灌注点
             getSysj: function () {
                 var syy = [];
                 vm.syy = syy;
@@ -1183,7 +1185,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-
+                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1212,7 +1214,7 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);//跳动的动画
                     syy.push(marker);
-                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    // marker.setAnimation(BMAP_ANIMATION_DROP); //跳动的动画
                 }
                 this.loading = false;
             },
@@ -1482,6 +1484,7 @@ var vm = new Vue({
                     this.mapType = '2D';
                 }
             },
+            //调取预案
             openPlan_1: function (val) {
                 axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
                     var plan = res.data.result;
@@ -1510,6 +1513,19 @@ var vm = new Vue({
                 })
 
             },
+            //水源详情跳转
+            syxq:function(params){
+                window.location.href = "../basicinfo/firewater_list.html?uuid=" + params+"&sydj=1";
+            },
+            //队站详情跳转
+            dzxq:function(dzparams){
+                window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams+"&dzdj=1";
+            },
+            //重点单位详情跳转
+            zddwxq:function(zddwparams){
+                window.location.href = "../planobject/importantunits_list.html?uuid=" + zddwparams+"&zddwdj=1";
+            },
+            //卫星地图
             WxOver: function () {
                 var map = this.map;
                 var mapType = this.mapType;
@@ -1579,9 +1595,6 @@ var vm = new Vue({
                 });
                 me.setAutoSearch(ac);
             },
-
-            // db start
-
             //显示百度库
             showSuggestId: function () {
                 this.searchCond = '';
@@ -1625,7 +1638,6 @@ var vm = new Vue({
                 var inCityPoint = [];
                 var centerPoint = new BMap.Point(map.getCenter().lng, map.getCenter().lat)
                 var centerCity = '';
-
                 for (var i = 0; i < zddws.length; i++) {
                     var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24)); //创建图标
                     var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
@@ -1634,7 +1646,6 @@ var vm = new Vue({
                         visibleNum++;
                         visiblePoint = point;
                     }
-
                     if (map.getDistance(point, centerPoint) < 50000) {
                         inCityNum++;
                         inCityPoint.push(point);
@@ -1646,24 +1657,20 @@ var vm = new Vue({
                         vm.removeAllMarkers(vm.circlez);
                         var circlez = [];//清除圆
                         vm.circlez = circlez;//清除圆
-
                         var pt = e.target.getPosition();
                         var map = vm.map;
                         map.centerAndZoom(pt, 16);//防止跳回聚合
                         for (var i = 0; i < zddws.length; i++) {
                             if (e.target.uuid == zddws[i].uuid) {
-
                                 this.infoData = (zddws[i].dxmc != null ? zddws[i].dxmc : '无');
                                 this.dwdzData = (zddws[i].dxdz != null ? zddws[i].dxdz : '无');
                                 this.xfzrrData = (zddws[i].xfzrr != null ? zddws[i].xfzrr : '无');
                                 this.zbdhData = (zddws[i].zbdh != null ? zddws[i].zbdh : '无');
                                 this.fhdjData = (zddws[i].fhdj != null ? zddws[i].fhdj : '无');
                                 this.yajbData = (zddws[i].yajb != null ? zddws[i].yajb : '无');
-
                             }
                         }
                         var uuid = e.target.uuid;
-
                         var contents =
                             '<div class="app-map-infowindow zddw-infowindow" style="height:255px;background-image: url(../../static/images/zddw_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                             '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
@@ -1732,7 +1739,6 @@ var vm = new Vue({
                         paddingRight: '80px',
                         marginLeft: '-9px',
                     });
-
                     marker.setLabel(label);
                     zddwp.push(marker);
                 };
@@ -1745,8 +1751,6 @@ var vm = new Vue({
                 else {
                     vm.map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 5);//重定位到原来坐标点
                 }
-
-
                 var markerClusterer = vm.markerClusterer;
                 markerClusterer.addMarkers(zddwp);
             },

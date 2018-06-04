@@ -126,6 +126,10 @@ new Vue({
         searchClick: function () {
             var _self = this;
             this.loading = true;
+            //地图跳转到重点
+            this.searchForm.uuid = this.GetQueryString("uuid");
+            var isZddwdj = this.GetQueryString("zddwdj");
+
             var params = {
                 dwmc: this.searchForm.dwmc,
                 dwxz: this.searchForm.dwxz,
@@ -137,6 +141,10 @@ new Vue({
             axios.post('/dpapi/importantunits/list', params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                if(isZddwdj == 1){
+                    var val = this.tableData[0];
+                    this.informClick(val)
+                }
                 this.loading = false;
             }.bind(this),function(error){
                 console.log(error);

@@ -65,6 +65,9 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             this.loading=true;
+            //跳转到队站
+            this.searchForm.dzid = this.GetQueryString("dzid");//获取队站ID
+            var isDzdj = this.GetQueryString("dzdj");//获取队站点击
             var _self = this;
             var params={
                 dzmc:this.searchForm.dzmc,
@@ -75,6 +78,10 @@ new Vue({
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
+                if(isDzdj == 1){
+                    var val = this.tableData[0];
+                    this.informClick(val)
+                    }
                 this.loading=false;
             }.bind(this),function(error){
                 console.log(error);
