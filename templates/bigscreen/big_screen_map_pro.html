@@ -17,10 +17,10 @@
     <!-- 底部控件 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
     <style>
-       .jwcolor{ color:darkslateblue;}
-
-
-
+       .jwcolor{ color:#333;}
+       .h25{height: 25px;} .h482{height: 482px;}
+       .h65{height: 65%;} .wh240{width: 240;}
+       .icont:hover{border:1px solid blue;}
     </style>
 </head>
 
@@ -39,14 +39,14 @@
                 <div id="menu-box" class="f12">
                     <el-form ref="form" :model="form" label-width="80px">
                         <!-- lxy start -->
-                        <div style="height: 65%;">
-                            <div class="search_top" style="height: 25px">
+                        <div class="h65">
+                            <div class="search_top h25">
                                 <el-select placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r">
                                     <el-option v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option>
                                 </el-select>
                                 <el-button class="l ml5" type="primary" @click="searchClick">搜索</el-button>
                             </div>
-                            <div style="margin-top: 10px; overflow-y:auto !important;height: 482px;">
+                            <div class="h482 "  style="margin-top: 10px; overflow-y:auto !important;height: 482px;">
                                 <div id="shengshizs">
                                     <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
                                         style="background-color:#708090;color:#fff;">
@@ -84,10 +84,10 @@
             <div id="BMap" class="map-main tc">
             </div>
             <!-- db start -->
-            <div class="search" style="position:fixed;top:10px;left: 300px;">
+            <div class="search" style="position:fixed;top:8px;left: 300px;">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" style="height: 34px !important;top:5px;" data-toggle="dropdown">
+                        <button type="button" class="btn btn-default dropdown-toggle" style="height: 30px !important;top:5px;" data-toggle="dropdown">
                             {{searchSource}}
                             <span class="caret"></span>
                         </button>
@@ -100,19 +100,19 @@
                             </li>
                         </ul>
                     </div>
-                    <input id="suggestId" style="width: 240px;top:5px;" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|地址~">
-                    <input style="width: 240px; display: none;top:5px;" type="search" class="form-control" placeholder="名称|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
+                    <input id="suggestId" style="width: 240px;top:5px;height: 30px !important;" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|地址~">
+                    <input style="width: 240px; display: none;top:5px;height: 30px !important;" type="search" class="form-control" placeholder="名称|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
                     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div> 
-                    <a style="position:fixed;left: 670px;top:11px;color: #000;" class="glyphicon glyphicon-remove btn form-control-feedback"
-                        style="pointer-events: auto"></a> 
+                    <!-- <a style="position:fixed;left: 670px;top:11px;color: #000;" class="glyphicon glyphicon-remove btn form-control-feedback"
+                        style="pointer-events: auto"></a>  -->
                 </div>
             </div>
             <!-- db end -->
             <div class="jwd" style="position:fixed;top:13px;right: 220px;">
-                <strong class="jwcolor">经度:</strong>
-                <input type="text" style="height: 34px !important;" id="lng" />
-                <strong class="jwcolor">纬度:</strong>
-                <input type="text" style="height: 34px !important;" id="lat" />
+                <span class="jwcolor">经度:</span>
+                <input type="text" style="height: 30px !important;border: 1px solid #C0C0C0;" id="lng" />
+                <span class="jwcolor">纬度:</span>
+                <input type="text" style="height: 30px !important;border: 1px solid #C0C0C0;" id="lat" />
             </div>
             <div style="position:fixed;bottom:20px;left: 40%;">
                 <div id="container">
@@ -166,20 +166,20 @@
             </div>
             <!-- 右侧工具 -->
             <div style="width: 200px; position:fixed;top:10px;right: 10px;">
-                <div @click="Reset()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"
+                <div @click="Reset()" style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="重置">
                     <img src="../../static/images/maptool/reset.png" />
                 </div>
-                <div @click="showOverzddw()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                <div @click="showOverzddw()" style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success"
                     data-container="body" data-placement="left" data-content="重点单位">
                     <img src="../../static/images/maptool/btn_zddw_back.png" />
                 </div>
-                <div @click="showOvera()" style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                <div @click="showOvera()" style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success"
                     data-container="body" data-placement="left" data-content="水源">
                     <img src="../../static/images/maptool/btn_water_back.png" />
                 </div>
                 <div class="dropdown">
-                    <div style="width:40px;height:58px;margin:2px;" class="icont" type="button" class="btn btn-success" type="button" class="btn dropdown-toggle"
+                    <div style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success" type="button" class="btn dropdown-toggle"
                         id="dropdownMenu1" data-toggle="dropdown">
                         <img src="../../static/images/maptool/btn_option_back.png" />
                     </div>
