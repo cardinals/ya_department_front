@@ -6,6 +6,7 @@ $("#zddwxx").hide();
 var vm = new Vue({
     el: "#app",
     data: {
+        loading: false,
         //点击重点单位标记上次画的圆
         circle: new BMap.Circle(),
         city: '',
@@ -298,7 +299,6 @@ var vm = new Vue({
                         this.shengshizs = res.data.result;
                         //获取焦点
                         map.centerAndZoom(pt, 7);
-
                         vm.drawMapa(this.shengshizs);
                         this.total = res.data.result.length;
                         $("#shengshizs").show();
@@ -1007,6 +1007,7 @@ var vm = new Vue({
             },
             //显示队站
             showOverdz: function () {
+                this.loading = true;
                 var duizhan = document.getElementById("duizhan").value;
                 if (duizhan == '1') {
                     this.getDzData();//获取队站     
@@ -1015,6 +1016,7 @@ var vm = new Vue({
                     vm.hideMarker(vm.dz);
                     document.getElementById("duizhan").value = "1";
                 }
+                
             },
             getDzsj: function () {
                 var dz = [];
@@ -1106,9 +1108,11 @@ var vm = new Vue({
                 }
                 var markerClusterer = vm.markerClusterer;
                 markerClusterer.addMarkers(dz);
+                this.loading = false;
             },
             //显示水源
             showOvera: function () {
+                this.loading = true;
                 var shuiyuan = document.getElementById("shuiyuan").value;
                 if (shuiyuan == '1') {
                     this.getSyData();
@@ -1208,10 +1212,13 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);//跳动的动画
                     syy.push(marker);
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
                 }
+                this.loading = false;
             },
             //显示车辆
             showOvercl: function () {
+                this.loading = true;
                 var cheliang = document.getElementById("cheliang").value;
                 if (cheliang == '1') {
                     this.getClData();
@@ -1300,9 +1307,12 @@ var vm = new Vue({
                     marker.setLabel(label);
                     cl.push(marker);               
                 }
+               	
+                this.loading = false;
             },
             //显示微型消防站
             showOverwx: function () {
+                this.loading = true;
                 var wx = document.getElementById("wx").value;
                 if (wx == "1") {
                     var wx = [];
@@ -1334,10 +1344,12 @@ var vm = new Vue({
                         marker.setLabel(label); wx.push(marker);
                     }
                     document.getElementById("wx").value = "";
+                    this.loading = false;
                 } else {
                     vm.hideMarker(vm.wx);
                     document.getElementById("wx").value = "1";
                 }
+                
             },
             //区域内重点单位全部
             showOverzddw: function () {
@@ -1460,6 +1472,7 @@ var vm = new Vue({
                         markers[i].hide();
                     };
                 }
+                this.loading = false;
             },
             EwOver: function () {
                 var map = this.map;
