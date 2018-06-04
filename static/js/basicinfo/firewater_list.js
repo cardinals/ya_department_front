@@ -149,7 +149,12 @@ new Vue({
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loadingData();
+                if(isSydj == 1){
+                    var val = this.tableData[0];
+                    this.informClick(val)
+                }
                 this.loading=false;
+
             }.bind(this), function (error) {
                 console.log(error)
             })
