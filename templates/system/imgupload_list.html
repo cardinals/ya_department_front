@@ -93,14 +93,14 @@
 						</el-row>
 					</div>
 					<!--图片预览-->
-					<el-dialog title="图片预览" :visible.sync="imgViewVisible" :close-on-click-modal="false">
+					<el-dialog :visible.sync="imgViewVisible" class="picDialog" :close-on-click-modal="false">
 						<div id="flagImage" style="margin-top: 3%">
 							<img id="flag" style="height:100px;width: 100px;">
 						</div>
 					</el-dialog>
 
 					<!--新建界面-->
-					<el-dialog title="新建用户" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">
+					<el-dialog title="新增图片" :visible.sync="addFormVisible" @close="closeDialog(addForm)" :close-on-click-modal="false">
 						<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 							<el-row>
 								<el-col :span="10">
@@ -165,7 +165,7 @@
 					</el-dialog>
 
 					<!--修改界面-->
-					<el-dialog title="修改" :visible.sync="editFormVisible"  @close="closeEditDialog(editForm)" :close-on-click-modal="false">
+					<el-dialog title="修改图片" :visible.sync="editFormVisible"  @close="closeEditDialog(editForm)" :close-on-click-modal="false">
 						<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 							<el-row>
 								<el-col :span="10">

@@ -131,20 +131,22 @@ new Vue({
         },
         //打开详情页
         details: function (val) {
-            this.detailVisible = true;
-            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.dzid +"&dzlx=" +val.dzlx;
-            history.pushState(null, null, shortURL)
-            //异步加载详情页
-            $(function () {
-                $.ajax({
-                    url: '../../../templates/basicinfo/firestation_detail.html',
-                    cache: true,
-                    async: true,
-                    success: function (html) {
-                        $("#detailDialog").html(html);
-                    }
-                });
-            })
+            if(val.dzbm != '01000000'){
+                this.detailVisible = true;
+                var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.dzid +"&dzlx=" +val.dzlx;
+                history.pushState(null, null, shortURL)
+                //异步加载详情页
+                $(function () {
+                    $.ajax({
+                        url: '../../../templates/basicinfo/firestation_detail.html',
+                        cache: true,
+                        async: true,
+                        success: function (html) {
+                            $("#detailDialog").html(html);
+                        }
+                    });
+                })
+            }
         },
         //关闭详情页
         closeDialog: function (val) {

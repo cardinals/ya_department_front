@@ -28,7 +28,8 @@ new Vue({
                 xfmt_ksq:'',
                 xfmt_sz:'',
                 trsy_trsylx:'',
-                trsy_ywksq:''
+                trsy_ywksq:'',
+                uuid:''
             },
             tableData: [],
             SYLX_data: [],
@@ -115,7 +116,12 @@ new Vue({
                      this.searchForm.sylx += '\'' + this.selected_SYLX[i] + '\',';
                  }
              }*/
+             //add by yushch 20180604
+             this.searchForm.uuid = this.GetQueryString("uuid");
+             var isSydj = this.GetQueryString("sydj");
+             //end add
             var params = {
+                uuid: this.searchForm.uuid,
                 symc: this.searchForm.symc,
                 sydz: this.searchForm.sydz,
                 sylx: this.searchForm.sylx,
@@ -143,7 +149,12 @@ new Vue({
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loadingData();
+                if(isSydj == 1){
+                    var val = this.tableData[0];
+                    this.informClick(val)
+                }
                 this.loading=false;
+
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -391,7 +402,13 @@ new Vue({
         closeDialog: function (val) {
             this.detailVisible = false;
             
-        }
+        },
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        },
     },
 
 })
