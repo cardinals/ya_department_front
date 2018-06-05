@@ -20,6 +20,7 @@
 .w20{width:20%;}.w40{width:40%;}.w60{width:60%;}.w25{width:25%;}.w50{width:50%;}.w75{width:75%;}.w99{width:99%;}.w100{width:100%;}
 .b_r{border-radius:30px;}
 /* p */
+.p0{padding:0;}
 .p1{padding:1px;}.pl1{padding-left:1px;}.pt1{padding-top:1px;}.pr1{padding-right:1px;}.pb1{padding-bottom:1px;}
 .p2{padding:2px;}.pl2{padding-left:2px;}.pt2{padding-top:2px;}.pr2{padding-right:2px;}.pb2{padding-bottom:2px;}
 .p3{padding:3px;}.pl3{padding-left:3px;}.pt3{padding-top:3px;}.pr3{padding-right:3px;}.pb3{padding-bottom:3px;}
