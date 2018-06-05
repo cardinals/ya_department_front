@@ -95,7 +95,10 @@ new Vue({
             //新增界面手动输入按钮不可用
             btnAddDisabled:false,
             //修改界面手动输入按钮不可用
-            btnEditDisabled:false
+            btnEditDisabled:false,
+            //变更前修改页面名称数据
+            savedPicName:'',
+            savedInputPicName:''
         }
     },
     created: function () {
@@ -487,6 +490,7 @@ new Vue({
                             }
                         }
                     }
+                    this.savedInputPicName = this.editForm.picName;
                     if(!inCodeTypes){
                         document.getElementById('inputEditPicType').style.display = "inline";
                         document.getElementById('inputEditPicName').style.display = "inline";
@@ -494,6 +498,7 @@ new Vue({
                         this.selectEditDisabled = true;
                         this.editForm.inputPicType = this.editForm.picTypename;
                         this.editForm.inputPicName = this.editForm.picName;
+                        this.savedInputPicName = this.editForm.picName;
                         this.editForm.picType = "";
                         this.editForm.picName = "";
                     }
@@ -512,8 +517,8 @@ new Vue({
             if(this.selectEditDisabled == false){  
                 if(val.picName!=null && val.picName!="" && val.picType!="" && val.picType!=null)
                 {
-                    axios.get('/api/imgupload/getNum/' + val.inputPicName).then(function(res){
-                        if(res.data.result != 0){
+                    axios.get('/api/imgupload/getNum/' + val.picName).then(function(res){
+                        if(res.data.result != 0 && val.picName != this.savedInputPicName){
                             _self.$message({
                                 message: "图片名已存在!",
                                 type: "error"
@@ -563,7 +568,7 @@ new Vue({
                 if(val.inputPicName!=null && val.inputPicName!="" && val.inputPicType!="" && val.inputPicType!=null)
                 {
                     axios.get('/api/imgupload/getNum/' + val.inputPicName).then(function(res){
-                        if(res.data.result != 0){
+                        if(res.data.result != 0 && val.inputPicName != this.savedInputPicName){
                             _self.$message({
                                 message: "图片名已存在!",
                                 type: "error"
