@@ -51,7 +51,7 @@
                             </dl>
                         </div>
                         <div style="float: right">
-                            <el-button type="primary" icon="document" style="width:120px" @click="openPrinter">信息分享</el-button>
+                            <el-button type="primary" icon="document" style="width:120px" @click="openShareVisible">信息分享</el-button>
                             <br>
                             <el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button>
                             <br>
@@ -389,8 +389,15 @@
 
                     </div>
                 </div>
+                <!--选择选择分享模板界面-->
+                <el-dialog title="选择分享模板" :visible.sync="shareVisible" @close="closeShareDialog()" :close-on-click-modal="false">
+                    <div id="tableView">
+                        <el-button type="primary" icon="share" style="width:140px" @click="openShare('detail')">预案详情分享</el-button>
+                        <br>
+                        <el-button type="primary" icon="share" style="margin-top:10px;width:140px" @click="openShare('summary')">预案概况分享</el-button>
+                    </div>
+                </el-dialog>
             </div>
-
             <!-- main-container -->
         </div>
     </div>

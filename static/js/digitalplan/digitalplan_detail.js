@@ -5,7 +5,7 @@ new Vue({
             activeName: "first",
 
             pkid: "",//页面获取的预案id
-
+            shareVisible: false,
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
             unitDetailData: {},//重点单位Data
@@ -106,9 +106,16 @@ new Vue({
             var newDate = [year, month, day].join('-');
             return newDate;
         },
-        //信息打印
-        openPrinter: function () {
-            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/web");
+        //选择信息分享模板界面
+        openShareVisible: function () {
+            this.shareVisible = true;
+        },
+        closeShareDialog: function () {
+            this.shareVisible = false;
+        },
+        //信息分享
+        openShare: function (val) {
+            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         //预案预览
         openPlan: function () {
@@ -120,7 +127,7 @@ new Vue({
                             message: "无可预览文件",
                             showClose: true
                         });
-                    }else{
+                    } else {
                         window.open("http://localhost:8090/upload/" + yllj);
                     }
                 }.bind(this), function (error) {
@@ -144,13 +151,13 @@ new Vue({
                 }.bind(this), function (error) {
                     console.log(error)
                 })
-            }else {
+            } else {
                 this.$message({
                     message: "无可下载预案",
                     showClose: true
                 });
             }
-            
+
             // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");
         },
         /**
