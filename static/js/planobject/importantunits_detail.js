@@ -551,13 +551,13 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-    },
-    //跳转到地图页面并带上UUID和点击参数
-    tz:function(){
-        // console.log(this.tableData);
-           var uuid = this.tableData.uuid;
-      
-          window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sydj=1";
+        //跳转到地图页面并带上UUID和点击参数
+        tz:function(){
+            // console.log(this.tableData);
+            var uuid = this.tableData.uuid;
+        
+            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sydj=1";
         }
+    }
 
 })
