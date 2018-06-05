@@ -34,22 +34,22 @@
     <div id="app">
         <div class="application-boxs tc abs" style="top:0px;">
             <!-- 左侧 -->
-            <div class="map-menu-left p10 map-bg">
+            <div class="map-menu-left p10 map-bglf">
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
                 <div id="menu-box" class="f12">
                     <el-form ref="form" :model="form" label-width="80px">
                         <!-- lxy start -->
                         <div class="h65">
-                            <div class="search_top h25">
-                                <el-select placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r">
+                            <div class="search_top h25" style="margin-top:20px;">
+                                <el-select style="border: 2px solid #647AAE;border-radius:5px;" placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r" >
                                     <el-option v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option>
                                 </el-select>
-                                <el-button class="l ml5" type="primary" @click="searchClick">搜索</el-button>
+                                <el-button class="l ml5" style="background:#1E2B3F;border: 2px solid #647AAE;border-radius:5px;margin-left: 1px;height: 29px;" type="primary" @click="searchClick">搜索</el-button>
                             </div>
                             <div class="h482 "  style="margin-top: 10px; overflow-y:auto !important;height: 482px;">
                                 <div id="shengshizs">
                                     <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
-                                        style="background-color:#708090;color:#fff;">
+                                        style="background-color:#3A254F;color:#fff;border: 2px solid #F9C520;border-radius:5px;">
                                         <div @click="shengshiClick(data)">
                                             <div class="l cell_bk">行政区划名称：{{data.xzqhmc }}</div>
                                             <div class="l cell_bk">重点单位数量：{{data.zddwsl }}</div>
@@ -57,11 +57,11 @@
                                     </el-card>
                                 </div>
                                 <div id="zddwxx">
-                                    <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="background-color:#708090;color:#fff;">
+                                    <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="border-radius:5px;background-color:#3A254F;color:#fff;border: 2px solid #E05E63;">
                                         <div @click="zddwxxClick(data)">
                                             <div slot="header">
                                                 <strong>{{data.dwmc }}</strong>&nbsp&nbsp
-                                                <el-tag color="#0f82ee" size="medium">{{data.dwxzmc}}</el-tag>
+                                                <!-- <el-tag color="" size="medium">{{data.dwxzmc}}</el-tag> -->
                                             </div>
                                             <div class="l cell_bk">地址：{{data.dwdz }}</div>
                                             <div class="l cell_bk">电话：{{data.zbdh }}</div>
@@ -69,7 +69,7 @@
                                     </el-card>
                                 </div>
                             </div>
-                            <div id="zddwxxTool" class="pagenum">
+                            <div id="zddwxxTool" class="pagenum" >
                                 <div type="flex" justify="end">
                                     <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" :pager-count="5" background
                                         layout="total,jumper" :total=parseInt(total)>
