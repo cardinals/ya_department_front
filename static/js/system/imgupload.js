@@ -651,7 +651,7 @@ new Vue({
                                     })
                                 } 
                                 else{
-                                    if(val.inputPicType==this.editForm.picType){
+                                    if(val.inputPicType==this.editForm.picTypename){
                                         var params = {
                                             pkid: val.pkid,
                                             picName: val.inputPicName,
