@@ -362,22 +362,93 @@ new Vue({
                             });
                         }else{
                             var picValue = "";
-                            axios.get('/api/imgupload/getInputNum/' + this.addForm.inputPicType).then(function(res){
-                                picValue = res.data.result + 1 + picValue;         
-                                var params = {
-                                    picName: val.inputPicName,
-                                    picTypename: val.inputPicType,
-                                    picType:val.inputPicType,
-                                    picValue:picValue
+                            var picType = val.inputPicType;
+                            for(var i = 0;i<this.allTypes.length;i++){
+                                if(this.allTypes[i].codetypeName == val.inputPicType){
+                                    picType = this.allTypes[i].codetype;
                                 }
-                                this.picName = val.inputPicName;
-                                axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
-                                    _self.total = _self.tableData.length;
-                                    this.submitUpload();
-                                    this.searchClick();
-                                }.bind(this),function(error){
-                                    console.log(error)
-                                })
+                            }
+                            axios.get('/api/imgupload/getInputNum/' + picType).then(function(res){
+                                if(res.data.result !=null){
+                                    picValue = res.data.result.length + 1 + picValue;
+                                }
+                                else{
+                                    picValue = 1+picValue;
+                                }
+                                var picSaved= res.data.result;
+                                
+                                if(picType != val.inputPicType){
+                                    axios.get('/api/codelist/getCodetype/'+picType).then(function (res) {
+                                        var AddTypeNames = res.data.result;
+                                        //定义一个比较器
+                                        function compare(propertyName) {
+                                            return function(object1, object2) {
+                                                var value1 = object1[propertyName];
+                                                var value2 = object2[propertyName];
+                                                if (value2 < value1) {
+                                                    return 1;
+                                                } else if (value2 > value1) {
+                                                    return -1;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            }
+                                        }
+                                        AddTypeNames.sort(compare("codeValue"));
+                                        picValue = parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)+1+'';
+                                        var picBelongToCode = false;
+                                        for(var m=0;m<AddTypeNames.length;m++){
+                                            if(AddTypeNames[m].codeName == val.inputPicName){
+                                                picValue = AddTypeNames[m].codeValue;
+                                                picBelongToCode = true;
+                                            }
+                                        }
+                                        if(picSaved !=null){
+                                            var inTypeNum = 0;
+                                            for(var k=0;k<picSaved.length;k++){
+                                                if(parseInt(picSaved[k].picValue) >parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)){
+                                                    inTypeNum++;
+                                                }
+                                            }
+                                            if(inTypeNum>0 && !picBelongToCode){
+                                                picValue =  parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)+inTypeNum+1+'';
+                                            }
+                                        }
+                                        var params = {
+                                            picName: val.inputPicName,
+                                            picTypename: val.inputPicType,
+                                            picType:picType,
+                                            picValue:picValue
+                                        }
+                                        this.picName = val.inputPicName;
+                                        axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
+                                            _self.total = _self.tableData.length;
+                                            this.submitUpload();
+                                            this.searchClick();
+                                        }.bind(this),function(error){
+                                            console.log(error)
+                                        })
+                                    }.bind(this), function (error) {
+                                        console.log(error);
+                                    })
+
+                                }
+                                else{     
+                                    var params = {
+                                        picName: val.inputPicName,
+                                        picTypename: val.inputPicType,
+                                        picType:picType,
+                                        picValue:picValue
+                                    }
+                                    this.picName = val.inputPicName;
+                                    axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
+                                        _self.total = _self.tableData.length;
+                                        this.submitUpload();
+                                        this.searchClick();
+                                    }.bind(this),function(error){
+                                        console.log(error)
+                                    })
+                                }
                             }.bind(this),function(error){
                                 console.log(error)
                             })
