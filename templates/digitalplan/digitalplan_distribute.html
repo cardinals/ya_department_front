@@ -4,20 +4,22 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplanlist.css">
+    <title>预案分发</title>
 </head>
 
 <body class="fw f14 main-index-body">
     <div id="header_box"></div>
     <div class="left-sidebar">
         <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <input type="hidden" id="activeIndex"/>
         <div id="menu-box">
-            <big-tree default-active="36"></big-tree>
+            <big-tree default-active=""></big-tree>
         </div>
     </div>
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
-                <div id="lib :: main_container_header('重点单位管理','重点单位管理')"></div>
+                <div id="lib :: main_container_header('预案审核','预案审核')"></div>
                 <div id="tableView">
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
@@ -40,29 +42,27 @@
                             </el-row>
                             <el-row>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">对象名称</label>
+                                    <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称"></el-input>
+                                </el-col>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">制作机构</label>
-                                    <el-cascader :options="ZZJG_dataTree" :props="defaultProps" size="small" v-model="searchForm.ZZJG" placeholder="制作机构" class="searchSelect"
+                                    <el-cascader :options="ZZJG_dataTree" :props="jgidprops" size="small" v-model="searchForm.ZZJG" placeholder="制作机构" class="searchSelect"
                                         clearable change-on-select></el-cascader>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-                                    <label class="el-form-item__label searchLabel">审核状态</label>
-                                    <el-select size="small" v-model="searchForm.SHZT" placeholder="审核状态" class="searchSelect" clearable>
-                                        <el-option v-for="item in SHZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+                                    <label class="el-form-item__label searchLabel">预案状态</label>
+                                    <el-select size="small" v-model="searchForm.YAZT" disabled placeholder="预案状态" class="searchSelect" clearable>
+                                        <el-option v-for="item in YAZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
-                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-									<label class="el-form-item__label searchLabel">审核时间</label>
-									<el-date-picker type="daterange" @change="timeChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.shsj"
-									 range-separator="至" placeholder="审核时间" start-placeholder="开始日期" end-placeholder="结束日期" class="searchDatePicker">
-									</el-date-picker>
-								</el-col>
                             </el-row>
                             <div>
                                 <el-form>
                                     <el-col :span="12" class="btnEditDelete">
                                         <el-form-item align="left">
                                             <!--<el-button type="primary" icon="edit" size="small" @click="editClick">编辑</el-button>-->
-                                            <el-button type="warning" icon="star-off" size="small" @click="approve">分发</el-button>
+                                            <el-button type="danger" icon="edit" size="small" @click="distribute">分发</el-button>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12"></el-col>
@@ -79,22 +79,22 @@
                     <div class="table_container">
                         <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                         @row-click = "showRow" class="tableStyle" :height="tableheight">
-                        <el-table-column min-width="5%">
-                            <template scope="scope">
-                                <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
-                                <!-- {{radio}} -->
-                            </template>
-                        </el-table-column>
-                        <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-                        <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
-                            <template slot-scope="scope">
-                                <a @click="planDetails(scope.row)">{{scope.row.yamc}}</a>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="16%" align="center" :formatter="dataFormat"></el-table-column>
-                        <el-table-column prop="yalxdm" label="预案类型" show-overflow-tooltip min-width="14%" align="center" :formatter="dataFormat"></el-table-column>
-                        <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-                        <el-table-column prop="shzt" label="审核状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column width="50px">
+                                <template scope="scope">
+                                    <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
+                                </template>
+                            </el-table-column>
+                            <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
+                            <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="24%" align="center">
+                                <template slot-scope="scope">
+                                    <a @click="planDetails(scope.row)" v-text="scope.row.yamc"></a>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="17%" align="center"></el-table-column>
+                            <el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="yajbmc" label="预案级别" show-overflow-tooltip min-width="15%" align="center"></el-table-column>
+                            <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                            <el-table-column prop="yaztmc" label="预案状态" show-overflow-tooltip min-width="12%" align="center"></el-table-column>
                         </el-table>
 
                         <!--列表底部工具条和分页符-->
@@ -110,25 +110,21 @@
                     <el-dialog title="预案详情列表" :visible.sync="planDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
                         <div id="detailDialog"></div>
                     </el-dialog>
-                    <!--审批界面-->
-                    <el-dialog title="预案分发" :visible.sync="approveFormVisible" @close="closeDialog(approveForm)" :close-on-click-modal="false">
-						<el-form :model="approveForm" label-width="80px" ref="approveForm">
-                            <el-row>
-								<el-col :span="20">
-									<el-form-item label="分发选择" style="padding: 10px;" prop="shzt">
-										<!-- <el-radio-group v-model="approveForm.shzt" auto-complete="off">
-                                            <el-radio v-for="item in SHZT_data" :label="item.codeValue">{{item.codeName}}</el-radio>
-                                        </el-radio-group>  -->
-                                        <el-checkbox-group size="small" v-model="checkedYalx">
-                                            <el-checkbox @change="handleCheckedYalxChange" v-for="item in allSsdzData" :label="item.codeName" :disabled="item.codeName === '北京总队'" :key="item.codeName" :value="item.codeValue"></el-checkbox>
-                                        </el-checkbox-group>
-                                    </el-form-item>
-								</el-col>
-							</el-row>
-						</el-form>
+                    <!--分发界面-->
+                    <el-dialog title="预案分发" :visible.sync="distributeFormVisible" @close="closeDialog(ffzd)" :close-on-click-modal="false">
+                        <!-- <el-checkbox-group v-model="jgSelect">
+                            <el-checkbox v-for="jg in jgList" :label="jg.jgjc" :key="jg.jgid">{{jg.jgjc}}</el-checkbox>
+                        </el-checkbox-group> 
+                        -->
+                        <el-checkbox-group v-model="ffzd">
+                            <template v-model="jgSelect" v-for="jg in jgList">
+                                <el-checkbox v-if="jgSelectString==jg.jgjc" :label="jg.jgjc" :key="jg.jgid" disabled>{{jg.jgjc}}</el-checkbox>
+                                <el-checkbox v-else :label="jg.jgjc" :key="jg.jgid">{{jg.jgjc}}</el-checkbox>
+                            </template>
+                        </el-checkbox-group>
 						<div slot="footer" class="dialog-footer">
-							<el-button @click.native="closeDialog(approveForm)">取消</el-button>
-							<el-button type="primary" @click.native="approveSubmit(approveForm)">分发</el-button>
+							<el-button size="small" @click.native="closeDialog(ffzd)">取消</el-button>
+							<el-button size="small" type="primary" @click.native="distributeSubmit(ffzd)">提交</el-button>
 						</div>
 					</el-dialog>
                 </div>
@@ -138,7 +134,7 @@
     </div>
 </body>
 <script src="../../static/js/lib.js"></script>
-<script src="../../static/js/menu.js"></script>
 <script src="../../static/js/digitalplan/digitalplan_distribute.js"></script>
+<script src="../../static/js/menu.js"></script>
 
 </html>

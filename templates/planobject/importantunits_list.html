@@ -29,13 +29,13 @@
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">单位性质</label>
-									<el-select size="small" v-model="searchForm.dwxz" placeholder="单位性质" class="searchSelect" clearable>
+									<el-select size="small" v-model="searchForm.dwxz" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in dwxzData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">单位建筑情况</label>
-									<el-select size="small" v-model="searchForm.jzfl" placeholder="单位建筑情况" class="searchSelect" clearable>
+									<el-select size="small" v-model="searchForm.jzfl" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in jzflData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-col>
@@ -43,19 +43,19 @@
 							<el-row>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">防火等级</label>
-									<el-select size="small" v-model="searchForm.fhdj" placeholder="防火等级" class="searchSelect" clearable>
+									<el-select size="small" v-model="searchForm.fhdj" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in fhdjData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">灭火队站</label>
-									<el-select size="small" v-model="searchForm.mhdzbm" placeholder="灭火队站" class="searchSelect" clearable>
+									<el-select size="small" v-model="searchForm.mhdzbm" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in mhdzidData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-									<label class="el-form-item__label searchLabel">消防队伍类型</label>
-									<el-select size="small" v-model="searchForm.xfdwlxmc" placeholder="消防队伍类型" class="searchSelect" clearable>
+									<label class="el-form-item__label searchLabel">有无消防队伍</label>
+									<el-select size="small" v-model="searchForm.xfdwlxmc" placeholder="全部" class="searchSelect" clearable>
 										<el-option v-for="item in xfdwlxmcData" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 									</el-select>
 								</el-col>

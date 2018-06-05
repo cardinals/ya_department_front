@@ -270,7 +270,7 @@ new Vue({
         },
         //单位建筑情况初始化
         DWJZQK:function(){
-            axios.get('/api/codelist/getCodetype/JZFL').then(function (res) {
+            axios.get('/api/codelist/getCodetype/JZLX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
                     this.dwjzqk_data.push(res.data.result[i]);
                 }

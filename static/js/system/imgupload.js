@@ -362,22 +362,93 @@ new Vue({
                             });
                         }else{
                             var picValue = "";
-                            axios.get('/api/imgupload/getInputNum/' + this.addForm.inputPicType).then(function(res){
-                                picValue = res.data.result + 1 + picValue;         
-                                var params = {
-                                    picName: val.inputPicName,
-                                    picTypename: val.inputPicType,
-                                    picType:val.inputPicType,
-                                    picValue:picValue
+                            var picType = val.inputPicType;
+                            for(var i = 0;i<this.allTypes.length;i++){
+                                if(this.allTypes[i].codetypeName == val.inputPicType){
+                                    picType = this.allTypes[i].codetype;
                                 }
-                                this.picName = val.inputPicName;
-                                axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
-                                    _self.total = _self.tableData.length;
-                                    this.submitUpload();
-                                    this.searchClick();
-                                }.bind(this),function(error){
-                                    console.log(error)
-                                })
+                            }
+                            axios.get('/api/imgupload/getInputNum/' + picType).then(function(res){
+                                if(res.data.result !=null){
+                                    picValue = res.data.result.length + 1 + picValue;
+                                }
+                                else{
+                                    picValue = 1+picValue;
+                                }
+                                var picSaved= res.data.result;
+                                
+                                if(picType != val.inputPicType){
+                                    axios.get('/api/codelist/getCodetype/'+picType).then(function (res) {
+                                        var AddTypeNames = res.data.result;
+                                        //定义一个比较器
+                                        function compare(propertyName) {
+                                            return function(object1, object2) {
+                                                var value1 = object1[propertyName];
+                                                var value2 = object2[propertyName];
+                                                if (value2 < value1) {
+                                                    return 1;
+                                                } else if (value2 > value1) {
+                                                    return -1;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            }
+                                        }
+                                        AddTypeNames.sort(compare("codeValue"));
+                                        picValue = parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)+1+'';
+                                        var picBelongToCode = false;
+                                        for(var m=0;m<AddTypeNames.length;m++){
+                                            if(AddTypeNames[m].codeName == val.inputPicName){
+                                                picValue = AddTypeNames[m].codeValue;
+                                                picBelongToCode = true;
+                                            }
+                                        }
+                                        if(picSaved !=null){
+                                            var inTypeNum = 0;
+                                            for(var k=0;k<picSaved.length;k++){
+                                                if(parseInt(picSaved[k].picValue) >parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)){
+                                                    inTypeNum++;
+                                                }
+                                            }
+                                            if(inTypeNum>0 && !picBelongToCode){
+                                                picValue =  parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)+inTypeNum+1+'';
+                                            }
+                                        }
+                                        var params = {
+                                            picName: val.inputPicName,
+                                            picTypename: val.inputPicType,
+                                            picType:picType,
+                                            picValue:picValue
+                                        }
+                                        this.picName = val.inputPicName;
+                                        axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
+                                            _self.total = _self.tableData.length;
+                                            this.submitUpload();
+                                            this.searchClick();
+                                        }.bind(this),function(error){
+                                            console.log(error)
+                                        })
+                                    }.bind(this), function (error) {
+                                        console.log(error);
+                                    })
+
+                                }
+                                else{     
+                                    var params = {
+                                        picName: val.inputPicName,
+                                        picTypename: val.inputPicType,
+                                        picType:picType,
+                                        picValue:picValue
+                                    }
+                                    this.picName = val.inputPicName;
+                                    axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
+                                        _self.total = _self.tableData.length;
+                                        this.submitUpload();
+                                        this.searchClick();
+                                    }.bind(this),function(error){
+                                        console.log(error)
+                                    })
+                                }
                             }.bind(this),function(error){
                                 console.log(error)
                             })
@@ -403,21 +474,32 @@ new Vue({
             axios.get('/api/imgupload/doFindById/' + pkid).then(function (res) {
                 this.editForm = res.data.result;
                 var inCodeTypes = false;
-                for(var i = 0;i<this.allTypes.length;i++){
-                    if(this.allTypes[i].codetype == this.editForm.picType){
-                        inCodeTypes = true;
+                var ispicTypename =[];
+                axios.get('/api/codelist/getCodetype/'+this.editForm.picType).then(function (res) {
+                    ispicTypename = res.data.result;
+
+                    for(var i = 0;i<this.allTypes.length;i++){
+                        if(this.allTypes[i].codetype == this.editForm.picType){
+                            for(var k=0;k<ispicTypename.length;k++){
+                                if(this.editForm.picName == ispicTypename[k].codeName){
+                                    inCodeTypes = true;
+                                }
+                            }
+                        }
                     }
-                }
-                if(!inCodeTypes){
-                    document.getElementById('inputEditPicType').style.display = "inline";
-                    document.getElementById('inputEditPicName').style.display = "inline";
-                    document.getElementById('closeEditBtn').style.display = "inline";
-                    this.selectEditDisabled = true;
-                    this.editForm.inputPicType = this.editForm.picType;
-                    this.editForm.inputPicName = this.editForm.picName;
-                    this.editForm.picType = "";
-                    this.editForm.picName = "";
-                }
+                    if(!inCodeTypes){
+                        document.getElementById('inputEditPicType').style.display = "inline";
+                        document.getElementById('inputEditPicName').style.display = "inline";
+                        document.getElementById('closeEditBtn').style.display = "inline";
+                        this.selectEditDisabled = true;
+                        this.editForm.inputPicType = this.editForm.picTypename;
+                        this.editForm.inputPicName = this.editForm.picName;
+                        this.editForm.picType = "";
+                        this.editForm.picName = "";
+                    }
+                }.bind(this),function(error){
+                    console.log(error)
+                })
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -430,34 +512,45 @@ new Vue({
             if(this.selectEditDisabled == false){  
                 if(val.picName!=null && val.picName!="" && val.picType!="" && val.picType!=null)
                 {
-                    var picTypename = "";
-                    var picValue = "";
-                    for(var i = 0;i<this.allTypes.length;i++){
-                        if(this.allTypes[i].codetype == val.picType){
-                            picTypename = this.allTypes[i].codetypeName;
+                    axios.get('/api/imgupload/getNum/' + val.inputPicName).then(function(res){
+                        if(res.data.result != 0){
+                            _self.$message({
+                                message: "图片名已存在!",
+                                type: "error"
+                            });
+                        }else{
+                            var picTypename = "";
+                            var picValue = "";
+                            for(var i = 0;i<this.allTypes.length;i++){
+                                if(this.allTypes[i].codetype == val.picType){
+                                    picTypename = this.allTypes[i].codetypeName;
+                                }
+                            }
+                            for(var k = 0;k<this.allEditTypeNames.length;k++){
+                                if(this.allEditTypeNames[k].codeName == val.picName){
+                                    picValue = this.allEditTypeNames[k].codeValue;
+                                }
+                            }
+                            var params = {
+                                pkid: val.pkid,
+                                picName: val.picName,
+                                picType: val.picType,
+                                picValue: picValue,
+                                picTypename: picTypename
+                            };
+                            this.picName = val.picName;
+                            axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
+                                this.submitUpload();
+                                this.searchClick();
+                                this.editFormVisible = false;
+                            }.bind(this), function (error) {
+                                console.log(error)
+                            })
+                            _self.loadingData();
                         }
-                    }
-                    for(var k = 0;k<this.allEditTypeNames.length;k++){
-                        if(this.allEditTypeNames[k].codeName == val.picName){
-                            picValue = this.allEditTypeNames[k].codeValue;
-                        }
-                    }
-                    var params = {
-                        pkid: val.pkid,
-                        picName: val.picName,
-                        picType: val.picType,
-                        picValue: picValue,
-                        picTypename: picTypename
-                    };
-                    this.picName = val.picName;
-                    axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
-                        this.submitUpload();
-                        this.searchClick();
-                        this.editFormVisible = false;
-                    }.bind(this), function (error) {
+                    }.bind(this),function(error){
                         console.log(error)
                     })
-                    _self.loadingData();
                 }
                 else{
                     _self.$message({
@@ -469,21 +562,129 @@ new Vue({
             else{
                 if(val.inputPicName!=null && val.inputPicName!="" && val.inputPicType!="" && val.inputPicType!=null)
                 {
-                    var params = {
-                        pkid: val.pkid,
-                        picName: val.inputPicName,
-                        picTypename: val.inputPicType,
-                        picType:val.inputPicType
-                    };
-                    this.picName = val.inputPicName;
-                    axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
-                        this.submitUpload();
-                        this.searchClick();
-                        this.editFormVisible = false;
-                    }.bind(this), function (error) {
+                    axios.get('/api/imgupload/getNum/' + val.inputPicName).then(function(res){
+                        if(res.data.result != 0){
+                            _self.$message({
+                                message: "图片名已存在!",
+                                type: "error"
+                            });
+                        }else{
+                            var picValue = "";
+                            var picType = val.inputPicType;
+                            for(var i = 0;i<this.allTypes.length;i++){
+                                if(this.allTypes[i].codetypeName == val.inputPicType){
+                                    picType = this.allTypes[i].codetype;
+                                }
+                            }
+                            axios.get('/api/imgupload/getInputNum/' + picType).then(function(res){
+                                if(res.data.result !=null){
+                                    picValue = res.data.result.length + 1 + picValue;
+                                }
+                                else{
+                                    picValue = 1+picValue;
+                                }
+                                var picSaved= res.data.result;
+                                if(picType != val.inputPicType){
+                                    axios.get('/api/codelist/getCodetype/'+picType).then(function (res) {
+                                        var AddTypeNames = res.data.result;
+                                        //定义一个比较器
+                                        function compare(propertyName) {
+                                            return function(object1, object2) {
+                                                var value1 = object1[propertyName];
+                                                var value2 = object2[propertyName];
+                                                if (value2 < value1) {
+                                                    return 1;
+                                                } else if (value2 > value1) {
+                                                    return -1;
+                                                } else {
+                                                    return 0;
+                                                }
+                                            }
+                                        }
+                                        AddTypeNames.sort(compare("codeValue"));
+                                        picValue = parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)+1+'';
+                                        var picBelongToCode = false;
+                                        for(var m=0;m<AddTypeNames.length;m++){
+                                            if(AddTypeNames[m].codeName == val.inputPicName){
+                                                picValue = AddTypeNames[m].codeValue;
+                                                picBelongToCode = true;
+                                            }
+                                        }
+                                        if(picSaved !=null){
+                                            var inTypeNum = 0;
+                                            for(var k=0;k<picSaved.length;k++){
+                                                if(parseInt(picSaved[k].picValue) >parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)){
+                                                    inTypeNum++;
+                                                }
+                                            }
+                                            if(inTypeNum>0 && !picBelongToCode){
+                                                picValue =  parseInt(AddTypeNames[AddTypeNames.length-1].codeValue)+inTypeNum+1+'';
+                                            }
+                                        }
+                                        if(val.inputPicType==this.editForm.picTypename){
+                                            var params = {
+                                                pkid: val.pkid,
+                                                picName: val.inputPicName,
+                                                picTypename: val.inputPicType,
+                                                picType:picType
+                                            };
+                                        }
+                                        else{
+                                            var params = {
+                                                pkid: val.pkid,
+                                                picName: val.inputPicName,
+                                                picTypename: val.inputPicType,
+                                                picType:picType,
+                                                picValue:picValue
+                                            };
+                                        }
+                                        this.picName = val.inputPicName;
+                                        axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
+                                            this.submitUpload();
+                                            this.searchClick();
+                                            this.editFormVisible = false;
+                                        }.bind(this), function (error) {
+                                            console.log(error)
+                                        })
+                                    }.bind(this), function (error) {
+                                        console.log(error)
+                                    })
+                                } 
+                                else{
+                                    if(val.inputPicType==this.editForm.picTypename){
+                                        var params = {
+                                            pkid: val.pkid,
+                                            picName: val.inputPicName,
+                                            picTypename: val.inputPicType,
+                                            picType:picType
+                                        };
+                                    }
+                                    else{
+                                        var params = {
+                                            pkid: val.pkid,
+                                            picName: val.inputPicName,
+                                            picTypename: val.inputPicType,
+                                            picType:picType,
+                                            picValue:picValue
+                                        };
+                                    }
+                                    this.picName = val.inputPicName;
+                                    axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
+                                        this.submitUpload();
+                                        this.searchClick();
+                                        this.editFormVisible = false;
+                                    }.bind(this), function (error) {
+                                        console.log(error)
+                                    })
+                                }
+                            }.bind(this),function(error){
+                                console.log(error)
+                            })
+                            _self.loadingData();
+                        }
+                    }.bind(this),function(error){
                         console.log(error)
                     })
-                    _self.loadingData();
                 }
                 else{
                     _self.$message({
