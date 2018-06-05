@@ -391,7 +391,7 @@
                 </div>
                 <!--选择选择分享模板界面-->
                 <el-dialog title="选择分享模板" :visible.sync="shareVisible" @close="closeShareDialog()" :close-on-click-modal="false">
-                    <div id="tableView">
+                    <div id="tableView" style="padding: 0 35px;">
                         <el-button type="primary" icon="share" style="width:140px" @click="openShare('detail')">预案详情分享</el-button>
                         <br>
                         <el-button type="primary" icon="share" style="margin-top:10px;width:140px" @click="openShare('summary')">预案概况分享</el-button>
