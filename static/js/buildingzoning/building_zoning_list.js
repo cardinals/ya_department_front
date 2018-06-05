@@ -84,7 +84,7 @@ new Vue({
             this.searchForm.jzwz="";
         },
         getJZFLData: function (){
-            axios.get('/api/codelist/getCodetype/JZFL').then(function(res){
+            axios.get('/api/codelist/getCodetype/JZLX').then(function(res){
                 this.JZFL_data=res.data.result;
             }.bind(this),function(error){
                 console.log(error);

@@ -7,3 +7,16 @@
 .el-dialog__footer{
     text-align: center;
 }
+.el-form-item.dialog-form{
+    margin-bottom: 6px;
+}
+.picDialog .el-dialog--small{
+    width: 11%;
+    top:38% !important;
+}
+.picDialog .el-dialog__body{
+    padding-bottom: 20px;
+}
+.picDialog .el-dialog__header{
+    padding: 0px;
+}

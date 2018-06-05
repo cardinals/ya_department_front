@@ -25,10 +25,10 @@ new Vue({
             xfdwlxmcData: [
             {
                 codeValue: '有',
-                codeName: '有消防队伍'
+                codeName: '有'
             }, {
                 codeValue: '无',
-                codeName: '无消防队伍'
+                codeName: '无'
             }],
 
             XFGX_data: [],
@@ -126,7 +126,12 @@ new Vue({
         searchClick: function () {
             var _self = this;
             this.loading = true;
+            //地图跳转到重点
+            this.searchForm.uuid = this.GetQueryString("uuid");
+            var isZddwdj = this.GetQueryString("zddwdj");
+
             var params = {
+                uuid:this.searchForm.uuid,
                 dwmc: this.searchForm.dwmc,
                 dwxz: this.searchForm.dwxz,
                 jzfl: this.searchForm.jzfl,
@@ -137,6 +142,10 @@ new Vue({
             axios.post('/dpapi/importantunits/list', params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
+                if(isZddwdj == 1){
+                    var val = this.tableData[0];
+                    this.informClick(val)
+                }
                 this.loading = false;
             }.bind(this),function(error){
                 console.log(error);
@@ -194,7 +203,7 @@ new Vue({
                 return '无';
             } else {
                 return rowDate;
-            }
+            } 
         },
         //点击进入详情页
         informClick(val) {
@@ -215,6 +224,12 @@ new Vue({
             // console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
-        }
+        },
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        },
     }
 })

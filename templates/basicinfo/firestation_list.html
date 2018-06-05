@@ -3,6 +3,7 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+	<title>消防队站管理</title>
 </head>
 
 <body class="fw f14 main-index-body">
@@ -56,7 +57,7 @@
 						<div class="table_container">
 								<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 									class="tableStyle" :height="tableheight">
-									<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
+									<el-table-column type="index" label="序号" show-overflow-tooltip width="65px" align="center"></el-table-column>
 									<el-table-column prop="dzmc" label="队站名称" show-overflow-tooltip min-width="25%" align="center">
 										<template slot-scope="scope">
 											<a @click="details(scope.row)" v-text="scope.row.dzmc"></a>

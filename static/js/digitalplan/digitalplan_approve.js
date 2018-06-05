@@ -139,10 +139,9 @@ new Vue({
                 jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
                 shzt: this.searchForm.SHZT,
                 begintime: this.searchForm.shsj[0],
-                endtime: this.searchForm.shsj[1],
-                isApprove:1
+                endtime: this.searchForm.shsj[1]
             }
-            axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
+            axios.post('/dpapi/digitalplanlist/listForApprove', params).then(function (res) {
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loading = false;
@@ -157,7 +156,8 @@ new Vue({
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = [];
             this.searchForm.SHZT = "";
-            this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
+        //    this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
+            this.searchForm.shsj = "";
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -279,6 +279,7 @@ new Vue({
                 //this.searchClick();
                 this.tableData[this.data_index].shztmc = res.data.result.shztmc;
                 this.tableData[this.data_index].shzt = res.data.result.shzt;
+                this.tableData[this.data_index].yashztButtonType = res.data.result.yashztButtonType;
             }.bind(this), function (error) {
                 console.log(error)
                 })

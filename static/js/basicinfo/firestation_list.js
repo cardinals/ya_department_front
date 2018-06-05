@@ -65,8 +65,12 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             this.loading=true;
+            //跳转到队站
+            this.searchForm.dzid = this.GetQueryString("dzid");//获取队站ID
+            var isDzdj = this.GetQueryString("dzdj");//获取队站点击
             var _self = this;
             var params={
+                dzid:this.searchForm.dzid,
                 dzmc:this.searchForm.dzmc,
                 dzdz:this.searchForm.dzdz,
                 dzlx :this.searchForm.dzlx[this.searchForm.dzlx.length-1],
@@ -75,6 +79,10 @@ new Vue({
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
+                if(isDzdj == 1){
+                    var val = this.tableData[0];
+                    this.details(val)
+                    }
                 this.loading=false;
             }.bind(this),function(error){
                 console.log(error);
@@ -131,24 +139,32 @@ new Vue({
         },
         //打开详情页
         details: function (val) {
-            this.detailVisible = true;
-            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.dzid +"&dzlx=" +val.dzlx;
-            history.pushState(null, null, shortURL)
-            //异步加载详情页
-            $(function () {
-                $.ajax({
-                    url: '../../../templates/basicinfo/firestation_detail.html',
-                    cache: true,
-                    async: true,
-                    success: function (html) {
-                        $("#detailDialog").html(html);
-                    }
-                });
-            })
+            if(val.dzbm != '01000000'){
+                this.detailVisible = true;
+                var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.dzid +"&dzlx=" +val.dzlx;
+                history.pushState(null, null, shortURL)
+                //异步加载详情页
+                $(function () {
+                    $.ajax({
+                        url: '../../../templates/basicinfo/firestation_detail.html',
+                        cache: true,
+                        async: true,
+                        success: function (html) {
+                            $("#detailDialog").html(html);
+                        }
+                    });
+                })
+            }
         },
         //关闭详情页
         closeDialog: function (val) {
             this.detailVisible = false;        
-        }
+        },
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        },
     }
 })

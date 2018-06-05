@@ -8,145 +8,153 @@ new Vue({
             uuid: "",
             //表数据
             tableData: [],//基本数据
-            xfllData: [],//消防队伍数据
+            //重点部位显示标识：
+            ZDBW: false,
             jzl_zdbwData: [],//建筑类重点部位数据
             zzl_zdbwData: [],//装置类重点部位数据
             cgl_zdbwData: [],//储罐类重点部位数据
+            jzfqData:[],//建筑分区原始数据
             jzl_jzfqData: [],//建筑类建筑分区数据
             zzl_jzfqData: [],//建筑类建筑分区数据
             cgl_jzfqData: [],//建筑类建筑分区数据
-            yaData: [],//预案数据
+            //消防力量显示标识：
+            XFLL: false,
+            //消防力量数据：
+            xfllData: [],
             //消防措施显示标识：
             //安全疏散措施显示标识
-            AQSSCS:false,
+            AQSSCS: false,
             //安全出口显示标识
-            isAqckShow:false,
+            isAqckShow: false,
             //疏散楼梯显示标识
-            isSsltShow:false,
+            isSsltShow: false,
             //消防电梯显示标识
-            isXfdtShow:false,
+            isXfdtShow: false,
             //避难层显示标识
-            isBncShow:false,
+            isBncShow: false,
             //应急广播显示标识
-            isYjgbShow:false,
+            isYjgbShow: false,
             //消防水系统显示标识
-            XFSXT:false,
+            XFSXT: false,
             //消防泵房显示标识
-            isXfbfShow:false,
+            isXfbfShow: false,
             //消防水箱显示标识
-            isXfsxShow:false,
+            isXfsxShow: false,
             //消防水池显示标识
-            isXfscShow:false,
+            isXfscShow: false,
             //室内消火栓显示标识
-            isSnxhsShow:false,
+            isSnxhsShow: false,
             //室外消火栓显示标识
-            isSwxhsShow:false,
+            isSwxhsShow: false,
             //水泵接合器显示标识
-            isSbjhqShow:false,
+            isSbjhqShow: false,
             //喷淋系统显示标识
-            isPlxtShow:false,
+            isPlxtShow: false,
             //冷却水系统显示标识
-            isLqsxtShow:false,
+            isLqsxtShow: false,
             //固定水炮显示标识
-            isGdspShow:false,
+            isGdspShow: false,
             //半固定设施显示标识
-            isBgdssShow:false,
+            isBgdssShow: false,
             //泡沫系统显示标识
-            PMXT:false,
+            PMXT: false,
             //泡沫系统-泡沫泵房
-            isPmbfShow:false,
+            isPmbfShow: false,
             //泡沫系统-泡沫消火栓
-            isPmxhsShow:false,
+            isPmxhsShow: false,
             //泡沫系统-固定泡沫炮
-            isGdpmpShow:false,
+            isGdpmpShow: false,
             //泡沫系统-泡沫发生器
-            isPmfsqShow:false,
+            isPmfsqShow: false,
             //泡沫系统-半固定设施
-            isPmBgdssShow:false,
+            isPmBgdssShow: false,
             //蒸汽灭火系统显示标识
-            ZQMHXT:false,
+            ZQMHXT: false,
             //蒸汽灭火系统-固定式
-            isGdsShow:false,
+            isGdsShow: false,
             //蒸汽灭火系统-半固定式
-            isBgdsShow:false,
+            isBgdsShow: false,
             //消防控制室
-            XFKZS:false,
+            XFKZS: false,
             //防排烟措施
-            FPYCS:false,
+            FPYCS: false,
             //排烟口/出烟口
-            isPycykShow:false,
+            isPycykShow: false,
             //防排烟措施-防排烟系统
-            isFpyxtShow:false,
+            isFpyxtShow: false,
             //防火分区
-            FHFQ:false,
+            FHFQ: false,
             //其他灭火系统
-            QTMHXT:false,
+            QTMHXT: false,
             //其他灭火系统-气体灭火系统
-            isQtmhxtShow:false,
+            isQtmhxtShow: false,
             //其他灭火系统-干粉灭火系统
-            isGfmhxtShow:false,
+            isGfmhxtShow: false,
             //其他消防设施
-            QTXFSS:false,
+            QTXFSS: false,
             //消防措施数据：
             //安全出口data
-            aqckData:[],
+            aqckData: [],
             //疏散楼梯data
-            ssltData:[],
+            ssltData: [],
             //消防电梯data
-            xfdtData:[],
+            xfdtData: [],
             //避难层data
-            bncData:[],
+            bncData: [],
             //应急广播data
-            yjgbData:[],
+            yjgbData: [],
             //消防泵房data
-            xfbfData:[],
+            xfbfData: [],
             //消防水箱data
-            xfsxData:[],
+            xfsxData: [],
             //消防水池
-            xfscData:[],
+            xfscData: [],
             //室内消火栓
-            snxhsData:[],
+            snxhsData: [],
             //室外消火栓
-            swxhsData:[],
+            swxhsData: [],
             //水泵接合器
-            sbjhqData:[],
+            sbjhqData: [],
             //喷淋系统
-            plxtData:[],
+            plxtData: [],
             //冷却水系统
-            lqsxtData:[],
+            lqsxtData: [],
             //固定水炮
-            gdspData:[],
+            gdspData: [],
             //半固定设施
-            bgdssData:[],
+            bgdssData: [],
             //泡沫系统-泡沫泵房
-            pmbfData:[],
+            pmbfData: [],
             //泡沫系统-泡沫消火栓
-            pmxhsData:[],
+            pmxhsData: [],
             //泡沫系统-固定泡沫炮
-            gdpmpData:[],
+            gdpmpData: [],
             //泡沫系统-泡沫发生器
-            pmfsqData:[],
+            pmfsqData: [],
             //泡沫系统-半固定设施
-            pmBgdssData:[],
+            pmBgdssData: [],
             //蒸汽灭火系统-固定式
-            gdsData:[],
+            gdsData: [],
             //蒸汽灭火系统-半固定式
-            bgdsData:[],
+            bgdsData: [],
             //消防控制室
-            xfkzsData:[],
+            xfkzsData: [],
             //排烟口/出烟口
-            pycykData:[],
+            pycykData: [],
             //防排烟措施-防排烟系统
-            fpyxtData:[],
+            fpyxtData: [],
             //防火分区
-            fhfqData:[],
+            fhfqData: [],
             //其他灭火系统-气体灭火系统
-            qtmhxtData:[],
+            qtmhxtData: [],
             //其他灭火系统-干粉灭火系统
-            gfmhxtData:[],
+            gfmhxtData: [],
             //其他消防设施
-            qtxfssData:[],
-
+            qtxfssData: [],
+            //预案显示标识：
+            YA: false,
+            //预案数据
+            yaData: [],
             //表高度变量
             tableheight: 474,
             //显示加载中样
@@ -162,8 +170,6 @@ new Vue({
             total: 0,
             //基本数据保存
             rowdata: {},
-            //预案数据保存
-            yudata: {},
             //序号
             indexData: 0,
             //发送至邮箱是否显示
@@ -205,27 +211,15 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
         //根据重点单位id获取重点单位详情
         this.getDetails();
-        //根据重点单位id获取消防队伍信息
-        this.getXfllListByZddwIdo();
-        //根据重点单位id获取建筑类重点部位详情集合
-        this.getJzlListByZddwId();
-        //根据重点单位id获取装置类重点部位详情集合
-        this.getZzlListByZddwId();
-        //根据重点单位id获取储罐类重点部位详情集合
-        this.getCglListByZddwId();
-        //根据重点单位id获取消防设施信息
-        this.getXfssDetailByVo();
-        //根据重点单位id获取预案信息
-        this.getYaListByVo();
-        
+
     },
     methods: {
         handleNodeClick(data) {
-            console.log(data);
+            // console.log(data);
         },
         //标签页
         handleClick: function (e) {
-            console.log(e);
+            // console.log(e);
         },
         //获取重点单位详情
         getDetails: function () {
@@ -234,19 +228,35 @@ new Vue({
             axios.get('/dpapi/importantunits/' + ID).then(function (res) {
                 this.tableData = res.data.result;
                 this.loading = false;
-                if (this.tableData !== []) {
-                    //根据重点单位id获取包含的分区详情
-                    this.getJzfqDetailByVo();
-                }
+                this.uuid = ID;
+                // if (this.tableData !== []) {
+                //根据重点单位id获取消防队伍信息
+                this.getXfllListByZddwIdo();
+                //根据重点单位id获取消防设施信息
+                this.getXfssDetailByVo();
+                //根据重点单位id获取建筑类重点部位详情集合
+                this.getJzlListByZddwId();
+                //根据重点单位id获取装置类重点部位详情集合
+                this.getZzlListByZddwId();
+                //根据重点单位id获取储罐类重点部位详情集合
+                this.getCglListByZddwId();
+                //根据重点单位id获取包含的分区详情
+                this.getJzfqDetailByVo();
+                //根据重点单位id获取预案信息
+                this.getYaListByVo();
+                // }
             }.bind(this), function (error) {
                 console.log(error)
             })
-            
         },
         //根据重点单位id获取消防队伍信息
         getXfllListByZddwIdo: function () {
             axios.get('/dpapi/importantunits/doFindXfllListByZddwId/' + this.uuid).then(function (res) {
                 this.xfllData = res.data.result;
+                if (this.xfllData.length !== 0) {
+                    this.XFLL = true;
+                }
+                // console.log(this.xfllData);
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -255,6 +265,9 @@ new Vue({
         getJzlListByZddwId: function () {
             axios.get('/dpapi/importantparts/doFindJzlListByZddwId/' + this.uuid).then(function (res) {
                 this.jzl_zdbwData = res.data.result;
+                if (this.jzl_zdbwData.length !== 0) {
+                    this.ZDBW = true;
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -263,6 +276,9 @@ new Vue({
         getZzlListByZddwId: function () {
             axios.get('/dpapi/importantparts/doFindZzlListByZddwId/' + this.uuid).then(function (res) {
                 this.zzl_zdbwData = res.data.result;
+                if (this.zzl_zdbwData.length !== 0) {
+                    this.ZDBW = true;
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -271,6 +287,9 @@ new Vue({
         getCglListByZddwId: function () {
             axios.get('/dpapi/importantparts/doFindCglListByZddwId/' + this.uuid).then(function (res) {
                 this.cgl_zdbwData = res.data.result;
+                if (this.cgl_zdbwData.length !== 0) {
+                    this.ZDBW = true;
+                }
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -278,190 +297,208 @@ new Vue({
         //根据重点单位id获取建筑分区信息
         getJzfqDetailByVo: function () {
             var params = {
-                uuid: this.tableData.uuid,
-                jzfl: this.tableData.jzfl
+                uuid: this.uuid,
+                // jzfl: this.tableData.jzfl
             };
             axios.post('/dpapi/importantunits/doFindBuildingDetailsByVo/', params).then(function (res) {
-                if (this.tableData.jzfl == 10 || this.tableData.jzfl == 20) {
-                    this.jzl_jzfqData = res.data.result;
-                } else if (this.tableData.jzfl == 30) {
-                    this.zzl_jzfqData = res.data.result;
-                } else if (this.tableData.jzfl == 40) {
-                    this.cgl_jzfqData = res.data.result;
+                this.jzfqData = res.data.result;
+                if (this.jzfqData.length > 0) {
+                    for (var i = 0; i < this.jzfqData.length; i++) {  //循环LIST
+                        var jzlx = this.jzfqData[i].jzlx;//获取LIST里面的对象
+                        switch (this.jzlx) {
+                            case "30":
+                                this.zzl_jzfqData.push(this.jzfqData[i]);
+                                break;
+                            case "40":
+                                this.cgl_jzfqData.push(this.jzfqData[i]);
+                                break;
+                            default:
+                                this.jzl_jzfqData.push(this.jzfqData[i]);
+                                break;
+                        };
+                    }
                 }
+                
+                // if (this.tableData.jzfl == 10 || this.tableData.jzfl == 20) {
+                //     this.jzl_jzfqData = res.data.result;
+                // } else if (this.tableData.jzfl == 30) {
+                //     this.zzl_jzfqData = res.data.result;
+                // } else if (this.tableData.jzfl == 40) {
+                //     this.cgl_jzfqData = res.data.result;
+                // }
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
         //通过重点单位id查询消防设施
-        getXfssDetailByVo:function(){
+        getXfssDetailByVo: function () {
             var params = {
-                uuid:this.uuid
+                uuid: this.uuid
             }
             axios.post('/dpapi/importantunits/doFindFireFacilitiesDetailsByVo', params).then(function (res) {
                 var data = res.data.result;
-                for(var i in data){
-                    switch(i){
-                    //安全疏散措施
-                        case'1000':
+                for (var i in data) {
+                    switch (i) {
+                        //安全疏散措施
+                        case '1000':
                             break;
-                        case'1001':
+                        case '1001':
                             this.AQSSCS = true;
                             this.isAqckShow = true;
                             this.aqckData = data[i];
                             break;
-                        case'1002':
+                        case '1002':
                             this.AQSSCS = true;
                             this.isSsltShow = true;
                             this.ssltData = data[i];
                             break;
-                        case'1003':
+                        case '1003':
                             this.AQSSCS = true;
                             this.isXfdtShow = true;
                             this.xfdtData = data[i];
                             break;
-                        case'1004':
+                        case '1004':
                             this.AQSSCS = true;
                             this.isBncShow = true;
                             this.bncData = data[i];
                             break;
-                        case'1005':
+                        case '1005':
                             this.AQSSCS = true;
                             this.isYjgbShow = true;
                             this.yjgbData = data[i];
                             break;
-                    //消防水系统
-                        case'2000':
+                        //消防水系统
+                        case '2000':
                             break;
-                        case'2001':
+                        case '2001':
                             this.XFSXT = true;
                             this.isXfbfShow = true;
                             this.xfbfData = data[i];
                             break;
-                        case'2002':
+                        case '2002':
                             this.XFSXT = true;
                             this.isXfsxShow = true;
                             this.xfsxData = data[i];
                             break;
-                        case'2003':
+                        case '2003':
                             this.XFSXT = true;
                             this.isXfscShow = true;
                             this.xfscData = data[i];
                             break;
-                        case'2004':
+                        case '2004':
                             this.XFSXT = true;
                             this.isSnxhsShow = true;
                             this.snxhsData = data[i];
                             break;
-                        case'2005':
+                        case '2005':
                             this.XFSXT = true;
                             this.isSwxhsShow = true;
                             this.swxhsData = data[i];
                             break;
-                        case'2006':
+                        case '2006':
                             this.XFSXT = true;
                             this.isSbjhqShow = true;
                             this.sbjhqData = data[i];
                             break;
-                        case'2007':
+                        case '2007':
                             this.XFSXT = true;
                             this.isPlxtShow = true;
                             this.plxtData = data[i];
                             break;
-                        case'2008':
+                        case '2008':
                             this.XFSXT = true;
                             this.isLqsxtShow = true;
                             this.lqsxtData = data[i];
                             break;
-                        case'2009':
+                        case '2009':
                             this.XFSXT = true;
                             this.isGdspShow = true;
                             this.gdspData = data[i];
                             break;
-                        case'2010':
+                        case '2010':
                             this.XFSXT = true;
                             this.isBgdssShow = true;
                             this.bgdssData = data[i];
                             break;
-                    //泡沫系统
-                        case'3000':
+                        //泡沫系统
+                        case '3000':
                             break;
-                        case'3001':
+                        case '3001':
                             this.PMXT = true;
                             this.isPmbfShow = true;
                             this.pmbfData = data[i];
                             break;
-                        case'3002':
+                        case '3002':
                             this.PMXT = true;
                             this.isPmxhsShow = true;
                             this.pmxhsData = data[i];
                             break;
-                        case'3003':
+                        case '3003':
                             this.PMXT = true;
                             this.isGdpmpShow = true;
                             this.gdpmpData = data[i];
                             break;
-                        case'3004':
+                        case '3004':
                             this.PMXT = true;
                             this.isPmfsqShow = true;
                             this.pmfsqData = data[i];
                             break;
-                        case'3005':
+                        case '3005':
                             this.PMXT = true;
                             this.isPmBgdssShow = true;
                             this.pmBgdssData = data[i];
                             break;
-                    //蒸汽灭火系统
-                        case'4000':
+                        //蒸汽灭火系统
+                        case '4000':
                             break;
-                        case'4001':
+                        case '4001':
                             this.ZQMHXT = true;
                             this.isGdsShow = true;
                             this.gdsData = data[i];
                             break;
-                        case'4002':
+                        case '4002':
                             this.ZQMHXT = true;
                             this.isBgdsShow = true;
                             this.bgdsData = data[i];
                             break;
-                    //消防控制室
-                        case'5000':
+                        //消防控制室
+                        case '5000':
                             this.XFKZS = true;
                             this.xfkzsData = data[i];
                             break;
-                    //防排烟措施
-                        case'6000':
+                        //防排烟措施
+                        case '6000':
                             break;
-                        case'6001':
+                        case '6001':
                             this.FPYCS = true;
                             this.isPycykShow = true;
                             this.pycykData = data[i];
                             break;
-                        case'6002':
+                        case '6002':
                             this.FPYCS = true;
                             this.isFpyxtShow = true;
                             this.fpyxtData = data[i];
                             break;
-                    //防火分区
-                        case'7000':
+                        //防火分区
+                        case '7000':
                             this.FHFQ = true;
                             this.fhfqData = data[i];
                             break;
-                    //其他灭火系统
-                        case'8000':
+                        //其他灭火系统
+                        case '8000':
                             break;
-                        case'8001':
+                        case '8001':
                             this.QTMHXT = true;
                             this.isQtmhxtShow = true;
                             this.qtmhxtData = data[i];
                             break;
-                        case'8002':
+                        case '8002':
                             this.QTMHXT = true;
                             this.isGfmhxtShow = true;
                             this.gfmhxtData = data[i];
                             break;
-                    //其他消防设施
-                        case'9000':
+                        //其他消防设施
+                        case '9000':
                             this.QTXFSS = true;
                             this.qtxfssData = data[i];
                             break;
@@ -478,7 +515,10 @@ new Vue({
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.yaData = res.data.result;
-                console.log(this.yaData);
+                if (this.yaData.length !== 0) {
+                    this.YA = true;
+                }
+                // console.log(this.yaData);
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -531,6 +571,13 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-    },
+        //跳转到地图页面并带上UUID和点击参数
+        tz:function(){
+            // console.log(this.tableData);
+            var uuid = this.tableData.uuid;
+        
+            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sydj=1";
+        }
+    }
 
 })
