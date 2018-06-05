@@ -91,8 +91,6 @@ font-family:"微软雅黑";
 }
 
 .frame-duration {
-
-  
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
@@ -123,8 +121,15 @@ font-family:"微软雅黑";
   height:100%;
   width:100%;
   background-size:cover; 
-
 }
+
+.map-bglf {
+  background: url('../images/dock-bg.png');
+  height:100%;
+  width:100%;
+  background-size:cover; 
+}
+
 .map-bg2 {
   background-color:rgba(0, 0, 0, 0.200);
   /* border: 1px solid #114D6F; */

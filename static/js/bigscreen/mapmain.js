@@ -568,7 +568,6 @@ var vm = new Vue({
                 })
             },
             initMap: function () {
-                
                 // db start
                 // 百度地图API功能
                 function G(id) {
@@ -678,7 +677,7 @@ var vm = new Vue({
                         console.log(error)
                     })
                    
-                }
+                  }
 
             },
             //除去聚合点
