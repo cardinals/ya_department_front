@@ -25,10 +25,10 @@ new Vue({
             xfdwlxmcData: [
             {
                 codeValue: '有',
-                codeName: '有消防队伍'
+                codeName: '有'
             }, {
                 codeValue: '无',
-                codeName: '无消防队伍'
+                codeName: '无'
             }],
 
             XFGX_data: [],
