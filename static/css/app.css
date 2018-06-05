@@ -91,6 +91,8 @@ font-family:"微软雅黑";
 }
 
 .frame-duration {
+
+  
   -webkit-transition-duration: 0.3s;
   -moz-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
