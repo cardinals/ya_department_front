@@ -70,6 +70,7 @@ new Vue({
             var isDzdj = this.GetQueryString("dzdj");//获取队站点击
             var _self = this;
             var params={
+                dzid:this.searchForm.dzid,
                 dzmc:this.searchForm.dzmc,
                 dzdz:this.searchForm.dzdz,
                 dzlx :this.searchForm.dzlx[this.searchForm.dzlx.length-1],
@@ -80,7 +81,7 @@ new Vue({
                 this.rowdata = this.tableData;
                 if(isDzdj == 1){
                     var val = this.tableData[0];
-                    this.informClick(val)
+                    this.details(val)
                     }
                 this.loading=false;
             }.bind(this),function(error){
@@ -158,6 +159,12 @@ new Vue({
         //关闭详情页
         closeDialog: function (val) {
             this.detailVisible = false;        
-        }
+        },
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        },
     }
 })

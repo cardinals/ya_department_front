@@ -537,6 +537,13 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
+        //
+        tz:function(){
+        //    console.log(this.tableData);
+           var uuid = this.tableData.uuid;
+      
+          window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sydj=1";
+        }
     },
 
 })

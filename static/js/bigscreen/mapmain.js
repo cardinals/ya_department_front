@@ -256,9 +256,23 @@ var vm = new Vue({
         // db end
     },
     mounted() {
+        // var gis_X = this.GetQueryString("gis_X");
+        // var gis_Y = this.GetQueryString("gis_Y");
+        // var isSydj = this.GetQueryString("sydj");
+        // if(isSydj == 1){
+        //     var gisX = this.GetQueryString("gis_X");
+        //     var gisY = this.GetQueryString("gis_Y");
+        //     var zddw={
+        //         gisX:gisX,
+        //         gisY:gisY,
+        //     };
+        //     vm.drawMapc(zddw);
+        // }
         this.getCity();
         document.title = this.city + '预案情况';
         this.getShengZddwDate();//省
+        
+
     },
     methods:
         //获取重点单位信息
@@ -652,6 +666,20 @@ var vm = new Vue({
                     document.getElementById('lat').value = e.point.lat;
                     document.getElementById('lng').value = e.point.lng;
                 });
+                //重点单位从后台管理系统的跳转
+                var isSydj = this.GetQueryString("sydj");                
+                if(isSydj == 1){
+                    var zddw = "";
+                    var ID = this.GetQueryString("uuid");
+                    axios.get('/dpapi/importantunits/' + ID).then(function (res) {
+                        zddw = res.data.result;
+                        vm.drawMapc(zddw);
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                   
+                }
+
             },
             //除去聚合点
             removeCluster:function(){
@@ -942,7 +970,7 @@ var vm = new Vue({
                     '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
                     '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
                     '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
-                    '<b class="btn" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
                     '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
                     '</div>' +
                     '<div class="x-clear"></div>' +
@@ -1129,6 +1157,10 @@ var vm = new Vue({
                 vm.syy = syy;
                 var map = vm.map;
                 for (i = 0; i < vm.syData.length; i++) {
+
+                    debugger;//aaaaa
+                    console.log(vm.syData);//aaaaa
+
                     var x = vm.syData[i].gisX;
                     var y = vm.syData[i].gisY;
                     var uuid = vm.syData[i].uuid;
@@ -1524,6 +1556,7 @@ var vm = new Vue({
             //重点单位详情跳转
             zddwxq:function(zddwparams){
                 window.location.href = "../planobject/importantunits_list.html?uuid=" + zddwparams+"&zddwdj=1";
+                // window.location.href = "../planobject/importantunits_detail.html?uuid=" + zddwparams;
             },
             //卫星地图
             WxOver: function () {
@@ -1755,5 +1788,11 @@ var vm = new Vue({
                 markerClusterer.addMarkers(zddwp);
             },
             // db end
+            //根据参数部分和参数名来获取参数值 
+           GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+         },
         }
 })

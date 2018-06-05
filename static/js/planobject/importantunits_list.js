@@ -131,6 +131,7 @@ new Vue({
             var isZddwdj = this.GetQueryString("zddwdj");
 
             var params = {
+                uuid:this.searchForm.uuid,
                 dwmc: this.searchForm.dwmc,
                 dwxz: this.searchForm.dwxz,
                 jzfl: this.searchForm.jzfl,
@@ -223,6 +224,12 @@ new Vue({
             // console.log("当前页: " + val);
             var _self = this;
             _self.loadingData(); //重新加载数据
-        }
+        },
+        //根据参数部分和参数名来获取参数值 
+        GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        },
     }
 })
