@@ -46,8 +46,8 @@
 										</el-select>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-										<label class="el-form-item__label searchLabel">水源性质</label>
-										<el-select size="small" v-model="searchForm.xz" placeholder="全部" class="searchSelect">	
+										<label class="el-form-item__label searchLabel">水源归属</label>
+										<el-select size="small" v-model="searchForm.sygs" placeholder="全部" class="searchSelect">	
 											<el-option v-for="item in XZ_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
@@ -103,7 +103,7 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">枯水期</label>
-										<el-input size="small" v-model="searchForm.xfmt_ksq" placeholder="枯水期"></el-input>
+										<el-input size="small" v-model="searchForm.trsy_ywksq" placeholder="枯水期"></el-input>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">水质</label>
