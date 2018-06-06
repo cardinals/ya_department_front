@@ -19,7 +19,6 @@ window.getQueryString = function(name) {
 //公共方法-详情页显示图片  
 //参数1：图片类型，参数2：图片代码
 window.doFindPhoto = function(picType, picValue){
-    debugger;
     axios.get('/api/util/doFindPhoto/' + picType + '/' + picValue).then(function (res) {
         var photo64 = res.data.result;
         var photo = document.getElementById("photo");
