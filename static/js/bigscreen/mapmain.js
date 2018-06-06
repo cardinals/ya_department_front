@@ -1550,8 +1550,6 @@ var vm = new Vue({
             //分享
             openShare:function(val){
                 window.open("http://localhost:8005/planShare/page/" + val + "/detail" +"/web");
-
-
             },
             //水源详情跳转
             syxq:function(params){
