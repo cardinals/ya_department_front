@@ -422,6 +422,12 @@
 .main-container {
   padding: 20px;
 }
+/* .main-container-header {
+
+} */
+.main-container-header-line {
+  border-bottom: 1px solid;
+}
 .el-button--clear{
   color:#fff;
   background-color:#909399;
