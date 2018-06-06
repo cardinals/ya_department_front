@@ -13,3 +13,6 @@ dl {
 .cardBorder{
     border-top: 1px solid #d1dbe5;
 }
+.el-dialog--small {
+    width: 20%;
+}

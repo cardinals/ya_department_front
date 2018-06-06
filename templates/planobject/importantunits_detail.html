@@ -32,7 +32,7 @@
                             <dl>
                                 <img src="../../static/images/location.png">
                                 <dt class="dib inform-small-title detail_margin">单位地址：</dt>
-                                <dd class="dtdlStyle" v-text="tableData.dwdz||'无'"></dd>
+                                <dd class="dtdlStyle"><a @click="this.tz" v-text="tableData.dwdz||'无'"></a></dd>
                                 <br>
                                 <!-- <img src="../../static/images/postcode.png">
                                 <dt class="dib inform-small-title">行政区划：</dt>

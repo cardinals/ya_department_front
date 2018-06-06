@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    <link rel="stylesheet" type="text/css" href="../../static\css\planobject\importantunits_detail.css">
+    <title>预案对象-其他对象</title>
+</head>
+
+<body class="fw f14 main-index-body">
+    <div id="header_box"></div>
+    <div class="left-sidebar">
+        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
+        <input type="hidden" id="activeIndex"/>
+        <div id="menu-box">
+            <big-tree default-active=""></big-tree>
+        </div>
+    </div>
+    <div id="app">
+        <div class="main-box">
+            <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <div id="tableView">
+                    <!-- <div class="nameBox">
+                        <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
+                            <el-row>
+                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">开始时间</label>
+                                    <el-input size="small" v-model="searchForm.dateStart" placeholder="建筑名称"></el-input>
+                                </el-col>
+                            </el-row>
+                        </el-form>
+                    </div> -->
+                    <div class="echartsBox" style="height:300px;">
+                        <div id="bar" class="application-text">
+                        </div>
+                    </div>
+                    <div class="inform-content">
+                        <div class="table_container">
+                            <el-table border id="table" class="tableStyle" :data="this.tabledata" :height="tableheight">
+                                <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
+                                <el-table-column prop="name" label="总队名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                <el-table-column label="预案数量" align="center" min-width="80%">
+                                    <el-table-column prop="count" label="总数" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                    <el-table-column prop="buju" label="部局级预案" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                    <el-table-column prop="zongdui" label="总队级预案" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                    <el-table-column prop="zhidui" label="支队级预案" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                    <el-table-column prop="dazhongdui" label="大中队级预案" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                </el-table-column>
+                            </el-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- main-container -->
+        </div>
+    </div>
+</body>
+<script src="../../static/js/lib.js"></script>
+<script src="../../static/js/echarts-2/echarts-all.js"></script>
+<script src="../../static/js/echarts-4/echarts.js"></script>
+<script src="../../static/js/report/report1.js"></script>
+<script src="../../static/js/menu.js"></script>
+</html>

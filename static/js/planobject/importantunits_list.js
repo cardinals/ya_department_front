@@ -203,7 +203,7 @@ new Vue({
                 return '无';
             } else {
                 return rowDate;
-            }
+            } 
         },
         //点击进入详情页
         informClick(val) {
