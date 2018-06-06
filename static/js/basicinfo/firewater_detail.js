@@ -108,5 +108,12 @@ new Vue({
             }
             */
          },
+         //跳转到地图页面并带上UUID和点击参数水源
+        tz:function(){
+            // console.log(this.tableData);
+            var uuid = this.detailData.uuid;
+            var sylx = this.detailData.sylx;
+            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sylx="+sylx+"&shuidj=1";
+        }
     }
 })
