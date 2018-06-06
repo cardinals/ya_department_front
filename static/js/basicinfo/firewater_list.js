@@ -14,13 +14,10 @@ new Vue({
                 gxdz: '',
                 xz: '',
                 kyzt:'',
-                xhs_gwid:'',
                 xhs_szxs:'',
                 xhs_gwxs:'',
                 xhs_jkxs:'',
-                xfsh_gwid:'',
-                xfsh_shgd:'',
-                xfsh_jscd:'',
+                xfsh_cskgd:'',
                 xfsc_rl:'',
                 xfsc_gwxs:'',
                 xfsc_tcwz:'',
@@ -48,8 +45,8 @@ new Vue({
             isXhsSelectShow:false,
             isXfshSelectShow:false,
             isXfscSelectShow:false,
-            isXfmtSelectShow:false,
-            isTrsySelectShow:false,
+            isTrsyqsdSelectShow:false,
+           
             //表高度变量
             tableheight: 443,
             //显示加载中样
@@ -128,13 +125,10 @@ new Vue({
                 dzbm: this.searchForm.gxdz.substr(0,2),
                 xz: this.searchForm.xz,
                 kyzt: this.searchForm.kyzt,
-                xhs_gwid: this.searchForm.xhs_gwid,
                 xhs_szxs: this.searchForm.xhs_szxs,
                 xhs_gwxs: this.searchForm.xhs_gwxs,
                 xhs_jkxs: this.searchForm.xhs_jkxs,
-                xfsh_gwid: this.searchForm.xfsh_gwid,
-                xfsh_shgd: this.searchForm.xfsh_shgd,
-                xfsh_jscd: this.searchForm.xfsh_jscd,
+                xfsh_cskgd: this.searchForm.xfsh_cskgd,
                 xfsc_rl: this.searchForm.xfsc_rl,
                 xfsc_gwxs: this.searchForm.xfsc_gwxs,
                 xfsc_tcwz: this.searchForm.xfsc_tcwz,
@@ -176,7 +170,7 @@ new Vue({
             this.searchForm.xhs_gwxs = "";
             this.searchForm.xhs_jkxs = "";
             this.searchForm.xfsh_gwid = "";
-            this.searchForm.xfsh_shgd = "";
+            this.searchForm.xfsh_cskgd = "";
             this.searchForm.xfsh_jscd = "";
             this.searchForm.xfsc_rl = "";
             this.searchForm.xfsc_gwxs = "";
@@ -233,7 +227,7 @@ new Vue({
         },
         //消火栓查询条件加载
         searchXhsSZXS_data:function () {
-            axios.get('/api/codelist/getCodetype/SZXS').then(function (res) {
+            axios.get('/api/codelist/getCodetype/XHSSZXS').then(function (res) {
                 this.xhs_szxs_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -299,53 +293,42 @@ new Vue({
         selectsylx:function(){
         //console.log(this.searchForm.sylx);
            switch(this.searchForm.sylx){
-               case '1100':
+               case '01':
                     this.clearOthers();
                     this.isXfshSelectShow = false;
                     this.isXfscSelectShow = false;
-                    this.isXfmtSelectShow = false;
-                    this.isTrsySelectShow = false;
+                    this.isTrsyqsdSelectShow = false;
                     this.isXhsSelectShow = true;
                     break;
-                case '1200':
+                case '02':
                     this.clearOthers();
                     this.isXfscSelectShow = false;
-                    this.isXfmtSelectShow = false;
-                    this.isTrsySelectShow = false;
+                    this.isTrsyqsdSelectShow = false;
                     this.isXhsSelectShow = false;
                     this.isXfshSelectShow = true;
                     break;
-                case '1300':
+                case '03':
                     this.clearOthers();
-                    this.isXfmtSelectShow = false;
-                    this.isTrsySelectShow = false;
+                    this.isTrsyqsdSelectShow = false;
                     this.isXhsSelectShow = false;
                     this.isXfshSelectShow = false;
                     this.isXfscSelectShow = true;
                     break;
-                case '2100':
-                    this.clearOthers();
-                    this.isTrsySelectShow = false;
-                    this.isXhsSelectShow = false;
-                    this.isXfshSelectShow = false;
-                    this.isXfscSelectShow = false;
-                    this.isXfmtSelectShow = true;
-                    break;
-                case '2900':
+                case '04':
                     this.clearOthers();
                     this.isXhsSelectShow = false;
                     this.isXfshSelectShow = false;
                     this.isXfscSelectShow = false;
-                    this.isXfmtSelectShow = false;
-                    this.isTrsySelectShow = true;
+                    this.isTrsyqsdSelectShow = true;
                     break;
+               
                 default :
                     this.clearOthers();
                     this.isXhsSelectShow = false;
                     this.isXfshSelectShow = false;
                     this.isXfscSelectShow = false;
-                    this.isXfmtSelectShow = false;
-                    this.isTrsySelectShow = false;
+                    this.isTrsyqsdSelectShow = false;
+                   
            }
         },
         //表格勾选事件
