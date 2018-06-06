@@ -22,7 +22,7 @@
                 <div id="tableView">
                     <div class="nameBox">
                         <div id="basic-Inform-Picture">
-                            <img src="../../static/images/danwei2.jpg">
+                            <img id="photo" class="detail_picture_size">
                         </div>
                         <div class="dib" id="basic-Inform-Title">
                             <div>
@@ -32,7 +32,8 @@
                             <dl>
                                 <img src="../../static/images/location.png">
                                 <dt class="dib inform-small-title detail_margin">单位地址：</dt>
-                                <dd class="dtdlStyle"><a @click="this.tz" v-text="tableData.dwdz||'无'"></a></dd>
+                                <!-- <a @click="this.tz" v-text="tableData.dwdz||'无'"></a> -->
+                                <dd class="dtdlStyle"  v-text="tableData.dwdz||'无'"></dd>
                                 <br>
                                 <!-- <img src="../../static/images/postcode.png">
                                 <dt class="dib inform-small-title">行政区划：</dt>
@@ -42,18 +43,20 @@
                                 <dt class="dib inform-small-title detail_margin">防火等级：</dt>
                                 <dd class="dtdlStyle" v-text="tableData.fhdjmc||'无'"></dd>
                                 <br>
-                                <img src="../../static/images/postcode.png">
-                                <dt class="dib inform-small-title detail_margin">单位概况：</dt>
-                                <dd class="dtdlStyle" v-text="tableData.dwgk||'无'"></dd>
-                                <br>
                                 <img src="../../static/images/phone.png">
                                 <dt class="dib inform-small-title detail_margin">值班电话：</dt>
                                 <dd class="dtdlStyle" v-text="tableData.zbdh||'无'"></dd>
+                                <br>
+                                <img src="../../static/images/postcode.png">
+                                <dt class="dib inform-small-title detail_margin">单位概况：</dt>
+                                <dd class="dtdlStyle" v-text="tableData.dwgk||'无'"></dd>
                             </dl>
                         </div>
                         <div style="float: right">
-                            <el-button type="primary" icon="document" style="margin-top:5%;width:120px">信息打印</el-button>
+                            <el-button type="primary" icon="document" style="margin-top:-1%;width:120px">信息打印</el-button>
                             <br>
+                            <br>
+                            <img @click="this.tz" src="../../static/images/mapbtnmin.png" style="cursor:pointer">
                         </div>
                     </div>
                     <div class="inform-content">

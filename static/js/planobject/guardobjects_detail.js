@@ -114,19 +114,12 @@ new Vue({
     mounted: function () {
         //设置菜单选中
         $("#activeIndex").val(getQueryString("index"));
-
         this.loading = true;
         this.uuid = getQueryString("ID");
+        //显示图片
+        doFindPhoto("YADX","02");
         axios.get('/dpapi/bwjwplan/doFindDetailById/' + this.uuid).then(function (res) {
             this.rowdata = res.data.result;
-            //显示图片
-            var photo64 = this.rowdata.photo64;
-            var photo = document.getElementById("photo");
-            if(photo64 == "" || photo64 == null){
-                photo.src = "../../static/images/no-picture.png";
-            }else{
-                photo.src = "data:image/png;base64,"+photo64;
-            }
             this.loading = false;
         }.bind(this), function (error) {
             console.log(error)

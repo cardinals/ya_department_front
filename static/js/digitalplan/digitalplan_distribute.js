@@ -13,7 +13,7 @@ new Vue({
                 YAJB: "",
                 DXMC: "",
                 ZZJG: "",
-                YAZT: "05"
+                YAZT: "已审批"
             },
             //分发选中
             ffzd: [],

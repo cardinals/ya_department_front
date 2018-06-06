@@ -15,3 +15,19 @@ window.getQueryString = function(name) {
     } 
     return null;
 }
+
+//公共方法-详情页显示图片  
+//参数1：图片类型，参数2：图片代码
+window.doFindPhoto = function(picType, picValue){
+    axios.get('/api/util/doFindPhoto/' + picType + '/' + picValue).then(function (res) {
+        var photo64 = res.data.result;
+        var photo = document.getElementById("photo");
+        if(photo64 == "" || photo64 == null){
+            photo.src = "../../static/images/nopicture.png";
+        }else{
+            photo.src = "data:image/png;base64,"+photo64;
+        }
+    }.bind(this), function (error) {
+        console.log(error)
+    });
+}
