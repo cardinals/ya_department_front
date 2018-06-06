@@ -24,20 +24,15 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
         this.loading = true;
         this.uuid = getQueryString("id");
+        //显示图片
+        doFindPhoto("YADX","03");
+        //数据显示
         axios.get('/dpapi/otherobjects/doFindById/' + this.uuid).then(function (res) {
             this.rowdata = res.data.result;
-            //显示图片
-            var photo64 = this.rowdata.photo64;
-            var photo = document.getElementById("photo");
-            if(photo64 == "" || photo64 == null){
-                photo.src = "../../static/images/no-picture.png";
-            }else{
-                photo.src = "data:image/png;base64,"+photo64;
-            }
             this.loading = false;
         }.bind(this), function (error) {
             console.log(error)
-        })
+        });
     },
 
     methods: {

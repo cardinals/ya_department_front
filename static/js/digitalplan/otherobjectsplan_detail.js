@@ -79,18 +79,11 @@ new Vue({
         //预案详情
         planDetails: function (val) {
             var _self = this;
+            //显示图片
+            doFindPhoto("YALB","03");
             axios.get('/dpapi/otherobjectsplan/doFindById/' + val).then(function (res) {
                 this.detailData = null;
                 this.detailData = res.data.result;
-
-                //显示图片
-                var photo64 = this.detailData.photo64;
-                var photo = document.getElementById("photo");
-                if(photo64 == "" || photo64 == null){
-                    photo.src = "../../static/images/no-picture.png";
-                }else{
-                    photo.src = "data:image/png;base64,"+photo64;
-                }
 
                 if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
                     return '';

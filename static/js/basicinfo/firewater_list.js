@@ -12,7 +12,7 @@ new Vue({
                 sydz: '',
                 sylx: '',
                 gxdz: '',
-                xz: '',
+                sygs: '',
                 kyzt:'',
                 xhs_szxs:'',
                 xhs_gwxs:'',
@@ -123,7 +123,7 @@ new Vue({
                 sydz: this.searchForm.sydz,
                 sylx: this.searchForm.sylx,
                 dzbm: this.searchForm.gxdz.substr(0,2),
-                xz: this.searchForm.xz,
+                sygs: this.searchForm.sygs,
                 kyzt: this.searchForm.kyzt,
                 xhs_szxs: this.searchForm.xhs_szxs,
                 xhs_gwxs: this.searchForm.xhs_gwxs,
@@ -132,10 +132,10 @@ new Vue({
                 xfsc_rl: this.searchForm.xfsc_rl,
                 xfsc_gwxs: this.searchForm.xfsc_gwxs,
                 xfsc_tcwz: this.searchForm.xfsc_tcwz,
-                xfmt_tcwz: this.searchForm.xfmt_tcwz,
+                trsyqsd_tcwz: this.searchForm.xfmt_tcwz,
                 xfmt_ksq: this.searchForm.xfmt_ksq,
-                xfmt_sz: this.searchForm.xfmt_sz,
-                trsy_trsylx: this.searchForm.trsy_trsylx,
+                trsy_sz: this.searchForm.xfmt_sz,
+               
                 trsy_ywksq: this.searchForm.trsy_ywksq
             }
             axios.post('/dpapi/xfsy/findlist', params).then(function (res) {
@@ -159,7 +159,7 @@ new Vue({
             this.searchForm.sydz = "";
             this.searchForm.sylx = "";
             this.searchForm.gxdz = "";
-            this.searchForm.xz = "";
+            this.searchForm.sygs = "";
             this.searchForm.kyzt = "";
             this.clearOthers();
         },
@@ -206,14 +206,9 @@ new Vue({
             })
         },
         searchXZ_data:function () {
-            axios.get('/api/codelist/getCodetype/SYXZ').then(function (res) {
-                //水源性质数据只显示市政 即以111开头的类型
-                var xzdata = res.data.result;
-                for(var i in xzdata){
-                    var start_sylx = xzdata[i].codeValue.substring(0,3);
-                    if(start_sylx =="111")
-                        this.XZ_data.push(xzdata[i]);
-                }
+            axios.get('/api/codelist/getCodetype/SYGS').then(function (res) {
+                this.XZ_data = res.data.result;
+                
             }.bind(this), function (error) {
                 console.log(error);
             })
