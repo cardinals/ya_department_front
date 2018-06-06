@@ -105,9 +105,10 @@ font-family:"微软雅黑";
   height: 180px;
 }
 .logo2 {
-  background: url('../images/LOGO2.png') no-repeat;
+  background: url('../images/LOGO2.png')no-repeat center center; background-size: auto 100%; position: relative;
   width: 360px;
-  height: 48px;
+  height: 40px;
+  TOP: 4px;
 }
 .yuwolegequ {
   height: 40px;
