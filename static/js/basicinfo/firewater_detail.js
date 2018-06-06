@@ -38,7 +38,7 @@ new Vue({
                  var div=document.getElementById("XFSH");
                  div.style.display = "";
                  break;
-            case '21':
+            case '04':
                  var div=document.getElementById("XFMT");
                  div.style.display = "";
                  break;
