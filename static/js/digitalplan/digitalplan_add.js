@@ -627,6 +627,7 @@ new Vue({
                             zzrid: this.role_data.userid,
                             zzrmc: this.role_data.realName,
                             jgid: this.role_data.organizationVO.uuid,
+                            jgbm: this.role_data.organizationVO.jgid,
                             jgmc: this.role_data.organizationVO.jgmc
                         };
                         // debugger
@@ -707,7 +708,8 @@ new Vue({
                             disasterList: this.dynamicValidateForm,
                             zzrid: this.role_data.userid,
                             zzrmc: this.role_data.realName,
-                            jgid: this.role_data.organizationVO.jgid,
+                            jgid: this.role_data.organizationVO.uuid,
+                            jgbm: this.role_data.organizationVO.jgid,
                             jgmc: this.role_data.organizationVO.jgmc
                         };
                         axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
