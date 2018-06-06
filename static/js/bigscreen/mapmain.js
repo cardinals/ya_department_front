@@ -684,7 +684,7 @@ var vm = new Vue({
                 //水源从后台管理系统的跳转
                  var isShuidj = this.GetQueryString("shuidj");                
                  if(isShuidj == 1){
-                  
+                     this.loading = true;
                      var sy = "";
                      var ID = this.GetQueryString("uuid");
                      var sylx = this.GetQueryString("sylx");
@@ -695,7 +695,7 @@ var vm = new Vue({
                     axios.post('/dpapi/xfsy/findSyAndSxByVo', params).then(function (res) {
                         
                         sy = res.data.result;
-                        this.loading = true;
+                      
                         vm.getSysjz(sy);
                      }.bind(this), function (error) {
                          console.log(error)
