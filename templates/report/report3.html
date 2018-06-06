@@ -38,7 +38,10 @@
                     </div>
                     <div class="inform-content">
                         <div class="table_container">
-                            <el-table border id="table" class="tableStyle" :data="this.tabledata" :height="tableheight">
+                            <el-table id="table" border class="tableStyle" :height="tableheight"
+                                ref="multipleTable"
+                                :data="tabledata.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
+                                @selection-change="currentPageChange">
                                 <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
                                 <el-table-column prop="name" label="类型" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
                                 <el-table-column prop="childrenName" label="子类型" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
@@ -50,6 +53,15 @@
                                     <el-table-column prop="dazhongdui" label="大中队级预案" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
                                 </el-table-column>
                             </el-table>
+                            
+                            <!--列表底部工具条和分页符-->
+                            <el-row type="flex" justify="end">
+                                <el-col :span="18">
+                                    <el-pagination @current-change="currentPageChange" :current-page="currentPage" layout="total, prev, pager, next, jumper"
+                                    :total=parseInt(total)>
+                                    </el-pagination>
+                                </el-col>
+                            </el-row>
                         </div>
                     </div>
                 </div>
