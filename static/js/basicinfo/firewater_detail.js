@@ -26,15 +26,15 @@ new Vue({
         //console.log(this.sylx);
         var start_sylx = this.sylx.substring(0,2);
         switch(start_sylx){
-            case '11':
+            case '01':
                  var div=document.getElementById("XHS");
                  div.style.display = "";
                  break;
-            case '13':
+            case '02':
                  var div=document.getElementById("XFSC");
                  div.style.display = "";
                  break;
-            case '12':
+            case '03':
                  var div=document.getElementById("XFSH");
                  div.style.display = "";
                  break;
