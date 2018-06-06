@@ -185,6 +185,7 @@ var vm = new Vue({
             yaid_2: '',
             yaid_3: ''
         },
+        planList:{},
         infoData: {},
         dwdzData: {},
         xfzrrData: {},
@@ -1522,12 +1523,13 @@ var vm = new Vue({
             openPlan_1: function (val) {
                 axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
                     var plan = res.data.result;
+                    this.planData.yaid_1 = '';
                     for (var k = 0; k < plan.length; k++) {
                         if (plan[k].yajb == '01') {
                             this.planData.yaid_1 = plan[k].uuid;
                         }
                     }
-                    if (val == null || val == '') {
+                    if (this.planData.yaid_1 == null || this.planData.yaid_1 == '') {
                         this.$message({
                             message: "预案不存在",
                             showClose: true,
@@ -1549,7 +1551,26 @@ var vm = new Vue({
             },
             //分享
             openShare:function(val){
-                window.open("http://localhost:8005/planShare/page/" + val + "/detail" +"/web");
+                axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
+                    var plan = res.data.result;
+                    var planId = '';
+                    for (var k = 0; k < plan.length; k++) {
+                        if (plan[k].yajb == '01') {
+                            planId = plan[k].uuid;
+                        }
+                    }
+                    if (planId == '') {
+                        this.$message({
+                            message: "总队级预案不存在",
+                            showClose: true,
+                        });
+                    } else {
+                        window.open("http://localhost:8005/planShare/page/" + planId + "/detail" +"/web");
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+                
             },
             //水源详情跳转
             syxq:function(params){
