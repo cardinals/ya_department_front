@@ -12,7 +12,7 @@ new Vue({
                 YALX: "",
                 YAJB: "",
                 ZZJG: "",
-                SHZT: "01",
+                SHZT: "未审核",
                 shsj:""
             },
             //审批表单
