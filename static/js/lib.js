@@ -24,7 +24,7 @@ window.doFindPhoto = function(picType, picValue){
         var photo64 = res.data.result;
         var photo = document.getElementById("photo");
         if(photo64 == "" || photo64 == null){
-            photo.src = "../../static/images/no-picture.png";
+            photo.src = "../../static/images/nopicture.png";
         }else{
             photo.src = "data:image/png;base64,"+photo64;
         }
