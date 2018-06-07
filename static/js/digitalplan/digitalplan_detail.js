@@ -1,3 +1,16 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "GJSS"){
+        loadBreadcrumb("高级搜索", "重点单位预案详情");
+    }else if(type == "YASH"){
+        loadBreadcrumb("预案审核", "重点单位预案详情");
+    }else if(type == "YAFF"){
+        loadBreadcrumb("预案分发", "重点单位预案详情");
+    }else{
+        loadBreadcrumb("重点单位预案", "重点单位预案详情");
+    }
+}
 new Vue({
     el: "#app",
     data: function () {
