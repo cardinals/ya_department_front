@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("重点单位", "重点单位详情");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
