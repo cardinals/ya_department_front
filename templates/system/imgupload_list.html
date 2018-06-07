@@ -62,9 +62,10 @@
 						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>	
-							<el-table-column prop="picName" show-overflow-tooltip label="图片名称" min-width="40%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="picTypename" show-overflow-tooltip label="图片类型" min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="picName" show-overflow-tooltip label="图片名称" min-width="35%" align="center" :formatter="dataFormat"></el-table-column>
 							<el-table-column prop="picValue" show-overflow-tooltip label="图片代码" min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="picTypename" show-overflow-tooltip label="图片类型" min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="picType" show-overflow-tooltip label="类型代码" min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
 							<el-table-column prop="sex" show-overflow-tooltip label="预览" min-width="10%" align="center">
                                 <template slot-scope="scope">
                                     <el-button type="text" @click="imgPreview(scope.row)">预览</el-button>
@@ -111,8 +112,6 @@
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
-								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;" @click="inputClick()" :disabled="btnAddDisabled">手动输入</el-button></el-col>
-								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="10">
 									<el-form-item class="dialog-form" label="图片名称" prop="picName">
                                         <el-select size="small" v-model="addForm.picName" :disabled="selectDisabled" placeholder="请选择图片名称" clearable>
@@ -120,21 +119,36 @@
                                         </el-select>
 									</el-form-item>
 								</el-col>
+								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;margin-left: 13px;" @click="inputClick()" :disabled="btnAddDisabled">手动输入</el-button></el-col>
+								<el-col :span="1">&nbsp;</el-col>
 							</el-row>
 							<el-row>
 								<el-col :span="10">
-									<el-form-item class="dialog-form" label="图片类型" id="inputPicType" style="display: none;" prop="inputPicType">
-										<el-input size="small" v-model="addForm.inputPicType" placeholder="图片类型"></el-input>
+									<el-form-item class="dialog-form" label="图片类型" id="inputPicTypeName" style="display: none;" prop="inputPicTypeName">
+										<el-input size="small" v-model="addForm.inputPicTypeName" placeholder="图片类型"></el-input>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
-								<el-col :span="2"><el-button type="danger" size="small"  id="closeBtn"  style="margin-top: 4px;display: none;" @click="closeClick()">选择输入</el-button></el-col>
-								<el-col :span="1">&nbsp;</el-col>
+								<el-col :span="10">
+									<el-form-item class="dialog-form" label="类型代码" id="inputPicType" style="display: none;" prop="inputPicType">
+										<el-input size="small" v-model="addForm.inputPicType" placeholder="类型代码"></el-input>
+									</el-form-item>
+								</el-col>
+							</el-row>
+							<el-row>
 								<el-col :span="10">
 									<el-form-item class="dialog-form" label="图片名称" id="inputPicName" style="display: none;" prop="inputPicName">
 										<el-input size="small" v-model="addForm.inputPicName" placeholder="图片名称"></el-input>
 									</el-form-item>
 								</el-col>
+								<el-col :span="1">&nbsp;</el-col>
+								<el-col :span="10">
+									<el-form-item class="dialog-form" label="图片代码" id="inputPicValue" style="display: none;" prop="inputPicValue">
+										<el-input size="small" v-model="addForm.inputPicValue" placeholder="图片代码"></el-input>
+									</el-form-item>
+								</el-col>
+								<el-col :span="2"><el-button type="danger" size="small"  id="closeBtn"  style="margin-top: 4px;margin-left: 13px;display: none;" @click="closeClick()">选择输入</el-button></el-col>
+								<el-col :span="1">&nbsp;</el-col>
 							</el-row>
                             <el-row>
                                 <el-form-item label="图片上传">
@@ -176,8 +190,6 @@
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
-								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;" @click="inputEditClick()" :disabled="btnEditDisabled">手动输入</el-button></el-col>
-								<el-col :span="1">&nbsp;</el-col>
 								<el-col :span="10">
 									<el-form-item class="dialog-form" label="图片名称" prop="picName">
                                         <el-select size="small" v-model="editForm.picName" :disabled="selectEditDisabled" placeholder="请选择图片名称" clearable>
@@ -185,21 +197,36 @@
                                         </el-select>
 									</el-form-item>
 								</el-col>
+								<el-col :span="2"><el-button type="success" size="small" style="margin-top: 4px;margin-left: 13px;" @click="inputEditClick()" :disabled="btnEditDisabled">手动输入</el-button></el-col>
+								<el-col :span="1">&nbsp;</el-col>
 							</el-row>
 							<el-row>
 								<el-col :span="10">
-									<el-form-item class="dialog-form" label="图片类型" id="inputEditPicType" style="display: none;" prop="inputPicType">
-										<el-input size="small" v-model="editForm.inputPicType" placeholder="图片类型"></el-input>
+									<el-form-item class="dialog-form" label="图片类型" id="inputEditPicTypeName" style="display: none;" prop="inputPicTypeName">
+										<el-input size="small" v-model="editForm.inputPicTypeName" placeholder="图片类型"></el-input>
 									</el-form-item>
 								</el-col>
 								<el-col :span="1">&nbsp;</el-col>
-								<el-col :span="2"><el-button type="danger" size="small"  id="closeEditBtn"  style="margin-top: 4px;display: none;" @click="closeEditClick()">选择输入</el-button></el-col>
-								<el-col :span="1">&nbsp;</el-col>
+								<el-col :span="10">
+									<el-form-item class="dialog-form" label="类型代码" id="inputEditPicType" style="display: none;" prop="inputPicType">
+										<el-input size="small" v-model="editForm.inputPicType" placeholder="类型代码"></el-input>
+									</el-form-item>
+								</el-col>
+							</el-row>
+							<el-row>
 								<el-col :span="10">
 									<el-form-item class="dialog-form" label="图片名称" id="inputEditPicName" style="display: none;" prop="inputPicName">
 										<el-input size="small" v-model="editForm.inputPicName" placeholder="图片名称"></el-input>
 									</el-form-item>
 								</el-col>
+								<el-col :span="1">&nbsp;</el-col>
+								<el-col :span="10">
+									<el-form-item class="dialog-form" label="图片代码" id="inputEditPicValue" style="display: none;" prop="inputPicValue">
+										<el-input size="small" v-model="editForm.inputPicValue" placeholder="图片代码"></el-input>
+									</el-form-item>
+								</el-col>
+								<el-col :span="2"><el-button type="danger" size="small"  id="closeEditBtn"  style="margin-top: 4px;margin-left: 13px;display: none;" @click="closeEditClick()">选择输入</el-button></el-col>
+								<el-col :span="1">&nbsp;</el-col>
 							</el-row>
                             <el-row>
                                 <el-form-item label="图片上传">
