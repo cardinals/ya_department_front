@@ -29,11 +29,11 @@
 						<el-row>
 							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案对象" prop="dxmc">
-									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" clearable></el-input>
+									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" disabled></el-input>
 								</el-form-item>
 							</el-col>
-							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" style="padding: 4px;">
-								<el-button type="primary" icon="delete" size="small" class="btn_save" @click="clearYadx"></el-button>
+							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" style="padding: 4px 0;" class="tl">
+								<el-button icon="search" size="small" style="border: none;" @click="keyunitList"></el-button>
 							</el-col>
 							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案名称" prop="yamc">
@@ -43,7 +43,7 @@
 							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
 								<el-form-item label="预案编号">
-									<el-input size="small" v-model="addForm.yabm" placeholder="保存后系统自动生成" disabled></el-input>
+									<el-input size="small" v-model="addForm.yabm" placeholder="保存/提交后系统自动生成" disabled></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
@@ -80,7 +80,7 @@
 					<el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" style="margin:0;">
 						<el-form-item v-for="(domain, index) in dynamicValidateForm" :key="domain.key" :prop="'dynamicValidateForm.' + index + '.value'"
 						 label-position="right">
-							<el-card style="background-color:#F5F5F5;width:100%">
+							<el-card class="card_style">
 								<div slot="header" class="clearfix">
 									<strong class="card_title_font">灾情{{index+1}}</strong>
 									<el-button type="danger" icon="delete" size="small" @click.prevent="removeDomain(domain)" class="r" style="margin:5px 0 0">删除</el-button>
@@ -92,16 +92,18 @@
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 										<el-input v-model="domain.zqbw" size="small" placeholder="灾情部位"></el-input>
 									</el-col>
-									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">
-										<el-button type="primary" icon="search" size="small" class="btn_save" @click="partsList(index)"></el-button>
+									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" class="tl">
+										<el-button icon="search" size="small" style="border: none;background-color: #F5FAFC;" @click="partsList(index)"></el-button>
 									</el-col>
 									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
 										<el-label class="mr5">所属建筑</el-label>
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
-										<el-input v-model="domain.jzmc" size="small" @focus="buildingList(index)" placeholder="所属建筑"></el-input>
+										<el-input v-model="domain.jzmc" size="small" placeholder="所属建筑" disabled></el-input>
 									</el-col>
-									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" class="tl">
+										<el-button icon="search" size="small" style="border: none;background-color: #F5FAFC;" @click="buildingList(index)"></el-button>
+									</el-col>
 									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
 										<el-label class="mr5">燃烧物质</el-label>
 									</el-col>
@@ -128,9 +130,8 @@
 											<el-option v-for="item in QHYY_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
-									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
-										<el-label class="mr5">燃烧面积</el-label>
+									<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">
+										<el-label class="mr5">燃烧面积(㎡)</el-label>
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 										<el-input v-model="domain.rsmj" size="small" placeholder="燃烧面积"></el-input>
@@ -155,9 +156,8 @@
 											<el-option v-for="item in HZWXX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
-									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
-									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
-										<el-label class="mr5">起火高度</el-label>
+									<el-col :xs="3" :sm="3" :md="3" :lg="3" :xl="3">
+										<el-label class="mr5">起火高度(m)</el-label>
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 										<el-input v-model="domain.qhbwgd" size="small" placeholder="起火高度"></el-input>
@@ -220,9 +220,11 @@
 												<el-label class="mr5">消防队站</el-label>
 											</el-col>
 											<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
-												<el-input v-model="llbs.dzmc" size="small" @focus="fireStaList(index,index1)" placeholder="消防队站"></el-input>
+												<el-input v-model="llbs.dzmc" size="small" placeholder="消防队站" disabled></el-input>
 											</el-col>
-											<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
+											<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" class="tl">
+												<el-button icon="search" size="small" style="border: none;background-color: #F5FAFC;" @click="fireStaList(index,index1)"></el-button>
+											</el-col>
 											<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
 												<el-label class="mr5">方案类型</el-label>
 											</el-col>
@@ -281,7 +283,7 @@
 											:file-list="fileList" 
 											:auto-upload="false">
 										<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-										<span slot="tip" class="el-upload__tip ml10">只能上传zip/rar压缩文件</span>
+										<span slot="tip" class="el-upload__tip ml10">只能上传zip压缩文件</span>
 									</el-upload>
 								</el-form-item>
 							</el-form>
@@ -334,9 +336,9 @@
 							<el-table border id="table" :data="tableData_units.slice((currentPage_units-1)*pageSize_units,currentPage_units*pageSize_units)"
 							 class="tableStyle" :height="tableheight_units" @row-click="selectRow_units">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-								<el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="40%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="dwlbmc" label="单位类别" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="xzqhmc" label="行政区划" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="40%" align="center"></el-table-column>
+								<el-table-column prop="dwxzmc" label="单位类别" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+								<el-table-column prop="xzqhmc" label="行政区划" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
 							</el-table>
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">
@@ -370,9 +372,9 @@
 							<el-table border id="table" :data="tableData_parts.slice((currentPage_parts-1)*pageSize_parts,currentPage_parts*pageSize_parts)"
 							 class="tableStyle" :height="tableheight_parts" @row-click="selectRow_parts">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-								<el-table-column prop="zdbwmc" label="部位名称" show-overflow-tooltip min-width="40%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="zdbwlxmc" label="部位类型" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="zdbwwz" label="部位位置" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="zdbwmc" label="部位名称" show-overflow-tooltip min-width="40%" align="center"></el-table-column>
+								<el-table-column prop="zdbwlxmc" label="部位类型" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+								<el-table-column prop="zdbwwz" label="部位位置" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
 							</el-table>
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">
@@ -406,9 +408,9 @@
 							<el-table border id="table" :data="tableData_building.slice((currentPage_building-1)*pageSize_building,currentPage_building*pageSize_building)"
 							 class="tableStyle" :height="tableheight_building" @row-click="selectRow_building">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-								<el-table-column prop="jzmc" label="建筑名称" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="jzlxmc" label="建筑类型" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="jzwz" label="建筑位置" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="jzmc" label="建筑名称" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="jzlxmc" label="建筑类型" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="jzwz" label="建筑位置" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
 							</el-table>
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">
@@ -442,9 +444,9 @@
 							<el-table border id="table" :data="tableData_fireSta.slice((currentPage_fireSta-1)*pageSize_fireSta,currentPage_fireSta*pageSize_fireSta)"
 							 class="tableStyle" :height="tableheight_fireSta" @row-click="selectRow_fireSta">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-								<el-table-column prop="dzmc" label="队站名称" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="dzlxmc" label="队站类型" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="dzdz" label="队站地址" show-overflow-tooltip min-width="30%" align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="dzmc" label="队站名称" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="dzlxmc" label="队站类型" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
+								<el-table-column prop="dzdz" label="队站地址" show-overflow-tooltip min-width="30%" align="center"></el-table-column>
 							</el-table>
 							<!--列表底部工具条和分页符-->
 							<el-row type="flex" justify="end">

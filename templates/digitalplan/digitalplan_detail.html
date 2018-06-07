@@ -35,19 +35,19 @@
                                 </h3>
                             </div>
                             <dl>
-                                <img src="../../static/images/location.png">
+                                <img src="../../static/images/detail_zddw.png">
                                 <dt class="dib inform-small-title detail_margin">预案对象：</dt>
                                 <dd class="dtdlStyle" v-text="basicDetailData.dxmc||'无'"></dd>
                                 <br>
-                                <img src="../../static/images/date.png">
+                                <img src="../../static/images/detail_yabm.png">
                                 <dt class="dib inform-small-title detail_margin">预案编码：</dt>
                                 <dd class="dtdlStyle" v-text="basicDetailData.yabm||'无'"></dd>
                                 <br>
-                                <img src="../../static/images/date.png">
+                                <img src="../../static/images/detail_yalx.png">
                                 <dt class="dib inform-small-title detail_margin">预案类型：</dt>
                                 <dd class="dtdlStyle" v-text="basicDetailData.yalxmc||'无'"></dd>
                                 <br>
-                                <img src="../../static/images/postcode.png">
+                                <img src="../../static/images/detail_yazt.png">
                                 <dt class="dib inform-small-title detail_margin">预案状态：</dt>
                                 <dd class="dtdlStyle" v-text="basicDetailData.yaztmc||'无'"></dd>
                                 <br>
@@ -65,64 +65,13 @@
                         <template>
                             <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
                                 <el-tab-pane label="基本信息" name="first">
-                                    <el-card class="mb10 card_style ">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">预案基本信息</strong>
-                                        </div>
-                                        <el-row class="mb5"><strong style="color: #20a0ff;">制作情况</strong></el-row>
-                                        <el-row class="mb10">
-                                            <el-col :span="2">
-                                                <strong>制作人：</strong>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <div v-text="basicDetailData.zzrmc||'无'"></div>
-                                            </el-col>
-                                            <el-col :span="2">
-                                                <strong>制作时间：</strong>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <div v-text="basicDetailData.zzsj||'无'"></div>
-                                            </el-col>
-                                            <el-col :span="2">
-                                                <strong>制作机构：</strong>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <div v-text="basicDetailData.jgmc||'无'"></div>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="mb5"><strong style="color: #20a0ff;">审核情况</strong></el-row>
-                                        <el-row class="mb10">
-                                            <el-col :span="2">
-                                                <strong>审核人：</strong>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <div v-text="basicDetailData.shrmc||'无'"></div>
-                                            </el-col>
-                                            <el-col :span="2">
-                                                <strong>审核时间：</strong>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <div v-text="basicDetailData.shsj||'无'"></div>
-                                            </el-col>
-                                            <el-col :span="2">
-                                                <strong>审核状态：</strong>
-                                            </el-col>
-                                            <el-col :span="6">
-                                                <div v-text="basicDetailData.shztmc||'无'"></div>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row class="mb5"><strong style="color: #20a0ff;">备注</strong></el-row>
-                                        <el-row class="mb5">
-                                            <el-col :span="24">
-                                                <div v-text="basicDetailData.bz||'无'"></div>
-                                            </el-col>
-                                        </el-row>
-                                    </el-card>
                                     <el-card class="mb10 card_style">
                                         <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">重点单位基本信息</strong>
+                                            <strong class="card_title_font">重点单位信息</strong>
                                         </div>
-                                        <el-row class="mb5"><strong style="color: #20a0ff;">基本信息</strong></el-row>
+                                        <el-row class="mb5">
+                                            <strong style="color: #20a0ff;">基本信息</strong>
+                                        </el-row>
                                         <el-row class="mb5">
                                             <el-col :span="2">
                                                 <strong>单位名称：</strong>
@@ -151,7 +100,9 @@
                                                 <div v-text="unitDetailData.fhdjmc||'无'"></div>
                                             </el-col>
                                         </el-row>
-                                        <el-row class="mb5"><strong style="color: #20a0ff;">队站信息</strong></el-row>
+                                        <el-row class="mb5">
+                                            <strong style="color: #20a0ff;">队站信息</strong>
+                                        </el-row>
                                         <el-row class="mb10">
                                             <el-col :span="2">
                                                 <strong>防火队站：</strong>
@@ -166,7 +117,9 @@
                                                 <div v-text="unitDetailData.mhdzidmc||'无'"></div>
                                             </el-col>
                                         </el-row>
-                                        <el-row class="mb5"><strong style="color: #20a0ff;">消防联系人</strong></el-row>
+                                        <el-row class="mb5">
+                                            <strong style="color: #20a0ff;">消防联系人</strong>
+                                        </el-row>
                                         <el-row class="mb5">
                                             <el-col :span="3">
                                                 <strong>消防责任人：</strong>
@@ -196,133 +149,208 @@
                                             </el-col>
                                         </el-row>
                                     </el-card>
+                                    <el-card class="mb10 card_style ">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">预案信息</strong>
+                                        </div>
+                                        <el-row class="mb5">
+                                            <strong style="color: #20a0ff;">制作情况</strong>
+                                        </el-row>
+                                        <el-row class="mb10">
+                                            <el-col :span="2">
+                                                <strong>制作人：</strong>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div v-text="basicDetailData.zzrmc||'无'"></div>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <strong>制作时间：</strong>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div v-text="basicDetailData.zzsj||'无'"></div>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <strong>制作机构：</strong>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div v-text="basicDetailData.jgmc||'无'"></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <strong style="color: #20a0ff;">审核情况</strong>
+                                        </el-row>
+                                        <el-row class="mb10">
+                                            <el-col :span="2">
+                                                <strong>审核人：</strong>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div v-text="basicDetailData.shrmc||'无'"></div>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <strong>审核时间：</strong>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div v-text="basicDetailData.shsj||'无'"></div>
+                                            </el-col>
+                                            <el-col :span="2">
+                                                <strong>审核状态：</strong>
+                                            </el-col>
+                                            <el-col :span="6">
+                                                <div v-text="basicDetailData.shztmc||'无'"></div>
+                                            </el-col>
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <strong style="color: #20a0ff;">备注</strong>
+                                        </el-row>
+                                        <el-row class="mb5">
+                                            <el-col :span="24">
+                                                <div v-text="basicDetailData.bz||'无'"></div>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+                                    <el-card class="mb10 card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">附件信息</strong>
+                                        </div>
+                                        <el-row class="mb5">
+                                            该预案有
+                                            <span v-text="fjDetailData"></span>个附件
+                                        </el-row>
+                                    </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="灾情设定与力量部署" name="second">
-                                    <el-card v-for="(item,index) in disasterSetData" class="mb10 card_style">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">灾情{{index+1}}</strong>
-                                        </div>
-                                        <div name="灾情部位" class="pb5">
-                                            <el-row class="mb5">
-                                                <el-col :span="24">
-                                                    <div style="color: #20a0ff;">
-                                                        <strong>灾情部位 -</strong>
-                                                        <strong>{{item.zqbw||'无'}}</strong>
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="mb5">
-                                                <el-col :span="2">
-                                                    <strong>灾情等级：</strong>
-                                                </el-col>
-                                                <el-col :span="6">
-                                                    <div v-text="item.zqdjmc||'无'"></div>
-                                                </el-col>
-                                                <el-col :span="3">
-                                                    <strong>火灾危险性：</strong>
-                                                </el-col>
-                                                <el-col :span="5">
-                                                    <div v-text="item.hzwxxmc||'无'"></div>
-                                                </el-col>
-                                                <el-col :span="2">
-                                                    <strong>起火原因：</strong>
-                                                </el-col>
-                                                <el-col :span="6">
-                                                    <div v-text="item.qhyymc||'无'"></div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="mb5">
-                                                <el-col :span="2">
-                                                    <strong>燃烧物质：</strong>
-                                                </el-col>
-                                                <el-col :span="6">
-                                                    <div v-text="item.rswzmc||'无'"></div>
-                                                </el-col>
-                                                <el-col :span="3">
-                                                    <strong>燃烧面积（㎡）：</strong>
-                                                </el-col>
-                                                <el-col :span="5">
-                                                    <div v-text="item.rsmj||'--'"></div>
-                                                </el-col>
-                                                <el-col :span="3">
-                                                    <strong>起火高度（m）：</strong>
-                                                </el-col>
-                                                <el-col :span="5">
-                                                    <div v-text="item.qhbwgd||'--'"></div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="mb5">
-                                                <el-col :span="2">
-                                                    <strong>灾害场所：</strong>
-                                                </el-col>
-                                                <el-col :span="10">
-                                                    <div v-text="item.zhcsmc||'无'"></div>
-                                                </el-col>
-                                                <el-col :span="2">
-                                                    <strong>灾情描述：</strong>
-                                                </el-col>
-                                                <el-col :span="10">
-                                                    <div v-text="item.zqms||'无'"></div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row>
-                                                <el-col :span="3">
-                                                    <strong>灾情设定依据：</strong>
-                                                </el-col>
-                                                <el-col :span="21">
-                                                    <div v-text="item.zqsdyj||'无'"></div>
-                                                </el-col>
-                                            </el-row>
-                                        </div>
-                                        <div v-if="item.forcedevList.length==0"></div>
-                                        <div v-else class="pb5 pt5 cardBorder">
-                                            <div name="力量部署">
+                                    <div v-if="disasterSetData ==null ||disasterSetData ==''">
+                                        <el-card class="mb10 card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_font">灾情</strong>
+                                            </div>
+                                            <el-row class="mb5">无</el-row>
+                                        </el-card>
+                                    </div>
+                                    <div v-else>
+                                        <el-card v-for="(item,index) in disasterSetData" class="mb10 card_style">
+                                            <div slot="header" class="clearfix">
+                                                <strong class="card_title_font">灾情{{index+1}}</strong>
+                                            </div>
+                                            <div name="灾情部位" class="pb5">
                                                 <el-row class="mb5">
                                                     <el-col :span="24">
                                                         <div style="color: #20a0ff;">
-                                                            <strong>力量部署</strong>
+                                                            <strong>灾情部位 -</strong>
+                                                            <strong>{{item.zqbw||'无'}}</strong>
                                                         </div>
                                                     </el-col>
                                                 </el-row>
-                                                <el-table :data="item.forcedevList" border class="detailTable">
-                                                    <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                                    <el-table-column prop="djfalxmc" label="调集方案类型" width="180" align="center" show-overflow-tooltip></el-table-column>
-                                                    <el-table-column prop="dzmc" label="队站名称" width="180" align="center" show-overflow-tooltip></el-table-column>
-                                                    <el-table-column prop="tkwz" label="停靠位置" width="220" align="center" show-overflow-tooltip></el-table-column>
-                                                    <el-table-column prop="clzbts" label="车辆装备提示" width="255" align="center" show-overflow-tooltip></el-table-column>
-                                                </el-table>
+                                                <el-row class="mb5">
+                                                    <el-col :span="2">
+                                                        <strong>灾情等级：</strong>
+                                                    </el-col>
+                                                    <el-col :span="6">
+                                                        <div v-text="item.zqdjmc||'无'"></div>
+                                                    </el-col>
+                                                    <el-col :span="3">
+                                                        <strong>火灾危险性：</strong>
+                                                    </el-col>
+                                                    <el-col :span="5">
+                                                        <div v-text="item.hzwxxmc||'无'"></div>
+                                                    </el-col>
+                                                    <el-col :span="2">
+                                                        <strong>起火原因：</strong>
+                                                    </el-col>
+                                                    <el-col :span="6">
+                                                        <div v-text="item.qhyymc||'无'"></div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="mb5">
+                                                    <el-col :span="2">
+                                                        <strong>燃烧物质：</strong>
+                                                    </el-col>
+                                                    <el-col :span="6">
+                                                        <div v-text="item.rswzmc||'无'"></div>
+                                                    </el-col>
+                                                    <el-col :span="3">
+                                                        <strong>燃烧面积（㎡）：</strong>
+                                                    </el-col>
+                                                    <el-col :span="5">
+                                                        <div v-text="item.rsmj||'--'"></div>
+                                                    </el-col>
+                                                    <el-col :span="3">
+                                                        <strong>起火高度（m）：</strong>
+                                                    </el-col>
+                                                    <el-col :span="5">
+                                                        <div v-text="item.qhbwgd||'--'"></div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="mb5">
+                                                    <el-col :span="2">
+                                                        <strong>灾害场所：</strong>
+                                                    </el-col>
+                                                    <el-col :span="10">
+                                                        <div v-text="item.zhcsmc||'无'"></div>
+                                                    </el-col>
+                                                    <el-col :span="2">
+                                                        <strong>灾情描述：</strong>
+                                                    </el-col>
+                                                    <el-col :span="10">
+                                                        <div v-text="item.zqms||'无'"></div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row>
+                                                    <el-col :span="3">
+                                                        <strong>灾情设定依据：</strong>
+                                                    </el-col>
+                                                    <el-col :span="21">
+                                                        <div v-text="item.zqsdyj||'无'"></div>
+                                                    </el-col>
+                                                </el-row>
                                             </div>
-                                        </div>
-                                        <div v-if="item.keypointsMap==null"></div>
-                                        <div v-else name="要点提示" class="pt5 cardBorder">
-                                            <el-row class="mb5">
-                                                <el-col :span="24">
-                                                    <div style="color: #20a0ff;">
-                                                        <strong>要点提示</strong>
-                                                    </div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="mb5">
-                                                <el-col :span="2">
-                                                    <strong>战术要点：</strong>
-                                                </el-col>
-                                                <el-col :span="22">
-                                                    <div v-text="item.keypointsMap.zsyd||'无'"></div>
-                                                </el-col>
-                                            </el-row>
-                                            <el-row class="mb5">
-                                                <el-col :span="2">
-                                                    <strong> 特别警示：</strong>
-                                                </el-col>
-                                                <el-col :span="22">
-                                                    <div v-text="item.keypointsMap.tbjs||'无'"></div>
-                                                </el-col>
-                                            </el-row>
-                                        </div>
-                                    </el-card>
-                                </el-tab-pane>
-                                <el-tab-pane label="附件信息" name="third">
-                                    该预案有<span v-text="fjDetailData"></span>个附件
+                                            <div v-if="item.forcedevList.length==0"></div>
+                                            <div v-else class="pb5 pt5 cardBorder">
+                                                <div name="力量部署">
+                                                    <el-row class="mb5">
+                                                        <el-col :span="24">
+                                                            <div style="color: #20a0ff;">
+                                                                <strong>力量部署</strong>
+                                                            </div>
+                                                        </el-col>
+                                                    </el-row>
+                                                    <el-table :data="item.forcedevList" border class="detailTable">
+                                                        <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
+                                                        <el-table-column prop="djfalxmc" label="调集方案类型" width="180" align="center" show-overflow-tooltip></el-table-column>
+                                                        <el-table-column prop="dzmc" label="队站名称" width="180" align="center" show-overflow-tooltip></el-table-column>
+                                                        <el-table-column prop="tkwz" label="停靠位置" width="220" align="center" show-overflow-tooltip></el-table-column>
+                                                        <el-table-column prop="clzbts" label="车辆装备提示" width="255" align="center" show-overflow-tooltip></el-table-column>
+                                                    </el-table>
+                                                </div>
+                                            </div>
+                                            <div v-if="item.keypointsMap==null"></div>
+                                            <div v-else name="要点提示" class="pt5 cardBorder">
+                                                <el-row class="mb5">
+                                                    <el-col :span="24">
+                                                        <div style="color: #20a0ff;">
+                                                            <strong>要点提示</strong>
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="mb5">
+                                                    <el-col :span="2">
+                                                        <strong>战术要点：</strong>
+                                                    </el-col>
+                                                    <el-col :span="22">
+                                                        <div v-text="item.keypointsMap.zsyd||'无'"></div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="mb5">
+                                                    <el-col :span="2">
+                                                        <strong> 特别警示：</strong>
+                                                    </el-col>
+                                                    <el-col :span="22">
+                                                        <div v-text="item.keypointsMap.tbjs||'无'"></div>
+                                                    </el-col>
+                                                </el-row>
+                                            </div>
+                                        </el-card>
+                                    </div>
                                 </el-tab-pane>
                             </el-tabs>
                         </template>
