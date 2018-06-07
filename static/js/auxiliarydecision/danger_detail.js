@@ -24,9 +24,7 @@ new Vue({
         axios.get('/dpapi/danger/doFindById/' + this.id).then(function (res) {
             this.tableData = res.data.result;
             this.detailData = this.tableData;
-            var photo = document.getElementById("flag");
-            this.photo64 =  this.detailData.photo64;
-            photo.src = "data:image/png;base64,"+this.photo64;
+            doFindPhoto("HXWXPLX",this.detailData.type);
         }.bind(this), function (error) {
             console.log(error)
         })

@@ -1,3 +1,12 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "DT"){
+        loadBreadcrumb("地图", "消防队站详情");
+    }else{
+        loadBreadcrumb("消防队站管理", "消防队站详情");
+    }
+}
 new Vue({
     el: "#detailDisplay",
     data: function () {
