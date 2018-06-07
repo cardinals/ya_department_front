@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("代码集管理", "代码集详情");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({

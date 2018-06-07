@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("权限管理", "-1");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
