@@ -1,3 +1,12 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "XZ"){
+        loadBreadcrumb("重点单位预案", "重点单位预案新增");
+    }else if(type == "BJ"){
+        loadBreadcrumb("重点单位预案", "重点单位预案编辑");
+    }
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
