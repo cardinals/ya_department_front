@@ -1691,7 +1691,7 @@ var vm = new Vue({
             },
             //重点单位详情跳转
             zddwxq:function(zddwparams){
-                window.location.href = "../planobject/importantunits_list.html?uuid=" + zddwparams+"&zddwdj=1"+"&index=41"+"&type=DT";
+                window.location.href = "../planobject/importantunits_detail.html?ID=" + zddwparams+"&index=41"+"&type=DT";
                 // window.location.href = "../planobject/importantunits_detail.html?uuid=" + zddwparams;
             },
             //卫星地图
