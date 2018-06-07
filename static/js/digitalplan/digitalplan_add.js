@@ -543,10 +543,10 @@ new Vue({
                 this.fireStaListVisible = true;
                 this.loading_fireSta = true;
                 var params = {
-                    xzqh: this.addForm.xzqh,
+                    xzqh: this.addForm.xzqh.substring(0,2),
                     dzmc: this.searchForm_fireSta.dzmc
                 };
-                axios.post('/dpapi/xfdz/list', params).then(function (res) {
+                axios.post('/dpapi/xfdz/doSearchProvinceList', params).then(function (res) {
                     this.tableData_fireSta = res.data.result;
                     this.total_fireSta = res.data.result.length;
                     this.loading_fireSta = false;
