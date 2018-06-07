@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title></title>
     <!-- 引入样式 -->
+    <!-- search style -->
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/default.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/search-form.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/element.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/zxx.lib.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/bootstrap.min.css">
@@ -17,7 +20,7 @@
     <!-- 底部控件 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
     <style>
-       .jwcolor{ color:#333;}
+       .jwcolor{ color:#fff;background: #3A254F;padding: 4px;border: 2px solid #F9C520;border-radius:25px;}
        .h25{height: 25px;} .h482{height: 482px;}
        .h65{height: 65%;} .wh240{width: 240;}
        .icont:hover{border:1px solid blue;}
@@ -84,7 +87,20 @@
             <div id="BMap" class="map-main tc" v-loading="loading" element-loading-text="加载中">
             </div>
             <!-- db start -->
-            <div class="search" style="position:fixed;top:8px;left: 300px;">
+            <!-- zjc start -->
+            <!-- <form onSubmit="submitFn(this, event);" >
+                <div class="search-wrapper">
+                    <div class="input-holder">
+                        <input type="text" class="search-input" placeholder="请输入关键词" />
+                        <button class="search-icon" onClick="searchToggle(this, event);"><span></span></button>
+                    </div>
+                    <span class="close" onClick="searchToggle(this, event);"></span>
+                    <div class="result-container">
+                    </div>
+                </div>
+            </form> -->
+            <!-- zjc end -->
+            <div class="search" style="position:fixed;top:8px;left: 700px;">
                 <div class="input-group">
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default dropdown-toggle" style="height: 30px !important;top:5px;" data-toggle="dropdown">
@@ -108,11 +124,11 @@
                 </div>
             </div>
             <!-- db end -->
-            <div class="jwd" style="position:fixed;top:13px;right: 220px;">
+            <div class="jwd" style="position:fixed;top:13px;left: 260px;">
                 <span class="jwcolor">经度:</span>
-                <input type="text" style="height: 30px !important;border: 1px solid #C0C0C0;" id="lng" />
+                <input type="text" style="border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lng" />
                 <span class="jwcolor">纬度:</span>
-                <input type="text" style="height: 30px !important;border: 1px solid #C0C0C0;" id="lat" />
+                <input type="text" style="border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lat" />
             </div>
             <div style="position:fixed;bottom:20px;left: 40%;">
                 <div id="container">
@@ -238,6 +254,41 @@
 <script type="text/javascript" src="../../static/js/bigscreen/MarkerClusterer.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/TrafficControl/1.4/src/TrafficControl_min.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/mapmain.js"></script>
+<script type="text/javascript" src="../../static/js/bigscreen/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    function searchToggle(obj, evt){
+        var container = $(obj).closest('.search-wrapper');
+    
+        if(!container.hasClass('active')){
+              container.addClass('active');
+              evt.preventDefault();
+        }
+        else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+              container.removeClass('active');
+              // clear input
+              container.find('.search-input').val('');
+              // clear and hide result container when we press close
+              container.find('.result-container').fadeOut(100, function(){$(this).empty();});
+        }
+    }
+    
+    function submitFn(obj, evt){
+        value = $(obj).find('.search-input').val().trim();
+    
+        _html = "您搜索的关键词： ";
+        if(!value.length){
+            _html = "关键词不能为空。";
+        }
+        else{
+            _html += "<b>" + value + "</b>";
+        }
+    
+        $(obj).find('.result-container').html('<span>' + _html + '</span>');
+        $(obj).find('.result-container').fadeIn(100);
+    
+        evt.preventDefault();
+    }
+</script>
 <!-- tooljs的引入 -->
 <script type="text/javascript"></script>
 <script>
