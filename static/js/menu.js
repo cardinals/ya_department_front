@@ -127,9 +127,6 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/basicinfo/firestation"){
                 realUrl="http://localhost/templates/basicinfo/firestation_list.html"
             }
-            else if(this.model.url=="/basicinfo/organization"){
-                realUrl="http://localhost/templates/basicinfo/organization_list.html"
-            }
             // 5
             else if(this.model.url=="/user"){
                 realUrl="http://localhost/templates/system/user_list.html";
@@ -148,6 +145,9 @@ treeMenuTemplate.push('</li>');
             }
             else if(this.model.url=="/imgupload"){
                 realUrl="http://localhost/templates/system/imgupload_list.html"
+            }
+            else if(this.model.url=="/basicinfo/organization"){
+                realUrl="http://localhost/templates/system/organization_list.html"
             }
             // 6
             else if(this.model.url=="/auxiliarydecision/danger"){
