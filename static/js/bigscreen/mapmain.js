@@ -693,9 +693,7 @@ var vm = new Vue({
                         sylx : sylx
                     }
                     axios.post('/dpapi/xfsy/findSyAndSxByVo', params).then(function (res) {
-                        
                         sy = res.data.result;
-                      
                         vm.getSysjz(sy);
                      }.bind(this), function (error) {
                          console.log(error)
