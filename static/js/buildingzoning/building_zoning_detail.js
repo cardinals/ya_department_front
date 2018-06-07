@@ -1,3 +1,12 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "GJSS"){
+        loadBreadcrumb("高级搜索", "单位建筑信息");
+    }else{
+        loadBreadcrumb("单位建筑信息", "单位建筑信息详情");
+    }
+}
 new Vue({
     el: "#app",
     data: function () {
