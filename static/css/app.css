@@ -715,8 +715,29 @@ margin-top: 10px;
 /* .main-container-header {
 
 } */
+.a-back {
+  color: #337ab7;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.a-back:hover {
+  text-decoration:none
+}
+.a-back-detail {
+  color: #333333;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.a-back-detail:hover {
+  text-decoration:none
+}
 .main-container-header-line {
   border-bottom: 1px solid;
+  border-color: #BFCBD9;
+  padding-bottom: 5px;
+}
+#tableView {
+  margin-top: 10px;
 }
 .el-button--clear{
   color:#fff;
