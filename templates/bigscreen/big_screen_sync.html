@@ -30,7 +30,9 @@
     .sync-ring-img {width: 80px; height: 80px; position: absolute; top: 89px; left: 166px; background: url(../../static/images/sync-ring.png) no-repeat center center;background-size: 80px 80px;}
     .sync-ring {width: 100px; height: 80px; position: absolute; top: 169px; left: 156px; line-height: 25px; color: #fff; font-size: 16px;border: 0px;}
     .sync-city{width: 40px; height: 40px; display: block; position: absolute; top: 116px; left: 638px; z-index: 10; cursor: default;}
-    .sync-cityBox{width: 232px; height: 197px; background: url(../../static/images/sync-test.png) no-repeat center center;background-size: auto 100%; display: block; position: absolute; top: -19px; left: 0px; visibility: hidden; opacity: 0;}
+    .sync-cityBox{width: 232px; height: 197px; background: url(../../static/images/sync-cityBox.png) no-repeat center center;background-size: auto 100%; display: block; position: absolute; top: -18px; left: 0px; visibility: hidden; opacity: 0;}
+    /* .sync-cityBox{width: 232px; height: 197px; background: url(../../static/images/sync-cityBox.png) no-repeat center center;background-size: auto 100%; display: block; position: absolute; top: -18px; left: 0px; visibility: visible; opacity: 1;} */
+    .sync-cityText{display: block;font: "微软雅黑";color: #9cc0eb;}
     .sync-city:hover .sync-cityBox{visibility: visible; opacity: 1;}
     .sync-beijing {top: 107px; left: 628px;}
     .sync-tianjin {top: 115px; left: 636px;}
@@ -80,7 +82,14 @@
                         <div class="sync-ring-img"></div>
                         <div class="sync-ring">31个总队数据采集看板</div>
                         <a class="sync-city">
-                            <div class="sync-cityBox"></div>
+                            <div class="sync-cityBox">
+                                <div class="sync-cityText f20 tl" style="margin-top:15px;margin-left:55px">北京</div>
+                                <div class="sync-cityText f12 tl" style="margin-top:2px;margin-left:55px">最近同步时间：2018.6.6</div>
+                                <div class="sync-cityText f15 tr" style="margin-top:16px;margin-right:17px">累计同步数据量</div>
+                                <div class="sync-cityText f13 tr" style="margin-right:17px"><strong class="f24" style="color:#F7E301">256238</strong>条</div>
+                                <div class="sync-cityText f15 tr" style="margin-top:9px;margin-right:17px">上次同步数据量</div>
+                                <div class="sync-cityText f13 tr" style="margin-right:17px"><strong class="f24" style="color:#04F185">3426</strong>条</div>
+                            </div>
                         </a>
                         <div id="beijing" class="sync-flash sync-aperture sync-beijing"></div>
                         <div id="tianjin" class="sync-flash sync-red sync-aperture sync-tianjin"></div>
@@ -119,14 +128,14 @@
                         <div id="r1" class="application-text map-bg2 p10 pr20">
                             <div class="sync-image" style="background-image: url(../../static/images/sync-1.png);background-size: 60px 60px;"></div>
                             <div class="sync-text">服务节点数量</div>
-                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.fwjdsl"></span>条</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.fwjdsl"></span>个</div>
                         </div>
                     </div>
                     <div class="application-div h25 p5">
                         <div id="r2" class="application-text map-bg2 p10 pr20">
                             <div class="sync-image" style="background-image: url(../../static/images/sync-2.png);background-size: 60px 60px;"></div>
                             <div class="sync-text">故障节点数量</div>
-                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.gzjdsl"></span>条</div>
+                            <div class="sync-text"><span class="sync-text-strong" v-text = "this.syncState.gzjdsl"></span>个</div>
                         </div>
                     </div>
                     <div class="application-div h25 p5">

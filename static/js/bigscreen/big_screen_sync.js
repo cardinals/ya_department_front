@@ -2,10 +2,10 @@ var vm = new Vue({
     el: "#app",
     data: {
         syncState: {
-            fwjdsl: '19',
+            fwjdsl: '29',
             gzjdsl: '2',
-            jrxtsl: '152',
-            sjjksl: '307'
+            jrxtsl: '4',
+            sjjksl: '31'
         },
         provincesData: {
             beijing: '0',
