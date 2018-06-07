@@ -1076,6 +1076,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(sycontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
                         vm.map.openInfoWindow(infoWindow,pt);
                   
                     var markerClusterer = vm.markerClusterer;
@@ -1227,6 +1228,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(dzcontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
                     });
                     map.addOverlay(marker);
@@ -1332,6 +1334,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(sycontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
                     });
                     var markerClusterer = vm.markerClusterer;
@@ -1562,6 +1565,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(contentz); //创建信息窗口对象
                         infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
                         var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
                         var radius = 1000;
@@ -1873,6 +1877,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
                         infoWindow.disableAutoPan();//
+                        infoWindow.enableAutoPan();//自动平移
                         this.openInfoWindow(infoWindow);//
                         //设置新图标
                         var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标
