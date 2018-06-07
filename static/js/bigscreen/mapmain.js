@@ -1683,7 +1683,7 @@ var vm = new Vue({
             },
             //水源详情跳转
             syxq:function(params){
-                window.location.href = "../basicinfo/firewater_list.html?uuid=" + params+"&sydj=1";
+                window.location.href = "../basicinfo/firewater_list.html?uuid=" + params+"&sydj=1"+"&index=61";
             },
             //队站详情跳转
             dzxq:function(dzparams){
@@ -1691,7 +1691,7 @@ var vm = new Vue({
             },
             //重点单位详情跳转
             zddwxq:function(zddwparams){
-                window.location.href = "../planobject/importantunits_list.html?uuid=" + zddwparams+"&zddwdj=1";
+                window.location.href = "../planobject/importantunits_list.html?uuid=" + zddwparams+"&zddwdj=1"+"&index=41"+"&type=DT";
                 // window.location.href = "../planobject/importantunits_detail.html?uuid=" + zddwparams;
             },
             //卫星地图
