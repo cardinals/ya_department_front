@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("其他对象", "-1");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
 new Vue({
@@ -6,6 +10,8 @@ new Vue({
         return {
             //菜单编号
             activeIndex: '',
+            //面包屑
+            firstName: '其他对象',
             //搜索表单
             searchForm: {
                 dxmc: '',
@@ -160,7 +166,7 @@ new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            window.location.replace("otherobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex);
+            window.location.href = "otherobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         }
     }
 })

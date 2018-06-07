@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("其他对象", "其他对象详情");
+}
 new Vue({
     el: "#app",
     data: function () {
