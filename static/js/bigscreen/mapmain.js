@@ -1687,7 +1687,7 @@ var vm = new Vue({
             },
             //队站详情跳转
             dzxq:function(dzparams){
-                window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams+"&dzdj=1";
+                window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams+"&dzdj=1"+"&index=65";
             },
             //重点单位详情跳转
             zddwxq:function(zddwparams){
