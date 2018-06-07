@@ -1,3 +1,12 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "GJSS"){
+        loadBreadcrumb("高级搜索", "单位建筑信息");
+    }else{
+        loadBreadcrumb("单位建筑信息", "单位建筑信息详情");
+    }
+}
 new Vue({
     el: "#app",
     data: function () {
@@ -186,20 +195,13 @@ new Vue({
         
         //详情
         details: function () {
+            doFindPhoto("JZLX",this.jzlx);
             var params = {
                 jzid : this.id,
                 jzlx : this.jzlx
             }
             axios.post('/dpapi/building/findFqDetailByVo', params).then(function (res) {
                 this.detailData = res.data.result;
-                //显示图片
-                var photo64 = this.detailData.photo64;
-                var photo = document.getElementById("photo");
-                if(photo64 == "" || photo64 == null){
-                    photo.src = "../../static/images/no-picture.png";
-                }else{
-                    photo.src = "data:image/png;base64,"+photo64;
-                }
                 //通过建筑分区id查询消防设施
                 this.loadXfss();
                 this.loading=false;

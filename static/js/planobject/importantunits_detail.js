@@ -1,3 +1,14 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "GJSS"){
+        loadBreadcrumb("高级搜索", "重点单位详情");
+    }else if(type == "DT"){
+        loadBreadcrumb("地图", "重点单位详情");
+    }else{
+        loadBreadcrumb("重点单位", "重点单位详情");
+    }
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -14,8 +25,8 @@ new Vue({
             zzl_zdbwData: [],//装置类重点部位数据
             cgl_zdbwData: [],//储罐类重点部位数据
             jzfqData:[],//建筑分区原始数据
-            jzl_jzfqData: [],//建筑类建筑分区数据
-            zzl_jzfqData: [],//建筑类建筑分区数据
+            jzl_jzfqData: [],//建筑群-建筑类数据
+            zzl_jzfqData: [],//建筑群-装置类数据
             cgl_jzfqData: [],//建筑类建筑分区数据
             //消防力量显示标识：
             XFLL: false,
@@ -229,6 +240,8 @@ new Vue({
                 this.tableData = res.data.result;
                 this.loading = false;
                 this.uuid = ID;
+                //显示图片
+                doFindPhoto("DWXZ", res.data.result.dwxz);
                 // if (this.tableData !== []) {
                 //根据重点单位id获取消防队伍信息
                 this.getXfllListByZddwIdo();
@@ -305,7 +318,7 @@ new Vue({
                 if (this.jzfqData.length > 0) {
                     for (var i = 0; i < this.jzfqData.length; i++) {  //循环LIST
                         var jzlx = this.jzfqData[i].jzlx;//获取LIST里面的对象
-                        switch (this.jzlx) {
+                        switch (jzlx) {
                             case "30":
                                 this.zzl_jzfqData.push(this.jzfqData[i]);
                                 break;

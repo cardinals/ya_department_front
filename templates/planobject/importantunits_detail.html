@@ -19,10 +19,12 @@
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
+                <!-- 面包屑 -->
+                <div id="breadcrumb_box"></div>
                 <div id="tableView">
                     <div class="nameBox">
                         <div id="basic-Inform-Picture">
-                            <img src="../../static/images/danwei2.jpg">
+                            <img id="photo" class="detail_picture_size">
                         </div>
                         <div class="dib" id="basic-Inform-Title">
                             <div>
@@ -43,13 +45,13 @@
                                 <dt class="dib inform-small-title detail_margin">防火等级：</dt>
                                 <dd class="dtdlStyle" v-text="tableData.fhdjmc||'无'"></dd>
                                 <br>
-                                <img src="../../static/images/postcode.png">
-                                <dt class="dib inform-small-title detail_margin">单位概况：</dt>
-                                <dd class="dtdlStyle" v-text="tableData.dwgk||'无'"></dd>
-                                <br>
                                 <img src="../../static/images/phone.png">
                                 <dt class="dib inform-small-title detail_margin">值班电话：</dt>
                                 <dd class="dtdlStyle" v-text="tableData.zbdh||'无'"></dd>
+                                <br>
+                                <img src="../../static/images/postcode.png">
+                                <dt class="dib inform-small-title detail_margin">单位概况：</dt>
+                                <dd class="dtdlStyle" v-text="tableData.dwgk||'无'"></dd>
                             </dl>
                         </div>
                         <div style="float: right">
@@ -941,7 +943,7 @@
                                                 <el-table :data="data.weixianjiezhiList" border class="detailTable">
                                                     <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
                                                     <el-table-column prop="jzmc" label="名称" align="center" width="200" show-overflow-tooltip></el-table-column>
-                                                    <el-table-column prop="jzsjcl" label="实际储量(t)" align="center" width="100" show-overflow-tooltip></el-table-column>
+                                                    <el-table-column prop="jzsjcl" label="实际储量(t)" align="center" width="120" show-overflow-tooltip></el-table-column>
                                                     <el-table-column prop="jzlhtx" label="理化特性" align="center" width="200" show-overflow-tooltip></el-table-column>
                                                     <el-table-column prop="jzbz" label="备注" align="center" show-overflow-tooltip></el-table-column>
                                                 </el-table>

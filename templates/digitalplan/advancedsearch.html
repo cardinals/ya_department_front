@@ -18,6 +18,8 @@
             <div class="main-box">
                 <div class="main-container" v-loading="loading" element-loading-text="加载中">
                     <div id="lib :: main_container_header('高级搜索','高级搜索')"></div>
+                    <!-- 面包屑 -->
+                    <div id="breadcrumb_box"></div>
                     <div id="tableView">
                         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                             <el-tab-pane label="预案信息" name="first">

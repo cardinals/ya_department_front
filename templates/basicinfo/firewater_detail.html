@@ -26,6 +26,7 @@
                                 <dd class="dtdlStyle">{{detailData.kyztmc||'无'}}</dd>
                             </dl>
                         </div>
+                        <img @click="this.tz" src="../../static/images/mapbtnmin.png" style="cursor:pointer;float:right;margin-top: -100px;">
                     </div>
                     <div class="inform-content" style="width: 100%;margin-bottom: 0px;margin-top: 40px">
                         <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
@@ -49,8 +50,7 @@
                                                 <dt class="dtdlStyle">取水形式：</dt>
                                                 <dd class="dtdlStyle">{{detailData.qsxs||"无"}}</dd>
                                             </dl>
-                                        </div>
-                                        
+                                        </div>                                       
                                     </div>
                                     <div class="right-inform" style="width: 250px">                                                                              
                                         <div>
@@ -122,8 +122,8 @@
                                             </dl>
                                         </div>
                                     </div>
-                                    <div id="dituContent" style="width:500px;height:300px;border:#ccc solid 1px;margin-top:40px">     
-                                    </div>
+                                    <!-- <div id="dituContent" style="width:500px;height:300px;border:#ccc solid 1px;margin-top:40px">     
+                                    </div> -->
                                 </div>
                             </el-tab-pane>
                             <el-tab-pane label="责任归属" name="third">

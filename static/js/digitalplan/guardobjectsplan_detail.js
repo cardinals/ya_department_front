@@ -1,3 +1,14 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "GJSS"){
+        loadBreadcrumb("高级搜索", "消防保卫警卫预案详情");
+    }else if(type == "DT"){
+        loadBreadcrumb("地图", "消防保卫警卫预案详情");
+    }else{
+        loadBreadcrumb("消防保卫警卫预案", "消防保卫警卫预案详情");
+    }
+}
 new Vue({
     el: "#detailDisplay",
     data: function () {

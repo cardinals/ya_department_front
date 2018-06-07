@@ -681,6 +681,25 @@ var vm = new Vue({
                     })
                    
                   }
+                //水源从后台管理系统的跳转
+                 var isShuidj = this.GetQueryString("shuidj");                
+                 if(isShuidj == 1){
+                     this.loading = true;
+                     var sy = "";
+                     var ID = this.GetQueryString("uuid");
+                     var sylx = this.GetQueryString("sylx");
+                     var params = {
+                        uuid : ID,
+                        sylx : sylx
+                    }
+                    axios.post('/dpapi/xfsy/findSyAndSxByVo', params).then(function (res) {
+                        sy = res.data.result;
+                        vm.getSysjz(sy);
+                     }.bind(this), function (error) {
+                         console.log(error)
+                     })
+                    
+                   }
 
             },
             //除去聚合点（保留项）
@@ -994,6 +1013,96 @@ var vm = new Vue({
                 vm.zdd = marker;
                 vm.circle = circle;
             },
+            //对水源传参进行画点
+            getSysjz: function (sysy) {
+                    var syy = [];
+                    vm.syy = syy;
+                    var map = vm.map;
+                    var pt = new BMap.Point(sysy.gisX, sysy.gisY);
+                    var uuid = sysy.uuid;
+                   
+                    //判断水源种类
+                    var d = sysy.sylx;
+                    switch (d) {
+                        case '01': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_hydrant_map.png", new BMap.Size(24, 24));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                        case '02': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_crane_map.png", new BMap.Size(24, 24));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                        case '03': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_naturalwater_map.png", new BMap.Size(24, 24));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                        case '04': var myIcon1 = new BMap.Icon("../../static/images/maptool/marker_pool_map.png", new BMap.Size(24, 24));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                    };
+                    marker.uuid = uuid;//影响水源这块
+                    var pt = marker.getPosition();
+                        map.centerAndZoom(pt, 14);//不进行放大
+                        this.sylxmcData = (sysy.sylxmc != null ? sysy.sylxmc : '无');
+                        this.qsxsData = (sysy.qsxs != null ? sysy.qsxs : '无');
+                        this.symcData = (sysy.symc != null ? sysy.symc : '无');
+                        this.kyztmcData = (sysy.kyztmc != null ? sysy.kyztmc : '无');
+                    
+                        var sycontent =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:205px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
+                            this.symcData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.symcData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>水源类型：</strong>' + this.sylxmcData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>可用状态：</strong>' + this.kyztmcData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>取水形式：</strong>' + this.qsxsData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
+                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '</div>' +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                        var infoWindow = new BMap.InfoWindow(sycontent);  // 创建信息窗口对象
+                        infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
+                        vm.map.openInfoWindow(infoWindow,pt);
+                  
+                    var markerClusterer = vm.markerClusterer;
+                    markerClusterer.addMarkers(syy);
+                    map.addOverlay(marker);
+                    var label = new BMap.Label(this.formatLabel(sysy.symc), { offset: new BMap.Size(-20, 25) });
+                    label.setStyle({
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        border: '0',
+                        textAlign: 'center',
+                        color: '#7BA860',
+                        borderRadius: '5px',
+                        paddingRight: '110px',
+                        paddingTop: '5px',
+                        Width: '5px',
+                        display: 'inline-block',
+                        paddingRight: '80px',
+                        marginLeft: '-9px',
+                    });
+                    marker.setLabel(label);//跳动的动画
+                    syy.push(marker);
+                    // marker.setAnimation(BMAP_ANIMATION_DROP); //跳动的动画
+                
+                this.loading = false;
+            },
             //重置的按钮重新的编写
             Reset: function () {
                 location.reload();//重新加载
@@ -1119,6 +1228,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(dzcontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
                     });
                     map.addOverlay(marker);
@@ -1154,16 +1264,13 @@ var vm = new Vue({
                     document.getElementById("shuiyuan").value = "1";
                 }
             },
+            //
             //对水源进行灌注点
             getSysj: function () {
                 var syy = [];
                 vm.syy = syy;
                 var map = vm.map;
                 for (i = 0; i < vm.syData.length; i++) {
-
-                    debugger;//aaaaa
-                    console.log(vm.syData);//aaaaa
-
                     var x = vm.syData[i].gisX;
                     var y = vm.syData[i].gisY;
                     var uuid = vm.syData[i].uuid;
@@ -1227,6 +1334,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(sycontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
                     });
                     var markerClusterer = vm.markerClusterer;
@@ -1457,6 +1565,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(contentz); //创建信息窗口对象
                         infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
                         var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
                         var radius = 1000;
@@ -1768,6 +1877,7 @@ var vm = new Vue({
                             ;
                         var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
                         infoWindow.disableAutoPan();//
+                        infoWindow.enableAutoPan();//自动平移
                         this.openInfoWindow(infoWindow);//
                         //设置新图标
                         var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标

@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("预案审核", "-1");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -12,7 +16,7 @@ new Vue({
                 YALX: "",
                 YAJB: "",
                 ZZJG: "",
-                SHZT: "01",
+                SHZT: "未审核",
                 shsj:""
             },
             //审批表单
@@ -132,12 +136,18 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             this.loading = true;//表格重新加载
+            var shztbm = "";
+            if(this.searchForm.SHZT == "未审核"){
+                shztbm = "01";
+            }else{
+                shztbm = this.searchForm.SHZT;
+            }
             var params = {
                 yamc: this.searchForm.YAMC,
                 yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1], 
                 yajb: this.searchForm.YAJB,
                 jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
-                shzt: this.searchForm.SHZT,
+                shzt: shztbm,
                 begintime: this.searchForm.shsj[0],
                 endtime: this.searchForm.shsj[1]
             }

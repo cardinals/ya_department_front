@@ -26,19 +26,19 @@ new Vue({
         //console.log(this.sylx);
         var start_sylx = this.sylx.substring(0,2);
         switch(start_sylx){
-            case '11':
+            case '01':
                  var div=document.getElementById("XHS");
                  div.style.display = "";
                  break;
-            case '13':
+            case '02':
                  var div=document.getElementById("XFSC");
                  div.style.display = "";
                  break;
-            case '12':
+            case '03':
                  var div=document.getElementById("XFSH");
                  div.style.display = "";
                  break;
-            case '21':
+            case '04':
                  var div=document.getElementById("XFMT");
                  div.style.display = "";
                  break;
@@ -108,5 +108,12 @@ new Vue({
             }
             */
          },
+         //跳转到地图页面并带上UUID和点击参数水源
+        tz:function(){
+            // console.log(this.tableData);
+            var uuid = this.detailData.uuid;
+            var sylx = this.detailData.sylx;
+            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sylx="+sylx+"&shuidj=1";
+        }
     }
 })

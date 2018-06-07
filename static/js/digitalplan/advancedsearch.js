@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("高级搜索", "-1");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -420,12 +424,12 @@ new Vue({
         planDetails(val) {
             switch(val.yadxType){
                 case '重点单位':
-                    window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+                    window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                     break;
                 case '消防保卫警卫':
                     var _self = this;
                     _self.planDetailVisible = true;
-                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid + "&index=" + this.activeIndex;
+                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                     history.pushState(null, null, shortURL)
                     //异步加载详情页
                     $(function () {
@@ -442,7 +446,7 @@ new Vue({
                 case '其他对象':
                     var _self = this;
                     _self.planDetailVisible = true;
-                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?uuid=" + val.uuid + "&index=" + this.activeIndex;
+                    var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?uuid=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                     history.pushState(null, null, shortURL)
                     //异步加载详情页
                     $(function () {
@@ -466,20 +470,20 @@ new Vue({
         YadxDetails(val) {
             switch(val.yadxType){
             case '重点单位':
-                window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+                window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                 break;
             case '消防保卫警卫':
-                window.location.href = "../planobject/guardobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex;
+                window.location.href = "../planobject/guardobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                 break;
             case '其他对象':
-                window.location.href = "../planobject/otherobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex;
+                window.location.href = "../planobject/otherobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                 break;
             }
             
         },
         //单位建筑详情跳转
         buildingDetails(val) {
-            window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex;
+            window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex + "&type=GJSS";
         },
 
         clearClick: function () {

@@ -1,3 +1,14 @@
+//加载面包屑
+window.onload=function(){
+    var type = getQueryString("type");
+    if(type == "GJSS"){
+        loadBreadcrumb("高级搜索", "消防保卫警卫对象详情");
+    }else if(type == "DT"){
+        loadBreadcrumb("地图", "消防保卫警卫对象详情");
+    }else{
+        loadBreadcrumb("消防保卫警卫对象", "消防保卫警卫对象详情");
+    }
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({

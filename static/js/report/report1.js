@@ -69,7 +69,7 @@ new Vue({
 							type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 						}
 					},
-					// color: ['#0f82ee'],
+					color: ['#ff6364', '#fdc107', '#29bb9d', '#556ca6'],
 					grid: {
 						top: '30',
 						bottom: '10',
