@@ -138,13 +138,19 @@ new Vue({
         //表格查询事件
         searchClick: function () {
             this.loading = true;//表格重新加载
+            var yaztbm = "";
+            if(this.searchForm.YAZT == "已审批"){
+                yaztbm = "05";
+            }else{
+                yaztbm = this.searchForm.YAZT;
+            }
             var params = {
                 yamc: this.searchForm.YAMC,
                 yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1], 
                 yajb: this.searchForm.YAJB,
                 dxmc: this.searchForm.DXMC,
                 jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
-                yazt: this.searchForm.YAZT
+                yazt: yaztbm
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
                 this.tableData = res.data.result;
