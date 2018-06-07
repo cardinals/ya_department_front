@@ -1,3 +1,7 @@
+//加载面包屑
+window.onload=function(){
+    loadBreadcrumb("其他对象预案", "-1");
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
 new Vue({
