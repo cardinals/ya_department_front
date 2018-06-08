@@ -281,14 +281,6 @@ new Vue({
                 console.log(error);
             })
         },
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
         selectsylx:function(){
         //console.log(this.searchForm.sylx);
            switch(this.searchForm.sylx){

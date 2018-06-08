@@ -34,6 +34,18 @@ var vm = new Vue({
             { name: '山西', value: '2751' },
             { name: '海南', value: '1313' }
         ],
+        scrollData:[
+            {uuid:'1', zddwmc: '辽宁省人民法院',type:'1'},
+            {uuid:'2', zddwmc: '辽宁省政府',type:'1'},
+            {uuid:'3', zddwmc: '辽宁省就业局',type:'2'},
+            {uuid:'4', zddwmc: '沈阳市城市规划管理局',type:'2'},
+            {uuid:'5', zddwmc: '沈阳市公安局',type:'1'},
+            {uuid:'6', zddwmc: '沈阳市地铁二号线',type:'2'},
+            {uuid:'7', zddwmc: '青岛市塑性加工园',type:'1'},
+            {uuid:'8', zddwmc: '泰安市城建局',type:'2'},
+            {uuid:'9', zddwmc: '河北省国土资源厅',type:'1'},
+            {uuid:'10', zddwmc: '秦皇岛市林业局',type:'1'}
+        ],
         mapData: [
             {name:'西藏', value:605.83},
             {name:'青海', value:41670.44},
@@ -392,6 +404,9 @@ var vm = new Vue({
             };
 
             myBarChart.setOption(BarOption);
+            myBarChart.on('click', function (params) {
+                window.location.href="../../templates/digitalplan/digitalplan_approve.html";
+            });
         },
         // top10排名柱状图
         echarts5: function () {
@@ -514,6 +529,9 @@ var vm = new Vue({
             };
 
             myBarChart.setOption(BarOption);
+            myBarChart.on('click', function (params) {
+                window.location.href="../../templates/report/report1.html";
+            });
         },
         //top10 json串排序
         up: function (x, y) {

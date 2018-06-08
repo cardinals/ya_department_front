@@ -35,7 +35,7 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">水源类型</label>
-										<el-select size="small" v-model="searchForm.sylx" placeholder="全部" class="searchSelect" v-on:change="selectsylx()">	
+										<el-select size="small" v-model="searchForm.sylx" placeholder="全部" class="searchSelect" v-on:change="selectsylx()" clearable>	
 											<el-option v-for="item in SYLX_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>  
@@ -43,19 +43,19 @@
 								<el-row :gutter="40">
                                     <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                         <label class="el-form-item__label searchLabel">管辖队站</label>
-										<el-select size="small" v-model="searchForm.gxdz" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.gxdz" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in GXZD_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">水源归属</label>
-										<el-select size="small" v-model="searchForm.sygs" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.sygs" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in XZ_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">可用状态</label>
-										<el-select size="small" v-model="searchForm.kyzt" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.kyzt" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in KYZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>   
@@ -63,19 +63,19 @@
 								<el-row :gutter="40" v-show="isXhsSelectShow">
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">设置形式</label>
-										<el-select size="small" v-model="searchForm.xhs_szxs" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.xhs_szxs" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in xhs_szxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">管网形式</label>
-										<el-select size="small" v-model="searchForm.xhs_gwxs" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.xhs_gwxs" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in xhs_gwxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">接口形式</label>
-										<el-select size="small" v-model="searchForm.xhs_jkxs" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.xhs_jkxs" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in xhs_jkxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>   
@@ -89,7 +89,7 @@
 								<el-row :gutter="40" v-show="isXfscSelectShow">
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">管网形式</label>
-										<el-select size="small" v-model="searchForm.xfsc_gwxs" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.xfsc_gwxs" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in xfsc_gwxs_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
@@ -109,7 +109,7 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">水质</label>
-										<el-select size="small" v-model="searchForm.xfmt_sz" placeholder="全部" class="searchSelect">	
+										<el-select size="small" v-model="searchForm.xfmt_sz" placeholder="全部" class="searchSelect" clearable>	
 											<el-option v-for="item in xfmt_sz_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
 										</el-select>
 									</el-col>
@@ -145,11 +145,11 @@
 										<a @click="informClick(scope.row)" type="text" v-text="scope.row.symc"></a>
 									</template>
 								</el-table-column>
-								<el-table-column prop="sydz" label="水源地址" min-width="25%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="sylxmc" label="水源类型" min-width="14%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="dzjc" label="管辖队站" min-width="14%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="kyztmc" label="可用状态" min-width="10%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-								<el-table-column prop="sygsmc" label="水源归属" min-width="10%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+								<el-table-column prop="sydz" label="水源地址" min-width="25%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="sylxmc" label="水源类型" min-width="14%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="dzjc" label="管辖队站" min-width="14%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="kyztmc" label="可用状态" min-width="10%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="sygsmc" label="水源归属" min-width="10%" show-overflow-tooltip align="center"></el-table-column>
 							</el-table>
 
 							<!--列表底部工具条和分页符-->
