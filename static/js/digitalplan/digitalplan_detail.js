@@ -43,7 +43,6 @@ new Vue({
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
         this.fjDetail(this.pkid);
-        doFindPhoto("YADX","01");
     },
 
     methods: {
@@ -74,6 +73,7 @@ new Vue({
                 } else {
                     this.basicDetailData.shsj = this.dateFormat(this.basicDetailData.shsj);
                 }
+                doFindPhoto("YAJB",this.basicDetailData.yajb);
                 this.unitDetail(this.basicDetailData.dxid);
                 this.loading = false;
             }.bind(this), function (error) {
