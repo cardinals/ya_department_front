@@ -1,9 +1,9 @@
 //加载面包屑
-window.onload=function(){
+window.onload = function () {
     var type = getQueryString("type");
-    if(type == "XZ"){
+    if (type == "XZ") {
         loadBreadcrumb("重点单位预案", "重点单位预案新增");
-    }else if(type == "BJ"){
+    } else if (type == "BJ") {
         loadBreadcrumb("重点单位预案", "重点单位预案编辑");
     }
 }
@@ -357,6 +357,13 @@ new Vue({
                         this.addForm.yalx = [];
                         this.addForm.yalx.push(yalx1, yalx2);
                     }
+                    //行政区划赋值
+                    axios.get('/dpapi/importantunits/' + this.addForm.dxid).then(function (res) {
+                        debugger
+                        this.addForm.xzqh = res.data.result.xzqh;
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
                 }.bind(this), function (error) {
                     console.log(error)
                 })
@@ -551,17 +558,21 @@ new Vue({
             } else {
                 this.fireStaListVisible = true;
                 this.loading_fireSta = true;
-                var params = {
-                    xzqh: this.addForm.xzqh.substring(0,2),
-                    dzmc: this.searchForm_fireSta.dzmc
-                };
-                axios.post('/dpapi/xfdz/doSearchProvinceList', params).then(function (res) {
-                    this.tableData_fireSta = res.data.result;
-                    this.total_fireSta = res.data.result.length;
+                if (this.addForm.xzqh != null && this.addForm.xzqh != '') {
+                    var params = {
+                        xzqh: this.addForm.xzqh.substring(0, 2),
+                        dzmc: this.searchForm_fireSta.dzmc
+                    };
+                    axios.post('/dpapi/xfdz/doSearchProvinceList', params).then(function (res) {
+                        this.tableData_fireSta = res.data.result;
+                        this.total_fireSta = res.data.result.length;
+                        this.loading_fireSta = false;
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    })
+                } else {
                     this.loading_fireSta = false;
-                }.bind(this), function (error) {
-                    console.log(error);
-                })
+                }
             }
         },
         //当前页修改事件
