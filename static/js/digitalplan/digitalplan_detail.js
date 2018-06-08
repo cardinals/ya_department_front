@@ -24,7 +24,15 @@ new Vue({
             unitDetailData: {},//重点单位Data
             loading: false,
             fileList: [],
-            fjDetailData: ''
+            fjDetailData: '',
+             //word模板选择
+             downVisible: false,
+             fmChecked:true,
+             dwjbqkChecked:true,
+             dwjzxxChecked:true,
+             zdbwChecked:true,
+             zqsdChecked:true,
+             tpChecked:true
         }
     },
     created: function () {
@@ -120,16 +128,43 @@ new Vue({
             var newDate = [year, month, day].join('-');
             return newDate;
         },
-        //选择信息分享模板界面
-        openShareVisible: function () {
-            this.shareVisible = true;
-        },
-        closeShareDialog: function () {
-            this.shareVisible = false;
-        },
+      //选择信息分享模板界面
+      openShareVisible: function () {
+        this.shareVisible = true;
+    },
+    openDownVisible: function () {
+        this.downVisible = true;
+    },
+    closeShareDialog: function () {
+        this.shareVisible = false;
+    },
+    closeDownDialog: function () {
+        this.downVisible = false;
+    },
         //信息分享
         openShare: function (val) {
             window.open("http://localhost:8005/planShare/page/" + this.pkid + "/" + val + "/web");
+        },
+        downShare: function () {
+
+            var title='';
+            //单位基本情况
+            if(this.dwjbqkChecked){
+                title+='dwjbqk'+'-'
+            }//单位建筑信息和消防设施
+            if(this.dwjzxxChecked){
+                title+='dwjzxx'+'-'
+            }//重点部位
+            if(this.zdbwChecked){
+                title+='zdbw'+'-'
+            }//灾情设定
+            if(this.zqsdChecked){
+                title+='zqsd'+'-'
+            }//附件
+            if(this.tpChecked){
+                title+='tp'+'-'
+            }
+           window.open("http://localhost:8005/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
@@ -166,10 +201,7 @@ new Vue({
                     console.log(error)
                 })
             } else {
-                this.$message({
-                    message: "无可下载预案",
-                    showClose: true
-                });
+                this.openDownVisible();
             }
 
             // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");

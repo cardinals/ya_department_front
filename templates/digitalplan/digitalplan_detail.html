@@ -367,6 +367,31 @@
                         <el-button type="primary" icon="share" style="margin-top:10px;width:140px" @click="openShare('summary')">预案概况分享</el-button>
                     </div>
                 </el-dialog>
+                 <!--选择选择导出word界面-->
+                 <el-dialog title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
+                        <div style="margin-top: 20px">
+                            <el-checkbox v-model="fmChecked" disabled label="封面" border size="medium"></el-checkbox>
+                        </div>
+                        <div style="margin-top: 20px">
+                            <el-checkbox v-model="dwjbqkChecked" label="单位基本情况" border size="medium"></el-checkbox>
+                        </div>
+                        <div style="margin-top: 20px">
+                            <el-checkbox v-model="dwjzxxChecked" label="单位建筑信息和消防设施" border size="medium"></el-checkbox>
+                        </div>
+                        <div style="margin-top: 20px">
+                            <el-checkbox v-model="zdbwChecked" label="重点部位" border size="medium"></el-checkbox>
+                        </div>
+                        <div style="margin-top: 20px">
+                            <el-checkbox v-model="zqsdChecked" label="灾情设定与作战部署" border size="medium"></el-checkbox>
+                        </div>
+                        <div style="margin-top: 20px">
+                            <el-checkbox v-model="tpChecked" label="预案附件" border size="medium"></el-checkbox>
+                        </div>
+    
+                        <div id="tableView" style="padding: 0 35px;">
+                            <el-button type="primary" icon="share" style="width:140px" @click="downShare()">确定</el- button>
+                        </div>
+                    </el-dialog>
             </div>
             <!-- main-container -->
         </div>
