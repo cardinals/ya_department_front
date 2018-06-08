@@ -1683,11 +1683,11 @@ var vm = new Vue({
             },
             //水源详情跳转
             syxq:function(params){
-                window.location.href = "../basicinfo/firewater_list.html?uuid=" + params+"&sydj=1"+"&index=61";
+                window.location.href = "../basicinfo/firewater_list.html?uuid=" + params+"&sydj=1"+"&index=61"+"&type=DT";
             },
             //队站详情跳转
             dzxq:function(dzparams){
-                window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams+"&dzdj=1"+"&index=65";
+                window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams+"&dzdj=1"+"&index=65"+"&type=DT";
             },
             //重点单位详情跳转
             zddwxq:function(zddwparams){
