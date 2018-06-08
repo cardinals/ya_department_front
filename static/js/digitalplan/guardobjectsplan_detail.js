@@ -79,7 +79,7 @@ new Vue({
                 axios.get('/dpapi/xfbwjw/doFindById/' + val).then(function (res) {
                     this.detailData = null;
                     this.detailData = res.data.result;
-
+                    debugger;
                     //制作时间
                     if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
                         this.detailData.zzsj='';
@@ -95,7 +95,7 @@ new Vue({
                         if (month.length < 2) month = '0' + month;
                         if (day.length < 2) day = '0' + day;
         
-                        this.zzsj=[year, month, day].join('-');
+                        this.detailData.zzsj = [year, month, day].join('-');
                     }
                      //创建时间
                     if (this.detailData.cjsj == null || this.detailData.cjsj == "") {

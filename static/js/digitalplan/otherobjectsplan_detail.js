@@ -110,7 +110,7 @@ new Vue({
                     if (month.length < 2) month = '0' + month;
                     if (day.length < 2) day = '0' + day;
 
-                    this.detailYMD = [year, month, day].join('-');
+                    this.detailData.zzsj = [year, month, day].join('-');
                 }
                 _self.planDetailVisible = true;
             }.bind(this), function (error) {

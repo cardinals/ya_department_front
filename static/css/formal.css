@@ -224,3 +224,6 @@ body{height:100%;overflow:hidden;}
     box-shadow: 2px 3px 5px #ccc;
     position:relative;
 }
+.dibPic {
+    margin-left: 15%
+}
