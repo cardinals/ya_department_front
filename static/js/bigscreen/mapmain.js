@@ -897,7 +897,7 @@ var vm = new Vue({
                             '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                             this.dwdzData +
                             '</div>' +
-                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:580px;white-space: normal;">' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:480px;white-space: normal;">' +
                             '<tr>' +
                             '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
                             '</tr>' +
@@ -906,11 +906,11 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 32px;text-align: left;">' +
-                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                            '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
-                            '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
-                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
-                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
+                            '<b class="btn" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                            '<b class="btn" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -980,7 +980,7 @@ var vm = new Vue({
                     '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                     this.dwdzData +
                     '</div>' +
-                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:580px;white-space: normal;">' +
+                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:480px;white-space: normal;">' +
                     '<tr>' +
                     '<td style="padding: 4px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
                     '</tr>' +
@@ -989,11 +989,11 @@ var vm = new Vue({
                     '</tr>' +
                     '</table>' +
                     '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 32px;text-align: left;">' +
-                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                    '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
-                    '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
-                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
-                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
+                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
+                    '<b class="btn" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                    '<b class="btn" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:12px;height:12px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
+                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:12px;height:12px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
                     '</div>' +
                     '<div class="x-clear"></div>' +
                     '</div>'
@@ -1069,7 +1069,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1221,7 +1221,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1327,7 +1327,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1545,7 +1545,7 @@ var vm = new Vue({
                             '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                             this.dwdzData +
                             '</div>' +
-                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:580px;white-space: normal;">' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:480px;white-space: normal;">' +
                             '<tr>' +
                             '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
                             '</tr>' +
@@ -1554,11 +1554,11 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 32px;text-align: left;">' +
-                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')"  style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                            '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
-                            '<b class="btn" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
-                            '<b class="btn" style="font-size:9px;;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
-                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="font-size:9px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:10px;height:10px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')"  style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
+                            '<b class="btn" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                            '<b class="btn" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:12px;height:12px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
+                            '<b class="btn" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:12px;height:12px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
