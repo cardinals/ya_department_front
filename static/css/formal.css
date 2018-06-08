@@ -208,6 +208,9 @@ body{height:100%;overflow:hidden;}
 .el-card__header {
     padding: 13px 15px;
 }
+.el-card__header_search {
+    padding: 13px 15px 5px;
+}
 .detailPic {
     position: absolute;
     top: 50%;
