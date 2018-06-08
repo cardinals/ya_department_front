@@ -35,6 +35,7 @@ new Vue({
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
         this.fjDetail(this.pkid);
+        doFindPhoto("YADX","01");
     },
 
     methods: {
