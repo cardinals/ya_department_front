@@ -59,7 +59,6 @@ new Vue({
             }
             axios.post('/dpapi/xfsy/findSyAndSxByVo', params).then(function (res) {
                 this.detailData = res.data.result;
-                debugger;
                 this.loading=false;
             }.bind(this), function (error) {
                 console.log(error);

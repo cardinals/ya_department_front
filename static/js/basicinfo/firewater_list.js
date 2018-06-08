@@ -22,14 +22,11 @@ new Vue({
                 xhs_gwxs:'',
                 xhs_jkxs:'',
                 xfsh_cskgd:'',
-                xfsc_rl:'',
                 xfsc_gwxs:'',
                 xfsc_tcwz:'',
-                xfmt_tcwz:'',
-                xfmt_ksq:'',
-                xfmt_sz:'',
-                trsy_trsylx:'',
+                trsyqsd_tcwz:'',
                 trsy_ywksq:'',
+                trsy_sz:'',
                 uuid:''
             },
             tableData: [],
@@ -38,10 +35,8 @@ new Vue({
             XZ_data:[],
             KYZT_data:[],
             xhs_szxs_data:[],
-            xhs_gwxs_data:[],
+            gwxs_data:[],
             xhs_jkxs_data:[],
-            xfsh_jscd_data:[],
-            xfsc_gwxs_data:[],
             xfmt_sz_data:[],
             trsy_trsylx_data:[],
             trsy_ywksq_data:[],
@@ -91,22 +86,13 @@ new Vue({
         this.searchKYZT_data();
         this.searchXZ_data();
         this.searchXhsSZXS_data();
-        this.searchXhsGWXS_data();
+        this.searchGWXS_data();
         this.searchXhsJKXS_data();
-        this.searchXfshJSCD_data();
-        this.searchXfscGWXS_data();
         this.searchXfmtSZ_data();
-        this.searchTrsyLX_data();
         this.searchTrsyYWKSQ_data();
         this.searchGXZD_data();
     },
     methods: {
-        handleNodeClick(data) {
-            console.log(data);
-        },
-        handleChange(value) {
-            console.log(value);
-        },
         //表格查询事件
         searchClick: function () {
             this.loading=true;
@@ -133,17 +119,13 @@ new Vue({
                 xhs_gwxs: this.searchForm.xhs_gwxs,
                 xhs_jkxs: this.searchForm.xhs_jkxs,
                 xfsh_cskgd: this.searchForm.xfsh_cskgd,
-                xfsc_rl: this.searchForm.xfsc_rl,
                 xfsc_gwxs: this.searchForm.xfsc_gwxs,
                 xfsc_tcwz: this.searchForm.xfsc_tcwz,
-                trsyqsd_tcwz: this.searchForm.xfmt_tcwz,
-                xfmt_ksq: this.searchForm.xfmt_ksq,
-                trsy_sz: this.searchForm.xfmt_sz,
-               
-                trsy_ywksq: this.searchForm.trsy_ywksq
+                trsyqsd_tcwz: this.searchForm.trsyqsd_tcwz,
+                trsy_ywksq: this.searchForm.trsy_ywksq,
+                trsy_sz: this.searchForm.trsy_sz
             }
             axios.post('/dpapi/xfsy/findlist', params).then(function (res) {
-              //  console.log(res.data.result);
                 this.tableData = res.data.result;
                 this.total = this.tableData.length;
                 this.loadingData();
@@ -169,38 +151,25 @@ new Vue({
         },
         //清空关联表查询条件
         clearOthers: function(){
-            this.searchForm.xhs_gwid = "";
             this.searchForm.xhs_szxs = "";
             this.searchForm.xhs_gwxs = "";
             this.searchForm.xhs_jkxs = "";
-            this.searchForm.xfsh_gwid = "";
             this.searchForm.xfsh_cskgd = "";
-            this.searchForm.xfsh_jscd = "";
-            this.searchForm.xfsc_rl = "";
             this.searchForm.xfsc_gwxs = "";
             this.searchForm.xfsc_tcwz = "";
-            this.searchForm.xfmt_tcwz = "";
-            this.searchForm.xfmt_ksq = "";
-            this.searchForm.xfmt_sz = "";
-            this.searchForm.trsy_trsylx = "";
+            this.searchForm.trsyqsd_tcwz = "";
             this.searchForm.trsy_ywksq = "";
+            this.searchForm.trsy_sz = "";
         },
-        //下拉框数据加载
+        //水源类型下拉框
         searchSYLX_data: function () {
             axios.get('/api/codelist/getCodetype/SYLX').then(function (res) {
-                //水源类型数据只显示大类即以00结尾的类型
-                /**
-                var lxdata = res.data.result;
-                for(var i in lxdata){
-                    var end_sylx = lxdata[i].codeValue.substring(2,4);
-                    if(end_sylx =="00")
-                        this.SYLX_data.push(lxdata[i]);
-                } */
                 this.SYLX_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //队站
         searchGXZD_data:function () {
             axios.get('/dpapi/util/doSearchContingents').then(function (res) {
                 this.GXZD_data = res.data.result;
@@ -209,14 +178,15 @@ new Vue({
                 console.log(error);
             })
         },
+        //水源归属
         searchXZ_data:function () {
             axios.get('/api/codelist/getCodetype/SYGS').then(function (res) {
                 this.XZ_data = res.data.result;
-                
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //可用状态
         searchKYZT_data:function () {
             axios.get('/api/codelist/getCodetype/SYKYZT').then(function (res) {
                 this.KYZT_data = res.data.result;
@@ -224,7 +194,7 @@ new Vue({
                 console.log(error);
             })
         },
-        //消火栓查询条件加载
+        //消火栓设置形式
         searchXhsSZXS_data:function () {
             axios.get('/api/codelist/getCodetype/XHSSZXS').then(function (res) {
                 this.xhs_szxs_data = res.data.result;
@@ -232,13 +202,15 @@ new Vue({
                 console.log(error);
             })
         },
-        searchXhsGWXS_data:function () {
+        //管网形式
+        searchGWXS_data:function () {
             axios.get('/api/codelist/getCodetype/GWXS').then(function (res) {
-                this.xhs_gwxs_data = res.data.result;
+                this.gwxs_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
+        //接口形式
         searchXhsJKXS_data:function () {
             axios.get('/api/codelist/getCodetype/XHSJKXS').then(function (res) {
                 this.xhs_jkxs_data = res.data.result;
@@ -246,20 +218,7 @@ new Vue({
                 console.log(error);
             })
         },
-        searchXfshJSCD_data:function () {
-            axios.get('/api/codelist/getCodetype/SYSHJSCD').then(function (res) {
-                this.xfsh_jscd_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        searchXfscGWXS_data:function () {
-            axios.get('/api/codelist/getCodetype/GWXS').then(function (res) {
-                this.xfsc_gwxs_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
+        //水质
         searchXfmtSZ_data:function () {
             axios.get('/api/codelist/getCodetype/SYSZ').then(function (res) {
                 this.xfmt_sz_data = res.data.result;
@@ -267,13 +226,8 @@ new Vue({
                 console.log(error);
             })
         },
-        searchTrsyLX_data:function () {
-            axios.get('/api/codelist/getCodetype/TRSYLX').then(function (res) {
-                this.trsy_trsylx_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
+        
+        //枯水期
         searchTrsyYWKSQ_data:function () {
             axios.get('/api/codelist/getCodetype/SYYWKSQ').then(function (res) {
                 this.trsy_ywksq_data = res.data.result;
@@ -321,15 +275,6 @@ new Vue({
                     this.isTrsyqsdSelectShow = false;
                    
            }
-        },
-        //表格勾选事件
-        selectionChange: function (val) {
-            for (var i = 0; i < val.length; i++) {
-                var row = val[i];
-            }
-            this.multipleSelection = val;
-            //this.sels = sels
-            console.info(val);
         },
         //点击进入详情页
         informClick(val) {
