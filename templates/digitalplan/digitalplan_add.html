@@ -284,7 +284,7 @@
 											:on-change="handleChange"
 											:file-list="fileList" 
 											:auto-upload="false">
-										<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+										<el-button type="primary" icon="search" slot="trigger" size="small" type="primary">选取文件</el-button>
 										<span slot="tip" class="el-upload__tip ml10">只能上传zip压缩文件</span>
 									</el-upload>
 								</el-form-item>
@@ -310,8 +310,8 @@
 						<el-row>
 							<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">&nbsp;</el-col>
 							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">
-								<el-button type="success" icon="edit" size="small" class="btn_save" @click="save('addForm')">保存</el-button>
-								<el-button type="primary" icon="edit" size="small" class="btn_submit" @click="submit('addForm')">提交</el-button>
+								<el-button type="success" icon="document" size="small" class="btn_save" @click="save('addForm')">暂存</el-button>
+								<el-button type="primary" icon="check" size="small" class="btn_submit" @click="submit('addForm')">提交</el-button>
 							</el-col>
 							<el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">&nbsp;</el-col>
 						</el-row>
