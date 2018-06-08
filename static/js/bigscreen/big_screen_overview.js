@@ -405,7 +405,8 @@ var vm = new Vue({
 
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
-                window.location.href="../../templates/digitalplan/digitalplan_approve.html";
+                //跳出父框架（iframe）
+                window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL";
             });
         },
         // top10排名柱状图
@@ -530,7 +531,8 @@ var vm = new Vue({
 
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
-                window.location.href="../../templates/report/report1.html";
+                //跳出父框架（iframe）
+                window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL";
             });
         },
         //top10 json串排序
