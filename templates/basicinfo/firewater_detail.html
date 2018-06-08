@@ -8,13 +8,15 @@
     <div id="detailDisplay" v-loading="loading" element-loading-text="加载中">
         <div>
             <el-row>
-                <el-col :span="12">
+                <el-col :span="24">
                     <div>
                         <strong class="dtdlStyle">水源名称：</strong>
                         <v-text v-text="detailData.symc||'无'"></v-text>
                     </div>
                 </el-col>
-                <el-col :span="12">
+            </el-row>
+            <el-row class="inform-margin">
+                <el-col :span="24">
                     <div>
                         <strong class="dtdlStyle">水源类型：</strong>
                         <v-text v-text="detailData.sylxmc||'无'"></v-text>
@@ -267,7 +269,7 @@
                                 <el-col :span="12">
                                     <div>
                                         <strong class="dtdlStyle">水质：</strong>
-                                        <v-text v-text="detailData.trsy_sz||'无'"></v-text>
+                                        <v-text v-text="detailData.trsy_szmc||'无'"></v-text>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -309,7 +311,7 @@
                                 <el-col :span="12">
                                     <div>
                                         <strong class="dtdlStyle">吸水形式：</strong>
-                                        <v-text v-text="detailData.trsyqsd_qsxs||'无'"></v-text>
+                                        <v-text v-text="detailData.trsyqsd_qsxsmc||'无'"></v-text>
                                     </div>
                                 </el-col>
                             </el-row>

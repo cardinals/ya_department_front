@@ -65,7 +65,7 @@
 			<div class="l h80 w25">
 				<div class="application-div h60 p5">
 					<div class="application-text map-bg2">
-						<div class="application-subtitle l">总队预案数量排行(top10)</div>
+						<div class="application-subtitle l">总队预案数量排行(Top10)</div>
 						<div id="top10Bar" class="application-boxs"></div>
 					</div>
 				</div>
@@ -79,9 +79,10 @@
 						<div id="scroll" class="application-text">
 							<ul>
 								<li v-for="data in scrollData">
-									<a href="../digitalplan/digitalplan_approve.html" v-text="data.zddwmc"></a>
-									<div style="color:#ff6364;" v-if="data.type == '1'">待审批</div>
-									<div style="color:#fdc107;" v-if="data.type == '2'">待更新</div>
+									<!-- <a href="../digitalplan/digitalplan_approve.html" v-text="data.zddwmc"></a> -->
+									<a @click="jump()" v-text="data.zddwmc"></a>
+									<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审批'"></div>
+									<div style="color:#fdc107;" v-if="data.type == '2'" v-text="'待更新'"></div>
 								</li>
 							</ul>
 						</div>

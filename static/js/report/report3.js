@@ -1,3 +1,13 @@
+//加载面包屑
+window.onload = function () {
+	var type = getQueryString("type");
+	if (type == "DPYL") {
+		loadBreadcrumb("大屏预览", "report1");
+	} else {
+		loadBreadcrumb("report1", '-1');
+	}
+}
+
 var vm = new Vue({
 	el: "#app",
 	data: function () {
