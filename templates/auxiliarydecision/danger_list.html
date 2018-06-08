@@ -35,7 +35,7 @@
 									</el-col>
 									<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 										<label class="el-form-item__label searchLabel">类型</label>
-										<el-select size="small" v-model="searchForm.option_LXDM" placeholder="类型" class="searchSelect" clearable >
+										<el-select size="small" v-model="searchForm.option_LXDM" placeholder="全部" class="searchSelect" clearable >
 											<el-option 
 												v-for="item in LXDM_data" 
 												:key="item.codeName" 
