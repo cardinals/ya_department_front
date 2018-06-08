@@ -37,7 +37,16 @@ new Vue({
             this.id = this.GetQueryString("id");
             //获取选中行水源类型
             this.sylx = this.GetQueryString("sylx");
-            history.back();
+            //改变url网址
+            var stateObject = {};
+            var title = "消防水源信息";
+            var url=window.location.href;
+            if(url.indexOf("?") != -1)
+                url = url.split("?")[0];
+            url += '?index=61';
+            history.pushState(stateObject,title,url);
+            //history.back();
+            
             switch(this.sylx){
                 case '01':
                     this.isXHS = true;
