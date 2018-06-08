@@ -102,7 +102,7 @@ new Vue({
         },
         //制作机构级联选择(暂无表)
         ZZJG_tree: function () {
-            axios.post('/dpapi/organization/getOrganizationtree').then(function (res) {
+            axios.post('/api/organization/getOrganizationtree').then(function (res) {
                 this.ZZJG_dataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
