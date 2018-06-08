@@ -1294,7 +1294,7 @@ var vm = new Vue({
                     marker.uuid = uuid;//影响水源这块
                     marker.addEventListener("click", function (e) {
                         var pt = marker.getPosition();
-                        // map.centerAndZoom(pt, 14);//不进行放大
+                        map.centerAndZoom(pt);//不进行放大
                         for (var i = 0; i < vm.syData.length; i++) {
                             if (e.target.uuid == vm.syData[i].uuid) {
                                 this.sylxmcData = (vm.syData[i].sylxmc != null ? vm.syData[i].sylxmc : '无');
