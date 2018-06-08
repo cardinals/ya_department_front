@@ -558,7 +558,7 @@ var vm = new Vue({
         //左下列表跳转预案审核
         jump: function () {
             //跳出父框架（iframe）
-            window.parent.frames.location.href="../../templates/digitalplan/digitalplan_approve.html?type=DPYL";
+            window.parent.frames.location.href="../../templates/digitalplan/digitalplan_approve.html?type=DPYL"+"&index=34";
         }
     },
     mounted() {

@@ -80,14 +80,8 @@ treeMenuTemplate.push('</li>');
                 realUrl="http://localhost/templates/home.html"
             }
             // 2
-            else if(this.model.url=="/planobject/importantunits"){
-                realUrl="http://localhost/templates/planobject/importantunits_list.html"
-            }
-            else if(this.model.url=="/planobject/otherobjects"){
-                realUrl="http://localhost/templates/planobject/otherobjects_list.html"
-            }
-            else if(this.model.url=="/planobject/guardobjects"){
-                realUrl="http://localhost/templates/planobject/guardobjects_list.html"
+            else if(this.model.url=="/digitalplan/advancedsearch"){
+                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
             }
             // 3
             else if(this.model.url=="/digitalplan/digitalplan"){
@@ -99,9 +93,6 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/digitalplan/otherobjectsplan"){
                 realUrl="http://localhost/templates/digitalplan/otherobjectsplan_list.html"
             }
-            else if(this.model.url=="/digitalplan/advancedsearch"){
-                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
-            }
             else if(this.model.url=="/digitalplan/digitalplan_approve"){
                 realUrl="http://localhost/templates/digitalplan/digitalplan_approve.html"
             }
@@ -109,6 +100,20 @@ treeMenuTemplate.push('</li>');
                 realUrl="http://localhost/templates/digitalplan/digitalplan_distribute.html"
             }
             // 4
+            else if(this.model.url=="/planobject/importantunits"){
+                realUrl="http://localhost/templates/planobject/importantunits_list.html"
+            }
+            else if(this.model.url=="/planobject/otherobjects"){
+                realUrl="http://localhost/templates/planobject/otherobjects_list.html"
+            }
+            else if(this.model.url=="/planobject/guardobjects"){
+                realUrl="http://localhost/templates/planobject/guardobjects_list.html"
+            }
+            // 5
+            else if(this.model.url=="/building_zoning"){
+                realUrl="http://localhost/templates/buildingzoning/building_zoning_list.html"
+            }
+            // 6
             else if(this.model.url=="/basicinfo/firewater"){
                 realUrl="http://localhost/templates/basicinfo/firewater_list.html"
             }
@@ -127,7 +132,21 @@ treeMenuTemplate.push('</li>');
             else if(this.model.url=="/basicinfo/firestation"){
                 realUrl="http://localhost/templates/basicinfo/firestation_list.html"
             }
-            // 5
+            // 7
+            else if(this.model.url=="/auxiliarydecision/danger"){
+                realUrl="http://localhost/templates/auxiliarydecision/danger_list.html"
+            }
+            else if(this.model.url=="/auxiliarydecision/firecalculation"){
+                realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
+            }
+            // 8
+            else if(this.model.url=="/report/report1"){
+                realUrl="http://localhost/templates/report/report1.html"
+            }
+            else if(this.model.url=="/report/report3"){
+                realUrl="http://localhost/templates/report/report3.html"
+            }
+            // 9
             else if(this.model.url=="/user"){
                 realUrl="http://localhost/templates/system/user_list.html";
             }
@@ -148,17 +167,6 @@ treeMenuTemplate.push('</li>');
             }
             else if(this.model.url=="/basicinfo/organization"){
                 realUrl="http://localhost/templates/system/organization_list.html"
-            }
-            // 6
-            else if(this.model.url=="/auxiliarydecision/danger"){
-                realUrl="http://localhost/templates/auxiliarydecision/danger_list.html"
-            }
-            else if(this.model.url=="/auxiliarydecision/firecalculation"){
-                realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
-            }
-            // 7
-            else if(this.model.url=="/building_zoning"){
-                realUrl="http://localhost/templates/buildingzoning/building_zoning_list.html"
             }
             return realUrl+"?index="+this.model.index;
         }

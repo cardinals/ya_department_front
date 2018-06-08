@@ -63,7 +63,12 @@ var vm = new Vue({
 	mounted: function () {
 		this.echarts1();
 	},
-
+	created: function () {
+		//菜单选中
+		var index = getQueryString("index");
+		$("#activeIndex").val(index);
+		this.activeIndex = index;
+	},
 	methods: {
 		// 中央下部31总队柱状图
 		echarts1: function () {
@@ -79,9 +84,19 @@ var vm = new Vue({
 						type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
 					}
 				},
+				legend: {
+					orient: 'horizontal',
+					x: 'center',
+					y: '20px',
+					itemGap: 16,
+					itemWidth: 18,
+					data: this.tabledata.name,
+					align: 'left',
+					itemGap: 8,
+				},
 				color: ['#ff6364', '#fdc107', '#29bb9d', '#556ca6'],
 				grid: {
-					top: '30',
+					top: '50',
 					bottom: '10',
 					left: '15',
 					right: '40',

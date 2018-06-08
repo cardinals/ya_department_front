@@ -2,9 +2,9 @@
 window.onload = function () {
 	var type = getQueryString("type");
 	if (type == "DPYL") {
-		loadBreadcrumb("大屏预览", "report1");
+		loadBreadcrumb("大屏预览", "report3");
 	} else {
-		loadBreadcrumb("report1", '-1');
+		loadBreadcrumb("report3", '-1');
 	}
 }
 
@@ -164,7 +164,12 @@ var vm = new Vue({
 		this.barChart();
 		this.pieChart();
 	},
-
+	created: function () {
+		//菜单选中
+		var index = getQueryString("index");
+		$("#activeIndex").val(index);
+		this.activeIndex = index;
+	},
 	methods: {
 		// 左侧柱状图
 		barChart: function () {
