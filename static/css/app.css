@@ -804,20 +804,6 @@ margin-top: 10px;
   overflow-x:hidden; box-shadow: 2px 4px 6px #c0c0c0;
 }
 
-.frame_left_card{
-  float: left; 
-  width: 30%;
-  height: 490px;
-}
-
-.frame_right_card{
-  float: left;
-  margin-left: 0.3%;
-  width: 69.7%;
-  height: 490px; 
-  overflow-x: hidden;
-}
-
 .src_name{
   text-align: center;
   font-weight: bold;
@@ -825,6 +811,7 @@ margin-top: 10px;
   color:#333;
 }
 .src_slt{
+  margin-top: 30px;
   margin-left: 5px;
   overflow-x: hidden;
   height: 405px;
