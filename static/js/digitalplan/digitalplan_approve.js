@@ -1,6 +1,11 @@
 //加载面包屑
-window.onload=function(){
-    loadBreadcrumb("预案审核", "-1");
+window.onload = function () {
+    var type = getQueryString("type");
+    if (type == "DPYL") {
+        loadBreadcrumb("大屏预览", "预案审核");
+    } else {
+        loadBreadcrumb("预案审核", "-1");
+    }
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
@@ -17,18 +22,18 @@ new Vue({
                 YAJB: "",
                 ZZJG: "",
                 SHZT: "未审核",
-                shsj:""
+                shsj: ""
             },
             //审批表单
             approveForm: {
                 shzt: -1
             },
             //审批人姓名
-            shrmc:"",
+            shrmc: "",
             //审批人id
-            shrid:"",
+            shrid: "",
             //预案id
-            uuid:"",
+            uuid: "",
 
             tableData: [],
             YALX_dataTree: [],//预案类型级联选择
@@ -44,7 +49,7 @@ new Vue({
             },
             //资源列表是否显示
             planDetailVisible: false,
-            approveFormVisible:false,
+            approveFormVisible: false,
             //表高度变量
             tableheight: 443,
             //显示加载中样
@@ -65,8 +70,8 @@ new Vue({
             indexData: 0,
             //删除的弹出框
             deleteVisible: false,
-           
-            
+
+
             //选中的值显示
             sels: [],
             //选中的序号
@@ -76,8 +81,8 @@ new Vue({
                 label: 'codeName',
                 children: 'children'
             },
-            radio:"",
-            data_index:"",
+            radio: "",
+            data_index: "",
 
         }
     },
@@ -87,7 +92,7 @@ new Vue({
         this.YAJB();//预案级别下拉框
         this.SHZT();//审核状态下拉框
     },
-    mounted:function(){
+    mounted: function () {
         //菜单选中
         var index = getQueryString("index");
         $("#activeIndex").val(index);
@@ -98,17 +103,17 @@ new Vue({
     methods: {
         //预案类型级联选择
         YALX_tree: function () {
-            var params= {
-                codetype : "YALX",
-                list : [1,2,4,6,8]
+            var params = {
+                codetype: "YALX",
+                list: [1, 2, 4, 6, 8]
             };
-            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
-                this.YALX_dataTree=res.data.result;
-            }.bind(this),function(error){
+            axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
+                this.YALX_dataTree = res.data.result;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
-        
+
         //预案级别下拉框
         YAJB: function () {
             axios.get('/api/codelist/getCodetype/YAJB').then(function (res) {
@@ -127,9 +132,9 @@ new Vue({
         },
         //制作机构
         ZZJG_tree: function () {
-            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+            axios.post('/dpapi/organization/getOrganizationtree').then(function (res) {
                 this.ZZJG_dataTree = res.data.result;
-            }.bind(this),function(error){
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
@@ -137,16 +142,16 @@ new Vue({
         searchClick: function () {
             this.loading = true;//表格重新加载
             var shztbm = "";
-            if(this.searchForm.SHZT == "未审核"){
+            if (this.searchForm.SHZT == "未审核") {
                 shztbm = "01";
-            }else{
+            } else {
                 shztbm = this.searchForm.SHZT;
             }
             var params = {
                 yamc: this.searchForm.YAMC,
-                yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1], 
+                yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1],
                 yajb: this.searchForm.YAJB,
-                jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
+                jgbm: this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
                 shzt: shztbm,
                 begintime: this.searchForm.shsj[0],
                 endtime: this.searchForm.shsj[1]
@@ -166,7 +171,7 @@ new Vue({
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = [];
             this.searchForm.SHZT = "";
-        //    this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
+            //    this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
             this.searchForm.shsj = "";
         },
         //表格勾选事件
@@ -240,15 +245,15 @@ new Vue({
         },
         //add by yushch 
         timeChange(val) {
-            this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
-            this.searchForm.shsj.push(val.substring(0,val.indexOf("至")));
-            this.searchForm.shsj.push(val.substring(val.indexOf("至")+1));
+            this.searchForm.shsj.splice(0, this.searchForm.shsj.length);
+            this.searchForm.shsj.push(val.substring(0, val.indexOf("至")));
+            this.searchForm.shsj.push(val.substring(val.indexOf("至") + 1));
         },
         //获取选中的行号（从0开始）
-        showRow(row){
+        showRow(row) {
             this.data_index = this.tableData.indexOf(row);
             //赋值给radio
-            this.radio = this.data_index - (this.currentPage - 1)*this.pageSize;
+            this.radio = this.data_index - (this.currentPage - 1) * this.pageSize;
             //console.info(this.radio);
         },
         //审批所选
@@ -271,33 +276,33 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             });
-            this.approveForm = Object.assign({},row);
+            this.approveForm = Object.assign({}, row);
             this.approveFormVisible = true;
         },
         //保存点击事件
         approveSubmit: function (val) {
             //审核状态改变才调用后台approveByVO方法
-        if(val.shzt !=this.tableData[this.data_index].shzt){
-            var params = {
-                shzt: val.shzt,
-                shrid:this.shrid,
-                shrmc:this.shrmc,
-                uuid:this.uuid
-            };
-            //console.log(params);
-            axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
-                //this.searchClick();
-                this.tableData[this.data_index].shztmc = res.data.result.shztmc;
-                this.tableData[this.data_index].shzt = res.data.result.shzt;
-                this.tableData[this.data_index].yashztButtonType = res.data.result.yashztButtonType;
-            }.bind(this), function (error) {
-                console.log(error)
+            if (val.shzt != this.tableData[this.data_index].shzt) {
+                var params = {
+                    shzt: val.shzt,
+                    shrid: this.shrid,
+                    shrmc: this.shrmc,
+                    uuid: this.uuid
+                };
+                //console.log(params);
+                axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
+                    //this.searchClick();
+                    this.tableData[this.data_index].shztmc = res.data.result.shztmc;
+                    this.tableData[this.data_index].shzt = res.data.result.shzt;
+                    this.tableData[this.data_index].yashztButtonType = res.data.result.yashztButtonType;
+                }.bind(this), function (error) {
+                    console.log(error)
                 })
-            this.approveFormVisible = false;
-            this.loadingData();
-        }else{
-            this.$alert('当前审核状态未改变');
-        }
+                this.approveFormVisible = false;
+                this.loadingData();
+            } else {
+                this.$alert('当前审核状态未改变');
+            }
         },
     },
 
