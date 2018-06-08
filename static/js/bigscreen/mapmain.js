@@ -933,7 +933,7 @@ var vm = new Vue({
                         map.addOverlay(marker);
                         circlez.push(circle);//清除圆
                         vm.chAllMarkers(vm.zdd);
-                        vm.zdd = marker;
+                        vm.zdd = marker;  
                     });
                     var label = new BMap.Label(this.formatLabel(zddws[i].dwmc), { offset: new BMap.Size(-20, 25) });
                     label.setStyle({
