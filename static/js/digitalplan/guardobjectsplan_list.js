@@ -135,7 +135,7 @@ new Vue({
 
         //获取所有机构
         getJgidData: function(){
-            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+            axios.post('/api/organization/getOrganizationtree').then(function(res){
                 this.jgidData = res.data.result;
             }.bind(this),function(error){
                 console.log(error);

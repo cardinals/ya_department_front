@@ -60,7 +60,7 @@ new Vue({
 
         //获取所有机构
         getJgidData: function(){
-            axios.post('/dpapi/organization/getOrganizationtree').then(function(res){
+            axios.post('/api/organization/getOrganizationtree').then(function(res){
                
                 this.tableData = res.data.result;
                 console.log(this.tableData);
@@ -74,7 +74,7 @@ new Vue({
             //  val.jgid;
             // val.resourceid='14111442';
             // debugger   
-            axios.get('/dpapi/organization/doFindById/' + val.uuid).then(function (res) {
+            axios.get('/api/organization/doFindById/' + val.uuid).then(function (res) {
                 // debugger
                 this.detailData = res.data.result[0];
             }.bind(this), function (error) {
@@ -183,7 +183,7 @@ new Vue({
             var params = {
                 jgsearch: this.searchForm.jgsearch
             }
-            axios.post('/dpapi/organization/findByVO', params).then(function (res) {
+            axios.post('/api/organization/findByVO', params).then(function (res) {
                 this.tableData = res.data.result;
                 for (var i = 0; i < this.tableData.length; i++) {
                     //预案类型转码
