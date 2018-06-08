@@ -1,5 +1,5 @@
 //加载面包屑
-window.onload=function(){
+window.onload = function () {
     loadBreadcrumb("重点单位预案", "-1");
 }
 //axios默认设置cookie
@@ -132,7 +132,7 @@ new Vue({
                 dxmc: this.searchForm.DXMC,
                 yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1],
                 yajb: this.searchForm.YAJB,
-                // jgid:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
+                jgid: this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
                 yazt: this.searchForm.YAZT
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
