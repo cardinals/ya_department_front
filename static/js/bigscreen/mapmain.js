@@ -717,9 +717,10 @@ var vm = new Vue({
                 var map = vm.map;
                 var markerClusterer = new BMapLib.MarkerClusterer(map);
                 var clustererStyle = [{
-                    url: '../../static/images/maptool/zddwjh.png',
-                    size: new BMap.Size(70, 25),
-                    textColor: '#fff',
+                    url: '../../static/images/new/w1_z.png',
+                    
+                    size: new BMap.Size(100, 60),
+                    textColor: '#333',
                 }];
                 markerClusterer.setStyles(clustererStyle);
                 vm.markerClusterer = markerClusterer;
@@ -763,7 +764,7 @@ var vm = new Vue({
             //图层一
             drawMap: function () {
                 var map = this.map;
-                var myIcon1 = new BMap.Icon("../../static/images/maptool/zddw.png", new BMap.Size(70, 70)); //创建图标
+                var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //创建图标
                 var province = [];
                 this.province = province;
                 var provinces = this.ShengZddwDate;
@@ -771,7 +772,7 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label(this.formatLabel(provinces[i].xzqhmc + ":" + provinces[i].zddwsl));
+                    var label = new BMap.Label(this.formatLabel(provinces[i].xzqhmc +':'+ provinces[i].zddwsl));
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '12px',
@@ -780,12 +781,13 @@ var vm = new Vue({
                         padding: '2px 4px',
                         textAlign: 'center',
                         marginLeft: '15px',
-                        marginTop: '2px',
-                        color: '#986ACE',
+                        marginTop: '40px',
+                        color: '#fff',
                         borderRadius: '5px',
                         paddingRight: '58px',
-                        marginLeft: '-18px',
+                        marginLeft: '8px',
                         marginTop: '25px',
+                        background:'',
                     });
                     marker.addEventListener("click", function (e) {
                         //获取行政区划
@@ -809,7 +811,7 @@ var vm = new Vue({
             },
             //图层二
             drawMapa: function (result) {
-                var myIcon1 = new BMap.Icon("../../static/images/maptool/zddw.png", new BMap.Size(70, 70));      //创建图标
+                var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70));      //创建图标
                 var cityp = [];
                 var citys;
                 if (this.ShiZddwDate.length > 0) {
@@ -829,13 +831,13 @@ var vm = new Vue({
                         padding: '2px 4px',
                         textAlign: 'center',
                         marginLeft: '15px',
-                        marginTop: '2px',
-                        color: '#986ACE',
-                        textAlign: 'center',
+                        marginTop: '40px',
+                        color: '#fff',
                         borderRadius: '5px',
-                        paddingRight: '47px',
-                        marginLeft: '-14px',
+                        paddingRight: '58px',
+                        marginLeft: '8px',
                         marginTop: '25px',
+                        background:'',
                     });
                     marker.setLabel(label);
                     var map = vm.map;
@@ -866,7 +868,7 @@ var vm = new Vue({
                 var zddwp = [];//将点放到数组当中
                 vm.zddwp = zddwp;
                 for (var i = 0; i < zddws.length; i++) {
-                    var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24)); //创建图标
+                    var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34)); //创建图标
                     var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
                     var marker = new BMap.Marker(point, { icon: myIcon1 });
                     marker.uuid = zddws[i].uuid;
@@ -919,7 +921,7 @@ var vm = new Vue({
                         infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
                         this.openInfoWindow(infoWindow);//打开新窗口
                         //设置新图标
-                        var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(34, 34)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
                         var pt = marker.point;
@@ -935,14 +937,14 @@ var vm = new Vue({
                         vm.chAllMarkers(vm.zdd);
                         vm.zdd = marker;  
                     });
-                    var label = new BMap.Label(this.formatLabel(zddws[i].dwmc), { offset: new BMap.Size(-20, 25) });
+                    var label = new BMap.Label(this.formatLabel(zddws[i].dwmc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
                         fontSize: '12px',
                         fontWeight: 'bold',
                         opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
-                        color: '#B094D2',
+                        color: '#fff',
                         borderRadius: '5px',
                         paddingRight: '110px',
                         paddingTop: '5px',
@@ -950,6 +952,7 @@ var vm = new Vue({
                         display: 'inline-block',
                         paddingRight: '80px',
                         marginLeft: '-9px',
+                        background:'#333',
                     });
                     marker.setLabel(label);
                     zddwp.push(marker);
@@ -1002,7 +1005,7 @@ var vm = new Vue({
                 infoWindow.disableAutoPan();//不受聚合影响
                 vm.map.openInfoWindow(infoWindow, pt);//
                 //设置新图标
-                var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标
+                var myIcon2 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34)); //点击后的新图标
                  var marker = new BMap.Marker(pt, { icon: myIcon2 });
                 var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
                 var radius = 1000;
@@ -1082,13 +1085,14 @@ var vm = new Vue({
                     var markerClusterer = vm.markerClusterer;
                     markerClusterer.addMarkers(syy);
                     map.addOverlay(marker);
-                    var label = new BMap.Label(this.formatLabel(sysy.symc), { offset: new BMap.Size(-20, 25) });
+                    var label = new BMap.Label(this.formatLabel(sysy.symc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
                         fontSize: '12px',
                         fontWeight: 'bold',
+                        opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
-                        color: '#7BA860',
+                        color: '#fff',
                         borderRadius: '5px',
                         paddingRight: '110px',
                         paddingTop: '5px',
@@ -1096,6 +1100,7 @@ var vm = new Vue({
                         display: 'inline-block',
                         paddingRight: '80px',
                         marginLeft: '-9px',
+                        background:'#333',
                     });
                     marker.setLabel(label);//跳动的动画
                     syy.push(marker);
@@ -1516,7 +1521,7 @@ var vm = new Vue({
                     var y = vm.markerData[i].gisY;
                     var uuid = vm.markerData[i].uuid;
                     var pt = new BMap.Point(x, y);
-                    var myIcon1 = new BMap.Icon("../../static/images/marker_zddw_map.png", new BMap.Size(24, 24)); //创建图标
+                    var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34)); //创建图标
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     marker.uuid = uuid;
                     marker.addEventListener("click", function (e) {
@@ -1571,7 +1576,7 @@ var vm = new Vue({
                         var radius = 1000;
                         var r = 6371004;
                         //设置新图标
-                        var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(34, 34)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
                         map.addOverlay(circle);
@@ -1580,13 +1585,14 @@ var vm = new Vue({
                         vm.chAllMarkers(vm.zdd);
                         vm.zdd = marker;
                     });
-                    var label = new BMap.Label(this.formatLabel(vm.markerData[i].dwmc), { offset: new BMap.Size(-20, 25) });
+                    var label = new BMap.Label(this.formatLabel(vm.markerData[i].dwmc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
                         fontSize: '12px',
                         fontWeight: 'bold',
+                        opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
-                        color: '#B094D2',
+                        color: '#fff',
                         borderRadius: '5px',
                         paddingRight: '110px',
                         paddingTop: '5px',
@@ -1594,6 +1600,7 @@ var vm = new Vue({
                         display: 'inline-block',
                         paddingRight: '80px',
                         marginLeft: '-9px',
+                        background:'#333',
                     });
                     marker.setLabel(label);
                     zd.push(marker);
@@ -1723,7 +1730,7 @@ var vm = new Vue({
                 if (len % subInder) {
                     result += "&nbsp;&nbsp;&nbsp;&nbsp;" + strname.slice(index + subInder, len);
                 }
-                var div = '<div style="font-weight: bold;text-align:center;">' + result + '</div>';
+                var div = '<div style="font-weight: bold;text-align:center;red">' + result + '</div>';
                 return div;
             },
             //路况

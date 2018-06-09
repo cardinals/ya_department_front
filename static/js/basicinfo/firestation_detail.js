@@ -94,6 +94,14 @@ new Vue({
                 case '0A':
                     break;
             }
+        },
+        //跳转到地图页面并带上UUID和点击参数水源
+        tz:function(){
+            // console.log(this.tableData);
+            var uuid = this.detailData.uuid;
+            var dzlx = this.detailData.dzlx;
+            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&dzlx="+dzlx+"&shuidj=1";
         }
+
     }
 })
