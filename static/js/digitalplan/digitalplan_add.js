@@ -206,8 +206,8 @@ new Vue({
                 zdbwid: '',
                 jzmc: '',
                 jzid: '',
-                rswz: '',
-                zqdj: '',
+                rswz: [],
+                zqdj: [],
                 qhyy: '',
                 rsmj: '',
                 zhcs: '',
@@ -341,7 +341,6 @@ new Vue({
                     }
                     //行政区划赋值
                     axios.get('/dpapi/importantunits/' + this.addForm.dxid).then(function (res) {
-                        debugger
                         this.addForm.xzqh = res.data.result.xzqh;
                     }.bind(this), function (error) {
                         console.log(error)
@@ -351,7 +350,6 @@ new Vue({
                 })
                 //灾情设定查询
                 axios.get('/dpapi/disasterset/doFindByPlanId/' + this.status).then(function (res) {
-                    // debugger
                     this.dynamicValidateForm = res.data.result;
                     for (var i = 0; i < this.dynamicValidateForm.length; i++) {
                         //燃烧物质
@@ -390,7 +388,6 @@ new Vue({
                 })
                 //附件查询
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.status).then(function (res) {
-                    // debugger
                     // var name = res.data.result[0].wjm;
                     // var url = "http://localhost:8090/upload/" + res.data.result[0].xzlj
                     if (res.data.result.length > 0) {
@@ -620,91 +617,137 @@ new Vue({
             var newDate = [year, month, day].join('-');
             return newDate;
         },
+        //保存/提交前校验
+        checkedBefore: function () {
+            if (this.addForm.dxid == null || this.addForm.dxid == "") {
+                this.$message.warning({
+                    message: "请选择预案对象！",
+                    showClose: true
+                });
+                return false;
+            } else if (this.addForm.yamc == null || this.addForm.yamc == "") {
+                this.$message.warning({
+                    message: "请填写预案名称！",
+                    showClose: true
+                });
+                return false;
+            } else if (this.addForm.yajb == null || this.addForm.yajb == "") {
+                this.$message.warning({
+                    message: "请选择预案级别！",
+                    showClose: true
+                });
+                return false;
+            } else if (this.addForm.yalx == []) {
+                this.$message.warning({
+                    message: "请选择预案类型！",
+                    showClose: true
+                });
+                return false;
+            }
+            for (var i = 0; i < this.dynamicValidateForm.length; i++) {
+                if (this.dynamicValidateForm[i].zqbw == "") {
+                    this.$message.warning({
+                        message: "请选择/填写灾情" + (i + 1) + "的灾情部位! 或删除空白灾情！",
+                        showClose: true
+                    });
+                    return false;
+                } else {
+                    for (var k = 0; k < this.dynamicValidateForm[i].forcedevList.length; k++) {
+                        if (this.dynamicValidateForm[i].forcedevList[k].dzid == "") {
+                            this.$message.warning({
+                                message: "请为灾情" + (i + 1) + "中力量部署选择消防队站！或删除空白力量部署！",
+                                showClose: true
+                            });
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        },
         //点击保存事件
         save: function (formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                    if (this.status == 0) {//新增
-                        var params = {
-                            dxid: this.addForm.dxid,
-                            dxmc: this.addForm.dxmc,
-                            yamc: this.addForm.yamc,
-                            yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
-                            yazt: '01',
-                            yajb: this.addForm.yajb,
-                            bz: this.addForm.bz,
-                            disasterList: this.dynamicValidateForm,
-                            zzrid: this.role_data.userid,
-                            zzrmc: this.role_data.realName,
-                            jgid: this.role_data.organizationVO.uuid,
-                            jgbm: this.role_data.organizationVO.jgid,
-                            jgmc: this.role_data.organizationVO.jgmc
-                        };
-                        // debugger
-                        axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
-                            this.upLoadData.yaid = res.data.result.uuid;
-                            if (this.isFile) {
+            // this.$refs[formName].validate((valid) => {
+            if (this.checkedBefore() == true) {
+                if (this.status == 0) {//新增
+                    var params = {
+                        dxid: this.addForm.dxid,
+                        dxmc: this.addForm.dxmc,
+                        yamc: this.addForm.yamc,
+                        yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
+                        yazt: '01',
+                        yajb: this.addForm.yajb,
+                        bz: this.addForm.bz,
+                        disasterList: this.dynamicValidateForm,
+                        zzrid: this.role_data.userid,
+                        zzrmc: this.role_data.realName,
+                        jgid: this.role_data.organizationVO.uuid,
+                        jgbm: this.role_data.organizationVO.jgid,
+                        jgmc: this.role_data.organizationVO.jgmc
+                    };
+                    axios.post('/dpapi/digitalplanlist/insertByVO', params).then(function (res) {
+                        this.upLoadData.yaid = res.data.result.uuid;
+                        if (this.isFile) {
+                            this.submitUpload();//附件上传
+                        } else {
+                            this.$message({
+                                message: "成功保存预案信息",
+                                showClose: true
+                            });
+                            window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    })
+                } else {//修改
+                    var params = {
+                        uuid: this.status,
+                        dxid: this.addForm.dxid,
+                        dxmc: this.addForm.dxmc,
+                        yamc: this.addForm.yamc,
+                        yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
+                        yazt: '01',
+                        yajb: this.addForm.yajb,
+                        bz: this.addForm.bz,
+                        disasterList: this.dynamicValidateForm,
+                        zzrid: this.role_data.userid,
+                        zzrmc: this.role_data.realName
+                    };
+                    axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
+                        if (this.isFile) {
+                            var params1 = {
+                                yaid: this.status,
+                                deleteFlag: 'Y',
+                                xgsj: '1',
+                                xgrid: this.role_data.userid,
+                                xgrmc: this.role_data.realName
+                            };
+                            axios.post('/dpapi/yafjxz/doUpdateByVO', params1).then(function (res) {
                                 this.submitUpload();//附件上传
-                            } else {
-                                this.$message({
-                                    message: "成功保存预案信息",
-                                    showClose: true
-                                });
-                                window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
-                            }
-                        }.bind(this), function (error) {
-                            console.log(error);
-                        })
-                    } else {//修改
-                        var params = {
-                            uuid: this.status,
-                            dxid: this.addForm.dxid,
-                            dxmc: this.addForm.dxmc,
-                            yamc: this.addForm.yamc,
-                            yalx: this.addForm.yalx[this.addForm.yalx.length - 1],
-                            yazt: '01',
-                            yajb: this.addForm.yajb,
-                            bz: this.addForm.bz,
-                            disasterList: this.dynamicValidateForm,
-                            zzrid: this.role_data.userid,
-                            zzrmc: this.role_data.realName
-                        };
-                        axios.post('/dpapi/digitalplanlist/doUpdateByVO', params).then(function (res) {
-                            if (this.isFile) {
-                                var params1 = {
-                                    yaid: this.status,
-                                    deleteFlag: 'Y',
-                                    xgsj: '1',
-                                    xgrid: this.role_data.userid,
-                                    xgrmc: this.role_data.realName
-                                };
-                                axios.post('/dpapi/yafjxz/doUpdateByVO', params1).then(function (res) {
-                                    // debugger
-                                    this.submitUpload();//附件上传
-                                }.bind(this), function (error) {
-                                    console.log(error);
-                                })
-                            } else {
-                                this.$message({
-                                    message: "成功保存预案信息",
-                                    showClose: true
-                                });
-                                window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
-                            }
-                        }.bind(this), function (error) {
-                            console.log(error);
-                        })
-                    }
-                } else {
-                    console.log('error submit!!');
-                    return false;
+                            }.bind(this), function (error) {
+                                console.log(error);
+                            })
+                        } else {
+                            this.$message({
+                                message: "成功保存预案信息",
+                                showClose: true
+                            });
+                            window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error);
+                    })
                 }
-            });
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
+            // });
         },
         //提交点击事件
         submit: function (formName) {
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
+            // this.$refs[formName].validate((valid) => {
+                if (this.checkedBefore() == true) {
                     if (this.status == 0) { //新增
                         var params = {
                             dxid: this.addForm.dxid,
@@ -761,7 +804,6 @@ new Vue({
                                     xgrmc: this.role_data.realName
                                 };
                                 axios.post('/dpapi/yafjxz/doUpdateByVO', params1).then(function (res) {
-                                    // debugger
                                     this.submitUpload();//附件上传
                                 }.bind(this), function (error) {
                                     console.log(error);
@@ -781,7 +823,7 @@ new Vue({
                     console.log('error submit!!');
                     return false;
                 }
-            });
+            // });
         },
         //附件上传
         submitUpload() {
@@ -804,8 +846,6 @@ new Vue({
             if (fs.length > 0) {
                 fs[0].value = null
             }
-            // debugger
-            // this.fileList.splice(0, this.fileList.length);
             console.log(file, fileList);
             this.isFile = false;
         },
@@ -813,7 +853,6 @@ new Vue({
             console.log(file);
         },
         handleChange: function (file, fileList) {
-            // debugger
             if (fileList.length == 1) {
                 // this.isFile = true;
                 const isZip = file.name.endsWith("zip");
