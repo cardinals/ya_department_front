@@ -248,16 +248,7 @@ new Vue({
         },
         //燃烧物质级联选择
         RSWZ_tree: function () {
-            // var params = {
-            //     codetype: "RSWZ",
-            //     list: [1, 3]
-            // };
-            // axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
-            //     this.RSWZ_dataTree = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
-            axios.get('/api/codelist/getCodetype/RSWZ').then(function (res) {
+            axios.get('/api/codelist/getRswzTree/RSWZ').then(function (res) {
                 this.RSWZ_dataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -265,16 +256,7 @@ new Vue({
         },
         //灾情等级级联选择
         ZQDJ_tree: function () {
-            // var params = {
-            //     codetype: "ZQDJ",
-            //     list: [1, 4]
-            // };
-            // axios.post('/api/codelist/getCodelisttree2', params).then(function (res) {
-            //     this.ZQDJ_dataTree = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
-            axios.get('/api/codelist/getCodetype/ZQDJ').then(function (res) {
+            axios.get('/api/codelist/getDzlxTree/ZQDJ').then(function (res) {
                 this.ZQDJ_dataTree = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -374,17 +356,31 @@ new Vue({
                     for (var i = 0; i < this.dynamicValidateForm.length; i++) {
                         //燃烧物质
                         if (this.dynamicValidateForm[i].rswz != null && this.dynamicValidateForm[i].rswz != "") {
-                            var rswz = this.dynamicValidateForm[i].rswz;
-                            this.dynamicValidateForm[i].rswz = [];
-                            this.dynamicValidateForm[i].rswz.push(rswz);
+                            if (this.dynamicValidateForm[i].rswz.endsWith("00")) {
+                                var rswz = this.dynamicValidateForm[i].rswz;
+                                this.dynamicValidateForm[i].rswz = [];
+                                this.dynamicValidateForm[i].rswz.push(rswz);
+                            } else {
+                                var rswz1 = this.dynamicValidateForm[i].rswz.substring(0, 1) + '00'
+                                var rswz2 = this.dynamicValidateForm[i].rswz
+                                this.dynamicValidateForm[i].rswz = [];
+                                this.dynamicValidateForm[i].rswz.push(rswz1, rswz2);
+                            }
                         } else {
                             this.dynamicValidateForm[i].rswz = [];
                         }
                         //灾情等级
                         if (this.dynamicValidateForm[i].zqdj != null && this.dynamicValidateForm[i].zqdj != "") {
-                            var zqdj = this.dynamicValidateForm[i].zqdj;
-                            this.dynamicValidateForm[i].zqdj = [];
-                            this.dynamicValidateForm[i].zqdj.push(zqdj);
+                            if (this.dynamicValidateForm[i].zqdj.endsWith("00")) {
+                                var zqdj = this.dynamicValidateForm[i].zqdj;
+                                this.dynamicValidateForm[i].zqdj = [];
+                                this.dynamicValidateForm[i].zqdj.push(zqdj);
+                            } else {
+                                var zqdj1 = this.dynamicValidateForm[i].zqdj.substring(0, 2) + '00'
+                                var zqdj2 = this.dynamicValidateForm[i].zqdj
+                                this.dynamicValidateForm[i].zqdj = [];
+                                this.dynamicValidateForm[i].zqdj.push(zqdj1, zqdj2);
+                            }
                         } else {
                             this.dynamicValidateForm[i].zqdj = [];
                         }

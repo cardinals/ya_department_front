@@ -20,7 +20,7 @@
 		<div class="main-box">
 			<div class="main-container" v-loading="loading1" element-loading-text="加载中">
 				<!-- 面包屑 -->
-                <div id="breadcrumb_box"></div>
+				<div id="breadcrumb_box"></div>
 				<div id="inforView" class="pt15">
 					<el-row class="mb5" style="border-bottom:1px solid #20a0ff;line-height: 29px;">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
@@ -121,7 +121,7 @@
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 										<el-cascader :options="ZQDJ_dataTree" :props="defaultProps" size="small" v-model="domain.zqdj" placeholder="灾情等级" clearable
-										 change-on-select></el-cascader>
+										 :show-all-levels="false"></el-cascader>
 									</el-col>
 									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
