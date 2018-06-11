@@ -1,5 +1,5 @@
 //加载面包屑
-window.onload=function(){
+window.onload = function () {
     loadBreadcrumb("装备器材管理", "-1");
 }
 //axios默认设置cookie
@@ -13,8 +13,9 @@ new Vue({
             searchForm: {
                 zbmc: "",
                 ssdz: "",
-                zblx: "",
-                kcsl: ""
+                zbbm: "",
+                zblx: [],
+                // kysl: [0, 1000]
             },
             tableData: [],
             allTypesDataTree: [],//装备类型级联选择数据
@@ -61,21 +62,27 @@ new Vue({
         searchClick: function () {
             this.loading = true;
             var _self = this;
+            var reg = /0*$/;
+            var zblx = '';
+            if (this.searchForm.zblx.length > 0) {
+                zblx = this.searchForm.zblx[this.searchForm.zblx.length - 1].replace(reg, ''); //替换匹配字符串
+            }
+            // var kysl_min = this.searchForm.kysl[0];
+            // var kysl_max = this.searchForm.kysl[1];
+            // if (this.searchForm.kysl[0] == 0 && this.searchForm.kysl[1] == 1000) {
+            //     kysl_min = "";
+            //     kysl_max = "";
+            // }
             var params = {
                 zbmc: this.searchForm.zbmc,
+                zbbm: this.searchForm.zbbm,
                 ssdz: this.searchForm.ssdz,
-                xssd: this.searchForm.zblx[this.searchForm.zblx.length - 1],
-                kcsl_min: this.searchForm.kcsl[0],
-                kcsl_max: this.searchForm.kcsl[1]
+                zblx: zblx,
+                // kysl_min: kysl_min,
+                // kysl_max: kysl_max
             };
             axios.post('/dpapi/equipmentsource/list', params).then(function (res) {
                 this.tableData = res.data.result;
-                for(var i=0;i<this.tableData.length;i++){
-                    this.tableData[i].zcbl = parseInt(this.tableData[i].kcsl) 
-                                            + parseInt(this.tableData[i].zzsl) 
-                                            + parseInt(this.tableData[i].ztsl)
-                                            + parseInt(this.tableData[i].wxsl)
-                }
                 this.total = res.data.result.length;
                 this.loading = false;
             }.bind(this), function (error) {
@@ -85,9 +92,10 @@ new Vue({
         //清空查询条件
         clearClick: function () {
             this.searchForm.zbmc = "";
+            this.searchForm.zbbm = "";
             this.searchForm.ssdz = "";
             this.searchForm.zblx = [];
-            this.searchForm.kcsl = [];
+            // this.searchForm.kysl = [0,1000];
         },
         //装备类型级联选择数据
         getAllTypesDataTree: function () {

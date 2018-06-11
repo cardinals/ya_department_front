@@ -26,7 +26,8 @@ var vm = new Vue({
 				value: [935, 535, 814, 232, 851, 332, 235, 156, 72, 74],
 			},
 			//pieTitle
-			pieTitle: '各类型预案数量比例图',
+			pieTitle: '',
+			pieTitle0: '各类型预案数量比例图',
 			pieTitle1: '化危品火灾爆炸',
 			pieTitle2: '建筑堆场类',
 			pieTitle3: '交通运输类',
@@ -38,7 +39,8 @@ var vm = new Vue({
 			pieTitle9: '群众遇险事件',
 			pieTitle10: '群众求助救援',
 			//pieData
-			pieData: [
+			pieData: [],
+			pieData0: [
 				{ value: 400, name: '化危品火灾爆炸' },
 				{ value: 310, name: '建筑堆场类' },
 				{ value: 204, name: '交通运输类' },
@@ -162,6 +164,8 @@ var vm = new Vue({
 	},
 	mounted: function () {
 		this.barChart();
+		this.pieData=this.pieData0;
+		this.pieTitle=this.pieTitle0;
 		this.pieChart();
 	},
 	created: function () {
@@ -301,6 +305,13 @@ var vm = new Vue({
 				]
 			};
 			myChart.setOption(option);
+		},
+		refresh: function () {
+			this.pieData=this.pieData0;
+			this.pieTitle=this.pieTitle0;
+			var pieChart = echarts.getInstanceByDom(document.getElementById("pie"));
+			pieChart.dispose();
+			this.pieChart();
 		},
 		//表格重新加载数据
 		loadingData: function () {

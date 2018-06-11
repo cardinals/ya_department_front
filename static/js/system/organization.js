@@ -20,19 +20,36 @@ new Vue({
             searchForm: {
                 jgsearch: "",
             },
-            //表数据
-            tableData: [],//Grid中数据
-            detailData:{},
-            //角色对应资源
-            resourceList: [],
-            defaultProps: {
-                children: 'children',
-                label: 'resourceinfo'
+            //机构树数据
+            tableData: [],
+            //用户列表数据：
+            userData: [],
+            //机构详情数据
+            detailData: {
+                jgmc: '',
+                jgjc: '',
+                jgxzmc: '',
+                jgdz: '',
+                jgms: '',
+                xzqhmc: '',
+                czhm: '',
+                lxr: '',
+                lxdh: '',
+                xqmj: '',
+                xqfw: ''
             },
             jgidprops: {
                 label: 'jgjc',
                 children: 'children'
             },
+            //当前页
+            currentPage: 1,
+            //分页大小
+            pageSize: 10,
+            //总记录数
+            total: 0,
+            //表高度变量
+            tableheight: 185,
         };
     },
 
@@ -71,17 +88,28 @@ new Vue({
 
         //获取节点
         currentNodeChange: function (val) {
-            //  val.jgid;
-            // val.resourceid='14111442';
-            // debugger   
+            //获取节点详情
             axios.get('/api/organization/doFindById/' + val.uuid).then(function (res) {
-                // debugger
-                this.detailData = res.data.result[0];
+                this.detailData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
-            })   
-        },
+            });
+            //获取组织机构下的用户列表
+            var params = {
+                organizationId: val.uuid,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
+            };
+            axios.get('/api/user/findByJGID/' + val.uuid).then(function (res) {
+                this.userData = res.data.result;
+                this.total = res.data.result.length;                
+            }.bind(this), function (error) {
+                console.log(error);
+            });
 
+
+        },
+        
         //根据参数部分和参数名来获取参数值 
         GetQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -89,33 +117,9 @@ new Vue({
             if (r != null) return unescape(r[2]); return null;
         },
         
-        //机构简称
-        JGJC: function () {
-            axios.get('/api/codelist/getCodetype/JGJC').then(function (res) {
-                this.DXLX_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         //机构性质
         JGXZDM: function () {
-            axios.get('/api/codelist/getCodetype/JGXZDM').then(function (res) {
-                this.YAZL_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //机构地址
-        JGDZ: function () {
-            axios.get('/api/codelist/getCodetype/JGDZ').then(function (res) {
-                this.YAZL_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //机构描述
-        JGMS: function () {
-            axios.get('/api/codelist/getCodetype/JGMS').then(function (res) {
+            axios.get('/api/codelist/getCodetype/JGXZ').then(function (res) {
                 this.YAZL_data = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
@@ -129,45 +133,18 @@ new Vue({
                 console.log(error);
             })
         },
-        //联系人
-        LXR: function () {
-            axios.get('/api/codelist/getCodetype/LXR').then(function (res) {
-                this.YAZL_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
+        
+        //分页大小修改事件
+        pageSizeChange: function (val) {
+            this.pageSize = val;
+            var _self = this;
+            _self.loadingData(); //重新加载数据
         },
-        //联系电话
-        LXDH: function () {
-            axios.get('/api/codelist/getCodetype/LXDH').then(function (res) {
-                this.YAZL_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //传真号码
-        CZHM: function () {
-            axios.get('/api/codelist/getCodetype/CZHM').then(function (res) {
-                this.YAZL_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //辖区面积
-        XQMJ: function () {
-            axios.get('/api/codelist/getCodetype/XQMJ').then(function (res) {
-                this.YAZL_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
-        //辖区范围
-        XQFW: function () {
-            axios.get('/api/codelist/getCodetype/XQFW').then(function (res) {
-                this.YAZL_data = res.data.result;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
+        //当前页修改事件
+        currentPageChange: function (val) {
+            this.currentPage = val;
+            var _self = this;
+            _self.loadingData(); //重新加载数据
         },
         //表格查询事件
         searchClick: function () {
