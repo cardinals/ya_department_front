@@ -11,7 +11,7 @@
 	<div id="header_box"></div>
 	<div class="left-sidebar">
 		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-		<input type="hidden" id="activeIndex"/>
+		<input type="hidden" id="activeIndex" />
 		<div id="menu-box">
 			<big-tree default-active=""></big-tree>
 		</div>
@@ -29,14 +29,12 @@
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">装备名称</label>
-									<el-input size="small" v-model="searchForm.zbmc" placeholder="装备名称" class="searchSelect"></el-input>
+									<el-input size="small" v-model="searchForm.zbmc" placeholder="装备名称" class="searchSelect" clearable></el-input>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-									<label class="el-form-item__label searchLabel">所属队站</label>
-									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
-										<el-option v-for="type in allSsdzData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
-									</el-select>
+									<label class="el-form-item__label searchLabel">装备编码</label>
+									<el-input size="small" v-model="searchForm.zbbm" placeholder="装备编码" class="searchSelect" clearable></el-input>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
@@ -44,13 +42,17 @@
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">装备类型</label>
-									<el-cascader :options="allTypesDataTree" :props="defaultProps" size="small" v-model="searchForm.zblx" placeholder="全部"
-									 class="searchSelect" clearable change-on-select></el-cascader>
+									<el-cascader :options="allTypesDataTree" :props="defaultProps" size="small" v-model="searchForm.zblx" placeholder="全部" class="searchSelect"
+									 clearable change-on-select></el-cascader>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-									<label class="el-form-item__label searchLabel">库存数量</label>
-									<el-slider v-model="searchForm.kcsl" range :max="1000" class="searchSelect"></el-slider>
+									<!-- <label class="el-form-item__label searchLabel">库存数量</label>
+									<el-slider v-model="searchForm.kysl" range :max="1000" class="searchSelect"></el-slider> -->
+									<label class="el-form-item__label searchLabel">所属队站</label>
+									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allSsdzData" :label="type.codeName" :value="type.dzid" :key="type.codeName"></el-option>
+									</el-select>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
@@ -76,25 +78,35 @@
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
 						 class="tableStyle" :height="tableheight">
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="zbmc" label="装备名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
-								<!-- <template slot-scope="scope">
+							<el-table-column prop="zbmc" label="装备名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
+								<template slot-scope="scope">
 									<a @click="detailClick(scope.row)" type="text">{{scope.row.zbmc}}</a>
-								</template> -->
+								</template>
 							</el-table-column>
-							<el-table-column prop="dzmc" label="所属队站" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="xzqhmc" label="行政区划" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="sccj" label="生产厂家" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="zcbl" label="总储备量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="kcsl" label="库存数量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="zzsl" label="装载数量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="ztsl" label="在途数量" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="zbbm" label="装备编码" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+							<el-table-column prop="zblxmc" label="装备类型" show-overflow-tooltip min-width="14%" align="center"></el-table-column>
+							<el-table-column prop="dzmc" label="所属队站" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="xzqhmc" label="行政区划" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="sccj" label="生产厂家" show-overflow-tooltip min-width="9%" align="center"></el-table-column>
+							<el-table-column prop="zcbl" label="总储备量" show-overflow-tooltip min-width="9%" align="center">
+								<template slot-scope="scope">
+									<el-popover placement="bottom" width="100" trigger="click" ref="popover2">
+										<div :data="scope.row">
+											<el-row>库存数量（可用）: {{scope.row.kysl}}</el-row>
+											<el-row>库存数量（损坏）: {{scope.row.shsl}}</el-row>
+											<el-row>装载数量: {{scope.row.zzsl}}</el-row>
+										</div>
+									</el-popover>
+									<a type="text" v-popover:popover2>{{scope.row.zcbl}}</a>
+								</template>
+							</el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
-								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
-								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+								<el-pagination @current-change="currentPageChange" :current-page="currentPage" page-sizes="10"
+								 :page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>
