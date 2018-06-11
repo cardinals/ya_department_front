@@ -2,9 +2,9 @@
 window.onload = function () {
 	var type = getQueryString("type");
 	if (type == "DPYL") {
-		loadBreadcrumb("大屏预览", "report3");
+		loadBreadcrumb("大屏预览", "各类型预案数量统计页面");
 	} else {
-		loadBreadcrumb("report3", '-1');
+		loadBreadcrumb("各类型预案数量统计页面", '-1');
 	}
 }
 
@@ -170,9 +170,7 @@ var vm = new Vue({
 	},
 	created: function () {
 		//菜单选中
-		var index = getQueryString("index");
-		$("#activeIndex").val(index);
-		this.activeIndex = index;
+		$("#activeIndex").val(getQueryString("index"));
 	},
 	methods: {
 		// 左侧柱状图
