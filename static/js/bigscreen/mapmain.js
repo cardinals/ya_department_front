@@ -705,13 +705,14 @@ var vm = new Vue({
                  if(isDzdj == 1){
                      this.loading = true;
                      var dz = "";
-                     var dzid = this.GetQueryString("dzid");
+                     var dzid = this.GetQueryString("id");
                      var dzlx = this.GetQueryString("dzlx");
                      var params = {
                         dzid : dzid,
                         dzlx : dzlx
                     }
-                    axios.post('/dpapi/xfdz/list', params).then(function (res) {
+                  
+                    axios.post('/dpapi/xfdz/findDzDetailByVo',params).then(function (res) {
                         dz = res.data.result;
                         vm.getDzjz(dz);
                      }.bind(this), function (error) {
@@ -1156,14 +1157,14 @@ var vm = new Vue({
             },
             //对队站进行传参数画点
             getDzjz:function(dzdz){
-                var dz = [];
-                vm.dz = dz;
-                var map = vm.map;
-           
+                    var dz = [];
+                    vm.dz = dz;
+                    var map = vm.map;
                     var x = dzdz.gisX;
                     var y = dzdz.gisY;
                     var dzid = dzdz.dzid;
-                    var pt = new BMap.Point(x, y); 
+                    var pt = new BMap.Point(x, y);
+                    map.centerAndZoom(pt, 14); 
                     //创建坐标点
                     var d = dzdz.dzlx;
                     //判断队站种类
@@ -1221,7 +1222,7 @@ var vm = new Vue({
                         var infoWindow = new BMap.InfoWindow(dzcontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
                         infoWindow.enableAutoPan();
-                        this.openInfoWindow(infoWindow);
+                        vm.map.openInfoWindow(infoWindow,pt);
                
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(dzdz.dzmc), { offset: new BMap.Size(-20, 35) });

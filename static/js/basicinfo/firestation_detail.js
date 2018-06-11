@@ -58,7 +58,7 @@ new Vue({
         xfdzDetails: function () {
         // zjc
              //取得选中行id
-             this.id = this.GetQueryString("dzid");
+             this.id = this.GetQueryString("id");
              //获取选中行水源类型
              this.dzlx = this.GetQueryString("dzlx");
              //改变url网址
@@ -72,8 +72,8 @@ new Vue({
              //history.back();
              
             var params = {
-                dzid : id,
-                dzlx : dzlx
+                dzid : this.id,
+                dzlx : this.dzlx
             }
             axios.post('/dpapi/xfdz/findDzDetailByVo',params).then(function (res) {
                 this.detailData = res.data.result;
@@ -117,7 +117,7 @@ new Vue({
             // console.log(this.tableData);
             var dzid = this.detailData.dzid;
             var dzlx = this.detailData.dzlx;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?dzid="+dzid+"&dzlx="+dzlx+"&dzdj=1";
+            window.location.href = "../bigscreen/big_screen_map_pro.html?id="+dzid+"&dzlx="+dzlx+"&dzdj=1";
         }
 
     }
