@@ -816,3 +816,32 @@ margin-top: 10px;
   overflow-x: hidden;
   height: 405px;
 }
+/* 内部功能页 */
+.nameBox {
+	background-color: #fff;
+	border: 5px solid #ccc;
+	/* margin-top: 15px; */
+	padding: 20px 25px 20px 25px;
+  box-shadow: 2px 3px 5px #ccc;
+}
+.echartsBox {
+	background-color: #fff;
+	border: 5px solid #ccc;
+	/* margin-top: 20px; */
+	padding: 0;
+  box-shadow: 2px 3px 5px #ccc;
+}
+.echarts-refresh {
+  height: 24px;
+  width: 24px;
+  top: 2px;
+  left: 395px;
+  z-index: 9999;
+}
+.inform-content {
+  border: 5px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  background-color: #fbfbfb;
+  box-shadow: 2px 3px 5px #ccc;
+}

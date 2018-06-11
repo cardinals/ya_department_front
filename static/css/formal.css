@@ -54,27 +54,7 @@ body{height:100%;overflow:hidden;}
 .double-search-left{
   
 }*/
-.nameBox {
-	background-color: #fff;
-	border: 5px solid #ccc;
-	/* margin-top: 15px; */
-	padding: 20px 25px 20px 25px;
-    box-shadow: 2px 3px 5px #ccc;
-}
-.echartsBox {
-	background-color: #fff;
-	border: 5px solid #ccc;
-	/* margin-top: 20px; */
-	padding: 0;
-    box-shadow: 2px 3px 5px #ccc;
-}
-.inform-content {
-    border: 5px solid #ccc;
-	margin-top: 20px;
-	margin-bottom: 40px;
-	background-color: #fbfbfb;
-	box-shadow: 2px 3px 5px #ccc;
-}
+
 .companyStatus {
 	padding: 0px 5px;
 	display: none;
