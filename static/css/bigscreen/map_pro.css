@@ -27,6 +27,7 @@
   } 
   .el-pagination__editor{
     color:#000;
+    border-radius: 0px;
   }
   .an{
     text-decoration: none;

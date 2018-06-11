@@ -68,118 +68,7 @@ var vm = new Vue({
             { value: '新疆', label: '新疆' }],
         selectedOptions: [],
         selectedOptions2: [],
-        tableData: [
-            {
-                DWMC: "辽宁省人民法院",
-                XZQY: "辽宁省",
-                DWDZ: "霞飞路29号",
-                XFGXJGNAME: "沈阳市消防局",
-                CJSJ: "2012-02-23",
-                DWDJ: "省部级",
-                DWXZ: "司法",
-                DWDH: "1234567",
-                ID: "1"
-            },
-            {
-                DWMC: "辽宁省政府",
-                DWDJ: "省部级",
-                DWXZ: "行政",
-                XZQY: "辽宁省",
-                DWDZ: "霞飞路30号",
-                ZDMJ: 50000,
-                XFGXJGID: "沈阳市消防局",
-                DWDH: "1234567",
-                ID: "2"
-            },
-            {
-                DWMC: "辽宁省就业局",
-                DWDJ: "省部级",
-                DWXZ: "民事",
-                XZQY: "辽宁省",
-                DWDZ: "霞飞路31号",
-                ZDMJ: 20000,
-                XFGXJGID: "沈阳市消防局",
-                DWDH: "1234567",
-                ID: "3"
-            },
-            {
-                DWMC: "沈阳市城市规划管理局",
-                DWDJ: "市厅级",
-                DWXZ: "城市管理",
-                XZQY: "辽宁省",
-                DWDZ: "霞飞路32号",
-                ZDMJ: 10000,
-                XFGXJGID: "沈阳市消防和平分队",
-                DWDH: "1234567",
-                ID: "4"
-            },
-            {
-                DWMC: "沈阳市公安局",
-                DWDJ: "市厅级",
-                DWXZ: "司法",
-                XZQY: "辽宁省",
-                DWDZ: "霞飞路33号",
-                ZDMJ: 12000,
-                XFGXJGID: "沈阳市消防沈河分队",
-                DWDH: "1234567",
-                ID: "5"
-            },
-            {
-                DWMC: "沈阳市地铁二号线",
-                DWDJ: "市厅级",
-                DWXZ: "民事",
-                XZQY: "辽宁省",
-                DWDZ: "霞飞路34号",
-                ZDMJ: 1000,
-                XFGXJGID: "沈阳市消防浑南分队",
-                DWDH: "1234567",
-                ID: "6"
-            },
-            {
-                DWMC: "青岛市塑性加工园",
-                DWDJ: "市厅级",
-                DWXZ: "城市管理",
-                XZQY: "山东省",
-                DWDZ: "文明路39号",
-                ZDMJ: 2000,
-                XFGXJGID: "青岛市市消防大东分队",
-                DWDH: "1234567",
-                ID: "7"
-            },
-            {
-                DWMC: "泰安市城建局",
-                DWDJ: "市厅级",
-                DWXZ: "城市管理",
-                XZQY: "山东省",
-                DWDZ: "法防路36号",
-                ZDMJ: 2000,
-                XFGXJGID: "泰安市消防塔湾分队",
-                DWDH: "1234567",
-                ID: "8"
-            },
-            {
-                DWMC: "河北省国土资源厅",
-                DWDJ: "省部级",
-                DWXZ: "城市管理",
-                XZQY: "河北省",
-                DWDZ: "格调路46号",
-                ZDMJ: 3000,
-                XFGXJGID: "河北省消防总队",
-                DWDH: "1234567",
-                ID: "9"
-            },
-            {
-                DWMC: "秦皇岛市林业局",
-                DWDJ: "市厅级",
-                DWXZ: "城市管理",
-                XZQY: "河北省",
-                DWDZ: "发文路64号",
-                ZDMJ: 4000,
-                XFGXJGID: "秦皇岛市消防大队",
-                DWDH: "1234567",
-                ID: "10"
-            }
-        ],
+        tableData: [],
         planData: {
             yaid_1: '',
             yaid_2: '',
@@ -237,7 +126,7 @@ var vm = new Vue({
         //当前页
         currentPage: 1,
         //分页大小
-        pageSize: 8,
+        pageSize: 11,
         //预案信息总记录数
         total: 10,
         //序号
@@ -794,7 +683,7 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp<span style="font-size:13px;color:red;">'+ provinces[i].zddwsl+'</span>');
+                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp&nbsp<span style="font-size:12px;color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '11px',

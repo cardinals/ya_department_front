@@ -20,8 +20,8 @@
     <!-- 底部控件 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
     <style>
-       .jwcolor{ color:#fff;background: #3A254F;padding: 4px;border: 2px solid #F9C520;border-radius:25px;}
-       .h25{height: 25px;} .h482{height: 482px;}
+       .jwcolor{ color:#fff;background: #3A254F;padding: 5px;border: 2px solid #F9C520;border-radius:25px;}
+       .h25{height: 25px;} .h515{height: 515px;}
        .h65{height: 65%;} .wh240{width: 240;}
        .icont:hover{border:1px solid blue;}
     </style>
@@ -49,12 +49,12 @@
                                 </el-select>
                                 <el-button class="l ml5" style="background:#1E2B3F;border: 2px solid #647AAE;border-radius:5px;margin-left: 1px;height: 29px;" type="primary" @click="searchClick">搜索</el-button>
                             </div>
-                            <div class="h482 "  style="margin-top: 10px; overflow-y:auto !important;height: 482px;">
+                            <div class="h515"  style="margin-top: 10px; overflow-y:auto !important;height:515px;">
                                 <div id="shengshizs">
                                     <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
                                         style="background-color:#3A254F;color:#fff;border: 2px solid #F9C520;border-radius:5px;">
                                         <div @click="shengshiClick(data)">
-                                            <div class="l cell_bk">行政区划名称：{{data.xzqhmc }}</div>
+                                            <div class="l cell_bk">队站名称：{{data.xzqhmc }}</div>
                                             <div class="l cell_bk">重点单位数量：{{data.zddwsl }}</div>
                                         </div>
                                     </el-card>
@@ -72,13 +72,15 @@
                                     </el-card>
                                 </div>
                             </div>
-                            <div id="zddwxxTool" class="pagenum" >
+                            <!-- 分页 -->
+                            <div id="zddwxxTool" class="pagenum">
                                 <div type="flex" justify="end">
                                     <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pageSize" :pager-count="5" background
-                                        layout="total,jumper" :total=parseInt(total)>
+                                        layout="total,prev,jumper,next" :total=parseInt(total)>
                                     </el-pagination>
                                 </div>
                             </div>
+                            <!-- end -->
                         </div>
                     </el-form>
                 </div>
@@ -126,9 +128,9 @@
             <!-- db end -->
             <div class="jwd" style="position:fixed;top:13px;left: 260px;">
                 <span class="jwcolor">经度</span>
-                <input type="text" style="border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lng" />
+                <input type="text" style="padding:10px;width:91px;border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lng" />
                 <span class="jwcolor">纬度</span>
-                <input type="text" style="border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lat" />
+                <input type="text" style="padding:10px;width:91px;border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lat" />
             </div>
             <div style="position:fixed;bottom:20px;left: 40%;">
                 <div id="container">
