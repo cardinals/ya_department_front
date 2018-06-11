@@ -169,7 +169,7 @@ var vm = new Vue({
             handleCurrentChange(val) {
                 this.currentPage = val;
                 var _self = this;
-                _self.loadingData(); //重新加载数据
+                // _self.loadingData(); //重新加载数据
             },
             getZddwxx: function (xzqh, uuid) {
                 var params = { xzqh: xzqh, uuid: uuid };

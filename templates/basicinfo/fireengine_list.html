@@ -42,17 +42,17 @@
 							<el-row :gutter="40">
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">车辆状态</label>
-									<el-cascader :options ="allStatesData" :props ="props" size="small" v-model="searchForm.clzt" placeholder="全部" class="searchSelect" clearable change-on-select></el-cascader>
+									<el-select size="small" v-model="searchForm.clzt" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allStatesData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+									</el-select>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-									<label class="el-form-item__label searchLabel">水泵流量</label>
-									<!-- <el-input size="small" v-model="searchForm.sbll" placeholder="水泵流量（L/s）"></el-input> -->
-									<el-slider v-model="searchForm.sbll" range :max="1000" class="searchSelect"></el-slider>
+									<label class="el-form-item__label searchLabel">车辆编码</label>
+									<el-input size="small" v-model="searchForm.clbm" placeholder="车辆编码"></el-input>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-									<label class="el-form-item__label searchLabel">载水量</label>
-									<!-- <el-input size="small" v-model="searchForm.zsl" placeholder="载水量（t）"></el-input> -->
-									<el-slider v-model="searchForm.zsl" range :max="1000" class="searchSelect"></el-slider>
+									<label class="el-form-item__label searchLabel">GPS编号</label>
+									<el-input size="small" v-model="searchForm.gpsbh" placeholder="GPS编号"></el-input>
 								</el-col>
 							</el-row>
 							<div>
@@ -76,17 +76,17 @@
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 							<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
-							<el-table-column prop="clmc" label="车辆名称" min-width="20%" show-overflow-tooltip align="center" :formatter="dataFormat">
+							<el-table-column prop="clmc" label="车辆名称" min-width="18%" show-overflow-tooltip align="center">
 								<!-- <template slot-scope="scope">
-									<a @click="detailClick(scope.row)" type="text">{{scope.row.clmc||"无"}}</a>
+									<a @click="detailClick(scope.row)" type="text">{{scope.row.clmc}}</a>
 								</template> -->
 							</el-table-column>
-							<el-table-column prop="ssdz" label="所属队站" min-width="20%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="cllxmc" label="车辆类型" min-width="16%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="cphm" label="车牌号码" min-width="12%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="clztmc" label="车辆状态" min-width="11%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="sbll" label="水泵流量" min-width="11%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="zsl" label="载水量" min-width="10%" show-overflow-tooltip align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="ssdzmc" label="所属队站" min-width="20%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="cllxmc" label="车辆类型" min-width="16%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="cphm" label="车牌号码" min-width="13%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="clztmc" label="车辆状态" min-width="11%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="clbm" label="车辆编码" min-width="11%" show-overflow-tooltip align="center"></el-table-column>
+							<el-table-column prop="gpsbh" label="GPS编号" min-width="11%" show-overflow-tooltip align="center"></el-table-column>
 						</el-table>
 
 						<!--列表底部工具条和分页符-->
