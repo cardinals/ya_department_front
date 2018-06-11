@@ -272,8 +272,6 @@ var vm = new Vue({
         this.getCity();
         document.title = this.city + '预案情况';
         this.getShengZddwDate();//省
-        
-
     },
     methods:
         //获取重点单位信息
@@ -705,13 +703,14 @@ var vm = new Vue({
                  if(isDzdj == 1){
                      this.loading = true;
                      var dz = "";
-                     var dzid = this.GetQueryString("dzid");
+                     var dzid = this.GetQueryString("id");
                      var dzlx = this.GetQueryString("dzlx");
                      var params = {
                         dzid : dzid,
                         dzlx : dzlx
                     }
-                    axios.post('/dpapi/xfdz/list', params).then(function (res) {
+                  
+                    axios.post('/dpapi/xfdz/findDzDetailByVo',params).then(function (res) {
                         dz = res.data.result;
                         vm.getDzjz(dz);
                      }.bind(this), function (error) {
@@ -795,7 +794,7 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp<span style="color:red;">'+ provinces[i].zddwsl+'</span>');
+                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp<span style="font-size:13px;color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '11px',
@@ -804,12 +803,11 @@ var vm = new Vue({
                         padding: '14px 4px',
                         textAlign: 'center',
                         marginLeft: '1.5px',
-                        marginTop: '40px',
+                        marginTop: '24px',
                         color: '#ED0C0A',
                         borderRadius: '5px',
                         paddingRight: '58px',
                       
-                        marginTop: '25px',
                         background:'',
                     });
                     //zjczzz
@@ -1156,14 +1154,14 @@ var vm = new Vue({
             },
             //对队站进行传参数画点
             getDzjz:function(dzdz){
-                var dz = [];
-                vm.dz = dz;
-                var map = vm.map;
-           
+                    var dz = [];
+                    vm.dz = dz;
+                    var map = vm.map;
                     var x = dzdz.gisX;
                     var y = dzdz.gisY;
                     var dzid = dzdz.dzid;
-                    var pt = new BMap.Point(x, y); 
+                    var pt = new BMap.Point(x, y);
+                    map.centerAndZoom(pt, 14); 
                     //创建坐标点
                     var d = dzdz.dzlx;
                     //判断队站种类
@@ -1221,7 +1219,7 @@ var vm = new Vue({
                         var infoWindow = new BMap.InfoWindow(dzcontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
                         infoWindow.enableAutoPan();
-                        this.openInfoWindow(infoWindow);
+                        vm.map.openInfoWindow(infoWindow,pt);
                
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(dzdz.dzmc), { offset: new BMap.Size(-20, 35) });
@@ -1280,7 +1278,7 @@ var vm = new Vue({
             //替换图标
             chAllMarkers: function (zdd) {
                 if (zdd != '') {
-                    var myicon1234 = new BMap.Icon("../../static/images/maptool/zddw.png", new BMap.Size(24, 24));
+                    var myicon1234 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34));
                     zdd.setIcon(myicon1234);
                     var map = vm.map;
                     map.addOverlay(zdd);
@@ -2070,7 +2068,7 @@ var vm = new Vue({
                         infoWindow.enableAutoPan();//自动平移
                         this.openInfoWindow(infoWindow);//
                         //设置新图标
-                        var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(34, 34)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
                         var pt = marker.point;// this.removeAllMarkers(zddws);//点击后清除圆圈的样式
