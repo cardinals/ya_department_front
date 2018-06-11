@@ -795,7 +795,7 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label(this.formatLabelz(provinces[i].xzqhmc + provinces[i].zddwsl));
+                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp<span style="color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '11px',
@@ -858,7 +858,7 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label(this.formatLabels(citys[i].xzqhmc +':'+ citys[i].zddwsl));//城市名称
+                    var label = new BMap.Label('<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
                     label.setStyle({
                         fontSize: '11px',
                         fontWeight: 'bold',
