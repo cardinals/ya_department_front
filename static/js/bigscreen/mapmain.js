@@ -272,8 +272,6 @@ var vm = new Vue({
         this.getCity();
         document.title = this.city + '预案情况';
         this.getShengZddwDate();//省
-        
-
     },
     methods:
         //获取重点单位信息
@@ -1281,7 +1279,7 @@ var vm = new Vue({
             //替换图标
             chAllMarkers: function (zdd) {
                 if (zdd != '') {
-                    var myicon1234 = new BMap.Icon("../../static/images/maptool/zddw.png", new BMap.Size(24, 24));
+                    var myicon1234 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34));
                     zdd.setIcon(myicon1234);
                     var map = vm.map;
                     map.addOverlay(zdd);
@@ -2071,7 +2069,7 @@ var vm = new Vue({
                         infoWindow.enableAutoPan();//自动平移
                         this.openInfoWindow(infoWindow);//
                         //设置新图标
-                        var myIcon2 = new BMap.Icon("../../static/images/maptool/marker_zddw_mapz.png", new BMap.Size(24, 24)); //点击后的新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(34, 34)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
                         var pt = marker.point;// this.removeAllMarkers(zddws);//点击后清除圆圈的样式

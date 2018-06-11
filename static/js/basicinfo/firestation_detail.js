@@ -79,7 +79,6 @@ new Vue({
                 this.detailData = res.data.result;
                 this.classification();
                 //this.zongddetailData = this.detailData.xfdzzongdVO[0];
-               // debugger;
             }.bind(this), function (error) {
                 console.log(error)
             })
