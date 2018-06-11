@@ -28,42 +28,57 @@
 						</el-col>
 					</el-row>
 					<el-form :inline="true" class="el-form demo-form-inline" ref="addForm" :model="addForm" label-position="right">
-						<el-row>
-							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案对象" prop="dxmc">
-									<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" disabled></el-input>
-								</el-form-item>
+						<el-row class="tr mb5">
+							<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+								<el-label class="mr5 vbm"><span style="color:red;">* </span>预案对象</el-label>
+							</el-col>
+							<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
+								<!-- <el-form-item label="预案对象" prop="dxmc"> -->
+								<el-input size="small" v-model="addForm.dxmc" @focus="keyunitList" placeholder="预案对象" disabled></el-input>
+								<!-- </el-form-item> -->
 							</el-col>
 							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1" style="padding: 4px 0;" class="tl">
 								<el-button icon="search" size="small" style="border: none;" @click="keyunitList"></el-button>
 							</el-col>
-							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案名称" prop="yamc">
-									<el-input size="small" v-model="addForm.yamc" placeholder="预案名称" clearable></el-input>
-								</el-form-item>
+							<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+								<el-label class="mr5 vbm"><span style="color:red;">* </span>预案名称</el-label>
+							</el-col>
+							<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
+								<!-- <el-form-item label="预案名称" prop="yamc"> -->
+								<el-input size="small" v-model="addForm.yamc" placeholder="预案名称" clearable></el-input>
+								<!-- </el-form-item> -->
 							</el-col>
 							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
-							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案编号">
-									<el-input size="small" v-model="addForm.yabm" placeholder="保存/提交后系统自动生成" disabled></el-input>
-								</el-form-item>
+							<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+								<el-label class="mr5 vbm">预案编号</el-label>
+							</el-col>
+							<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
+								<!-- <el-form-item label="预案编号"> -->
+								<el-input size="small" v-model="addForm.yabm" placeholder="保存/提交后系统自动生成" disabled></el-input>
+								<!-- </el-form-item> -->
 							</el-col>
 							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 						</el-row>
-						<el-row>
-							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案级别" prop="yajb">
-									<el-select size="small" v-model="addForm.yajb" placeholder="预案级别" class="searchSelect" clearable>
-										<el-option v-for="item in YAJB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
-									</el-select>
-								</el-form-item>
+						<el-row class="tr">
+							<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+								<el-label class="mr5 vbm"><span style="color:red;">* </span>预案级别</el-label>
+							</el-col>
+							<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
+								<!-- <el-form-item label="预案级别" prop="yajb"> -->
+								<el-select size="small" v-model="addForm.yajb" placeholder="预案级别" class="searchSelect" clearable>
+									<el-option v-for="item in YAJB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
+								</el-select>
+								<!-- </el-form-item> -->
 							</el-col>
 							<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
-							<el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-								<el-form-item label="预案类型" prop="yalx">
-									<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalx" placeholder="预案类型" class="searchSelect"
-									 clearable change-on-select></el-cascader>
-								</el-form-item>
+							<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+								<el-label class="mr5 vbm"><span style="color:red;">* </span>预案类型</el-label>
+							</el-col>
+							<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
+								<!-- <el-form-item label="预案类型" prop="yalx"> -->
+								<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalx" placeholder="预案类型" class="searchSelect"
+								 clearable change-on-select></el-cascader>
+								<!-- </el-form-item> -->
 							</el-col>
 						</el-row>
 					</el-form>
@@ -89,7 +104,7 @@
 								</div>
 								<el-row class="tr">
 									<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
-										<el-label class="mr5">灾情部位</el-label>
+										<el-label class="mr5"><span style="color:red;">* </span>灾情部位</el-label>
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 										<el-input v-model="domain.zqbw" size="small" placeholder="灾情部位"></el-input>
@@ -219,7 +234,7 @@
 									<el-form-item v-for="(llbs,index1) in domain.forcedevList" :key="llbs.key" :prop="'forcedevList.' + index1 + '.value'" label-position="right">
 										<el-row class="tr">
 											<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
-												<el-label class="mr5">消防队站</el-label>
+												<el-label class="mr5"><span style="color:red;">* </span>消防队站</el-label>
 											</el-col>
 											<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 												<el-input v-model="llbs.dzmc" size="small" placeholder="消防队站" disabled></el-input>
@@ -274,16 +289,16 @@
 						<el-col :xs="14" :sm="14" :md="14" :lg="14" :xl="14">
 							<el-form>
 								<el-form-item>
-									<el-upload class="upload-demo" 
-											ref="upload" 
-											action="/dpapi/yafjxz/upload" 
-											:data="upLoadData" 
-											:on-preview="handlePreview"
-											:on-remove="handleRemove"
-											:on-success="handleSuccess"
-											:on-change="handleChange"
-											:file-list="fileList" 
-											:auto-upload="false">
+										<el-upload class="upload-demo" 
+										ref="upload" 
+										action="/dpapi/yafjxz/upload" 
+										:data="upLoadData" 
+										:on-preview="handlePreview"
+										:on-remove="handleRemove"
+										:on-success="handleSuccess"
+										:on-change="handleChange"
+										:file-list="fileList" 
+										:auto-upload="false">
 										<el-button type="primary" icon="search" slot="trigger" size="small" type="primary">选取文件</el-button>
 										<span slot="tip" class="el-upload__tip ml10">只能上传zip压缩文件</span>
 									</el-upload>

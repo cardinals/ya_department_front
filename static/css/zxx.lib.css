@@ -39,7 +39,7 @@
 .lt0{letter-spacing:0;}lt1{letter-spacing:1px;}
 .wrap{white-space:nowrap;}
 .bk{word-wrap:break-word;}
-.vm{vertical-align:middle;}.vtb{vertical-align:text-bottom;}.vb{vertical-align:bottom;}.vt{vertical-align:top;}.vn{vertical-align:-2px;}
+.vm{vertical-align:middle;}.vtb{vertical-align:text-bottom;}.vb{vertical-align:bottom;}.vt{vertical-align:top;}.vn{vertical-align:-2px;}.vbm{vertical-align:-webkit-baseline-middle;}
 .l{float:left;}.r{float:right;}
 .cl{clear:both;}
 .rel{position:relative;}.abs{position:absolute;}
