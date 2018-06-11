@@ -16,12 +16,16 @@
                         <v-text v-text="detailData.zqcls||'无'"></v-text>
                     </div>
                 </el-col>
+             </el-row>
+             <el-row>
                 <el-col :span="8">
                     <div>
                         <strong class="dtdlStyle">装备器材数(个)：</strong>
                         <v-text v-text="detailData.zbqcs||'无'"></v-text>
                     </div>
                 </el-col>
+            </el-row>
+            <el-row>
                 <el-col :span="8">
                     <div>
                         <strong class="dtdlStyle">灭火剂总量(t)：</strong>
@@ -29,6 +33,7 @@
                     </div>
                 </el-col>
             </el-row>
+            <img @click="this.tz" src="../../static/images/mapbtnmin.png" style="cursor:pointer;float:right;margin-top: -80px;">
         </div>
         <div style="margin-top: 20px">
             <el-tabs v-model="activeName" style="min-height: 185px">

@@ -51,9 +51,26 @@ new Vue({
             var r = window.location.search.substr(1).match(reg);
             if(r!=null)return  unescape(r[2]); return null;
         },
-       
+         
+
+
         //根据dzid查询队站详情
-        xfdzDetails: function (id,dzlx) {
+        xfdzDetails: function () {
+        // zjc
+             //取得选中行id
+             this.id = this.GetQueryString("dzid");
+             //获取选中行水源类型
+             this.dzlx = this.GetQueryString("dzlx");
+             //改变url网址
+             var stateObject = {};
+             var title = "消防队站信息";
+             var url=window.location.href;
+             if(url.indexOf("?") != -1)
+                 url = url.split("?")[0];
+             url += '?index=65';
+             history.pushState(stateObject,title,url);
+             //history.back();
+             
             var params = {
                 dzid : id,
                 dzlx : dzlx
@@ -98,9 +115,9 @@ new Vue({
         //跳转到地图页面并带上UUID和点击参数水源
         tz:function(){
             // console.log(this.tableData);
-            var uuid = this.detailData.uuid;
+            var dzid = this.detailData.dzid;
             var dzlx = this.detailData.dzlx;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&dzlx="+dzlx+"&shuidj=1";
+            window.location.href = "../bigscreen/big_screen_map_pro.html?dzid="+dzid+"&dzlx="+dzlx+"&dzdj=1";
         }
 
     }

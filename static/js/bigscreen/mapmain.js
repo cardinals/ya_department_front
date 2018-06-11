@@ -700,6 +700,25 @@ var vm = new Vue({
                      })
                     
                    }
+                //队站从后台管理系统的跳转
+                 var isDzdj = this.GetQueryString("dzdj");                
+                 if(isDzdj == 1){
+                     this.loading = true;
+                     var dz = "";
+                     var dzid = this.GetQueryString("dzid");
+                     var dzlx = this.GetQueryString("dzlx");
+                     var params = {
+                        dzid : dzid,
+                        dzlx : dzlx
+                    }
+                    axios.post('/dpapi/xfdz/list', params).then(function (res) {
+                        dz = res.data.result;
+                        vm.getDzjz(dz);
+                     }.bind(this), function (error) {
+                         console.log(error)
+                     })
+                    
+                   }
 
             },
             //除去聚合点（保留项）
@@ -719,8 +738,12 @@ var vm = new Vue({
                 var clustererStyle = [{
                     url: '../../static/images/new/w1_z.png',
                     
-                    size: new BMap.Size(100, 60),
-                    textColor: '#333',
+                    size: new BMap.Size(135, 95),
+                 
+                    textColor: 'red',
+                    textSize: '180px',
+                    textMarginTop:'200px',
+
                 }];
                 markerClusterer.setStyles(clustererStyle);
                 vm.markerClusterer = markerClusterer;
@@ -772,23 +795,35 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label(this.formatLabel(provinces[i].xzqhmc +':'+ provinces[i].zddwsl));
+                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp<span style="color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
                     label.setStyle({
-                        fontSize: '12px',
+                        fontSize: '11px',
                         fontWeight: 'bold',
                         border: '0',
-                        padding: '2px 4px',
+                        padding: '14px 4px',
                         textAlign: 'center',
-                        marginLeft: '15px',
+                        marginLeft: '1.5px',
                         marginTop: '40px',
-                        color: '#fff',
+                        color: '#ED0C0A',
                         borderRadius: '5px',
                         paddingRight: '58px',
-                        marginLeft: '8px',
+                      
                         marginTop: '25px',
                         background:'',
                     });
+                    //zjczzz
+                    marker.addEventListener("onmouseover", function(e) {
+                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var marker = e.currentTarget;
+                        marker.setIcon(myIcon3);
+                    });
+                    marker.addEventListener("onmouseout", function(e) {
+                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var marker = e.currentTarget;
+                        marker.setIcon(myIcon1);
+                    });
+                    //
                     marker.addEventListener("click", function (e) {
                         //获取行政区划
                         var xzqh = e.target.province.xzqh;
@@ -823,24 +858,36 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label(this.formatLabel(citys[i].xzqhmc + ":" + citys[i].zddwsl));//城市名称
+                    var label = new BMap.Label('<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
                     label.setStyle({
-                        fontSize: '12px',
+                        fontSize: '11px',
                         fontWeight: 'bold',
                         border: '0',
-                        padding: '2px 4px',
+                        padding: '14px 4px',
                         textAlign: 'center',
-                        marginLeft: '15px',
+                        marginLeft: '2px',
                         marginTop: '40px',
-                        color: '#fff',
+                        color: '#ED0C0A',
                         borderRadius: '5px',
                         paddingRight: '58px',
-                        marginLeft: '8px',
+                      
                         marginTop: '25px',
                         background:'',
                     });
                     marker.setLabel(label);
                     var map = vm.map;
+                     //zjczzz
+                     marker.addEventListener("onmouseover", function(e) {
+                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var marker = e.currentTarget;
+                        marker.setIcon(myIcon3);
+                    });
+                    marker.addEventListener("onmouseout", function(e) {
+                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var marker = e.currentTarget;
+                        marker.setIcon(myIcon1);
+                    });
+                    //
                     marker.addEventListener("click", function (e) {
                         vm.selqhmc = vm.shengshizs;
                         var zddws = result;
@@ -1104,8 +1151,97 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);//跳动的动画
                     syy.push(marker);
-                    // marker.setAnimation(BMAP_ANIMATION_DROP); //跳动的动画
-                
+                    // marker.setAnimation(BMAP_ANIMATION_DROP); //跳动的动画 
+                     this.loading = false;
+            },
+            //对队站进行传参数画点
+            getDzjz:function(dzdz){
+                var dz = [];
+                vm.dz = dz;
+                var map = vm.map;
+           
+                    var x = dzdz.gisX;
+                    var y = dzdz.gisY;
+                    var dzid = dzdz.dzid;
+                    var pt = new BMap.Point(x, y); 
+                    //创建坐标点
+                    var d = dzdz.dzlx;
+                    //判断队站种类
+                    switch (d) {
+                        case "0200": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd_02.png", new BMap.Size(45, 45));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                        case "0300": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd_03.png", new BMap.Size(45, 45));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                        case "0500": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfdd_05.png", new BMap.Size(45, 45));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                        case "0900": var myIcon1 = new BMap.Icon("../../static/images/maptool/fire_xfzd_09.png", new BMap.Size(45, 45));      //创建图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                            break;
+                    };
+                        marker.dzid = dzid;
+                        var pt = marker.getPosition();
+                        // map.centerAndZoom(pt, 15);
+                        this.dzlxmcData = (dzdz.dzlxmc != null ? dzdz.dzlxmc : '无');
+                        this.dzmcData = (dzdz.dzmc != null ? dzdz.dzmc : '无');
+                        this.lxdhData = (dzdz.lxdh != null ? dzdz.lxdh : '无');
+                        this.dzjcData = (dzdz.dzjc != null ? dzdz.dzjc : '无');
+                        this.dzdzData = (dzdz.dzdz != null ? dzdz.dzdz : '无');
+                        var dzcontent =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:215px;background-image: url(../../static/images/maptool/zqzd_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
+                            this.dzmcData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dzdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>队站类型：</strong>' + this.dzlxmcData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>值班电话：</strong>' + this.lxdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>队站简称：</strong>' + this.dzjcData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
+                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '</div>' +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                        var infoWindow = new BMap.InfoWindow(dzcontent);  // 创建信息窗口对象
+                        infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
+                        this.openInfoWindow(infoWindow);
+               
+                    map.addOverlay(marker);
+                    var label = new BMap.Label(this.formatLabel(dzdz.dzmc), { offset: new BMap.Size(-20, 35) });
+                    label.setStyle({
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        border: '0',
+                        padding: '2px 4px',
+                        textAlign: 'center',
+                        color: 'red',
+                        borderRadius: '5px',
+                        paddingRight: '77px',
+                        marginLeft: '-9px',
+                        marginTop: '10px',
+                    });
+                    marker.setLabel(label);
+                    dz.push(marker);
+              
+                var markerClusterer = vm.markerClusterer;
+                markerClusterer.addMarkers(dz);
                 this.loading = false;
             },
             //重置的按钮重新的编写
@@ -1710,6 +1846,53 @@ var vm = new Vue({
                     this.mapType = 'satellite';
                 }
             },
+            //zjc
+            formatLabelz: function (strname) {
+                var len = strname.length;
+                var subInder = 4;
+                // if (strname.indexOf(":") > 0 && len < 12) {
+                //     subInder = strname.indexOf(":") + 1;
+                // }
+                if (len <= subInder) {
+                    return strname;
+                }
+                var result = "";
+                var cnt = parseInt(len / subInder);
+                var index = 0;
+                for (var i = 0; i < cnt; i++) {
+                    index = i * subInder;
+                    result +=strname.slice(index, index + subInder)+"&nbsp;&nbsp;";
+                }
+                if (len % subInder) {
+                    result +=  + strname.slice(index + subInder, len);
+                }
+                var div = '<div style="font-weight: bold;text-align:center;color:#ED0C0A;">' + result + '</div>';
+                return div;
+            },
+           //city
+            formatLabels: function (strname) {
+                var len = strname.length;
+                var subInder = 4;
+                if (strname.indexOf(":") > 0 && len < 12) {
+                    subInder = strname.indexOf(":") + 1;
+                }
+                if (len <= subInder) {
+                    return strname;
+                }
+                var result = "";
+                var cnt = parseInt(len / subInder);
+                var index = 0;
+                for (var i = 0; i < cnt; i++) {
+                    index = i * subInder;
+                    result +=strname.slice(index, index + subInder)+"&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+                if (len % subInder) {
+                    result +=  + strname.slice(index + subInder, len);
+                }
+                var div = '<div style="font-weight: bold;text-align:center;color:#ED0C0A;">' + result + '</div>';
+                return div;
+            },
+           
             //折行显示//文字传进来
             formatLabel: function (strname) {
                 var len = strname.length;
