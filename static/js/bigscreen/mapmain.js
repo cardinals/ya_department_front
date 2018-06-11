@@ -794,7 +794,7 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp<span style="color:red;">'+ provinces[i].zddwsl+'</span>');
+                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>' +'&nbsp&nbsp<span style="font-size:13px;color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '11px',
@@ -803,12 +803,11 @@ var vm = new Vue({
                         padding: '14px 4px',
                         textAlign: 'center',
                         marginLeft: '1.5px',
-                        marginTop: '40px',
+                        marginTop: '24px',
                         color: '#ED0C0A',
                         borderRadius: '5px',
                         paddingRight: '58px',
                       
-                        marginTop: '25px',
                         background:'',
                     });
                     //zjczzz
