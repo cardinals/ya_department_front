@@ -297,7 +297,7 @@ var vm = new Vue({
                                 position:'inner', //标签的位置
                                 textStyle : {
                                     fontWeight : 300 ,
-                                    fontSize : 4    //文字的字体大小
+                                    fontSize : 11    //文字的字体大小
                                 },
                                 formatter:'{d}%'
                             }
