@@ -10,85 +10,15 @@ new Vue({
         return {
           //表数据
           tableData: [],//Grid中数据
-          //角色对应资源
-          resourceList:[],
-
-           data: [
-           {
-            label: '消防物资',
-                    children: [
-						{
-                        label: '水源',
-                        children: [{
-							label: '辽河'
-							},
-							{
-							label: '青海湖'
-                        	}]
-						},
-						{
-						label: '灭火器',
-                        children: [{
-							label: '干粉灭火器'
-							},
-							{
-							label: '泡沫灭火器'
-                        	}]
-						}
-					]
-                    }, 
-					{
-                    label: '消防力量',
-                    children: [{
-                        label: '辽宁',
-                        children: [{
-                        label: '大连分局'
-                        },
-						{
-                        label: '沈阳分局'
-                        }]
-                    }, {
-                        label: '山东',
-                        children: [{
-                        label: '青岛分局'
-                        },
-						{
-                        label: '德州分局'
-                        }]
-                    }]
-                    }, {
-                    label: '重点单位',
-                    children: [
-						{
-                        label: '易燃品制造企业',
-                        children: [{
-                        label: '造纸厂'
-                        },
-						{
-                        label: '油厂'
-                        }]
-                    }, {
-                        label: '重要器材单位',
-                        children: [{
-                        label: '电力公司'
-                        },
-						{
-                        label: '发电站'
-                        },{
-                        label: '数据信息中心'
-                        }]
-                    }]
-          }
-    ],
           defaultProps: {
             children: 'children',
             label: 'resourceinfo'
-          }
+          },
+          resourceForm:"",
         };
       },
       mounted:function(){
         axios.get('http://localhost/api/resource/getAll').then(function(res){
-            console.log(res.data.result);
             this.tableData = res.data.result;
         }.bind(this),function(error){
             console.log(error)
@@ -105,8 +35,6 @@ new Vue({
         //  this.resourceList=val;
         //  var _self = this;
         //  _self.resourceVisible=true;
-
-
       } ,
     created: function () {
        //菜单选中
@@ -114,7 +42,54 @@ new Vue({
     }, 
     methods: {
         handleNodeClick(data) {
-          console.log(data);
-        }
+            this.resourceForm = data;
+        },
+        update: function(){
+          var realName = '';
+          var userid = '';
+          //获取当前登录用户realname和userid
+          axios.get('/api/shiro').then(function (res) {
+            realName = res.data.realName;
+            userid = res.data.userid;
+          }.bind(this), function (error) {
+              console.log(error)
+          });
+          var params = {
+            resourceid : this.resourceForm.resourceid,
+            resourcename : this.resourceForm.resourcename,
+            resourceinfo:this.resourceForm.resourceinfo,
+            parentId:this.resourceForm.parentId,
+            seqno:this.resourceForm.seqno,
+            icon:this.resourceForm.icon,
+            type:this.resourceForm.type,
+          //  alterId:userid,
+          //  alterName:realName
+          }
+          axios.post('/api/resource/updateByVO', params).then(function(res){
+            this.resourceForm = res.data.result;
+            this.$message({
+              showClose: true,
+              message: '更新成功',
+              type: 'success'
+            });
+          }.bind(this),function(error){
+            console.log(error)
+          })
+        },
+        append(data) {
+            const newChild = { id: id++, label: 'testtest', children: [] };
+            if (!data.children) {
+              this.$set(data, 'children', []);
+            }
+            data.children.push(newChild);
+          },
+    
+          remove(node, data) {
+            const parent = node.parent;
+            const children = parent.data.children || parent.data;
+            const index = children.findIndex(d => d.id === data.id);
+            children.splice(index, 1);
+          },
+        
     }
 })
