@@ -9,6 +9,7 @@ new Vue({
     data: function () {
         return {
             visible: false,
+            engineListVisible: false,
             //搜索表单
             searchForm: {
                 zbmc: "",
@@ -44,7 +45,13 @@ new Vue({
                 label: 'codeName',
                 value: 'codeValue'
             },
-
+            //装备车辆弹出页-----------------------------------------------------------
+            tableData_engine:[],
+            tableheight_engine: 250,
+            loading_engine: false,
+            currentPage_engine: 1,
+            pageSize_engine: 10,
+            total_engine: 10,
         }
     },
     created: function () {
@@ -137,8 +144,22 @@ new Vue({
             console.info(val);
         },
         //跳转至详情页
-        detailClick(val) {
+        detailClick: function (val) {
             window.location.href = "equipment_detail.html?ID=" + val.id;
+        },
+        engineDatail: function (val) {
+            this.engineListVisible = true;
+            this.loading_engine = true;
+            var params = {
+                zbid: val.uuid
+            };
+            axios.post('/dpapi/equipengine/list', params).then(function (res) {
+                this.tableData_engine = res.data.result;
+                this.total_engine = res.data.result.length;
+                this.loading_engine = false;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         //表格重新加载数据
         loadingData: function () {
@@ -163,6 +184,25 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
+        //表格重新加载数据
+        loadingData_engine: function () {
+            var _self = this;
+            _self.loading_engine = true;
+            setTimeout(function () {
+                console.info("加载数据成功");
+                _self.loading_engine = false;
+            }, 300);
+        },
+        //当前页修改事件(装备车辆)
+        currentPageChange_engine: function (val) {
+            this.currentPage_engine = val;
+            console.log("当前页: " + val);
+            var _self = this;
+            _self.loadingData_engine(); //重新加载数据
+        },
+        closeDialog: function () {
+            this.engineListVisible = fasle;
+        }
 
     },
 

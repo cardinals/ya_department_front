@@ -297,7 +297,7 @@ var vm = new Vue({
                                 position:'inner', //标签的位置
                                 textStyle : {
                                     fontWeight : 300 ,
-                                    fontSize : 4    //文字的字体大小
+                                    fontSize : 11    //文字的字体大小
                                 },
                                 formatter:'{d}%'
                             }
@@ -406,7 +406,7 @@ var vm = new Vue({
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
                 //跳出父框架（iframe）
-                window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL";
+                window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=82";
             });
         },
         // top10排名柱状图
@@ -532,7 +532,7 @@ var vm = new Vue({
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
                 //跳出父框架（iframe）
-                window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL";
+                window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=81";
             });
         },
         //top10 json串排序

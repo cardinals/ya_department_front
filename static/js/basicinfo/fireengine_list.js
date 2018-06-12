@@ -12,11 +12,11 @@ new Vue({
             //搜索表单
             searchForm: {
                 ssdz: "",
-                cllx: "",
+                cllx: [],
                 cphm: "",
                 clzt: "",
-                sbll: [0,1000],
-                zsl: [0,1000]
+                clbm: "",
+                gpsbh: ""
             },
             tableData: [],
             allTeamsData: [],
@@ -73,6 +73,7 @@ new Vue({
         this.searchClick();
         this.getAllTypesData();
         this.getAllStatesData();
+        this.getAllTeamsData();
     },
     methods: {
         //表格查询事件
@@ -83,14 +84,13 @@ new Vue({
                 ssdz :this.searchForm.ssdz,
                 cllx :this.searchForm.cllx[this.searchForm.cllx.length-1],
                 cphm :this.searchForm.cphm,
-                clzt :this.searchForm.clzt[this.searchForm.clzt.length-1],
-                sbll_min :this.searchForm.sbll[0],
-                sbll_max :this.searchForm.sbll[1],
-                zsl_min :this.searchForm.zsl[0],
-                zsl_max :this.searchForm.zsl[1]
+                clzt :this.searchForm.clzt,
+                clbm :this.searchForm.clbm,
+                gpsbh :this.searchForm.gpsbh
             };
             axios.post('/dpapi/fireengine/list',params).then(function(res){
                 this.tableData = res.data.result;
+                this.currentPage = 1;
                 this.total = res.data.result.length;
                 this.rowdata = this.tableData;
                 this.loading=false;
@@ -103,9 +103,9 @@ new Vue({
             this.searchForm.ssdz="";
             this.searchForm.cllx=[];
             this.searchForm.cphm="";
-            this.searchForm.clzt=[];
-            this.searchForm.sbll=[0,1000];
-            this.searchForm.zsl=[0,1000];
+            this.searchForm.clzt="";
+            this.searchForm.clbm="";
+            this.searchForm.gpsbh="";
         },
         //数据为空时显示‘无’
         dataFormat: function (row, column) {
@@ -137,6 +137,14 @@ new Vue({
             axios.post('/api/codelist/getCodelisttree',params).then(function(res){
                 this.allStatesData=res.data.result;
             }.bind(this),function(error){
+                console.log(error);
+            })
+        },
+        //获取所有队站信息
+        getAllTeamsData: function () {
+            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                this.allTeamsData = res.data.result;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
@@ -174,7 +182,7 @@ new Vue({
         },
         //打开详情页
         detailClick(val) {
-            window.location.href = "fireengine_detail.html?ID=" + val.id;
+            window.location.href = "fireengine_detail.html?ID=" + val.uuid;
         },
         //关闭详情页
         closeDialog: function (val) {
