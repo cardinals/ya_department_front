@@ -41,8 +41,12 @@ body{height:100%;overflow:hidden;}
 .inform-right{
     display: inline;
 }
+.inform-marginz{
+    width: 470px;
+}
 .inform-margin{
     margin-top: 15px;
+    width: 470px;
 }
 .margin-left{
     margin-top: 15px;
