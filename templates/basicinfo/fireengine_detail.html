@@ -1,249 +1,179 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
     <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
-    <title>消防车辆信息详情</title>
+    <title>消防车辆信息</title>
 </head>
 
 <body class="fw f14 main-index-body">
-    <div id="header_box"></div>
-    <div class="left-sidebar">
-        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-        <div id="menu-box">
-            <big-tree default-active="43"></big-tree>
-        </div>
-    </div>
-    <div id="app">
-        <div class="main-box">
-            <div class="main-container">
-                <div id="lib :: main_container_header('消防车辆信息详情','消防车辆信息详情')"></div>
-                <!-- 面包屑 -->
-                <div id="breadcrumb_box"></div>
-                <div id="tableView">
-                    <div class="inform-content">
-                        <template>
-                            <el-tabs v-model="activeName" type="border-card">
-                                    <div class="inform-div">
-                                        <div class="left-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">单件装备状况：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.djzbbm}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">所属消防机构：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ssxfjgid}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">GPS编号：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.gpsbh}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">车辆等级：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.cldjdm}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">车牌号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.cphm}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">规格号码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.gghm}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">资产编号：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zcbh}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">参考价：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ckj}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">商标：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.sb}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">颜色：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ys}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">国别代码：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.gbdm}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">生产厂家名称：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.sccjid}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">进口装备国内代理商：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.jkgn}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">售后服务：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.shfw}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">责任人姓名：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zrrxm}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">出厂日期：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ccrq}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">装备日期：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.zbrq}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                        <div class="right-inform">
-                                            <div>
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">报废日期：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.bfrq}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">有效期至：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.yxqz}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">累计运输时间：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ljyxsj}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">累计使用次数：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.ljsycs}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">本次保养日期：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.bcbyrq}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">下次保养日期：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.xcbyrq}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">车架号：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.cjh}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">发动机编号：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.fdjbh}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">批次号：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.pch}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">计量单位：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.jldwdm}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">是否用于训练：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.sfyyxl}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">锁定状态：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.sdzt}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">电台呼号：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.dthh}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">是否装配：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.sfzp}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">是否跨支队：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.sfzhdkqy}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">是否跨总队：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.sfzdkqy}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class="inform-margin">
-                                                <dl class="inform-left">
-                                                    <dt class="dtdlStyle">车辆编号：</dt>
-                                                    <dd class="dtdlStyle">{{rowdata.clbh}}</dd>
-                                                </dl>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </el-tabs>
-                        </template>
+    <!--车辆详情页-->
+    <div id="detailDisplay" v-loading="loading" element-loading-text="加载中">
+        <div>
+            <el-row>
+                <el-col :span="24">
+                    <div>
+                        <strong class="dtdlStyle">车辆名称：</strong>
+                        <v-text v-text="detailData.clmc||'无'"></v-text>
                     </div>
-                </div>
+                </el-col>
+            </el-row>
+            <el-row class="inform-margin">
+                <el-col :span="24">
+                    <div>
+                        <strong class="dtdlStyle">车辆类型：</strong>
+                        <v-text v-text="detailData.cllxmc||'无'"></v-text>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row class="inform-margin">
+                <el-col :span="24">
+                    <div>
+                        <strong class="dtdlStyle">车辆状态：</strong>
+                        <v-text v-text="detailData.clztmc||'无'"></v-text>
+                    </div>
+                </el-col>
+            </el-row>
+            <img @click="this.tz" src="../../static/images/mapbtnmin.png" style="cursor:pointer;float:right;margin-top: -100px;">
+            <div style="margin-top: 20px">
+                <el-tabs v-model="activeName" style="min-height: 185px">
+                    <el-tab-pane name="first" label="基本信息">
+                        <el-row>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">车辆编码：</strong>
+                                    <v-text v-text="detailData.clbm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">车牌号码：</strong>
+                                    <v-text v-text="detailData.cphm||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="24">
+                                <div>
+                                    <strong class="dtdlStyle">GPS编号：</strong>
+                                    <v-text v-text="detailData.gpsbh||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="24">
+                                <div>
+                                    <strong class="dtdlStyle">生产厂家：</strong>
+                                    <v-text v-text="detailData.sccj||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">经度：</strong>
+                                    <v-text v-text="detailData.gisX||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">纬度：</strong>
+                                    <v-text v-text="detailData.gisY||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="24">
+                                <div>
+                                    <strong class="dtdlStyle">备注：</strong>
+                                    <v-text v-text="detailData.bz||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <HR align=center width=600 color=#987cb9SIZE=1 style="margin-bottom: 10px"></HR>
+                        <el-row>
+                            <strong style="font-size: 16px">责任归属</strong>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">行政区划：</strong>
+                                    <v-text v-text="detailData.xzqhmc||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">所属队站：</strong>
+                                    <v-text v-text="detailData.ssdzmc||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </el-tab-pane>
+                    <el-tab-pane name="second" label="消防信息">
+                        <el-row>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">水泵流量(L/s)：</strong>
+                                    <v-text v-text="detailData.sbll||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">载水量(t)：</strong>
+                                    <v-text v-text="detailData.zsl||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">消防炮流量(L/s)：</strong>
+                                    <v-text v-text="detailData.xfpll||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">水泵额定压力(Mpa)：</strong>
+                                    <v-text v-text="detailData.sbedyl||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">车载灭火剂类别：</strong>
+                                    <v-text v-text="detailData.czmhjlbmc||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">车载灭火剂量(t)：</strong>
+                                    <v-text v-text="detailData.czmhjl||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row class="mt15">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">灭火剂混合比：</strong>
+                                    <v-text v-text="detailData.mhjhhb||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12" v-if="test()">
+                                <div>
+                                    <strong class="dtdlStyle">举高类车辆高度(m)：</strong>
+                                    <v-text v-text="detailData.jglgd||'无'"></v-text>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </el-tab-pane>
+                </el-tabs>
             </div>
         </div>
     </div>
 </body>
-<script src="../../static/js/lib.js" ></script>
-<script src="../../static/js/menu.js" ></script>
+<script src="../../static/js/vue.js"></script>
+<script src="../../static/js/vue.min.js"></script>
+<script src="../../static/js/elementUI.js"></script>
 <script src="../../static/js/basicinfo/fireengine_detail.js"></script>
 
 </html>

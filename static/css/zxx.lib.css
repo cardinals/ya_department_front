@@ -8,13 +8,16 @@
 .lh14{line-height:14px;}.lh16{line-height:16px;}.lh18{line-height:18px;}.lh20{line-height:20px;}.lh22{line-height:22px;}.lh24{line-height:24px;}
 /* m */
 .m0{margin:0;}
-.ml1{margin-left:1px;}.ml2{margin-left:2px;}.ml5{margin-left:5px;}.ml10{margin-left:10px;}.ml20{margin-left:20px;}
-.ml200{margin-left:200px;}
-.mr1{margin-right:1px;}.mr2{margin-right:2px;}.mr5{margin-right:5px;}.mr10{margin-right:10px;}.mr20{margin-right:20px;}
-.mt1{margin-top:1px;}.mt2{margin-top:2px;}.mt5{margin-top:5px;}.mt10{margin-top:10px;}.mt20{margin-top:20px;}
-.mb1{margin-bottom:1px;}.mb2{margin-bottom:2px;}.mb5{margin-bottom:5px;}.mb10{margin-bottom:10px;}.mb20{margin-bottom:20px;}
-.ml-1{margin-left:-1px;}.mt-1{margin-top:-1px;} .mt224{margin-top:224px;} .ml598{margin-left:598px;}
-.mt3{margin-top:3px;}.mt10{margin-top:10px;}.mt35{margin-top:35px;}
+.ml-1{margin-left:-1px;}.mt-1{margin-top:-1px;}.mr-1{margin-right:-1px;}.mb-1{margin-bottom:-1px;}
+.ml1{margin-left:1px;}.mt1{margin-top:1px;}.mr1{margin-right:1px;}.mb1{margin-bottom:1px;}
+.ml2{margin-left:2px;}.mt2{margin-top:2px;}.mr2{margin-right:2px;}.mb2{margin-bottom:2px;}
+.ml5{margin-left:5px;}.mt5{margin-top:5px;}.mr5{margin-right:5px;}.mb5{margin-bottom:5px;}
+.ml10{margin-left:10px;}.mt10{margin-top:10px;}.mr10{margin-right:10px;}.mb10{margin-bottom:10px;}
+.ml15{margin-left:15px;}.mt15{margin-top:15px;}.mr15{margin-right:15px;}.mb15{margin-bottom:15px;}
+.ml20{margin-left:20px;}.mt20{margin-top:20px;}.mr20{margin-right:20px;}.mb20{margin-bottom:20px;}
+
+.mt224{margin-top:224px;}.ml598{margin-left:598px;}.ml200{margin-left:200px;}
+.mt3{margin-top:3px;}.mt35{margin-top:35px;}
 /* w */
 .w190{width:190px;}.w150{width:150px;}
 .w20{width:20%;}.w40{width:40%;}.w60{width:60%;}.w25{width:25%;}.w50{width:50%;}.w75{width:75%;}.w99{width:99%;}.w100{width:100%;}

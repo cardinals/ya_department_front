@@ -2,6 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+	<title>消防车辆管理</title>
 	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
 </head>
 
@@ -9,7 +10,7 @@
 	<div id="header_box"></div>
 	<div class="left-sidebar">
 		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-		<input type="hidden" id="activeIndex"/>
+		<input type="hidden" id="activeIndex" />
 		<div id="menu-box">
 			<big-tree default-active=""></big-tree>
 		</div>
@@ -27,12 +28,13 @@
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">所属队站</label>
 									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
-                                        <el-option v-for="type in allTeamsData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
-                                    </el-select>
+										<el-option v-for="type in allTeamsData" :label="type.codeName" :value="type.codeValue" :key="type.codeName"></el-option>
+									</el-select>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">车辆类型</label>
-									<el-cascader :options ="allTypesData" :props ="props" size="small" v-model="searchForm.cllx" placeholder="全部" class="searchSelect" clearable change-on-select></el-cascader>
+									<el-cascader :options="allTypesData" :props="props" size="small" v-model="searchForm.cllx" placeholder="全部" class="searchSelect"
+									 clearable change-on-select></el-cascader>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">车牌号码</label>
@@ -73,13 +75,13 @@
 						</el-form>
 					</el-row>
 					<div class="table_container">
-						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
+						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
+						 class="tableStyle" :height="tableheight">
 							<el-table-column type="index" label="序号" show-overflow-tooltip width="70px" align="center"></el-table-column>
 							<el-table-column prop="clmc" label="车辆名称" min-width="18%" show-overflow-tooltip align="center">
-								<!-- <template slot-scope="scope">
-									<a @click="detailClick(scope.row)" type="text">{{scope.row.clmc}}</a>
-								</template> -->
+								<template slot-scope="scope">
+									<a @click="informClick(scope.row)" type="text" v-text="scope.row.clmc"></a>
+								</template>
 							</el-table-column>
 							<el-table-column prop="ssdzmc" label="所属队站" min-width="20%" show-overflow-tooltip align="center"></el-table-column>
 							<el-table-column prop="cllxmc" label="车辆类型" min-width="16%" show-overflow-tooltip align="center"></el-table-column>
@@ -92,18 +94,16 @@
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
-								<el-pagination 
-									@size-change="pageSizeChange" 
-									@current-change="currentPageChange" 
-									:current-page="currentPage" 
-									:page-sizes="[10, 20, 30, 50]"
-									:page-size="pageSize" 
-									layout="total, sizes, prev, pager, next, jumper" 
-									:total=parseInt(total)>
+								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>
 					</div>
+					<!--详情界面-->
+					<el-dialog title="车辆详情页" :visible.sync="detailVisible" @close="closeDialog()" :close-on-click-modal="false">
+						<div id="detailDialog"></div>
+					</el-dialog>
 				</div>
 			</div>
 		</div>

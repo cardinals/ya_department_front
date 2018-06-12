@@ -54,6 +54,8 @@ new Vue({
             addFormRules: {
                 permissionname: [{ required: true, message: "请输入权限名称", trigger: "blur" }]
             },
+            //详情页显示flag
+            detailVisible:false,
             //选中的值显示
             sels: [],
             //选中的序号
@@ -180,19 +182,33 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
-        //打开详情页
-        detailClick(val) {
-            window.location.href = "fireengine_detail.html?ID=" + val.uuid;
+        //点击进入详情页
+        informClick(val) {
+            //window.location.href = "fireengine_detail.html?id=" + val.uuid;
+            this.detailVisible = true;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + val.uuid;
+            history.pushState(null, null, shortURL)
+            //异步加载详情页
+            $(function () {
+                $.ajax({
+                    url: '../../../templates/basicinfo/fireengine_detail.html',
+                    cache: true,
+                    async: true,
+                    success: function (html) {
+                        $("#detailDialog").html(html);
+                    }
+                });
+            })
         },
         //关闭详情页
         closeDialog: function (val) {
             this.addFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            val.create_name = "";
-            val.create_time = "";
-            val.alter_name = "";
-            val.alter_time = "";
+            // val.permissionname = "";
+            // val.permissioninfo = "";
+            // val.create_name = "";
+            // val.create_time = "";
+            // val.alter_name = "";
+            // val.alter_time = "";
         }
     }
 })
