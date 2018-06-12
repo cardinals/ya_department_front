@@ -53,60 +53,55 @@ var vm = new Vue({
 				{ value: 90, name: '群众求助救援' }
 			],
 			pieData1: [
-				{ value: 400, name: '氧化剂和有机过氧化物' }
+				{ value: 400, name: '爆炸' },
+				{ value: 215, name: '可燃气体' },
+				{ value: 124, name: '易燃液体' },
+				{ value: 524, name: '易燃固体、自燃物品和遇湿易燃物品' },
+				{ value: 221, name: '氧化剂和有机过氧化物' }
 			],
 			pieData2: [
-				{ value: 400, name: '氧化剂和有机过氧化物' },
-				{ value: 310, name: '自燃物品和遇温易燃物品' },
-				{ value: 204, name: '易燃固体' }
+				{ value: 400, name: '高层建筑' },
+				{ value: 310, name: '人员密集场所' },
+				{ value: 204, name: '地下建筑、隧道' },
+				{ value: 175, name: '古建筑' },
+				{ value: 124, name: '堆垛仓库' }
 			],
 			pieData3: [
-				{ value: 400, name: '氧化剂和有机过氧化物' },
-				{ value: 310, name: '自燃物品和遇温易燃物品' },
-				{ value: 204, name: '易燃固体' },
-				{ value: 175, name: '易燃液体' },
-				{ value: 120, name: '爆炸' },
-				{ value: 90, name: '可燃气体' }
+				{ value: 400, name: '机动车' },
+				{ value: 310, name: '列车' },
+				{ value: 204, name: '船舶' },
+				{ value: 175, name: '飞行器' },
+				{ value: 120, name: '城市轨道交通工具' }
 			],
 			pieData4: [
-				{ value: 90, name: '可燃气体' }
+				{ value: 90, name: '危险化学品泄漏事故' }
 			],
 			pieData5: [
-				{ value: 400, name: '氧化剂和有机过氧化物' },
-				{ value: 310, name: '自燃物品和遇温易燃物品' },
-				{ value: 204, name: '易燃固体' },
-				{ value: 175, name: '易燃液体' },
-				{ value: 120, name: '爆炸' },
-				{ value: 90, name: '可燃气体' }
+				{ value: 400, name: '交通事故' }
 			],
 			pieData6: [
-				{ value: 204, name: '易燃固体' },
-				{ value: 175, name: '易燃液体' }
+				{ value: 204, name: '建筑物垮塌事故' }
 			],
 			pieData7: [
-				{ value: 400, name: '氧化剂和有机过氧化物' },
-				{ value: 90, name: '可燃气体' }
+				{ value: 270, name: '洪涝' },
+				{ value: 120, name: '地震' },
+				{ value: 123, name: '台风' },
+				{ value: 51, name: '海啸' },
+				{ value: 14, name: '雪灾' },
+				{ value: 152, name: '地质灾害' }
 			],
 			pieData8: [
-				{ value: 120, name: '爆炸' },
-				{ value: 90, name: '可燃气体' }
+				{ value: 120, name: '恐怖袭击' },
+				{ value: 204, name: '群体性治安事件' },
+				{ value: 90, name: '重大环境污染' },
+				{ value: 175, name: '公共卫生事件' },
+				{ value: 120, name: '城市给水管网爆裂' }
 			],
 			pieData9: [
-				{ value: 400, name: '氧化剂和有机过氧化物' },
-				{ value: 310, name: '自燃物品和遇温易燃物品' },
-				{ value: 204, name: '易燃固体' },
-				{ value: 175, name: '易燃液体' },
-				{ value: 120, name: '爆炸' },
-				{ value: 90, name: '可燃气体' },
-				{ value: 175, name: '易燃液体' },
-				{ value: 120, name: '爆炸' },
-				{ value: 90, name: '可燃气体' }
+				{ value: 400, name: '群众遇险事件' }
 			],
 			pieData10: [
-				{ value: 400, name: '氧化剂和有机过氧化物' },
-				{ value: 310, name: '自燃物品和遇温易燃物品' },
-				{ value: 120, name: '爆炸' },
-				{ value: 90, name: '可燃气体' }
+				{ value: 400, name: '群众求助救援' }
 			],
 			//tabledata
 			tabledata: [
@@ -276,6 +271,12 @@ var vm = new Vue({
 					orient: 'vertical',
 					x: '50%',
 					y: 'center',
+					// padding: [
+					// 	0,  // 上
+					// 	40, // 右
+					// 	0,  // 下
+					// 	0, // 左
+					// ],
 					itemGap: 16,
 					itemWidth: 18,
 					data: this.pieData.name,
