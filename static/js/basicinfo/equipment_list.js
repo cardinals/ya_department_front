@@ -69,10 +69,9 @@ new Vue({
         searchClick: function () {
             this.loading = true;
             var _self = this;
-            var reg = /0*$/;
             var zblx = '';
             if (this.searchForm.zblx.length > 0) {
-                zblx = this.searchForm.zblx[this.searchForm.zblx.length - 1].replace(reg, ''); //替换匹配字符串
+                zblx = this.searchForm.zblx[this.searchForm.zblx.length - 1];
             }
             // var kysl_min = this.searchForm.kysl[0];
             // var kysl_max = this.searchForm.kysl[1];
