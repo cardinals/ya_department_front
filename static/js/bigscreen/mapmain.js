@@ -830,7 +830,7 @@ var vm = new Vue({
                 var zddwp = [];//将点放到数组当中
                 vm.zddwp = zddwp;
                 for (var i = 0; i < zddws.length; i++) {
-                    var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34)); //创建图标
+                    var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
                     var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
                     var marker = new BMap.Marker(point, { icon: myIcon1 });
                     marker.uuid = zddws[i].uuid;
@@ -883,7 +883,7 @@ var vm = new Vue({
                         infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
                         this.openInfoWindow(infoWindow);//打开新窗口
                         //设置新图标
-                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(34, 34)); //点击后的新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
                         var pt = marker.point;
@@ -967,7 +967,7 @@ var vm = new Vue({
                 infoWindow.disableAutoPan();//不受聚合影响
                 vm.map.openInfoWindow(infoWindow, pt);//
                 //设置新图标
-                var myIcon2 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34)); //点击后的新图标
+                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
                  var marker = new BMap.Marker(pt, { icon: myIcon2 });
                 var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
                 var radius = 1000;
@@ -1195,7 +1195,7 @@ var vm = new Vue({
             //替换图标
             chAllMarkers: function (zdd) {
                 if (zdd != '') {
-                    var myicon1234 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34));
+                    var myicon1234 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26));
                     zdd.setIcon(myicon1234);
                     var map = vm.map;
                     map.addOverlay(zdd);
@@ -1572,7 +1572,7 @@ var vm = new Vue({
                     var y = vm.markerData[i].gisY;
                     var uuid = vm.markerData[i].uuid;
                     var pt = new BMap.Point(x, y);
-                    var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(34, 34)); //创建图标
+                    var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     marker.uuid = uuid;
                     marker.addEventListener("click", function (e) {
@@ -1627,7 +1627,7 @@ var vm = new Vue({
                         var radius = 1000;
                         var r = 6371004;
                         //设置新图标
-                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(34, 34)); //点击后的新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
                         map.addOverlay(circle);
@@ -1985,7 +1985,7 @@ var vm = new Vue({
                         infoWindow.enableAutoPan();//自动平移
                         this.openInfoWindow(infoWindow);//
                         //设置新图标
-                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(34, 34)); //点击后的新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
                         var pt = marker.point;// this.removeAllMarkers(zddws);//点击后清除圆圈的样式

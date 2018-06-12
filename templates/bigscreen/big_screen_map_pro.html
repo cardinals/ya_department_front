@@ -23,7 +23,7 @@
        .jwcolor{ color:#fff;background: #3A254F;padding: 5px;border: 2px solid #F9C520;border-radius:25px;}
        .h25{height: 25px;} .h515{height: 515px;}
        .h65{height: 65%;} .wh240{width: 240;}
-       .icont:hover{border:1px solid blue;}
+       .icont:hover{background: rgba(0,0,0,0.3);}
     </style>
 </head>
 
@@ -183,25 +183,25 @@
                 </div>
             </div>
             <!-- 右侧工具 -->
-            <div style="width: 200px; position:fixed;top:10px;right: 10px;">
-                <div @click="Reset()" style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"
+            <div style="width: 230px; position:fixed;top:10px;right: 10px;">
+                <div @click="Reset()" style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"
                     data-placement="left" data-content="重置">
-                    <img src="../../static/images/maptool/reset.png" />
+                    <img src="../../static/images/new/icon_refresh.png" />
                 </div>
-                <div @click="showOverzddw()" style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                <div @click="showOverzddw()" style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success"
                     data-container="body" data-placement="left" data-content="重点单位">
-                    <img src="../../static/images/maptool/btn_zddw_back.png" />
+                    <img src="../../static/images/new/icon_unit.png" />
                 </div>
-                <div @click="showOvera()" style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success"
+                <div @click="showOvera()" style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success"
                     data-container="body" data-placement="left" data-content="水源">
-                    <img src="../../static/images/maptool/btn_water_back.png" />
+                    <img src="../../static/images/new/icon_water.png" />
                 </div>
                 <div class="dropdown">
-                    <div style="width:40px;height:40px;margin:2px;" class="icont" type="button" class="btn btn-success" type="button" class="btn dropdown-toggle"
+                    <div style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success" type="button" class="btn dropdown-toggle"
                         id="dropdownMenu1" data-toggle="dropdown">
-                        <img src="../../static/images/maptool/btn_option_back.png" />
+                        <img src="../../static/images/new/icon_APP.png" />
                     </div>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width:280px;height:160px;margin-top:50px;margin-left: -100px;">
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width:280px;height:160px;margin-top:60px;margin-left: -60px;">
                         <li role="presentation" style="margin:8px;font-weight:bold;font-family:'微软雅黑';">选项
                             <a style="color: #000;margin-top:9px;" class="glyphicon glyphicon-remove btn form-control-feedback" style="pointer-events: auto"></a>
                         </li>
