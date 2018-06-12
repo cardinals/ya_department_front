@@ -56,11 +56,11 @@
                             </dl>
                         </div>
                         <div style="float: right">
-                            <el-button type="primary" icon="share" style="width:120px" @click="openShareVisible">信息分享</el-button>
+                            <el-button type="primary" icon="document" style="width:120px" @click="openShareVisible">信息分享</el-button>
                             <br>
-                            <el-button type="primary" icon="picture" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button>
+                            <el-button type="primary" icon="message" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button>
                             <br>
-                            <el-button type="primary" icon="arrow-down" style="margin-top:5%;width:120px" @click="downloadPlan">预案下载</el-button>
+                            <el-button type="primary" icon="share" style="margin-top:5%;width:120px" @click="downloadPlan">预案下载</el-button>
                         </div>
                     </div>
                     <div class="inform-content">
@@ -368,7 +368,7 @@
                     </div>
                 </el-dialog>
                  <!--选择选择导出word界面-->
-                 <el-dialog title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
+                 <el-dialog width="10%" title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false" >
                         <div style="margin-top: 20px">
                             <el-checkbox v-model="fmChecked" disabled label="封面" border size="medium"></el-checkbox>
                         </div>
@@ -388,8 +388,8 @@
                             <el-checkbox v-model="tpChecked" label="预案附件" border size="medium"></el-checkbox>
                         </div>
     
-                        <div id="tableView" style="padding: 0 35px;">
-                            <el-button type="primary" icon="share" style="width:140px" @click="downShare()">确定</el- button>
+                        <div id="tableView" style="padding: 0 35px;text-align:center">
+                            <el-button type="primary"style="width:140px" @click="downShare()">确定</el- button>
                         </div>
                     </el-dialog>
             </div>

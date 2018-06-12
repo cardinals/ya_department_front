@@ -16,3 +16,6 @@ dl {
 .el-dialog--small {
     width: 20%;
 }
+.el-dialog__header{
+    text-align:center
+}
