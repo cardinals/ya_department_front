@@ -169,7 +169,7 @@ var vm = new Vue({
             handleCurrentChange(val) {
                 this.currentPage = val;
                 var _self = this;
-                _self.loadingData(); //重新加载数据
+                // _self.loadingData(); //重新加载数据
             },
             getZddwxx: function (xzqh, uuid) {
                 var params = { xzqh: xzqh, uuid: uuid };
@@ -710,7 +710,6 @@ var vm = new Vue({
                         background:'',
                     });
                   
-                    marker.setLabel(label);
                     //zjczzz
                     marker.addEventListener("onmouseover", function(e) {
                         var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
@@ -740,6 +739,8 @@ var vm = new Vue({
                     marker.entity = provinces[i];
                     province.push(marker);
                     map.addOverlay(marker);
+                    
+                    marker.setLabel(label);
                     marker.setLabel(labelz);
                 }
             },
