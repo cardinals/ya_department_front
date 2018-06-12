@@ -115,6 +115,8 @@ new Vue({
             dzlx = dzlx.substr(0,2);
             if(dzlx =="0A"){
                 return '——';
+            }else{
+                return rowData;
             }
         },
         
