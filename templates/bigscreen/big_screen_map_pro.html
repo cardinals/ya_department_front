@@ -105,11 +105,11 @@
             <div class="search" style="position:fixed;top:8px;left: 600px;">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" style="height: 30px !important;top:5px;" data-toggle="dropdown">
+                        <button type="button" class="btn btn-default dropdown-toggle" style="color:#fff;background:#3A254F;height: 30px !important;top:5px;" data-toggle="dropdown">
                             {{searchSource}}
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu" style="margin-top:5px;background:rgb(132, 215, 240);">
                             <li>
                                 <a href="#" @click="showSuggestId()">搜索百度库</a>
                             </li>
@@ -118,8 +118,8 @@
                             </li>
                         </ul>
                     </div>
-                    <input id="suggestId" style="width: 240px;top:5px;height: 30px !important;" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|地址~">
-                    <input style="width: 240px; display: none;top:5px;height: 30px !important;background: #333;" type="search" class="form-control" placeholder="名称|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
+                    <input id="suggestId" style="color:#fff;width: 240px;top:5px;height: 30px !important;background: rgba(0,0,0,0.6);" type="search" class="form-control" v-model="searchBaiduCond" placeholder="名称|地址~">
+                    <input style="color:#fff;width: 240px; display: none;top:5px;height: 30px !important;background: rgba(0,0,0,0.6);" type="search" class="form-control" placeholder="名称|地址~" v-model="searchCond" v-on:keyup.enter="doSearch(event.keyCode||event.which)" id="advancedId">
                     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div> 
                     <!-- <a style="position:fixed;left: 670px;top:11px;color: #000;" class="glyphicon glyphicon-remove btn form-control-feedback"
                         style="pointer-events: auto"></a>  -->
@@ -201,7 +201,7 @@
                         id="dropdownMenu1" data-toggle="dropdown">
                         <img src="../../static/images/new/icon_APP.png" />
                     </div>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width:280px;height:160px;margin-top:60px;margin-left: -60px;">
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="background:rgb(132, 215, 240);width:280px;height:160px;margin-top:60px;margin-left: -60px;">
                         <li role="presentation" style="margin:8px;font-weight:bold;font-family:'微软雅黑';">选项
                             <a style="color: #000;margin-top:9px;" class="glyphicon glyphicon-remove btn form-control-feedback" style="pointer-events: auto"></a>
                         </li>
