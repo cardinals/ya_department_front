@@ -170,6 +170,7 @@ new Vue({
         clearClick: function () {
             this.searchForm.pic_name="";
             this.searchForm.pic_type="";
+            this.searchClick();
         },
         //新增自行输入
         inputClick:function(){

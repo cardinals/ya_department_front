@@ -78,36 +78,40 @@ new Vue({
         //获取所有机构
         getJgidData: function(){
             axios.post('/api/organization/getOrganizationtree').then(function(res){
-               
                 this.tableData = res.data.result;
                 console.log(this.tableData);
             }.bind(this),function(error){
                 console.log(error);
-            }) 
-        },
-
-        //获取节点
-        currentNodeChange: function (val) {
+            });
             //获取节点详情
-            axios.get('/api/organization/doFindById/' + val.uuid).then(function (res) {
+            this.getJgxqById("eb09df352cda4902b24c54dd2b2ce656");
+            //获取组织机构下的用户列表
+            this.getUserlistByJgid("eb09df352cda4902b24c54dd2b2ce656");
+        },
+        //组织机构详情
+        getJgxqById: function(jgid){
+            axios.get('/api/organization/doFindById/' + jgid).then(function (res) {
                 this.detailData = res.data.result;
             }.bind(this), function (error) {
                 console.log(error);
             });
-            //获取组织机构下的用户列表
-            var params = {
-                organizationId: val.uuid,
-                pageSize: this.pageSize,
-                pageNum: this.currentPage
-            };
-            axios.get('/api/user/findByJGID/' + val.uuid).then(function (res) {
+        },
+        //组织机构下的用户
+        getUserlistByJgid: function(jgid){
+            axios.get('/api/user/findByJGID/' + jgid).then(function (res) {
                 this.userData = res.data.result;
                 this.total = res.data.result.length;                
             }.bind(this), function (error) {
                 console.log(error);
             });
+        },
 
-
+        //获取节点
+        currentNodeChange: function (val) {
+            //获取节点详情
+            this.getJgxqById(val.uuid);
+            //获取组织机构下的用户列表
+            this.getUserlistByJgid(val.uuid);
         },
         
         //根据参数部分和参数名来获取参数值 

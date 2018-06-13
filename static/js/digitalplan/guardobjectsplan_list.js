@@ -209,6 +209,7 @@ new Vue({
             this.searchForm.jgid=[];
            
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
+            this.searchClick();
         },
         //时间格式
         cjsjChange(val) {

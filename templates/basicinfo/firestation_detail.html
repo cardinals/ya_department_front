@@ -30,6 +30,14 @@
                     <div>
                         <strong class="dtdlStyle">灭火剂总量(t)：</strong>
                         <v-text v-text="detailData.mhjzl||'无'"></v-text>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row class="inform-text inform-margin">
+                <el-col :span="18">
+                    <div>
+                        <strong class="dtdlStyle">队站地址：</strong>
+                        <v-text v-text="detailData.dzdz||'无'"></v-text>
                         &nbsp<a href="#" @click="this.tz"><div class="inform-address"></div></a>
                     </div>
                 </el-col>

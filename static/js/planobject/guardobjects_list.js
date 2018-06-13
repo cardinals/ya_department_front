@@ -175,6 +175,7 @@ new Vue({
             this.searchForm.cxsj="";
             this.searchForm.xfgx="";
             // this.searchForm.lrsj.splice(0,this.searchForm.lrsj.length);
+            this.searchClick();
         },
         searchXFGX_data: function () {
             axios.get('/api/codelist/getCodetype/CA01').then(function (res) {

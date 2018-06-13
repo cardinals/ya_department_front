@@ -160,6 +160,7 @@ new Vue({
             this.searchForm.trsyqsd_tcwz = "";
             this.searchForm.trsy_ywksq = "";
             this.searchForm.trsy_sz = "";
+            this.searchClick();
         },
         //水源类型下拉框
         searchSYLX_data: function () {

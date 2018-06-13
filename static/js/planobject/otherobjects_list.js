@@ -121,6 +121,7 @@ new Vue({
             this.searchForm.dxmc="";
             this.searchForm.dxdz="";
             this.searchForm.xfgx="";
+            this.searchClick();
         },
         //数据为空时显示‘无’
         dataFormat: function (row, column) {
