@@ -559,7 +559,9 @@ new Vue({
         },
         //信息分享
         openShare: function () {
-            this.shareDialogVisible = true;
+            // this.shareDialogVisible = true;
+            var ID = getQueryString("ID");
+            window.open("http://localhost:8005/planShare/pageZddw/" + ID +  "/web");
         },
         closeShareDialog: function () {
             this.shareDialogVisible = false;
