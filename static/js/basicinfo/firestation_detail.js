@@ -37,7 +37,7 @@ new Vue({
         this.id = this.GetQueryString("id");
         //取得选中行的队站类型(父类)
         this.dzlx = this.GetQueryString("dzlx");
-        history.back();
+        //history.back();
         
     },
     mounted:function(){
