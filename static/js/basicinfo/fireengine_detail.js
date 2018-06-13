@@ -61,8 +61,7 @@ new Vue({
         tz:function(){
             // console.log(this.tableData);
             var uuid = this.detailData.uuid;
-            var sylx = this.detailData.sylx;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&chedj=1";
+            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&cldj=1";
         }
     },
 

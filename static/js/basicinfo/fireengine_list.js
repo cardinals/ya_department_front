@@ -82,7 +82,12 @@ new Vue({
         searchClick: function () {
             this.loading=true;
             var _self = this;
+            //add by zjc 20180613
+            this.searchForm.uuid = this.GetQueryString("uuid");
+            var isCldj = this.GetQueryString("cldj");
+            //end add
             var params={
+                uuid: this.searchForm.uuid,
                 ssdz :this.searchForm.ssdz,
                 cllx :this.searchForm.cllx[this.searchForm.cllx.length-1],
                 cphm :this.searchForm.cphm,
@@ -94,6 +99,11 @@ new Vue({
                 this.tableData = res.data.result;
                 this.currentPage = 1;
                 this.total = res.data.result.length;
+                this.loadingData();
+                if(isCldj == 1){
+                    var val = this.tableData[0];
+                    this.informClick(val)
+                }
                 this.rowdata = this.tableData;
                 this.loading=false;
             }.bind(this),function(error){
@@ -205,6 +215,12 @@ new Vue({
             // val.create_time = "";
             // val.alter_name = "";
             // val.alter_time = "";
-        }
+        },
+         //根据参数部分和参数名来获取参数值 
+         GetQueryString(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        },
     }
 })
