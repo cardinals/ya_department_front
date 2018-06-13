@@ -27,23 +27,16 @@
 							<el-row>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
+									<label class="el-form-item__label searchLabel">药剂名称</label>
+									<el-input v-model="searchForm.yjmc" placeholder="药剂名称" clearable></el-input>
+								</el-col>
+								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
+								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
 									<label class="el-form-item__label searchLabel">药剂类型</label>
 									<el-cascader :options="allYjlxDataTree" :props="defaultProps" size="small" v-model="searchForm.yjlx" placeholder="全部" class="searchSelect"
 									 clearable change-on-select></el-cascader>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-									<label class="el-form-item__label searchLabel">所属队站</label>
-									<!-- <el-input size="small" v-model="searchForm.ssdz" placeholder="所属队站" class="searchSelect"></el-input> -->
-									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
-										<el-option v-for="type in allSsdzData" :label="type.codeName" :value="type.dzid" :key="type.codeName"></el-option>
-									</el-select>
-								</el-col>
-								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
-								<!-- <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="searchInline">
-									<label class="el-form-item__label searchLabel">是否消耗性装备</label>
-									<el-checkbox></el-checkbox>
-								</el-col> -->
 							</el-row>
 							<el-row>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
@@ -53,8 +46,10 @@
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 								<el-col :xs="9" :sm="9" :md="9" :lg="9" :xl="9" class="searchInline">
-									<label class="el-form-item__label searchLabel">车载量</label>
-									<el-slider v-model="searchForm.czl" range :max="1000" class="searchSelect"></el-slider>
+									<label class="el-form-item__label searchLabel">所属队站</label>
+									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
+										<el-option v-for="type in allSsdzData" :label="type.codeName" :value="type.dzid" :key="type.codeName"></el-option>
+									</el-select>
 								</el-col>
 								<el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">&nbsp;</el-col>
 							</el-row>
@@ -93,11 +88,17 @@
 								<template slot-scope="scope">
 									<el-popover placement="bottom" width="100" trigger="click" ref="popover2">
 										<div :data="scope.row">
-											<el-row>车载量（t）: <v-text v-text="scope.row.czl"></v-text></el-row>
-											<el-row>库存量（t）: <v-text v-text="scope.row.kcl"></v-text></el-row>
+											<el-row>车载量（t）:
+												<v-text v-text="scope.row.czl"></v-text>
+											</el-row>
+											<el-row>库存量（t）:
+												<v-text v-text="scope.row.kcl"></v-text>
+											</el-row>
 										</div>
 									</el-popover>
-									<a type="text" v-popover:popover2><v-text v-text="scope.row.zcbl"></v-text></a>
+									<a type="text" v-popover:popover2>
+										<v-text v-text="scope.row.zcbl"></v-text>
+									</a>
 								</template>
 							</el-table-column>
 						</el-table>
@@ -105,8 +106,8 @@
 						<!--列表底部工具条和分页符-->
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
-								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
-								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+								<el-pagination @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]" :page-size="pageSize"
+								 layout="total, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>
@@ -115,70 +116,89 @@
 				<!--消防药剂详情界面-->
 				<el-dialog title="消防药剂详情" :visible.sync="drugDetailVisible" @close="closeDialog()" :close-on-click-modal="false">
 					<div v-loading="loading_detail" element-loading-text="加载中">
-						<el-row class="mb10 pl20">
-							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-								<strong style="color:#20a0ff;font-size:20px;">
-									<v-text v-text="tableData_detail.yjmc"></v-text> -
-									<v-text v-text="tableData_detail.yjbm"></v-text>
-								</strong>
+						<el-row class="inform-text">
+							<el-col :span="24">
+								<div>
+									<strong class="dtdlStyle">药剂名称：</strong>
+									<v-text v-text="tableData_detail.yjmc||'无'"></v-text>
+								</div>
 							</el-col>
 						</el-row>
-						<el-row class="mb10">
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>行政区划：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.xzqhmc"></v-text>&nbsp;
-							</el-col>
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>总储备量：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.zcbl"></v-text>&nbsp;
+						<el-row class="inform-text inform-margin">
+							<el-col :span="24">
+								<div>
+									<strong class="dtdlStyle">药剂编码：</strong>
+									<v-text v-text="tableData_detail.yjbm||'无'"></v-text>
+								</div>
 							</el-col>
 						</el-row>
-						<el-row class="mb10">
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>生产厂家：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.sccj"></v-text>&nbsp;
-							</el-col>
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>车载量：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.czl"></v-text>&nbsp;
-							</el-col>
-						</el-row>
-						<el-row class="mb10">
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>生产时间：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.scsj"></v-text>&nbsp;
-							</el-col>
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>库存量：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.kcl"></v-text>&nbsp;
-							</el-col>
-						</el-row>
-						<el-row class="mb10">
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>生产批次：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.pc"></v-text>&nbsp;
-							</el-col>
-							<el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="tr">
-								<strong>混合比：</strong>
-							</el-col>
-							<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
-								<v-text v-text="tableData_detail.hhb"></v-text>&nbsp;
-							</el-col>
-						</el-row>
+						<div class="mt10">
+							<el-tabs v-model="activeName" class="mb5">
+								<el-tab-pane name="first" label="基本信息">
+									<el-row class="mb10">
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">总储备量（t）：</strong>
+												<v-text v-text="tableData_detail.zcbl||'无'"></v-text>
+											</div>
+										</el-col>
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">生产厂家：</strong>
+												<v-text v-text="tableData_detail.sccj||'无'"></v-text>
+
+											</div>
+										</el-col>
+									</el-row>
+									<el-row class="mb10">
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">车载量（t）：</strong>
+												<v-text v-text="tableData_detail.kcl||'无'"></v-text>
+											</div>
+										</el-col>
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">生产时间：</strong>
+												<v-text v-text="tableData_detail.scsj||'无'"></v-text>
+											</div>
+										</el-col>
+									</el-row>
+									<el-row class="mb10">
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">库存量（t）：</strong>
+												<v-text v-text="tableData_detail.kcl||'无'"></v-text>
+											</div>
+										</el-col>
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">生产批次：</strong>
+												<v-text v-text="tableData_detail.pc||'无'"></v-text>
+											</div>
+										</el-col>
+									</el-row>
+									<HR align=center width=600 color=#987cb9SIZE=1 style="margin-bottom: 10px"></HR>
+									<el-row>
+										<strong style="font-size: 16px">责任归属</strong>
+									</el-row>
+									<el-row class="mb10 mt10">
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">行政区划：</strong>
+												<v-text v-text="tableData_detail.xzqhmc||'无'"></v-text>
+											</div>
+										</el-col>
+										<el-col :span="12">
+											<div>
+												<strong class="dtdlStyle">所属队站：</strong>
+												<v-text v-text="tableData_detail.dzmc||'无'"></v-text>
+											</div>
+										</el-col>
+									</el-row>
+								</el-tab-pane>
+							</el-tabs>
+						</div>
 					</div>
 				</el-dialog>
 			</div>
