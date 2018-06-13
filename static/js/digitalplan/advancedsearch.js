@@ -495,16 +495,19 @@ new Vue({
             this.yuAnSearchForm.LRSJ = "";
             this.yuAnSearchForm.begintime_create = "";
             this.yuAnSearchForm.endtime_create = "";
+            this.searchClick();
         },
         clearYADXClick:function(){
             this.YADXSearchForm.DXMC = "";
             this.YADXSearchForm.YADX = "";
             this.YADXSearchForm.XFGX = "";
+            this.searchYADXClick();
         },
         //单位建筑
         clearDWJZClick:function(){
             this.DWJZSearchForm.JZMC="";
             this.DWJZSearchForm.JZLX="";
+            this.searchDWJZClick();
         },
         //获取制作时间范围
         lrsjFormat:function(){
