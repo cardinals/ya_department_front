@@ -1183,6 +1183,7 @@ var vm = new Vue({
                         this.cllxData = (clcl.cllx != null ? clcl.cllx : '无');
                         this.cldzData = (clcl.cldz != null ? clcl.cldz : '无');
                         this.clztData = (clcl.clzt != null ? clcl.clzt : '无');
+                        
                         var clcontent =
                         '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
@@ -1838,7 +1839,6 @@ var vm = new Vue({
             },
             //车辆单位详情跳转
             clxq:function(clparams){
-               
                 window.location.href = "../basicinfo/fireengine_list.html?uuid=" + clparams+"&cldj=1"+"&index=63"+"&type=DT";
             },
             //卫星地图

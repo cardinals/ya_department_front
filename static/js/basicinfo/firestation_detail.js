@@ -1,123 +1,67 @@
-//加载面包屑
-window.onload=function(){
-    var type = getQueryString("type");
-    if(type == "DT"){
-        loadBreadcrumb("地图", "消防队站详情");
-    }else{
-        loadBreadcrumb("消防队站管理", "消防队站详情");
-    }
-}
+//axios默认设置cookie
+axios.defaults.withCredentials = true;
 new Vue({
-    el: "#detailDisplay",
+    el: '#detailDisplay',
     data: function () {
         return {
-            activeName:'first',
-            //页面获取的id
-            id:"",
-            //页面获取的队站类型
-            dzlx:"",
-            //详情Data
+            activeName: "first",
+            id: "",
+            //显示加载中样
+            loading: false,
+            labelPosition: 'right',
+            //基本数据保存
             detailData: {},
-            zongddetailData: {},
-            zhiddetailData: {},
-            daddetailData: {},
-            zhongddetailData: {},
-            qtxfdwdetailData: {},
-
-            isZongDui:false,
-            isZhiDui:false,
-            isDaDui:false,
-            isZhongDui:false,
-            isQiTaXiaoFangDuiWu:false
-
+            //地图经度
+            bdLon: 0,
+            //地图纬度
+            bdLat: 0,
         }
     },
-    created: function () {
-        //取得选中行id
-        this.id = this.GetQueryString("id");
-        //取得选中行的队站类型(父类)
-        this.dzlx = this.GetQueryString("dzlx");
-        //history.back();
-        
+    mounted: function () {
+        this.loadDetails();
     },
-    mounted:function(){
-        this.xfdzDetails(this.id,this.dzlx);
-    },
-
     methods: {
         //根据参数部分和参数名来获取参数值 
         GetQueryString(name) {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
-            if(r!=null)return  unescape(r[2]); return null;
+            if (r != null) return unescape(r[2]); return null;
         },
-         
-
-
-        //根据dzid查询队站详情
-        xfdzDetails: function () {
-        // zjc
-             //取得选中行id
-             this.id = this.GetQueryString("id");
-             //获取选中行水源类型
-             this.dzlx = this.GetQueryString("dzlx");
-             //改变url网址
-             var stateObject = {};
-             var title = "消防队站信息";
-             var url=window.location.href;
-             if(url.indexOf("?") != -1)
-                 url = url.split("?")[0];
-             url += '?index=65';
-             history.pushState(stateObject,title,url);
-             //history.back();
-             
-            var params = {
-                dzid : this.id,
-                dzlx : this.dzlx
-            }
-            axios.post('/dpapi/xfdz/findDzDetailByVo',params).then(function (res) {
+        loadDetails: function () {
+            //取得选中行id
+            this.id = this.GetQueryString("id");
+            //改变url网址
+            var stateObject = {};
+            var title = "消防车辆信息";
+            var url = window.location.href;
+            if (url.indexOf("?") != -1)
+                url = url.split("?")[0];
+            url += '?index=63';
+            history.pushState(stateObject, title, url);
+            axios.get('/dpapi/fireengine/' + this.id).then(function (res) {
                 this.detailData = res.data.result;
-                this.classification();
-                //this.zongddetailData = this.detailData.xfdzzongdVO[0];
+                this.loading = false;
             }.bind(this), function (error) {
-                console.log(error)
+                console.log(error);
             })
-
         },
-        classification:function(){
-            var str = this.dzlx.substr(0,2);
-            switch(str){
-                case '02':
-                    this.isZongDui = true;
-                    if(this.detailData.zongdVO != null)
-                        this.zongddetailData = this.detailData.zongdVO;
-                    break;
-                case '03':
-                    this.isZhiDui = true;
-                    if(this.detailData.zhidVO != null)
-                        this.zhiddetailData = this.detailData.zhidVO;
-                    break;
-                case '05':
-                    this.isDaDui = true;
-                    if(this.detailData.dadVO != null)
-                        this.daddetailData = this.detailData.dadVO;
-                    break;
-                case '09':
-                    this.isZhongDui = true;
-                    if(this.detailData.zhongdVO != null)
-                        this.zhongddetailData = this.detailData.zhongdVO;
-                    break;
-                case '0A':
-                    break;
+        test: function () {
+            if (!this.detailData.cllx == null || !this.detailData.cllx == ""){
+                if(this.detailData.cllx.substr(0,6) == '210102'){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
             }
         },
         //跳转到地图页面并带上UUID和点击参数水源
         tz:function(){
             // console.log(this.tableData);
-            var dzid = this.detailData.dzid;
-            var dzlx = this.detailData.dzlx;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?id="+dzid+"&dzlx="+dzlx+"&dzdj=1";
+            var uuid = this.detailData.uuid;
+            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&cldj=1";
         }
+    },
 
-    }
 })
