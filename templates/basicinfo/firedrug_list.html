@@ -132,6 +132,14 @@
 								</div>
 							</el-col>
 						</el-row>
+						<el-row class="inform-text inform-margin">
+								<el-col :span="24">
+									<div>
+										<strong class="dtdlStyle">药剂类型：</strong>
+										<v-text v-text="tableData_detail.yjlxmc||'无'"></v-text>
+									</div>
+								</el-col>
+							</el-row>
 						<div class="mt10">
 							<el-tabs v-model="activeName" class="mb5">
 								<el-tab-pane name="first" label="基本信息">
