@@ -603,7 +603,7 @@ var vm = new Vue({
                         dzid : dzid,
                         dzlx : dzlx
                     }
-                  
+                   
                     axios.post('/dpapi/xfdz/findDzDetailByVo',params).then(function (res) {
                         dz = res.data.result;
                         vm.getDzjz(dz);
@@ -612,14 +612,15 @@ var vm = new Vue({
                      })
                     
                    }
-                   //车辆从后台管理系统跳转
+                //车辆从后台管理系统跳转
                    var isCldj = this.GetQueryString("cldj");                
                    if(isCldj == 1){
                        this.loading = true;
                        var cl = "";
-                       var uuid = this.GetQueryString("id");
+                       var uuid = this.GetQueryString("uuid");
                       axios.post('/dpapi/fireengine/',uuid).then(function (res) {
-                          cl = res.data.result;
+                          debugger;
+                         cl = res.data.result;
                           vm.getCljz(cl);
                        }.bind(this), function (error) {
                            console.log(error)
@@ -1238,7 +1239,7 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);
                     cl.push(marker);               
-                this.loading = false;
+                    this.loading = false;
              },
             //重置的按钮重新的编写
             Reset: function () {
