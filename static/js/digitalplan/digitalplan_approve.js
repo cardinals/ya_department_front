@@ -170,9 +170,10 @@ new Vue({
             this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = [];
-            this.searchForm.SHZT = "";
+            this.searchForm.SHZT = "未审核";
             //    this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
             this.searchForm.shsj = "";
+            this.searchClick();
         },
         //表格勾选事件
         selectionChange: function (val) {
