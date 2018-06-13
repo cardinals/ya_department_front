@@ -617,8 +617,8 @@ var vm = new Vue({
                    if(isCldj == 1){
                        this.loading = true;
                        var cl = "";
-                       var uuid = this.GetQueryString("uuid");
-                      axios.post('/dpapi/fireengine/',uuid).then(function (res) {
+                       var id = this.GetQueryString("uuid");
+                       axios.get('/dpapi/fireengine/' + id).then(function (res) {
                           debugger;
                          cl = res.data.result;
                           vm.getCljz(cl);
