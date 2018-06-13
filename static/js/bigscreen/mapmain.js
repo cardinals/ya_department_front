@@ -1524,7 +1524,7 @@ var vm = new Vue({
                     var myIcon1 = new BMap.Icon("../../static/images/maptool/fireenginexfc.png", new BMap.Size(24, 24));      //创建图标
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     marker.uuid = uuid;
-                    marker.addEventListener("click", function (e) {
+               /*     marker.addEventListener("click", function (e) {
                         var marker = e.target;
                         var pt = marker.getPosition();
                         // map.centerAndZoom(pt, 10);
@@ -1572,6 +1572,7 @@ var vm = new Vue({
                         infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
                     });
+                    */
                     var markerClusterer = vm.markerClusterer;
                     markerClusterer.addMarkers(cl);
                     map.addOverlay(marker);
