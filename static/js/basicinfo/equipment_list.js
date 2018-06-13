@@ -102,6 +102,7 @@ new Vue({
             this.searchForm.ssdz = "";
             this.searchForm.zblx = [];
             // this.searchForm.kysl = [0,1000];
+            this.searchClick();
         },
         //装备类型级联选择数据
         getAllTypesDataTree: function () {

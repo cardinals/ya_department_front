@@ -128,6 +128,7 @@ new Vue({
             this.searchForm.ssdz = "";
             this.searchForm.yjlx = [];
             this.searchForm.cbl = [0, 1000];
+            this.searchClick();
         },
 
         //时间格式化
