@@ -111,6 +111,7 @@ new Vue({
             this.searchForm.option_LXDM="";
             this.searchForm.DANGER_ID="";
             this.searchForm.EXPRESSION="";
+            this.searchClick();
         },
         getLXDMData: function (){
             var LXDM = [];

@@ -313,6 +313,7 @@ new Vue({
             this.searchForm.GSMC="";
             this.searchForm.selected_GSLB="";
             this.searchForm.SFQY="";
+            this.searchClick();
         },
 
         handleNodeClick(data) {
