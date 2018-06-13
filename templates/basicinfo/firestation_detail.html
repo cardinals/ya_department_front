@@ -30,10 +30,10 @@
                     <div>
                         <strong class="dtdlStyle">灭火剂总量(t)：</strong>
                         <v-text v-text="detailData.mhjzl||'无'"></v-text>
+                        &nbsp<a href="#" @click="this.tz"><div class="inform-address"></div></a>
                     </div>
                 </el-col>
             </el-row>
-            <img @click="this.tz" src="../../static/images/mapbtnmin.png" style="cursor:pointer;float:right;margin-top: -100px;">
         </div>
         <div style="margin-top: 20px">
             <el-tabs v-model="activeName" style="min-height: 185px">
