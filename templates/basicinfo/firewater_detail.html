@@ -29,10 +29,11 @@
                     <div>
                         <strong class="dtdlStyle">水源地址：</strong>
                         <v-text v-text="detailData.sydz||'无'"></v-text>
+                        &nbsp<a href="#" @click="this.tz"><div class="inform-address"></div></a>
                     </div>
                 </el-col>
             </el-row>
-            <img @click="this.tz" src="../../static/images/mapbtnmin.png" style="cursor:pointer;float:right;margin-top: -100px;">
+            <!-- <img @click="this.tz" src="../../static/images/mapbtnmin.png" style="cursor:pointer;float:right;margin-top: -100px;"> -->
             <div style="margin-top: 20px">
                 <el-tabs v-model="activeName" style="min-height: 185px">
                     <el-tab-pane name="first" label="基本信息">
