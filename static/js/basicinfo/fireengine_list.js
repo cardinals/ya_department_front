@@ -120,13 +120,9 @@ new Vue({
         },
         //获取所有车辆类型
         getAllTypesData: function (){
-            var params= {
-                codetype : "CLLX",
-                list : [1,2,4,6,8]
-            };
-            axios.post('/api/codelist/getCodelisttree2',params).then(function(res){
-                this.allTypesData=res.data.result;
-            }.bind(this),function(error){
+            axios.post('/api/codelist/getYjlxTree/CLLX').then(function (res) {
+                this.allTypesData = res.data.result;
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },

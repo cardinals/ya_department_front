@@ -24,7 +24,7 @@
 				<div id="tableView">
 					<el-row>
 						<el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
-							<el-row :gutter="40">
+							<el-row>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">所属队站</label>
 									<el-select size="small" v-model="searchForm.ssdz" placeholder="全部" class="searchSelect" clearable>
@@ -41,7 +41,7 @@
 									<el-input size="small" v-model="searchForm.cphm" placeholder="车牌号码"></el-input>
 								</el-col>
 							</el-row>
-							<el-row :gutter="40">
+							<el-row>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">车辆状态</label>
 									<el-select size="small" v-model="searchForm.clzt" placeholder="全部" class="searchSelect" clearable>
@@ -95,7 +95,7 @@
 						<el-row type="flex" justify="end">
 							<el-col :span="18">
 								<el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
-								 :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total=parseInt(total)>
+								 :page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
 								</el-pagination>
 							</el-col>
 						</el-row>
