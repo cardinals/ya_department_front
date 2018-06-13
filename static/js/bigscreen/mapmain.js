@@ -619,8 +619,7 @@ var vm = new Vue({
                        var cl = "";
                        var id = this.GetQueryString("uuid");
                        axios.get('/dpapi/fireengine/' + id).then(function (res) {
-                          debugger;
-                         cl = res.data.result;
+                        cl = res.data.result;
                           vm.getCljz(cl);
                        }.bind(this), function (error) {
                            console.log(error)
@@ -1172,13 +1171,13 @@ var vm = new Vue({
                     var y = clcl.gisY;
                     var uuid = clcl.uuid;
                     var pt = new BMap.Point(x, y);     // 创建坐标点
-                    //判断水源种类
+                    map.centerAndZoom(pt, 14); 
                     // var d=new Date().getDay();
                     var myIcon1 = new BMap.Icon("../../static/images/maptool/fireenginexfc.png", new BMap.Size(24, 24));      //创建图标
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     marker.uuid = uuid;
-                    var marker = e.target;
                     var pt = marker.getPosition();
+                  
                     // map.centerAndZoom(pt, 10);
                         this.clmcData = (clcl.clmc != null ? clcl.clmc : '无');
                         this.cllxData = (clcl.cllx != null ? clcl.cllx : '无');
@@ -1217,7 +1216,7 @@ var vm = new Vue({
                         var infoWindow = new BMap.InfoWindow(clcontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
                         infoWindow.enableAutoPan();
-                        this.openInfoWindow(infoWindow);
+                        vm.map.openInfoWindow(infoWindow,pt);
                  
                     var markerClusterer = vm.markerClusterer;
                     markerClusterer.addMarkers(cl);
