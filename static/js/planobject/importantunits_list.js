@@ -162,6 +162,7 @@ new Vue({
             this.searchForm.fhdj="";
             this.searchForm.mhdzbm="";
             this.searchForm.xfdwlxmc="";
+            this.searchClick();
         },
         getdwxzData: function () {
             axios.get('/api/codelist/getCodeTypeOrderByNum/DWXZ').then(function (res) {
