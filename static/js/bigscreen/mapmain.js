@@ -93,6 +93,11 @@ var vm = new Vue({
         lxdhData: {},
         dzjcData: {},
         dzdzData: {},
+        //消防车辆详细信息
+        cllxData:{},
+        clmcData:{},
+        clztData:{},
+        cldzData:{},
         //微型消防站详细信息
         smallStation: [
             {
@@ -607,7 +612,19 @@ var vm = new Vue({
                      })
                     
                    }
-
+                   //车辆从后台管理系统跳转
+                   var isCldj = this.GetQueryString("cldj");                
+                   if(isCldj == 1){
+                       this.loading = true;
+                       var cl = "";
+                       var uuid = this.GetQueryString("id");
+                      axios.post('/dpapi/fireengine/',uuid).then(function (res) {
+                          cl = res.data.result;
+                          vm.getCljz(cl);
+                       }.bind(this), function (error) {
+                           console.log(error)
+                       })
+                     }
             },
             //除去聚合点（保留项）
             removeCluster:function(){
@@ -1145,6 +1162,83 @@ var vm = new Vue({
                 markerClusterer.addMarkers(dz);
                 this.loading = false;
             },
+            //对车辆进行传参数画点
+             getCljz:function(clcl){
+                var cl = [];
+                vm.cl = cl;
+                var map = vm.map;
+                    var x = clcl.gisX;
+                    var y = clcl.gisY;
+                    var uuid = clcl.uuid;
+                    var pt = new BMap.Point(x, y);     // 创建坐标点
+                    //判断水源种类
+                    // var d=new Date().getDay();
+                    var myIcon1 = new BMap.Icon("../../static/images/maptool/fireenginexfc.png", new BMap.Size(24, 24));      //创建图标
+                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                    marker.uuid = uuid;
+                    var marker = e.target;
+                    var pt = marker.getPosition();
+                    // map.centerAndZoom(pt, 10);
+                        this.clmcData = (clcl.clmc != null ? clcl.clmc : '无');
+                        this.cllxData = (clcl.cllx != null ? clcl.cllx : '无');
+                        this.cldzData = (clcl.cldz != null ? clcl.cldz : '无');
+                        this.clztData = (clcl.clzt != null ? clcl.clzt : '无');
+                        var clcontent =
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                        '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
+                        this.clmcData +         
+                        '</h3>' +
+                        '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                        this.cldzData +
+                        '</div>' +
+                        '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                        '<tr>' +
+                        '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆类型：</strong>'+this.cllxData+'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆状态：</strong>'+this.clztData+'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆名称：</strong>'+this.clmcData+'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '</tr>' +
+                        '</table>' +
+                        '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
+                        '<b class="btn" onclick="vm.clxq(\'' + uuid + '\')" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                        '</div>' +
+                        '<div class="x-clear"></div>' +
+                        '</div>'
+                        ;
+                        var infoWindow = new BMap.InfoWindow(clcontent);  // 创建信息窗口对象
+                        infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
+                        this.openInfoWindow(infoWindow);
+                 
+                    var markerClusterer = vm.markerClusterer;
+                    markerClusterer.addMarkers(cl);
+                    map.addOverlay(marker);
+                    var label = new BMap.Label(this.formatLabel(clcl.clmc), { offset: new BMap.Size(-20, 25) });
+                    label.setStyle({
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        border: '0',
+                        textAlign: 'center',
+                        color: '#7BA860',
+                        borderRadius: '5px',
+                        paddingRight: '110px',
+                        paddingTop: '5px',
+                        Width: '5px',
+                        display: 'inline-block',
+                        paddingRight: '80px',
+                        marginLeft: '-9px',
+                    });
+                    marker.setLabel(label);
+                    cl.push(marker);               
+                this.loading = false;
+             },
             //重置的按钮重新的编写
             Reset: function () {
                 location.reload();//重新加载
@@ -1428,51 +1522,55 @@ var vm = new Vue({
                     // var d=new Date().getDay();
                     var myIcon1 = new BMap.Icon("../../static/images/maptool/fireenginexfc.png", new BMap.Size(24, 24));      //创建图标
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    // marker.addEventListener("click", function (e) {
-                    //     var marker = e.target;
-                    //     marker.uuid = uuid;
-                    //     var pt = marker.getPosition();
-                    //     map.centerAndZoom(pt, 10);
-                    //     for(var i = 0 ;i<vm.syData.length;i++){
-                    //         if(e.target.uuid == vm.syData[i].uuid){
-                    //             this.sylxmcData = vm.syData[i].sylxmc;
-                    //             this.qsxsData = vm.syData[i].qsxs;
-                    //             this.symcData = vm.syData[i].symc;
-                    //             this.kyztmcData = vm.syData[i].kyztmc;
-                    //         }
-                    //     }
-                    //     var sycontent =
-                    //     '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
-                    //     '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
-                    //     this.symcData +         
-                    //     '</h3>' +
-                    //     '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
-                    //     this.symcData +
-                    //     '</div>' +
-                    //     '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
-                    //     '<tr>' +
-                    //     '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>水源类型：</strong>'+this.sylxmcData+'</td>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>可用状态：</strong>'+this.kyztmcData+'</td>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>取水形式：</strong>'+this.qsxsData+'</td>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '</tr>' +
-                    //     '<tr>' +
-                    //     '</tr>' +
-                    //     '</table>' +
-                    //     '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                    //     '<b class="btn" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" onclick="onClickInfoWindowDetail()"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
-                    //     '</div>' +
-                    //     '<div class="x-clear"></div>' +
-                    //     '</div>'
-                    //     ;
-                    //     var infoWindow = new BMap.InfoWindow(sycontent);  // 创建信息窗口对象
-                    //     this.openInfoWindow(infoWindow);
-                    // });
+                    marker.uuid = uuid;
+                    marker.addEventListener("click", function (e) {
+                        var marker = e.target;
+                        var pt = marker.getPosition();
+                        // map.centerAndZoom(pt, 10);
+                        for(var i = 0 ;i<vm.clData.length;i++){
+                            if(e.target.uuid == vm.clData[i].uuid){
+                               
+                                this.clmcData = (vm.clData[i].clmc != null ? vm.clData[i].clmc : '无');
+                                this.cllxData = (vm.clData[i].cllx != null ? vm.clData[i].cllx : '无');
+                                this.cldzData = (vm.clData[i].cldz != null ? vm.clData[i].cldz : '无');
+                                this.clztData = (vm.clData[i].clzt != null ? vm.clData[i].clzt : '无');
+
+                            }
+                        }
+                        var clcontent =
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                        '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
+                        this.clmcData +         
+                        '</h3>' +
+                        '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                        this.cldzData +
+                        '</div>' +
+                        '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                        '<tr>' +
+                        '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆类型：</strong>'+this.cllxData+'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆状态：</strong>'+this.clztData+'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆名称：</strong>'+this.clmcData+'</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '</tr>' +
+                        '</table>' +
+                        '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
+                        '<b class="btn" onclick="vm.clxq(\'' + uuid + '\')" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                        '</div>' +
+                        '<div class="x-clear"></div>' +
+                        '</div>'
+                        ;
+                        var infoWindow = new BMap.InfoWindow(clcontent);  // 创建信息窗口对象
+                        infoWindow.disableAutoPan();
+                        infoWindow.enableAutoPan();
+                        this.openInfoWindow(infoWindow);
+                    });
                     var markerClusterer = vm.markerClusterer;
                     markerClusterer.addMarkers(cl);
                     map.addOverlay(marker);
@@ -1737,6 +1835,11 @@ var vm = new Vue({
             zddwxq:function(zddwparams){
                 window.location.href = "../planobject/importantunits_detail.html?ID=" + zddwparams+"&index=41"+"&type=DT";
                 // window.location.href = "../planobject/importantunits_detail.html?uuid=" + zddwparams;
+            },
+            //车辆单位详情跳转
+            clxq:function(clparams){
+               
+                window.location.href = "../basicinfo/fireengine_list.html?uuid=" + clparams+"&cldj=1"+"&index=63"+"&type=DT";
             },
             //卫星地图
             WxOver: function () {
