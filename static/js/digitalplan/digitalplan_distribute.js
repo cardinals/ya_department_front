@@ -171,7 +171,8 @@ new Vue({
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = [];
             this.searchForm.DXMC = "";
-            this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
+            // this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
+            this.searchClick();
         },
         //表格勾选事件
         selectionChange: function (val) {

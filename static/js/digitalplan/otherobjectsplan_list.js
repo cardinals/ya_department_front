@@ -158,6 +158,7 @@ new Vue({
             this.searchForm.yalxdm=[];
             this.searchForm.sfkqy="";
             this.searchForm.jgid=[];
+            this.searchClick();
         },
         //时间格式
         cjsjChange(val) {
