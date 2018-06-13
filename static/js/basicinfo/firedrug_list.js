@@ -10,12 +10,13 @@ new Vue({
         return {
             visible: false,
             drugDetailVisible: false,
+            activeName: "first",
             //搜索表单
             searchForm: {
+                yjmc: "",
                 ssdz: "",
                 yjlx: [],
-                cbl: [0, 1000],
-                czl: [0, 1000],
+                cbl: [0, 1000]
             },
             tableData: [],
             tableData_detail: {},
@@ -95,20 +96,12 @@ new Vue({
                 cbl_min = '';
                 cbl_max = '';
             }
-
-            var czl_min = this.searchForm.czl[0];
-            var czl_max = this.searchForm.czl[1];
-            if (this.searchForm.czl[0] == '0' && this.searchForm.czl[1] == '1000') {
-                czl_min = '';
-                czl_max = '';
-            }
             var params = {
+                yjmc: this.searchForm.yjmc,
                 ssdz: this.searchForm.ssdz,
                 yjlx: this.searchForm.yjlx[this.searchForm.yjlx.length - 1],
                 zcbl_min: cbl_min,
-                zcbl_max: cbl_max,
-                czl_min: czl_min,
-                czl_max: czl_max
+                zcbl_max: cbl_max
             };
             axios.post('/dpapi/firedrug/list', params).then(function (res) {
                 this.tableData = res.data.result;
@@ -131,10 +124,10 @@ new Vue({
         },
         //清空
         clearClick: function () {
+            this.searchForm.yjmc = "";
             this.searchForm.ssdz = "";
             this.searchForm.yjlx = [];
             this.searchForm.cbl = [0, 1000];
-            this.searchForm.czl = [0, 1000]
         },
 
         //时间格式化
@@ -171,13 +164,6 @@ new Vue({
                 console.info("加载数据成功");
                 _self.loading = false;
             }, 300);
-        },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            // console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
         },
         //当前页修改事件
         currentPageChange: function (val) {
