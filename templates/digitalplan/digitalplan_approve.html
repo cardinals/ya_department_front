@@ -99,8 +99,12 @@
                             <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="23%" align="center"></el-table-column>
                             <el-table-column label="审核状态" show-overflow-tooltip min-width="12%" align="center">
                                 <template slot-scope="scope">
-                                    <el-button :type="scope.row.yashztButtonType" size="small" v-text="scope.row.shztmc"></el-button>
-                                  </template>
+                                    <!-- <el-button :type="scope.row.yashztButtonType" size="small" v-text="scope.row.shztmc"></el-button> -->
+                                    <span v-if="scope.row.shztmc == '未审核'" v-text="scope.row.shztmc" style="color:#FF4949"></span>
+                                    <span v-else-if="scope.row.shztmc == '未通过'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
+                                    <span v-else-if="scope.row.shztmc == '已通过'" v-text="scope.row.shztmc" style="color:#42D885"></span>
+                                    <span v-else v-text="scope.row.shztmc"></span>
+                                </template> 
                             </el-table-column>
                         </el-table>
 
