@@ -873,6 +873,21 @@ new Vue({
                 this.$message.warning('当前限制上传 1 个压缩文件');
                 fileList.splice(1, fileList.length - 1);
             }
+        },
+        ifShowDown:function(val){
+            var templete = $('.templete'),
+                space = $('.space'),
+                $this = $(this);
+            if(val=='03'){
+                templete.css('display', 'block');
+                space.css('display', 'none');
+            }else{
+                templete.css('display', 'none');
+                space.css('display', 'block');
+            }
+        },
+        templeteDown:function(val){
+            window.open("http://localhost/dpapi/yafjxz/downTemplet");
         }
     },
 
