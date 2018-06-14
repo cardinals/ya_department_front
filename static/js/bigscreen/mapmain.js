@@ -786,7 +786,6 @@ var vm = new Vue({
                         color: '#ED0C0A',
                         borderRadius: '5px',
                         paddingRight: '58px',
-                      
                         marginTop: '25px',
                         background:'',
                     });
@@ -794,7 +793,7 @@ var vm = new Vue({
                     // marker.setLabel(labels);
                     var map = vm.map;
                      //zjczzz
-                     marker.addEventListener("onmouseover", function(e) {
+                    marker.addEventListener("onmouseover", function(e) {
                         var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon3);
@@ -957,7 +956,7 @@ var vm = new Vue({
                     '</tr>' +
                     '</table>' +
                     '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 32px;text-align: left;">' +
-                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="border-radius:25px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
+                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\')" style="border-radius:25px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
                     '<b class="btn" style="border-radius:25px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
                     '<b class="btn" style="border-radius:25px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width:12px;height:12px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
                     '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="border-radius:25px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
@@ -1037,7 +1036,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="border-radius:2px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1131,7 +1130,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="border-radius:2px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1208,7 +1207,7 @@ var vm = new Vue({
                         '</tr>' +
                         '</table>' +
                         '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                        '<b class="btn" onclick="vm.clxq(\'' + uuid + '\')" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                        '<b class="btn" onclick="vm.clxq(\'' + uuid + '\')" style="border-radius:2px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;border: 1px solid #E4E4E4;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                         '</div>' +
                         '<div class="x-clear"></div>' +
                         '</div>'
@@ -1216,7 +1215,7 @@ var vm = new Vue({
                         var infoWindow = new BMap.InfoWindow(clcontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
                         infoWindow.enableAutoPan();
-                        vm.map.openInfoWindow(infoWindow,pt);
+                        vm.map.openInfoWindow(infoWindow);
                  
                     var markerClusterer = vm.markerClusterer;
                     markerClusterer.addMarkers(cl);
@@ -1358,7 +1357,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="border-radius:2px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 10px;height: 10px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1464,7 +1463,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="font-size:12px;color: #ff6600;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;color:#003366;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.syxq(\'' + uuid + '\')" style="border-radius:2px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;" ><img style="width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
@@ -1562,7 +1561,7 @@ var vm = new Vue({
                         '</tr>' +
                         '</table>' +
                         '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                        '<b class="btn" onclick="vm.clxq(\'' + uuid + '\')" style="font-size:11px;color: #ff6600; padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;background-color: #F7F7F7;border-radius: 2px;border: 1px solid #E4E4E4;color:#404040;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
+                        '<b class="btn" onclick="vm.clxq(\'' + uuid + '\')" style="border-radius:2px;padding:0 7px;background:#50AEE0;font-size:12px;color: #fff;padding: 0 8px; display: inline-block;padding: 0 30px;margin: 0 2px;height: 24px;line-height: 24px;cursor: pointer;text-align: center;font-weight: bold;text-decoration: none;"><img style="width: 15px;height: 15px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">详细信息</b>' +
                         '</div>' +
                         '<div class="x-clear"></div>' +
                         '</div>'
