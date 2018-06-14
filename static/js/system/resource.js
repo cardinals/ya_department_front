@@ -15,6 +15,11 @@ new Vue({
             label: 'resourceinfo'
           },
           resourceForm:"",
+          //全部资源列表
+          allPermissionList:[],
+          //资源权限列表
+          permissionDetailList: [],
+          permissionDetailSelect:[],
         };
       },
       mounted:function(){
@@ -35,6 +40,7 @@ new Vue({
         //  this.resourceList=val;
         //  var _self = this;
         //  _self.resourceVisible=true;
+        this.getAllPermissions();
       } ,
     created: function () {
        //菜单选中
@@ -42,18 +48,18 @@ new Vue({
     }, 
     methods: {
         handleNodeClick(data) {
-            this.resourceForm = data;
+            this.findResourceById(data.resourceid);
+            this.permissionDetailSelect = [],
+            this.permissionDetails(data.resourceid);
         },
         update: function(){
-          var realName = '';
-          var userid = '';
-          //获取当前登录用户realname和userid
-          axios.get('/api/shiro').then(function (res) {
-            realName = res.data.realName;
-            userid = res.data.userid;
-          }.bind(this), function (error) {
-              console.log(error)
-          });
+          var permission = new Array();
+          for(var i in this.permissionDetailSelect){
+            var params = {
+              permissionid:this.permissionDetailSelect[i]
+            }
+            permission.push(params);
+          }
           var params = {
             resourceid : this.resourceForm.resourceid,
             resourcename : this.resourceForm.resourcename,
@@ -62,8 +68,7 @@ new Vue({
             seqno:this.resourceForm.seqno,
             icon:this.resourceForm.icon,
             type:this.resourceForm.type,
-          //  alterId:userid,
-          //  alterName:realName
+            permissions:permission
           }
           axios.post('/api/resource/updateByVO', params).then(function(res){
             this.resourceForm = res.data.result;
@@ -72,6 +77,7 @@ new Vue({
               message: '更新成功',
               type: 'success'
             });
+            
           }.bind(this),function(error){
             console.log(error)
           })
@@ -90,6 +96,43 @@ new Vue({
             const index = children.findIndex(d => d.id === data.id);
             children.splice(index, 1);
           },
-        
+          getAllPermissions: function(){
+            axios.get('/api/permission/getAll').then(function(res){
+                this.allPermissionList = res.data.result;
+            }.bind(this),function (error) {
+                console.log(error);
+            })
+          },
+
+        //获取复选框选中值
+        getCheckValue(val){
+          this.editFormSelect = val;
+        },
+        //资源详情
+        findResourceById:function(resourceid){
+          axios.get('/api/resource/'+resourceid).then(function(res){
+            this.resourceForm = res.data.result;
+          }.bind(this),function (error) {
+              console.log(error);
+          })
+        },
+        //权限详情
+        permissionDetails: function(id){
+          axios.get('/api/permission/getPermission/' + id).then(function(res){
+              this.permissionDetailList = res.data.result;
+              if(this.permissionDetailList.length>0){
+                for(var i=0;i<this.permissionDetailList.length;i++){
+                    this.permissionDetailSelect.push(this.permissionDetailList[i].permissionid);
+                }
+              }
+          }.bind(this),function(error){
+              console.log(error)
+          })
+      },
+      cancel:function(){
+        this.findResourceById(this.resourceForm.resourceid);
+        this.permissionDetailSelect = [],
+        this.permissionDetails(this.resourceForm.resourceid);
+      },
     }
 })
