@@ -5,9 +5,6 @@
     display: block;  
     width: 100%;  
 }
-.searchLabel {
-    width: 128px;
-}
 .el-checkbox__input {
     line-height: 2.8;
 }
