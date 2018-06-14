@@ -1170,7 +1170,7 @@ var vm = new Vue({
                     var y = clcl.gisY;
                     var uuid = clcl.uuid;
                     var pt = new BMap.Point(x, y);     // 创建坐标点
-                    map.centerAndZoom(pt, 14); 
+                    map.centerAndZoom(pt, 16); 
                     // var d=new Date().getDay();
                     var myIcon1 = new BMap.Icon("../../static/images/maptool/fireenginexfc.png", new BMap.Size(24, 24));      //创建图标
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
