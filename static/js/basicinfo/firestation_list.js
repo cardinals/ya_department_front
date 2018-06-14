@@ -96,7 +96,8 @@ new Vue({
         clearClick: function () {
             this.searchForm.dzmc = "",
             this.searchForm.dzdz = "",
-            this.searchForm.dzlx = []
+            this.searchForm.dzlx = [],
+            this.searchClick();
         },
         /** 
         //数据为空时显示‘无’
