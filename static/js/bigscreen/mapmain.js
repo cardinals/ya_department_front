@@ -1184,7 +1184,7 @@ var vm = new Vue({
                         this.clztData = (clcl.clzt != null ? clcl.clzt : '无');
                         
                         var clcontent =
-                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/new/cl41.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
                         this.clmcData +         
                         '</h3>' +
@@ -1215,7 +1215,7 @@ var vm = new Vue({
                         var infoWindow = new BMap.InfoWindow(clcontent);  // 创建信息窗口对象
                         infoWindow.disableAutoPan();
                         infoWindow.enableAutoPan();
-                        vm.map.openInfoWindow(infoWindow);
+                        vm.map.openInfoWindow(infoWindow,pt);
                  
                     var markerClusterer = vm.markerClusterer;
                     markerClusterer.addMarkers(cl);
@@ -1538,7 +1538,7 @@ var vm = new Vue({
                             }
                         }
                         var clcontent =
-                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/maptool/water_xhs_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/new/cl41.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
                         this.clmcData +         
                         '</h3>' +
