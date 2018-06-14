@@ -858,8 +858,8 @@ margin-top: 10px;
   height: 20px;
   width: 20px;
   display:inline-block;
-  position:absolute;  
-  top:150; 
+  /* position:absolute;   */
+  /* top:150;  */
   background: url('../images/icon-address.png') no-repeat;
   background-size:100% 100%;
 }
