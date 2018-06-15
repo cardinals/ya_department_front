@@ -472,7 +472,6 @@ var vm = new Vue({
                         "input": "suggestId"
                         , "location": map
                     });
-
                 ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
                     var str = "";
                     var _value = e.fromitem.value;
@@ -718,11 +717,13 @@ var vm = new Vue({
                         var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon3);
+                        marker.setTop(true,27000000);
                     });
                     marker.addEventListener("onmouseout", function(e) {
                         var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon1);
+                        marker.setTop(false);
                     });
                     //
                     marker.addEventListener("click", function (e) {
@@ -797,11 +798,13 @@ var vm = new Vue({
                         var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon3);
+                        marker.setTop(true,27000000);
                     });
                     marker.addEventListener("onmouseout", function(e) {
                         var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon1);
+                        marker.setTop(false);
                     });
                     //
                     marker.addEventListener("click", function (e) {
@@ -837,6 +840,7 @@ var vm = new Vue({
                     var marker = new BMap.Marker(point, { icon: myIcon1 });
                     marker.uuid = zddws[i].uuid;
                     marker.addEventListener("click", function (e) {
+                        
                         vm.getZddwxx('', e.target.uuid);
                         vm.removeAllMarkers(vm.circlez);
                         var circlez = [];//清除圆
@@ -888,6 +892,7 @@ var vm = new Vue({
                         var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
+                        marker.setTop(true,27000000);//
                         var pt = marker.point;
                         //隐藏旧圆
                         var oc = vm.circle;
