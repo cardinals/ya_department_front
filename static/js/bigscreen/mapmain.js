@@ -892,7 +892,7 @@ var vm = new Vue({
                         var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon2);
-                        marker.setTop(true,27000000);//
+                        marker.setTop(true,27000000);//标注遮挡问题
                         var pt = marker.point;
                         //隐藏旧圆
                         var oc = vm.circle;
@@ -1435,6 +1435,7 @@ var vm = new Vue({
                     marker.uuid = uuid;//影响水源这块
                     marker.addEventListener("click", function (e) {
                         var pt = marker.getPosition();
+                        //标注                        
                         map.centerAndZoom(pt);//不进行放大
                         for (var i = 0; i < vm.syData.length; i++) {
                             if (e.target.uuid == vm.syData[i].uuid) {
@@ -1477,6 +1478,7 @@ var vm = new Vue({
                         infoWindow.disableAutoPan();
                         infoWindow.enableAutoPan();
                         this.openInfoWindow(infoWindow);
+                       
                     });
                     var markerClusterer = vm.markerClusterer;
                     markerClusterer.addMarkers(syy);
@@ -1497,6 +1499,7 @@ var vm = new Vue({
                         marginLeft: '-9px',
                     });
                     marker.setLabel(label);//跳动的动画
+
                     syy.push(marker);
                     // marker.setAnimation(BMAP_ANIMATION_DROP); //跳动的动画
                 }
