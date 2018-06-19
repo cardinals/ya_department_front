@@ -41,12 +41,11 @@
                             <el-table border id="table" class="tableStyle" :data="this.tabledata" :height="tableheight">
                                 <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
                                 <el-table-column prop="name" label="总队名称" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                                <el-table-column label="预案数量" align="center" min-width="80%">
+                                <el-table-column label="预案数量" align="center">
                                     <el-table-column prop="count" label="总数" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                                    <el-table-column prop="buju" label="部局级" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                                    <el-table-column prop="zongdui" label="总队级" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                                    <el-table-column prop="zhidui" label="支队级" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
-                                    <el-table-column prop="dazhongdui" label="大中队级" show-overflow-tooltip min-width="20%" align="center"></el-table-column>
+                                    <el-table-column prop="zongdui" label="总队级" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+                                    <el-table-column prop="zhidui" label="支队级" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
+                                    <el-table-column prop="dazhongdui" label="大中队级" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat"></el-table-column>
                                 </el-table-column>
                             </el-table>
                         </div>
