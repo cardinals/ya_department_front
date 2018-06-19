@@ -33,6 +33,8 @@ new Vue({
              zdbwChecked:true,
              zqsdChecked:true,
              tpChecked:true
+
+             ,SelectDownVisible:false
         }
     },
     created: function () {
@@ -104,7 +106,7 @@ new Vue({
 
                 // this.fileList = [{
                 //     name: res.data.result[0].wjm,
-                //     url: "http://localhost:8090/upload/" + res.data.result[0].xzlj
+                //     url: "http://10.119.119.112:8090/upload/" + res.data.result[0].xzlj
                 // }]
                 // }
 
@@ -135,19 +137,41 @@ new Vue({
     openDownVisible: function () {
         this.downVisible = true;
     },
+    openSelectDownVisible: function () {
+        this.SelectDownVisible = true;
+    },  
     closeShareDialog: function () {
         this.shareVisible = false;
     },
     closeDownDialog: function () {
         this.downVisible = false;
     },
+    //信息分享
+    openDown: function (val) {
+               
+                if(val=='detail'){
+                    this.openDownVisible();
+                }
+                if(val=='summary'){
+                    if(this.pkid=='dlwd'){
+                        window.open("http://10.119.119.112/dpapi/yafjxz/downTempYa?yawjmc=大连万达-支队级_简版.docx");
+                    }
+                    if(this.pkid=='dljy'){
+                        window.open("http://10.119.119.112/dpapi/yafjxz/downTempYa?yawjmc=大连锦源-支队级_简版.docx");
+                    }
+                }
+                
+            },
+    closeSelectDownDialog: function () {
+        this.SelectDownVisible = false;
+    },
         //信息分享
         openShare: function (val) {
-            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/" + val + "/web");
+            window.open("http://10.119.119.112:8005/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         downShare: function () {
 
-            var title='';
+            var title='fm-';
             //单位基本情况
             if(this.dwjbqkChecked){
                 title+='dwjbqk'+'-'
@@ -162,9 +186,9 @@ new Vue({
                 title+='zqsd'+'-'
             }//附件
             if(this.tpChecked){
-                title+='tp'+'-'
+                title+='tp'
             }
-           window.open("http://localhost:8005/planShare/downWord/" + this.pkid + "/" + title);
+           window.open("http://10.119.119.112:8005/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
@@ -177,7 +201,7 @@ new Vue({
                             showClose: true
                         });
                     } else {
-                        window.open("http://localhost:8090/upload/" + yllj);
+                        window.open("http://10.119.119.112:8090/upload/" + yllj);
                     }
                 }.bind(this), function (error) {
                     console.log(error)
@@ -196,12 +220,16 @@ new Vue({
             if (this.fjDetailData > 0) {
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
                     var xzlj = res.data.result[0].xzlj;
-                    window.open("http://localhost:8090/upload/" + xzlj);
+                    window.open("http://10.119.119.112:8090/upload/" + xzlj);
                 }.bind(this), function (error) {
                     console.log(error)
                 })
             } else {
-                this.openDownVisible();
+                if(this.pkid=='dlwd'||this.pkid=='dljy'){
+                    this.openSelectDownVisible();
+                }else{
+                    this.openDownVisible();
+                }
             }
 
             // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");
