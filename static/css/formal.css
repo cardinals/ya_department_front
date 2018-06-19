@@ -108,7 +108,10 @@ body{height:100%;overflow:hidden;}
     width:180px;
 }
 #basic-Inform-Title{
-    margin-left: 5%;
+    /* margin-left: 5%; */
+    margin-left: 25px;
+    /* float: right; */
+    max-width: 650px;
 }
 #basic-Inform-Picture{
     float: left;
