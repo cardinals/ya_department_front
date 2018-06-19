@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({        
+var vm = new Vue({        
     el: '#app',
     data() {
         return {
@@ -20,6 +20,29 @@ new Vue({
           //资源权限列表
           permissionDetailList: [],
           permissionDetailSelect:[],
+          addVisible:false,
+          addForm: {
+            parentid:"",
+            resourcename:"",
+            resourceinfo:"",
+            icon:"",
+            type:"",
+            permissions:[],
+          },
+          addFormRules: {
+            resourcename: [
+                { required: true, message: '请输入资源名称', trigger: 'blur' },
+            ],
+            resourceinfo: [
+                { required: true, message: '请输入资源描述', trigger: 'blur' },
+            ],
+            /** 
+            seqno: [
+                { required: true, message: '请输入顺序', trigger: 'blur' }
+               
+            ],
+            */
+          },
         };
       },
       mounted:function(){
@@ -47,92 +70,200 @@ new Vue({
        $("#activeIndex").val(getQueryString("index"));
     }, 
     methods: {
-        handleNodeClick(data) {
-            this.findResourceById(data.resourceid);
-            this.permissionDetailSelect = [],
-            this.permissionDetails(data.resourceid);
-        },
-        update: function(){
-          var permission = new Array();
-          for(var i in this.permissionDetailSelect){
-            var params = {
-              permissionid:this.permissionDetailSelect[i]
-            }
-            permission.push(params);
-          }
+      //左侧树点击事件
+      handleNodeClick(data) {
+        this.findResourceById(data.resourceid);
+        this.permissionDetailSelect = [],
+        this.permissionDetails(data.resourceid);
+      },
+      //更新
+      update: function(){
+        var permission = new Array();
+        for(var i in this.permissionDetailSelect){
           var params = {
-            resourceid : this.resourceForm.resourceid,
-            resourcename : this.resourceForm.resourcename,
-            resourceinfo:this.resourceForm.resourceinfo,
-            parentId:this.resourceForm.parentId,
-            seqno:this.resourceForm.seqno,
-            icon:this.resourceForm.icon,
-            type:this.resourceForm.type,
-            permissions:permission
+            permissionid:this.permissionDetailSelect[i]
           }
-          axios.post('/api/resource/updateByVO', params).then(function(res){
-            this.resourceForm = res.data.result;
+          permission.push(params);
+        }
+        var params = {
+          resourceid : this.resourceForm.resourceid,
+          resourcename : this.resourceForm.resourcename,
+          resourceinfo:this.resourceForm.resourceinfo,
+          parentId:this.resourceForm.parentId,
+          seqno:this.resourceForm.seqno,
+          icon:this.resourceForm.icon,
+          type:this.resourceForm.type,
+          permissions:permission
+        }
+        axios.post('/api/resource/updateByVO', params).then(function(res){
+          this.resourceForm = res.data.result;
+          this.$message({
+            showClose: true,
+            message: '更新成功',
+            type: 'success'
+          });
+          }.bind(this),function(error){
             this.$message({
               showClose: true,
-              message: '更新成功',
-              type: 'success'
+              message: '更新失败',
+              type: 'error'
             });
-            
+            console.log(error)
+          })
+      },
+      //新增
+      append(store, data) {
+        this.addVisible = true;
+        this.addForm.parentid = data.resourceid;
+        //store.append({ id: id++, label: 'testtest', children: [] }, data);
+      },
+      //删除
+      remove(store, data) {
+        var id = data.resourceid;
+        axios.get('/api/resource/deleteOneById/'+ id).then(function(res){
+          store.remove(data);
+          this.$message({
+            showClose: true,
+            message: '删除成功',
+            type: 'success'
+          });
           }.bind(this),function(error){
             console.log(error)
           })
-        },
-        append(data) {
-            const newChild = { id: id++, label: 'testtest', children: [] };
-            if (!data.children) {
-              this.$set(data, 'children', []);
-            }
-            data.children.push(newChild);
-          },
-    
-          remove(node, data) {
-            const parent = node.parent;
-            const children = parent.data.children || parent.data;
-            const index = children.findIndex(d => d.id === data.id);
-            children.splice(index, 1);
-          },
-          getAllPermissions: function(){
-            axios.get('/api/permission/getAll').then(function(res){
-                this.allPermissionList = res.data.result;
-            }.bind(this),function (error) {
-                console.log(error);
-            })
-          },
-
-        //获取复选框选中值
-        getCheckValue(val){
-          this.editFormSelect = val;
-        },
-        //资源详情
-        findResourceById:function(resourceid){
-          axios.get('/api/resource/'+resourceid).then(function(res){
-            this.resourceForm = res.data.result;
-          }.bind(this),function (error) {
-              console.log(error);
-          })
-        },
-        //权限详情
-        permissionDetails: function(id){
-          axios.get('/api/permission/getPermission/' + id).then(function(res){
-              this.permissionDetailList = res.data.result;
-              if(this.permissionDetailList.length>0){
-                for(var i=0;i<this.permissionDetailList.length;i++){
-                    this.permissionDetailSelect.push(this.permissionDetailList[i].permissionid);
-                }
-              }
-          }.bind(this),function(error){
-              console.log(error)
-          })
       },
+      //获取权限列表
+      getAllPermissions: function(){
+        axios.get('/api/permission/getAll').then(function(res){
+          this.allPermissionList = res.data.result;
+        }.bind(this),function (error) {
+          console.log(error);
+        })
+      },
+      //资源详情
+      findResourceById:function(resourceid){
+        axios.get('/api/resource/'+resourceid).then(function(res){
+          this.resourceForm = res.data.result;
+        }.bind(this),function (error) {
+            console.log(error);
+        })
+      },
+      //根据资源ID查询其权限
+      permissionDetails: function(id){
+        axios.get('/api/permission/getPermission/' + id).then(function(res){
+            this.permissionDetailList = res.data.result;
+            if(this.permissionDetailList.length>0){
+              for(var i=0;i<this.permissionDetailList.length;i++){
+                  this.permissionDetailSelect.push(this.permissionDetailList[i].permissionid);
+              }
+            }
+        }.bind(this),function(error){
+            console.log(error)
+        })
+      },
+      //取消
       cancel:function(){
         this.findResourceById(this.resourceForm.resourceid);
         this.permissionDetailSelect = [],
         this.permissionDetails(this.resourceForm.resourceid);
       },
-    }
+    //左侧树显示的label
+    renderContent(createElement, { node, data, store }) {
+        if(data.parentId == -1){
+          return createElement(
+            'span',
+            {},
+            [
+              createElement('span',{},[createElement('span',node.label)]),
+              createElement('span',{},[
+                createElement('el-button',{
+                                          style:{'font-size':' 14px','float':'right','margin-right':'10px'},
+                                          attrs:{'type':'text'},
+                                          on:{click:function(){vm.remove(store, data);}},
+                                          domProps: {innerHTML: '-'}}),
+                createElement('el-button',{
+                                        style:{'font-size':' 14px','float':'right','margin-right':'20px'},
+                                        attrs:{'type':'text'},
+                                        on:{click:function(){vm.append(store, data);}},
+                                        domProps: {innerHTML: '+'}})
+              ])
+            ]
+          );
+        }else{
+          return createElement(
+            'span',
+            {},
+            [
+              createElement('span',{},[createElement('span',node.label)]),
+              createElement('span',{},[
+                createElement('el-button',{style:{'font-size':' 14px','float':'right',
+                                            'margin-right':'10px'},attrs:{'type':'text'},on:{click:function(){
+                                              vm.remove(store, data);}},domProps: {innerHTML: '-'}})
+              ])
+            ]
+          );
+        }
+        
+      },
+    //新增事件
+    checkAdd:function(val) {
+      if(val.resourcename==""||val.resourceinfo==""){
+        this.$message({
+          showClose: true,
+          message: '请完整输入必填项',
+          type: 'error'
+        });
+      }
+      else{
+        var params = {
+          resourcename:this.addForm.resourcename,
+        }
+        axios.post('/api/resource/list', params).then(function(res){
+          var addData = res.data.result;
+          if(addData.length != 0){
+            this.$message({
+              showClose: true,
+              message: '资源名称已存在',
+              type: 'error'
+            });
+          }else{
+            this.addSubmit(val);
+          }
+          }.bind(this),function(error){
+            console.log(error)
+          })
+      }
+    },
+    addSubmit: function(val){
+      var permission = new Array();
+        for(var i in this.addForm.permissions){
+          var param = {
+            permissionid:this.addForm.permissions[i]
+          }
+          permission.push(param);
+        }
+      var params = {
+        resourcename:this.addForm.resourcename,
+        resourceinfo:this.addForm.resourceinfo,
+        parentid:val.parentid,
+        icon:this.addForm.icon,
+        type:this.addForm.type,
+        permissions:permission
+      }
+      axios.post('/api/resource/insertByVO', params).then(function(res){
+        this.$message({
+          showClose: true,
+          message: '新增成功',
+          type: 'success'
+        });
+        location.reload();
+      }.bind(this),function(error){
+        console.log(error)
+      })
+    },
+    closeDialog: function (val) {
+      this.addVisible = false;
+      this.$refs["addForm"].resetFields();
+    },
+  },
+    
 })
