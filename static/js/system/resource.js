@@ -89,7 +89,7 @@ var vm = new Vue({
           resourceid : this.resourceForm.resourceid,
           resourcename : this.resourceForm.resourcename,
           resourceinfo:this.resourceForm.resourceinfo,
-          parentId:this.resourceForm.parentId,
+          parentid:this.resourceForm.parentid,
           seqno:this.resourceForm.seqno,
           icon:this.resourceForm.icon,
           type:this.resourceForm.type,
