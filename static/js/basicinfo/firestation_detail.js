@@ -108,6 +108,9 @@ new Vue({
                         this.zhongddetailData = this.detailData.zhongdVO;
                     break;
                 case '0A':
+                    this.isQiTaXiaoFangDuiWu = true;
+                    if(this.detailData.qtxfdwVO != null)
+                        this.qtxfdwdetailData = this.detailData.qtxfdwVO;
                     break;
             }
         },
