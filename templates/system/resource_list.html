@@ -35,7 +35,10 @@
 							<div id="breadcrumb_box"></div>
 						    <div class="frame" >
                   <div class="frame_left" style="background-color:#F5FAFC;">
-										<div><h5 class="src_name">资源树</h5></div>
+										<div><h5 class="src_name">资源树 
+												<el-button type="text" @click="appendParent">+</el-button>
+											</h5>
+										</div>
                     <div scroll="no" class="src_slt">			
 											<el-tree
 													:data="tableData"

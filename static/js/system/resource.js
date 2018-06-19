@@ -117,6 +117,11 @@ var vm = new Vue({
         this.addForm.parentid = data.resourceid;
         //store.append({ id: id++, label: 'testtest', children: [] }, data);
       },
+      //新增父级资源
+      appendParent:function(){
+        this.addVisible = true;
+        this.addForm.parentid = '-1';
+      },
       //删除
       remove(store, data) {
         this.$confirm('此操作将删除该资源, 是否继续?', '提示', {
