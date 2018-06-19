@@ -883,7 +883,7 @@ var vm = new Vue({
                             '</table>' +
                             '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
                             '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                            '<b class="btn" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
                             '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
                             '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
                             '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
@@ -974,7 +974,7 @@ var vm = new Vue({
                 '</table>' +
                 '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
                 '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                '<b class="btn" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                '<b class="btn" vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
                 '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
                 '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
                 '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
@@ -1739,7 +1739,7 @@ var vm = new Vue({
                         '</table>' +
                         '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
                         '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                        '<b class="btn" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                        '<b class="btn" vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
                         '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
                         '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
                         '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
@@ -1815,57 +1815,62 @@ var vm = new Vue({
                 }
             },
             //调取预案
-            openPlan_1: function (val) {
-                axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
+            openPlan_1: function (zddwid,yajb) {
+                axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + zddwid).then(function (res) {
                     var plan = res.data.result;
                     this.planData.yaid_1 = '';
+                    this.planData.yaid_2 = '';
                     for (var k = 0; k < plan.length; k++) {
-                        if (plan[k].yajb == '01') {
-                            this.planData.yaid_1 = plan[k].uuid;
+                        if(yajb=='01'){
+                            if (plan[k].yajb == '01') {
+                                this.planData.yaid_1 = plan[k].uuid;
+                                // break;
+                            }
+                        }else if(yajb=='02'){
+                            if (plan[k].yajb == '02') {
+                                this.planData.yaid_2 = plan[k].uuid;
+                                // break;s
+                            }
                         }
                     }
-                    if (this.planData.yaid_1 == null || this.planData.yaid_1 == '') {
-                        this.$message({
-                            message: "预案不存在",
-                            showClose: true,
-                        });
-                    } else {
-                        axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.planData.yaid_1).then(function (res) {
-                            if(res.data.result){
-                                var yllj = res.data.result[0].yllj;
-                                window.open("http://localhost:8090/upload/" + yllj);
-                            }
-                        }.bind(this), function (error) {
-                            console.log(error)
-                        })
+                    if(yajb=='01'){
+                        if (this.planData.yaid_1 == null || this.planData.yaid_1 == '') {
+                            this.$message({
+                                message: "总队级预案不存在",
+                                showClose: true,
+                            });
+                        }else{
+                            this.showPlan(this.planData.yaid_1);
+                        }
+                    }else if(yajb=='02'){
+                        if (this.planData.yaid_2 == null || this.planData.yaid_2 == '') {
+                            this.$message({
+                                message: "支队级预案不存在",
+                                showClose: true,
+                            });
+                        }else{
+                            this.showPlan(this.planData.yaid_2);
+                        }
                     }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
 
             },
-            //分享
-            openShare:function(val){
-                axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + val).then(function (res) {
-                    var plan = res.data.result;
-                    var planId = '';
-                    for (var k = 0; k < plan.length; k++) {
-                        if (plan[k].yajb == '01') {
-                            planId = plan[k].uuid;
-                        }
-                    }
-                    if (planId == '') {
-                        this.$message({
-                            message: "总队级预案不存在",
-                            showClose: true,
-                        });
-                    } else {
-                        window.open("http://localhost:8005/planShare/page/" + planId + "/detail" +"/web");
+            showPlan:function(val){
+                axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
+                    if(res.data.result){
+                        var yllj = res.data.result[0].yllj;
+                        window.open("http://localhost:8090/upload/" + yllj);
                     }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
-                
+            },
+            
+            //分享
+            openShare:function(val){
+                window.open("http://localhost:8005/planShare/pageZddw/" + val +  "/web");
             },
             //水源详情跳转
             syxq:function(params){
@@ -2101,7 +2106,7 @@ var vm = new Vue({
                         '</table>' +
                         '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
                         '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_3d.png">总队预案</b>' +
-                        '<b class="btn" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" href="{[this.getPano(values)]}" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
+                        '<b class="btn" vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_key_diagram.png">支队预案</b>' +
                         '<b class="btn" disabled="true" style="padding:0 7px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/maptool/icon_panorama.png">大（中队）预案</b>' +
                         '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/maptool/icon_info.png">基本信息</b>' +
                         '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#50AEE0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/maptool/icon_share.png"> 分享</b>' +
@@ -2127,23 +2132,6 @@ var vm = new Vue({
                         vm.chAllMarkers(vm.zdd);
                         vm.zdd = marker;
                     });
-                    // var label = new BMap.Label(this.formatLabel(zddws[i].dwmc), { offset: new BMap.Size(-15, 35) });
-                    // label.setStyle({
-                    //     fontSize: '12px',
-                    //     fontWeight: 'bold',
-                    //     opacity: '0.7',
-                    //     border: '0',
-                    //     textAlign: 'center',
-                    //     color: '#fff',
-                    //     borderRadius: '5px',
-                    //     paddingRight: '110px',
-                    //     paddingTop: '5px',
-                    //     Width: '5px',
-                    //     display: 'inline-block',
-                    //     paddingRight: '80px',
-                    //     marginLeft: '-9px',
-                    //     background:'#333',
-                    // });
                     var label = new BMap.Label(this.formatLabel(zddws[i].dxmc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
                         fontSize: '12px',
