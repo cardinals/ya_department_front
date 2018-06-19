@@ -119,17 +119,32 @@ var vm = new Vue({
       },
       //删除
       remove(store, data) {
-        var id = data.resourceid;
-        axios.get('/api/resource/deleteOneById/'+ id).then(function(res){
-          store.remove(data);
+        this.$confirm('此操作将删除该资源, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var id = data.resourceid;
+          axios.get('/api/resource/deleteOneById/'+ id).then(function(res){
+            store.remove(data);
+            this.$message({
+              showClose: true,
+              message: '删除成功',
+              type: 'success'
+            });
+            }.bind(this),function(error){
+              console.log(error)
+            })
+        }).catch(() => {
           this.$message({
-            showClose: true,
-            message: '删除成功',
-            type: 'success'
-          });
-          }.bind(this),function(error){
-            console.log(error)
-          })
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+
+
+
+        
       },
       //获取权限列表
       getAllPermissions: function(){
