@@ -187,7 +187,18 @@ treeMenuTemplate.push('</li>');
         },
 
         toggle: function () {
+            /**菜单手风琴 by yushch 20180620 */
+            /** 
             if (this.hasChildren()) {
+                this.open = !this.open;
+            }
+            */
+           var p = this.$parent.$children;
+           for(var i=0;i<p.length;i++){
+                if(p[i] !== this)
+                   p[i].open = false;
+           }
+           if (this.hasChildren()) {
                 this.open = !this.open;
             }
         },
