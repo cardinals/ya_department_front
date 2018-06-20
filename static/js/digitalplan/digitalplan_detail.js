@@ -153,7 +153,7 @@ new Vue({
                     this.openDownVisible();
                 }
                 if(val=='summary'){
-                    if(this.pkid=='dlwd'){
+                    if(this.pkid=='dlwddzd'){
                         window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达-支队级_简版.docx");
                     }
                     if(this.pkid=='dljy'){
@@ -225,7 +225,7 @@ new Vue({
                     console.log(error)
                 })
             } else {
-                if(this.pkid=='dlwd'||this.pkid=='dljy'){
+                if(this.pkid=='dlwddzd'||this.pkid=='dljy'){
                     this.openSelectDownVisible();
                 }else{
                     this.openDownVisible();
