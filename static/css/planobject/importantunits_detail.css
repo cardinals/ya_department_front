@@ -19,3 +19,10 @@ dl {
 .el-dialog__header{
     text-align:center
 }
+.btngroup>img{
+    width: 120px;
+    margin-bottom: 5px;
+}
+.btngroup>img:hover{
+    cursor:pointer
+}

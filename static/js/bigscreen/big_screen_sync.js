@@ -8,7 +8,6 @@ var vm = new Vue({
             sjjksl: '31'
         },
         provincesData: {
-            heji: '0',
             beijing: '0',
             tianjin: '0',
             hebei: '0',
@@ -627,7 +626,7 @@ var vm = new Vue({
             t1FunnelChart.setOption(t1FunnelChartOption);
         },
     },
-    mounted() {
+    mounted: function () {
         // this.b1PieChart();
         // this.b2PieChart();
         // this.b3PieChart();

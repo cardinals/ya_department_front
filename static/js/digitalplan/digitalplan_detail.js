@@ -154,10 +154,10 @@ new Vue({
                 }
                 if(val=='summary'){
                     if(this.pkid=='dlwddzd'){
-                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达-支队级_简版.docx");
+                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
                     }
                     if(this.pkid=='dljy'){
-                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连锦源-支队级_简版.docx");
+                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
                     }
                 }
                 

@@ -884,7 +884,7 @@ var vm = new Vue({
                             '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
                             '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
                             '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
-                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
                             '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
                             '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
                             '</div>' +
@@ -920,13 +920,12 @@ var vm = new Vue({
                         textAlign: 'center',
                         color: '#fff',
                         borderRadius: '2px',
-                        paddingRight: '60px',
                         paddingTop: '1px',
                         paddingLeft: '3px',
                         Width: '5px',
                         background:'#356FAE',
                         display: 'inline-block',
-                        paddingRight: '75px',
+                        paddingRight: '80px',
                         marginLeft: '-10px',
                     });
                     marker.setLabel(label);
@@ -973,12 +972,12 @@ var vm = new Vue({
                 '</tr>' +
                 '</table>' +
                 '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
-                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
-                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
-                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
-                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
-                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
-                            '</div>' +
+                '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                '</div>' +
                 '<div class="x-clear"></div>' +
                 '</div>'
                     ;
@@ -1007,7 +1006,7 @@ var vm = new Vue({
                         Width: '5px',
                         background:'#356FAE',
                         display: 'inline-block',
-                        paddingRight: '75px',
+                        paddingRight: '80px',
                         marginLeft: '-10px',
                     });
                 marker.setLabel(label);
@@ -1746,7 +1745,7 @@ var vm = new Vue({
                         '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
                             '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
                             '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
-                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
                             '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
                             '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
                             '</div>' +
@@ -1784,7 +1783,7 @@ var vm = new Vue({
                         Width: '5px',
                         background:'#356FAE',
                         display: 'inline-block',
-                        paddingRight: '75px',
+                        paddingRight: '80px',
                         marginLeft: '-10px',
                     });
                     marker.setLabel(label);
@@ -1826,6 +1825,7 @@ var vm = new Vue({
                     var plan = res.data.result;
                     this.planData.yaid_1 = '';
                     this.planData.yaid_2 = '';
+                    this.planData.yaid_3 = '';
                     for (var k = 0; k < plan.length; k++) {
                         if(yajb=='01'){
                             if (plan[k].yajb == '01') {
@@ -1835,6 +1835,11 @@ var vm = new Vue({
                         }else if(yajb=='02'){
                             if (plan[k].yajb == '02') {
                                 this.planData.yaid_2 = plan[k].uuid;
+                                // break;s
+                            }
+                        }else if(yajb=='03'){
+                            if (plan[k].yajb == '03') {
+                                this.planData.yaid_3 = plan[k].uuid;
                                 // break;s
                             }
                         }
@@ -1856,6 +1861,15 @@ var vm = new Vue({
                             });
                         }else{
                             this.showPlan(this.planData.yaid_2);
+                        }
+                    }else if(yajb=='03'){
+                        if (this.planData.yaid_3 == null || this.planData.yaid_3 == '') {
+                            this.$message({
+                                message: "大中队级预案不存在",
+                                showClose: true,
+                            });
+                        }else{
+                            this.showPlan(this.planData.yaid_3);
                         }
                     }
                 }.bind(this), function (error) {
@@ -2122,7 +2136,7 @@ var vm = new Vue({
                         '<div  class="bbar" style="text-align: center; position: absolute; bottom:0;width: 100%;height: 25px;text-align: left;">' +
                             '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
                             '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
-                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
                             '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
                             '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
                             '</div>' +
@@ -2161,7 +2175,7 @@ var vm = new Vue({
                         Width: '5px',
                         background:'#356FAE',
                         display: 'inline-block',
-                        paddingRight: '75px',
+                        paddingRight: '80px',
                         marginLeft: '-10px',
                     });
                     marker.setLabel(label);

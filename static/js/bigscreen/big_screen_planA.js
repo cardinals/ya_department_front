@@ -587,7 +587,7 @@ var vm = new Vue({
             t1FunnelChart.setOption(t1FunnelChartOption);
         },
     },
-    mounted() {
+    mounted: function () {
         this.b1PieChart();
         this.b2PieChart();
         this.b3PieChart();
