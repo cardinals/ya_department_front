@@ -66,6 +66,7 @@
 				<div class="application-div h60 p5">
 					<div class="application-text map-bg2">
 						<div class="application-subtitle l">总队预案数量排行(Top10)</div>
+						<div class="application-subtitle" style="position: absolute;text-align:right;"><a href="#" @click="top10jump()">更多</a></div>
 						<div id="top10Bar" class="application-boxs"></div>
 					</div>
 				</div>
@@ -75,29 +76,33 @@
 					</div>
 				</div> -->
 				<div class="application-div h40 p5">
-					<div class="application-text flex map-bg2 p10">
-						<div id="scroll" class="application-text">
-							<ul>
-								<li v-for="data in scrollData">
-									<!-- <a href="../digitalplan/digitalplan_approve.html" v-text="data.zddwmc"></a> -->
-									<a @click="jump()" v-text="data.zddwmc"></a>
-									<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审批'"></div>
-									<div style="color:#fdc107;" v-if="data.type == '2'" v-text="'待更新'"></div>
-								</li>
-							</ul>
+					<div class="application-text map-bg2">
+						<div class="application-subtitle l">预案提醒</div>
+						<div class="application-subtitle" style="position: absolute;text-align:right;"><a href="#" @click="jump()">更多</a></div>
+						<div class="application-boxs flex pl10 pr10 pb10">
+							<div id="scroll" class="application-text">
+								<ul>
+									<li v-for="data in scrollData">
+										<!-- <a href="../digitalplan/digitalplan_approve.html" v-text="data.zddwmc"></a> -->
+										<a @click="jump()" style="color:#29bb9d;" v-text="data.zddwmc"></a>
+										<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审批'"></div>
+										<div style="color:#fdc107;" v-if="data.type == '2'" v-text="'待更新'+ data.count"></div>
+									</li>
+								</ul>
+							</div>
+							<!-- <div id="tagscloud" class="application-boxs">
+											<a class="tagc1" v-text="'辽宁省人民法院'"></a>
+											<a class="tagc2" v-text="'辽宁省政府'"></a>
+											<a class="tagc3" v-text="'辽宁省就业局'"></a>
+											<a class="tagc4" v-text="'沈阳市城市规划管理局'"></a>
+											<a class="tagc2" v-text="'沈阳市公安局'"></a>
+											<a class="tagc3" v-text="'沈阳市地铁二号线'"></a>
+											<a class="tagc3" v-text="'青岛市塑性加工园'"></a>
+											<a class="tagc4" v-text="'泰安市城建局'"></a>
+											<a class="tagc2" v-text="'河北省国土资源厅'"></a>
+											<a class="tagc1" v-text="'秦皇岛市林业局'"></a>
+										</div> -->
 						</div>
-						<!-- <div id="tagscloud" class="application-boxs">
-							<a class="tagc1" v-text="'辽宁省人民法院'"></a>
-							<a class="tagc2" v-text="'辽宁省政府'"></a>
-							<a class="tagc3" v-text="'辽宁省就业局'"></a>
-							<a class="tagc4" v-text="'沈阳市城市规划管理局'"></a>
-							<a class="tagc2" v-text="'沈阳市公安局'"></a>
-							<a class="tagc3" v-text="'沈阳市地铁二号线'"></a>
-							<a class="tagc3" v-text="'青岛市塑性加工园'"></a>
-							<a class="tagc4" v-text="'泰安市城建局'"></a>
-							<a class="tagc2" v-text="'河北省国土资源厅'"></a>
-							<a class="tagc1" v-text="'秦皇岛市林业局'"></a>
-						</div> -->
 					</div>
 				</div>
 			</div>
@@ -121,6 +126,7 @@
 				<div class="application-div h50 p5">
 					<div class="application-text map-bg2">
 						<div class="application-subtitle l">各类数字化预案数量</div>
+						<div class="application-subtitle" style="position: absolute;text-align:right;"><a href="#" @click="barjump()">更多</a></div>
 						<div id="bar" class="application-boxs"></div>
 					</div>
 				</div>
