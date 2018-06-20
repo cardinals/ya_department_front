@@ -696,11 +696,11 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>'+'&nbsp<span style="font-size:12px;color:red;">'+ provinces[i].zddwsl+'</span>');
+                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>'+'&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
                     
                     label.setStyle({
-                        fontSize: '11px',
+                        fontSize: '0.6em',
                         fontWeight: 'bold',
                         border: '0',
                         padding: '14px 4px',
@@ -761,7 +761,7 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp<span style="color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
+                    var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.2em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
                     // var labels = new BMap.Label('<span style="color:#fff;">'+citys[i].xzqhmc+'</span>')
                     // labels.setStyle({
                     //     fontSize: '11px',
@@ -783,11 +783,10 @@ var vm = new Vue({
                         padding: '14px 4px',
                         textAlign: 'center',
                         marginLeft: '2px',
-                        marginTop: '40px',
                         color: '#ED0C0A',
                         borderRadius: '2px',
                         paddingRight: '58px',
-                        marginTop: '25px',
+                        marginTop: '23px',
                         background:'',
                     });
                     marker.setLabel(label);
@@ -840,6 +839,8 @@ var vm = new Vue({
                     var marker = new BMap.Marker(point, { icon: myIcon1 });
                     marker.uuid = zddws[i].uuid;
                     marker.addEventListener("click", function (e) {
+                        //显示底部按钮
+                        ShowBtn();
                         vm.getZddwxx('', e.target.uuid);
                         vm.removeAllMarkers(vm.circlez);
                         var circlez = [];//清除圆
@@ -1014,6 +1015,10 @@ var vm = new Vue({
                 vm.zdd = marker;
                 vm.circle = circle;
             },
+            //显示按钮方法
+            // ShowBtn:function (){
+
+            // }
             //对水源传参进行画点
             getSysjz: function (sysy) {
                     var syy = [];
