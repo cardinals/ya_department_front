@@ -8,6 +8,7 @@ var vm = new Vue({
             sjjksl: '31'
         },
         provincesData: {
+            heji: '0',
             beijing: '0',
             tianjin: '0',
             hebei: '0',
