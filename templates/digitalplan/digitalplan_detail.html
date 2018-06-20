@@ -57,15 +57,15 @@
                             </dl>
                         </div>
                         <div class="btngroup r">
-                                <img src="../../static/images/detail_share.png" @click="openShareVisible">
-                                <!-- <el-button type="primary" icon="share" style="width:120px" @click="openShareVisible">信息分享</el-button> -->
-                                <br>
-                                <img src="../../static/images/detail_onlineShow.png" @click="openPlan">
-                                <!-- <el-button type="primary" icon="picture" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button> -->
-                                <br>
-                                <img src="../../static/images/detail_download.png" @click="downloadPlan">
-                                <!-- <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="downloadPlan">预案下载</el-button> -->
-                            </div>
+                            <img src="../../static/images/detail_share.png" @click="openShareVisible">
+                            <!-- <el-button type="primary" icon="share" style="width:120px" @click="openShareVisible">信息分享</el-button> -->
+                            <br>
+                            <img src="../../static/images/detail_onlineShow.png" @click="openPlan">
+                            <!-- <el-button type="primary" icon="picture" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button> -->
+                            <br>
+                            <img src="../../static/images/detail_download.png" @click="downloadPlan">
+                            <!-- <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="downloadPlan">预案下载</el-button> -->
+                        </div>
                     </div>
                     <div class="inform-content">
                         <template>
@@ -291,13 +291,15 @@
                                                     <el-col :span="2">
                                                         <strong>灾害场所：</strong>
                                                     </el-col>
-                                                    <el-col :span="10">
+                                                    <el-col :span="22">
                                                         <div v-text="item.zhcsmc||'无'"></div>
                                                     </el-col>
+                                                </el-row>
+                                                <el-row>
                                                     <el-col :span="2">
                                                         <strong>灾情描述：</strong>
                                                     </el-col>
-                                                    <el-col :span="10">
+                                                    <el-col :span="22">
                                                         <div v-text="item.zqms||'无'"></div>
                                                     </el-col>
                                                 </el-row>
@@ -379,31 +381,31 @@
                         <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('summary')">预案概况下载</el-button>
                     </div>
                 </el-dialog>
-                 <!--选择选择导出word界面-->
-                 <el-dialog width="10%" title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false" >
-                        <div style="margin-top: 20px">
-                            <el-checkbox v-model="fmChecked" disabled label="封面" border size="medium"></el-checkbox>
-                        </div>
-                        <div style="margin-top: 20px">
-                            <el-checkbox v-model="dwjbqkChecked" label="单位基本情况" border size="medium"></el-checkbox>
-                        </div>
-                        <div style="margin-top: 20px">
-                            <el-checkbox v-model="dwjzxxChecked" label="单位建筑信息和消防设施" border size="medium"></el-checkbox>
-                        </div>
-                        <div style="margin-top: 20px">
-                            <el-checkbox v-model="zdbwChecked" label="重点部位" border size="medium"></el-checkbox>
-                        </div>
-                        <div style="margin-top: 20px">
-                            <el-checkbox v-model="zqsdChecked" label="灾情设定与作战部署" border size="medium"></el-checkbox>
-                        </div>
-                        <div style="margin-top: 20px">
-                            <el-checkbox v-model="tpChecked" label="预案附件" border size="medium"></el-checkbox>
-                        </div>
-    
-                        <div id="tableView" style="padding: 0 35px;text-align:center">
-                            <el-button type="primary"style="width:140px" @click="downShare()">确定</el- button>
-                        </div>
-                    </el-dialog>
+                <!--选择选择导出word界面-->
+                <el-dialog width="10%" title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="fmChecked" disabled label="封面" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="dwjbqkChecked" label="单位基本情况" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="dwjzxxChecked" label="单位建筑信息和消防设施" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="zdbwChecked" label="重点部位" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="zqsdChecked" label="灾情设定与作战部署" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="tpChecked" label="预案附件" border size="medium"></el-checkbox>
+                    </div>
+
+                    <div id="tableView" style="padding: 0 35px;text-align:center">
+                        <el-button type="primary" style="width:140px" @click="downShare()">确定</el- button>
+                    </div>
+                </el-dialog>
             </div>
             <!-- main-container -->
         </div>
