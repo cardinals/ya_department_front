@@ -37,12 +37,12 @@ var vm = new Vue({
         scrollData:[
             {uuid:'1', zddwmc: '辽宁省人民法院',type:'1'},
             {uuid:'2', zddwmc: '辽宁省政府',type:'1'},
-            {uuid:'3', zddwmc: '辽宁省就业局',type:'2'},
-            {uuid:'4', zddwmc: '沈阳市城市规划管理局',type:'2'},
+            {uuid:'3', zddwmc: '天津总队',type:'2',count:'34'},
+            {uuid:'4', zddwmc: '辽宁总队',type:'2',count:'43'},
             {uuid:'5', zddwmc: '沈阳市公安局',type:'1'},
-            {uuid:'6', zddwmc: '沈阳市地铁二号线',type:'2'},
+            {uuid:'6', zddwmc: '上海总队',type:'2',count:'266'},
             {uuid:'7', zddwmc: '青岛市塑性加工园',type:'1'},
-            {uuid:'8', zddwmc: '泰安市城建局',type:'2'},
+            {uuid:'8', zddwmc: '浙江总队',type:'2',count:'15'},
             {uuid:'9', zddwmc: '河北省国土资源厅',type:'1'},
             {uuid:'10', zddwmc: '秦皇岛市林业局',type:'1'}
         ],
@@ -409,6 +409,10 @@ var vm = new Vue({
                 window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=82";
             });
         },
+        barjump: function () {
+            //跳出父框架（iframe）
+            window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=82";
+        },
         // top10排名柱状图
         echarts5: function () {
             var myBarChart = echarts.init(document.getElementById('top10Bar'));
@@ -534,6 +538,10 @@ var vm = new Vue({
                 //跳出父框架（iframe）
                 window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=81";
             });
+        },
+        top10jump: function () {
+          //跳出父框架（iframe）
+          window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=81";
         },
         //top10 json串排序
         up: function (x, y) {

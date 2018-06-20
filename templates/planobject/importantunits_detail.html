@@ -1294,9 +1294,9 @@
                                         <el-card v-for="data in yaData" class="card_style">
                                             <el-row>
                                                 <el-col :span="24">
-                                                    <div @click="planDetails(data)">
+                                                    <div >
                                                         <strong class="dtdlStyle">预案名称：</strong>
-                                                        <v-text v-text="data.yamc||'无'"></v-text>
+                                                        <a href="#" @click="planDetails(data)"><v-text v-text="data.yamc||'无'"></v-text></a>
                                                         <span class="companyStatus dib" title="预案级别" v-text="data.yajbmc||'无'"></span>
                                                     </div>
                                                 </el-col>
