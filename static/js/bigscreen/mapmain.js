@@ -708,7 +708,7 @@ var vm = new Vue({
                         marginLeft: '1.5px',
                         marginTop: '24px',
                         color: '#ED0C0A',
-                        borderRadius: '5px',
+                        borderRadius: '2px',
                         paddingRight: '58px',
                         background:'',
                     });
@@ -785,7 +785,7 @@ var vm = new Vue({
                         marginLeft: '2px',
                         marginTop: '40px',
                         color: '#ED0C0A',
-                        borderRadius: '5px',
+                        borderRadius: '2px',
                         paddingRight: '58px',
                         marginTop: '25px',
                         background:'',
@@ -914,19 +914,20 @@ var vm = new Vue({
                     });
                     var label = new BMap.Label(this.formatLabel(zddws[i].dwmc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
+                        opacity:'0.7',
                         fontSize: '12px',
-                        opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
                         color: '#fff',
-                        borderRadius: '5px',
-                        paddingRight: '110px',
-                        paddingTop: '2px',
-                        paddingBottom:'2px',
-                        display: 'inline-block',
-                        paddingRight: '80px',
-                        marginLeft: '-9px',
+                        borderRadius: '2px',
+                        paddingRight: '60px',
+                        paddingTop: '1px',
+                        paddingLeft: '3px',
+                        Width: '5px',
                         background:'#356FAE',
+                        display: 'inline-block',
+                        paddingRight: '75px',
+                        marginLeft: '-10px',
                     });
                     marker.setLabel(label);
                     zddwp.push(marker);
@@ -994,19 +995,20 @@ var vm = new Vue({
                 map.addOverlay(marker);
                 var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
+                        opacity:'0.7',
                         fontSize: '12px',
-                        opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
                         color: '#fff',
-                        borderRadius: '5px',
-                        paddingRight: '110px',
-                        paddingTop: '2px',
-                        paddingBottom:'2px',
-                        display: 'inline-block',
-                        paddingRight: '80px',
-                        marginLeft: '-9px',
+                        borderRadius: '2px',
+                        paddingRight: '60px',
+                        paddingTop: '1px',
+                        paddingLeft: '3px',
+                        Width: '5px',
                         background:'#356FAE',
+                        display: 'inline-block',
+                        paddingRight: '75px',
+                        marginLeft: '-10px',
                     });
                 marker.setLabel(label);
                 vm.chAllMarkers(vm.zdd);
@@ -1084,20 +1086,20 @@ var vm = new Vue({
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(sysy.symc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
+                        opacity:'0.8',
                         fontSize: '12px',
                         fontWeight: 'bold',
                         opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
-                        color: '#fff',
-                        borderRadius: '5px',
+                        color: '#4A4AFF',
+                        borderRadius: '2px',
                         paddingRight: '110px',
-                        paddingTop: '5px',
+                        paddingTop: '0px',
                         Width: '5px',
                         display: 'inline-block',
                         paddingRight: '80px',
                         marginLeft: '-9px',
-                        background:'#333',
                     });
                     marker.setLabel(label);//跳动的动画
                     syy.push(marker);
@@ -1176,16 +1178,17 @@ var vm = new Vue({
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(dzdz.dzmc), { offset: new BMap.Size(-20, 35) });
                     label.setStyle({
+                        opacity: '0.7',
                         fontSize: '12px',
                         fontWeight: 'bold',
                         border: '0',
                         padding: '2px 4px',
                         textAlign: 'center',
                         color: 'red',
-                        borderRadius: '5px',
-                        paddingRight: '77px',
-                        marginLeft: '-9px',
-                        marginTop: '10px',
+                        borderRadius: '2px',
+                        paddingRight: '55px',
+                        marginLeft: '10px',
+                        marginTop: '2px',
                     });
                     marker.setLabel(label);
                     dz.push(marker);
@@ -1260,7 +1263,7 @@ var vm = new Vue({
                         border: '0',
                         textAlign: 'center',
                         color: '#7BA860',
-                        borderRadius: '5px',
+                        borderRadius: '2px',
                         paddingRight: '110px',
                         paddingTop: '5px',
                         Width: '5px',
@@ -1403,16 +1406,17 @@ var vm = new Vue({
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(vm.dzData[i].dzmc), { offset: new BMap.Size(-20, 35) });
                     label.setStyle({
+                        opacity: '0.7',
                         fontSize: '12px',
                         fontWeight: 'bold',
                         border: '0',
                         padding: '2px 4px',
                         textAlign: 'center',
                         color: 'red',
-                        borderRadius: '5px',
-                        paddingRight: '77px',
-                        marginLeft: '-9px',
-                        marginTop: '10px',
+                        borderRadius: '2px',
+                        paddingRight: '55px',
+                        marginLeft: '10px',
+                        marginTop: '2px',
                     });
                     marker.setLabel(label);
                     dz.push(marker);
@@ -1513,14 +1517,16 @@ var vm = new Vue({
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(vm.syData[i].symc), { offset: new BMap.Size(-20, 25) });
                     label.setStyle({
+                        opacity:'0.8',
                         fontSize: '12px',
                         fontWeight: 'bold',
+                        opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
-                        color: '#7BA860',
-                        borderRadius: '5px',
+                        color: '#4A4AFF',
+                        borderRadius: '2px',
                         paddingRight: '110px',
-                        paddingTop: '5px',
+                        paddingTop: '0px',
                         Width: '5px',
                         display: 'inline-block',
                         paddingRight: '80px',
@@ -1612,12 +1618,13 @@ var vm = new Vue({
                     map.addOverlay(marker);
                     var label = new BMap.Label(this.formatLabel(vm.clData[i].clmc), { offset: new BMap.Size(-20, 25) });
                     label.setStyle({
+                        opacity:'0.8',
                         fontSize: '12px',
                         fontWeight: 'bold',
                         border: '0',
                         textAlign: 'center',
                         color: '#7BA860',
-                        borderRadius: '5px',
+                        borderRadius: '2px',
                         paddingRight: '110px',
                         paddingTop: '5px',
                         Width: '5px',
@@ -1649,18 +1656,20 @@ var vm = new Vue({
                         map.addOverlay(marker);
                         var label = new BMap.Label(this.formatLabel(vm.smallStation[i].xfzmc), { offset: new BMap.Size(-20, 35) });
                         label.setStyle({
+                            opacity:'0.7',
                             fontSize: '12px',
-                            fontWeight: 'bold',
                             border: '0',
                             textAlign: 'center',
-                            color: '#B094D2',
-                            borderRadius: '5px',
-                            paddingRight: '110px',
-                            paddingTop: '5px',
+                            color: '#fff',
+                            borderRadius: '2px',
+                            paddingRight: '60px',
+                            paddingTop: '2px',
+                            paddingLeft: '10px',
                             Width: '5px',
+                            background:'#5963A0',
                             display: 'inline-block',
-                            paddingRight: '80px',
-                            marginLeft: '-9px',
+                            paddingRight: '70px',
+                            marginLeft: '0px',
                         });
                         marker.setLabel(label); wx.push(marker);
                     }
@@ -1669,8 +1678,7 @@ var vm = new Vue({
                 } else {
                     vm.hideMarker(vm.wx);
                     document.getElementById("wx").value = "1";
-                }
-                
+                }    
             },
             //区域内重点单位全部
             showOverzddw: function () {
@@ -1764,19 +1772,20 @@ var vm = new Vue({
                     });
                     var label = new BMap.Label(this.formatLabel(vm.markerData[i].dwmc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
+                        opacity:'0.7',
                         fontSize: '12px',
-                        opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
                         color: '#fff',
-                        borderRadius: '5px',
-                        paddingRight: '110px',
-                        paddingTop: '2px',
-                        paddingBottom:'2px',
-                        display: 'inline-block',
-                        paddingRight: '80px',
-                        marginLeft: '-9px',
+                        borderRadius: '2px',
+                        paddingRight: '60px',
+                        paddingTop: '1px',
+                        paddingLeft: '3px',
+                        Width: '5px',
                         background:'#356FAE',
+                        display: 'inline-block',
+                        paddingRight: '75px',
+                        marginLeft: '-10px',
                     });
                     marker.setLabel(label);
                     zd.push(marker);
@@ -2140,20 +2149,20 @@ var vm = new Vue({
                     });
                     var label = new BMap.Label(this.formatLabel(zddws[i].dxmc), { offset: new BMap.Size(-15, 35) });
                     label.setStyle({
+                        opacity:'0.7',
                         fontSize: '12px',
-                        opacity: '0.7',
                         border: '0',
                         textAlign: 'center',
                         color: '#fff',
-                        borderRadius: '5px',
-                        paddingRight: '110px',
-                        paddingLeft: '5px',
-                        paddingTop: '2px',
-                        paddingBottom:'2px',
-                        display: 'inline-block',
-                        paddingRight: '80px',
-                        marginLeft: '-9px',
+                        borderRadius: '2px',
+                        paddingRight: '60px',
+                        paddingTop: '1px',
+                        paddingLeft: '3px',
+                        Width: '5px',
                         background:'#356FAE',
+                        display: 'inline-block',
+                        paddingRight: '75px',
+                        marginLeft: '-10px',
                     });
                     marker.setLabel(label);
                     zddwp.push(marker);
