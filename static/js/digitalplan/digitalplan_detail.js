@@ -106,7 +106,7 @@ new Vue({
 
                 // this.fileList = [{
                 //     name: res.data.result[0].wjm,
-                //     url: "http://10.119.119.112:8090/upload/" + res.data.result[0].xzlj
+                //     url: "http://localhost:8090/upload/" + res.data.result[0].xzlj
                 // }]
                 // }
 
@@ -154,10 +154,10 @@ new Vue({
                 }
                 if(val=='summary'){
                     if(this.pkid=='dlwd'){
-                        window.open("http://10.119.119.112/dpapi/yafjxz/downTempYa?yawjmc=大连万达-支队级_简版.docx");
+                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达-支队级_简版.docx");
                     }
                     if(this.pkid=='dljy'){
-                        window.open("http://10.119.119.112/dpapi/yafjxz/downTempYa?yawjmc=大连锦源-支队级_简版.docx");
+                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连锦源-支队级_简版.docx");
                     }
                 }
                 
@@ -167,7 +167,7 @@ new Vue({
     },
         //信息分享
         openShare: function (val) {
-            window.open("http://10.119.119.112:8005/planShare/page/" + this.pkid + "/" + val + "/web");
+            window.open("http://localhost:8005/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         downShare: function () {
 
@@ -188,7 +188,7 @@ new Vue({
             if(this.tpChecked){
                 title+='tp'
             }
-           window.open("http://10.119.119.112:8005/planShare/downWord/" + this.pkid + "/" + title);
+           window.open("http://localhost:8005/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
@@ -201,7 +201,7 @@ new Vue({
                             showClose: true
                         });
                     } else {
-                        window.open("http://10.119.119.112:8090/upload/" + yllj);
+                        window.open("http://localhost:8090/upload/" + yllj);
                     }
                 }.bind(this), function (error) {
                     console.log(error)
@@ -220,7 +220,7 @@ new Vue({
             if (this.fjDetailData > 0) {
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
                     var xzlj = res.data.result[0].xzlj;
-                    window.open("http://10.119.119.112:8090/upload/" + xzlj);
+                    window.open("http://localhost:8090/upload/" + xzlj);
                 }.bind(this), function (error) {
                     console.log(error)
                 })
