@@ -698,7 +698,6 @@ var vm = new Vue({
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>'+'&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
-                    
                     label.setStyle({
                         fontSize: '0.6em',
                         fontWeight: 'bold',
@@ -744,7 +743,6 @@ var vm = new Vue({
                     province.push(marker);
                     map.addOverlay(marker);
                     marker.setLabel(label);
-
                 }
             },
             //图层二
@@ -840,7 +838,7 @@ var vm = new Vue({
                     marker.uuid = zddws[i].uuid;
                     marker.addEventListener("click", function (e) {
                         //显示底部按钮
-                        ShowBtn();
+                        vm.ShowBtn();
                         vm.getZddwxx('', e.target.uuid);
                         vm.removeAllMarkers(vm.circlez);
                         var circlez = [];//清除圆
@@ -1016,9 +1014,16 @@ var vm = new Vue({
                 vm.circle = circle;
             },
             //显示按钮方法
-            // ShowBtn:function (){
-
-            // }
+            ShowBtn:function (){
+                var flag = 0;
+                if(flag==0){
+                    document.getElementById("btn").style.display="block"
+                    flag = 1;
+                }else{
+                    document.getElementById("btn").style.display="none"
+                    flag = 0;
+                }
+            },
             //对水源传参进行画点
             getSysjz: function (sysy) {
                     var syy = [];
