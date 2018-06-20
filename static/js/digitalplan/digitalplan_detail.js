@@ -1,13 +1,13 @@
 //加载面包屑
-window.onload=function(){
+window.onload = function () {
     var type = getQueryString("type");
-    if(type == "GJSS"){
+    if (type == "GJSS") {
         loadBreadcrumb("高级搜索", "预案详情");
-    }else if(type == "YASH"){
+    } else if (type == "YASH") {
         loadBreadcrumb("预案审核", "预案详情");
-    }else if(type == "YAFF"){
+    } else if (type == "YAFF") {
         loadBreadcrumb("预案分发", "预案详情");
-    }else{
+    } else {
         loadBreadcrumb("重点单位预案", "重点单位预案详情");
     }
 }
@@ -25,16 +25,16 @@ new Vue({
             loading: false,
             fileList: [],
             fjDetailData: '',
-             //word模板选择
-             downVisible: false,
-             fmChecked:true,
-             dwjbqkChecked:true,
-             dwjzxxChecked:true,
-             zdbwChecked:true,
-             zqsdChecked:true,
-             tpChecked:true
+            //word模板选择
+            downVisible: false,
+            fmChecked: true,
+            dwjbqkChecked: true,
+            dwjzxxChecked: true,
+            zdbwChecked: true,
+            zqsdChecked: true,
+            tpChecked: true
 
-             ,SelectDownVisible:false
+            , SelectDownVisible: false
         }
     },
     created: function () {
@@ -53,7 +53,7 @@ new Vue({
             console.log(e);
         },
         //根据参数部分和参数名来获取参数值 
-        GetQueryString(name) {
+        GetQueryString: function (name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
@@ -75,7 +75,7 @@ new Vue({
                 } else {
                     this.basicDetailData.shsj = this.dateFormat(this.basicDetailData.shsj);
                 }
-                doFindPhoto("YAJB",this.basicDetailData.yajb);
+                doFindPhoto("YAJB", this.basicDetailData.yajb);
                 this.unitDetail(this.basicDetailData.dxid);
                 this.loading = false;
             }.bind(this), function (error) {
@@ -130,65 +130,63 @@ new Vue({
             var newDate = [year, month, day].join('-');
             return newDate;
         },
-      //选择信息分享模板界面
-      openShareVisible: function () {
-        this.shareVisible = true;
-    },
-    openDownVisible: function () {
-        this.downVisible = true;
-    },
-    openSelectDownVisible: function () {
-        this.SelectDownVisible = true;
-    },  
-    closeShareDialog: function () {
-        this.shareVisible = false;
-    },
-    closeDownDialog: function () {
-        this.downVisible = false;
-    },
-    //信息分享
-    openDown: function (val) {
-               
-                if(val=='detail'){
-                    this.openDownVisible();
+        //选择信息分享模板界面
+        openShareVisible: function () {
+            this.shareVisible = true;
+        },
+        openDownVisible: function () {
+            this.downVisible = true;
+        },
+        openSelectDownVisible: function () {
+            this.SelectDownVisible = true;
+        },
+        closeShareDialog: function () {
+            this.shareVisible = false;
+        },
+        closeDownDialog: function () {
+            this.downVisible = false;
+        },
+        //信息分享
+        openDown: function (val) {
+            if (val == 'detail') {
+                this.openDownVisible();
+            }
+            if (val == 'summary') {
+                if (this.pkid == 'dlwddzd') {
+                    window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
                 }
-                if(val=='summary'){
-                    if(this.pkid=='dlwddzd'){
-                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
-                    }
-                    if(this.pkid=='dljy'){
-                        window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
-                    }
+                if (this.pkid == 'dljy') {
+                    window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
                 }
-                
-            },
-    closeSelectDownDialog: function () {
-        this.SelectDownVisible = false;
-    },
+            }
+        },
+        closeSelectDownDialog: function () {
+            this.SelectDownVisible = false;
+        },
         //信息分享
         openShare: function (val) {
             window.open("http://localhost:8005/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         downShare: function () {
 
-            var title='fm-';
+            var title = 'fm-';
             //单位基本情况
-            if(this.dwjbqkChecked){
-                title+='dwjbqk'+'-'
+            if (this.dwjbqkChecked) {
+                title += 'dwjbqk' + '-'
             }//单位建筑信息和消防设施
-            if(this.dwjzxxChecked){
-                title+='dwjzxx'+'-'
+            if (this.dwjzxxChecked) {
+                title += 'dwjzxx' + '-'
             }//重点部位
-            if(this.zdbwChecked){
-                title+='zdbw'+'-'
+            if (this.zdbwChecked) {
+                title += 'zdbw' + '-'
             }//灾情设定
-            if(this.zqsdChecked){
-                title+='zqsd'+'-'
+            if (this.zqsdChecked) {
+                title += 'zqsd' + '-'
             }//附件
-            if(this.tpChecked){
-                title+='tp'
+            if (this.tpChecked) {
+                title += 'tp'
             }
-           window.open("http://localhost:8005/planShare/downWord/" + this.pkid + "/" + title);
+            window.open("http://localhost:8005/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
@@ -212,8 +210,6 @@ new Vue({
                     showClose: true
                 });
             }
-
-            // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
         },
         //预案下载
         downloadPlan: function () {
@@ -225,29 +221,13 @@ new Vue({
                     console.log(error)
                 })
             } else {
-                if(this.pkid=='dlwddzd'||this.pkid=='dljy'){
+                if (this.pkid == 'dlwddzd' || this.pkid == 'dljy') {
                     this.openSelectDownVisible();
-                }else{
+                } else {
                     this.openDownVisible();
                 }
             }
-
-            // window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.zip");
-        },
-        /**
-        * lxy
-        */
-        submitUpload() {
-            this.$refs.upload.submit();
-        },
-        handleRemove(file, fileList) {
-        },
-        handlePreview(file) {
-        },
-        handleExceed(files, fileList) {
-            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-        },
-
+        }
 
     }
 })
