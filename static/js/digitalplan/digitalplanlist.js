@@ -188,19 +188,30 @@ new Vue({
         },
         //预案删除
         deleteClick: function () {
-            var params = {
-                xgrid: this.role_data.userid,
-                xgrmc: this.role_data.realName
-            }
-            axios.post('/dpapi/digitalplanlist/doDeleteDigitalplan', this.multipleSelection).then(function (res) {
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                var params = {
+                    xgrid: this.role_data.userid,
+                    xgrmc: this.role_data.realName
+                }
+                axios.post('/dpapi/digitalplanlist/doDeleteDigitalplan', this.multipleSelection).then(function (res) {
+                    this.$message({
+                        message: "成功删除" + res.data.result + "条预案",
+                        showClose: true,
+                        onClose: this.searchClick()
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }).catch(() => {
                 this.$message({
-                    message: "成功删除" + res.data.result + "条预案",
-                    showClose: true,
-                    onClose: this.searchClick()
+                    type: 'info',
+                    message: '已取消删除'
                 });
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+            });
         },
 
         //预案预览
