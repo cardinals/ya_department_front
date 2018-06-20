@@ -561,7 +561,7 @@ var vm = new Vue({
             window.parent.frames.location.href="../../templates/digitalplan/digitalplan_approve.html?type=DPYL"+"&index=34";
         }
     },
-    mounted() {
+    mounted: function() {
         // this.echarts1()
         this.echarts2()
         this.echarts3()

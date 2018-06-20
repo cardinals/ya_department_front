@@ -285,7 +285,7 @@ var vm = new Vue({
             b2BarChart.setOption(b2BarChartOption);
         },
     },
-    mounted() {
+    mounted: function () {
         this.t1PieChart();
         this.b1PieChart();
         this.t2BarChart();
