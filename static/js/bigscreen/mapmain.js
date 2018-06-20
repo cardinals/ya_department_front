@@ -935,6 +935,7 @@ var vm = new Vue({
             },
             //点击重点单位事件
             drawMapc: function (zddw) {
+                vm.ShowBtn();
                 //隐藏旧圆
                 var oc = vm.circle;
                 oc.hide();
@@ -1713,6 +1714,7 @@ var vm = new Vue({
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     marker.uuid = uuid;
                     marker.addEventListener("click", function (e) {
+                        vm.ShowBtn();
                         var map = vm.map;
                         vm.removeAllMarkers(vm.circlez);
                         var circlez = [];//清除圆
@@ -2077,6 +2079,7 @@ var vm = new Vue({
                 }
             },
             setPlace: function (data) {
+                vm.ShowBtn();
                 vm.map.clearOverlays();    //清除地图上所有覆盖物
                 var zddws = data;
                 var map = vm.map;
