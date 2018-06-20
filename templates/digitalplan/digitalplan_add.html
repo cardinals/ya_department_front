@@ -335,7 +335,7 @@
 					</el-form>
 				</el-row>
 				<!--选择重点单位界面-->
-				<el-dialog title="选择重点单位" :visible.sync="unitsListVisible" @close="closeDialog_units()" :close-on-click-modal="false">
+				<el-dialog title="选择重点单位" :visible.sync="unitsListVisible" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading_units" element-loading-text="加载中">
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
@@ -371,7 +371,7 @@
 					</div>
 				</el-dialog>
 				<!--选择灾情部位界面-->
-				<el-dialog title="选择灾情部位" :visible.sync="partsListVisible" @close="closeDialog_parts()" :close-on-click-modal="false">
+				<el-dialog title="选择灾情部位" :visible.sync="partsListVisible" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading_parts" element-loading-text="加载中">
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
@@ -407,7 +407,7 @@
 					</div>
 				</el-dialog>
 				<!--选择所属建筑界面-->
-				<el-dialog title="选择所属建筑" :visible.sync="buildingListVisible" @close="closeDialog_building()" :close-on-click-modal="false">
+				<el-dialog title="选择所属建筑" :visible.sync="buildingListVisible" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading_building" element-loading-text="加载中">
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
@@ -443,7 +443,7 @@
 					</div>
 				</el-dialog>
 				<!--选择消防队站界面-->
-				<el-dialog title="选择消防队站" :visible.sync="fireStaListVisible" @close="closeDialog_fireSta()" :close-on-click-modal="false">
+				<el-dialog title="选择消防队站" :visible.sync="fireStaListVisible" :close-on-click-modal="false">
 					<div id="tableView" v-loading="loading_fireSta" element-loading-text="加载中">
 						<el-row>
 							<el-form :inline="true" class="el-form demo-form-inline">
