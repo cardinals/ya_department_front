@@ -1390,7 +1390,7 @@ var vm = new Vue({
                             '</tr>' +
                             '</table>' +
                             '<div class="bbar" style="text-align: center; position: absolute; bottom: 0;width: 100%;height: 32px;text-align: right;">' +
-                            '<b class="btn" onclick="vm.dzxq(\'' + dzid + '\')" style="border-radius:2px;padding:0 7px;background:#5963A0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">详细信息</b>' +
+                            '<b class="btn" onclick="vm.dzxq(\'' + e.target.dzid + '\')" style="border-radius:2px;padding:0 7px;background:#5963A0;font-size:12px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">详细信息</b>' +
                             '</div>' +
                             '<div class="x-clear"></div>' +
                             '</div>'
