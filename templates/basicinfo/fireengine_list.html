@@ -34,7 +34,7 @@
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">车辆类型</label>
 									<el-cascader :options="allTypesData" :props="props" size="small" v-model="searchForm.cllx" placeholder="全部" class="searchSelect"
-									 clearable change-on-select></el-cascader>
+									 clearable change-on-select :show-all-levels="false"></el-cascader>
 								</el-col>
 								<el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
 									<label class="el-form-item__label searchLabel">车牌号码</label>

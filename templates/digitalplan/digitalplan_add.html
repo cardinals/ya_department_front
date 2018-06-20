@@ -84,7 +84,7 @@
 							<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 								<!-- <el-form-item label="预案类型" prop="yalx"> -->
 								<el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="addForm.yalx" placeholder="预案类型" class="searchSelect"
-								 clearable change-on-select></el-cascader>
+								 clearable change-on-select :show-all-levels="false"></el-cascader>
 								<!-- </el-form-item> -->
 							</el-col>
 						</el-row>
@@ -134,7 +134,7 @@
 									</el-col>
 									<el-col :xs="5" :sm="5" :md="5" :lg="5" :xl="5">
 										<el-cascader :options="RSWZ_dataTree" :props="defaultProps" size="small" v-model="domain.rswz" placeholder="燃烧物质" clearable
-										 change-on-select></el-cascader>
+										 change-on-select :show-all-levels="false"></el-cascader>
 									</el-col>
 									<el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">&nbsp;</el-col>
 								</el-row class="tr">

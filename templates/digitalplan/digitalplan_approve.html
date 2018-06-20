@@ -33,7 +33,7 @@
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">预案类型</label>
                                     <el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="searchForm.YALX" placeholder="全部" class="searchSelect"
-                                        clearable change-on-select></el-cascader>
+                                        clearable change-on-select :show-all-levels="false"></el-cascader>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">预案级别</label>
@@ -46,7 +46,7 @@
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">制作机构</label>
                                     <el-cascader :options="ZZJG_dataTree" :props="jgidprops" size="small" v-model="searchForm.ZZJG" placeholder="全部" class="searchSelect"
-                                        clearable change-on-select></el-cascader>
+                                        clearable change-on-select :show-all-levels="false"></el-cascader>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">审核状态</label>
