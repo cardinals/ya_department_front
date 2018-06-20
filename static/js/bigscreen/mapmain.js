@@ -1869,7 +1869,7 @@ var vm = new Vue({
                                 showClose: true,
                             });
                         }else{
-                            this.showPlan(this.planData.yaid_3);
+                            window.open("http://localhost:8005/planShare/page/" + this.planData.yaid_3 +  "/detail/web");
                         }
                     }
                 }.bind(this), function (error) {
