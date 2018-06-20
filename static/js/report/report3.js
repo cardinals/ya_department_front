@@ -293,7 +293,9 @@ var vm = new Vue({
 							.sort(function (a, b) { return a.value - b.value; }),
 						roseType: 'radius',
 						label: {
-							show: false,
+							show: true,
+							position: 'inside',
+							formatter: '({d}%)',
 						},
 						animationType: 'scale',
 						animationEasing: 'elasticOut',
