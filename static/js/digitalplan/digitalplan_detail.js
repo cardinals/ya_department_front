@@ -7,6 +7,8 @@ window.onload = function () {
         loadBreadcrumb("预案审核", "预案详情");
     } else if (type == "YAFF") {
         loadBreadcrumb("预案分发", "预案详情");
+    } else if (type == "ZDDW") {
+        loadBreadcrumb("重点单位详情", "预案详情");
     } else {
         loadBreadcrumb("重点单位预案", "重点单位预案详情");
     }

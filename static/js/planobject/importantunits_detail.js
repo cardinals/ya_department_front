@@ -214,12 +214,14 @@ new Vue({
             selectIndex: -1,
             //编辑界面是否显示
             editFormVisible: false,
-
+            //菜单选中
+            activeIndex: ''
         }
     },
     mounted: function () {
         //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        this.activeIndex = getQueryString("index")
+        $("#activeIndex").val(this.activeIndex);
         //根据重点单位id获取重点单位详情
         this.getDetails();
 
@@ -594,7 +596,7 @@ new Vue({
         },
         //预案详情跳转
         planDetails(val) {
-            window.location.href = "../digitalplan/digitalplan_detail.html?ID=" + val.uuid;
+            window.location.href = "../digitalplan/digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=ZDDW";
             //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
         },
         //发送至邮箱
