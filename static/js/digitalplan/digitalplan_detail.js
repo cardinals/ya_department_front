@@ -20,10 +20,17 @@ new Vue({
             pkid: "",//页面获取的预案id
             shareVisible: false,
             showPicVisible: false,
-            initialIndex:0,
+            initialIndex: 0,
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
             unitDetailData: {},//重点单位Data
+            jzl_zdbwData: [],//建筑类重点部位数据
+            zzl_zdbwData: [],//装置类重点部位数据
+            cgl_zdbwData: [],//储罐类重点部位数据
+            jzfqData:[],//建筑分区原始数据
+            jzl_jzfqData: [],//建筑群-建筑类数据
+            zzl_jzfqData: [],//建筑群-装置类数据
+            cgl_jzfqData: [],//建筑类建筑分区数据
             loading: false,
             picList: [],
             fjDetailData: '',
@@ -97,6 +104,14 @@ new Vue({
         unitDetail: function (val) {
             axios.get('/dpapi/importantunits/' + val).then(function (res) {
                 this.unitDetailData = res.data.result;
+                //根据重点单位id获取建筑类重点部位详情集合
+                this.getJzlListByZddwId();
+                //根据重点单位id获取装置类重点部位详情集合
+                this.getZzlListByZddwId();
+                //根据重点单位id获取储罐类重点部位详情集合
+                this.getCglListByZddwId();
+                //根据重点单位id获取包含的分区详情
+                this.getJzfqDetailByVo();
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -142,9 +157,70 @@ new Vue({
                 }
             ]
         },
+        //图片轮播
         showPic: function (val) {
-            this.showPicVisible=true;
+            this.showPicVisible = true;
             this.initialIndex = val;
+        },
+        //根据重点单位id获取建筑类重点部位详情
+        getJzlListByZddwId: function () {
+            axios.get('/dpapi/importantparts/doFindJzlListByZddwId/' + this.basicDetailData.dxid).then(function (res) {
+                this.jzl_zdbwData = res.data.result;
+                if (this.jzl_zdbwData.length !== 0) {
+                    this.ZDBW = true;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //根据重点单位id获取装置类重点部位详情
+        getZzlListByZddwId: function () {
+            axios.get('/dpapi/importantparts/doFindZzlListByZddwId/' + this.basicDetailData.dxid).then(function (res) {
+                this.zzl_zdbwData = res.data.result;
+                if (this.zzl_zdbwData.length !== 0) {
+                    this.ZDBW = true;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //根据重点单位id获取装置类重点部位详情
+        getCglListByZddwId: function () {
+            axios.get('/dpapi/importantparts/doFindCglListByZddwId/' + this.basicDetailData.dxid).then(function (res) {
+                this.cgl_zdbwData = res.data.result;
+                if (this.cgl_zdbwData.length !== 0) {
+                    this.ZDBW = true;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //根据重点单位id获取建筑分区信息
+        getJzfqDetailByVo: function () {
+            var params = {
+                uuid: this.basicDetailData.dxid,
+            };
+            axios.post('/dpapi/importantunits/doFindBuildingDetailsByVo/', params).then(function (res) {
+                this.jzfqData = res.data.result;
+                if (this.jzfqData.length > 0) {
+                    for (var i = 0; i < this.jzfqData.length; i++) {  //循环LIST
+                        var jzlx = this.jzfqData[i].jzlx;//获取LIST里面的对象
+                        switch (jzlx) {
+                            case "30":
+                                this.zzl_jzfqData.push(this.jzfqData[i]);
+                                break;
+                            case "40":
+                                this.cgl_jzfqData.push(this.jzfqData[i]);
+                                break;
+                            default:
+                                this.jzl_jzfqData.push(this.jzfqData[i]);
+                                break;
+                        };
+                    }
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
         },
         //日期格式化
         dateFormat: function (val) {
