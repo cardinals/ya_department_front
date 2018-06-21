@@ -132,7 +132,7 @@
                 <span class="jwcolor">纬度</span>
                 <input type="text" style="padding:10px;width:91px;border-radius:25px;height: 30px !important;border: 2px solid #F9C520;background: rgba(0,0,0,0.5);color: #fff;" id="lat" />
             </div>
-            <div style="position:fixed;bottom:20px;left: 40%;">
+            <div id="btn"  style="position:fixed;bottom:20px;left: 40%;display:none" >
                 <div id="container">
                     <div id="dock">
                         <ul>
@@ -184,21 +184,21 @@
             </div>
             <!-- 右侧工具 -->
             <div style="width: 230px; position:fixed;top:3px;right: 10px;">
-                <div @click="Reset()" style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success" data-container="body"
-                    data-placement="left" data-content="重置">
+                <div @click="Reset()" style="width:52px;height:52px;margin:2px;"  class="icont"   data-container="body"
+                     data-content="重置"  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="重置按钮">
                     <img src="../../static/images/new/icon_refresh.png" />
                 </div>
-                <div @click="showOverzddw()" style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success"
-                    data-container="body" data-placement="left" data-content="重点单位">
+                <div @click="showOverzddw()" style="width:52px;height:52px;margin:2px;"  class="icont" 
+                    data-container="body"  data-content="重点单位" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="重点单位">
                     <img src="../../static/images/new/icon_unit.png" />
                 </div>
-                <div @click="showOvera()" style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success"
-                    data-container="body" data-placement="left" data-content="水源">
+                <div @click="showOvera()" style="width:52px;height:52px;margin:2px;"  class="icont" 
+                    data-container="body"  data-content="水源"  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="消防水源">
                     <img src="../../static/images/new/icon_water.png" />
                 </div>
                 <div class="dropdown">
-                    <div style="width:52px;height:52px;margin:2px;" class="icont" type="button" class="btn btn-success" type="button" class="btn dropdown-toggle"
-                        id="dropdownMenu1" data-toggle="dropdown">
+                    <div style="width:52px;height:52px;margin:2px;" class="icont"  type="button" class="btn btn-success" type="button" class="btn dropdown-toggle"
+                        id="dropdownMenu1" data-toggle="dropdown" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="重点单位">
                         <img src="../../static/images/new/icon_APP.png" />
                     </div>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="background:rgb(132, 215, 240);width:280px;height:160px;margin-top:60px;margin-left: -60px;">
@@ -248,6 +248,9 @@
             }
         );
     });
+</script>
+<script>
+   $(function () { $("[data-toggle='tooltip']").tooltip(); }); 
 </script>
 <!-- 引入地图 -->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vRjF5BxHdpmTZZfuSzXeV2ZKLNNv7nKn"></script>
