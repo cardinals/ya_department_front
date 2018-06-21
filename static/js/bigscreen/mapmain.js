@@ -760,7 +760,7 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('&nbsp&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.2em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
+                    var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
                     // var labels = new BMap.Label('<span style="color:#fff;">'+citys[i].xzqhmc+'</span>')
                     // labels.setStyle({
                     //     fontSize: '11px',
@@ -776,7 +776,7 @@ var vm = new Vue({
                     //     background:'',
                     // });
                     label.setStyle({
-                        fontSize: '0.7em',
+                        fontSize: '0.6em',
                         fontWeight: 'bold',
                         border: '0',
                         padding: '14px 4px',
@@ -785,7 +785,7 @@ var vm = new Vue({
                         color: '#ED0C0A',
                         borderRadius: '2px',
                         paddingRight: '58px',
-                        marginTop: '23px',
+                        marginTop: '25px',
                         background:'',
                     });
                     marker.setLabel(label);
