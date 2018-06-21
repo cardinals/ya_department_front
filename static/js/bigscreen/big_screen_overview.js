@@ -437,12 +437,12 @@ var vm = new Vue({
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
                 //跳出父框架（iframe）
-                window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=82";
+                window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=92";
             });
         },
         barjump: function () {
             //跳出父框架（iframe）
-            window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=82";
+            window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=92";
         },
         // top10排名柱状图
         echarts5: function () {
@@ -567,12 +567,12 @@ var vm = new Vue({
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
                 //跳出父框架（iframe）
-                window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=81";
+                window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=91";
             });
         },
         top10jump: function () {
           //跳出父框架（iframe）
-          window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=81";
+          window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=91";
         },
         //top10 json串排序
         up: function (x, y) {
