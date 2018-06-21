@@ -34,17 +34,19 @@ var vm = new Vue({
             { name: '山西', value: '2751' },
             { name: '海南', value: '1313' }
         ],
-        scrollData:[
+        scrollData_DSH:[
             {uuid:'1', zddwmc: '辽宁省人民法院',type:'1'},
             {uuid:'2', zddwmc: '辽宁省政府',type:'1'},
-            {uuid:'3', zddwmc: '天津总队',type:'2',count:'34'},
-            {uuid:'4', zddwmc: '辽宁总队',type:'2',count:'43'},
             {uuid:'5', zddwmc: '沈阳市公安局',type:'1'},
-            {uuid:'6', zddwmc: '上海总队',type:'2',count:'266'},
             {uuid:'7', zddwmc: '青岛市塑性加工园',type:'1'},
-            {uuid:'8', zddwmc: '浙江总队',type:'2',count:'15'},
             {uuid:'9', zddwmc: '河北省国土资源厅',type:'1'},
             {uuid:'10', zddwmc: '秦皇岛市林业局',type:'1'}
+        ],
+        scrollData_DGX:[
+            {uuid:'3', zddwmc: '天津总队',type:'2',count:'34'},
+            {uuid:'4', zddwmc: '辽宁总队',type:'2',count:'43'},
+            {uuid:'6', zddwmc: '上海总队',type:'2',count:'266'},
+            {uuid:'8', zddwmc: '浙江总队',type:'2',count:'15'}
         ],
         mapData: [
             {name:'西藏', value:605.83},
@@ -90,7 +92,9 @@ var vm = new Vue({
             {uuid:'8', zddwmc: '泰安市城建局'},
             {uuid:'9', zddwmc: '河北省国土资源厅'},
             {uuid:'10', zddwmc: '秦皇岛市林业局'}
-        ]
+        ],
+        isDSH: true,
+        isDGX: false,
     },
     methods: {
         // 中央下部31总队柱状图
@@ -567,7 +571,24 @@ var vm = new Vue({
         jump: function () {
             //跳出父框架（iframe）
             window.parent.frames.location.href="../../templates/digitalplan/digitalplan_approve.html?type=DPYL"+"&index=34";
-        }
+        },
+        changeTab: function(index){
+            var tabs = document.getElementById('tab-head').getElementsByTagName('h5');
+            for(var i = 0, len = tabs.length; i < len; i++) {
+                if(i === index) {
+                    tabs[i].className = 'selected';
+                }else{
+                    tabs[i].className = '';
+                }
+            }
+            if(index == 0){
+                this.isDSH = true;
+                this.isDGX = false;
+            }else if(index == 1){
+                this.isDSH = false;
+                this.isDGX = true;
+            }
+        },
     },
     mounted: function() {
         // this.echarts1()
