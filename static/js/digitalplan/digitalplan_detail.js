@@ -148,11 +148,11 @@ new Vue({
                     url: "http://localhost:8090/upload/pic/nbpmtB1.png"
                 },
                 {
-                    name: "内部平面图-4层平面图",
-                    url: "http://localhost:8090/upload/pic/nbpmt4.png"
+                    name: "作战部署图-灾情4-车辆部署图",
+                    url: "http://localhost:8090/upload/pic/4clbst.png"
                 },
                 {
-                    name: "作战部署图-灾情4 - 33层力量部署图",
+                    name: "作战部署图-灾情4-33层力量部署图",
                     url: "http://localhost:8090/upload/pic/1clbst.png"
                 }
             ]
