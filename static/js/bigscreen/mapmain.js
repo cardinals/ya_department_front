@@ -189,6 +189,7 @@ var vm = new Vue({
                 })
             },
             shengshiClick: function (data) {
+               
                 var xzqh = data.xzqh;
                 this.searchForm.xzqhmc = data.xzqhmc;
                 this.selqhmc = this.shengshizs;
@@ -737,7 +738,7 @@ var vm = new Vue({
                         var citys = vm.cityp;
                         var map = vm.map;
                         vm.hideMarker(vm.province);
-                        map.centerAndZoom(pt, 7);
+                        map.centerAndZoom(pt, 8);
                     });
                     marker.entity = provinces[i];
                     province.push(marker);
@@ -805,6 +806,7 @@ var vm = new Vue({
                     });
                     //
                     marker.addEventListener("click", function (e) {
+                        vm.loading = true;
                         vm.selqhmc = vm.shengshizs;
                         var zddws = result;
                         //获取点坐标
@@ -929,9 +931,11 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);
                     zddwp.push(marker);
+                    vm.loading = false;
                 };
                 var markerClusterer = vm.markerClusterer;
                 markerClusterer.addMarkers(zddwp);
+                
             },
             //点击重点单位事件
             drawMapc: function (zddw) {
