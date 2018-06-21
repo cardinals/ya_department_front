@@ -21,38 +21,38 @@ var vm = new Vue({
 			},
 			//tabledata
 			tabledata: [
-				{ name: '部局', count: '999',  zongdui: null, zhidui: null, dazhongdui: null },
-				{ name: '北京', count: '2999',  zongdui: '1335', zhidui: '1335', dazhongdui: '3335' },
-				{ name: '天津', count: '1142',  zongdui: '335', zhidui: '335', dazhongdui: '1335' },
-				{ name: '河北', count: '1218',  zongdui: '1035', zhidui: '670', dazhongdui: '6035' },
-				{ name: '山西', count: '1021',  zongdui: '935', zhidui: '1035', dazhongdui: '1935' },
-				{ name: '内蒙古', count: '1455',  zongdui: '335', zhidui: '500', dazhongdui: '1335' },
-				{ name: '辽宁', count: '1919',  zongdui: '1335', zhidui: '670', dazhongdui: '4335' },
-				{ name: '吉林', count: '1299',  zongdui: '335', zhidui: '335', dazhongdui: '1335' },
-				{ name: '黑龙江', count: '1999',  zongdui: '400', zhidui: '500', dazhongdui: '1670' },
-				{ name: '上海', count: '2751',  zongdui: '670', zhidui: '1335', dazhongdui: '1335' },
-				{ name: '江苏', count: '1313',  zongdui: '1335', zhidui: '670', dazhongdui: '1335' },
-				{ name: '浙江', count: '2999',  zongdui: '335', zhidui: '1335', dazhongdui: '1335' },
-				{ name: '安徽', count: '1142',  zongdui: '335', zhidui: '1335', dazhongdui: '1335' },
-				{ name: '福建', count: '1218',  zongdui: '1335', zhidui: '670', dazhongdui: '1670' },
-				{ name: '江西', count: '1021',  zongdui: '670', zhidui: '335', dazhongdui: '3335' },
-				{ name: '山东', count: '1455',  zongdui: '335', zhidui: '670', dazhongdui: '1335' },
-				{ name: '河南', count: '1919',  zongdui: '670', zhidui: '500', dazhongdui: '1335' },
-				{ name: '湖北', count: '1299',  zongdui: '335', zhidui: '670', dazhongdui: '6170' },
-				{ name: '湖南', count: '1999',  zongdui: '1335', zhidui: '500', dazhongdui: '5335' },
-				{ name: '广东', count: '1613',  zongdui: '335', zhidui: '335', dazhongdui: '1335' },
-				{ name: '广西', count: '1313',  zongdui: '400', zhidui: '335', dazhongdui: '4335' },
-				{ name: '海南', count: '2999',  zongdui: '670', zhidui: '670', dazhongdui: '3135' },
-				{ name: '重庆', count: '1142',  zongdui: '335', zhidui: '1335', dazhongdui: '5335' },
-				{ name: '四川', count: '1218',  zongdui: '400', zhidui: '500', dazhongdui: '1670' },
-				{ name: '贵州', count: '1021',  zongdui: '335', zhidui: '1335', dazhongdui: '5335' },
-				{ name: '云南', count: '1455',  zongdui: '670', zhidui: '670', dazhongdui: '1335' },
-				{ name: '西藏', count: '1919',  zongdui: '1335', zhidui: '500', dazhongdui: '1335' },
-				{ name: '陕西', count: '1299',  zongdui: '400', zhidui: '335', dazhongdui: '1335' },
-				{ name: '甘肃', count: '1999',  zongdui: '1335', zhidui: '1335', dazhongdui: '4351' },
-				{ name: '青海', count: '2751',  zongdui: '335', zhidui: '500', dazhongdui: '1670' },
-				{ name: '宁夏', count: '1313',  zongdui: '400', zhidui: '335', dazhongdui: '4335' },
-				{ name: '新疆', count: '1313',  zongdui: '1335', zhidui: '1335', dazhongdui: '1335' }
+				{ name: '公安部消防局', count: '999',  zongdui: null, zhidui: null, dazhongdui: null },
+				{ name: '北京总队', count: '2999',  zongdui: '1335', zhidui: '1335', dazhongdui: '3335' },
+				{ name: '天津总队', count: '1142',  zongdui: '335', zhidui: '335', dazhongdui: '1335' },
+				{ name: '河北总队', count: '1218',  zongdui: '1035', zhidui: '670', dazhongdui: '6035' },
+				{ name: '山西总队', count: '1021',  zongdui: '935', zhidui: '1035', dazhongdui: '1935' },
+				{ name: '内蒙古总队', count: '1455',  zongdui: '335', zhidui: '500', dazhongdui: '1335' },
+				{ name: '辽宁总队', count: '1919',  zongdui: '1335', zhidui: '670', dazhongdui: '4335' },
+				{ name: '吉林总队', count: '1299',  zongdui: '335', zhidui: '335', dazhongdui: '1335' },
+				{ name: '黑龙江总队', count: '1999',  zongdui: '400', zhidui: '500', dazhongdui: '1670' },
+				{ name: '上海总队', count: '2751',  zongdui: '670', zhidui: '1335', dazhongdui: '1335' },
+				{ name: '江苏总队', count: '1313',  zongdui: '1335', zhidui: '670', dazhongdui: '1335' },
+				{ name: '浙江总队', count: '2999',  zongdui: '335', zhidui: '1335', dazhongdui: '1335' },
+				{ name: '安徽总队', count: '1142',  zongdui: '335', zhidui: '1335', dazhongdui: '1335' },
+				{ name: '福建总队', count: '1218',  zongdui: '1335', zhidui: '670', dazhongdui: '1670' },
+				{ name: '江西总队', count: '1021',  zongdui: '670', zhidui: '335', dazhongdui: '3335' },
+				{ name: '山东总队', count: '1455',  zongdui: '335', zhidui: '670', dazhongdui: '1335' },
+				{ name: '河南总队', count: '1919',  zongdui: '670', zhidui: '500', dazhongdui: '1335' },
+				{ name: '湖北总队', count: '1299',  zongdui: '335', zhidui: '670', dazhongdui: '6170' },
+				{ name: '湖南总队', count: '1999',  zongdui: '1335', zhidui: '500', dazhongdui: '5335' },
+				{ name: '广东总队', count: '1613',  zongdui: '335', zhidui: '335', dazhongdui: '1335' },
+				{ name: '广西总队', count: '1313',  zongdui: '400', zhidui: '335', dazhongdui: '4335' },
+				{ name: '海南总队', count: '2999',  zongdui: '670', zhidui: '670', dazhongdui: '3135' },
+				{ name: '重庆总队', count: '1142',  zongdui: '335', zhidui: '1335', dazhongdui: '5335' },
+				{ name: '四川总队', count: '1218',  zongdui: '400', zhidui: '500', dazhongdui: '1670' },
+				{ name: '贵州总队', count: '1021',  zongdui: '335', zhidui: '1335', dazhongdui: '5335' },
+				{ name: '云南总队', count: '1455',  zongdui: '670', zhidui: '670', dazhongdui: '1335' },
+				{ name: '西藏总队', count: '1919',  zongdui: '1335', zhidui: '500', dazhongdui: '1335' },
+				{ name: '陕西总队', count: '1299',  zongdui: '400', zhidui: '335', dazhongdui: '1335' },
+				{ name: '甘肃总队', count: '1999',  zongdui: '1335', zhidui: '1335', dazhongdui: '4351' },
+				{ name: '青海总队', count: '2751',  zongdui: '335', zhidui: '500', dazhongdui: '1670' },
+				{ name: '宁夏总队', count: '1313',  zongdui: '400', zhidui: '335', dazhongdui: '4335' },
+				{ name: '新疆总队', count: '1313',  zongdui: '1335', zhidui: '1335', dazhongdui: '1335' }
 			],
 			//表高度变量
 			tableheight: 1360,
@@ -182,11 +182,11 @@ var vm = new Vue({
 			var list = new Array();
 			if ('name' == column) {
 				for (var i in this.tabledata) {
-					list.push(this.tabledata[i].name)
+					list.push(this.tabledata[i].name.replace('总队',''));
 				}
 			} else if ('buju' == column) {
 				for (var i in this.tabledata) {
-					if ('部局' == this.tabledata[i].name) {
+					if ('公安部消防局' == this.tabledata[i].name) {
 						list.push(this.tabledata[i].count)
 					}
 				}

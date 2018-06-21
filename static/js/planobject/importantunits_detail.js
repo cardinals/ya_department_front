@@ -537,12 +537,60 @@ new Vue({
             })
         },
         //预案预览
-        openPlan: function () {
-            window.open("http://localhost/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/%E7%89%A9%E7%BE%8E%E7%94%9F%E6%B4%BB%E5%B9%BF%E5%9C%BA%E5%8F%8A%E5%9C%B0%E9%93%81%E5%8D%8E%E8%8B%91%E7%AB%99%E4%B8%89%E7%BB%B4%E7%81%AD%E7%81%AB%E9%A2%84%E6%A1%88.html");
+        openPlan: function (val) {
+            if (val.yajb == '03') {
+                window.open("http://localhost:8005/planShare/page/" + val.uuid + "/" + 'detail' + "/web");
+            } else if (val.yajb == '01' || val.yajb == '02') {
+                var fjDate = [];
+                var fjCount = 0;
+                axios.get('/dpapi/yafjxz/doFindByPlanId/' + val.uuid).then(function (res) {
+                    fjDate = res.data.result;
+                    fjCount = fjDate.length;
+                    if (fjCount > 0) {
+                        var yllj = fjDate[0].yllj;
+                        if (yllj == null || yllj == '') {
+                            this.$message({
+                                message: "无可预览文件",
+                                showClose: true
+                            });
+                        } else {
+                            window.open("http://localhost:8090/upload/" + yllj);
+                        }
+                    } else {
+                        this.$message({
+                            message: "该预案无附件",
+                            showClose: true
+                        });
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
         },
         //预案下载
-        downloadPlan: function () {
-            window.open("http://localhost/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
+        downloadPlan: function (val) {
+            if (val.yajb == '03') {
+                if (val.dxid == 'dlwd') {
+                    window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
+                }
+            } else if (val.yajb == '01' || val.yajb == '02') {
+                var fjDate = [];
+                var fjCount = 0;
+                axios.get('/dpapi/yafjxz/doFindByPlanId/' + val.uuid).then(function (res) {
+                    fjDate = res.data.result;
+                    fjCount = fjDate.length;
+                    if (fjCount > 0) {
+                        axios.get('/dpapi/yafjxz/doFindByPlanId/' + val.uuid).then(function (res) {
+                            var xzlj = res.data.result[0].xzlj;
+                            window.open("http://localhost:8090/upload/" + xzlj);
+                        }.bind(this), function (error) {
+                            console.log(error)
+                        })
+                    }
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }
         },
         //预案详情跳转
         planDetails(val) {

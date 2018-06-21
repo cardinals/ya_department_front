@@ -128,16 +128,28 @@
                             <el-row>
 								<el-col :span="20">
 									<el-form-item label="审核状态" prop="shzt">
-										<el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off">
+										<el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off" @change="radioChange">
 										<!--	<el-radio v-for="item in SHZT_data" :label="item.codeValue"></el-radio>-->
                                             <el-radio :label="'01'" disabled><v-text>未审核</v-text></el-radio>
                                             <el-radio :label="'02'"><v-text>未通过</v-text></el-radio>
                                             <el-radio :label="'03'"><v-text>已通过</v-text></el-radio>
                                             <el-radio :label="'99'"><v-text>其他</v-text></el-radio>
                                         </el-radio-group>
-									</el-form-item>
+                                    </el-form-item>
 								</el-col>
-							</el-row>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="20">
+                                    <el-form-item label="审核意见" prop="reserve1">
+                                        <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
+                                            placeholder="请输入内容" v-model="approveForm.reserve1">
+                                        </el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="4">
+                                    <v-text v-show="isReject" style="color: red">&nbsp;*</v-text>
+                                </el-col>
+                            </el-row>
 						</el-form>
 						<div slot="footer" class="dialog-footer">
 							<el-button size="small" @click.native="closeDialog(approveForm)">取消</el-button>

@@ -26,7 +26,8 @@ new Vue({
             },
             //审批表单
             approveForm: {
-                shzt: -1
+                shzt: -1,
+                reserve1:""
             },
             //审批人姓名
             shrmc: "",
@@ -83,6 +84,8 @@ new Vue({
             },
             radio: "",
             data_index: "",
+            //未通过flag
+            isReject:false,
 
         }
     },
@@ -278,32 +281,58 @@ new Vue({
                 console.log(error)
             });
             this.approveForm = Object.assign({}, row);
+            //如果是未通过审核意见显示*代表必填
+            if(this.approveForm.shzt == '02')
+                this.isReject = true;
             this.approveFormVisible = true;
         },
         //保存点击事件
         approveSubmit: function (val) {
-            //审核状态改变才调用后台approveByVO方法
-            if (val.shzt != this.tableData[this.data_index].shzt) {
-                var params = {
-                    shzt: val.shzt,
-                    shrid: this.shrid,
-                    shrmc: this.shrmc,
-                    uuid: this.uuid
-                };
-                //console.log(params);
-                axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
-                    //this.searchClick();
-                    this.tableData[this.data_index].shztmc = res.data.result.shztmc;
-                    this.tableData[this.data_index].shzt = res.data.result.shzt;
-                    this.tableData[this.data_index].yashztButtonType = res.data.result.yashztButtonType;
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-                this.approveFormVisible = false;
-                this.loadingData();
-            } else {
-                this.$alert('当前审核状态未改变');
+            if(this.isReject==true && val.reserve1 == null)
+                this.$message({
+                    message: "请填写审核意见",
+                    type: "error",
+                    showClose: true
+                });
+            else{
+                //审核状态改变才调用后台approveByVO方法
+                if (val.shzt == this.tableData[this.data_index].shzt && val.reserve1 == this.tableData[this.data_index].reserve1) {
+                    this.$message({
+                        message: "审核状态及审核意见未改变",
+                        type: "error",
+                        showClose: true
+                    });
+                } else {
+                    var params = {
+                        shzt: val.shzt,
+                        reserve1: val.reserve1,//审核意见
+                        shrid: this.shrid,
+                        shrmc: this.shrmc,
+                        uuid: this.uuid
+                    };
+                    //console.log(params);
+                    axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
+                        //this.searchClick();
+                        this.tableData[this.data_index].shztmc = res.data.result.shztmc;
+                        this.tableData[this.data_index].shzt = res.data.result.shzt;
+                        this.tableData[this.data_index].yashztButtonType = res.data.result.yashztButtonType;
+                        this.tableData[this.data_index].reserve1 = res.data.result.reserve1;
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    })
+                    this.approveFormVisible = false;
+                    this.loadingData();
+                }
+
             }
+  
+        },
+        //审核状态为未通过时审核意见显示*代表必填
+        radioChange:function(){
+            if(this.approveForm.shzt == '02')
+                this.isReject = true;
+            else
+                this.isReject = false;
         },
     },
 

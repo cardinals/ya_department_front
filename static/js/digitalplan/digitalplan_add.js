@@ -186,21 +186,21 @@ new Vue({
     },
     methods: {
         //灾情删除
-        removeDomain(item) {
+        removeDomain:function(item) {
             var index = this.dynamicValidateForm.indexOf(item)
             if (index !== -1) {
                 this.dynamicValidateForm.splice(index, 1)
             }
         },
         //力量部署删除
-        removellbs(item, num) {
+        removellbs:function(item, num) {
             var index = this.dynamicValidateForm[num].forcedevList.indexOf(item)
             if (index !== -1) {
                 this.dynamicValidateForm[num].forcedevList.splice(index, 1)
             }
         },
         //灾情增加
-        addDomain() {
+        addDomain:function() {
             this.dynamicValidateForm.push({
                 zqbw: '',
                 zdbwid: '',
@@ -224,7 +224,7 @@ new Vue({
             });
         },
         //力量部署增加
-        addDomainllbs(val) {
+        addDomainllbs:function(val) {
             this.dynamicValidateForm[val].forcedevList.push({
                 dzid: '',
                 dzmc: '',
@@ -826,11 +826,11 @@ new Vue({
             // });
         },
         //附件上传
-        submitUpload() {
+        submitUpload:function() {
             this.$refs.upload.submit();
         },
         //附件上传成功回调方法
-        handleSuccess(response, file, fileList) {
+        handleSuccess:function(response, file, fileList) {
             if (response) {
                 this.$message({
                     message: "成功保存预案信息",
@@ -841,7 +841,7 @@ new Vue({
             window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
         },
         //附件移除
-        handleRemove(file, fileList) {
+        handleRemove:function(file, fileList) {
             var fs = document.getElementsByName('file');
             if (fs.length > 0) {
                 fs[0].value = null
@@ -849,7 +849,7 @@ new Vue({
             console.log(file, fileList);
             this.isFile = false;
         },
-        handlePreview(file) {
+        handlePreview:function(file) {
             console.log(file);
         },
         handleChange: function (file, fileList) {
