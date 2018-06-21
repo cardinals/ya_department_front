@@ -696,7 +696,7 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>'+'&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>');
+                    var label = new BMap.Label('&nbsp<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>'+'&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>');
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '0.6em',
@@ -737,7 +737,7 @@ var vm = new Vue({
                         var citys = vm.cityp;
                         var map = vm.map;
                         vm.hideMarker(vm.province);
-                        map.centerAndZoom(pt, 8);
+                        map.centerAndZoom(pt, 7);
                     });
                     marker.entity = provinces[i];
                     province.push(marker);
@@ -759,7 +759,7 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.2em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
+                    var label = new BMap.Label('&nbsp&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.2em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
                     // var labels = new BMap.Label('<span style="color:#fff;">'+citys[i].xzqhmc+'</span>')
                     // labels.setStyle({
                     //     fontSize: '11px',
@@ -849,7 +849,7 @@ var vm = new Vue({
                         for (var i = 0; i < zddws.length; i++) {
                             if (e.target.uuid == zddws[i].uuid) {
                                 this.infoData = (zddws[i].dwmc != null ? zddws[i].dwmc : '无');
-                                this.dwdzData = (zddws[i].dwdz != null ? zddws[i].dwdz : '无');
+                                this.dwdzData = (zddws[i].dwdz != null ? zddws[i].dwdz : '重点单位地址:无');
                                 this.xfzrrData = (zddws[i].xfzrr != null ? zddws[i].xfzrr : '无');
                                 this.zbdhData = (zddws[i].zbdh != null ? zddws[i].zbdh : '无');
                                 this.fhdjData = (zddws[i].fhdj != null ? zddws[i].fhdj : '无');
@@ -943,7 +943,7 @@ var vm = new Vue({
                 var map = vm.map;
                 map.centerAndZoom(pt, 16);//防止跳回聚合
                 this.infoData = (zddw.dwmc != null ? zddw.dwmc : '无');
-                this.dwdzData = (zddw.dwdz != null ? zddw.dwdz : '无');
+                this.dwdzData = (zddw.dwdz != null ? zddw.dwdz : '重点单位:无');
                 this.xfzrrData = (zddw.xfzrr != null ? zddw.xfzrr : '无');
                 this.zbdhData = (zddw.zbdh != null ? zddw.zbdh : '无');
                 this.fhdjData = (zddw.fhdj != null ? zddw.fhdj : '无');
@@ -1065,7 +1065,7 @@ var vm = new Vue({
                             '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                             this.symcData +
                             '</div>' +
-                            '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:400px;white-space: normal;">' +
                             '<tr>' +
                             '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>水源类型：</strong>' + this.sylxmcData + '</td>' +
                             '</tr>' +
@@ -1150,16 +1150,16 @@ var vm = new Vue({
                         this.dzmcData = (dzdz.dzmc != null ? dzdz.dzmc : '无');
                         this.lxdhData = (dzdz.lxdh != null ? dzdz.lxdh : '无');
                         this.dzjcData = (dzdz.dzjc != null ? dzdz.dzjc : '无');
-                        this.dzdzData = (dzdz.dzdz != null ? dzdz.dzdz : '无');
+                        this.dzdzData = (dzdz.dzdz != null ? dzdz.dzdz : '消防队站地址:无');
                         var dzcontent =
-                            '<div class="app-map-infowindow zddw-infowindow" style="height:215px;background-image: url(../../static/images/maptool/zqzd_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/maptool/zqzd_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                             '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
                             this.dzmcData +
                             '</h3>' +
                             '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                             this.dzdzData +
                             '</div>' +
-                            '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:400px;white-space: normal;">' +
                             '<tr>' +
                             '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>队站类型：</strong>' + this.dzlxmcData + '</td>' +
                             '</tr>' +
@@ -1226,18 +1226,18 @@ var vm = new Vue({
                     // map.centerAndZoom(pt, 10);
                         this.clmcData = (clcl.clmc != null ? clcl.clmc : '无');
                         this.cllxData = (clcl.cllx != null ? clcl.cllx : '无');
-                        this.cldzData = (clcl.cldz != null ? clcl.cldz : '无');
+                        this.cldzData = (clcl.cldz != null ? clcl.cldz : '消防车辆地址:无');
                         this.clztData = (clcl.clzt != null ? clcl.clzt : '无');
                         
                         var clcontent =
-                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/new/cl41.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/cl41.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
                         this.clmcData +         
                         '</h3>' +
                         '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                         this.cldzData +
                         '</div>' +
-                        '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                        '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:400px;white-space: normal;">' +
                         '<tr>' +
                         '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆类型：</strong>'+this.cllxData+'</td>' +
                         '</tr>' +
@@ -1376,18 +1376,18 @@ var vm = new Vue({
                                 this.dzmcData = (vm.dzData[i].dzmc != null ? vm.dzData[i].dzmc : '无');
                                 this.lxdhData = (vm.dzData[i].lxdh != null ? vm.dzData[i].lxdh : '无');
                                 this.dzjcData = (vm.dzData[i].dzjc != null ? vm.dzData[i].dzjc : '无');
-                                this.dzdzData = (vm.dzData[i].dzdz != null ? vm.dzData[i].dzdz : '无');
+                                this.dzdzData = (vm.dzData[i].dzdz != null ? vm.dzData[i].dzdz : '消防队站地址:无');
                             }
                         }
                         var dzcontent =
-                            '<div class="app-map-infowindow zddw-infowindow" style="height:215px;background-image: url(../../static/images/maptool/zqzd_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/maptool/zqzd_back.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                             '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
                             this.dzmcData +
                             '</h3>' +
                             '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                             this.dzdzData +
                             '</div>' +
-                            '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:400px;white-space: normal;">' +
                             '<tr>' +
                             '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>队站类型：</strong>' + this.dzlxmcData + '</td>' +
                             '</tr>' +
@@ -1495,7 +1495,7 @@ var vm = new Vue({
                             '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                             this.symcData +
                             '</div>' +
-                            '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:400px;white-space: normal;">' +
                             '<tr>' +
                             '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>水源类型：</strong>' + this.sylxmcData + '</td>' +
                             '</tr>' +
@@ -1581,23 +1581,21 @@ var vm = new Vue({
                         // map.centerAndZoom(pt, 10);
                         for(var i = 0 ;i<vm.clData.length;i++){
                             if(e.target.uuid == vm.clData[i].uuid){
-                               
                                 this.clmcData = (vm.clData[i].clmc != null ? vm.clData[i].clmc : '无');
                                 this.cllxData = (vm.clData[i].cllx != null ? vm.clData[i].cllx : '无');
-                                this.cldzData = (vm.clData[i].cldz != null ? vm.clData[i].cldz : '无');
+                                this.cldzData = (vm.clData[i].cldz != null ? vm.clData[i].cldz : '消防车辆地址:无');
                                 this.clztData = (vm.clData[i].clzt != null ? vm.clData[i].clzt : '无');
-
                             }
                         }
                         var clcontent =
-                        '<div class="app-map-infowindow zddw-infowindow" style="height:235px;background-image: url(../../static/images/new/cl41.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/cl41.png);min-height: 184px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;">' +
                         this.clmcData +         
                         '</h3>' +
                         '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
                         this.cldzData +
                         '</div>' +
-                        '<table cellpadding="0" cellspacing="0" class="content" style="height:150px; width:400px;white-space: normal;">' +
+                        '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:400px;white-space: normal;">' +
                         '<tr>' +
                         '<td style="padding: 4px;font-size: 14px;" colspan="2"><strong>车辆类型：</strong>'+this.cllxData+'</td>' +
                         '</tr>' +
@@ -1724,7 +1722,7 @@ var vm = new Vue({
                         for (var i = 0; i < vm.markerData.length; i++) {
                             if (e.target.uuid == vm.markerData[i].uuid) {
                                 this.infoData = (vm.markerData[i].dwmc != null ? vm.markerData[i].dwmc : '无');
-                                this.dwdzData = (vm.markerData[i].dwdz != null ? vm.markerData[i].dwdz : '无');
+                                this.dwdzData = (vm.markerData[i].dwdz != null ? vm.markerData[i].dwdz : '重点单位地址:无');
                                 this.xfzrrData = (vm.markerData[i].xfzrr != null ? vm.markerData[i].xfzrr : '无');
                                 this.zbdhData = (vm.markerData[i].zbdh != null ? vm.markerData[i].zbdh : '无');
                                 this.fhdjData = (vm.markerData[i].fhdj != null ? vm.markerData[i].fhdj : '无');
@@ -2116,7 +2114,7 @@ var vm = new Vue({
                         for (var i = 0; i < zddws.length; i++) {
                             if (e.target.uuid == zddws[i].uuid) {
                                 this.infoData = (zddws[i].dxmc != null ? zddws[i].dxmc : '无');
-                                this.dwdzData = (zddws[i].dxdz != null ? zddws[i].dxdz : '无');
+                                this.dwdzData = (zddws[i].dxdz != null ? zddws[i].dxdz : '重点单位地址:无');
                                 this.xfzrrData = (zddws[i].xfzrr != null ? zddws[i].xfzrr : '无');
                                 this.zbdhData = (zddws[i].zbdh != null ? zddws[i].zbdh : '无');
                                 this.fhdjData = (zddws[i].fhdj != null ? zddws[i].fhdj : '无');

@@ -26,3 +26,27 @@ dl {
 .btngroup>img:hover{
     cursor:pointer
 }
+.picList:hover{
+    cursor:pointer;
+    color: #20a0ff;
+}
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 200px;
+    margin: 0;
+  }
+  
+  .el-carousel__item:nth-child(2n) {
+    /* background-color: #99a9bf; */
+    background-color: rgba(255,255,255,0.2);
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    /* background-color: #d3dce6; */
+    background-color: rgba(255,255,255,0.2);
+  }
+  .el-dialog--large{
+    background-color: rgba(255,255,255,0.2);
+}
