@@ -66,7 +66,7 @@
                                     <el-col :span="12" class="btnEditDelete">
                                         <el-form-item align="left">
                                             <el-button type="primary" icon="plus" size="small" @click="addClick">新增</el-button>
-                                            <el-button type="danger" icon="delete2" size="small" @click="deleteClick">删除</el-button>  
+                                            <el-button type="danger" icon="delete2" size="small" @click="deleteClick">删除</el-button>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :span="12"></el-col>
@@ -81,10 +81,8 @@
                         </el-form>
                     </el-row>
                     <div class="table_container">
-                        <el-table id="table" border class="tableStyle" :height="tableheight"
-                                ref="multipleTable"
-                                :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
-                                @selection-change="selectionChange">
+                        <el-table id="table" border class="tableStyle" :height="tableheight" ref="multipleTable" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                            @selection-change="selectionChange">
                             <el-table-column type="selection" width="45"></el-table-column>
                             <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
                             <el-table-column prop="yamc" label="预案名称" show-overflow-tooltip min-width="20%" align="center" :formatter="dataFormat">
@@ -96,7 +94,17 @@
                             <el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
                             <el-table-column prop="yajbmc" label="预案级别" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
                             <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="yaztmc" label="预案状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="yaztmc" label="预案状态" show-overflow-tooltip min-width="10%" align="center" :formatter="dataFormat">
+                                <template slot-scope="scope">
+                                    <el-popover placement="bottom" width="100" trigger="click" v-if="scope.row.reserve1!=null && scope.row.reserve1!=''">
+                                        <el-row>审核意见:
+                                            <v-text v-text="scope.row.reserve1"></v-text>
+                                        </el-row>
+                                        <a type="text" slot="reference" v-text="scope.row.yaztmc"></a>
+                                    </el-popover>
+                                    <v-text v-else v-text="scope.row.yaztmc"></v-text>
+                                </template>
+                            </el-table-column>
                             <el-table-column label="操作" min-width="8%" align="center">
                                 <template slot-scope="scope">
                                     <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
