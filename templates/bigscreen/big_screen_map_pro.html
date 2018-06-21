@@ -109,12 +109,12 @@
                             {{searchSource}}
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" style="margin-top:5px;background:rgb(132, 215, 240);">
+                        <ul class="dropdown-menu" style="margin-top:5px;background:rgba(89,99,160,0.7);color: #fff;">
                             <li>
-                                <a href="#" @click="showSuggestId()">搜索百度库</a>
+                                <a href="#" @click="showSuggestId()" style="color:rgb(246, 250, 0);">搜索百度库</a>
                             </li>
                             <li>
-                                <a href="#" @click="showAdvancedId()">搜索消防库</a>
+                                <a href="#" @click="showAdvancedId()" style="color: rgb(246, 250, 0);">搜索消防库</a>
                             </li>
                         </ul>
                     </div>
@@ -201,7 +201,7 @@
                         id="dropdownMenu1" data-toggle="dropdown" type="button">
                         <img src="../../static/images/new/icon_APP.png" / data-toggle="tooltip" data-placement="bottom" title="地图切换">
                     </div>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="background:rgb(132, 215, 240);width:280px;height:160px;margin-top:60px;margin-left: -60px;">
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="background:rgba(89, 99, 160,0.7);width:280px;height:160px;margin-top:60px;margin-left: -60px;">
                         <li role="presentation" style="margin:8px;font-weight:bold;font-family:'微软雅黑';">选项
                             <a style="color: #000;margin-top:9px;" class="glyphicon glyphicon-remove btn form-control-feedback" style="pointer-events: auto"></a>
                         </li>
@@ -215,17 +215,17 @@
                             <div @click="EwOver()" style="width:60px;height:68px;margin:8px;margin-left:25px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_2d_btn.png" />
-                                <p style="color:#757575">平面图</p>
+                                <p style="color:#d1d1d1">平面图</p>
                             </div>
                             <div @click="WxOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_satellite_btn.png" />
-                                <p style="color:#757575">卫星图</p>
+                                <p style="color:#d1d1d1">卫星图</p>
                             </div>
                             <div style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_3d_btn.png" />
-                                <p style="color:#757575">三维图</p>
+                                <p style="color:#d1d1d1">三维图</p>
                             </div>
                         </li>
                     </ul>

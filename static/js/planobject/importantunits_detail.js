@@ -529,7 +529,11 @@ new Vue({
                 dxid: this.uuid,
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
-                this.yaData = res.data.result;
+                var tempData = res.data.result;
+                for(var i=0;i<tempData.length;i++){
+                    tempData[i].zzsj = tempData[i].zzsj.substring(0,10);
+                }
+                this.yaData = tempData;
                 if (this.yaData.length !== 0) {
                     this.YA = true;
                 }
