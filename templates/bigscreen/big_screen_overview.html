@@ -25,6 +25,17 @@
 		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 		box-sizing: border-box;
 	}
+	h5 {
+        width: 60px;
+        height: 25px;
+        margin: 0;
+        float: left;
+		text-align: center;
+		color: slategrey;
+	}
+	.selected {
+        color: white;
+    }
 </style>
 
 <body class="fw map-bg">
@@ -76,7 +87,8 @@
 					</div>
 				</div> -->
 				<div class="application-div h40 p5">
-					<div class="application-text map-bg2">
+					<!--
+						<div class="application-text map-bg2">
 						<div class="application-subtitle l">预案提醒</div>
 						<div class="application-subtitle" style="position: absolute;text-align:right;"><a href="#" @click="jump()">更多</a></div>
 						<div class="application-boxs flex pl10 pr10 pb10">
@@ -84,7 +96,7 @@
 								<ul>
 									<li v-for="data in scrollData">
 										<!-- <a href="../digitalplan/digitalplan_approve.html" v-text="data.zddwmc"></a> -->
-										<a href="#" @click="jump()" style="color:#29bb9d;" v-text="data.zddwmc"></a>
+						<!--				<a href="#" @click="jump()" style="color:#29bb9d;" v-text="data.zddwmc"></a>
 										<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审核'"></div>
 										<div style="color:#fdc107;" v-if="data.type == '2'" v-text="'待更新'+ data.count"></div>
 									</li>
@@ -102,6 +114,35 @@
 											<a class="tagc2" v-text="'河北省国土资源厅'"></a>
 											<a class="tagc1" v-text="'秦皇岛市林业局'"></a>
 										</div> -->
+				<!--		</div>
+					</div>
+					-->
+					<div class="application-text map-bg2">
+						<div class="application-subtitle l" id="tab-head">
+							<h5 id="tab1" @click="changeTab(0)" class="selected">待审核</h2>
+							<h5 id="tab2" @click="changeTab(1)">待更新</h2>
+						</div>
+							
+						<div class="application-boxs flex pl10 pr10 pb10" v-if="isDSH">
+							<div id="scroll" class="application-text">
+								<ul>
+									<li v-for="data in scrollData_DSH">
+										<a href="#" @click="jump()" style="color:#29bb9d;" v-text="data.zddwmc"></a>
+										<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审核'"></div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="application-boxs flex pl10 pr10 pb10" v-if="isDGX">
+								<div id="scroll" class="application-text">
+									<ul>
+										<li v-for="data in scrollData_DGX">
+											<a style="color:#29bb9d;text-decoration:none; " v-text="data.zddwmc"></a>
+											<div style="color:#fdc107;" v-if="data.type == '2'" v-text="'待更新'+ data.count"></div>
+										</li>
+									</ul>
+								</div>
 						</div>
 					</div>
 				</div>
