@@ -21,6 +21,7 @@ new Vue({
             shareVisible: false,
             showPicVisible: false,
             initialIndex: 0,
+            picTitle:'',
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
             unitDetailData: {},//重点单位Data
@@ -157,10 +158,19 @@ new Vue({
                 }
             ]
         },
+        successClose: function () {
+            // debugger
+            this.initialIndex = 0;
+        },
         //图片轮播
         showPic: function (val) {
-            this.showPicVisible = true;
+            // debugger
             this.initialIndex = val;
+            this.showPicVisible = true;
+            // this.initialIndex = val;
+        },
+        picTitleChange: function(index,index1){
+            this.picTitle=this.picList[index].name;
         },
         //根据重点单位id获取建筑类重点部位详情
         getJzlListByZddwId: function () {

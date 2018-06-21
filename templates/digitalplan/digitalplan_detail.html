@@ -1045,10 +1045,11 @@
                     </div>
                 </div>
                 <!--图片轮播界面-->
-                <el-dialog :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
+                <el-dialog :title="picTitle" :visible.sync="showPicVisible" :close-on-click-modal="false" size="large" @close="successClose">
                     <template>
-                        <el-carousel :interval="4000" type="card" height="350px" :initial-index="initialIndex" :autoplay="false" arrow="always" indicator-position="none">
-                            <el-carousel-item v-for="item in picList" >
+                        <el-carousel type="card" height="350px" :initial-index="initialIndex" :autoplay="false" arrow="always" indicator-position="none"
+                            @change="picTitleChange">
+                            <el-carousel-item v-for="item in picList">
                                 <img :src="item.url" height="100%"></img>
                             </el-carousel-item>
                         </el-carousel>
