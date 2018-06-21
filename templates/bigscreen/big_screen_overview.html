@@ -85,7 +85,7 @@
 									<li v-for="data in scrollData">
 										<!-- <a href="../digitalplan/digitalplan_approve.html" v-text="data.zddwmc"></a> -->
 										<a href="#" @click="jump()" style="color:#29bb9d;" v-text="data.zddwmc"></a>
-										<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审批'"></div>
+										<div style="color:#ff6364;" v-if="data.type == '1'" v-text="'待审核'"></div>
 										<div style="color:#fdc107;" v-if="data.type == '2'" v-text="'待更新'+ data.count"></div>
 									</li>
 								</ul>
