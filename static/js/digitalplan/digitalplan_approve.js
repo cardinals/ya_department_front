@@ -291,13 +291,17 @@ new Vue({
             if(this.isReject==true && val.reserve1 == null)
                 this.$message({
                     message: "请填写审核意见",
-                    type: "warning",
+                    type: "error",
                     showClose: true
                 });
             else{
                 //审核状态改变才调用后台approveByVO方法
                 if (val.shzt == this.tableData[this.data_index].shzt && val.reserve1 == this.tableData[this.data_index].reserve1) {
-                    this.$alert('当前审核状态未改变');
+                    this.$message({
+                        message: "审核状态及审核意见未改变",
+                        type: "error",
+                        showClose: true
+                    });
                 } else {
                     var params = {
                         shzt: val.shzt,
