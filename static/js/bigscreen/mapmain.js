@@ -737,7 +737,7 @@ var vm = new Vue({
                         var citys = vm.cityp;
                         var map = vm.map;
                         vm.hideMarker(vm.province);
-                        map.centerAndZoom(pt, 8);
+                        map.centerAndZoom(pt, 7);
                     });
                     marker.entity = provinces[i];
                     province.push(marker);
