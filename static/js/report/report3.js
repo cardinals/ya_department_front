@@ -269,7 +269,7 @@ var vm = new Vue({
 				},
 				legend: {
 					orient: 'vertical',
-					x: '50%',
+					x: '68%',
 					y: 'center',
 					// padding: [
 					// 	0,  // 上
@@ -288,14 +288,18 @@ var vm = new Vue({
 						name: this.pieTitle,
 						type: 'pie',
 						radius: '55%',
-						center: ['25%', '50%'],
+						center: ['35%', '50%'],
 						data: this.pieData
 							.sort(function (a, b) { return a.value - b.value; }),
 						roseType: 'radius',
 						label: {
 							show: true,
-							position: 'inside',
-							formatter: '({d}%)',
+							// position: 'inside',
+							formatter: '{d}%',
+						},
+						labelLine: {
+							show: true,
+							length: 5
 						},
 						animationType: 'scale',
 						animationEasing: 'elasticOut',
