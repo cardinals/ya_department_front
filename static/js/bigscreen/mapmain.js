@@ -697,7 +697,31 @@ var vm = new Vue({
                 for (var i = 0; i < provinces.length; i++) {
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('&nbsp<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>'+'&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>');
+                    //判断字段长度改变样式
+                    var labelstr="";
+                    var mclen=provinces[i].xzqhmc.length;
+                    var sllen=provinces[i].zddwsl.length;
+
+                    if(mclen==4){
+                        labelstr='&nbsp<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>';
+                    }else{
+                        labelstr='<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>';
+                    }
+
+                    if(sllen==4){
+                        labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>';
+                    }else{
+                        labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>';
+                    }
+                    if(mclen==5&&sllen==5){
+                        labelstr='<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>';
+                        labelstr+='&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>';
+                    }
+
+
+                    var label = new BMap.Label(labelstr);
+                   
+                   
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '0.6em',
@@ -1908,7 +1932,7 @@ var vm = new Vue({
             },
             //水源详情跳转
             syxq:function(params){
-                window.location.href = "../basicinfo/firewater_list.html?uuid=" + params+"&sydj=1"+"&index=61"+"&type=DT";
+                window.location.href = "../basicinfo/firewater_list.html?uuid=" + params+"&sydj=1"+"&index=71"+"&type=DT";
             },
             //队站详情跳转
             dzxq:function(dzparams){
