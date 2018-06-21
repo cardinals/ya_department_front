@@ -19,11 +19,13 @@ new Vue({
 
             pkid: "",//页面获取的预案id
             shareVisible: false,
+            showPicVisible: false,
+            initialIndex:0,
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
             unitDetailData: {},//重点单位Data
             loading: false,
-            fileList: [],
+            picList: [],
             fjDetailData: '',
             //word模板选择
             downVisible: false,
@@ -45,6 +47,7 @@ new Vue({
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
         this.fjDetail(this.pkid);
+        this.picDetail();
     },
 
     methods: {
@@ -113,6 +116,35 @@ new Vue({
             }.bind(this), function (error) {
                 console.log(error)
             })
+        },
+        //图片查询
+        picDetail: function () {
+            this.picList = [
+                {
+                    name: "实景照片-万达中心",
+                    url: "http://localhost:8090/upload/pic/sjtp.png"
+                },
+                {
+                    name: "总平面图-万达中心",
+                    url: "http://localhost:8090/upload/pic/zpmt.png"
+                },
+                {
+                    name: "内部平面图-B1层平面图",
+                    url: "http://localhost:8090/upload/pic/nbpmtB1.png"
+                },
+                {
+                    name: "内部平面图-4层平面图",
+                    url: "http://localhost:8090/upload/pic/nbpmt4.png"
+                },
+                {
+                    name: "作战部署图-灾情4 - 33层力量部署图",
+                    url: "http://localhost:8090/upload/pic/1clbst.png"
+                }
+            ]
+        },
+        showPic: function (val) {
+            this.showPicVisible=true;
+            this.initialIndex = val;
         },
         //日期格式化
         dateFormat: function (val) {
