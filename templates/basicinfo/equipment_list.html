@@ -93,12 +93,12 @@
 								<template slot-scope="scope">
 									<el-popover placement="bottom" width="100" trigger="click" ref="popover2">
 										<div :data="scope.row">
-											<el-row>库存数量（可用）: {{scope.row.kysl}}</el-row>
-											<el-row>库存数量（损坏）: {{scope.row.shsl}}</el-row>
-											<el-row>装载数量: {{scope.row.zzsl}}</el-row>
+											<el-row>库存数量（可用）: <v-text v-text="scope.row.kysl"></v-text></el-row>
+											<el-row>库存数量（损坏）: <v-text v-text="scope.row.shsl"></v-text></el-row>
+											<el-row>装载数量: <v-text v-text="scope.row.zzsl"></v-text></el-row>
 										</div>
 									</el-popover>
-									<a type="text" v-popover:popover2>{{scope.row.zcbl}}</a>
+									<a type="text" v-popover:popover2 v-text="scope.row.zcbl"></a>
 								</template>
 							</el-table-column>
 						</el-table>
