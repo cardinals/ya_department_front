@@ -577,7 +577,7 @@ new Vue({
         downloadPlan: function (val) {
             if (val.yajb == '03') {
                 if (val.dxid == 'dlwd') {
-                    window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
+                    window.open("http://localhost:80/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
                 }
             } else if (val.yajb == '01' || val.yajb == '02') {
                 var fjDate = [];

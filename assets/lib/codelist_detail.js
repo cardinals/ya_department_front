@@ -200,7 +200,7 @@ new Vue({
             //  pageSize: this.pageSize,
             //  pageNum: this.currentPage
         }
-        axios.post('http://localhost/codelist/detail//findByVO', params).then(function(res){
+        axios.post('http://localhost:80/codelist/detail//findByVO', params).then(function(res){
             this.tableData = res.data.result;
             this.total = res.data.result.length;
         }.bind(this),function(error){

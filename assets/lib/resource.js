@@ -84,7 +84,7 @@ new Vue({
             createTimeEnd: this.searchForm.endtime_create
         };
 
-        axios.post('http://localhost/codelist/findByVO', params).then(function(res){
+        axios.post('http://localhost:80/codelist/findByVO', params).then(function(res){
             this.tableData = res.data.result;
             // this.total = res.data.result.length;
             this.total = this.tableData.length;

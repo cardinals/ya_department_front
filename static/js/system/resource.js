@@ -46,14 +46,14 @@ var vm = new Vue({
         };
       },
       mounted:function(){
-        axios.get('http://localhost/api/resource/getAll').then(function(res){
+        axios.get('http://localhost:80/api/resource/getAll').then(function(res){
             this.tableData = res.data.result;
         }.bind(this),function(error){
             console.log(error)
         }),
         this.total = this.tableData.length;
         
-        // axios.get('http://localhost/api/role/getRole/{userid}').then(function(res){
+        // axios.get('http://localhost:80/api/role/getRole/{userid}').then(function(res){
         //     console.log(res.data.result);
         //     this.tableData = res.data.result;
         // }.bind(this),function(error){
