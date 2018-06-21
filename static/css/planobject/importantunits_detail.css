@@ -40,15 +40,15 @@ dl {
   
   .el-carousel__item:nth-child(2n) {
     /* background-color: #99a9bf; */
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(0,0,0,0);
   }
   
   .el-carousel__item:nth-child(2n+1) {
     /* background-color: #d3dce6; */
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(0,0,0,0);
   }
   .el-dialog--large{
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 .el-carousel__item--card {
     width: 66%;
@@ -56,4 +56,11 @@ dl {
 .el-carousel__item.is-active{
     transform: translateX(180px) scale(1) !important;
     text-align: center;
+}
+.el-dialog--large>.el-dialog__header>.el-dialog__title{
+    font-size: 20px;
+    color:#20a0ff;
+}
+.el-carousel__mask {
+    background-color: #000;
 }

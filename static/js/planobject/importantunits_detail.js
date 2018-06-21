@@ -529,7 +529,11 @@ new Vue({
                 dxid: this.uuid,
             }
             axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
-                this.yaData = res.data.result;
+                var tempData = res.data.result;
+                for(var i=0;i<tempData.length;i++){
+                    tempData[i].zzsj = tempData[i].zzsj.substring(0,10);
+                }
+                this.yaData = tempData;
                 if (this.yaData.length !== 0) {
                     this.YA = true;
                 }
@@ -573,7 +577,7 @@ new Vue({
         downloadPlan: function (val) {
             if (val.yajb == '03') {
                 if (val.dxid == 'dlwd') {
-                    window.open("http://localhost/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
+                    window.open("http://localhost:80/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
                 }
             } else if (val.yajb == '01' || val.yajb == '02') {
                 var fjDate = [];

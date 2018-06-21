@@ -211,3 +211,6 @@ body{height:100%;overflow:hidden;}
 .dibPic {
     margin-left: 15%
 }
+.el-form-item{
+    margin-bottom: 10px;
+}

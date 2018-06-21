@@ -29,14 +29,6 @@
             <el-row class="inform-text inform-margin">
                 <el-col :span="24">
                     <div>
-                        <strong class="dtdlStyle">车辆状态：</strong>
-                        <v-text v-text="detailData.clztmc||'无'"></v-text>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row class="inform-text inform-margin">
-                <el-col :span="24">
-                    <div>
                         <strong class="dtdlStyle">车辆位置：</strong>
                         <v-text>实时位置</v-text>
                         &nbsp<a href="#" @click="this.tz"><div class="inform-address"></div></a>
@@ -62,7 +54,13 @@
                             </el-col>
                         </el-row>
                         <el-row class="inform-margin">
-                            <el-col :span="24">
+                            <el-col :span="12">
+                                <div>
+                                    <strong class="dtdlStyle">车辆状态：</strong>
+                                    <v-text v-text="detailData.clztmc||'无'"></v-text>
+                                </div>
+                            </el-col>
+                            <el-col :span="12">
                                 <div>
                                     <strong class="dtdlStyle">GPS编号：</strong>
                                     <v-text v-text="detailData.gpsbh||'无'"></v-text>
