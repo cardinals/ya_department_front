@@ -360,11 +360,40 @@
                                         </el-card>
                                     </div>
                                 </el-tab-pane>
+                                <el-tab-pane label="图片信息" name="third">
+                                        <el-row v-for="(item,index) in picList" class="mb5 picList">
+                                            <v-text v-text="index+1"></v-text>.
+                                            <i class="el-icon-picture mr5 ml5"></i>
+                                            <v-text v-text="item.name" @click="showPic(index)"></v-text>
+                                        </el-row>
+                                    </el-tab-pane>
                             </el-tabs>
                         </template>
 
                     </div>
                 </div>
+                <!--图片轮播界面-->
+                <el-dialog :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
+                        <template>
+                            <el-carousel :interval="4000" type="card" height="350px" :initial-index="initialIndex" :autoplay="false" arrow="always" indicator-position="none">
+                                <el-carousel-item :key="1">
+                                    <img src="http://localhost:8090/upload/pic/sjtp.png" width="100%"></img>
+                                </el-carousel-item>
+                                <el-carousel-item :key="2">
+                                    <img src="http://localhost:8090/upload/pic/zpmt.png" width="100%"></img>
+                                </el-carousel-item>
+                                <el-carousel-item :key="3">
+                                    <img src="http://localhost:8090/upload/pic/nbpmtB1.png" width="100%"></img>
+                                </el-carousel-item>
+                                <el-carousel-item :key="4">
+                                    <img src="http://localhost:8090/upload/pic/nbpmt4.png" width="100%"></img>
+                                </el-carousel-item>
+                                <el-carousel-item :key="5">
+                                    <img src="http://localhost:8090/upload/pic/1clbst.png" width="100%"></img>
+                                </el-carousel-item>
+                            </el-carousel>
+                        </template>
+                    </el-dialog>
                 <!--选择选择分享模板界面-->
                 <el-dialog title="选择分享模板" :visible.sync="shareVisible" @close="closeShareDialog()" :close-on-click-modal="false">
                     <div id="tableView" style="padding: 0 35px;">
