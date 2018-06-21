@@ -20,7 +20,7 @@ function logOut(){
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var menuData=[];
-axios.get('http://localhost/api/getMenu')				
+axios.get('http://localhost:80/api/getMenu')				
     .then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
@@ -33,7 +33,7 @@ axios.get('http://localhost/api/getMenu')
     }
 }.bind(this),function(error){
     console.log(error);
-    window.location.href = "http://localhost/templates/login.html";
+    window.location.href = "http://localhost:80/templates/login.html";
 });   
 
 // 定义树节点
@@ -77,96 +77,96 @@ treeMenuTemplate.push('</li>');
             var realUrl="";
             // 1
             if(this.model.url=="/home"){
-                realUrl="http://localhost/templates/home.html"
+                realUrl="http://localhost:80/templates/home.html"
             }
             // 2
             else if(this.model.url=="/digitalplan/advancedsearch"){
-                realUrl="http://localhost/templates/digitalplan/advancedsearch.html"
+                realUrl="http://localhost:80/templates/digitalplan/advancedsearch.html"
             }
             // 3
             else if(this.model.url=="/digitalplan/digitalplan"){
-                realUrl="http://localhost/templates/digitalplan/digitalplan_list.html"
+                realUrl="http://localhost:80/templates/digitalplan/digitalplan_list.html"
             }
             else if(this.model.url=="/digitalplan/guardobjectsplan"){
-                realUrl="http://localhost/templates/digitalplan/guardobjectsplan_list.html"
+                realUrl="http://localhost:80/templates/digitalplan/guardobjectsplan_list.html"
             }
             else if(this.model.url=="/digitalplan/otherobjectsplan"){
-                realUrl="http://localhost/templates/digitalplan/otherobjectsplan_list.html"
+                realUrl="http://localhost:80/templates/digitalplan/otherobjectsplan_list.html"
             }
             else if(this.model.url=="/digitalplan/digitalplan_approve"){
-                realUrl="http://localhost/templates/digitalplan/digitalplan_approve.html"
+                realUrl="http://localhost:80/templates/digitalplan/digitalplan_approve.html"
             }
             else if(this.model.url=="/digitalplan/digitalplan_distribute"){
-                realUrl="http://localhost/templates/digitalplan/digitalplan_distribute.html"
+                realUrl="http://localhost:80/templates/digitalplan/digitalplan_distribute.html"
             }
             // 4
             else if(this.model.url=="/planobject/importantunits"){
-                realUrl="http://localhost/templates/planobject/importantunits_list.html"
+                realUrl="http://localhost:80/templates/planobject/importantunits_list.html"
             }
             else if(this.model.url=="/planobject/otherobjects"){
-                realUrl="http://localhost/templates/planobject/otherobjects_list.html"
+                realUrl="http://localhost:80/templates/planobject/otherobjects_list.html"
             }
             else if(this.model.url=="/planobject/guardobjects"){
-                realUrl="http://localhost/templates/planobject/guardobjects_list.html"
+                realUrl="http://localhost:80/templates/planobject/guardobjects_list.html"
             }
             // 5
             else if(this.model.url=="/building_zoning"){
-                realUrl="http://localhost/templates/buildingzoning/building_zoning_list.html"
+                realUrl="http://localhost:80/templates/buildingzoning/building_zoning_list.html"
             }
             // 6
             else if(this.model.url=="/basicinfo/firewater"){
-                realUrl="http://localhost/templates/basicinfo/firewater_list.html"
+                realUrl="http://localhost:80/templates/basicinfo/firewater_list.html"
             }
             else if(this.model.url=="/basicinfo/equipment"){
-                realUrl="http://localhost/templates/basicinfo/equipment_list.html"
+                realUrl="http://localhost:80/templates/basicinfo/equipment_list.html"
             }
             else if(this.model.url=="/basicinfo/equipmentstock"){
-                realUrl="http://localhost/templates/basicinfo/equipmentstock_list.html"
+                realUrl="http://localhost:80/templates/basicinfo/equipmentstock_list.html"
             }
             else if(this.model.url=="/basicinfo/fireengine"){
-                realUrl="http://localhost/templates/basicinfo/fireengine_list.html"
+                realUrl="http://localhost:80/templates/basicinfo/fireengine_list.html"
             }
             else if(this.model.url=="/basicinfo/firedrug"){
-                realUrl="http://localhost/templates/basicinfo/firedrug_list.html"
+                realUrl="http://localhost:80/templates/basicinfo/firedrug_list.html"
             }
             else if(this.model.url=="/basicinfo/firestation"){
-                realUrl="http://localhost/templates/basicinfo/firestation_list.html"
+                realUrl="http://localhost:80/templates/basicinfo/firestation_list.html"
             }
             // 7
             else if(this.model.url=="/auxiliarydecision/danger"){
-                realUrl="http://localhost/templates/auxiliarydecision/danger_list.html"
+                realUrl="http://localhost:80/templates/auxiliarydecision/danger_list.html"
             }
             else if(this.model.url=="/auxiliarydecision/firecalculation"){
-                realUrl="http://localhost/templates/auxiliarydecision/firecalculation_list.html"
+                realUrl="http://localhost:80/templates/auxiliarydecision/firecalculation_list.html"
             }
             // 8
             else if(this.model.url=="/report/report1"){
-                realUrl="http://localhost/templates/report/report1.html"
+                realUrl="http://localhost:80/templates/report/report1.html"
             }
             else if(this.model.url=="/report/report3"){
-                realUrl="http://localhost/templates/report/report3.html"
+                realUrl="http://localhost:80/templates/report/report3.html"
             }
             // 9
             else if(this.model.url=="/user"){
-                realUrl="http://localhost/templates/system/user_list.html";
+                realUrl="http://localhost:80/templates/system/user_list.html";
             }
             else if(this.model.url=="/role"){
-                realUrl="http://localhost/templates/system/role_list.html"
+                realUrl="http://localhost:80/templates/system/role_list.html"
             }
             else if(this.model.url=="/permission"){
-                realUrl="http://localhost/templates/system/permission_list.html"
+                realUrl="http://localhost:80/templates/system/permission_list.html"
             }
             else if(this.model.url=="/resource"){
-                realUrl="http://localhost/templates/system/resource_list.html"
+                realUrl="http://localhost:80/templates/system/resource_list.html"
             }
             else if(this.model.url=="/codelist"){
-                realUrl="http://localhost/templates/system/codelist_list.html"
+                realUrl="http://localhost:80/templates/system/codelist_list.html"
             }
             else if(this.model.url=="/imgupload"){
-                realUrl="http://localhost/templates/system/imgupload_list.html"
+                realUrl="http://localhost:80/templates/system/imgupload_list.html"
             }
             else if(this.model.url=="/basicinfo/organization"){
-                realUrl="http://localhost/templates/system/organization_list.html"
+                realUrl="http://localhost:80/templates/system/organization_list.html"
             }
             return realUrl+"?index="+this.model.index;
         }

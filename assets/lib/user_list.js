@@ -464,7 +464,7 @@ new Vue({
     },
     mounted:function(){
         
-        axios.get('http://localhost/getMenu')				
+        axios.get('http://localhost:80/getMenu')				
         .then(function(res){
         console.log(res.data);
         console.log(240);

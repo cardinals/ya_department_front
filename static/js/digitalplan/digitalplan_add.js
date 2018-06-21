@@ -887,7 +887,7 @@ new Vue({
             }
         },
         templeteDown:function(val){
-            window.open("http://localhost/dpapi/yafjxz/downTemplet");
+            window.open("http://localhost:80/dpapi/yafjxz/downTemplet");
         }
     },
 
