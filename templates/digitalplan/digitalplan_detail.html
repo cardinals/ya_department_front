@@ -1048,20 +1048,8 @@
                 <el-dialog :visible.sync="showPicVisible" :close-on-click-modal="false" size="large">
                     <template>
                         <el-carousel :interval="4000" type="card" height="350px" :initial-index="initialIndex" :autoplay="false" arrow="always" indicator-position="none">
-                            <el-carousel-item :key="1">
-                                <img src="http://localhost:8090/upload/pic/sjtp.png" width="100%"></img>
-                            </el-carousel-item>
-                            <el-carousel-item :key="2">
-                                <img src="http://localhost:8090/upload/pic/zpmt.png" width="100%"></img>
-                            </el-carousel-item>
-                            <el-carousel-item :key="3">
-                                <img src="http://localhost:8090/upload/pic/nbpmtB1.png" width="100%"></img>
-                            </el-carousel-item>
-                            <el-carousel-item :key="4">
-                                <img src="http://localhost:8090/upload/pic/nbpmt4.png" width="100%"></img>
-                            </el-carousel-item>
-                            <el-carousel-item :key="5">
-                                <img src="http://localhost:8090/upload/pic/1clbst.png" width="100%"></img>
+                            <el-carousel-item v-for="item in picList" >
+                                <img :src="item.url" height="100%"></img>
                             </el-carousel-item>
                         </el-carousel>
                     </template>
