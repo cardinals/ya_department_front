@@ -15,6 +15,7 @@ new Vue({
             //显示加载中样
             loading: false,
             typeData: [],
+            role_data: [],
             //搜索表单
             addForm: {
                 name: "",
@@ -45,7 +46,9 @@ new Vue({
                 mainApplication: "",
                 poisionProperty: "",
                 seprarate: "",
-                publicSafety: ""
+                publicSafety: "",
+                cjrid: "",
+                cjrmc: ""
             },
 
         }
@@ -57,6 +60,7 @@ new Vue({
         this.activeIndex = index;
 
         this.getTypeData();
+        this.roleData();
     },
     mounted: function () {
         this.status = getQueryString("ID");
@@ -64,6 +68,14 @@ new Vue({
     },
     methods: {
         handleNodeClick(data) {
+        },
+        //当前登录用户信息
+        roleData: function () {
+            axios.post('/api/shiro').then(function (res) {
+                this.role_data = res.data;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         //表格查询事件
         searchClick: function () {
@@ -78,6 +90,7 @@ new Vue({
                 })
             }
         },
+        //化危品类型查询
         getTypeData: function () {
             axios.get('/api/codelist/getCodetype/HXWXPLX').then(function (res) {
                 this.typeData = res.data.result;
@@ -85,7 +98,10 @@ new Vue({
                 console.log(error);
             })
         },
+        //保存
         save: function () {
+            this.addForm.cjrid = this.role_data.userid;
+            this.addForm.cjrmc = this.role_data.realName;
             axios.post('/dpapi/danger/insertByVO', this.addForm).then(function (res) {
                 if (res.data.result >= 1) {
                     this.$alert('成功保存' + res.data.result + '条化危品信息', '提示', {
