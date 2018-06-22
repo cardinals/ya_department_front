@@ -81,7 +81,7 @@ new Vue({
         this.activeIndex = index;
         //消防管辖下拉框
         this.getxfgxData();
-        this.searchClick();
+        this.searchClick('click');
     },
 
     methods: {
@@ -94,7 +94,12 @@ new Vue({
             })
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading=true;
             var _self = this;
             //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
@@ -106,10 +111,12 @@ new Vue({
                 dxmc :this.searchForm.dxmc,
                 dxdz :this.searchForm.dxdz,
                 xfgx :this.searchForm.xfgx,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
-            axios.post('/dpapi/otherobjects/list',params).then(function(res){
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+            axios.post('/dpapi/otherobjects/page',params).then(function(res){
+                this.tableData = res.data.result.list;
+                this.total = res.data.result.total;
                 this.rowdata = this.tableData;
                 this.loading=false;
             }.bind(this),function(error){
@@ -121,7 +128,7 @@ new Vue({
             this.searchForm.dxmc="";
             this.searchForm.dxdz="";
             this.searchForm.xfgx="";
-            this.searchClick();
+            this.searchClick('reset');
         },
         //数据为空时显示‘无’
         dataFormat: function (row, column) {
@@ -161,9 +168,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         //点击进入详情页
         informClick(val) {
