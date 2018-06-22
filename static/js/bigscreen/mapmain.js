@@ -958,6 +958,7 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);
                     zddwp.push(marker);
+                    
                 };
                 var markerClusterer = vm.markerClusterer;
                 markerClusterer.addMarkers(zddwp);
