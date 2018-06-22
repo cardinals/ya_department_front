@@ -235,8 +235,6 @@ new Vue({
         currentPageChange: function (val) {
             this.currentPage = val;
             this.searchClick('page');
-            // var _self = this;
-            // _self.loadingData(); 
         },
         //根据参数部分和参数名来获取参数值 
         GetQueryString(name) {
