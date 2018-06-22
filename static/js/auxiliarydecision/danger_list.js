@@ -22,7 +22,7 @@ new Vue({
             },
             tableData: [],
             LXDM_data:[],
-            
+            role_data:[],
             //表高度变量
             tableheight: 443,
             //显示加载中样
@@ -71,9 +71,18 @@ new Vue({
         
         this.getLXDMData();
         this.searchClick();
+        this.roleData();
     },
     methods: {
         handleNodeClick(data) {
+        },
+        //当前登录用户信息
+        roleData: function () {
+            axios.post('/api/shiro').then(function (res) {
+                this.role_data = res.data;
+            }.bind(this), function (error) {
+                console.log(error);
+            })
         },
         //表格查询事件
         searchClick: function () {
@@ -142,9 +151,6 @@ new Vue({
         },
         //表格勾选事件
         selectionChange: function (val) {
-            for (var i = 0; i < val.length; i++) {
-                var row = val[i];
-            }
             this.multipleSelection = val;
         },
         detailClick(val) {
@@ -171,8 +177,39 @@ new Vue({
             var _self = this;
             _self.loadingData(); //重新加载数据
         },
+        //新增
         addClick: function(){
             window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
+        },
+        //删除
+        deleteClick: function () {
+            this.$confirm('确认删除选中信息?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                for(var i=0;i<this.multipleSelection.length;i++){
+                    this.multipleSelection[i].xgrid = this.role_data.userid;
+                    this.multipleSelection[i].xgrmc = this.role_data.realName;
+                }
+                axios.post('/dpapi/danger/doDeleteDanger', this.multipleSelection).then(function (res) {
+                    this.$message({
+                        message: "成功删除" + res.data.result + "条化危品信息",
+                        showClose: true,
+                        onClose: this.searchClick()
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+        handleEdit:function(val){
+            window.location.href = "danger_add.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=XZ";
         }
     },
 

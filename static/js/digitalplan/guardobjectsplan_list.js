@@ -117,9 +117,6 @@ new Vue({
         this.YALXTree();
         this.YALX();
         this.getJgidData();
-        // this.DXLX();
-        // this.YAZL();
-        // this.searchClick();
     },
 
     methods: {
@@ -146,7 +143,7 @@ new Vue({
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
                 this.yalxdmData = res.data.result;
-                this.searchClick();
+                this.searchClick('click');
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -165,20 +162,26 @@ new Vue({
         },
 
         //表格查询事件
-        searchClick: function () {
+        searchClick: function (type) {
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
-            // this.loading = true;//表格重新加载
-            console.log(33333);
-            console.log(this.searchForm.jgid);
             var params = {
                 yamc: this.searchForm.yamc,
                 yalx: this.searchForm.yalx[this.searchForm.yalx.length-1],
                 dxmc: this.searchForm.dxmc,
                 sfkqy: this.searchForm.sfkqy,
                 jgid: this.searchForm.jgid[this.searchForm.jgid.length-1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             }
-            axios.post('/dpapi/xfbwjw/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
+            axios.post('/dpapi/xfbwjw/findBwjwplanList', params).then(function (res) {
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
+                console.log();
                 for (var i = 0; i < this.tableData.length; i++) {
                     //预案类型转码
                     for (var k = 0; k < this.yalxdmData.length; k++) {
@@ -193,10 +196,7 @@ new Vue({
                         }
                     }
                 }
-                // this.tableData.unshift(this.testData);
-                _self.total = _self.tableData.length;
                 this.loading = false;
-                // console.log("success")
             }.bind(this), function (error) {
                 console.log("failed")
             })
@@ -209,7 +209,7 @@ new Vue({
             this.searchForm.jgid=[];
            
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
-            this.searchClick();
+            this.searchClick('reset');
         },
         //时间格式
         cjsjChange(val) {
@@ -306,9 +306,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         closeDialog: function (val) {
             this.planDetailVisible = false;
