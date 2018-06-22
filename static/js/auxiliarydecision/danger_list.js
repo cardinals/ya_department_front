@@ -208,6 +208,9 @@ new Vue({
                 });
             });
         },
+        handleEdit:function(val){
+            window.location.href = "danger_add.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=XZ";
+        }
     },
 
 })

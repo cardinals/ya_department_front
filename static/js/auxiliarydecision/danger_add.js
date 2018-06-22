@@ -48,7 +48,9 @@ new Vue({
                 seprarate: "",
                 publicSafety: "",
                 cjrid: "",
-                cjrmc: ""
+                cjrmc: "",
+                xgrid: "",
+                xgrmc: ""
             },
 
         }
@@ -64,7 +66,7 @@ new Vue({
     },
     mounted: function () {
         this.status = getQueryString("ID");
-        // this.searchClick();
+        this.searchClick();
     },
     methods: {
         handleNodeClick(data) {
@@ -79,12 +81,13 @@ new Vue({
         },
         //表格查询事件
         searchClick: function () {
+            this.loading = true;
             if (this.status == 0) {  //新增
+                this.loading = false;
             } else {//修改
-                axios.post('/dpapi/danger/', params).then(function (res) {
-                    this.tableData = res.data.result;
-                    this.total = res.data.result.length;
-                    _self.loading = false;
+                axios.get('/dpapi/danger/' + this.status).then(function (res) {
+                    this.addForm = res.data.result;
+                    this.loading = false;
                 }.bind(this), function (error) {
                     console.log(error);
                 })
@@ -100,29 +103,56 @@ new Vue({
         },
         //保存
         save: function () {
-            this.addForm.cjrid = this.role_data.userid;
-            this.addForm.cjrmc = this.role_data.realName;
-            axios.post('/dpapi/danger/insertByVO', this.addForm).then(function (res) {
-                if (res.data.result >= 1) {
-                    this.$alert('成功保存' + res.data.result + '条化危品信息', '提示', {
-                        type: 'success',
-                        confirmButtonText: '确定',
-                        callback: action => {
-                            window.location.href = "danger_list.html?index=" + this.activeIndex
-                        }
-                    });
-                } else {
-                    this.$alert('保存失败', '提示', {
-                        type: 'error',
-                        confirmButtonText: '确定',
-                        callback: action => {
-                            window.location.href = "danger_list.html?index=" + this.activeIndex
-                        }
-                    });
-                }
-            }.bind(this), function (error) {
-                console.log(error);
-            })
+            if(this.status==0){//新增
+                this.addForm.cjrid = this.role_data.userid;
+                this.addForm.cjrmc = this.role_data.realName;
+                axios.post('/dpapi/danger/insertByVO', this.addForm).then(function (res) {
+                    if (res.data.result >= 1) {
+                        this.$alert('成功保存' + res.data.result + '条化危品信息', '提示', {
+                            type: 'success',
+                            confirmButtonText: '确定',
+                            callback: action => {
+                                window.location.href = "danger_list.html?index=" + this.activeIndex
+                            }
+                        });
+                    } else {
+                        this.$alert('保存失败', '提示', {
+                            type: 'error',
+                            confirmButtonText: '确定',
+                            callback: action => {
+                                window.location.href = "danger_list.html?index=" + this.activeIndex
+                            }
+                        });
+                    }
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }else{
+                this.addForm.xgrid = this.role_data.userid;
+                this.addForm.xgrmc = this.role_data.realName;
+                axios.post('/dpapi/danger/doUpdateDanger', this.addForm).then(function (res) {
+                    if (res.data.result >= 1) {
+                        this.$alert('成功修改' + res.data.result + '条化危品信息', '提示', {
+                            type: 'success',
+                            confirmButtonText: '确定',
+                            callback: action => {
+                                window.location.href = "danger_list.html?index=" + this.activeIndex
+                            }
+                        });
+                    } else {
+                        this.$alert('修改失败', '提示', {
+                            type: 'error',
+                            confirmButtonText: '确定',
+                            callback: action => {
+                                window.location.href = "danger_list.html?index=" + this.activeIndex
+                            }
+                        });
+                    }
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
+            
         }
     },
 
