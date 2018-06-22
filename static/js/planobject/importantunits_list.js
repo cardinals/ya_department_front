@@ -28,10 +28,10 @@ new Vue({
             mhdzidData: [],
             xfdwlxmcData: [
             {
-                codeValue: '有',
+                codeValue: '1',
                 codeName: '有'
             }, {
-                codeValue: '无',
+                codeValue: '2',
                 codeName: '无'
             }],
 
@@ -113,11 +113,11 @@ new Vue({
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+        this.searchClick('click');
         this.getdwxzData();
         this.getfhdjData();
         this.getmhdziddata();
-        this.getjzflData();
-        this.searchClick();
+        this.getjzflData(); 
     },
     methods: {
         handleNodeClick(data) {
@@ -127,7 +127,12 @@ new Vue({
             console.log(value);
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             this.loading = true;
             //地图跳转到重点
@@ -141,13 +146,16 @@ new Vue({
                 jzfl: this.searchForm.jzfl,
                 fhdj: this.searchForm.fhdj,
                 mhdzbm: this.searchForm.mhdzbm,
-                xfdwlxmc: this.searchForm.xfdwlxmc
+                xfdwlxmc: this.searchForm.xfdwlxmc,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
-            axios.post('/dpapi/importantunits/list', params).then(function(res){
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+            axios.post('/dpapi/importantunits/page', params).then(function(res){
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 if(isZddwdj == 1){
-                    var val = this.tableData[0];
+                    var val = this.tableData.list[0];
                     this.informClick(val)
                 }
                 this.loading = false;
@@ -162,7 +170,7 @@ new Vue({
             this.searchForm.fhdj="";
             this.searchForm.mhdzbm="";
             this.searchForm.xfdwlxmc="";
-            this.searchClick();
+            this.searchClick('reset');
         },
         getdwxzData: function () {
             axios.get('/api/codelist/getCodeTypeOrderByNum/DWXZ').then(function (res) {
@@ -226,9 +234,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         //根据参数部分和参数名来获取参数值 
         GetQueryString(name) {

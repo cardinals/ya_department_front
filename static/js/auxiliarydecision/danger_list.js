@@ -170,6 +170,9 @@ new Vue({
             this.currentPage = val;
             var _self = this;
             _self.loadingData(); //重新加载数据
+        },
+        addClick: function(){
+            window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
         }
     },
 

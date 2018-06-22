@@ -110,7 +110,7 @@ new Vue({
         this.getAllSszdData();
         this.searchXFGX_data();
         //this.searchXZQY_data();
-        this.searchClick();
+        this.searchClick('click');
         // this.xfgxdata();
     },
     methods: {
@@ -130,7 +130,12 @@ new Vue({
             })
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             if (this.searchForm.begintime != "" && this.searchForm.endtime != "" && this.searchForm.begintime > this.searchForm.endtime) {
                 _self.$message({
@@ -149,12 +154,14 @@ new Vue({
                 hdzt: this.searchForm.hdzt,
                 cxsj: this.searchForm.cxsj,
                 zcbdw: this.searchForm.zcbdw,
-                xfgx: this.searchForm.xfgx
+                xfgx: this.searchForm.xfgx,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
             axios.post('/dpapi/bwjwplan/findByVO', params).then(function (res) {
-               
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 // this.rowdata = this.tableData;
                 for (var i = 0; i < this.tableData.length; i++) {
                     for (var k = 0; k < this.XZQY_data.length; k++) {
@@ -174,8 +181,7 @@ new Vue({
             this.searchForm.zcbdw="";
             this.searchForm.cxsj="";
             this.searchForm.xfgx="";
-            // this.searchForm.lrsj.splice(0,this.searchForm.lrsj.length);
-            this.searchClick();
+            this.searchClick('reset');
         },
         searchXFGX_data: function () {
             axios.get('/api/codelist/getCodetype/CA01').then(function (res) {
@@ -311,9 +317,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         //表格编辑事件
         editClick: function () {
