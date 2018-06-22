@@ -45,7 +45,7 @@ new Vue({
         //设置菜单选中
         $("#activeIndex").val(getQueryString("index"));
         this.getDzlxData();
-        this.searchClick();
+        this.searchClick('click');
     },
 
     methods: {       
@@ -67,7 +67,12 @@ new Vue({
         },
         
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading=true;
             //跳转到队站
             this.searchForm.dzid = this.GetQueryString("dzid");//获取队站ID
@@ -78,10 +83,13 @@ new Vue({
                 dzmc:this.searchForm.dzmc,
                 dzdz:this.searchForm.dzdz,
                 dzlx :this.searchForm.dzlx[this.searchForm.dzlx.length-1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
-            axios.post('/dpapi/xfdz/list',params).then(function(res){
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+            axios.post('/dpapi/xfdz/page',params).then(function(res){
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.rowdata = this.tableData;
                 if(isDzdj == 1){
                     var val = this.tableData[0];
@@ -97,7 +105,7 @@ new Vue({
             this.searchForm.dzmc = "",
             this.searchForm.dzdz = "",
             this.searchForm.dzlx = [],
-            this.searchClick();
+            this.searchClick('reset');
         },
         /** 
         //数据为空时显示‘无’
@@ -140,9 +148,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         //打开详情页
         details: function (val) {
