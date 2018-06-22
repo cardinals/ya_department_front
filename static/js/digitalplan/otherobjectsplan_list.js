@@ -107,7 +107,7 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
         this.getYalxdmData();
         this.getJgidData();
-        this.searchClick();
+        this.searchClick('click');
     },
 
     methods: {       
@@ -132,7 +132,11 @@ new Vue({
             }) 
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function (type) {
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading=true;
             var _self = this;
             var params={
@@ -141,10 +145,13 @@ new Vue({
                 yalx :this.searchForm.yalxdm[this.searchForm.yalxdm.length-1],
                 sfkqy :this.searchForm.sfkqy,
                 jgid :this.searchForm.jgid[this.searchForm.jgid.length-1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
             axios.post('/dpapi/otherobjectsplan/findByVO',params).then(function(res){
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.rowdata = this.tableData;
                 this.loading=false;
             }.bind(this),function(error){
@@ -152,13 +159,13 @@ new Vue({
             })
         },
         //清空查询条件
-        clearClick: function () {
+        clearClick: function (type) {
             this.searchForm.yamc="";
             this.searchForm.dxmc="";
             this.searchForm.yalxdm=[];
             this.searchForm.sfkqy="";
             this.searchForm.jgid=[];
-            this.searchClick();
+            this.searchClick('reset');
         },
         //时间格式
         cjsjChange(val) {
@@ -195,9 +202,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         //打开预案详情页
         planDetails: function (val) {
