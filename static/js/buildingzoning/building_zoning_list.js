@@ -50,43 +50,40 @@ new Vue({
         $("#activeIndex").val(index);
         this.activeIndex = index;
         this.getJZFLData();
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
         handleNodeClick(data) {
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function (type) {
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params={
                 jzmc:this.searchForm.jzmc,
                 jzlx:this.searchForm.option_JZLX,
-                jzwz:this.searchForm.jzwz
+                jzwz:this.searchForm.jzwz,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
-            axios.post('/dpapi/building/list',params).then(function(res){
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+            axios.post('/dpapi/building/page',params).then(function(res){
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 _self.loading = false;
             }.bind(this),function(error){
                 console.log(error);
             })
         },
-        //表格数据格式化
-        /**
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        }, */
         clearClick: function () {
             this.searchForm.jzmc="";
             this.searchForm.option_JZLX="";
             this.searchForm.jzwz="";
-            this.searchClick();
+            this.searchClick('reset');
         },
         getJZFLData: function (){
             axios.get('/api/codelist/getCodetype/JZLX').then(function(res){
@@ -123,8 +120,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         }
     },
 
