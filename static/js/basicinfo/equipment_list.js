@@ -59,14 +59,19 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
         this.getAllSszdData();//消防队站下拉框数据（到总队级）
         this.getAllTypesDataTree();//装备类型级联选择数据
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
         handleNodeClick(data) {
             console.log(data);
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading = true;
             var _self = this;
             var zblx = '';
@@ -84,12 +89,15 @@ new Vue({
                 zbbm: this.searchForm.zbbm,
                 ssdz: this.searchForm.ssdz,
                 zblx: zblx,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
                 // kysl_min: kysl_min,
                 // kysl_max: kysl_max
             };
-            axios.post('/dpapi/equipmentsource/list', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+            axios.post('/dpapi/equipmentsource/page', params).then(function (res) {
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error);
@@ -102,7 +110,7 @@ new Vue({
             this.searchForm.ssdz = "";
             this.searchForm.zblx = [];
             // this.searchForm.kysl = [0,1000];
-            this.searchClick();
+            this.searchClick('reset');
         },
         //装备类型级联选择数据
         getAllTypesDataTree: function () {
@@ -180,9 +188,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         //表格重新加载数据
         loadingData_engine: function () {
