@@ -832,6 +832,7 @@ var vm = new Vue({
                     });
                     //
                     marker.addEventListener("click", function (e) {
+                        //loading加载开始
                         vm.loading = true;
                         vm.selqhmc = vm.shengshizs;
                         var zddws = result;
@@ -957,11 +958,10 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);
                     zddwp.push(marker);
-                    vm.loading = false;
                 };
                 var markerClusterer = vm.markerClusterer;
                 markerClusterer.addMarkers(zddwp);
-                
+                vm.loading = false;
             },
             //点击重点单位事件
             drawMapc: function (zddw) {
