@@ -115,7 +115,8 @@ new Vue({
                 pageNum: this.currentPage
             };
             axios.post('/dpapi/otherobjects/page',params).then(function(res){
-                this.tableData = res.data.result.list;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
                 this.rowdata = this.tableData;
                 this.loading=false;
