@@ -158,7 +158,7 @@ new Vue({
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             };
-            axios.post('/dpapi/bwjwplan/findByVO', params).then(function (res) {
+            axios.post('/dpapi/bwjwplan/findBwjwList', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
