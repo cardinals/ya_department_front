@@ -798,6 +798,21 @@ var vm = new Vue({
                          labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
                          labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
                      }
+
+                    //  if(mclen>5){
+                    //     //大于5时换行
+                    //     var cnt = parseInt(mclen / 5);
+                    //     var index = 0;
+                    //     labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                    //     for (var i = 0; i < cnt; i++) {
+                    //         index = i * 5;
+                    //         labelstr += citys[i].xzqhmc.slice(index, index + 5) + "<br/>";
+                    //     }
+
+                    //     // labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                    //     labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
+                    //  }
+
                      var label = new BMap.Label(labelstr);
                      marker.city = citys[i];
                     //
