@@ -80,7 +80,7 @@ new Vue({
     created: function () {
         //设置菜单选中
         $("#activeIndex").val(getQueryString("index"));
-        this.searchClick();
+        this.searchClick('page');
         this.searchSYLX_data();
         this.searchGXZD_data();
         this.searchKYZT_data();
@@ -94,7 +94,12 @@ new Vue({
     },
     methods: {
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading=true;
             /*水源类型多选，array拼接成字符串
              this.searchForm.sylx = '';
@@ -123,11 +128,16 @@ new Vue({
                 xfsc_tcwz: this.searchForm.xfsc_tcwz,
                 trsyqsd_tcwz: this.searchForm.trsyqsd_tcwz,
                 trsy_ywksq: this.searchForm.trsy_ywksq,
-                trsy_sz: this.searchForm.trsy_sz
+                trsy_sz: this.searchForm.trsy_sz,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             }
-            axios.post('/dpapi/xfsy/findlist', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = this.tableData.length;
+            axios.post('/dpapi/xfsy/findlistPage', params).then(function (res) {
+                // this.tableData = res.data.result;
+                // this.total = this.tableData.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.loadingData();
                 if(isSydj == 1){
                     var val = this.tableData[0];
@@ -160,7 +170,7 @@ new Vue({
             this.searchForm.trsyqsd_tcwz = "";
             this.searchForm.trsy_ywksq = "";
             this.searchForm.trsy_sz = "";
-            this.searchClick();
+            this.searchClick('reset');
         },
         //水源类型下拉框
         searchSYLX_data: function () {
@@ -314,9 +324,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-        //    console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         
         closeDialog: function (val) {
