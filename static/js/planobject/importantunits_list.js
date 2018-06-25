@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -136,8 +136,8 @@ new Vue({
             var _self = this;
             this.loading = true;
             //地图跳转到重点
-            this.searchForm.uuid = this.GetQueryString("uuid");
-            var isZddwdj = this.GetQueryString("zddwdj");
+            this.searchForm.uuid = getQueryString("uuid");
+            var isZddwdj = getQueryString("zddwdj");
 
             var params = {
                 uuid:this.searchForm.uuid,
@@ -230,17 +230,6 @@ new Vue({
                 console.info("加载数据成功");
                 _self.loading = false;
             }, 300);
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            this.searchClick('page');
-        },
-        //根据参数部分和参数名来获取参数值 
-        GetQueryString(name) {
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if(r!=null)return  unescape(r[2]); return null;
-        },
+        }
     }
 })

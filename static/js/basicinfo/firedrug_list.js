@@ -4,7 +4,7 @@ window.onload = function () {
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -173,13 +173,7 @@ new Vue({
                 console.info("加载数据成功");
                 _self.loading = false;
             }, 300);
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            this.searchClick('page');
-        },
-
+        }
     },
 
 })

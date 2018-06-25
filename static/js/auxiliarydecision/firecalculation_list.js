@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -159,7 +159,7 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
         this.GSLB();
         this.CSLX();
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
         //公式类别下拉框
@@ -179,21 +179,29 @@ new Vue({
             })
         },
         //查询，初始化
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
                 gsmc:this.searchForm.GSMC,
                 gslb:this.searchForm.selected_GSLB,
-                sfqy:this.searchForm.SFQY
+                sfqy:this.searchForm.SFQY,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/dpapi/firecalculationlist/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                for(var i = 0; i<this.tableData.length; i++){
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
+                for(var i = (this.currentPage-1)*this.pageSize; i<this.tableData.length; i++){
                     this.tableData[i].sfqy=(this.tableData[i].sfqy == "1"?true:false);
                 }
-                this.total = res.data.result.length;
                 _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -313,7 +321,7 @@ new Vue({
             this.searchForm.GSMC="";
             this.searchForm.selected_GSLB="";
             this.searchForm.SFQY="";
-            this.searchClick();
+            this.searchClick('reset');
         },
 
         handleNodeClick(data) {
@@ -374,7 +382,7 @@ new Vue({
                         }
                         else{
                             this.addIndex = 0;
-                            this.searchClick();
+                            this.searchClick('click');
                             this.addFormVisible = false;
                         }
                     }.bind(this), function (error) {
@@ -433,18 +441,6 @@ new Vue({
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
 
         //修改：弹出Dialog
         editClick: function (val) {
@@ -499,7 +495,7 @@ new Vue({
                 else{
                     this.editFormVisible = false;
                     this.editIndex = 0;
-                    this.searchClick();
+                    this.searchClick('click');
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -514,7 +510,7 @@ new Vue({
                 sfqy: ($event?"1":"0")
             };
             axios.post('/dpapi/firecalculationlist/updateBySfqy', params).then(function (res) {
-                this.searchClick();
+                this.searchClick('click');
             }.bind(this), function (error) {
                 console.log(error)
             })
