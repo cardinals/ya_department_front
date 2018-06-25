@@ -78,7 +78,8 @@ new Vue({
             // console.log(this.tableData);
             var uuid = this.detailData.uuid;
             var sylx = this.detailData.sylx;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sylx="+sylx+"&shuidj=1";
+            var cityCode = this.detailData.xzqh;
+            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sylx="+sylx+"&shuidj=1";
         }
     }
 })

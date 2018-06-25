@@ -119,7 +119,8 @@ new Vue({
             // console.log(this.tableData);
             var dzid = this.detailData.dzid;
             var dzlx = this.detailData.dzlx;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?id="+dzid+"&dzlx="+dzlx+"&dzdj=1";
+            var cityCode = this.detailData.xzqh;
+            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode"+cityCode+"&id="+dzid+"&dzlx="+dzlx+"&dzdj=1";
         }
 
     }
