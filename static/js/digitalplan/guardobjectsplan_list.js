@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -181,21 +181,6 @@ new Vue({
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
-                console.log();
-                for (var i = 0; i < this.tableData.length; i++) {
-                    //预案类型转码
-                    for (var k = 0; k < this.yalxdmData.length; k++) {
-                        if (this.yalxdmData[k].codeValue == this.tableData[i].yalx) {
-                            this.tableData[i].yalx = this.yalxdmData[k].codeName;
-                        }
-                    }
-                    //是否跨区域转码
-                    for (var k = 0; k < this.sfkqyData.length; k++) {
-                        if (this.sfkqyData[k].codeValue == this.tableData[i].sfkqy) {
-                            this.tableData[i].sfkqy = this.sfkqyData[k].codeName;
-                        }
-                    }
-                }
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log("failed")
@@ -296,18 +281,6 @@ new Vue({
             }, 300);
         },
 
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            this.searchClick('page');
-        },
         closeDialog: function (val) {
             this.planDetailVisible = false;
         }

@@ -54,3 +54,13 @@ window.loadBreadcrumb = function(firstName,secondName){
     breadcrumb.push('</div></div></div></div></div>');
     $("#breadcrumb_box").html(breadcrumb.join(''));
 }
+//分页大小修改事件
+window.pageSizeChange = function(val) {
+    vue.pageSize = val;
+    vue.loadingData(); //重新加载数据
+}
+//当前页修改事件
+window.currentPageChange = function(val) {
+    vue.currentPage = val;
+    vue.searchClick('page');
+}
