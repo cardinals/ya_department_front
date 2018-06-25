@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -162,14 +162,6 @@ new Vue({
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
-                // this.rowdata = this.tableData;
-                for (var i = 0; i < this.tableData.length; i++) {
-                    for (var k = 0; k < this.XZQY_data.length; k++) {
-                        if (this.XZQY_data[k].codeValue == this.tableData[i].xzqy) {
-                            this.tableData[i].xzqy = this.XZQY_data[k].codeName;
-                        }
-                    }
-                }
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error);
@@ -306,18 +298,6 @@ new Vue({
                 .catch(function (e) {
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
-        },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            this.searchClick('page');
         },
         //表格编辑事件
         editClick: function () {
