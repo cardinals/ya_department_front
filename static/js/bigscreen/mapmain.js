@@ -778,7 +778,7 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-
+                    
                     // var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
                     //判断字段长度改变样式
                      var labelstr="";
@@ -863,6 +863,7 @@ var vm = new Vue({
                 for (var i = 0; i < zddws.length; i++) {
                     var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
                     var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
+
                     var marker = new BMap.Marker(point, { icon: myIcon1 });
                     marker.uuid = zddws[i].uuid;
                     marker.addEventListener("click", function (e) {
