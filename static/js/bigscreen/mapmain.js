@@ -131,7 +131,7 @@ var vm = new Vue({
         //当前页
         currentPage: 1,
         //分页大小
-        pageSize: 11,
+        pageSize: 10,
         //预案信息总记录数
         total: 10,
         //序号
