@@ -70,7 +70,7 @@ new Vue({
         this.YAZT();//预案状态下拉框
     },
     mounted: function () {
-        this.searchClick();//条件查询
+        this.searchClick('click');//条件查询
         this.roleData();//当前用户信息
     },
 
@@ -125,7 +125,12 @@ new Vue({
             })
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page' || type == 'delete'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading = true;//表格重新加载
             var params = {
                 yamc: this.searchForm.YAMC,
@@ -133,11 +138,14 @@ new Vue({
                 yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1],
                 yajb: this.searchForm.YAJB,
                 jgid: this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
-                yazt: this.searchForm.YAZT
+                yazt: this.searchForm.YAZT,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             }
-            axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = this.tableData.length;
+            axios.post('/dpapi/digitalplanlist/page', params).then(function (res) {
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -151,7 +159,7 @@ new Vue({
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = [];
             this.searchForm.YAZT = "";
-            this.searchClick();
+            this.searchClick('reset');
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -201,7 +209,7 @@ new Vue({
                     this.$message({
                         message: "成功删除" + res.data.result + "条预案",
                         showClose: true,
-                        onClose: this.searchClick()
+                        onClose: this.searchClick('delete')
                     });
                 }.bind(this), function (error) {
                     console.log(error)
@@ -241,8 +249,7 @@ new Vue({
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         }
     },
 

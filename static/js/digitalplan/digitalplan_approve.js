@@ -2,7 +2,7 @@
 window.onload = function () {
     var type = getQueryString("type");
     if (type == "DPYL") {
-        loadBreadcrumb("大屏预览", "预案审核");
+        loadBreadcrumb("统计分析", "预案审核");
     } else {
         loadBreadcrumb("预案审核", "-1");
     }
@@ -100,7 +100,7 @@ new Vue({
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
-        this.searchClick();//条件查询
+        this.searchClick('click');//条件查询
     },
 
     methods: {
@@ -142,7 +142,12 @@ new Vue({
             })
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function (type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading = true;//表格重新加载
             var shztbm = "";
             if (this.searchForm.SHZT == "未审核") {
@@ -157,11 +162,14 @@ new Vue({
                 jgbm: this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
                 shzt: shztbm,
                 begintime: this.searchForm.shsj[0],
-                endtime: this.searchForm.shsj[1]
+                endtime: this.searchForm.shsj[1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             }
             axios.post('/dpapi/digitalplanlist/listForApprove', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = this.tableData.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -176,7 +184,7 @@ new Vue({
             this.searchForm.SHZT = "未审核";
             //    this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
             this.searchForm.shsj = "";
-            this.searchClick();
+            this.searchClick('reset');
         },
         //表格勾选事件
         selectionChange: function (val) {
@@ -239,8 +247,7 @@ new Vue({
             //数据序号清空
             this.data_index = "";
             this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.searchClick('page');
         },
         closeDialog: function (val) {
             this.planDetailVisible = false;
@@ -310,9 +317,7 @@ new Vue({
                         shrmc: this.shrmc,
                         uuid: this.uuid
                     };
-                    //console.log(params);
                     axios.post('/dpapi/digitalplanlist/approveByVO', params).then(function (res) {
-                        //this.searchClick();
                         this.tableData[this.data_index].shztmc = res.data.result.shztmc;
                         this.tableData[this.data_index].shzt = res.data.result.shzt;
                         this.tableData[this.data_index].yashztButtonType = res.data.result.yashztButtonType;

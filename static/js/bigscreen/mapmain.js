@@ -570,8 +570,7 @@ var vm = new Vue({
                         vm.drawMapc(zddw);
                     }.bind(this), function (error) {
                         console.log(error)
-                    })
-                   
+                    })                   
                   }
                 //水源从后台管理系统的跳转
                  var isShuidj = this.GetQueryString("shuidj");                
@@ -603,14 +602,13 @@ var vm = new Vue({
                         dzid : dzid,
                         dzlx : dzlx
                     }
-                   
                     axios.post('/dpapi/xfdz/findDzDetailByVo',params).then(function (res) {
                         dz = res.data.result;
                         vm.getDzjz(dz);
                      }.bind(this), function (error) {
                          console.log(error)
                      })
-                    
+
                    }
                 //车辆从后台管理系统跳转
                    var isCldj = this.GetQueryString("cldj");                
@@ -637,7 +635,7 @@ var vm = new Vue({
                 vm.markerClusterer = markerClusterer;
             },
             //重点单位聚合
-            createCluster: function () {
+            createCluster: function (){
                 var map = vm.map;
                 var markerClusterer = new BMapLib.MarkerClusterer(map);
                 var clustererStyle = [{
@@ -717,11 +715,7 @@ var vm = new Vue({
                         labelstr='<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>';
                         labelstr+='&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>';
                     }
-
-
                     var label = new BMap.Label(labelstr);
-                   
-                   
                     marker.province = provinces[i];
                     label.setStyle({
                         fontSize: '0.6em',
@@ -784,21 +778,29 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                    var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
-                    // var labels = new BMap.Label('<span style="color:#fff;">'+citys[i].xzqhmc+'</span>')
-                    // labels.setStyle({
-                    //     fontSize: '11px',
-                    //     fontWeight: 'bold',
-                    //     border: '0',
-                    //     padding: '14px 4px',
-                    //     textAlign: 'center',
-                    //     marginLeft: '1.5px',
-                    //     marginTop: '24px',
-                    //     color: '#ED0C0A',
-                    //     borderRadius: '5px',
-                    //     paddingRight: '58px',
-                    //     background:'',
-                    // });
+
+                    // var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
+                    //判断字段长度改变样式
+                     var labelstr="";
+                     var mclen=citys[i].xzqhmc.length;
+                     var sllen=citys[i].zddwsl.length;
+                     if(mclen==4){
+                         labelstr='&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                     }else{
+                         labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                     }
+                     if(sllen==4){
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
+                     }else{
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
+                     }
+                     if(mclen==5){
+                         labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                         labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
+                     }
+                     var label = new BMap.Label(labelstr);
+                     marker.city = citys[i];
+                    //
                     label.setStyle({
                         fontSize: '0.6em',
                         fontWeight: 'bold',
@@ -815,7 +817,7 @@ var vm = new Vue({
                     marker.setLabel(label);
                     // marker.setLabel(labels);
                     var map = vm.map;
-                     //zjczzz
+                    //zjczzz
                     marker.addEventListener("onmouseover", function(e) {
                         var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
@@ -830,6 +832,7 @@ var vm = new Vue({
                     });
                     //
                     marker.addEventListener("click", function (e) {
+                        //loading加载开始
                         vm.loading = true;
                         vm.selqhmc = vm.shengshizs;
                         var zddws = result;
@@ -955,11 +958,11 @@ var vm = new Vue({
                     });
                     marker.setLabel(label);
                     zddwp.push(marker);
-                    vm.loading = false;
+                    
                 };
                 var markerClusterer = vm.markerClusterer;
                 markerClusterer.addMarkers(zddwp);
-                
+                vm.loading = false;
             },
             //点击重点单位事件
             drawMapc: function (zddw) {
