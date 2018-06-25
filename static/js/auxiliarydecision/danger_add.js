@@ -1,7 +1,12 @@
 //加载面包屑
-// window.onload=function(){
-//     loadBreadcrumb("化学危险品", "-1");
-// }
+window.onload = function () {
+    var type = getQueryString("type");
+    if (type == "XZ") {
+        loadBreadcrumb("化学危险品", "化学危险品新增");
+    } else if (type == "BJ") {
+        loadBreadcrumb("化学危险品", "化学危险品编辑");
+    }
+}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
