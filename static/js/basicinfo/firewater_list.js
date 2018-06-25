@@ -95,6 +95,11 @@ new Vue({
     methods: {
         //表格查询事件
         searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading=true;
             /*水源类型多选，array拼接成字符串
              this.searchForm.sylx = '';
