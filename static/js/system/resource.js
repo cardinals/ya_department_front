@@ -71,10 +71,11 @@ var vm = new Vue({
     }, 
     methods: {
       //左侧树点击事件
-      handleNodeClick(data) {
+      handleNodeClick(data,node) {
         this.findResourceById(data.resourceid);
         this.permissionDetailSelect = [],
         this.permissionDetails(data.resourceid);
+        var tree = document.getElementById('tree').childNodes[0];
       },
       //更新
       update: function(){
@@ -97,6 +98,7 @@ var vm = new Vue({
         }
         axios.post('/api/resource/updateByVO', params).then(function(res){
           this.resourceForm = res.data.result;
+          this.changeTreeLable(this.tableData,this.resourceForm.resourceid);
           this.$message({
             showClose: true,
             message: '更新成功',
@@ -146,10 +148,6 @@ var vm = new Vue({
             message: '已取消删除'
           });          
         });
-
-
-
-        
       },
       //获取权限列表
       getAllPermissions: function(){
@@ -283,6 +281,18 @@ var vm = new Vue({
     closeDialog: function (val) {
       this.addVisible = false;
       this.$refs["addForm"].resetFields();
+    },
+
+    changeTreeLable: function(parentNode,searchKey){
+      for(var i in parentNode){
+        if(parentNode[i].resourceid == searchKey){
+          parentNode[i].resourceinfo = this.resourceForm.resourceinfo;
+        } 
+        else if(parentNode[i].children != null ){
+          var children = parentNode[i].children;
+          this.changeTreeLable(children,searchKey);
+        }
+      }
     },
   },
     
