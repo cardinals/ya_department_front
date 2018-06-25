@@ -389,12 +389,12 @@ new Vue({
                 //附件查询
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.status).then(function (res) {
                     // var name = res.data.result[0].wjm;
-                    // var url = "http://localhost:8090/upload/" + res.data.result[0].xzlj
+                    // var url = "http://localhost:80/upload/" + res.data.result[0].xzlj
                     if (res.data.result.length > 0) {
                         this.fileList = [{
                             uuid: res.data.result[0].uuid,
                             name: res.data.result[0].wjm,
-                            url: "http://localhost:8090/upload/" + res.data.result[0].xzlj
+                            url: "http://localhost:80/upload/" + res.data.result[0].xzlj
                         }]
                     }
 
