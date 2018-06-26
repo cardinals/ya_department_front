@@ -60,9 +60,15 @@ var vue = new Vue({
         
         this.loading = true; //重新加载数据
         this.codeid = getQueryString("codeid");
-        axios.get('/api/codelist/detail/doFindById/' + this.codeid).then(function (res) {
-            this.tableData = res.data.result;
-            this.total = res.data.result.length;
+        var params = {
+            codeid: this.codeid,
+            pageSize: this.pageSize,
+            pageNum: this.currentPage
+        };
+        axios.post('/api/codelist/detail/doFindByCodeid', params).then(function (res) {
+            var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+            this.tableData = tableTemp.concat(res.data.result.list);
+            this.total = res.data.result.total;
             this.loading = false;
         }.bind(this), function (error) {
             console.log(error)
@@ -95,12 +101,15 @@ var vue = new Vue({
             var params = {
                 codeid: this.codeid,
                 codeValue: this.searchForm.codeValue.trim(),
-                codeName: this.searchForm.codeName.trim()
+                codeName: this.searchForm.codeName.trim(),
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/codelist/detail/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
