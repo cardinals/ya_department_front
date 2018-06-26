@@ -127,15 +127,7 @@ var vue = new Vue({
             this.searchForm.gpsbh="";
             this.searchClick('reset');
         },
-        //数据为空时显示‘无’
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         //获取所有车辆类型
         getAllTypesData: function (){
             axios.post('/api/codelist/getYjlxTree/CLLX').then(function (res) {

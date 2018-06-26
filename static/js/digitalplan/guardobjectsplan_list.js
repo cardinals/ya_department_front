@@ -210,15 +210,6 @@ var vue = new Vue({
             this.searchForm.BZRQ.push(val.substring(0,val.indexOf("至")));
             this.searchForm.BZRQ.push(val.substring(val.indexOf("至")+1));
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
 
         //表格勾选事件
         selectionChange: function (val) {

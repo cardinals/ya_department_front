@@ -209,15 +209,7 @@ var vue = new Vue({
                 console.log(error);
             })
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            } 
-        },
+        
         //点击进入详情页
         informClick(val) {
             window.location.href = "importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;

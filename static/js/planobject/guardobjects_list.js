@@ -204,15 +204,6 @@ var vue = new Vue({
             console.log(this.searchForm.lrsj);
         },
         
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
         //表格勾选事件
         selectionChange: function (val) {
             for (var i = 0; i < val.length; i++) {

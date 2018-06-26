@@ -107,16 +107,7 @@ var vue = new Vue({
             this.searchForm.dzlx = [],
             this.searchClick('reset');
         },
-        /** 
-        //数据为空时显示‘无’
-        dataFormat: function (row, column) {
-            var rowData = row[column.property];
-            if (rowData == null || rowData == "") {
-                return '无';
-            } else {
-                return rowData;
-            }
-        },*/
+        
         //如果队站类型为其他消防队伍，管辖水源数、管辖重点单位数为”-“
         dataFormat2: function(row, column){
             var rowData = row[column.property];

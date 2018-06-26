@@ -131,15 +131,6 @@ var vue = new Vue({
             this.searchForm.xfgx="";
             this.searchClick('reset');
         },
-        //数据为空时显示‘无’
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
 
         //表格勾选事件
         selectionChange: function (val) {
