@@ -396,20 +396,7 @@ new Vue({
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
+        
         closeDialog: function (val) {
             this.addFormVisible = false;
             val.rolename = "";

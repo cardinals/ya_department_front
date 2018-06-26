@@ -63,8 +63,10 @@ window.pageSizeChange = function(val) {
 
 //当前页修改事件
 window.currentPageChange = function(val) {
-    vue.currentPage = val;
-    vue.searchClick('page');
+    if(vue.currentPage != val){
+        vue.currentPage = val;
+        vue.searchClick('page');
+    }
 }
 
 //表格重新加载数据

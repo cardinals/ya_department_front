@@ -132,7 +132,9 @@ var vue = new Vue({
             var params = {
                 rolename: this.searchForm.rolename,
                 createTimeBegin: this.searchForm.createTime[0],
-                createTimeEnd: this.searchForm.createTime[1]
+                createTimeEnd: this.searchForm.createTime[1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/role/findByVO', params).then(function (res) {
@@ -162,16 +164,6 @@ var vue = new Vue({
         //表格勾选事件
         selectionChange: function (val) {
             this.multipleSelection = val;
-        },
-
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                console.info("加载数据成功");
-                _self.loading = false;
-            }, 300);
         },
 
         //新建：弹出Dialog
@@ -205,7 +197,7 @@ var vue = new Vue({
                         console.log(error)
                     })
                     this.addFormVisible = false;
-                    _self.loadingData();//重新加载数据
+                    loadingData();//重新加载数据
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -246,7 +238,7 @@ var vue = new Vue({
                             type: "success"
                         });
                         _self.total = _self.tableData.length;
-                        _self.loadingData(); //重新加载数据
+                        loadingData(); //重新加载数据
                     }.bind(this), function (error) {
                         console.log(error)
                     })
@@ -260,13 +252,13 @@ var vue = new Vue({
         pageSizeChange: function (val) {
             this.pageSize = val;
             var _self = this;
-            _self.loadingData(); //重新加载数据
+            loadingData(); //重新加载数据
         },
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
             var _self = this;
-            _self.loadingData(); //重新加载数据
+            loadingData(); //重新加载数据
         },
 
         //修改：弹出Dialog
