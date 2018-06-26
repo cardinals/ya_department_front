@@ -788,7 +788,7 @@ var vm = new Vue({
                      var mclen=citys[i].xzqhmc.length;
                      var sllen=citys[i].zddwsl.length;
                      if(mclen==4){
-                         labelstr='&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                         labelstr='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
                      }else if(mclen==5){
                         labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
                         // labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:red;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
@@ -806,14 +806,14 @@ var vm = new Vue({
                     }
 
                      if(sllen==4&&mclen<=6){
-                         labelstr='&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                         labelstr='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                         labelstr+='<br/>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
                      }
                      else if(mclen<=6){
                         labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                         labelstr+='&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                         labelstr+='<br/>'+'&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
                      }else if(mclen==5){
-                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl +'</span>'+"<br/>"+"<br/>";
+                         labelstr+='<br/>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl +'</span>'+"<br/>"+"<br/>";
                      }
                    
                      var label = new BMap.Label(labelstr);
@@ -823,7 +823,7 @@ var vm = new Vue({
                         fontSize: '0.6em',
                         fontWeight: 'bold',
                         border: '0',
-                        padding: '10px 4px',
+                        padding: '1px 4px',
                         textAlign: 'center',
                         marginLeft: '2px',
                         color: '#ED0C0A',
