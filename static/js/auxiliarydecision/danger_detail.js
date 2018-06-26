@@ -25,22 +25,15 @@ new Vue({
         //设置菜单选中
         $("#activeIndex").val(getQueryString("index"));
         this.id = getQueryString("ID");
-        axios.get('/dpapi/danger/doFindById/' + this.id).then(function (res) {
-            this.tableData = res.data.result;
-            this.detailData = this.tableData;
-            doFindPhoto("HXWXPLX",this.detailData.type);
-        }.bind(this), function (error) {
-            console.log(error)
-        })
+        this.searchClick();
     },
 
     methods: {
         searchClick: function () {
-            this.id = id;
-            axios.get('/dpapi/danger/doFindDetailById/' + this.id).then(function (res) {
+            axios.get('/dpapi/danger/' + this.id).then(function (res) {
                 this.tableData = res.data.result;
-                this.total = res.data.result.length;
                 this.detailData = this.tableData;
+                doFindPhoto("HXWXPLX",this.detailData.type);
             }.bind(this), function (error) {
                 console.log(error)
             })
