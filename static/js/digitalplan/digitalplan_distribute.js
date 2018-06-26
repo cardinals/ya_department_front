@@ -186,16 +186,7 @@ var vue = new Vue({
         selectionChange: function (val) {
             this.multipleSelection = val;
         },
-        //表格数据格式化
-        /** 
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },*/
+        
         //预案详情
         planDetails(val) {
             window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=YAFF";

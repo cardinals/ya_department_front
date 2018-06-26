@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -30,7 +30,7 @@ new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 10,
+            total: 0,
             //序号
             indexData: 0,
             //新建页面是否显示
@@ -63,7 +63,7 @@ new Vue({
         //菜单选中
         $("#activeIndex").val(getQueryString("index"));
         this.getAllPermissions();
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
         //所有的权限列表
@@ -84,37 +84,13 @@ new Vue({
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
         },
 
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
-        //表格中日期格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-                return [year, month, day].join('-')
-            }
-        },
-
         //查询，初始化
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
@@ -243,7 +219,6 @@ new Vue({
                 });
                 return;
             }
-            debugger;
             var ids = [];
             for (var i = 0; i < multipleSelection.length; i++) {
                 var row = multipleSelection[i];
@@ -275,18 +250,6 @@ new Vue({
                 .catch(function (e) {
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
-        },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
         },
         closeDialog: function (val) {
             this.addFormVisible = false;

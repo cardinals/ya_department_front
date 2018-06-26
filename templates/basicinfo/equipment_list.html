@@ -79,7 +79,7 @@
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
 						 class="tableStyle" :height="tableheight">
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="zbmc" label="装备名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
+							<el-table-column prop="zbmc" label="装备名称" show-overflow-tooltip min-width="15%" align="center">
 								<template slot-scope="scope">
 									<a @click="engineDatail(scope.row)" type="text">{{scope.row.zbmc}}</a>
 								</template>

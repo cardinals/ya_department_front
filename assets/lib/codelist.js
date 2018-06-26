@@ -300,7 +300,6 @@ new Vue({
         },
         //修改提交事件
         editSubmit: function (val) {
-            debugger
             var _self = this;
             /*POST请求递交editForm数据传入roleid之后再对前台加载*/
             this.tableData[this.selectIndex].codeid = val.codeid;

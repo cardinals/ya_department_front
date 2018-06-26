@@ -66,3 +66,49 @@ window.currentPageChange = function(val) {
     vue.currentPage = val;
     vue.searchClick('page');
 }
+
+//表格重新加载数据
+window.loadingData = function () {
+    vue.loading = true;
+    setTimeout(function () {
+        console.info("加载数据成功");
+        vue.loading = false;
+    }, 300);
+}
+
+//日期格式化
+window.dateFormat = function(val){
+    var date = new Date(val);
+    if (date == undefined) {
+        return val;
+    }
+    var month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    var newDate = [year, month, day].join('-');
+    return newDate;
+}
+
+//table日期格式化
+window.tableDateFormat =  function (row, column) {
+    var rowDate = row[column.property];
+    if (rowDate == null || rowDate == "") {
+        return '';
+    } else {
+        return dateFormat(rowDate);
+    }
+}
+
+//数据格式化
+window.dataFormat = function (row, column) {
+    var rowDate = row[column.property];
+    if (rowDate == null || rowDate == "") {
+        return '无';
+    } else {
+        return rowDate;
+    }
+}

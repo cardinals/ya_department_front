@@ -213,15 +213,7 @@ var vue = new Vue({
             this.searchForm.createTime.push(val.substring(0,val.indexOf("至")));
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         //新增页面增加参数表单
         addDomain() {
             this.addIndex++;

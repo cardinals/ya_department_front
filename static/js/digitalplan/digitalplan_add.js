@@ -601,22 +601,6 @@ new Vue({
             }, 300);
         },
 
-        //时间格式化
-        dateFormat: function (val) {
-            var date = new Date(val);
-            if (date == undefined) {
-                return val;
-            }
-            var month = '' + (date.getMonth() + 1),
-                day = '' + date.getDate(),
-                year = date.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            var newDate = [year, month, day].join('-');
-            return newDate;
-        },
         //保存/提交前校验
         checkedBefore: function () {
             if (this.addForm.dxid == null || this.addForm.dxid == "") {

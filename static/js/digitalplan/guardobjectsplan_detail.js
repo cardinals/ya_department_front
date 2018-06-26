@@ -79,7 +79,6 @@ new Vue({
                 axios.get('/dpapi/xfbwjw/doFindById/' + val).then(function (res) {
                     this.detailData = null;
                     this.detailData = res.data.result;
-                    debugger;
                     //制作时间
                     if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
                         this.detailData.zzsj='';
@@ -146,27 +145,6 @@ new Vue({
 
         },
         
-        //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
-
         /**
         * lxy
         */

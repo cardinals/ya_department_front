@@ -76,15 +76,15 @@
 
                             <el-table-column type="selection" min-width="5%"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                            <el-table-column prop="gsmc" show-overflow-tooltip label="公式名称" min-width="25%" align="center" :formatter="dataFormat">
+                            <el-table-column prop="gsmc" show-overflow-tooltip label="公式名称" min-width="25%" align="center">
                                 <template slot-scope="scope">
                                     <a @click="calculateDetails(scope.row)" v-text="scope.row.gsmc"></a>
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="lbmc" show-overflow-tooltip label="类别" min-width="16%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="jsgs" show-overflow-tooltip label="内容" min-width="16%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="gssm" show-overflow-tooltip label="说明" min-width="15%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="jsgsdw" show-overflow-tooltip label="单位" min-width="8%" align="center":formatter="dataFormat"></el-table-column>
+                            <el-table-column prop="lbmc" show-overflow-tooltip label="类别" min-width="16%" align="center"></el-table-column>
+                            <el-table-column prop="jsgs" show-overflow-tooltip label="内容" min-width="16%" align="center"></el-table-column>
+                            <el-table-column prop="gssm" show-overflow-tooltip label="说明" min-width="15%" align="center"></el-table-column>
+                            <el-table-column prop="jsgsdw" show-overflow-tooltip label="单位" min-width="8%" align="center"></el-table-column>
                             <!-- <el-table-column prop="sfqy" show-overflow-tooltip label="启用/禁用" min-width="12%" align="center">
                                 <template slot-scope="scope"> 
                                     <el-switch
