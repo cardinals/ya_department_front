@@ -132,7 +132,9 @@ var vue = new Vue({
             var params = {
                 rolename: this.searchForm.rolename,
                 createTimeBegin: this.searchForm.createTime[0],
-                createTimeEnd: this.searchForm.createTime[1]
+                createTimeEnd: this.searchForm.createTime[1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/role/findByVO', params).then(function (res) {
