@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -70,7 +70,7 @@ new Vue({
         this.activeIndex = index;
         
         this.getLXDMData();
-        this.searchClick();
+        this.searchClick('click');
         this.roleData();
     },
     methods: {
@@ -85,7 +85,12 @@ new Vue({
             })
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params={
@@ -94,25 +99,22 @@ new Vue({
                 type: this.searchForm.option_LXDM,
                 cas: this.searchForm.CAS,
                 dangerId: this.searchForm.DANGER_ID,
-                expression:this.searchForm.EXPRESSION
+                expression:this.searchForm.EXPRESSION.toUpperCase(),
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
-            axios.post('/dpapi/danger/findByVO',params).then(function(res){
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+            axios.post('/dpapi/danger/page',params).then(function(res){
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
+                // this.tableData = res.data.result;
+                // this.total = res.data.result.length;
                 _self.loading = false;
             }.bind(this),function(error){
                 console.log(error);
             })
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         clearClick: function () {
             this.searchForm.NAME="";
             this.searchForm.ENGLISH_NAME="";
@@ -120,7 +122,7 @@ new Vue({
             this.searchForm.option_LXDM="";
             this.searchForm.DANGER_ID="";
             this.searchForm.EXPRESSION="";
-            this.searchClick();
+            this.searchClick('reset');
         },
         getLXDMData: function (){
             var LXDM = [];
@@ -165,18 +167,6 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
         //新增
         addClick: function(){
             window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
@@ -196,7 +186,7 @@ new Vue({
                     this.$message({
                         message: "成功删除" + res.data.result + "条化危品信息",
                         showClose: true,
-                        onClose: this.searchClick()
+                        onClose: this.searchClick('delete')
                     });
                 }.bind(this), function (error) {
                     console.log(error)
