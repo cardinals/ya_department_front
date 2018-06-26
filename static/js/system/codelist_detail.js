@@ -132,7 +132,6 @@ var vue = new Vue({
         //新建：保存
         addSubmit: function (val) {
             var _self = this;
-            debugger;
             axios.get('/api/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({

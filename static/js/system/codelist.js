@@ -239,7 +239,6 @@ var vue = new Vue({
                 });
                 return;
             }
-            debugger;
             var ids = [];
             for (var i = 0; i < multipleSelection.length; i++) {
                 var row = multipleSelection[i];

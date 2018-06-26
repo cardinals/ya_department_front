@@ -161,12 +161,10 @@ new Vue({
             ]
         },
         successClose: function () {
-            // debugger
             this.initialIndex = 0;
         },
         //图片轮播
         showPic: function (val) {
-            // debugger
             this.initialIndex = val;
             this.showPicVisible = true;
             // this.initialIndex = val;

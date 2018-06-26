@@ -79,7 +79,6 @@ new Vue({
                 axios.get('/dpapi/xfbwjw/doFindById/' + val).then(function (res) {
                     this.detailData = null;
                     this.detailData = res.data.result;
-                    debugger;
                     //制作时间
                     if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
                         this.detailData.zzsj='';

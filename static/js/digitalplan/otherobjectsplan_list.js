@@ -133,7 +133,6 @@ var vue = new Vue({
         },
         //表格查询事件
         searchClick: function (type) {
-            debugger;
             if(type == 'page'){     
             }else{
                 this.currentPage = 1;

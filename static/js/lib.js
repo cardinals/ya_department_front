@@ -95,7 +95,6 @@ window.dateFormat = function(val){
 
 //table日期格式化
 window.tableDateFormat =  function (row, column) {
-    debugger;
     var rowDate = row[column.property];
     if (rowDate == null || rowDate == "") {
         return '';
