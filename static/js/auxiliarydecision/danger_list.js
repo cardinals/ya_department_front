@@ -94,9 +94,9 @@ new Vue({
                 type: this.searchForm.option_LXDM,
                 cas: this.searchForm.CAS,
                 dangerId: this.searchForm.DANGER_ID,
-                expression:this.searchForm.EXPRESSION
+                expression:this.searchForm.EXPRESSION.toUpperCase()
             };
-            axios.post('/dpapi/danger/findByVO',params).then(function(res){
+            axios.post('/dpapi/danger/list',params).then(function(res){
                 this.tableData = res.data.result;
                 this.total = res.data.result.length;
                 _self.loading = false;
