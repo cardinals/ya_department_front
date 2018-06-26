@@ -203,26 +203,7 @@ var vue = new Vue({
             this.searchForm.cjsj.push(val.substring(val.indexOf("至")+1));
             // console.log(this.searchForm.cjsj);
         },
-        //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
+        
         //时间格式
         bzrqChange(val) {
             this.searchForm.BZRQ.splice(0,this.searchForm.BZRQ.length);
