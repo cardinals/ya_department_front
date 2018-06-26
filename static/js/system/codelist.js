@@ -100,12 +100,15 @@ var vue = new Vue({
             var params = {
                 codetype: this.searchForm.codetype,
                 createTimeBegin: this.searchForm.createTime[0],
-                createTimeEnd: this.searchForm.createTime[1]
+                createTimeEnd: this.searchForm.createTime[1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/codelist/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)

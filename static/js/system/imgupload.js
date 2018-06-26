@@ -235,11 +235,14 @@ var vue = new Vue({
             _self.loading = true;//表格重新加载
             var params = {
                 picName: this.searchForm.pic_name,
-                picType: this.searchForm.pic_type
+                picType: this.searchForm.pic_type,
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             }
             axios.post('/api/imgupload/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)

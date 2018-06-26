@@ -20,7 +20,7 @@ var vue = new Vue({
             //后台返回全部资源列表
             allPermissionList: [],
             //表高度变量
-            tableheight: 445,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             //多选值
@@ -96,12 +96,15 @@ var vue = new Vue({
             var params = {
                 permissionname: this.searchForm.permissionname,
                 createTimeBegin: this.searchForm.createTime[0],
-                createTimeEnd: this.searchForm.createTime[1]
+                createTimeEnd: this.searchForm.createTime[1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/permission/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
