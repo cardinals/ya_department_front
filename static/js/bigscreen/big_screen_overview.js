@@ -20,7 +20,7 @@ var vm = new Vue({
         ],
         barData: {
             name : ['化危品火灾爆炸', '建筑堆场类','交通运输类','危化品泄露事故','交通事故','建筑物坍塌事故','自然灾害事故','公共突发事件','群众遇险事件','群众求助救援'],
-            value : [935, 535, 814, 232, 851 , 332, 235, 156, 72, 74],
+            value : [935, 535, 814, 232, 851 , 332, 235, 156, 72, 74]
         },
         top10: [
             { name: '北京', value: '2999' },
@@ -121,7 +121,7 @@ var vm = new Vue({
             {uuid:'10', zddwmc: '秦皇岛市林业局'}
         ],
         isDSH: true,
-        isDGX: false,
+        isDGX: false
     },
     methods: {
         // 中央下部31总队柱状图
@@ -175,7 +175,7 @@ var vm = new Vue({
                         },
                         splitLine: {
                             show: false
-                        },
+                        }
                     }
                 ],
                 series: [
@@ -285,7 +285,7 @@ var vm = new Vue({
                                 }
                             }
                         },
-                        data: this.mapData,
+                        data: this.mapData
                     }
                 ]
             };
@@ -377,14 +377,14 @@ var vm = new Vue({
                             }
                         },
                         axisTick: {
-                            show: false,
+                            show: false
                         },
                         axisLabel: {
                             show: true,
                             interval: 0,
                             rotate: "40",
                             fontSize: 12
-                        },
+                        }
                     }
                 ],
                 yAxis: [
@@ -397,14 +397,14 @@ var vm = new Vue({
                             }
                         },
                         axisTick: {
-                            show: false,
+                            show: false
                         },
                         axisLabel: {
-                            show: true,
+                            show: true
                         },
                         splitLine: {
-                            show: true,
-                        },
+                            show: true
+                        }
                     }
                 ],
                 series: [
@@ -492,7 +492,7 @@ var vm = new Vue({
                     },
                     axisTick: {
                         show: false
-                    },
+                    }
                 },
                 yAxis: {
                     type: 'category',
@@ -504,10 +504,10 @@ var vm = new Vue({
                         show: false,
                         lineStyle: {
                             color: '#e6e6e6'
-                        },
+                        }
                     },
                     axisLabel: {
-                        inside: false,
+                        inside: false
                     },
                     axisTick: {
                         show: false
@@ -615,7 +615,7 @@ var vm = new Vue({
                 this.isDSH = false;
                 this.isDGX = true;
             }
-        },
+        }
     },
     mounted: function() {
         // this.echarts1()
