@@ -142,12 +142,13 @@
 							<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
 							 class="tableStyle" :height="tableheight">
 								<el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-								<el-table-column prop="symc" label="水源名称" min-width="25%" show-overflow-tooltip align="center">
+								<el-table-column prop="symc" label="水源名称" min-width="18%" show-overflow-tooltip align="center">
 									<template slot-scope="scope">
 										<a @click="informClick(scope.row)" type="text" v-text="scope.row.symc"></a>
 									</template>
 								</el-table-column>
-								<el-table-column prop="sydz" label="水源地址" min-width="25%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="sybm" label="水源编码" min-width="16%" show-overflow-tooltip align="center"></el-table-column>
+								<el-table-column prop="sydz" label="水源地址" min-width="16%" show-overflow-tooltip align="center"></el-table-column>
 								<el-table-column prop="sylxmc" label="水源类型" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
 								<el-table-column prop="dzjc" label="管辖队站" min-width="12%" show-overflow-tooltip align="center"></el-table-column>
 								<el-table-column prop="kyztmc" label="可用状态" min-width="10%" show-overflow-tooltip align="center"></el-table-column>

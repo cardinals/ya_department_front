@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -230,12 +230,6 @@ new Vue({
             }, 300);
         },
 
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
         //当前页修改事件
         currentPageChange: function (val) {
             //单选框清空

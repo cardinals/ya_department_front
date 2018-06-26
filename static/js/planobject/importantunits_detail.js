@@ -545,7 +545,7 @@ new Vue({
         //预案预览
         openPlan: function (val) {
             if (val.yajb == '03') {
-                window.open("http://localhost:8005/planShare/page/" + val.uuid + "/" + 'detail' + "/web");
+                window.open("http://localhost:80/planShare/page/" + val.uuid + "/" + 'detail' + "/web");
             } else if (val.yajb == '01' || val.yajb == '02') {
                 var fjDate = [];
                 var fjCount = 0;
@@ -560,7 +560,7 @@ new Vue({
                                 showClose: true
                             });
                         } else {
-                            window.open("http://localhost:8090/upload/" + yllj);
+                            window.open("http://localhost:80/upload/" + yllj);
                         }
                     } else {
                         this.$message({
@@ -588,7 +588,7 @@ new Vue({
                     if (fjCount > 0) {
                         axios.get('/dpapi/yafjxz/doFindByPlanId/' + val.uuid).then(function (res) {
                             var xzlj = res.data.result[0].xzlj;
-                            window.open("http://localhost:8090/upload/" + xzlj);
+                            window.open("http://localhost:80/upload/" + xzlj);
                         }.bind(this), function (error) {
                             console.log(error)
                         })
@@ -615,7 +615,7 @@ new Vue({
         openShare: function () {
             // this.shareDialogVisible = true;
             var ID = getQueryString("ID");
-            window.open("http://localhost:8005/planShare/pageZddw/" + ID +  "/web");
+            window.open("http://localhost:80/planShare/pageZddw/" + ID +  "/web");
         },
         closeShareDialog: function () {
             this.shareDialogVisible = false;
@@ -644,8 +644,9 @@ new Vue({
         tz:function(){
             // console.log(this.tableData);
             var uuid = this.tableData.uuid;
-        
-            window.location.href = "../bigscreen/big_screen_map_pro.html?uuid="+uuid+"&sydj=1";
+            var cityCode = this.tableData.xzqh;
+            //行政区划代码，跳转后需要截取前四位补0后查一下市的名称
+            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sydj=1";
         }
     }
 

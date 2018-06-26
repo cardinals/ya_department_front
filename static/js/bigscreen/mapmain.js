@@ -131,7 +131,7 @@ var vm = new Vue({
         //当前页
         currentPage: 1,
         //分页大小
-        pageSize: 11,
+        pageSize: 10,
         //预案信息总记录数
         total: 10,
         //序号
@@ -778,7 +778,7 @@ var vm = new Vue({
                 for (var i = 0; i < citys.length; i++) {
                     var pt = new BMap.Point(citys[i].gisX, citys[i].gisY);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
-
+                    
                     // var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
                     //判断字段长度改变样式
                      var labelstr="";
@@ -798,6 +798,21 @@ var vm = new Vue({
                          labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
                          labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
                      }
+
+                    //  if(mclen>5){
+                    //     //大于5时换行
+                    //     var cnt = parseInt(mclen / 5);
+                    //     var index = 0;
+                    //     labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                    //     for (var i = 0; i < cnt; i++) {
+                    //         index = i * 5;
+                    //         labelstr += citys[i].xzqhmc.slice(index, index + 5) + "<br/>";
+                    //     }
+
+                    //     // labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                    //     labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
+                    //  }
+
                      var label = new BMap.Label(labelstr);
                      marker.city = citys[i];
                     //
@@ -863,6 +878,7 @@ var vm = new Vue({
                 for (var i = 0; i < zddws.length; i++) {
                     var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
                     var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
+
                     var marker = new BMap.Marker(point, { icon: myIcon1 });
                     marker.uuid = zddws[i].uuid;
                     marker.addEventListener("click", function (e) {
@@ -1910,7 +1926,7 @@ var vm = new Vue({
                                 showClose: true,
                             });
                         }else{
-                            window.open("http://localhost:8005/planShare/page/" + this.planData.yaid_3 +  "/detail/web");
+                            window.open("http://localhost:80/planShare/page/" + this.planData.yaid_3 +  "/detail/web");
                         }
                     }
                 }.bind(this), function (error) {
@@ -1922,7 +1938,7 @@ var vm = new Vue({
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
                     if(res.data.result){
                         var yllj = res.data.result[0].yllj;
-                        window.open("http://localhost:8090/upload/" + yllj);
+                        window.open("http://localhost:80/upload/" + yllj);
                     }
                 }.bind(this), function (error) {
                     console.log(error)
@@ -1931,7 +1947,7 @@ var vm = new Vue({
             
             //分享
             openShare:function(val){
-                window.open("http://localhost:8005/planShare/pageZddw/" + val +  "/web");
+                window.open("http://localhost:80/planShare/pageZddw/" + val +  "/web");
             },
             //水源详情跳转
             syxq:function(params){

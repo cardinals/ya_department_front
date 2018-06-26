@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -182,18 +182,7 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            this.searchClick('page');
-        },
+        
         //点击进入详情页
         informClick(val) {
             //window.location.href = "fireengine_detail.html?id=" + val.uuid;
