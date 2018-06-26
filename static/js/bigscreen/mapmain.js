@@ -766,7 +766,7 @@ var vm = new Vue({
             },
             //图层二
             drawMapa: function (result) {
-                var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70));      //创建图标
+                var myIcon1 = new BMap.Icon("../../static/images/new/w1_pct.png", new BMap.Size(100, 70));      //创建图标
                 var cityp = [];
                 var citys;
                 if (this.ShiZddwDate.length > 0) {
@@ -780,39 +780,39 @@ var vm = new Vue({
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     
                     // var label = new BMap.Label('&nbsp<span style="color:#fff;">'+citys[i].xzqhmc +'</span>' +'&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>');//城市名称
-                    //判断字段长度改变样式
+                    //判断字段长度改变样式zzjc
                      var labelstr="";
                      var mclen=citys[i].xzqhmc.length;
                      var sllen=citys[i].zddwsl.length;
                      if(mclen==4){
                          labelstr='&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                     }else{
-                         labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                     }
-                     if(sllen==4){
-                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
-                     }else{
-                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
-                     }
-                     if(mclen==5){
-                         labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                         labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
-                     }
+                     }else if(mclen==5){
+                        labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                        // labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:red;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                     }else if(mclen>6){
+                       var cnt = parseInt(mclen / 6);
+                       var index = 0;
+                       for (var j = 0; j < cnt; j++) {
+                           index = j * 6;
+                           labelstr += '<span style="color:#fff;font-size:2px;">'+citys[i].xzqhmc.slice(index, index + 6) + "<br/>" +'</span>';
+                       }
+                       if (mclen % 6) {
+                           labelstr +='<span style="color:#fff;font-size:2px;">'+citys[i].xzqhmc.slice(index + 6, mclen)+'</span>';
+                        }
+                        labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl +'</span>'+"<br/>"+"<br/>";
+                    }
 
-                    //  if(mclen>5){
-                    //     //大于5时换行
-                    //     var cnt = parseInt(mclen / 5);
-                    //     var index = 0;
-                    //     labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                    //     for (var i = 0; i < cnt; i++) {
-                    //         index = i * 5;
-                    //         labelstr += citys[i].xzqhmc.slice(index, index + 5) + "<br/>";
-                    //     }
-
-                    //     // labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                    //     labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ citys[i].zddwsl+'</span>';
-                    //  }
-
+                     if(sllen==4&&mclen<=6){
+                         labelstr='&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                     }
+                     else if(mclen<=6){
+                        labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                     }else if(mclen==5){
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl +'</span>'+"<br/>"+"<br/>";
+                     }
+                   
                      var label = new BMap.Label(labelstr);
                      marker.city = citys[i];
                     //
@@ -820,7 +820,7 @@ var vm = new Vue({
                         fontSize: '0.6em',
                         fontWeight: 'bold',
                         border: '0',
-                        padding: '14px 4px',
+                        padding: '10px 4px',
                         textAlign: 'center',
                         marginLeft: '2px',
                         color: '#ED0C0A',
@@ -834,13 +834,13 @@ var vm = new Vue({
                     var map = vm.map;
                     //zjczzz
                     marker.addEventListener("onmouseover", function(e) {
-                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_ppct.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon3);
                         marker.setTop(true,27000000);
                     });
                     marker.addEventListener("onmouseout", function(e) {
-                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_pct.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon1);
                         marker.setTop(false);
@@ -2022,7 +2022,7 @@ var vm = new Vue({
                 return div;
             },
            
-            //折行显示//文字传进来
+            //折行显示//文字传进来zzjc
             formatLabel: function (strname) {
                 var len = strname.length;
                 var subInder = 6;

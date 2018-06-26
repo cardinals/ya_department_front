@@ -37,7 +37,7 @@ Ext.define('RiverGisApp.BDConverter', {
         };
     },
 
-    //WGS-84 to GCJ-02
+    //WGS-84 to GCJ-02 首次加密
     gcj_encrypt: function(wgsLat, wgsLon) {
         if (this.outOfChina(wgsLat, wgsLon))
             return {
@@ -98,7 +98,7 @@ Ext.define('RiverGisApp.BDConverter', {
             'lon': wgsLon
         };
     },
-    //GCJ-02 to BD-09
+    //GCJ-02 to BD-09 二次加密
     bd_encrypt: function(gcjLat, gcjLon) {
         var x = gcjLon,
             y = gcjLat;
