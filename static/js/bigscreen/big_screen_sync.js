@@ -90,7 +90,7 @@ var vm = new Vue({
             '公共突发事件',
             '群众遇险事件',
             '群众求助救援'
-        ],
+        ]
     },
     methods: {  
         b1PieChart:function () {
@@ -474,7 +474,7 @@ var vm = new Vue({
                     data: this.YALXdata,
                     textStyle: {
                         color: 'white'
-                    },
+                    }
                 },
                 grid: {
                     left: '5%',
@@ -508,7 +508,7 @@ var vm = new Vue({
                         },
                         splitLine: {
                             show: false
-                        },
+                        }
                     }
                 ],
                 series: [
@@ -546,7 +546,7 @@ var vm = new Vue({
                     text: '按预案类型统计灭火预案情况',
                     left: 'center',
                     textStyle: {
-                        color: '#ccc',
+                        color: '#ccc'
                     }  
                 },
                 tooltip: {
@@ -562,7 +562,7 @@ var vm = new Vue({
                     data: this.t2data,
                     textStyle: {
                         color: 'white'
-                    },
+                    }
                 },
                 calculable: true,
                 series: [
@@ -624,7 +624,7 @@ var vm = new Vue({
             };
         
             t1FunnelChart.setOption(t1FunnelChartOption);
-        },
+        }
     },
     mounted: function () {
         // this.b1PieChart();
