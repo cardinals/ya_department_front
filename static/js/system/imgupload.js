@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -117,7 +117,7 @@ new Vue({
         $("#activeIndex").val(getQueryString("index"));
         this.getAllTypes();
         this.getSavedImgTypes();
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
          //文件上传前
@@ -170,7 +170,7 @@ new Vue({
         clearClick: function () {
             this.searchForm.pic_name="";
             this.searchForm.pic_type="";
-            this.searchClick();
+            this.searchClick('reset');
         },
         //新增自行输入
         inputClick:function(){
@@ -225,7 +225,12 @@ new Vue({
             this.editForm.inputPicValue = "";
         },
         //表格查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
@@ -248,15 +253,7 @@ new Vue({
             this.multipleSelection = val;
             console.info(val);
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
@@ -372,7 +369,7 @@ new Vue({
                                 axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
                                     _self.total = _self.tableData.length;
                                     this.submitUpload();
-                                    this.searchClick();
+                                    this.searchClick('insert');
                                 }.bind(this),function(error){
                                     console.log(error)
                                 })
@@ -445,7 +442,7 @@ new Vue({
                                             axios.post('/api/imgupload/detail/insertByVO', params).then(function(res){
                                                 _self.total = _self.tableData.length;
                                                 this.submitUpload();
-                                                this.searchClick();
+                                                this.searchClick('update');
 
                                             }.bind(this),function(error){
                                                 console.log(error)
@@ -585,7 +582,7 @@ new Vue({
                                 this.picType = val.picType;
                                 axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
                                     this.submitUpload();
-                                    this.searchClick();
+                                    this.searchClick('update');
                                     this.editFormVisible = false;
                                 }.bind(this), function (error) {
                                     console.log(error)
@@ -659,7 +656,7 @@ new Vue({
                                             this.picType = val.inputPicType;
                                             axios.post('/api/imgupload/detail/updateByVO', params).then(function (res) {
                                                 this.submitUpload();
-                                                this.searchClick();
+                                                this.searchClick('update');
                                                 this.editFormVisible = false;
                                             }.bind(this), function (error) {
                                                 console.log(error)
@@ -752,18 +749,7 @@ new Vue({
                 });
 
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
+        
         closeDialog: function (val) {
             this.addFormVisible = false;
             this.$refs["addForm"].resetFields();

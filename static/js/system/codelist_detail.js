@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -17,7 +17,7 @@ new Vue({
             },
             tableData: [],
             //表高度变量
-            tableheight: 445,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             //多选值
@@ -79,42 +79,18 @@ new Vue({
         enddateChange(val) {
             this.searchForm.createTimeEnd = val;
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
-        //表格中日期格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
 
         codetypeCilck: function (val) {
             window.location.href = this.$http.options.root + "/api/codelist/getDetailPage/" + val.codeid;
         },
 
         //查询，初始化
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading = true;
             var params = {
                 codeid: this.codeid,
@@ -281,20 +257,7 @@ new Vue({
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-
-
+    
         closeDialog: function (val) {
             this.addFormVisible = false;
             val.permissionname = "";

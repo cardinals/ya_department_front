@@ -4,7 +4,7 @@ window.onload=function(){
 }
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -71,20 +71,12 @@ new Vue({
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
         handleNodeClick(data) {
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         //日期控件变化时格式化
         dateChange(val) {
             this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
@@ -92,33 +84,17 @@ new Vue({
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
         },
 
-        //表格中日期格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
-
         codetypeCilck: function (val) {
             window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
         },
 
         //查询，初始化
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
@@ -297,19 +273,6 @@ new Vue({
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-
 
         closeDialog: function (val) {
             this.addFormVisible = false;
