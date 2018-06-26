@@ -48,7 +48,11 @@ new Vue({
                 JZGD:"",
             },
             //预案信息
-            tableData:[],
+            tableData:[{
+                yamc: '',
+                dxmc: '',
+                yalxmc:''
+            }],
             //预案对象
             YADXtableData:[],
             //单位建筑
@@ -99,14 +103,24 @@ new Vue({
             //显示加载中样
             loading: false,
             //当前页
-            currentPage: 1,
+            // currentPage: 1,
+            currentPageYaxx: 1,
+            currentPageYadx: 1,
+            currentPageJzxx: 1,
             //分页大小
-            pageSize: 10,
+            // pageSize: 10,
+            pageSizeYaxx: 10,
+            pageSizeYadx: 10,
+            pageSizeJzxx: 2,
             //预案信息总记录数
-            total: 10,
+            // total: 0,
+            totalYaxx: 0,
+            totalYadx: 0,
+            totalJzxx: 0,
             //序号
             indexData: 0,
-           
+            //tab页
+            tabIndex: 0
         }
     },
     created: function () {
@@ -127,7 +141,7 @@ new Vue({
         this.JZSYXZ();
         this.JZJG();
         //预案信息
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
         handleNodeClick(data) {
@@ -135,14 +149,26 @@ new Vue({
         },
         //当前页修改事件
         handleCurrentChange(val) {
-            this.currentPage = val;
-            console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            // this.currentPage = val;
+            if(this.tabIndex == 0){
+                this.currentPageYaxx = val;
+                this.searchClick('page');
+            }else if(this.tabIndex == 1){
+                this.currentPageYadx = val;
+                this.searchYADXClick('page');
+            }else if(this.tabIndex == 2){
+                this.currentPageJzxx = val;
+                this.searchDWJZClick('page');
+            }
         },
 
         //高级搜索-预案搜索 查询事件
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPageYaxx = 1;
+            }
             this.loading = true;
             var _self = this;
             var params = {
@@ -152,19 +178,28 @@ new Vue({
                 yajb : this.yuAnSearchForm.YAJB,
                 shzt : this.yuAnSearchForm.SHZT,
                 begintime: this.yuAnSearchForm.begintime_create,
-                endtime: this.yuAnSearchForm.endtime_create
+                endtime: this.yuAnSearchForm.endtime_create,
+                pageSize: this.pageSizeYaxx,
+                pageNum: this.currentPageYaxx
             };
             axios.post('/dpapi/advancedsearch/gjssYaxxList', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPageYaxx-1)*this.pageSizeYaxx);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.totalYaxx = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
-            _self.total = _self.tableData.length;
         },
         //预案对象查询事件
-        searchYADXClick:function(){
+        searchYADXClick: function(type){
+            console.log(type);
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPageYadx = 1;
+            }
+            console.log(this.currentPageYadx);
             this.loading = true;
             var params = {
                 dxmc : this.YADXSearchForm.DXMC,
@@ -173,29 +208,47 @@ new Vue({
                 dwxz : this.YADXSearchForm.DWXZ,
                 xzqh : this.YADXSearchForm.XZQH,
                 fhdj : this.YADXSearchForm.FHDJ,
-                jzfl : this.YADXSearchForm.DWJZQK
+                jzfl : this.YADXSearchForm.DWJZQK,
+                pageSize: this.pageSizeYadx,
+                pageNum: this.currentPageYadx
             };
+            console.log(params);
             axios.post('/dpapi/advancedsearch/gjssYadxList', params).then(function (res) {
-                this.YADXtableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPageYadx-1)*this.pageSizeYadx);
+                this.YADXtableData = tableTemp.concat(res.data.result.list);
+                this.totalYadx = res.data.result.total;
+                console.log(this.YADXtableData);
+                console.log(this.total);
+                // this.YADXtableData = res.data.result;
+                // this.total = res.data.result.length;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
         //单位建筑信息查询事件
-        searchDWJZClick:function(){
+        searchDWJZClick:function(type){
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPageJzxx = 1;
+            }
             this.loading = true;
             var params = {
                 jzmc:this.DWJZSearchForm.JZMC,
                 jzlx:this.DWJZSearchForm.JZLX,
                 jzl_jzsyxz:this.DWJZSearchForm.JZSYXZ.substr(0,1),
                 jzl_jzjg:this.DWJZSearchForm.JZJG,
-                jzl_dsgd:this.DWJZSearchForm.JZGD
+                jzl_dsgd:this.DWJZSearchForm.JZGD,
+                pageSize: this.pageSizeJzxx,
+                pageNum: this.currentPageJzxx
             };
             axios.post('/dpapi/advancedsearch/gjssDwjzList', params).then(function (res) {
-                this.DWJZtableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPageJzxx-1)*this.pageSizeJzxx);
+                this.DWJZtableData = tableTemp.concat(res.data.result.list);
+                this.totalJzxx = res.data.result.total;
+                // this.DWJZtableData = res.data.result;
+                // this.total = res.data.result.length;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -495,19 +548,19 @@ new Vue({
             this.yuAnSearchForm.LRSJ = "";
             this.yuAnSearchForm.begintime_create = "";
             this.yuAnSearchForm.endtime_create = "";
-            this.searchClick();
+            this.searchClick('reset');
         },
         clearYADXClick:function(){
             this.YADXSearchForm.DXMC = "";
             this.YADXSearchForm.YADX = "";
             this.YADXSearchForm.XFGX = "";
-            this.searchYADXClick();
+            this.searchYADXClick('reset');
         },
         //单位建筑
         clearDWJZClick:function(){
             this.DWJZSearchForm.JZMC="";
             this.DWJZSearchForm.JZLX="";
-            this.searchDWJZClick();
+            this.searchDWJZClick('reset');
         },
         //获取制作时间范围
         lrsjFormat:function(){
@@ -596,15 +649,16 @@ new Vue({
         },
         //点击tab页时，数据加载
         handleClick(tab, event) {
+            this.tabIndex = tab.index;
             if(tab.index == 0){
                 this.clearClick();
-                this.searchClick();
+                // this.searchClick('click');
             }else if(tab.index == 1){
                 this.clearYADXClick();
-                this.searchYADXClick();
+                // this.searchYADXClick('click');
             }else if(tab.index == 2){
                 this.clearDWJZClick();
-                this.searchDWJZClick();
+                // this.searchDWJZClick('click');
             }
         },
         //展开 收起
@@ -638,21 +692,6 @@ new Vue({
                 console.info("加载数据成功");
                 _self.loading = false;
             }, 300);
-        },
-
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            console.log("每页 " + val + " 条");
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
         },
         
         closeDialog: function (val) {
