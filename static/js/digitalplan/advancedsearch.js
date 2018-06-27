@@ -111,7 +111,7 @@ new Vue({
             // pageSize: 10,
             pageSizeYaxx: 10,
             pageSizeYadx: 10,
-            pageSizeJzxx: 2,
+            pageSizeJzxx: 10,
             //预案信息总记录数
             // total: 0,
             totalYaxx: 0,
@@ -165,7 +165,8 @@ new Vue({
         //高级搜索-预案搜索 查询事件
         searchClick: function(type) {
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.tableData = [];        
             }else{
                 this.currentPageYaxx = 1;
             }
@@ -195,7 +196,8 @@ new Vue({
         searchYADXClick: function(type){
             console.log(type);
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.YADXtableData = []; 
             }else{
                 this.currentPageYadx = 1;
             }
@@ -229,7 +231,8 @@ new Vue({
         //单位建筑信息查询事件
         searchDWJZClick:function(type){
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.DWJZtableData = [];     
             }else{
                 this.currentPageJzxx = 1;
             }
