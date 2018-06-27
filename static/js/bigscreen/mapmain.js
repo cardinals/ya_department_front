@@ -1004,16 +1004,12 @@ var vm = new Vue({
                 //隐藏旧圆
                 var oc = vm.circle;
                 oc.hide();
-                var pt = new BMap.Point(zddw.gisX, zddw.gisY);
-                // if(zddws.gisX !=""&&zddws.gisY !=""){
-                //     //gis坐标转百度坐标入口
-                //         var gispt = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
-                //         var middle =  this.wgs84_bd09(gispt);
-                //         var pt = new BMap.Point(middle.lng,middle.lat);
-                //     }else{
-                //     //百度坐标直接入口    
-                //         var pt = new BMap.Point(zddws.lon, zddws.lat);
-                //     }
+                // var pt = new BMap.Point(zddw.gisX, zddw.gisY);
+                //gis坐标转换
+                var gispt = new BMap.Point(zddw.gisX, zddw.gisY);
+                var middle =  this.wgs84_bd09(gispt);
+                var pt = new BMap.Point(middle.lng,middle.lat);
+                //end
                 var map = vm.map;
                 map.centerAndZoom(pt, 16);//防止跳回聚合
                 this.infoData = (zddw.dwmc != null ? zddw.dwmc : '无');
