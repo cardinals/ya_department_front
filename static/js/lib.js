@@ -15,6 +15,13 @@ window.getQueryString = function(name) {
     } 
     return null;
 }
+//公共方法-地址栏取参方法2
+window.getPathString = function(){
+    var path = window.location.href;
+    var start = path.search("/templates") + 10;
+    var end =  path.search(".html");
+    return path.substring(start,end);
+}
 
 //公共方法-详情页显示图片  
 //参数1：图片类型，参数2：图片代码
