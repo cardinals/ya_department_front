@@ -163,7 +163,8 @@ var vue = new Vue({
 
         //表格查询事件
         searchClick: function (type) {
-            if(type == 'page'){     
+            if(type == 'page'){ 
+                this.tableData = [];    
             }else{
                 this.currentPage = 1;
             }
@@ -192,7 +193,6 @@ var vue = new Vue({
             this.searchForm.yalx=[];
             this.searchForm.sfkqy="";
             this.searchForm.jgid=[];
-           
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
             this.searchClick('reset');
         },

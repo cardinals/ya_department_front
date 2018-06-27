@@ -132,7 +132,8 @@ var vue = new Vue({
         //表格查询事件
         searchClick: function(type) {
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.tableData = [];
             }else{
                 this.currentPage = 1;
             }
