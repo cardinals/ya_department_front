@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("化学危险品", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
 var vue = new Vue({
@@ -64,10 +60,15 @@ var vue = new Vue({
         }
     },
     created:function(){
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("化学危险品", "-1");
         
         this.getLXDMData();
         this.searchClick('click');
