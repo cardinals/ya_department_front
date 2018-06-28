@@ -221,8 +221,6 @@ var vue = new Vue({
             }else{
                 var shortURL = top.location.href.substr(0, top.location.href.indexOf("&")) + "&ID=" + val.uuid;
             }
-            
-            // var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?ID=" + val.uuid;
             history.replaceState(null, null, shortURL);
             loadDiv("planobject/importantunits_detail");
             // window.location.href = "importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
