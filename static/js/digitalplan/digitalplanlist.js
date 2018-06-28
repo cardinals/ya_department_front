@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload = function () {
-    loadBreadcrumb("重点单位预案", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -59,10 +55,15 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("重点单位预案", "-1");
 
         this.YALX_tree();//预案类型级联选择
         this.ZZJG_tree();//制作机构级联选择
@@ -178,8 +179,17 @@ var vue = new Vue({
         },
         //预案详情跳转
         planDetails: function (val) {
-            window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
-            //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
+            var idIndex = top.location.href.indexOf("&");
+            if(idIndex == -1){
+                var shortURL = top.location.href + "&ID=" + val.uuid;
+            }else{
+                var shortURL = top.location.href.substr(0, top.location.href.indexOf("&")) + "&ID=" + val.uuid;
+            }
+            
+            // var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?ID=" + val.uuid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("digitalplan/digitalplan_detail");
+            //window.location.href = "all.html?ID=" + val.uuid + "&url=digitalplan/digitalplan_detail";
         },
         //预案新增跳转
         addClick: function () {

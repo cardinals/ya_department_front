@@ -1,14 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    var type = getQueryString("type");
-    if(type == "GJSS"){
-        loadBreadcrumb("高级搜索", "消防保卫警卫预案详情");
-    }else if(type == "DT"){
-        loadBreadcrumb("地图", "消防保卫警卫预案详情");
-    }else{
-        loadBreadcrumb("消防保卫警卫预案", "消防保卫警卫预案详情");
-    }
-}
 new Vue({
     el: "#detailDisplay",
     data: function () {
@@ -33,11 +22,17 @@ new Vue({
         this.YALX();
         history.back();
         // this.planDetails(this.pkid);
+
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if(type == "GJSS"){
+            loadBreadcrumb("高级搜索", "消防保卫警卫预案详情");
+        }else if(type == "DT"){
+            loadBreadcrumb("地图", "消防保卫警卫预案详情");
+        }else{
+            loadBreadcrumb("消防保卫警卫预案", "-1");
+        }
     },
-    // mounted:function(){
-        
-    //     this.planDetails(this.pkid);
-    // },
 
     methods: {
         //根据参数部分和参数名来获取参数值 
@@ -83,35 +78,13 @@ new Vue({
                     if (this.detailData.zzsj == null || this.detailData.zzsj == "") {
                         this.detailData.zzsj='';
                     } else {
-                        var date = new Date(this.detailData.zzsj);
-                        if (date == undefined) {
-                            this.detailData.zzsj='';
-                        }
-                        var month = '' + (date.getMonth() + 1),
-                            day = '' + date.getDate(),
-                            year = date.getFullYear();
-        
-                        if (month.length < 2) month = '0' + month;
-                        if (day.length < 2) day = '0' + day;
-        
-                        this.detailData.zzsj = [year, month, day].join('-');
+                        this.detailData.zzsj = dateFormat(this.detailData.zzsj);
                     }
                      //创建时间
                     if (this.detailData.cjsj == null || this.detailData.cjsj == "") {
                         this.detailData.cjsj='';
                     } else {
-                        var date = new Date(this.detailData.cjsj);
-                        if (date == undefined) {
-                            this.detailData.cjsj='';
-                        }
-                        var month = '' + (date.getMonth() + 1),
-                            day = '' + date.getDate(),
-                            year = date.getFullYear();
-        
-                        if (month.length < 2) month = '0' + month;
-                        if (day.length < 2) day = '0' + day;
-        
-                        this.cjsj=[year, month, day].join('-');
+                        this.detailData.zzsj = dateFormat(this.detailData.cjsj);
                     }
                    //修改时间
                     if (this.detailData.xgsj == null || this.detailData.xgsj == "") {

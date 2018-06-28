@@ -1,14 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    var type = getQueryString("type");
-    if(type == "GJSS"){
-        loadBreadcrumb("高级搜索", "其他对象预案详情");
-    }else if(type == "DT"){
-        loadBreadcrumb("地图", "其他对象预案详情");
-    }else{
-        loadBreadcrumb("其他对象预案", "其他对象预案详情");
-    }
-}
 new Vue({
     el: "#detailDisplay",
     data: function () {
@@ -50,7 +39,16 @@ new Vue({
     created: function () {
         this.uuid = this.GetQueryString("uuid");
         history.back();
-        // this.planDetails(this.uuid);
+        
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if(type == "GJSS"){
+            loadBreadcrumb("高级搜索", "其他对象预案详情");
+        }else if(type == "DT"){
+            loadBreadcrumb("地图", "其他对象预案详情");
+        }else{
+            loadBreadcrumb("其他对象预案", "其他对象预案详情");
+        }
     },
     mounted:function(){
         this.planDetails(this.uuid);
