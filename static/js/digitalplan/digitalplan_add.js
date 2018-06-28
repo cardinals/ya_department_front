@@ -160,10 +160,21 @@ new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
+       /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if (type == "XZ") {
+            loadBreadcrumb("重点单位预案", "重点单位预案新增");
+        } else if (type == "BJ") {
+            loadBreadcrumb("重点单位预案", "重点单位预案编辑");
+        }
+
         this.YALX_tree();
         this.RSWZ_tree();
         this.ZQDJ_tree();
@@ -407,6 +418,7 @@ new Vue({
         },
         //重点单位选择弹出页---------------------------------------------------------------
         keyunitList: function (val) {
+            debugger;
             this.unitsListVisible = true;
             this.loading_units = true;
             var params = {

@@ -186,12 +186,18 @@ var vue = new Vue({
         },
         //预案新增跳转
         addClick: function () {
-            window.location.href = "digitalplan_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
+            var shortURL = jumpDetail() + "&ID=" + 0 + "&type=XZ";
+            history.replaceState(null, null, shortURL);
+            loadDiv("digitalplan/digitalplan_add");
+            //window.location.href = "digitalplan_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
         },
         //预案编辑跳转
         handleEdit: function (row) {
             if (row.yazt == '01' || row.yazt == '04') {
-                window.location.href = "digitalplan_add.html?ID=" + row.uuid + "&index=" + this.activeIndex + "&type=BJ";
+                var shortURL = jumpDetail() + "&ID=" + row.uuid + "&type=BJ";
+                history.replaceState(null, null, shortURL);
+                loadDiv("digitalplan/digitalplan_add");
+                //window.location.href = "digitalplan_add.html?ID=" + row.uuid + "&index=" + this.activeIndex + "&type=BJ";
             } else {
                 this.$message({
                     message: "仅编辑中和已驳回状态预案可编辑",
