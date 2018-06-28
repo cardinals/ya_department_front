@@ -26,7 +26,7 @@ new Vue({
         /**面包屑 by li.xue 20180628*/
         var type = getQueryString("type");
         if(type == "GJSS"){
-            loadBreadcrumb("高级搜索", "消防保卫警卫预案详情");
+            loadBreadcrumb("高级搜索", "-1");
         }else if(type == "DT"){
             loadBreadcrumb("地图", "消防保卫警卫预案详情");
         }else{

@@ -43,11 +43,11 @@ new Vue({
         /**面包屑 by li.xue 20180628*/
         var type = getQueryString("type");
         if(type == "GJSS"){
-            loadBreadcrumb("高级搜索", "其他对象预案详情");
+            loadBreadcrumb("高级搜索", "-1");
         }else if(type == "DT"){
             loadBreadcrumb("地图", "其他对象预案详情");
         }else{
-            loadBreadcrumb("其他对象预案", "其他对象预案详情");
+            loadBreadcrumb("其他对象预案", "-1");
         }
     },
     mounted:function(){
