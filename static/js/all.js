@@ -1,7 +1,6 @@
 //异步加载详情页
 $(function () {
     //动态加载main
-    debugger;
     var paramUrl = getQueryString("url");
     loadDiv(paramUrl);
 });
