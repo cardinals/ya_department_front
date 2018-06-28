@@ -1,18 +1,3 @@
-//加载面包屑
-window.onload = function () {
-    var type = getQueryString("type");
-    if (type == "GJSS") {
-        loadBreadcrumb("高级搜索", "预案详情");
-    } else if (type == "YASH") {
-        loadBreadcrumb("预案审核", "预案详情");
-    } else if (type == "YAFF") {
-        loadBreadcrumb("预案分发", "预案详情");
-    } else if (type == "ZDDW") {
-        loadBreadcrumb("重点单位详情", "预案详情");
-    } else {
-        loadBreadcrumb("重点单位预案", "重点单位预案详情");
-    }
-}
 new Vue({
     el: "#app",
     data: function () {
@@ -51,7 +36,22 @@ new Vue({
     },
     created: function () {
         //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        // $("#activeIndex").val(getQueryString("index"));
+        
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if (type == "GJSS") {
+            loadBreadcrumb("高级搜索", "预案详情");
+        } else if (type == "YASH") {
+            loadBreadcrumb("预案审核", "预案详情");
+        } else if (type == "YAFF") {
+            loadBreadcrumb("预案分发", "预案详情");
+        } else if (type == "ZDDW") {
+            loadBreadcrumb("重点单位详情", "预案详情");
+        } else {
+            loadBreadcrumb("重点单位预案", "重点单位预案详情");
+        }
+
         this.loading = true;
         this.pkid = getQueryString("ID");
         this.planDetails(this.pkid);
@@ -65,6 +65,11 @@ new Vue({
         handleClick: function (e) {
             console.log(e);
         },
+        //面包屑
+        getBreadcrumb(){
+
+        },
+
         //根据参数部分和参数名来获取参数值 
         GetQueryString: function (name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
