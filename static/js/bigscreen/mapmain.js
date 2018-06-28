@@ -6,9 +6,6 @@ $("#zddwxx").hide();
 var vm = new Vue({
     el: "#app",
     data: {
-        //坐标转换
-        PI: 3.14159265358979324,
-        x_pi: 3.14159265358979324 * 3000.0 / 180.0,
         loading: false,
         //点击重点单位标记上次画的圆
         circle: new BMap.Circle(),
@@ -16,6 +13,8 @@ var vm = new Vue({
         circlez: [],
         marker: [],
         clusterer: null,
+        //路况
+        ctrl: '',
         marker1: '',
         marker2: '',
         marker3: '',
@@ -702,11 +701,13 @@ var vm = new Vue({
                     var labelstr="";
                     var mclen=provinces[i].xzqhmc.length;
                     var sllen=provinces[i].zddwsl.length;
+
                     if(mclen==4){
                         labelstr='&nbsp<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>';
                     }else{
                         labelstr='<span style="color:#fff;">'+provinces[i].xzqhmc+'</span>';
                     }
+
                     if(sllen==4){
                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">'+ provinces[i].zddwsl+'</span>';
                     }else{
@@ -767,7 +768,7 @@ var vm = new Vue({
             },
             //图层二
             drawMapa: function (result) {
-                var myIcon1 = new BMap.Icon("../../static/images/new/w1_pct.png", new BMap.Size(110, 70));      //创建图标
+                var myIcon1 = new BMap.Icon("../../static/images/new/w1_pct.png", new BMap.Size(100, 70));      //创建图标
                 var cityp = [];
                 var citys;
                 if (this.ShiZddwDate.length > 0) {
@@ -786,50 +787,42 @@ var vm = new Vue({
                      var mclen=citys[i].xzqhmc.length;
                      var sllen=citys[i].zddwsl.length;
                      if(mclen==4){
-                        labelstr='<span style="color:#fff;font-size:12px;margin-left:25px;">'+citys[i].xzqhmc+'</span>';
-                       
-                    }else{
+                         labelstr='&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                     }else if(mclen==5){
                         labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(mclen==5){
-                        labelstr='&nbsp<span style="color:#fff;font-size:12px;margin-left:15px;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(mclen>5&&mclen<11){
-                        labelstr='&nbsp&nbsp&nbsp<span style="color:#fff;font-size:8px;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(mclen==6){
-                        labelstr='<span style="color:#fff;font-size:8px;margin-left:26px;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(mclen==7){
-                        labelstr='<span style="color:#fff;font-size:2px;margin-left:20px;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(mclen==8){
-                        labelstr='<span style="color:#fff;font-size:2px;margin-left:25px;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(mclen>7&&mclen<=8){
-                        labelstr='&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:#fff;font-size:2px;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(mclen>=11){
-                        labelstr='<span style="color:#fff;font-size:2px;">'+citys[i].xzqhmc+'</span>';
-                    }
-                    if(sllen==4){
-                        labelstr+='<br/>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.5em;color:yellow;">'+ citys[i].zddwsl+'</span>';
-                    }else{
-                        labelstr+='<br/>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.5em;color:yellow;">'+ citys[i].zddwsl+'</span>';
-                    }
-                    if(mclen==5&&sllen==5){
-                        labelstr='<span style="color:#fff;font-size:11px;">'+citys[i].xzqhmc+'</span>';
-                        labelstr+='<br/>'+'&nbsp&nbsp<span style="font-size:1.5em;color:yellow;">'+ citys[i].zddwsl+'</span>';
+                        // labelstr+='&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:red;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                     }else if(mclen>6){
+                       var cnt = parseInt(mclen / 6);
+                       var index = 0;
+                       for (var j = 0; j < cnt; j++) {
+                           index = j * 6;
+                           labelstr += '<span style="color:#fff;font-size:2px;">'+citys[i].xzqhmc.slice(index, index + 6) + "<br/>" +'</span>';
+                       }
+                       if (mclen % 6) {
+                           labelstr +='<span style="color:#fff;font-size:2px;">'+citys[i].xzqhmc.slice(index + 6, mclen)+'</span>';
+                        }
+                        labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl +'</span>'+"<br/>"+"<br/>";
                     }
 
-                    var label = new BMap.Label(labelstr);
-                    marker.city = citys[i];
+                     if(sllen==4&&mclen<=6){
+                         labelstr='&nbsp<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                     }
+                     else if(mclen<=6){
+                        labelstr='<span style="color:#fff;">'+citys[i].xzqhmc+'</span>';
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl+'</span>';
+                     }else if(mclen==5){
+                         labelstr+='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.4em;color:yellow;padding-top:30px;">'+ citys[i].zddwsl +'</span>'+"<br/>"+"<br/>";
+                     }
+                   
+                     var label = new BMap.Label(labelstr);
+                     marker.city = citys[i];
                     //
                     label.setStyle({
                         fontSize: '0.6em',
                         fontWeight: 'bold',
                         border: '0',
-                        padding: '1px 4px',
+                        padding: '10px 4px',
                         textAlign: 'center',
                         marginLeft: '2px',
                         color: '#ED0C0A',
@@ -843,13 +836,13 @@ var vm = new Vue({
                     var map = vm.map;
                     //zjczzz
                     marker.addEventListener("onmouseover", function(e) {
-                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_ppct.png", new BMap.Size(110, 70)); //点击后的新图标
+                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_ppct.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon3);
                         marker.setTop(true,27000000);
                     });
                     marker.addEventListener("onmouseout", function(e) {
-                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_pct.png", new BMap.Size(110, 70)); //点击后的新图标
+                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_pct.png", new BMap.Size(100, 70)); //点击后的新图标
                         var marker = e.currentTarget;
                         marker.setIcon(myIcon1);
                         marker.setTop(false);
@@ -886,17 +879,8 @@ var vm = new Vue({
                 vm.zddwp = zddwp;
                 for (var i = 0; i < zddws.length; i++) {
                     var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
-                    if(zddws[i].gisX !=""&&zddws[i].gisY !=""){
-                    //gis坐标转百度坐标入口
-                        var gispt = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
-                        var middle =  this.wgs84_bd09(gispt);
-                        var point = new BMap.Point(middle.lng,middle.lat);
-                    }else{
-                    //百度坐标直接入口    
-                        var point = new BMap.Point(zddws[i].lon, zddws[i].lat);
-                    }
-                    //point需要重新new一下
-                    // var point = new BMap.Point(middle.lng,middle.lat);
+                    var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
+
                     var marker = new BMap.Marker(point, { icon: myIcon1 });
                     marker.uuid = zddws[i].uuid;
                     marker.addEventListener("click", function (e) {
@@ -1004,12 +988,7 @@ var vm = new Vue({
                 //隐藏旧圆
                 var oc = vm.circle;
                 oc.hide();
-                // var pt = new BMap.Point(zddw.gisX, zddw.gisY);
-                //gis坐标转换
-                var gispt = new BMap.Point(zddw.gisX, zddw.gisY);
-                var middle =  this.wgs84_bd09(gispt);
-                var pt = new BMap.Point(middle.lng,middle.lat);
-                //end
+                var pt = new BMap.Point(zddw.gisX, zddw.gisY);
                 var map = vm.map;
                 map.centerAndZoom(pt, 16);//防止跳回聚合
                 this.infoData = (zddw.dwmc != null ? zddw.dwmc : '无');
@@ -1776,15 +1755,6 @@ var vm = new Vue({
                 for (var i = 0; i < vm.markerData.length; i++) {
                     var x = vm.markerData[i].gisX;
                     var y = vm.markerData[i].gisY;
-                    // if(x.gisX !=""&&y.gisY !=""){
-                    //     //gis坐标转百度坐标入口
-                    //         var gispt = new BMap.Point(x.gisX, y.gisY);
-                    //         var middle =  this.wgs84_bd09(gispt);
-                    //         var pt = new BMap.Point(middle.lng,middle.lat);
-                    //     }else{
-                    //     //百度坐标直接入口    
-                    //         var pt = new BMap.Point(x.lon, y.lat);
-                    //     }
                     var uuid = vm.markerData[i].uuid;
                     var pt = new BMap.Point(x, y);
                     var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
@@ -2088,17 +2058,20 @@ var vm = new Vue({
             },
             //路况
             lukuang: function () {
-                var map = this.map;
-                var ctrl = new BMapLib.TrafficControl({
+                if(vm.ctrl==''){
+                    var map = this.map;
+                 vm.ctrl = new BMapLib.TrafficControl({
                     showPanel: false
                 });
-                map.addControl(ctrl);
+                map.addControl(vm.ctrl);
+               }
+               
                 var isTrafficOpen = document.getElementById("isTrafficOpen").value;
                 if (isTrafficOpen == '1') {
-                    ctrl.showTraffic();
+                    vm.ctrl.showTraffic();
                     document.getElementById("isTrafficOpen").value = "";
                 } else {
-                    ctrl.hideTraffic();
+                    vm.ctrl.hideTraffic();
                     document.getElementById("isTrafficOpen").value = "1";
                 }
             },
@@ -2289,84 +2262,7 @@ var vm = new Vue({
             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
             if(r!=null)return  unescape(r[2]); return null;
-             },
-
-            //delta
-             delta: function(lng, lat) {
-                // Krasovsky 1940
-                // a = 6378245.0, 1/f = 298.3
-                // b = a * (1 - f)
-                // ee = (a^2 - b^2) / a^2;
-                var a = 6378245.0; //  a: 卫星椭球坐标投影到平面地图坐标系的投影因子。
-                var ee = 0.00669342162296594323; //  ee: 椭球的偏心率。
-                var dLng = this.transformLng(lng - 105.0, lat - 35.0);
-                var dLat = this.transformLat(lng - 105.0, lat - 35.0);
-                var radLat = lat / 180.0 * this.PI;
-                var magic = Math.sin(radLat);
-                magic = 1 - ee * magic * magic;
-                var sqrtMagic = Math.sqrt(magic);
-                dLng = (dLng * 180.0) / (a / sqrtMagic * Math.cos(radLat) * this.PI);
-                dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * this.PI);
-                return {
-                    'lng': dLng,
-                    'lat': dLat,
-                };
-            },
-            //WGS-84 TO BD-09
-            wgs84_bd09: function(wgs) {
-                var gcj = this.gcj_encrypt(wgs.lng,wgs.lat);
-                var bd09 = this.bd_encrypt(gcj.lng, gcj.lat);
-                return bd09;
-            },
-            //WGS-84 to GCJ-02 首次加密
-            gcj_encrypt: function(wgsLng, wgsLat) {
-                if (this.outOfChina(wgsLng, wgsLat))
-                    return {
-                        'lng': wgsLng,
-                        'lat': wgsLat
-                    };
-
-                var d = this.delta(wgsLng, wgsLat);
-                return {
-                    'lng': wgsLng + d.lng,
-                    'lat': wgsLat + d.lat
-                };
-            },
-            //GCJ-02 to BD-09 二次加密
-            bd_encrypt: function(gcjLng, gcjLat) {
-                var x = gcjLng,
-                    y = gcjLat;
-                var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * this.x_pi);
-                var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * this.x_pi);
-                bdLng = z * Math.cos(theta) + 0.0065;
-                bdLat = z * Math.sin(theta) + 0.006;
-                return {
-                    'lng': bdLng,
-                    'lat': bdLat,
-                   
-                };
-            },
-            outOfChina: function(lng, lat) {
-                if (lng < 72.004 || lng > 137.8347)
-                    return true;
-                if (lat < 0.8293 || lat > 55.8271)
-                    return true;
-                return false;
-            },
-            transformLat: function(x, y) {
-                var ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));
-                ret += (20.0 * Math.sin(6.0 * x * this.PI) + 20.0 * Math.sin(2.0 * x * this.PI)) * 2.0 / 3.0;
-                ret += (20.0 * Math.sin(y * this.PI) + 40.0 * Math.sin(y / 3.0 * this.PI)) * 2.0 / 3.0;
-                ret += (160.0 * Math.sin(y / 12.0 * this.PI) + 320 * Math.sin(y * this.PI / 30.0)) * 2.0 / 3.0;
-                return ret;
-            },
-            transformLng: function(x, y) {
-                var ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));
-                ret += (20.0 * Math.sin(6.0 * x * this.PI) + 20.0 * Math.sin(2.0 * x * this.PI)) * 2.0 / 3.0;
-                ret += (20.0 * Math.sin(x * this.PI) + 40.0 * Math.sin(x / 3.0 * this.PI)) * 2.0 / 3.0;
-                ret += (150.0 * Math.sin(x / 12.0 * this.PI) + 300.0 * Math.sin(x / 30.0 * this.PI)) * 2.0 / 3.0;
-                return ret;
-            },
-
+         },
         }
+
 })
