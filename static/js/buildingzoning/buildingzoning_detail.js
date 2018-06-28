@@ -1,12 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    var type = getQueryString("type");
-    if(type == "GJSS"){
-        loadBreadcrumb("高级搜索", "单位建筑信息");
-    }else{
-        loadBreadcrumb("单位建筑信息", "单位建筑信息详情");
-    }
-}
 new Vue({
     el: "#app",
     data: function () {
@@ -160,8 +151,17 @@ new Vue({
    /* created: function () {
     },*/
      mounted: function () {
-         //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+        //$("#activeIndex").val(getQueryString("index"));
+
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if(type == "GJSS"){
+            loadBreadcrumb("高级搜索", "单位建筑信息");
+        }else{
+            loadBreadcrumb("单位建筑信息", "单位建筑信息详情");
+        }
+
         this.loading = true;
         //取得选中行id
         this.id = this.GetQueryString("id");

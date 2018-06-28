@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("单位建筑信息", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
 var vue = new Vue({
@@ -45,10 +41,14 @@ var vue = new Vue({
         }
     },
     created:function(){
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("单位建筑信息", "-1");
         this.getJZFLData();
         this.searchClick('click');
     },
@@ -101,7 +101,15 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex;
+            var idIndex = top.location.href.indexOf("&");
+            if(idIndex == -1){
+                var shortURL = top.location.href + "&id=" + val.jzid + "&jzlx=" + val.jzlx;
+            }else{
+                var shortURL = top.location.href.substr(0, top.location.href.indexOf("&")) + "&id=" + val.jzid + "&jzlx=" + val.jzlx;
+            }
+            history.replaceState(null, null, shortURL);
+            loadDiv("buildingzoning/buildingzoning_detail");
+            //window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {
