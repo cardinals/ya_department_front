@@ -418,15 +418,19 @@ new Vue({
         },
         //重点单位选择弹出页---------------------------------------------------------------
         keyunitList: function (val) {
-            debugger;
             this.unitsListVisible = true;
             this.loading_units = true;
             var params = {
-                dwmc: this.searchForm_units.dwmc
+                dwmc: this.searchForm_units.dwmc,
+                pageSize: this.pageSize_units,
+                pageNum: this.currentPage_units
             };
-            axios.post('/dpapi/importantunits/list', params).then(function (res) {
-                this.tableData_units = res.data.result;
-                this.total_units = res.data.result.length;
+            axios.post('/dpapi/importantunits/page', params).then(function (res) {
+                var tableTemp = new Array((this.currentPage_units-1)*this.pageSize_units);
+                this.tableData_units = tableTemp.concat(res.data.result.list);
+                this.total_units = res.data.result.total;
+                // this.tableData_units = res.data.result;
+                // this.total_units = res.data.result.length;
                 this.loading_units = false;
             }.bind(this), function (error) {
                 console.log(error);
@@ -435,9 +439,7 @@ new Vue({
         //当前页修改事件
         currentPageChange_units: function (val) {
             this.currentPage_units = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.keyunitList();
         },
         //选择重点单位，返回单位名称和id
         selectRow_units: function (val) {

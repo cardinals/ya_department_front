@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload = function () {
-    loadBreadcrumb("消防药剂管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -61,7 +57,9 @@ var vue = new Vue({
     },
     created: function () {
         //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        // $("#activeIndex").val(getQueryString("index"));
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("消防药剂管理", "-1");
         this.getAllSszdData();//消防队站下拉框数据（到总队级）
         this.getAllYjlxDataTree(); //药剂类型级联选择器数据
         this.searchClick('click');
