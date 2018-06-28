@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("高级搜索", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -124,12 +120,16 @@ new Vue({
         }
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
-
-     //   this.YADX();
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("高级搜索", "-1");
+        //this.YADX();
         this.YALX();
         this.YAJB();
         this.SHZT();
