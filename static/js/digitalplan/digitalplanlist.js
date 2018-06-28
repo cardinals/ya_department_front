@@ -179,14 +179,7 @@ var vue = new Vue({
         },
         //预案详情跳转
         planDetails: function (val) {
-            var idIndex = top.location.href.indexOf("&");
-            if(idIndex == -1){
-                var shortURL = top.location.href + "&ID=" + val.uuid;
-            }else{
-                var shortURL = top.location.href.substr(0, top.location.href.indexOf("&")) + "&ID=" + val.uuid;
-            }
-            
-            // var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?ID=" + val.uuid;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid;
             history.replaceState(null, null, shortURL);
             loadDiv("digitalplan/digitalplan_detail");
             //window.location.href = "all.html?ID=" + val.uuid + "&url=digitalplan/digitalplan_detail";

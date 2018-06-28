@@ -101,12 +101,7 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            var idIndex = top.location.href.indexOf("&");
-            if(idIndex == -1){
-                var shortURL = top.location.href + "&id=" + val.jzid + "&jzlx=" + val.jzlx;
-            }else{
-                var shortURL = top.location.href.substr(0, top.location.href.indexOf("&")) + "&id=" + val.jzid + "&jzlx=" + val.jzlx;
-            }
+            var shortURL = jumpDetail() + "&id=" + val.jzid + "&jzlx=" + val.jzlx;
             history.replaceState(null, null, shortURL);
             loadDiv("buildingzoning/buildingzoning_detail");
             //window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex;

@@ -62,6 +62,7 @@ window.loadBreadcrumb = function(firstName,secondName){
     $("#breadcrumb_box").html(breadcrumb.join(''));
 }
 
+//面包屑跳转
 window.backToLast = function(){
     var url = "../templates" + getQueryString("url");
     loadDiv(url);
@@ -145,4 +146,15 @@ window.loadDiv = function(loadUrl){
             $("#app").html(html);
         }
     });
+}
+
+//详情页跳转
+window.jumpDetail = function(){
+    var topHref = top.location.href;
+    if(topHref.indexOf("&") == -1){
+        var shortURL = topHref;
+    }else{
+        var shortURL = top.location.href.substr(0, top.location.href.indexOf("&"));
+    }
+    return shortURL;
 }
