@@ -51,7 +51,7 @@ window.loadBreadcrumb = function(firstName,secondName){
     if(secondName == "-1"){
         breadcrumb.push('href="javascript:;"');
     }else{
-        breadcrumb.push('href="javascript:history.go(-1)"')
+        breadcrumb.push('href="javascript:backToLast()"')
     }
     breadcrumb.push('>'+ firstName +'</a>');
     if(secondName != "-1"){
@@ -60,6 +60,13 @@ window.loadBreadcrumb = function(firstName,secondName){
     }
     breadcrumb.push('</div></div></div></div></div>');
     $("#breadcrumb_box").html(breadcrumb.join(''));
+}
+
+window.backToLast = function(){
+    var url = "../templates" + getQueryString("url");
+    loadDiv(url);
+    var newURL = top.location.href.substr(0,top.location.href.indexOf("&"));
+    history.replaceState(null, null, newURL);
 }
 
 //分页大小修改事件
@@ -120,4 +127,22 @@ window.dataFormat = function (row, column) {
     } else {
         return rowDate;
     }
+}
+
+//LOAD DIV
+window.loadDiv = function(loadUrl){
+    var url = '../../templates/';
+    if(loadUrl == undefined || loadUrl == "" || loadUrl == null){
+        url = url + "home" + ".html";
+    }else{
+        url = url + loadUrl + ".html";
+    }
+    $.ajax({
+        url: url,
+        cache: true,
+        async: true,
+        success: function (html) {
+            $("#app").html(html);
+        }
+    });
 }
