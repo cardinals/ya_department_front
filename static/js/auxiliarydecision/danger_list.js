@@ -158,7 +158,10 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "danger_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("auxiliarydecision/danger_detail");
+            //window.location.href = "danger_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {
@@ -171,7 +174,10 @@ var vue = new Vue({
         },
         //新增
         addClick: function(){
-            window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
+            var shortURL = jumpDetail() + "&ID=" + 0 + "&type=XZ";
+            history.replaceState(null, null, shortURL);
+            loadDiv("auxiliarydecision/danger_add");
+            //window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
         },
         //删除
         deleteClick: function () {
@@ -201,7 +207,10 @@ var vue = new Vue({
             });
         },
         handleEdit:function(val){
-            window.location.href = "danger_add.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=BJ";
+            var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=BJ";
+            history.replaceState(null, null, shortURL);
+            loadDiv("auxiliarydecision/danger_add");
+            //window.location.href = "danger_add.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=BJ";
         }
     },
 
