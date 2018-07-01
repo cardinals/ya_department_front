@@ -1,12 +1,3 @@
-//加载面包屑
-window.onload = function () {
-    var type = getQueryString("type");
-    if (type == "XZ") {
-        loadBreadcrumb("化学危险品", "化学危险品新增");
-    } else if (type == "BJ") {
-        loadBreadcrumb("化学危险品", "化学危险品编辑");
-    }
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -61,10 +52,20 @@ new Vue({
         }
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if (type == "XZ") {
+            loadBreadcrumb("化学危险品", "化学危险品新增");
+        } else if (type == "BJ") {
+            loadBreadcrumb("化学危险品", "化学危险品编辑");
+        }
 
         this.getTypeData();
         this.roleData();

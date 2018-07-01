@@ -1,8 +1,8 @@
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/jquery-3.2.1.min.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/vue.min.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/elementUI.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/axios.min.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/vue-resource.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/jquery-3.2.1.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/vue.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/elementUI.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/axios.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/vue-resource.min.js'+'"></scr' + 'ipt>');
 
 
 
@@ -51,7 +51,7 @@ window.loadBreadcrumb = function(firstName,secondName){
     if(secondName == "-1"){
         breadcrumb.push('href="javascript:;"');
     }else{
-        breadcrumb.push('href="javascript:history.go(-1)"')
+        breadcrumb.push('href="javascript:backToLast()"')
     }
     breadcrumb.push('>'+ firstName +'</a>');
     if(secondName != "-1"){
@@ -60,6 +60,14 @@ window.loadBreadcrumb = function(firstName,secondName){
     }
     breadcrumb.push('</div></div></div></div></div>');
     $("#breadcrumb_box").html(breadcrumb.join(''));
+}
+
+//面包屑跳转
+window.backToLast = function(){
+    var url = "../templates" + getQueryString("url");
+    loadDiv(url);
+    var newURL = top.location.href.substr(0,top.location.href.indexOf("&"));
+    history.replaceState(null, null, newURL);
 }
 
 //分页大小修改事件
@@ -120,4 +128,33 @@ window.dataFormat = function (row, column) {
     } else {
         return rowDate;
     }
+}
+
+//LOAD DIV
+window.loadDiv = function(loadUrl){
+    var url = '../../templates/';
+    if(loadUrl == undefined || loadUrl == "" || loadUrl == null){
+        url = url + "home" + ".html";
+    }else{
+        url = url + loadUrl + ".html";
+    }
+    $.ajax({
+        url: url,
+        cache: true,
+        async: true,
+        success: function (html) {
+            $("#app").html(html);
+        }
+    });
+}
+
+//详情页跳转
+window.jumpDetail = function(){
+    var topHref = top.location.href;
+    if(topHref.indexOf("&") == -1){
+        var shortURL = topHref;
+    }else{
+        var shortURL = top.location.href.substr(0, top.location.href.indexOf("&"));
+    }
+    return shortURL;
 }

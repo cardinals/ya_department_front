@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("重点单位", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -109,10 +105,16 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("重点单位", "-1");
+
         this.searchClick('click');
         this.getdwxzData();
         this.getfhdjData();
@@ -213,7 +215,10 @@ var vue = new Vue({
         
         //点击进入详情页
         informClick(val) {
-            window.location.href = "importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("planobject/importantunits_detail");
+            // window.location.href = "importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {

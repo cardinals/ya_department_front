@@ -103,8 +103,11 @@ var vue = new Vue({
         }
     },
     created:function(){
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+        //$("#activeIndex").val(getQueryString("index"));
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("其他对象预案", "-1");
         this.getYalxdmData();
         this.getJgidData();
         this.searchClick('click');

@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("化学危险品", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
 var vue = new Vue({
@@ -64,10 +60,15 @@ var vue = new Vue({
         }
     },
     created:function(){
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("化学危险品", "-1");
         
         this.getLXDMData();
         this.searchClick('click');
@@ -157,7 +158,10 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            window.location.href = "danger_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("auxiliarydecision/danger_detail");
+            //window.location.href = "danger_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {
@@ -170,7 +174,10 @@ var vue = new Vue({
         },
         //新增
         addClick: function(){
-            window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
+            var shortURL = jumpDetail() + "&ID=" + 0 + "&type=XZ";
+            history.replaceState(null, null, shortURL);
+            loadDiv("auxiliarydecision/danger_add");
+            //window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
         },
         //删除
         deleteClick: function () {
@@ -200,7 +207,10 @@ var vue = new Vue({
             });
         },
         handleEdit:function(val){
-            window.location.href = "danger_add.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=BJ";
+            var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=BJ";
+            history.replaceState(null, null, shortURL);
+            loadDiv("auxiliarydecision/danger_add");
+            //window.location.href = "danger_add.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=BJ";
         }
     },
 

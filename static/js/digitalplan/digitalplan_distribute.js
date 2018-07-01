@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("预案分发", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -94,10 +90,16 @@ var vue = new Vue({
         this.YAZT();//审核状态下拉框
     },
     mounted:function(){
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("预案分发", "-1");
+
         this.searchClick('click');//条件查询
     },
 
@@ -190,8 +192,10 @@ var vue = new Vue({
         
         //预案详情
         planDetails(val) {
-            window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=YAFF";
-            //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=YAFF";;
+            history.replaceState(null, null, shortURL);
+            loadDiv("digitalplan/digitalplan_detail");
+            //window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=YAFF";
         },
         /** 
         planDetails: function (val) {

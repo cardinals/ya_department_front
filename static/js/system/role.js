@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("角色管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -91,8 +87,10 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+		//$("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("角色管理", "-1");
         this.getAllRoles();
         this.searchClick('click');
     },
