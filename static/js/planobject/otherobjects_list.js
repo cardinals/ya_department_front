@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("其他对象", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;	
 var vue = new Vue({
@@ -75,10 +71,15 @@ var vue = new Vue({
         }
     },
     created:function(){
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("其他对象", "-1");
         //消防管辖下拉框
         this.getxfgxData();
         this.searchClick('click');
@@ -153,7 +154,10 @@ var vue = new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            window.location.href = "otherobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("planobject/otherobjects_detail");
+            //window.location.href = "otherobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         }
     }
 })

@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("用户管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -130,13 +126,16 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+		//$("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("用户管理", "-1");
         this.searchClick('click');
     },
     methods: {
         //表格查询事件
         searchClick: function(type) {
+            debugger;
             //按钮事件的选择
             if(type == 'page'){
                 this.tableData = [];
@@ -144,12 +143,6 @@ var vue = new Vue({
                 this.currentPage = 1;
             }
             var _self = this;
-            function isEmptyObject(obj) {
-                for (var key in obj) {
-                    return false;
-                }
-                return true;
-            }
             _self.loading = true;//表格重新加载
             var params = {
                 username: this.searchForm.username,
@@ -183,7 +176,7 @@ var vue = new Vue({
                     return '女';
                     break;
                 default:
-                    return "无"
+                    return ""
             }
         },
         

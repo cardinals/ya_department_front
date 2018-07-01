@@ -1,14 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    var type = getQueryString("type");
-    if(type == "GJSS"){
-        loadBreadcrumb("高级搜索", "消防保卫警卫对象详情");
-    }else if(type == "DT"){
-        loadBreadcrumb("地图", "消防保卫警卫对象详情");
-    }else{
-        loadBreadcrumb("消防保卫警卫对象", "消防保卫警卫对象详情");
-    }
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -123,8 +112,19 @@ new Vue({
     },
 
     mounted: function () {
-        //设置菜单选中
+        /**菜单选中 by li.xue 20180628*/
         $("#activeIndex").val(getQueryString("index"));
+
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if(type == "GJSS"){
+            loadBreadcrumb("高级搜索", "消防保卫警卫对象详情");
+        }else if(type == "DT"){
+            loadBreadcrumb("地图", "消防保卫警卫对象详情");
+        }else{
+            loadBreadcrumb("消防保卫警卫对象", "消防保卫警卫对象详情");
+        }
+
         this.loading = true;
         this.uuid = getQueryString("ID");
         //显示图片

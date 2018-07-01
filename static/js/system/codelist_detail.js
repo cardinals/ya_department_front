@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("代码集管理", "代码集详情");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -55,9 +51,10 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
-        
+        /**菜单选中 by li.xue 20180628*/
+		//$("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("代码集管理", "代码集详情");
         this.loading = true; //重新加载数据
         this.codeid = getQueryString("codeid");
         var params = {

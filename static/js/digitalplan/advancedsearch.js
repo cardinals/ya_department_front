@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("高级搜索", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -124,12 +120,16 @@ new Vue({
         }
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
-
-     //   this.YADX();
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("高级搜索", "-1");
+        //this.YADX();
         this.YALX();
         this.YAJB();
         this.SHZT();
@@ -480,7 +480,10 @@ new Vue({
         planDetails(val) {
             switch(val.yadxType){
                 case '重点单位':
-                    window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
+                    var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=GJSS";
+                    history.replaceState(null, null, shortURL);
+                    loadDiv("digitalplan/digitalplan_detail");
+                    //window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                     break;
                 case '消防保卫警卫':
                     var _self = this;
@@ -524,22 +527,31 @@ new Vue({
          * 则跳转到这两个页面的查询页面，直接查询其对象。
          */
         YadxDetails(val) {
+            var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=GJSS";
+            var loadDivUrl; 
             switch(val.yadxType){
             case '重点单位':
-                window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
+                loadDivUrl = "planobject/importantunits_detail";
+                //window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                 break;
             case '消防保卫警卫':
-                window.location.href = "../planobject/guardobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
+                loadDivUrl = "planobject/guardobjects_detail";
+                //window.location.href = "../planobject/guardobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                 break;
             case '其他对象':
-                window.location.href = "../planobject/otherobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
+                loadDivUrl = "planobject/otherobjects_detail";
+                //window.location.href = "../planobject/otherobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
                 break;
             }
-            
+            history.replaceState(null, null, shortURL);
+            loadDiv(loadDivUrl); 
         },
         //单位建筑详情跳转
         buildingDetails(val) {
-            window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex + "&type=GJSS";
+            var shortURL = jumpDetail() + "&id=" + val.jzid + "&jzlx=" + val.jzlx + "&type=GJSS";
+            history.replaceState(null, null, shortURL);
+            loadDiv("buildingzoning/buildingzoning_detail");
+            //window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex + "&type=GJSS";
         },
 
         clearClick: function () {

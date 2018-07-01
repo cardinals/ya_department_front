@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("代码集管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -67,10 +63,14 @@ var vue = new Vue({
         deep: true
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+		/**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+        */
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("代码集管理", "-1");
         this.searchClick('click');
     },
     methods: {
@@ -85,7 +85,10 @@ var vue = new Vue({
         },
 
         codetypeCilck: function (val) {
-            window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
+            var shortURL = jumpDetail() + "&codeid=" + val.codeid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("system/codelist_detail");
+            //window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
         },
 
         //查询，初始化
@@ -211,6 +214,8 @@ var vue = new Vue({
                     language: val.language
                 };
                 axios.post('/api/codelist/updateByVO', params).then(function (res) {
+                    console.log(this.tableData);
+                    console.log(val);
                     this.tableData[this.selectIndex].codetype = val.codetype;
                     this.tableData[this.selectIndex].codetypeName = val.codetypeName;
                     this.tableData[this.selectIndex].remark = val.remark;

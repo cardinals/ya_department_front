@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("组织机构管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -54,13 +50,10 @@ new Vue({
     },
 
     created: function () {
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
-        //取得选中行pkid
-        // this.pkid = this.GetQueryString("pkid");
-        // this.YALX();
-        // history.back();
-        // this.planDetails(this.pkid);
+        /**菜单选中 by li.xue 20180628*/
+		// $("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("组织机构管理", "-1");
         this.getJgidData();
     },
     mounted: function () {

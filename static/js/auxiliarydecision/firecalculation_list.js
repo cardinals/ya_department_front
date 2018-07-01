@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("火场计算", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -155,8 +151,12 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+        //$("#activeIndex").val(getQueryString("index"));
+
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("火场计算", "-1");
+
         this.GSLB();
         this.CSLX();
         this.searchClick('click');
