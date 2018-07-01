@@ -972,6 +972,7 @@ var vm = new Vue({
                     //隐藏旧圆
                     var oc = vm.circle;
                     oc.hide();
+                    //调整缩放级别和圆圈的半径范围
                     var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
                     var radius = 1000;
                     var r = 6371004;
