@@ -85,9 +85,10 @@ var vue = new Vue({
         },
 
         codetypeCilck: function (val) {
-            var shortURL = jumpDetail() + "&codeid=" + val.codeid;
-            history.replaceState(null, null, shortURL);
-            loadDiv("system/codelist_detail");
+            var params = {
+                codeid: val.codeid
+            }
+            loadDivParam("system/codelist_detail", params);
             //window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
         },
 
