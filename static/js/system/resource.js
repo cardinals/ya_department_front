@@ -73,7 +73,7 @@ var vm = new Vue({
         this.findResourceById(data.resourceid);
         this.permissionDetailSelect = [],
         this.permissionDetails(data.resourceid);
-        var tree = document.getElementById('tree').childNodes[0];
+      //  var tree = document.getElementById('tree').childNodes[0];
       },
       //更新
       update: function(){
