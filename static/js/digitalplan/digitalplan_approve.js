@@ -196,9 +196,11 @@ var vue = new Vue({
         
         //预案详情
         planDetails(val) {
-            var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=YASH";;
-            history.replaceState(null, null, shortURL);
-            loadDiv("digitalplan/digitalplan_detail");
+            var params = {
+                ID: val.uuid,
+                type: "YASH"
+            }
+            loadDivParam("digitalplan/digitalplan_detail", params);
             //window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=YASH";
         },
         /** 
