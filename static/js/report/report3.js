@@ -1,4 +1,4 @@
-var vm = new Vue({
+var vue = new Vue({
 	el: "#app",
 	data: function () {
 		return {
