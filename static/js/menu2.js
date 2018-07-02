@@ -24,10 +24,11 @@ axios.get('http://localhost:80/api/getMenu').then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
             menuData.push({
-                "index":obj.index,
-                "resourceinfo":obj.resourceinfo,
-                "children":obj.children,
-                "url":obj.url,
+                "index": obj.index,
+                "resourceinfo": obj.resourceinfo,
+                "children": obj.children,
+                "url": obj.url,
+                "icon": "background:url(../../static/images/" + obj.icon + ") no-repeat"
             });
     }
 }.bind(this),function(error){
@@ -41,7 +42,7 @@ axios.get('http://localhost:80/api/getMenu').then(function(res){
 var treeMenuTemplate = [];
 treeMenuTemplate.push('<li class="el-submenu" :class="[open ? \'\': \'\', selected ? \'is-active\':\'\']">');
 treeMenuTemplate.push('<a class="db el-submenu__title" :id="model.index" @click="toggle" v-menu-animation="open" :style="{paddingLeft: paddingLeft + \'px\'}" href="javascript:;">');
-treeMenuTemplate.push('<i class="el-icon-message" v-if="level == 1"></i>');
+treeMenuTemplate.push('<i v-if="level == 1" v-bind:style=model.icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>');
 treeMenuTemplate.push('<template v-if="hasChildren()">');
 treeMenuTemplate.push('<i class="el-submenu__icon-arrow" :class="[open ? \'el-icon-arrow-up\': \'el-icon-arrow-down\']"></i>');
 treeMenuTemplate.push('</template>');
