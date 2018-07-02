@@ -160,7 +160,7 @@ treeMenuTemplate.push('</li>');
                 url=='/digitalplan/advancedsearch' ||
                 url=='/report/report1' ||
                 url=='/report/report3' ||
-                url=='/report/home'){
+                url=='/home'){
                 return url;
             }else{
                 return url + "_list"
