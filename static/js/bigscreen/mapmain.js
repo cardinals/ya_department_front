@@ -1992,20 +1992,24 @@ var vm = new Vue({
         },
         //水源详情跳转
         syxq: function (params) {
-            window.location.href = "../basicinfo/firewater_list.html?uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
+            //window.location.href = "../basicinfo/firewater_list.html?uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
+            window.location.href = "../all.html?url=/basicinfo/firewater_list&uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
         },
         //队站详情跳转
         dzxq: function (dzparams) {
-            window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
+            //window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
+            window.location.href = "../all.html?url=/basicinfo/firestation_list&dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
         },
         //重点单位详情跳转
         zddwxq: function (zddwparams) {
-            window.location.href = "../planobject/importantunits_detail.html?ID=" + zddwparams + "&index=41" + "&type=DT";
+            //window.location.href = "../planobject/importantunits_detail.html?ID=" + zddwparams + "&index=41" + "&type=DT";
             // window.location.href = "../planobject/importantunits_detail.html?uuid=" + zddwparams;
+            window.location.href = "../all.html?url=/planobject/importantunits_detail&ID=" + zddwparams + "&index=41" + "&type=DT";
         },
         //车辆单位详情跳转
         clxq: function (clparams) {
-            window.location.href = "../basicinfo/fireengine_list.html?uuid=" + clparams + "&cldj=1" + "&index=63" + "&type=DT";
+            //window.location.href = "../basicinfo/fireengine_list.html?uuid=" + clparams + "&cldj=1" + "&index=63" + "&type=DT";
+            window.location.href = "../all.html?url=/basicinfo/fireengine_list&uuid=" + clparams + "&cldj=1" + "&index=73" + "&type=DT";
         },
         //卫星地图
         WxOver: function () {

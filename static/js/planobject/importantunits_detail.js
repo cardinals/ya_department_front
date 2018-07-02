@@ -647,7 +647,7 @@ new Vue({
             var uuid = this.tableData.uuid;
             var cityCode = this.tableData.xzqh;
             //行政区划代码，跳转后需要截取前四位补0后查一下市的名称
-            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sydj=1";
+            window.location.href = "bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sydj=1";
         }
     }
 

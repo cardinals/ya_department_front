@@ -120,7 +120,7 @@ new Vue({
             var dzid = this.detailData.dzid;
             var dzlx = this.detailData.dzlx;
             var cityCode = this.detailData.xzqh;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode"+cityCode+"&id="+dzid+"&dzlx="+dzlx+"&dzdj=1";
+            window.location.href = "bigscreen/big_screen_map_pro.html?cityCode"+cityCode+"&id="+dzid+"&dzlx="+dzlx+"&dzdj=1";
         }
 
     }
