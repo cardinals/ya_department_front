@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("消防保卫警卫对象", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -102,10 +98,15 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("消防保卫警卫对象", "-1");
 
         this.getAllSszdData();
         this.searchXFGX_data();
@@ -132,7 +133,8 @@ var vue = new Vue({
         //表格查询事件
         searchClick: function(type) {
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.tableData = [];
             }else{
                 this.currentPage = 1;
             }
@@ -203,35 +205,7 @@ var vue = new Vue({
             this.searchForm.lrsj.push(val.substring(val.indexOf("至")+1));
             console.log(this.searchForm.lrsj);
         },
-        //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         //表格勾选事件
         selectionChange: function (val) {
             for (var i = 0; i < val.length; i++) {
@@ -243,7 +217,10 @@ var vue = new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            window.location.href = "guardobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("planobject/guardobjects_detail");
+            //window.location.href = "guardobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
         loadingData: function () {

@@ -1,20 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/advancedsearch.css">
-        <title>高级搜索</title>
     </head>
 	<body class="fw f14 main-index-body">
-		<div id="header_box"></div>
-        <div class="left-sidebar">
-            <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-            <input type="hidden" id="activeIndex"/>
-            <div id="menu-box">
-                <big-tree default-active=""></big-tree>
-            </div>
-        </div>
         <div id="app">
             <div class="main-box">
                 <div class="main-container" v-loading="loading" element-loading-text="加载中">
@@ -65,7 +55,7 @@
                                     </el-form-item>
                                 </el-form>
                                 <div style="margin-top: 40px">
-                                    <el-card v-for="data in tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card v-for="data in tableData.slice((currentPageYaxx-1)*pageSizeYaxx,currentPageYaxx*pageSizeYaxx)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
                                                 <div><strong @click="planDetails(data)" style="cursor: pointer;font-size:20px;" v-text="data.yamc"></strong>&nbsp&nbsp
@@ -83,12 +73,15 @@
                                         </el-row>
                                     </el-card>
                                     <div type="flex" justify="end">
+                                        <!-- <el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+											:page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+										</el-pagination> -->
                                         <el-pagination
                                         @current-change="handleCurrentChange"
-                                        :current-page="currentPage"
-                                        :page-size="pageSize"
-                                        layout="total, sizes, prev, pager, next, jumper"
-                                        :total=parseInt(total)>
+                                        :current-page.sync="currentPageYaxx"
+                                        :page-size="pageSizeYaxx"
+                                        layout="total, prev, pager, next, jumper"
+                                        :total=parseInt(totalYaxx)>
                                         </el-pagination>
                                     </div>
                                 </div>
@@ -142,7 +135,7 @@
                                     </el-form-item>
                                 </el-form>
                                 <div style="margin-top: 40px">
-                                    <el-card v-for="data in YADXtableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card v-for="data in YADXtableData.slice((currentPageYadx-1)*pageSizeYadx,currentPageYadx*pageSizeYadx)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
                                                 <div><strong  @click="YadxDetails(data)" style="cursor: pointer;font-size:20px;" v-text="data.dxmc"></strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.yalxdm !== null" v-text="data.yadxType"></el-tag></div>
@@ -158,12 +151,15 @@
                                         </el-row>
                                     </el-card>
                                     <div type="flex" justify="end">
+                                        <!-- <el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+											:page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+										</el-pagination> -->
                                         <el-pagination
                                         @current-change="handleCurrentChange"
-                                        :current-page="currentPage"
-                                        :page-size="pageSize"
-                                        layout="total, sizes, prev, pager, next, jumper"
-                                        :total=parseInt(total)>
+                                        :current-page="currentPageYadx"
+                                        :page-size="pageSizeYadx"
+                                        layout="total, prev, pager, next, jumper"
+                                        :total=parseInt(totalYadx)>
                                         </el-pagination>
                                     </div>
                                 </div>
@@ -202,7 +198,7 @@
                                     </el-form-item>
                                 </el-form>
                                 <div style="margin-top: 40px">
-                                    <el-card v-for="data in DWJZtableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" style="margin-bottom:12px;background-color:#F5F5F5">
+                                    <el-card v-for="data in DWJZtableData.slice((currentPageJzxx-1)*pageSizeJzxx,currentPageJzxx*pageSizeJzxx)" style="margin-bottom:12px;background-color:#F5F5F5">
                                         <el-row>
                                             <el-col :span="24">
                                                 <div><strong  @click="buildingDetails(data)" style="cursor: pointer;font-size:20px;" v-text="data.jzmc"></strong>&nbsp&nbsp<el-tag color="#0f82ee" size="medium" style="font-size:13px;" v-if="data.jzlxmc !== null" v-text="data.jzlxmc"></el-tag></div>
@@ -221,12 +217,15 @@
                                         </el-row>
                                     </el-card>
                                     <div type="flex" justify="end">
+                                        <!-- <el-pagination @size-change="pageSizeChange" @current-change="currentPageChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]"
+											:page-size="pageSize" layout="total, prev, pager, next, jumper" :total=parseInt(total)>
+										</el-pagination> -->
                                         <el-pagination
                                         @current-change="handleCurrentChange"
-                                        :current-page="currentPage"
-                                        :page-size="pageSize"
-                                        layout="total, sizes, prev, pager, next, jumper"
-                                        :total=parseInt(total)>
+                                        :current-page="currentPageJzxx"
+                                        :page-size="pageSizeJzxx"
+                                        layout="total, prev, pager, next, jumper"
+                                        :total=parseInt(totalJzxx)>
                                         </el-pagination>
                                     </div>
                                 </div>
@@ -243,11 +242,5 @@
             </div>
         </div>
     </body>
-	<script src="../../static/js/lib.js" ></script>
     <script src="../../static/js/digitalplan/advancedsearch.js" ></script>
-    <script src="../../static/js/menu.js" ></script>
-    <script>
-    
-    
-    </script>
 </html>

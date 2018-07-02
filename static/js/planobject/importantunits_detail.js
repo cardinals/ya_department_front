@@ -1,14 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    var type = getQueryString("type");
-    if(type == "GJSS"){
-        loadBreadcrumb("高级搜索", "重点单位详情");
-    }else if(type == "DT"){
-        loadBreadcrumb("地图", "重点单位详情");
-    }else{
-        loadBreadcrumb("重点单位", "重点单位详情");
-    }
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 new Vue({
@@ -219,9 +208,21 @@ new Vue({
         }
     },
     mounted: function () {
-        //设置菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         this.activeIndex = getQueryString("index")
         $("#activeIndex").val(this.activeIndex);
+         */
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if(type == "GJSS"){
+            loadBreadcrumb("高级搜索", "重点单位详情");
+        }else if(type == "DT"){
+            loadBreadcrumb("地图", "重点单位详情");
+        }else{
+            loadBreadcrumb("重点单位", "重点单位详情");
+        }
+
         //根据重点单位id获取重点单位详情
         this.getDetails();
 

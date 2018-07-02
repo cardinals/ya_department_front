@@ -2,20 +2,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>角色管理</title>
 </head>
 
 <body class="fw f14 main-index-body">
-    <div id="header_box"></div>
-    <div class="left-sidebar">
-        <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-        <input type="hidden" id="activeIndex"/>
-        <div id="menu-box">
-            <big-tree default-active=""></big-tree>
-        </div>
-    </div>
     <div id="app">
         <div class="main-box">
             <div class="main-container" v-loading="loading" element-loading-text="加载中">
@@ -78,12 +69,12 @@
 
                             <el-table-column type="selection" min-width="5%"></el-table-column>
                             <el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>
-                            <el-table-column prop="rolename" show-overflow-tooltip label="角色名称" min-width="12%" align="center" :formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="roleinfo" show-overflow-tooltip label="角色描述" min-width="15%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="createName" show-overflow-tooltip label="创建人" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="createTime" show-overflow-tooltip label="创建时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
-                            <el-table-column prop="alterName" show-overflow-tooltip label="修改人" min-width="12%" align="center":formatter="dataFormat"></el-table-column>
-                            <el-table-column prop="alterTime" show-overflow-tooltip label="修改时间" min-width="13%" align="center" :formatter="dateFormat"></el-table-column>
+                            <el-table-column prop="rolename" show-overflow-tooltip label="角色名称" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="roleinfo" show-overflow-tooltip label="角色描述" min-width="15%" align="center"></el-table-column>
+                            <el-table-column prop="createName" show-overflow-tooltip label="创建人" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="createTime" show-overflow-tooltip label="创建时间" min-width="13%" align="center" :formatter="tableDateFormat"></el-table-column>
+                            <el-table-column prop="alterName" show-overflow-tooltip label="修改人" min-width="12%" align="center"></el-table-column>
+                            <el-table-column prop="alterTime" show-overflow-tooltip label="修改时间" min-width="13%" align="center" :formatter="tableDateFormat"></el-table-column>
                             <el-table-column prop="resource" show-overflow-tooltip label="资源" min-width="13%" align="center">
                                 <template slot-scope="scope">
                                     <el-button type="text" @click="resourceDetails(scope.row.roleid)">查看详情</el-button>
@@ -175,10 +166,5 @@
         </div>
     </div>
 </body>
-<script src="../../static/js/lib.js"></script>
 <script src="../../static/js/system/role.js"></script>
-<script src="../../static/js/menu.js"></script>
-<script>
-</script>
-
 </html>

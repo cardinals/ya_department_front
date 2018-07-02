@@ -160,10 +160,21 @@ new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
+       /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+        
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if (type == "XZ") {
+            loadBreadcrumb("重点单位预案", "重点单位预案新增");
+        } else if (type == "BJ") {
+            loadBreadcrumb("重点单位预案", "重点单位预案编辑");
+        }
+
         this.YALX_tree();
         this.RSWZ_tree();
         this.ZQDJ_tree();
@@ -410,11 +421,16 @@ new Vue({
             this.unitsListVisible = true;
             this.loading_units = true;
             var params = {
-                dwmc: this.searchForm_units.dwmc
+                dwmc: this.searchForm_units.dwmc,
+                pageSize: this.pageSize_units,
+                pageNum: this.currentPage_units
             };
-            axios.post('/dpapi/importantunits/list', params).then(function (res) {
-                this.tableData_units = res.data.result;
-                this.total_units = res.data.result.length;
+            axios.post('/dpapi/importantunits/page', params).then(function (res) {
+                var tableTemp = new Array((this.currentPage_units-1)*this.pageSize_units);
+                this.tableData_units = tableTemp.concat(res.data.result.list);
+                this.total_units = res.data.result.total;
+                // this.tableData_units = res.data.result;
+                // this.total_units = res.data.result.length;
                 this.loading_units = false;
             }.bind(this), function (error) {
                 console.log(error);
@@ -423,9 +439,7 @@ new Vue({
         //当前页修改事件
         currentPageChange_units: function (val) {
             this.currentPage_units = val;
-            // console.log("当前页: " + val);
-            var _self = this;
-            _self.loadingData(); //重新加载数据
+            this.keyunitList();
         },
         //选择重点单位，返回单位名称和id
         selectRow_units: function (val) {
@@ -601,22 +615,6 @@ new Vue({
             }, 300);
         },
 
-        //时间格式化
-        dateFormat: function (val) {
-            var date = new Date(val);
-            if (date == undefined) {
-                return val;
-            }
-            var month = '' + (date.getMonth() + 1),
-                day = '' + date.getDate(),
-                year = date.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            var newDate = [year, month, day].join('-');
-            return newDate;
-        },
         //保存/提交前校验
         checkedBefore: function () {
             if (this.addForm.dxid == null || this.addForm.dxid == "") {

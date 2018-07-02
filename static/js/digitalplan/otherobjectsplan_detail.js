@@ -1,14 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    var type = getQueryString("type");
-    if(type == "GJSS"){
-        loadBreadcrumb("高级搜索", "其他对象预案详情");
-    }else if(type == "DT"){
-        loadBreadcrumb("地图", "其他对象预案详情");
-    }else{
-        loadBreadcrumb("其他对象预案", "其他对象预案详情");
-    }
-}
 new Vue({
     el: "#detailDisplay",
     data: function () {
@@ -50,7 +39,16 @@ new Vue({
     created: function () {
         this.uuid = this.GetQueryString("uuid");
         history.back();
-        // this.planDetails(this.uuid);
+        
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if(type == "GJSS"){
+            loadBreadcrumb("高级搜索", "-1");
+        }else if(type == "DT"){
+            loadBreadcrumb("地图", "其他对象预案详情");
+        }else{
+            loadBreadcrumb("其他对象预案", "-1");
+        }
     },
     mounted:function(){
         this.planDetails(this.uuid);
@@ -137,37 +135,6 @@ new Vue({
             this.searchForm.xgsj.push(val.substring(val.indexOf("至")+1));
             // console.log(this.searchForm.cjsj);
         },
-        //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
-
-
-
-
-
-
-
-
-
-
-
         /**
         * lxy
         */

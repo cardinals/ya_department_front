@@ -1,10 +1,6 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("代码集管理", "代码集详情");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -17,7 +13,7 @@ new Vue({
             },
             tableData: [],
             //表高度变量
-            tableheight: 445,
+            tableheight: 443,
             //显示加载中样
             loading: false,
             //多选值
@@ -55,14 +51,21 @@ new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
-        
+        /**菜单选中 by li.xue 20180628*/
+		//$("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("代码集管理", "代码集详情");
         this.loading = true; //重新加载数据
         this.codeid = getQueryString("codeid");
-        axios.get('/api/codelist/detail/doFindById/' + this.codeid).then(function (res) {
-            this.tableData = res.data.result;
-            this.total = res.data.result.length;
+        var params = {
+            codeid: this.codeid,
+            pageSize: this.pageSize,
+            pageNum: this.currentPage
+        };
+        axios.post('/api/codelist/detail/doFindByCodeid', params).then(function (res) {
+            var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+            this.tableData = tableTemp.concat(res.data.result.list);
+            this.total = res.data.result.total;
             this.loading = false;
         }.bind(this), function (error) {
             console.log(error)
@@ -79,52 +82,31 @@ new Vue({
         enddateChange(val) {
             this.searchForm.createTimeEnd = val;
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
-        //表格中日期格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
 
         codetypeCilck: function (val) {
             window.location.href = this.$http.options.root + "/api/codelist/getDetailPage/" + val.codeid;
         },
 
         //查询，初始化
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){     
+            }else{
+                this.currentPage = 1;
+            }
             this.loading = true;
             var params = {
                 codeid: this.codeid,
                 codeValue: this.searchForm.codeValue.trim(),
-                codeName: this.searchForm.codeName.trim()
+                codeName: this.searchForm.codeName.trim(),
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/codelist/detail/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -156,7 +138,6 @@ new Vue({
         //新建：保存
         addSubmit: function (val) {
             var _self = this;
-            debugger;
             axios.get('/api/codelist/detail/getNum/' + this.codeid + '/' + this.addForm.codeValue).then(function (res) {
                 if (res.data.result != 0) {
                     _self.$message({
@@ -281,20 +262,7 @@ new Vue({
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-
-
+    
         closeDialog: function (val) {
             this.addFormVisible = false;
             val.permissionname = "";

@@ -1,10 +1,6 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("用户管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -18,7 +14,7 @@ new Vue({
             tableData: [],
             allRoles: [],
             //表高度变量
-            tableheight: 441,
+            tableheight: 443,
             //显示加载中样
             loading: false,          
             labelPosition: 'right',
@@ -130,20 +126,23 @@ new Vue({
         }
     },
     created: function () {
-        //菜单选中
-        $("#activeIndex").val(getQueryString("index"));
-        this.searchClick();
+        /**菜单选中 by li.xue 20180628*/
+		//$("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("用户管理", "-1");
+        this.searchClick('click');
     },
     methods: {
         //表格查询事件
-        searchClick: function () {
-            var _self = this;
-            function isEmptyObject(obj) {
-                for (var key in obj) {
-                    return false;
-                }
-                return true;
+        searchClick: function(type) {
+            debugger;
+            //按钮事件的选择
+            if(type == 'page'){
+                this.tableData = [];
+            }else{
+                this.currentPage = 1;
             }
+            var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
                 username: this.searchForm.username,
@@ -177,38 +176,10 @@ new Vue({
                     return '女';
                     break;
                 default:
-                    return "无"
+                    return ""
             }
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
-        //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
+        
         //增加、修改时“生日”表单赋值
         dateChangebirthday(val) {
             this.addForm.birth = val;
@@ -443,18 +414,6 @@ new Vue({
             var _self = this;
             _self.itemFormVisible = true;
 
-        },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
         },
         closeDialog: function (val) {
             this.addFormVisible = false;

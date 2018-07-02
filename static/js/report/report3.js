@@ -1,13 +1,3 @@
-//加载面包屑
-window.onload = function () {
-	var type = getQueryString("type");
-	if (type == "DPYL") {
-		loadBreadcrumb("大屏预览", "各类型预案数量统计页面");
-	} else {
-		loadBreadcrumb("各类型预案数量统计页面", '-1');
-	}
-}
-
 var vm = new Vue({
 	el: "#app",
 	data: function () {
@@ -164,8 +154,15 @@ var vm = new Vue({
 		this.pieChart();
 	},
 	created: function () {
-		//菜单选中
-		$("#activeIndex").val(getQueryString("index"));
+		/**菜单选中 by li.xue 20180628*/
+		//$("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+		var type = getQueryString("type");
+		if (type == "DPYL") {
+			loadBreadcrumb("统计分析", "各类型预案数量统计页面");
+		} else {
+			loadBreadcrumb("各类型预案数量统计页面", '-1');
+		}
 	},
 	methods: {
 		// 左侧柱状图

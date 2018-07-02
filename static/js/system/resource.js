@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("资源管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vm = new Vue({        
@@ -66,8 +62,10 @@ var vm = new Vue({
         this.getAllPermissions();
       } ,
     created: function () {
-       //菜单选中
-       $("#activeIndex").val(getQueryString("index"));
+      /**菜单选中 by li.xue 20180628*/
+		  // $("#activeIndex").val(getQueryString("index"));
+      /**面包屑 by li.xue 20180628*/
+      loadBreadcrumb("资源管理", "-1");
     }, 
     methods: {
       //左侧树点击事件

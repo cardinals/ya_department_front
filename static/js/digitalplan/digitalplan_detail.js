@@ -1,18 +1,3 @@
-//加载面包屑
-window.onload = function () {
-    var type = getQueryString("type");
-    if (type == "GJSS") {
-        loadBreadcrumb("高级搜索", "预案详情");
-    } else if (type == "YASH") {
-        loadBreadcrumb("预案审核", "预案详情");
-    } else if (type == "YAFF") {
-        loadBreadcrumb("预案分发", "预案详情");
-    } else if (type == "ZDDW") {
-        loadBreadcrumb("重点单位详情", "预案详情");
-    } else {
-        loadBreadcrumb("重点单位预案", "重点单位预案详情");
-    }
-}
 new Vue({
     el: "#app",
     data: function () {
@@ -51,7 +36,22 @@ new Vue({
     },
     created: function () {
         //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        // $("#activeIndex").val(getQueryString("index"));
+        
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if (type == "GJSS") {
+            loadBreadcrumb("高级搜索", "预案详情");
+        } else if (type == "YASH") {
+            loadBreadcrumb("预案审核", "预案详情");
+        } else if (type == "YAFF") {
+            loadBreadcrumb("预案分发", "预案详情");
+        } else if (type == "ZDDW") {
+            loadBreadcrumb("重点单位详情", "预案详情");
+        } else {
+            loadBreadcrumb("重点单位预案", "重点单位预案详情");
+        }
+
         this.loading = true;
         this.pkid = getQueryString("ID");
         this.planDetails(this.pkid);
@@ -65,6 +65,11 @@ new Vue({
         handleClick: function (e) {
             console.log(e);
         },
+        //面包屑
+        getBreadcrumb(){
+
+        },
+
         //根据参数部分和参数名来获取参数值 
         GetQueryString: function (name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -80,13 +85,13 @@ new Vue({
                 if (this.basicDetailData.zzsj == null || this.basicDetailData.zzsj == "") {
                     this.basicDetailData.zzsj = '';
                 } else {
-                    this.basicDetailData.zzsj = this.dateFormat(this.basicDetailData.zzsj);
+                    this.basicDetailData.zzsj = dateFormat(this.basicDetailData.zzsj);
                 }
                 //审核时间格式化
                 if (this.basicDetailData.shsj == null || this.basicDetailData.shsj == "") {
                     this.basicDetailData.shsj = '';
                 } else {
-                    this.basicDetailData.shsj = this.dateFormat(this.basicDetailData.shsj);
+                    this.basicDetailData.shsj = dateFormat(this.basicDetailData.shsj);
                 }
                 doFindPhoto("YAJB", this.basicDetailData.yajb);
                 this.unitDetail(this.basicDetailData.dxid);
@@ -161,12 +166,10 @@ new Vue({
             ]
         },
         successClose: function () {
-            // debugger
             this.initialIndex = 0;
         },
         //图片轮播
         showPic: function (val) {
-            // debugger
             this.initialIndex = val;
             this.showPicVisible = true;
             // this.initialIndex = val;
@@ -234,22 +237,7 @@ new Vue({
                 console.log(error)
             })
         },
-        //日期格式化
-        dateFormat: function (val) {
-            var date = new Date(val);
-            if (date == undefined) {
-                return val;
-            }
-            var month = '' + (date.getMonth() + 1),
-                day = '' + date.getDate(),
-                year = date.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            var newDate = [year, month, day].join('-');
-            return newDate;
-        },
+        
         //选择信息分享模板界面
         openShareVisible: function () {
             this.shareVisible = true;

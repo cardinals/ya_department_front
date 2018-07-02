@@ -1,10 +1,6 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("角色管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -35,7 +31,7 @@ new Vue({
             //分页大小
             pageSize: 10,
             //总记录数
-            total: 10,
+            total: 0,
             //序号
             indexData: 0,
             //资源列表是否显示
@@ -91,14 +87,16 @@ new Vue({
         }
     },
     created: function () {
-        //菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+		//$("#activeIndex").val(getQueryString("index"));
+		/**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("角色管理", "-1");
         this.getAllRoles();
-        this.searchClick();
+        this.searchClick('click');
     },
     methods: {
         //所有的角色列表
-        getAllRoles: function () {
+        getAllRoles: function() {
             axios.get('/api/role/getAll').then(function (res) {
                 this.allRoles = res.data.result;
             }.bind(this), function (error) {
@@ -119,44 +117,23 @@ new Vue({
             this.searchForm.createTime.push(val.substring(0,val.indexOf("至")));
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
-        //表格中日期格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
-
+        
         //查询，初始化
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){
+                this.tableData = [];
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
                 rolename: this.searchForm.rolename,
                 createTimeBegin: this.searchForm.createTime[0],
-                createTimeEnd: this.searchForm.createTime[1]
+                createTimeEnd: this.searchForm.createTime[1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/role/findByVO', params).then(function (res) {
@@ -186,16 +163,6 @@ new Vue({
         //表格勾选事件
         selectionChange: function (val) {
             this.multipleSelection = val;
-        },
-
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                console.info("加载数据成功");
-                _self.loading = false;
-            }, 300);
         },
 
         //新建：弹出Dialog
@@ -229,7 +196,7 @@ new Vue({
                         console.log(error)
                     })
                     this.addFormVisible = false;
-                    _self.loadingData();//重新加载数据
+                    loadingData();//重新加载数据
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -270,7 +237,7 @@ new Vue({
                             type: "success"
                         });
                         _self.total = _self.tableData.length;
-                        _self.loadingData(); //重新加载数据
+                        loadingData(); //重新加载数据
                     }.bind(this), function (error) {
                         console.log(error)
                     })
@@ -284,13 +251,13 @@ new Vue({
         pageSizeChange: function (val) {
             this.pageSize = val;
             var _self = this;
-            _self.loadingData(); //重新加载数据
+            loadingData(); //重新加载数据
         },
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
             var _self = this;
-            _self.loadingData(); //重新加载数据
+            loadingData(); //重新加载数据
         },
 
         //修改：弹出Dialog

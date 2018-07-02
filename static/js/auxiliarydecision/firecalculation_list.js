@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("火场计算", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -155,8 +151,12 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+        //$("#activeIndex").val(getQueryString("index"));
+
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("火场计算", "-1");
+
         this.GSLB();
         this.CSLX();
         this.searchClick('click');
@@ -181,7 +181,8 @@ var vue = new Vue({
         //查询，初始化
         searchClick: function(type) {
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.tableData = [];
             }else{
                 this.currentPage = 1;
             }
@@ -213,15 +214,7 @@ var vue = new Vue({
             this.searchForm.createTime.push(val.substring(0,val.indexOf("至")));
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         //新增页面增加参数表单
         addDomain() {
             this.addIndex++;

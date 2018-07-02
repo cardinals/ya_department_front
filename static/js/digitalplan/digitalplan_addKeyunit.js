@@ -50,15 +50,6 @@ new Vue({
                 console.log(error);
             })
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
 
         //表格重新加载数据
         loadingData: function () {

@@ -1,12 +1,3 @@
-//加载面包屑
-window.onload = function () {
-    var type = getQueryString("type");
-    if (type == "DPYL") {
-        loadBreadcrumb("统计分析", "预案审核");
-    } else {
-        loadBreadcrumb("预案审核", "-1");
-    }
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -96,10 +87,21 @@ var vue = new Vue({
         this.SHZT();//审核状态下拉框
     },
     mounted: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+        /**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
+         */
+
+        /**面包屑 by li.xue 20180628*/
+        var type = getQueryString("type");
+        if (type == "DPYL") {
+            loadBreadcrumb("统计分析", "预案审核");
+        } else {
+            loadBreadcrumb("预案审核", "-1");
+        }
+
         this.searchClick('click');//条件查询
     },
 
@@ -144,7 +146,8 @@ var vue = new Vue({
         //表格查询事件
         searchClick: function (type) {
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.tableData = [];
             }else{
                 this.currentPage = 1;
             }
@@ -190,20 +193,13 @@ var vue = new Vue({
         selectionChange: function (val) {
             this.multipleSelection = val;
         },
-        //表格数据格式化
-        /** 
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },*/
+        
         //预案详情
         planDetails(val) {
-            window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=YASH";
-            //     window.location.href = this.$http.options.root + "/dpapi" + "/keyunit/detail/" + val.pkid;
+            var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=YASH";;
+            history.replaceState(null, null, shortURL);
+            loadDiv("digitalplan/digitalplan_detail");
+            //window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=YASH";
         },
         /** 
         planDetails: function (val) {

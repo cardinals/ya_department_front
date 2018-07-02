@@ -1,9 +1,9 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="../../static/js/vue.js"></script>
-    <script src="../../static/js/elementUI.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="../../static/js/zzzlib/vue.js"></script>
+    <script src="../../static/js/zzzlib/elementUI.js"></script>
     <script src="../../static/js/digitalplan/digitalplan_addKeyunit.js"></script>
 </head>
 
@@ -28,9 +28,9 @@
                 <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                     class="tableStyle" :height="tableheight" @row-click="selectRow">
                     <el-table-column type="index" label="序号" show-overflow-tooltip width="65" align="center"></el-table-column>
-                    <el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="40%" align="center" :formatter="dataFormat"></el-table-column>
-                    <el-table-column prop="dwlbmc" label="单位类别" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
-                    <el-table-column prop="xzqhmc" label="行政区划" show-overflow-tooltip min-width="25%" align="center" :formatter="dataFormat"></el-table-column>
+                    <el-table-column prop="dwmc" label="单位名称" show-overflow-tooltip min-width="40%" align="center"></el-table-column>
+                    <el-table-column prop="dwlbmc" label="单位类别" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
+                    <el-table-column prop="xzqhmc" label="行政区划" show-overflow-tooltip min-width="25%" align="center"></el-table-column>
                 </el-table>
 
                 <!--列表底部工具条和分页符-->

@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("消防保卫警卫预案", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -112,8 +108,12 @@ var vue = new Vue({
         }
     },
     created: function () {
-        //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        /**菜单选中 by li.xue 20180628*/
+        //$("#activeIndex").val(getQueryString("index"));
+        
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("消防保卫警卫预案", "-1");
+
         this.YALXTree();
         this.YALX();
         this.getJgidData();
@@ -163,7 +163,8 @@ var vue = new Vue({
 
         //表格查询事件
         searchClick: function (type) {
-            if(type == 'page'){     
+            if(type == 'page'){ 
+                this.tableData = [];    
             }else{
                 this.currentPage = 1;
             }
@@ -192,7 +193,6 @@ var vue = new Vue({
             this.searchForm.yalx=[];
             this.searchForm.sfkqy="";
             this.searchForm.jgid=[];
-           
             this.searchForm.cjsj.splice(0,this.searchForm.cjsj.length);
             this.searchClick('reset');
         },
@@ -203,40 +203,12 @@ var vue = new Vue({
             this.searchForm.cjsj.push(val.substring(val.indexOf("至")+1));
             // console.log(this.searchForm.cjsj);
         },
-        //时间格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
+        
         //时间格式
         bzrqChange(val) {
             this.searchForm.BZRQ.splice(0,this.searchForm.BZRQ.length);
             this.searchForm.BZRQ.push(val.substring(0,val.indexOf("至")));
             this.searchForm.BZRQ.push(val.substring(val.indexOf("至")+1));
-        },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
         },
 
         //表格勾选事件

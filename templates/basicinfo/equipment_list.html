@@ -4,19 +4,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>装备器材管理</title>
-	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/basicinfo/equipment.css">
 </head>
 
 <body class="fw f14 main-index-body">
-	<div id="header_box"></div>
-	<div class="left-sidebar">
-		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-		<input type="hidden" id="activeIndex" />
-		<div id="menu-box">
-			<big-tree default-active=""></big-tree>
-		</div>
-	</div>
 	<div id="app">
 		<div class="main-box">
 			<div class="main-container" v-loading="loading" element-loading-text="加载中">
@@ -79,7 +70,7 @@
 						<el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @selection-change="selectionChange"
 						 class="tableStyle" :height="tableheight">
 							<el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-							<el-table-column prop="zbmc" label="装备名称" show-overflow-tooltip min-width="15%" align="center" :formatter="dataFormat">
+							<el-table-column prop="zbmc" label="装备名称" show-overflow-tooltip min-width="15%" align="center">
 								<template slot-scope="scope">
 									<a @click="engineDatail(scope.row)" type="text">{{scope.row.zbmc}}</a>
 								</template>
@@ -138,8 +129,5 @@
 		</div>
 	</div>
 </body>
-<script src="../../static/js/lib.js"></script>
 <script src="../../static/js/basicinfo/equipment_list.js"></script>
-<script src="../../static/js/menu.js"></script>
-
 </html>

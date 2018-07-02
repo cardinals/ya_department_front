@@ -1,8 +1,8 @@
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/jquery-3.2.1.min.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/vue.min.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/elementUI.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/axios.min.js'+'"></scr' + 'ipt>');
-document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/vue-resource.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/jquery-3.2.1.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/vue.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/elementUI.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/axios.min.js'+'"></scr' + 'ipt>');
+document.write('<scr' + 'ipt type="text/javascript" src="'+'../../static/js/zzzlib/vue-resource.min.js'+'"></scr' + 'ipt>');
 
 
 
@@ -14,6 +14,13 @@ window.getQueryString = function(name) {
         return unescape(r[2]);
     } 
     return null;
+}
+//公共方法-地址栏取参方法2
+window.getPathString = function(){
+    var path = window.location.href;
+    var start = path.search("/templates") + 10;
+    var end =  path.search(".html");
+    return path.substring(start,end);
 }
 
 //公共方法-详情页显示图片  
@@ -44,7 +51,7 @@ window.loadBreadcrumb = function(firstName,secondName){
     if(secondName == "-1"){
         breadcrumb.push('href="javascript:;"');
     }else{
-        breadcrumb.push('href="javascript:history.go(-1)"')
+        breadcrumb.push('href="javascript:backToLast()"')
     }
     breadcrumb.push('>'+ firstName +'</a>');
     if(secondName != "-1"){
@@ -55,6 +62,14 @@ window.loadBreadcrumb = function(firstName,secondName){
     $("#breadcrumb_box").html(breadcrumb.join(''));
 }
 
+//面包屑跳转
+window.backToLast = function(){
+    var url = "../templates" + getQueryString("url");
+    loadDiv(url);
+    var newURL = top.location.href.substr(0,top.location.href.indexOf("&"));
+    history.replaceState(null, null, newURL);
+}
+
 //分页大小修改事件
 window.pageSizeChange = function(val) {
     vue.pageSize = val;
@@ -63,6 +78,83 @@ window.pageSizeChange = function(val) {
 
 //当前页修改事件
 window.currentPageChange = function(val) {
-    vue.currentPage = val;
-    vue.searchClick('page');
+    if(vue.currentPage != val){
+        vue.currentPage = val;
+        vue.searchClick('page');
+    }
+}
+
+//表格重新加载数据
+window.loadingData = function () {
+    vue.loading = true;
+    setTimeout(function () {
+        console.info("加载数据成功");
+        vue.loading = false;
+    }, 300);
+}
+
+//日期格式化
+window.dateFormat = function(val){
+    var date = new Date(val);
+    if (date == undefined) {
+        return val;
+    }
+    var month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    var newDate = [year, month, day].join('-');
+    return newDate;
+}
+
+//table日期格式化
+window.tableDateFormat =  function (row, column) {
+    var rowDate = row[column.property];
+    if (rowDate == null || rowDate == "") {
+        return '';
+    } else {
+        return dateFormat(rowDate);
+    }
+}
+
+//数据格式化
+window.dataFormat = function (row, column) {
+    var rowDate = row[column.property];
+    if (rowDate == null || rowDate == "") {
+        return '无';
+    } else {
+        return rowDate;
+    }
+}
+
+//LOAD DIV
+window.loadDiv = function(loadUrl){
+    var url = '../../templates/';
+    if(loadUrl == undefined || loadUrl == "" || loadUrl == null){
+        url = url + "home" + ".html";
+    }else{
+        url = url + loadUrl + ".html";
+    }
+    $.ajax({
+        url: url,
+        cache: true,
+        async: true,
+        success: function (html) {
+            $("#app").html(html);
+        }
+    });
+}
+
+//详情页跳转
+window.jumpDetail = function(){
+    var topHref = top.location.href;
+    if(topHref.indexOf("&") == -1){
+        var shortURL = topHref;
+    }else{
+        var shortURL = top.location.href.substr(0, top.location.href.indexOf("&"));
+    }
+    return shortURL;
 }

@@ -4,19 +4,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>图片管理</title>
-	<link rel="stylesheet" type="text/css" href="../../static/css/lib.css">
 	<link rel="stylesheet" type="text/css" href="../../static/css/system/imgupload.css">
 </head>
 
 <body class="fw f14 main-index-body">
-	<div id="header_box"></div>
-	<div class="left-sidebar">
-		<a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
-		<input type="hidden" id="activeIndex"/>
-        <div id="menu-box">
-            <big-tree default-active=""></big-tree>
-        </div>
-	</div>
 	<div id="app">
 		<div class="main-box">
 			<div class="main-container" v-loading="loading" element-loading-text="加载中">
@@ -65,10 +56,10 @@
 						 @selection-change="selectionChange" class="tableStyle" :height="tableheight">
 							<el-table-column type="selection" min-width="5%"></el-table-column>
 							<el-table-column type="index" show-overflow-tooltip label="序号" width="65" align="center"></el-table-column>	
-							<el-table-column prop="picName" show-overflow-tooltip label="图片名称" min-width="35%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="picValue" show-overflow-tooltip label="图片代码" min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="picTypename" show-overflow-tooltip label="图片类型" min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
-							<el-table-column prop="picType" show-overflow-tooltip label="类型代码" min-width="15%" align="center" :formatter="dataFormat"></el-table-column>
+							<el-table-column prop="picName" show-overflow-tooltip label="图片名称" min-width="35%" align="center"></el-table-column>
+							<el-table-column prop="picValue" show-overflow-tooltip label="图片代码" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="picTypename" show-overflow-tooltip label="图片类型" min-width="15%" align="center"></el-table-column>
+							<el-table-column prop="picType" show-overflow-tooltip label="类型代码" min-width="15%" align="center"></el-table-column>
 							<el-table-column prop="sex" show-overflow-tooltip label="预览" min-width="10%" align="center">
                                 <template slot-scope="scope">
                                     <el-button type="text" @click="imgPreview(scope.row)">预览</el-button>
@@ -265,8 +256,5 @@
 	</div>
 	<!-- /main-box -->
 </body>
-<script src="../../static/js/lib.js"></script>
 <script src="../../static/js/system/imgupload.js"></script>
-<script src="../../static/js/menu.js"></script>
-
 </html>

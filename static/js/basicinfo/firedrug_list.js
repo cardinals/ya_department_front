@@ -1,7 +1,3 @@
-//加载面包屑
-window.onload = function () {
-    loadBreadcrumb("消防药剂管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
 var vue = new Vue({
@@ -61,7 +57,9 @@ var vue = new Vue({
     },
     created: function () {
         //设置菜单选中
-        $("#activeIndex").val(getQueryString("index"));
+        // $("#activeIndex").val(getQueryString("index"));
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("消防药剂管理", "-1");
         this.getAllSszdData();//消防队站下拉框数据（到总队级）
         this.getAllYjlxDataTree(); //药剂类型级联选择器数据
         this.searchClick('click');
@@ -89,7 +87,8 @@ var vue = new Vue({
         //表格查询事件
         searchClick: function(type) {
             //按钮事件的选择
-            if(type == 'page'){     
+            if(type == 'page'){
+                this.tableData = [];
             }else{
                 this.currentPage = 1;
             }
@@ -123,7 +122,7 @@ var vue = new Vue({
             this.drugDetailVisible = true;
             this.loading_detail = true;
             this.tableData_detail = val;
-            this.tableData_detail.scsj = this.dateFormat(this.tableData_detail.scsj);
+            this.tableData_detail.scsj = dateFormat(this.tableData_detail.scsj);
             this.loading_detail = false;
 
         },
@@ -139,22 +138,6 @@ var vue = new Vue({
             this.searchClick('reset');
         },
 
-        //时间格式化
-        dateFormat: function (val) {
-            var date = new Date(val);
-            if (date == undefined) {
-                return val;
-            }
-            var month = '' + (date.getMonth() + 1),
-                day = '' + date.getDate(),
-                year = date.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            var newDate = [year, month, day].join('-');
-            return newDate;
-        },
         //表格勾选事件
         selectionChange: function (val) {
             for (var i = 0; i < val.length; i++) {

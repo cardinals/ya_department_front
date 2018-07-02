@@ -1,10 +1,6 @@
-//加载面包屑
-window.onload=function(){
-    loadBreadcrumb("代码集管理", "-1");
-}
 //axios默认设置cookie
 axios.defaults.withCredentials = true;
-new Vue({
+var vue = new Vue({
     el: '#app',
     data: function () {
         return {
@@ -67,24 +63,20 @@ new Vue({
         deep: true
     },
     created: function () {
-        //菜单选中
+        /**菜单选中 by li.xue 20180628*/
+		/**
         var index = getQueryString("index");
         $("#activeIndex").val(index);
         this.activeIndex = index;
-        this.searchClick();
+        */
+        /**面包屑 by li.xue 20180628*/
+        loadBreadcrumb("代码集管理", "-1");
+        this.searchClick('click');
     },
     methods: {
         handleNodeClick(data) {
         },
-        //表格数据格式化
-        dataFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                return rowDate;
-            }
-        },
+        
         //日期控件变化时格式化
         dateChange(val) {
             this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
@@ -92,44 +84,35 @@ new Vue({
             this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
         },
 
-        //表格中日期格式化
-        dateFormat: function (row, column) {
-            var rowDate = row[column.property];
-            if (rowDate == null || rowDate == "") {
-                return '无';
-            } else {
-                var date = new Date(rowDate);
-                if (date == undefined) {
-                    return '';
-                }
-                var month = '' + (date.getMonth() + 1),
-                    day = '' + date.getDate(),
-                    year = date.getFullYear();
-
-                if (month.length < 2) month = '0' + month;
-                if (day.length < 2) day = '0' + day;
-
-                return [year, month, day].join('-')
-            }
-        },
-
         codetypeCilck: function (val) {
-            window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
+            var shortURL = jumpDetail() + "&codeid=" + val.codeid;
+            history.replaceState(null, null, shortURL);
+            loadDiv("system/codelist_detail");
+            //window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
         },
 
         //查询，初始化
-        searchClick: function () {
+        searchClick: function(type) {
+            //按钮事件的选择
+            if(type == 'page'){
+                this.tableData = [];     
+            }else{
+                this.currentPage = 1;
+            }
             var _self = this;
             _self.loading = true;//表格重新加载
             var params = {
                 codetype: this.searchForm.codetype,
                 createTimeBegin: this.searchForm.createTime[0],
-                createTimeEnd: this.searchForm.createTime[1]
+                createTimeEnd: this.searchForm.createTime[1],
+                pageSize: this.pageSize,
+                pageNum: this.currentPage
             };
 
             axios.post('/api/codelist/findByVO', params).then(function (res) {
-                this.tableData = res.data.result;
-                this.total = res.data.result.length;
+                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.total = res.data.result.total;
                 _self.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -231,6 +214,8 @@ new Vue({
                     language: val.language
                 };
                 axios.post('/api/codelist/updateByVO', params).then(function (res) {
+                    console.log(this.tableData);
+                    console.log(val);
                     this.tableData[this.selectIndex].codetype = val.codetype;
                     this.tableData[this.selectIndex].codetypeName = val.codetypeName;
                     this.tableData[this.selectIndex].remark = val.remark;
@@ -263,7 +248,6 @@ new Vue({
                 });
                 return;
             }
-            debugger;
             var ids = [];
             for (var i = 0; i < multipleSelection.length; i++) {
                 var row = multipleSelection[i];
@@ -297,19 +281,6 @@ new Vue({
                     if (e != "cancel") console.log("出现错误：" + e);
                 });
         },
-        //分页大小修改事件
-        pageSizeChange: function (val) {
-            this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-        //当前页修改事件
-        currentPageChange: function (val) {
-            this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
-        },
-
 
         closeDialog: function (val) {
             this.addFormVisible = false;
