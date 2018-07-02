@@ -214,3 +214,6 @@ body{height:100%;overflow:hidden;}
 .el-form-item{
     margin-bottom: 10px;
 }
+.el-message{
+    margin-top: 3%;
+}

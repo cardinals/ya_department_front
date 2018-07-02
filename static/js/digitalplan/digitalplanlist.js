@@ -179,24 +179,29 @@ var vue = new Vue({
         },
         //预案详情跳转
         planDetails: function (val) {
-            var shortURL = jumpDetail() + "&ID=" + val.uuid;
-            history.replaceState(null, null, shortURL);
-            loadDiv("digitalplan/digitalplan_detail");
+            var params = {
+                ID: val.uuid
+            }
+            loadDivParam("digitalplan/digitalplan_detail", params);
             //window.location.href = "all.html?ID=" + val.uuid + "&url=digitalplan/digitalplan_detail";
         },
         //预案新增跳转
         addClick: function () {
-            var shortURL = jumpDetail() + "&ID=" + 0 + "&type=XZ";
-            history.replaceState(null, null, shortURL);
-            loadDiv("digitalplan/digitalplan_add");
+            var params = {
+                ID: 0,
+                type: "XZ"
+            }
+            loadDivParam("digitalplan/digitalplan_add", params);
             //window.location.href = "digitalplan_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
         },
         //预案编辑跳转
         handleEdit: function (row) {
             if (row.yazt == '01' || row.yazt == '04') {
-                var shortURL = jumpDetail() + "&ID=" + row.uuid + "&type=BJ";
-                history.replaceState(null, null, shortURL);
-                loadDiv("digitalplan/digitalplan_add");
+                var params = {
+                    ID: row.uuid,
+                    type: "BJ"
+                }
+                loadDivParam("digitalplan/digitalplan_add", params);
                 //window.location.href = "digitalplan_add.html?ID=" + row.uuid + "&index=" + this.activeIndex + "&type=BJ";
             } else {
                 this.$message({

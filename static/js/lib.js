@@ -148,6 +148,31 @@ window.loadDiv = function(loadUrl){
     });
 }
 
+//LOAD DIV PARAM
+window.loadDivParam = function(loadUrl, params){
+    var shortURL = [];
+    shortURL.push(jumpDetail());
+    $.each(params, function(i){
+        shortURL.push("&" + i + "=" + params[i]);
+    })
+    history.replaceState(null, null, shortURL.join(""));
+
+    var url = '../../templates/';
+    if(loadUrl == undefined || loadUrl == "" || loadUrl == null){
+        url = url + "home" + ".html";
+    }else{
+        url = url + loadUrl + ".html";
+    }
+    $.ajax({
+        url: url,
+        cache: true,
+        async: true,
+        success: function (html) {
+            $("#app").html(html);
+        }
+    });
+}
+
 //详情页跳转
 window.jumpDetail = function(){
     var topHref = top.location.href;
