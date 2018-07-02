@@ -2,7 +2,7 @@
 $(function () {
     //动态加载main
     var paramUrl = getQueryString("url");
-    loadDiv(paramUrl);
+    loadDiv(urlRewrite(paramUrl));
 });
 
 /**header-box by li.xue 20180628 */

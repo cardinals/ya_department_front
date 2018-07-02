@@ -64,10 +64,24 @@ window.loadBreadcrumb = function(firstName,secondName){
 
 //面包屑跳转
 window.backToLast = function(){
-    var url = "../templates" + getQueryString("url");
+    var url = "../templates" + urlRewrite(getQueryString("url"));
     loadDiv(url);
     var newURL = top.location.href.substr(0,top.location.href.indexOf("&"));
     history.replaceState(null, null, newURL);
+}
+
+//urlRewrite
+window.urlRewrite = function(url){
+    if(url=='/digitalplan/digitalplan_approve' || 
+        url=='/digitalplan/digitalplan_distribute' || 
+        url=='/digitalplan/advancedsearch' ||
+        url=='/report/report1' ||
+        url=='/report/report3' ||
+        url=='/home'){
+        return url;
+    }else{
+        return url + "_list"
+    }
 }
 
 //分页大小修改事件

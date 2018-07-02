@@ -43,6 +43,7 @@ var treeMenuTemplate = [];
 treeMenuTemplate.push('<li class="el-submenu" :class="[open ? \'\': \'\', selected ? \'is-active\':\'\']">');
 treeMenuTemplate.push('<a class="db el-submenu__title" :id="model.index" @click="toggle" v-menu-animation="open" :style="{paddingLeft: paddingLeft + \'px\'}" href="javascript:;">');
 treeMenuTemplate.push('<i v-if="level == 1" v-bind:style="model.icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>');
+// treeMenuTemplate.push('<i v-else style="background:url(../../static/images/menu/menu-child.png) no-repeat">&nbsp;&nbsp;&nbsp;&nbsp;</i>');
 treeMenuTemplate.push('<template v-if="hasChildren()">');
 treeMenuTemplate.push('<i class="el-submenu__icon-arrow" :class="[open ? \'el-icon-arrow-up\': \'el-icon-arrow-down\']"></i>');
 treeMenuTemplate.push('</template>');
@@ -145,7 +146,7 @@ treeMenuTemplate.push('</li>');
                 history.replaceState(null, null, shortURL);
                 //加载页面
                 $.ajax({
-                    url: '../../../templates' + this.urlRewrite(url) + '.html',
+                    url: '../../../templates' + urlRewrite(url) + '.html',
                     cache: true,
                     async: true,
                     success: function (html) {
@@ -153,19 +154,19 @@ treeMenuTemplate.push('</li>');
                     }
                 });
             }
-        },
-        urlRewrite: function(url){
-            if(url=='/digitalplan/digitalplan_approve' || 
-                url=='/digitalplan/digitalplan_distribute' || 
-                url=='/digitalplan/advancedsearch' ||
-                url=='/report/report1' ||
-                url=='/report/report3' ||
-                url=='/home'){
-                return url;
-            }else{
-                return url + "_list"
-            }
-        }
+         },
+        // urlRewrite: function(url){
+        //     if(url=='/digitalplan/digitalplan_approve' || 
+        //         url=='/digitalplan/digitalplan_distribute' || 
+        //         url=='/digitalplan/advancedsearch' ||
+        //         url=='/report/report1' ||
+        //         url=='/report/report3' ||
+        //         url=='/home'){
+        //         return url;
+        //     }else{
+        //         return url + "_list"
+        //     }
+        // }
     }
 });
 
