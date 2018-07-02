@@ -36,7 +36,7 @@ new Vue({
             var url = window.location.href;
             if (url.indexOf("?") != -1)
                 url = url.split("?")[0];
-            url += '?index=63';
+            url += '?index=73';
             history.pushState(stateObject, title, url);
 
             axios.get('/dpapi/fireengine/' + this.id).then(function (res) {
@@ -62,7 +62,7 @@ new Vue({
             // console.log(this.tableData);
             var uuid = this.detailData.uuid;
             var cityCode = this.detailData.xzqh;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode"+cityCode+"&uuid="+uuid+"&cldj=1";
+            window.location.href = "bigscreen/big_screen_map_pro.html?cityCode"+cityCode+"&uuid="+uuid+"&cldj=1";
         }
     },
 
