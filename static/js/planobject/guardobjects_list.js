@@ -217,9 +217,10 @@ var vue = new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            var shortURL = jumpDetail() + "&ID=" + val.uuid;
-            history.replaceState(null, null, shortURL);
-            loadDiv("planobject/guardobjects_detail");
+            var params = {
+                ID: val.uuid
+            }
+            loadDivParam("planobject/guardobjects_detail", params);
             //window.location.href = "guardobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
