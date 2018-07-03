@@ -33,7 +33,6 @@ axios.get(baseUrl+'/api/getMenu').then(function(res){
     }
 }.bind(this),function(error){
     console.log(error);
-    alert(baseUrl);
     window.location.href = baseUrl+"/templates/login.html";
 });
 //全局菜单
