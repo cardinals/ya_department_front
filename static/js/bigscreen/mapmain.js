@@ -523,8 +523,8 @@ var vm = new Vue({
 
             var map = new BMap.Map("BMap", { enableMapClick: false });  //创建Map实例
             vm.map = map;
-            //声明mapType为2D
-            this.mapType = '2D';
+            // //声明mapType为2D
+            // this.mapType = '2D';
             // 添加带有定位的导航控件
             var navigationControl = new BMap.NavigationControl({
                 // 靠左上角位置
@@ -1911,11 +1911,11 @@ var vm = new Vue({
         },
         EwOver: function () {
             var map = this.map;
-            var mapType = this.mapType;
-            if (mapType == 'satellite') {
+            // var mapType = this.mapType;
+            // if (mapType == 'satellite') {
                 map.setMapType(BMAP_NORMAL_MAP);
-                this.mapType = '2D';
-            }
+            //     this.mapType = '2D';
+            // }
         },
         //调取预案
         openPlan_1: function (zddwid, yajb) {
@@ -2014,11 +2014,11 @@ var vm = new Vue({
         //卫星地图
         WxOver: function () {
             var map = this.map;
-            var mapType = this.mapType;
-            if (mapType == '2D') {
-                map.setMapType(BMAP_SATELLITE_MAP);
-                this.mapType = 'satellite';
-            }
+            // var mapType = this.mapType;
+            // if (mapType == '2D') {
+            map.setMapType(BMAP_SATELLITE_MAP);
+            //     this.mapType = 'satellite';
+            // }
         },
         //三维地图
         SwOver:function (){
