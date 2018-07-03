@@ -42,7 +42,7 @@ var vm = new Vue({
         };
       },
       mounted:function(){
-        axios.get('http://localhost:80/api/resource/getAll').then(function(res){
+        axios.get(baseUrl+'/api/resource/getAll').then(function(res){
             this.tableData = res.data.result;
         }.bind(this),function(error){
             console.log(error)

@@ -1967,7 +1967,7 @@ var vm = new Vue({
                             showClose: true,
                         });
                     } else {
-                        window.open("http://localhost:80/planShare/page/" + this.planData.yaid_3 + "/detail/web");
+                        window.open(baseUrl+"/planShare/page/" + this.planData.yaid_3 + "/detail/web");
                     }
                 }
             }.bind(this), function (error) {
@@ -1979,7 +1979,7 @@ var vm = new Vue({
             axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
                 if (res.data.result) {
                     var yllj = res.data.result[0].yllj;
-                    window.open("http://localhost:80/upload/" + yllj);
+                    window.open(baseUrl+"/upload/" + yllj);
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -1988,7 +1988,7 @@ var vm = new Vue({
 
         //分享
         openShare: function (val) {
-            window.open("http://localhost:80/planShare/pageZddw/" + val + "/web");
+            window.open(baseUrl+"/planShare/pageZddw/" + val + "/web");
         },
         //水源详情跳转
         syxq: function (params) {
