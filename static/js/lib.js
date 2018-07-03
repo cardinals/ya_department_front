@@ -77,7 +77,8 @@ window.urlRewrite = function(url){
         url=='/digitalplan/advancedsearch' ||
         url=='/report/report1' ||
         url=='/report/report3' ||
-        url=='/home'){
+        url=='/home' ||
+        url=='/planobject/importantunits_detail'){
         return url;
     }else{
         return url + "_list"
