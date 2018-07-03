@@ -5,7 +5,7 @@ $('#oscar-nav-btn').click(function () {
 axios.defaults.withCredentials = true;
 var menuData=[];
 //var menuData=[{"resourceid":"18","resourcename":null,"resourceinfo":"首页","url":"/home","seqno":null,"index":"1","icon":null,"type":null,"parentId":"-1","children":[]},{"resourceid":"17","resourcename":null,"resourceinfo":"系统管理","url":"","seqno":null,"index":"2","icon":null,"type":null,"parentId":"-1","children":[{"resourceid":"1","resourcename":null,"resourceinfo":"用户管理","url":"/user","seqno":null,"index":"21","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"6","resourcename":null,"resourceinfo":"角色管理","url":"/role","seqno":null,"index":"22","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"19","resourcename":null,"resourceinfo":"资源管理","url":"/resource","seqno":null,"index":"23","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"24","resourcename":null,"resourceinfo":"权限管理","url":"/permission","seqno":null,"index":"24","icon":null,"type":null,"parentId":"17","children":null},{"resourceid":"12","resourcename":null,"resourceinfo":"代码集管理","url":"/codelist","seqno":null,"index":"25","icon":null,"type":null,"parentId":"17","children":null}]}];
-axios.get('http://localhost:80/getMenu')				
+axios.get(baseUrl+'/getMenu')				
         .then(function(res){
         console.log(240);   
         for(var i=0;i<res.data.result.length;i++){

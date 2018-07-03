@@ -405,7 +405,7 @@ new Vue({
                         this.fileList = [{
                             uuid: res.data.result[0].uuid,
                             name: res.data.result[0].wjm,
-                            url: "http://localhost:80/upload/" + res.data.result[0].xzlj
+                            url: baseUrl+"/upload/" + res.data.result[0].xzlj
                         }]
                     }
 
@@ -890,7 +890,7 @@ new Vue({
             }
         },
         templeteDown:function(val){
-            window.open("http://localhost:80/dpapi/yafjxz/downTemplet");
+            window.open(baseUrl+"/dpapi/yafjxz/downTemplet");
         }
     },
 
