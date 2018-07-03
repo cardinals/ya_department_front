@@ -915,7 +915,7 @@ var vm = new Vue({
                     vm.circlez = circlez;//清除圆
                     var pt = e.target.getPosition();
                     var map = vm.map;
-                    map.centerAndZoom(pt, 16);//防止跳回聚合
+                    map.centerAndZoom(pt, 18);//防止跳回聚合
                     for (var i = 0; i < zddws.length; i++) {
                         if (e.target.uuid == zddws[i].uuid) {
                             this.infoData = (zddws[i].dwmc != null ? zddws[i].dwmc : '无');
@@ -973,8 +973,8 @@ var vm = new Vue({
                     var oc = vm.circle;
                     oc.hide();
                     //调整缩放级别和圆圈的半径范围
-                    var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-                    var radius = 1000;
+                    var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var radius = 240;
                     var r = 6371004;
                     map.addOverlay(circle);
                     map.addOverlay(marker);
@@ -1019,7 +1019,7 @@ var vm = new Vue({
             var pt = new BMap.Point(middle.lng, middle.lat);
             //end
             var map = vm.map;
-            map.centerAndZoom(pt, 16);//防止跳回聚合
+            map.centerAndZoom(pt, 18);//防止跳回聚合
             this.infoData = (zddw.dwmc != null ? zddw.dwmc : '无');
             this.dwdzData = (zddw.dwdz != null ? zddw.dwdz : '重点单位:无');
             this.xfzrrData = (zddw.xfzrr != null ? zddw.xfzrr : '无');
@@ -1065,8 +1065,8 @@ var vm = new Vue({
             //设置新图标
             var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
             var marker = new BMap.Marker(pt, { icon: myIcon2 });
-            var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-            var radius = 1000;
+            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+            var radius = 240;
             var r = 6371004;
             map.addOverlay(circle);
             map.addOverlay(marker);
@@ -2210,7 +2210,7 @@ var vm = new Vue({
                     vm.circlez = circlez;//清除圆
                     var pt = e.target.getPosition();
                     var map = vm.map;
-                    map.centerAndZoom(pt, 16);//防止跳回聚合
+                    map.centerAndZoom(pt, 18);//防止跳回聚合
                     for (var i = 0; i < zddws.length; i++) {
                         if (e.target.uuid == zddws[i].uuid) {
                             this.infoData = (zddws[i].dxmc != null ? zddws[i].dxmc : '无');
@@ -2263,8 +2263,8 @@ var vm = new Vue({
                     var marker = e.currentTarget;
                     marker.setIcon(myIcon2);
                     var pt = marker.point;// this.removeAllMarkers(zddws);//点击后清除圆圈的样式
-                    var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-                    var radius = 1000;
+                    var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var radius = 240;
                     var r = 6371004;
                     map.addOverlay(circle);
                     map.addOverlay(marker);
