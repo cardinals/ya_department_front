@@ -2,11 +2,30 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>数字化预案管理平台</title>
-    <link href="../static/css/login.css" rel="stylesheet" type="text/css"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <meta name="renderer" content="webkit" />
+    <link rel="dns-prefetch" href="//s3.pstatp.com/" />
+    <link rel="dns-prefetch" href="//s3a.pstatp.com/" />
+    <link rel="dns-prefetch" href="//s3b.pstatp.com" />
+    <link rel="dns-prefetch" href="//p1.pstatp.com/" />
+    <link rel="dns-prefetch" href="//p3.pstatp.com/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,minimal-ui"
+    />
+    <meta name="360-site-verification" content="b96e1758dfc9156a410a4fb9520c5956" />
+    <meta name="360_ssp_verify" content="2ae4ad39552c45425bddb738efda3dbb" />
+    <meta name="google-site-verification" content="3PYTTW0s7IAfkReV8wAECfjIdKY-bQeSkVTyJNZpBKE" />
+    <meta name="shenma-site-verification" content="34c05607e2a9430ad4249ed48faaf7cb_1432711730" />
+    <meta name="baidu_union_verify" content="b88dd3920f970845bad8ad9f90d687f7" />
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ej2g65lunfqw6ltdn5wselbcm52wszbchirdqyztge3tenrsgq3dknjume2tayrvmqytemlfmiydimddgu4gcnzcfqrhi2lnmvjwc5tfei5dcnbwhazdcobuhe2dqobrpu"
+    />
+    <meta name="keywords" content="数字化预案管理平台" />
+    <meta name="description" content="数字化预案管理平台" />
+    <link href="../static/css/login.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -21,39 +40,39 @@
 
             <!--center-->
             <div class="login_center">
-                    <div class="Login_img">
-                        <div class="Login">
-                            <div class="Login_n">
-                                <div class="Login_nTop">用户登录</div>
-                                <form id="login-form" autocomplete="off" name="login-form" action="/api/login" method="post">
-                                    <ul>
-                                        <li class="I1">
-                                            <i id="icon-user"></i>
-                                            <input type="text" class="inputstyle" v-model="username" name="username" id="username" placeholder="用户名">
-                                        </li>
-                                        <li class="I2">
-                                            <i id="icon-password"></i>
-                                            <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
-                                        </li>
-                                        <li class="I3">
-                                            <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
-                                            <a href="javascript:;" @click="reloadCode()">
-                                                <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom"
-                                                    width="50" height="20">
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <p>
-                                        <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
-                                        <a>记住我</a>
-                                    </p>
-                                    <div class="LoginBtn">
-                                        <a @click="login()">登录</a>
-                                    </div>
-                                </form>
-                            </div>
+                <div class="Login_img">
+                    <div class="Login">
+                        <div class="Login_n">
+                            <div class="Login_nTop">用户登录</div>
+                            <form id="login-form" autocomplete="off" name="login-form" action="/api/login" method="post">
+                                <ul>
+                                    <li class="I1">
+                                        <i id="icon-user"></i>
+                                        <input type="text" class="inputstyle" v-model="username" name="username" id="username" placeholder="用户名">
+                                    </li>
+                                    <li class="I2">
+                                        <i id="icon-password"></i>
+                                        <input type="password" class="inputstyle" v-model="password" name="password" id="password" placeholder="密码">
+                                    </li>
+                                    <li class="I3">
+                                        <input type="text" class="inputstyle" v-model="validateCode" name="validateCode" id="validateCode" placeholder="验证码" @keyup.enter="login()">
+                                        <a href="javascript:;" @click="reloadCode()">
+                                            <img v-bind:src="src" id="checkCode" class="verficode" onerror="javascript:this.src='../static/images/img-error.png';" style="vertical-align: bottom"
+                                                width="50" height="20">
+                                        </a>
+                                    </li>
+                                </ul>
+                                <p>
+                                    <input type="checkbox" name="rememberMe" id="rememberMe" />&nbsp;&nbsp;
+                                    <a>记住我</a>
+                                </p>
+                                <div class="LoginBtn">
+                                    <a @click="login()">登录</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
+                </div>
             </div>
 
             <!--footer-->
@@ -112,7 +131,7 @@
                 this.username = "";
                 this.password = "";
             },
-            reloadCode: function() {
+            reloadCode: function () {
                 $('#checkCode').attr('src', '/api/imageCode?' + ((new Date()).valueOf()));
             }
         }
