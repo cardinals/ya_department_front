@@ -2022,13 +2022,8 @@ var vm = new Vue({
         },
         //三维地图
         SwOver:function (){
-            // debugger;
             var map = this.map;
-            // var mapType = this.mapType;
-            // if(mapType == '3D'){
-                map.setMapType(BMAP_PERSPECTIVE_MAP);
-            //     this.mapType = '';
-            // }
+            map.setMapType(BMAP_PERSPECTIVE_MAP);
         },
         //zjc
         formatLabelz: function (strname) {
