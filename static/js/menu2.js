@@ -20,7 +20,7 @@ function logOut(){
 axios.defaults.withCredentials = true;
 var menuData=[];
 
-axios.get('http://localhost:80/api/getMenu').then(function(res){
+axios.get(baseUrl+'/api/getMenu').then(function(res){
         for(var i=0;i<res.data.result.length;i++){
             var obj=res.data.result[i];
             menuData.push({
@@ -33,7 +33,8 @@ axios.get('http://localhost:80/api/getMenu').then(function(res){
     }
 }.bind(this),function(error){
     console.log(error);
-    window.location.href = "http://localhost:80/templates/login.html";
+    alert(baseUrl);
+    window.location.href = baseUrl+"/templates/login.html";
 });
 //全局菜单
 // Vue.prototype.menues = menuData;

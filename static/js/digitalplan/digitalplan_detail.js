@@ -145,23 +145,23 @@ new Vue({
             this.picList = [
                 {
                     name: "实景照片-万达中心",
-                    url: "http://localhost:80/upload/pic/sjtp.png"
+                    url: baseUrl+"/upload/pic/sjtp.png"
                 },
                 {
                     name: "总平面图-万达中心",
-                    url: "http://localhost:80/upload/pic/zpmt.png"
+                    url: baseUrl+"/upload/pic/zpmt.png"
                 },
                 {
                     name: "内部平面图-B1层平面图",
-                    url: "http://localhost:80/upload/pic/nbpmtB1.png"
+                    url: baseUrl+"/upload/pic/nbpmtB1.png"
                 },
                 {
                     name: "作战部署图-灾情4-车辆部署图",
-                    url: "http://localhost:80/upload/pic/4clbst.png"
+                    url: baseUrl+"/upload/pic/4clbst.png"
                 },
                 {
                     name: "作战部署图-灾情4-33层力量部署图",
-                    url: "http://localhost:80/upload/pic/1clbst.png"
+                    url: baseUrl+"/upload/pic/1clbst.png"
                 }
             ]
         },
@@ -261,10 +261,10 @@ new Vue({
             }
             if (val == 'summary') {
                 if (this.pkid == 'dlwddzd') {
-                    window.open("http://localhost:80/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
+                    window.open(baseUrl+"/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
                 }
                 if (this.pkid == 'dljy') {
-                    window.open("http://localhost:80/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
+                    window.open(baseUrl+"/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
                 }
             }
         },
@@ -273,7 +273,7 @@ new Vue({
         },
         //信息分享
         openShare: function (val) {
-            window.open("http://localhost:80/planShare/page/" + this.pkid + "/" + val + "/web");
+            window.open(baseUrl+"/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         downShare: function () {
 
@@ -294,7 +294,7 @@ new Vue({
             if (this.tpChecked) {
                 title += 'tp'
             }
-            window.open("http://localhost:80/planShare/downWord/" + this.pkid + "/" + title);
+            window.open(baseUrl+"/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
@@ -307,7 +307,7 @@ new Vue({
                             showClose: true
                         });
                     } else {
-                        window.open("http://localhost:80/upload/" + yllj);
+                        window.open(baseUrl+"/upload/" + yllj);
                     }
                 }.bind(this), function (error) {
                     console.log(error)
@@ -324,7 +324,7 @@ new Vue({
             if (this.fjDetailData > 0) {
                 axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
                     var xzlj = res.data.result[0].xzlj;
-                    window.open("http://localhost:80/upload/" + xzlj);
+                    window.open(baseUrl+"/upload/" + xzlj);
                 }.bind(this), function (error) {
                     console.log(error)
                 })

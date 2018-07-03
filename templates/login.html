@@ -85,9 +85,8 @@
     </div>
 </body>
 
-<!-- <script src="../static/js/zzzlib/vue.min.js"></script>
-<script src="../static/js/zzzlib/jquery-3.2.1.min.js"></script> -->
-<script src="../static/js/lib.js"></script>
+<script src="../static/js/zzzlib/vue.min.js"></script>
+<script src="../static/js/zzzlib/jquery-3.2.1.min.js"></script>
 <script src="../static/js/zzzlib/axios.min.js"></script>
 <script>
     $('#username').focus();
@@ -101,13 +100,10 @@
             src: "/api/imageCode"
         },
         created: function () {
-            axios.get('/api/shiro').then(function (res) {
+            axios.get('/api/shiro').then(function(res) {
                 if (res.data != null && res.data.username != null && res.data.username != "") {
                     window.location.href = "../templates/bigscreen/big_screen_all.html";
-                }else{
-                    window.location.href = "../templates/login.html";
                 }
-                console.log(res.data);
             }.bind(this), function (error) {
                 console.log(error);
             });
