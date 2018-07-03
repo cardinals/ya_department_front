@@ -623,7 +623,7 @@ var vm = new Vue({
         }
     },
     mounted: function() {
-        // this.echarts1()
+        //this.echarts1()
         this.echarts2()
         this.echarts3()
         this.echarts4()
