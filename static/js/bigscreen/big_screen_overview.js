@@ -628,8 +628,9 @@ var vm = new Vue({
         this.echarts3()
         this.echarts4()
         this.echarts5()
-        setInterval(() => {
-            this.autoAdd()
-        }, 1200)
+        setInterval(
+            this.autoAdd
+        , 1200)
     }
 })
+

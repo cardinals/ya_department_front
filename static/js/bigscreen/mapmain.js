@@ -155,7 +155,7 @@ var vm = new Vue({
         myCity: ''
         // db end
     },
-    mounted() {
+    mounted: function() {
         // var gis_X = this.GetQueryString("gis_X");
         // var gis_Y = this.GetQueryString("gis_Y");
         // var isSydj = this.GetQueryString("sydj");
@@ -176,7 +176,7 @@ var vm = new Vue({
     //获取重点单位信息
     {
         //当前页修改事件
-        handleCurrentChange(val) {
+        handleCurrentChange: function(val) {
             this.currentPage = val;
             var _self = this;
             // _self.loadingData(); //重新加载数据
@@ -2306,7 +2306,7 @@ var vm = new Vue({
         },
         // db end
         //根据参数部分和参数名来获取参数值 
-        GetQueryString(name) {
+        GetQueryString: function(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
