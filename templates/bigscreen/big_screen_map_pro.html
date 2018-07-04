@@ -19,6 +19,7 @@
     />
     <!-- 底部控件 -->
     <link rel="stylesheet" type="text/css" href="../../static/css/bigscreen/big_screen_dock.css">
+    <script src="../../static/js/common/config.js"></script>
     <style>
        .jwcolor{ color:#fff;background: #3A254F;padding: 5px;border: 2px solid #F9C520;border-radius:25px;}
        .h25{height: 25px;} .h515{height: 515px;}
@@ -222,8 +223,8 @@
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_satellite_btn.png" />
                                 <p style="color:#d1d1d1">卫星图</p>
                             </div>
-                            <div style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
-                                data-container="body" data-placement="left">
+                            <div @click="SwOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
+                                data-container="body"  class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="目前仅北京有三维地图">
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_3d_btn.png" />
                                 <p style="color:#d1d1d1">三维图</p>
                             </div>
@@ -236,6 +237,7 @@
 </body>
 <!-- 引入js -->
 <script src="../../static/js/lib.js"></script>
+
 <script src="../../static/js/menu.js"></script>
 <script src="../../static/js/zzzlib/bootstrap.min.js"></script>
 <script>

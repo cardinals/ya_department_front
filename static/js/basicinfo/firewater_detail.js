@@ -43,7 +43,7 @@ new Vue({
             var url=window.location.href;
             if(url.indexOf("?") != -1)
                 url = url.split("?")[0];
-            url += '?index=61';
+            url += '?index=71';
             history.pushState(stateObject,title,url);
             //history.back();
             
@@ -79,7 +79,7 @@ new Vue({
             var uuid = this.detailData.uuid;
             var sylx = this.detailData.sylx;
             var cityCode = this.detailData.xzqh;
-            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sylx="+sylx+"&shuidj=1";
+            window.location.href = "bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sylx="+sylx+"&shuidj=1";
         }
     }
 })

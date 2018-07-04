@@ -546,7 +546,7 @@ new Vue({
         //预案预览
         openPlan: function (val) {
             if (val.yajb == '03') {
-                window.open("http://localhost:80/planShare/page/" + val.uuid + "/" + 'detail' + "/web");
+                window.open(baseUrl+"/planShare/page/" + val.uuid + "/" + 'detail' + "/web");
             } else if (val.yajb == '01' || val.yajb == '02') {
                 var fjDate = [];
                 var fjCount = 0;
@@ -561,7 +561,7 @@ new Vue({
                                 showClose: true
                             });
                         } else {
-                            window.open("http://localhost:80/upload/" + yllj);
+                            window.open(baseUrl+"/upload/" + yllj);
                         }
                     } else {
                         this.$message({
@@ -578,7 +578,7 @@ new Vue({
         downloadPlan: function (val) {
             if (val.yajb == '03') {
                 if (val.dxid == 'dlwd') {
-                    window.open("http://localhost:80/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
+                    window.open(baseUrl+"/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
                 }
             } else if (val.yajb == '01' || val.yajb == '02') {
                 var fjDate = [];
@@ -589,7 +589,7 @@ new Vue({
                     if (fjCount > 0) {
                         axios.get('/dpapi/yafjxz/doFindByPlanId/' + val.uuid).then(function (res) {
                             var xzlj = res.data.result[0].xzlj;
-                            window.open("http://localhost:80/upload/" + xzlj);
+                            window.open(baseUrl+"/upload/" + xzlj);
                         }.bind(this), function (error) {
                             console.log(error)
                         })
@@ -616,7 +616,7 @@ new Vue({
         openShare: function () {
             // this.shareDialogVisible = true;
             var ID = getQueryString("ID");
-            window.open("http://localhost:80/planShare/pageZddw/" + ID +  "/web");
+            window.open(baseUrl+"/planShare/pageZddw/" + ID +  "/web");
         },
         closeShareDialog: function () {
             this.shareDialogVisible = false;
@@ -647,7 +647,7 @@ new Vue({
             var uuid = this.tableData.uuid;
             var cityCode = this.tableData.xzqh;
             //行政区划代码，跳转后需要截取前四位补0后查一下市的名称
-            window.location.href = "../bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sydj=1";
+            window.location.href = "bigscreen/big_screen_map_pro.html?cityCode="+cityCode+"&uuid="+uuid+"&sydj=1";
         }
     }
 

@@ -154,9 +154,10 @@ var vue = new Vue({
         },
         //点击进入详情页
         informClick(val) {
-            var shortURL = jumpDetail() + "&ID=" + val.uuid;
-            history.replaceState(null, null, shortURL);
-            loadDiv("planobject/otherobjects_detail");
+            var params = {
+                ID: val.uuid
+            }
+            loadDivParam("planobject/otherobjects_detail", params);
             //window.location.href = "otherobjects_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         }
     }

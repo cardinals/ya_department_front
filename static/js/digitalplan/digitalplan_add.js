@@ -405,7 +405,7 @@ new Vue({
                         this.fileList = [{
                             uuid: res.data.result[0].uuid,
                             name: res.data.result[0].wjm,
-                            url: "http://localhost:80/upload/" + res.data.result[0].xzlj
+                            url: baseUrl+"/upload/" + res.data.result[0].xzlj
                         }]
                     }
 
@@ -692,7 +692,8 @@ new Vue({
                                 message: "成功保存预案信息",
                                 showClose: true
                             });
-                            window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
+                            loadDiv("digitalplan/digitalplan_list");
+                            //window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
                         }
                     }.bind(this), function (error) {
                         console.log(error);
@@ -730,7 +731,8 @@ new Vue({
                                 message: "成功保存预案信息",
                                 showClose: true
                             });
-                            window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
+                            loadDiv("digitalplan/digitalplan_list");
+                            //window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
                         }
                     }.bind(this), function (error) {
                         console.log(error);
@@ -772,7 +774,8 @@ new Vue({
                                     message: "成功保存并提交预案信息",
                                     showClose: true
                                 });
-                                window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
+                                loadDiv("digitalplan/digitalplan_list");
+                                //window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
                             }
                         }.bind(this), function (error) {
                             console.log(error);
@@ -811,7 +814,8 @@ new Vue({
                                     message: "成功保存预案信息",
                                     showClose: true
                                 });
-                                window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
+                                loadDiv("digitalplan/digitalplan_list");
+                                //window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
                             }
                         }.bind(this), function (error) {
                             console.log(error);
@@ -836,7 +840,8 @@ new Vue({
                     duration: 0
                 });
             }
-            window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
+            loadDiv("digitalplan/digitalplan_list");
+           //window.location.href = "digitalplan_list.html?index=" + this.activeIndex;
         },
         //附件移除
         handleRemove:function(file, fileList) {
@@ -885,7 +890,7 @@ new Vue({
             }
         },
         templeteDown:function(val){
-            window.open("http://localhost:80/dpapi/yafjxz/downTemplet");
+            window.open(baseUrl+"/dpapi/yafjxz/downTemplet");
         }
     },
 

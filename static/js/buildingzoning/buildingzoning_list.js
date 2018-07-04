@@ -101,9 +101,11 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            var shortURL = jumpDetail() + "&id=" + val.jzid + "&jzlx=" + val.jzlx;
-            history.replaceState(null, null, shortURL);
-            loadDiv("buildingzoning/buildingzoning_detail");
+            var params = {
+                id: val.jzid,
+                jzlx: val.jzlx
+            }
+            loadDivParam("buildingzoning/buildingzoning_detail", params);
             //window.location.href = "building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex;
         },
         //表格重新加载数据

@@ -133,7 +133,8 @@ new Vue({
                                                 type: 'success',
                                                 confirmButtonText: '确定',
                                                 callback: action => {
-                                                    window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                    loadDiv("auxiliarydecision/danger_list");
+                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
                                                 }
                                             });
                                         } else {
@@ -141,7 +142,8 @@ new Vue({
                                                 type: 'error',
                                                 confirmButtonText: '确定',
                                                 callback: action => {
-                                                    window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                    loadDiv("auxiliarydecision/danger_list");
+                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
                                                 }
                                             });
                                         }
@@ -157,7 +159,8 @@ new Vue({
                                                 type: 'success',
                                                 confirmButtonText: '确定',
                                                 callback: action => {
-                                                    window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                    loadDiv("auxiliarydecision/danger_list");
+                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
                                                 }
                                             });
                                         } else {
@@ -165,7 +168,8 @@ new Vue({
                                                 type: 'error',
                                                 confirmButtonText: '确定',
                                                 callback: action => {
-                                                    window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                    loadDiv("auxiliarydecision/danger_list");
+                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
                                                 }
                                             });
                                         }
@@ -182,7 +186,8 @@ new Vue({
             }
         },
         cancel: function () {
-            window.location.href = "danger_list.html?index=" + this.activeIndex
+            loadDiv("auxiliarydecision/danger_list");
+            //window.location.href = "danger_list.html?index=" + this.activeIndex
         }
     },
 

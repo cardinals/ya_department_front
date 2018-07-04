@@ -155,7 +155,7 @@ var vm = new Vue({
         myCity: ''
         // db end
     },
-    mounted() {
+    mounted: function() {
         // var gis_X = this.GetQueryString("gis_X");
         // var gis_Y = this.GetQueryString("gis_Y");
         // var isSydj = this.GetQueryString("sydj");
@@ -176,7 +176,7 @@ var vm = new Vue({
     //获取重点单位信息
     {
         //当前页修改事件
-        handleCurrentChange(val) {
+        handleCurrentChange: function(val) {
             this.currentPage = val;
             var _self = this;
             // _self.loadingData(); //重新加载数据
@@ -523,8 +523,8 @@ var vm = new Vue({
 
             var map = new BMap.Map("BMap", { enableMapClick: false });  //创建Map实例
             vm.map = map;
-            //声明mapType为2D
-            this.mapType = '2D';
+            // //声明mapType为2D
+            // this.mapType = '2D';
             // 添加带有定位的导航控件
             var navigationControl = new BMap.NavigationControl({
                 // 靠左上角位置
@@ -915,7 +915,7 @@ var vm = new Vue({
                     vm.circlez = circlez;//清除圆
                     var pt = e.target.getPosition();
                     var map = vm.map;
-                    map.centerAndZoom(pt, 16);//防止跳回聚合
+                    map.centerAndZoom(pt, 18);//防止跳回聚合
                     for (var i = 0; i < zddws.length; i++) {
                         if (e.target.uuid == zddws[i].uuid) {
                             this.infoData = (zddws[i].dwmc != null ? zddws[i].dwmc : '无');
@@ -973,8 +973,8 @@ var vm = new Vue({
                     var oc = vm.circle;
                     oc.hide();
                     //调整缩放级别和圆圈的半径范围
-                    var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-                    var radius = 1000;
+                    var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var radius = 240;
                     var r = 6371004;
                     map.addOverlay(circle);
                     map.addOverlay(marker);
@@ -1019,7 +1019,7 @@ var vm = new Vue({
             var pt = new BMap.Point(middle.lng, middle.lat);
             //end
             var map = vm.map;
-            map.centerAndZoom(pt, 16);//防止跳回聚合
+            map.centerAndZoom(pt, 18);//防止跳回聚合
             this.infoData = (zddw.dwmc != null ? zddw.dwmc : '无');
             this.dwdzData = (zddw.dwdz != null ? zddw.dwdz : '重点单位:无');
             this.xfzrrData = (zddw.xfzrr != null ? zddw.xfzrr : '无');
@@ -1065,8 +1065,8 @@ var vm = new Vue({
             //设置新图标
             var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
             var marker = new BMap.Marker(pt, { icon: myIcon2 });
-            var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-            var radius = 1000;
+            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+            var radius = 240;
             var r = 6371004;
             map.addOverlay(circle);
             map.addOverlay(marker);
@@ -1911,11 +1911,11 @@ var vm = new Vue({
         },
         EwOver: function () {
             var map = this.map;
-            var mapType = this.mapType;
-            if (mapType == 'satellite') {
+            // var mapType = this.mapType;
+            // if (mapType == 'satellite') {
                 map.setMapType(BMAP_NORMAL_MAP);
-                this.mapType = '2D';
-            }
+            //     this.mapType = '2D';
+            // }
         },
         //调取预案
         openPlan_1: function (zddwid, yajb) {
@@ -1967,7 +1967,7 @@ var vm = new Vue({
                             showClose: true,
                         });
                     } else {
-                        window.open("http://localhost:80/planShare/page/" + this.planData.yaid_3 + "/detail/web");
+                        window.open(baseUrl+"/planShare/page/" + this.planData.yaid_3 + "/detail/web");
                     }
                 }
             }.bind(this), function (error) {
@@ -1979,7 +1979,7 @@ var vm = new Vue({
             axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
                 if (res.data.result) {
                     var yllj = res.data.result[0].yllj;
-                    window.open("http://localhost:80/upload/" + yllj);
+                    window.open(baseUrl+"/upload/" + yllj);
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -1988,33 +1988,42 @@ var vm = new Vue({
 
         //分享
         openShare: function (val) {
-            window.open("http://localhost:80/planShare/pageZddw/" + val + "/web");
+            window.open(baseUrl+"/planShare/pageZddw/" + val + "/web");
         },
         //水源详情跳转
         syxq: function (params) {
-            window.location.href = "../basicinfo/firewater_list.html?uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
+            //window.location.href = "../basicinfo/firewater_list.html?uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
+            window.location.href = "../all.html?url=/basicinfo/firewater&uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
         },
         //队站详情跳转
         dzxq: function (dzparams) {
-            window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
+            //window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
+            window.location.href = "../all.html?url=/basicinfo/firestation&dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
         },
         //重点单位详情跳转
         zddwxq: function (zddwparams) {
-            window.location.href = "../planobject/importantunits_detail.html?ID=" + zddwparams + "&index=41" + "&type=DT";
+            //window.location.href = "../planobject/importantunits_detail.html?ID=" + zddwparams + "&index=41" + "&type=DT";
             // window.location.href = "../planobject/importantunits_detail.html?uuid=" + zddwparams;
+            window.location.href = "../all.html?url=/planobject/importantunits_detail&ID=" + zddwparams + "&index=41" + "&type=DT";
         },
         //车辆单位详情跳转
         clxq: function (clparams) {
-            window.location.href = "../basicinfo/fireengine_list.html?uuid=" + clparams + "&cldj=1" + "&index=63" + "&type=DT";
+            //window.location.href = "../basicinfo/fireengine_list.html?uuid=" + clparams + "&cldj=1" + "&index=63" + "&type=DT";
+            window.location.href = "../all.html?url=/basicinfo/fireengine&uuid=" + clparams + "&cldj=1" + "&index=73" + "&type=DT";
         },
         //卫星地图
         WxOver: function () {
             var map = this.map;
-            var mapType = this.mapType;
-            if (mapType == '2D') {
-                map.setMapType(BMAP_SATELLITE_MAP);
-                this.mapType = 'satellite';
-            }
+            // var mapType = this.mapType;
+            // if (mapType == '2D') {
+            map.setMapType(BMAP_SATELLITE_MAP);
+            //     this.mapType = 'satellite';
+            // }
+        },
+        //三维地图
+        SwOver:function (){
+            var map = this.map;
+            map.setMapType(BMAP_PERSPECTIVE_MAP);
         },
         //zjc
         formatLabelz: function (strname) {
@@ -2201,7 +2210,7 @@ var vm = new Vue({
                     vm.circlez = circlez;//清除圆
                     var pt = e.target.getPosition();
                     var map = vm.map;
-                    map.centerAndZoom(pt, 16);//防止跳回聚合
+                    map.centerAndZoom(pt, 18);//防止跳回聚合
                     for (var i = 0; i < zddws.length; i++) {
                         if (e.target.uuid == zddws[i].uuid) {
                             this.infoData = (zddws[i].dxmc != null ? zddws[i].dxmc : '无');
@@ -2254,8 +2263,8 @@ var vm = new Vue({
                     var marker = e.currentTarget;
                     marker.setIcon(myIcon2);
                     var pt = marker.point;// this.removeAllMarkers(zddws);//点击后清除圆圈的样式
-                    var circle = new BMap.Circle(pt, 1000, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
-                    var radius = 1000;
+                    var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                    var radius = 240;
                     var r = 6371004;
                     map.addOverlay(circle);
                     map.addOverlay(marker);
@@ -2297,7 +2306,7 @@ var vm = new Vue({
         },
         // db end
         //根据参数部分和参数名来获取参数值 
-        GetQueryString(name) {
+        GetQueryString: function(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;

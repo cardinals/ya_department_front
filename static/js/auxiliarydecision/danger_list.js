@@ -158,9 +158,10 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
         detailClick(val) {
-            var shortURL = jumpDetail() + "&ID=" + val.uuid;
-            history.replaceState(null, null, shortURL);
-            loadDiv("auxiliarydecision/danger_detail");
+            var params = {
+                ID: val.uuid
+            }
+            loadDivParam("auxiliarydecision/danger_detail", params);
             //window.location.href = "danger_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex;
         },
         //表格重新加载数据
@@ -174,9 +175,11 @@ var vue = new Vue({
         },
         //新增
         addClick: function(){
-            var shortURL = jumpDetail() + "&ID=" + 0 + "&type=XZ";
-            history.replaceState(null, null, shortURL);
-            loadDiv("auxiliarydecision/danger_add");
+            var params = {
+                ID: 0,
+                type: "XZ"
+            }
+            loadDivParam("auxiliarydecision/danger_add", params);
             //window.location.href = "danger_add.html?ID=" + 0 + "&index=" + this.activeIndex + "&type=XZ";
         },
         //删除
@@ -207,9 +210,11 @@ var vue = new Vue({
             });
         },
         handleEdit:function(val){
-            var shortURL = jumpDetail() + "&ID=" + val.uuid + "&type=BJ";
-            history.replaceState(null, null, shortURL);
-            loadDiv("auxiliarydecision/danger_add");
+            var params = {
+                ID: val.uuid,
+                type: "BJ"
+            }
+            loadDivParam("auxiliarydecision/danger_add", params);
             //window.location.href = "danger_add.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=BJ";
         }
     },
