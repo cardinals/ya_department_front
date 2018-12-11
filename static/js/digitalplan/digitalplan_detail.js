@@ -303,18 +303,19 @@ new Vue({
                     var yllj = res.data.result[0].yllj;
                     if (yllj == null || yllj == '') {
                         this.$message({
-                            message: "无可预览文件",
+                            message: "该预案无可预览文件",
                             showClose: true
                         });
                     } else {
-                        window.open(baseUrl+"/upload/" + yllj);
+                        // window.open(baseUrl+"/upload/" + yllj);
+                        window.open("http://59.46.113.245:8088/upload/CE2BE708000541DBADD75C8F6A90E0EF/20180622085827/111/index.html");
                     }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
             } else {
                 this.$message({
-                    message: "该预案无附件",
+                    message: "该预案无可预览附件",
                     showClose: true
                 });
             }
