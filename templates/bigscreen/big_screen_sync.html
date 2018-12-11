@@ -15,6 +15,18 @@
     <script src="../../static/js/echarts-4/echarts.js"></script>
     <script src="../../static/js/zzzlib/vue.js"></script>
     <script src="../../static/js/zzzlib/vue.min.js"></script>
+    <script>
+        $(function () {
+            //判断是否宽屏
+            var winWide = window.screen.availWidth;
+            // alert(winWide);
+            var wideScreen = false;
+            var zm = winWide / 1920;
+            document.body.style.zoom = zm * 1.5;
+            // body{zoom:1.25;}
+        })
+        $("#cbody").show();
+    </script>
 
     <style>
     .sync-image {width:60px; height:60px; position: absolute; top: 12px; left: 32px;}

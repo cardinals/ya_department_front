@@ -184,5 +184,22 @@
 <!-- <script type="text/javascript" src="../../static/js/bigscreen/tagscloud.js"></script> -->
 <script type="text/javascript" src="../../static/js/bigscreen/scroll.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/big_screen_overview.js"></script>
+<script>
+	$(function () {
+			
+			//判断是否宽屏
+			var winWide = window.screen.availWidth;
+			// alert(winWide);
+			var wideScreen = false;
+			var zm = winWide / 1920;
+			var bmt = zm*420;
+			document.body.style.marginTop = bmt +'px';
+			document.body.style.transform = 'scale('+zm*1.5+')';
+			
+		})	
 
+		function init(){
+			document.getElementById("allbody").style.visibility = 'visible';
+		}
+</script>
 </html>
