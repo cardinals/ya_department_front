@@ -307,9 +307,7 @@ new Vue({
                             showClose: true
                         });
                     } else {
-                        // window.open(baseUrl+"/upload/" + yllj);
-                        window.open("http://59.46.113.245:8088/upload/CE2BE708000541DBADD75C8F6A90E0EF/20180622085827/111/index.html");
-                    }
+                        window.open(baseUrl+"/upload/" + yllj);                    }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
