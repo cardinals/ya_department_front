@@ -303,18 +303,17 @@ new Vue({
                     var yllj = res.data.result[0].yllj;
                     if (yllj == null || yllj == '') {
                         this.$message({
-                            message: "无可预览文件",
+                            message: "该预案无可预览文件",
                             showClose: true
                         });
                     } else {
-                        window.open(baseUrl+"/upload/" + yllj);
-                    }
+                        window.open(baseUrl+"/upload/" + yllj);                    }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
             } else {
                 this.$message({
-                    message: "该预案无附件",
+                    message: "该预案无可预览附件",
                     showClose: true
                 });
             }
