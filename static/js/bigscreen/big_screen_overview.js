@@ -2,9 +2,9 @@ var vm = new Vue({
     el: "#app",
     data: {
         szhya: '1451523',
-        zddw: '2727468',
+        zddw: '442873',
         jzxx: '2727468',
-        xfdz: '2727468',
+        xfdz: '10525',
         city: '',
         color: {
             a : '#ff6364',//red
