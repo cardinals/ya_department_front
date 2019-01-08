@@ -72,7 +72,7 @@ new Vue({
         getJgidData: function(){
             axios.post('/api/organization/getOrganizationtree').then(function(res){
                 this.tableData = res.data.result;
-                console.log(this.tableData);
+                // console.log(this.tableData);
             }.bind(this),function(error){
                 console.log(error);
             });

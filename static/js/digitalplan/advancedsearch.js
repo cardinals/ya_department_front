@@ -194,14 +194,14 @@ new Vue({
         },
         //预案对象查询事件
         searchYADXClick: function(type){
-            console.log(type);
+            // console.log(type);
             //按钮事件的选择
             if(type == 'page'){
                 this.YADXtableData = []; 
             }else{
                 this.currentPageYadx = 1;
             }
-            console.log(this.currentPageYadx);
+            // console.log(this.currentPageYadx);
             this.loading = true;
             var params = {
                 dxmc : this.YADXSearchForm.DXMC,
@@ -214,13 +214,13 @@ new Vue({
                 pageSize: this.pageSizeYadx,
                 pageNum: this.currentPageYadx
             };
-            console.log(params);
+            // console.log(params);
             axios.post('/dpapi/advancedsearch/gjssYadxList', params).then(function (res) {
                 var tableTemp = new Array((this.currentPageYadx-1)*this.pageSizeYadx);
                 this.YADXtableData = tableTemp.concat(res.data.result.list);
                 this.totalYadx = res.data.result.total;
-                console.log(this.YADXtableData);
-                console.log(this.total);
+                // console.log(this.YADXtableData);
+                // console.log(this.total);
                 // this.YADXtableData = res.data.result;
                 // this.total = res.data.result.length;
                 this.loading = false;
