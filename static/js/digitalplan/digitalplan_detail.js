@@ -8,20 +8,22 @@ new Vue({
             shareVisible: false,
             showPicVisible: false,
             initialIndex: 0,
-            picTitle:'',
+            picTitle: '',
             basicDetailData: {},//基础信息Data
             disasterSetData: {},//灾情设定Data
             unitDetailData: {},//重点单位Data
             jzl_zdbwData: [],//建筑类重点部位数据
             zzl_zdbwData: [],//装置类重点部位数据
             cgl_zdbwData: [],//储罐类重点部位数据
-            jzfqData:[],//建筑分区原始数据
+            jzfqData: [],//建筑分区原始数据
             jzl_jzfqData: [],//建筑群-建筑类数据
             zzl_jzfqData: [],//建筑群-装置类数据
             cgl_jzfqData: [],//建筑类建筑分区数据
             loading: false,
             picList: [],
             fjDetailData: '',
+            hisDetailData: '',
+            hisPlanData: [],
             //word模板选择
             downVisible: false,
             fmChecked: true,
@@ -56,7 +58,7 @@ new Vue({
         this.pkid = getQueryString("ID");
         this.planDetails(this.pkid);
         this.disasterSet(this.pkid);
-        this.fjDetail(this.pkid);
+        this.fjDetail();
         this.picDetail();
     },
 
@@ -125,8 +127,12 @@ new Vue({
             })
         },
         //附件查询
-        fjDetail: function (val) {
-            axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
+        fjDetail: function () {
+            var params = {
+                yaid: this.pkid,
+                kzm: 'zip'
+            }
+            axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
                 this.fjDetailData = res.data.result.length;
                 // if (res.data.result.length > 0) {
 
@@ -142,28 +148,48 @@ new Vue({
         },
         //图片查询
         picDetail: function () {
-            this.picList = [
-                {
-                    name: "实景照片-万达中心",
-                    url: baseUrl+"/upload/pic/sjtp.png"
-                },
-                {
-                    name: "总平面图-万达中心",
-                    url: baseUrl+"/upload/pic/zpmt.png"
-                },
-                {
-                    name: "内部平面图-B1层平面图",
-                    url: baseUrl+"/upload/pic/nbpmtB1.png"
-                },
-                {
-                    name: "作战部署图-灾情4-车辆部署图",
-                    url: baseUrl+"/upload/pic/4clbst.png"
-                },
-                {
-                    name: "作战部署图-灾情4-33层力量部署图",
-                    url: baseUrl+"/upload/pic/1clbst.png"
+            var params = {
+                yaid: this.pkid,
+                kzm: 'pic'
+            }
+            //图片查询
+            axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
+                var picData = res.data.result;
+                if (picData.length > 0) {
+                    for (var i in picData) {
+                        this.picList.push({
+                            uuid: picData[i].uuid,
+                            name: picData[i].wjm,
+                            url: baseUrl + "/upload/" + picData[i].yllj
+                        });
+                    }
                 }
-            ]
+                this.hisDetail(this.pkid);
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            // this.picList = [
+            //     {
+            //         name: "实景照片-万达中心",
+            //         url: baseUrl + "/upload/pic/sjtp.png"
+            //     },
+            //     {
+            //         name: "总平面图-万达中心",
+            //         url: baseUrl + "/upload/pic/zpmt.png"
+            //     },
+            //     {
+            //         name: "内部平面图-B1层平面图",
+            //         url: baseUrl + "/upload/pic/nbpmtB1.png"
+            //     },
+            //     {
+            //         name: "作战部署图-灾情4-车辆部署图",
+            //         url: baseUrl + "/upload/pic/4clbst.png"
+            //     },
+            //     {
+            //         name: "作战部署图-灾情4-33层力量部署图",
+            //         url: baseUrl + "/upload/pic/1clbst.png"
+            //     }
+            // ]
         },
         successClose: function () {
             this.initialIndex = 0;
@@ -260,12 +286,22 @@ new Vue({
                 this.openDownVisible();
             }
             if (val == 'summary') {
-                if (this.pkid == 'dlwddzd') {
-                    window.open(baseUrl+"/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
-                }
-                if (this.pkid == 'dljy') {
-                    window.open(baseUrl+"/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
-                }
+
+                //edit by huang-rui in 9.15
+
+                // if (this.pkid == 'dlwddzd') {
+                //     window.open(baseUrl + "/dpapi/yafjxz/downTempYa?yawjmc=大连万达_简版.docx");
+                // }
+                // if (this.pkid == 'dljy') {
+                //     window.open(baseUrl + "/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
+                // }
+                var title = 'fm-dwjbqk-dwjzxx-zdbw';
+                window.open(baseUrl + "/planShare/downWord/" + this.pkid + "/" + title);
+                //edit end
+
+            }
+            if (val == 'history') {
+                this.hisdownload();
             }
         },
         closeSelectDownDialog: function () {
@@ -328,13 +364,73 @@ new Vue({
                     console.log(error)
                 })
             } else {
-                if (this.pkid == 'dlwddzd' || this.pkid == 'dljy') {
-                    this.openSelectDownVisible();
-                } else {
-                    this.openDownVisible();
+                // if (this.pkid == 'dlwddzd' || this.pkid == 'dljy') {
+                //     this.openSelectDownVisible();
+                // } else {
+                //     this.openDownVisible();
+                // }
+                this.openSelectDownVisible();
+            }
+        },
+        //历史预案查询
+        hisDetail: function (val) {
+            var params = {
+                yaid: val
+            };
+            axios.post('/dpapi/yaxxzl/list/', params).then(function (res) {
+                this.hisDetailData = res.data.result;
+                if (this.basicDetailData.jdh.substr(0, 2) == '21') {
+                    var head = 'http://10.119.119.232:11010';
+                //江苏
+                } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
+                    var head = 'http://10.119.119.205:11010';
                 }
+                var body = '/attachment/filemanage/configFile!showFile.action';
+                if (this.hisDetailData.length > 0) {
+                    for (var i in this.hisDetailData) {
+                        if (this.hisDetailData[i].fjlxdm == '02') {
+                            this.picList.push({
+                                uuid: this.hisDetailData[i].id,
+                                name: this.hisDetailData[i].zlmc,
+                                url: head + body + this.hisDetailData[i].xgxx,
+                                type:'history'
+                            });
+                        }else if (this.hisDetailData[i].fjlxdm == '01') {
+                            this.hisPlanData.push(this.hisDetailData[i]);
+                        }
+                    }
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //历史预案下载
+        hisdownload: function () {
+            if (this.basicDetailData.jdh.substr(0, 2) == '21' || this.basicDetailData.jdh.substr(0, 2) == '32') {
+                if (this.hisPlanData.length > 0) {
+                    //辽宁
+                    if (this.basicDetailData.jdh.substr(0, 2) == '21') {
+                        var head = 'http://10.119.119.232:11010';
+                    //江苏
+                    } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
+                        var head = 'http://10.119.119.205:11010';
+                    }
+                    var body = '/attachment/filemanage/configFile!showFile.action';
+                    var url = head + body + this.hisPlanData[0].xgxx;
+                    window.open(url);
+                } else {
+                    this.$message({
+                        message: "该预案无历史附件",
+                        showClose: true
+                    });
+                }
+            } else {
+                this.$message({
+                    message: "该总队历史预案未接入本平台",
+                    showClose: true
+                });
             }
         }
-
+        //add end 
     }
 })
