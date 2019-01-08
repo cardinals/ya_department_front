@@ -14,6 +14,7 @@ $('#oscar-nav-btn').click(function () {
 
 //退出登录
 function logOut(){
+    sessionStorage.clear();
     $('#login-out-form')[0].submit();
 }
 //axios默认设置cookie
@@ -145,14 +146,33 @@ treeMenuTemplate.push('</li>');
                 // var shortURL = window.location.href.substr(0, top.location.href.indexOf("templates")+9) + url + '.html';
                 history.replaceState(null, null, shortURL);
                 //加载页面
-                $.ajax({
-                    url: '../../../templates' + urlRewrite(url) + '.html',
-                    cache: true,
-                    async: true,
-                    success: function (html) {
-                        $("#app").html(html);
+                // $.ajax({
+                //     url: '../../../templates' + urlRewrite(url) + '.html',
+                //     cache: true,
+                //     async: true,
+                //     success: function (html) {
+                //         $("#app").html(html);
+                //     }
+                // });
+                /**判断用户是否已经登陆，如果用户没有登陆跳转到登陆页 by li.xue 2018/10/15 */
+                axios.get(baseUrl+'/api/shiro').then(function(res){
+                    if(res.data=="" || res.data==null){
+                        window.location.href = baseUrl + "/templates/login.html";  
+                    }else{
+                        //加载页面
+                        $.ajax({
+                            url: '../../../templates' + urlRewrite(url) + '.html',
+                            cache: true,
+                            async: true,
+                            success: function (html) {
+                                $("#app").html(html);
+                            }
+                        });
                     }
-                });
+                }.bind(this),function(error){
+                    console.log(error);
+                    window.location.href = baseUrl + "/templates/login.html";
+                }); 
             }
          },
         // urlRewrite: function(url){
