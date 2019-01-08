@@ -437,14 +437,14 @@ var vm = new Vue({
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
                 //跳出父框架（iframe）
-                window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=92";
+                // window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=92";
                 window.parent.frames.location.href="../../templates/all.html?url=/report/report3&type=DPYL";
                 //window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=82";
             });
         },
         barjump: function () {
             //跳出父框架（iframe）
-            window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=92";
+            // window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=92";
             window.parent.frames.location.href="../../templates/all.html?url=/report/report3&type=DPYL";
             //window.parent.frames.location.href="../../templates/report/report3.html?type=DPYL"+"&index=82";
         },
@@ -571,14 +571,14 @@ var vm = new Vue({
             myBarChart.setOption(BarOption);
             myBarChart.on('click', function (params) {
                 //跳出父框架（iframe）
-                window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=91";
+                // window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=91";
                 window.parent.frames.location.href="../../templates/all.html?url=/report/report1&type=DPYL";
                 //window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=81";
             });
         },
         top10jump: function () {
           //跳出父框架（iframe）
-          window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=91";
+        //   window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=91";
           window.parent.frames.location.href="../../templates/all.html?url=/report/report1&type=DPYL";
          // window.parent.frames.location.href="../../templates/report/report1.html?type=DPYL"+"&index=81";
         },
@@ -605,7 +605,7 @@ var vm = new Vue({
         //左下列表跳转预案审核
         jump: function () {
             //跳出父框架（iframe）
-            window.parent.frames.location.href="../../templates/all.html?url=/digitalplan/digitalplan_approve &type=DPYL";
+            window.parent.frames.location.href="../../templates/all.html?url=/digitalplan/digitalplan_approve&type=DPYL";
             //window.parent.frames.location.href="../../templates/digitalplan/digitalplan_approve.html?type=DPYL"+"&index=34";
         },
         changeTab: function(index){
