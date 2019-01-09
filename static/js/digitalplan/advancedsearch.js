@@ -135,7 +135,6 @@ new Vue({
         loadBreadcrumb("高级搜索", "-1");
         /**当前登陆用户 by li.xue 20180807*/
         this.shiroData = shiroGlobal;
-        console.log(this.shiroData);
         //this.YADX();
         this.YALX();
         this.YAJB();
