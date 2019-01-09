@@ -21,7 +21,7 @@
                         <div class="dib ml20" id="basic-Inform-Title-button">
                             <div>
                                 <h3 class="dib inform-h3">
-                                    <v-text v-text="basicDetailData.yamc||'无'"></v-text>
+                                    <a v-text="basicDetailData.yamc||'无'" class="poi" @click="toUnitDetail"></a>
                                     <span class="companyStatus dib" title="预案级别">
                                         <v-text v-text="basicDetailData.yajbmc||'无'"></v-text>
                                     </span>

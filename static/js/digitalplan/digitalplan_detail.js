@@ -431,6 +431,12 @@ new Vue({
                     showClose: true
                 });
             }
+        },
+        toUnitDetail:function(){
+            var params = {
+                ID: this.basicDetailData.dxid
+            }
+            loadDivParam("planobject/importantunits_detail", params);
         }
         //add end 
     }
