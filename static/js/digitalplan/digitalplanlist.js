@@ -153,8 +153,8 @@ var vue = new Vue({
                 jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
                 pageSize: this.pageSize,
                 pageNum: this.currentPage,
-                // orgUuid: this.shiroData.organizationVO.uuid,
-                // orgJgid: this.shiroData.organizationVO.jgid
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             }
             axios.post('/dpapi/digitalplanlist/page', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
