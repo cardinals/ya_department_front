@@ -6,54 +6,54 @@ new Vue({
         return {
             //菜单编码
             activeIndex: '',
-            activeName: "second",  
-            isZddw:false,
-            isDtjz:false,
-            isJzl:false,
-            isZzl:false,
-            yaxx_lrsj:"",
-            isZdy:false,
+            activeName: "second",
+            isZddw: false,
+            isDtjz: false,
+            isJzl: false,
+            isZzl: false,
+            yaxx_lrsj: "",
+            isZdy: false,
             //预案搜索表单
             yuAnSearchForm: {
-                YAMC:"",
-                YADX:"",
-                YALX:"",
-                YAJB:"",
-                SHZT:"",
-                LRSJ:"",
-                yaxx_lrsj:"",
+                YAMC: "",
+                YADX: "",
+                YALX: "",
+                YAJB: "",
+                SHZT: "",
+                LRSJ: "",
+                yaxx_lrsj: "",
                 begintime_create: "",
                 endtime_create: ""
             },
             //预案对象搜索表单
             YADXSearchForm: {
-                DXMC:"",
-                YADX:"",
-                XFGX:"",
-                DWXZ:"",
-                XZQH:"",
-                FHDJ:"",
-                DWJZQK:""
+                DXMC: "",
+                YADX: "",
+                XFGX: "",
+                DWXZ: "",
+                XZQH: "",
+                FHDJ: "",
+                DWJZQK: ""
             },
             //单位建筑搜索表单
-            DWJZSearchForm:{
-                JZMC:"",
-                JZLX:"",
-                JZSYXZ:"",
-                JZJG:"",
-                JZGD:"",
+            DWJZSearchForm: {
+                JZMC: "",
+                JZLX: "",
+                JZSYXZ: "",
+                JZJG: "",
+                JZGD: "",
             },
             //预案信息
-            tableData:[{
+            tableData: [{
                 yamc: '',
                 dxmc: '',
-                yalxmc:''
+                yalxmc: ''
             }],
             //预案对象
-            YADXtableData:[],
+            YADXtableData: [],
             //单位建筑
-            DWJZtableData:[],
-            
+            DWJZtableData: [],
+
             //预案对象
             yadx_data: [
                 { codeValue: "", codeName: "全部" },
@@ -75,25 +75,25 @@ new Vue({
                 { codeValue: "lastmonth", codeName: "最近30日" },
                 { codeValue: "others", codeName: "自定义时间" }],
             //消防管辖
-            xfgx_data:[{ codeValue: "", codeName: "全部" }],
+            xfgx_data: [{ codeValue: "", codeName: "全部" }],
             //单位性质
-            dwxz_data:[{ codeValue: "", codeName: "全部" }],
+            dwxz_data: [{ codeValue: "", codeName: "全部" }],
             //行政区划
-            xzqh_data:[{ codeValue: "", codeName: "全部" }],
+            xzqh_data: [{ codeValue: "", codeName: "全部" }],
             //防火等级
-            fhdj_data:[{ codeValue: "", codeName: "全部" }],
+            fhdj_data: [{ codeValue: "", codeName: "全部" }],
             //单位建筑情况
-            dwjzqk_data:[{ codeValue: "", codeName: "全部" }],
+            dwjzqk_data: [{ codeValue: "", codeName: "全部" }],
             //建筑使用性质
-            jzsyxz_data:[{ codeValue: "", codeName: "全部" }],
+            jzsyxz_data: [{ codeValue: "", codeName: "全部" }],
             //建筑结构
-            jzjg_data:[{ codeValue: "", codeName: "全部" }],
+            jzjg_data: [{ codeValue: "", codeName: "全部" }],
             //建筑高度
-            jzgd_data:[{ codeValue: "", codeName: "全部" },
+            jzgd_data: [{ codeValue: "", codeName: "全部" },
             { codeValue: "1", codeName: "<=50m" },
             { codeValue: "2", codeName: ">50m且<=100m" },
             { codeValue: "3", codeName: ">100m" }],
-            
+
             //保卫警卫详情页是否显示
             planDetailVisible: false,
             //显示加载中样
@@ -130,7 +130,7 @@ new Vue({
         $("#activeIndex").val(index);
         this.activeIndex = index;
          */
-        
+
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("高级搜索", "-1");
         /**当前登陆用户 by li.xue 20180807*/
@@ -156,105 +156,114 @@ new Vue({
         //当前页修改事件
         handleCurrentChange(val) {
             // this.currentPage = val;
-            if(this.tabIndex == 0){
+            if (this.tabIndex == 0) {
                 this.currentPageYaxx = val;
                 this.searchClick('page');
-            }else if(this.tabIndex == 1){
+            } else if (this.tabIndex == 1) {
                 this.currentPageYadx = val;
-                this.searchYADXClick('page');
-            }else if(this.tabIndex == 2){
+                this.searchYAXXClick('page');
+            } else if (this.tabIndex == 2) {
                 this.currentPageJzxx = val;
                 this.searchDWJZClick('page');
             }
         },
 
         //高级搜索-预案搜索 查询事件
-        searchClick: function(type) {
+        searchClick: function (type) {
             //按钮事件的选择
-            if(type == 'page'){
-                this.tableData = [];        
-            }else{
-                this.currentPageYaxx = 1;
+            if (type == 'page') {
+                this.YADXtableData = [];
+            } else {
+                this.currentPageYadx = 1;
             }
             this.loading = true;
             var params = {
-                dxmc : this.YADXSearchForm.DXMC.replace(/%/g,"\\%"),
-                yadxType : this.YADXSearchForm.YADX,
-                xfgx : this.YADXSearchForm.XFGX,
-                dwxz : this.YADXSearchForm.DWXZ,
-                xzqh : this.YADXSearchForm.XZQH,
-                fhdj : this.YADXSearchForm.FHDJ,
-                jzfl : this.YADXSearchForm.DWJZQK,
-                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
+                dxmc: this.YADXSearchForm.DXMC.replace(/%/g, "\\%"),
+                yadxType: this.YADXSearchForm.YADX,
+                xfgx: this.YADXSearchForm.XFGX,
+                dwxz: this.YADXSearchForm.DWXZ,
+                xzqh: this.YADXSearchForm.XZQH,
+                fhdj: this.YADXSearchForm.FHDJ,
+                jzfl: this.YADXSearchForm.DWJZQK,
+                jdh: this.shiroData.organizationVO.jgid.substr(0, 2) + '000000',
                 pageSize: this.pageSizeYadx,
                 pageNum: this.currentPageYadx,
                 orgUuid: this.shiroData.organizationVO.uuid,
                 orgJgid: this.shiroData.organizationVO.jgid
             };
             axios.post('/dpapi/advancedsearch/gjssYadxList', params).then(function (res) {
-                var tableTemp = new Array((this.currentPageYadx-1)*this.pageSizeYadx);
+                var tableTemp = new Array((this.currentPageYadx - 1) * this.pageSizeYadx);
                 this.YADXtableData = tableTemp.concat(res.data.result.list);
                 this.totalYadx = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
+
+
         },
         //预案对象查询事件
-        searchYADXClick: function(type){
+        searchYAXXClick: function (type) {
             //按钮事件的选择
-            if(type == 'page'){
-                this.YADXtableData = []; 
-            }else{
-                this.currentPageYadx = 1;
+            if (type == 'page') {
+                this.tableData = [];
+            } else {
+                this.currentPageYaxx = 1;
             }
             this.loading = true;
+            var _self = this;
+            //制作机构
+            var jgid = "";
+            if (this.shiroData.organizationVO.jgid.substr(2, 6) != '000000') {
+                jgid = this.shiroData.organizationVO.uuid;
+            }
             var params = {
-                dxmc : this.YADXSearchForm.DXMC.replace(/%/g,"\\%"),
-                yadxType : this.YADXSearchForm.YADX,
-                xfgx : this.YADXSearchForm.XFGX,
-                dwxz : this.YADXSearchForm.DWXZ,
-                xzqh : this.YADXSearchForm.XZQH,
-                fhdj : this.YADXSearchForm.FHDJ,
-                jzfl : this.YADXSearchForm.DWJZQK,
-                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
-                pageSize: this.pageSizeYadx,
-                pageNum: this.currentPageYadx,
+                yamc: this.yuAnSearchForm.YAMC.replace(/%/g, "\\%"),
+                yadxType: this.yuAnSearchForm.YADX,
+                yalx: this.yuAnSearchForm.YALX.substr(0, 1),
+                yajb: this.yuAnSearchForm.YAJB,
+                shzt: this.yuAnSearchForm.SHZT,
+                jgid: jgid,
+                begintime: this.yuAnSearchForm.begintime_create,
+                endtime: this.yuAnSearchForm.endtime_create,
+                jdh: this.shiroData.organizationVO.jgid.substr(0, 2) + '000000',
+                pageSize: this.pageSizeYaxx,
+                pageNum: this.currentPageYaxx,
                 orgUuid: this.shiroData.organizationVO.uuid,
                 orgJgid: this.shiroData.organizationVO.jgid
             };
-            axios.post('/dpapi/advancedsearch/gjssYadxList', params).then(function (res) {
-                var tableTemp = new Array((this.currentPageYadx-1)*this.pageSizeYadx);
-                this.YADXtableData = tableTemp.concat(res.data.result.list);
-                this.totalYadx = res.data.result.total;
+            axios.post('/dpapi/advancedsearch/gjssYaxxList', params).then(function (res) {
+                var tableTemp = new Array((this.currentPageYaxx - 1) * this.pageSizeYaxx);
+                this.tableData = tableTemp.concat(res.data.result.list);
+                this.totalYaxx = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
         //单位建筑信息查询事件
-        searchDWJZClick:function(type){
+        searchDWJZClick: function (type) {
             //按钮事件的选择
-            if(type == 'page'){
-                this.DWJZtableData = [];     
-            }else{
+            if (type == 'page') {
+                this.DWJZtableData = [];
+            } else {
                 this.currentPageJzxx = 1;
             }
             this.loading = true;
             var params = {
-                jzmc:this.DWJZSearchForm.JZMC.replace(/%/g,"\\%"),
-                jzlx:this.DWJZSearchForm.JZLX,
-                jzl_jzsyxz:this.DWJZSearchForm.JZSYXZ.substr(0,1),
-                jzl_jzjg:this.DWJZSearchForm.JZJG,
-                jzl_dsgd:this.DWJZSearchForm.JZGD,
-                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
+                jzmc: this.DWJZSearchForm.JZMC.replace(/%/g, "\\%"),
+                jzlx: this.DWJZSearchForm.JZLX,
+                jzl_jzsyxz: this.DWJZSearchForm.JZSYXZ.substr(0, 1),
+                jzl_jzjg: this.DWJZSearchForm.JZJG,
+                jzl_dsgd: this.DWJZSearchForm.JZGD,
+                jdh: this.shiroData.organizationVO.jgid.substr(0, 2) + '000000',
                 pageSize: this.pageSizeJzxx,
                 pageNum: this.currentPageJzxx,
                 orgUuid: this.shiroData.organizationVO.uuid,
                 orgJgid: this.shiroData.organizationVO.jgid
             };
             axios.post('/dpapi/advancedsearch/gjssDwjzList', params).then(function (res) {
-                var tableTemp = new Array((this.currentPageJzxx-1)*this.pageSizeJzxx);
+                var tableTemp = new Array((this.currentPageJzxx - 1) * this.pageSizeJzxx);
                 this.DWJZtableData = tableTemp.concat(res.data.result.list);
                 this.totalJzxx = res.data.result.total;
                 this.loading = false;
@@ -266,30 +275,30 @@ new Vue({
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    if(res.data.result[i].codeValue.substr(1,4) == '0000'){
+                    if (res.data.result[i].codeValue.substr(1, 4) == '0000') {
                         this.yalx_data.push(res.data.result[i]);
-                    }     
+                    }
                 }
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
         //预案级别初始化
-        YAJB:function(){
+        YAJB: function () {
             axios.get('/api/codelist/getCodetype/YAJB').then(function (res) {
                 axios.get('/dpapi/xfdz/doFindDzlxByOrgId/' + this.shiroData.organizationVO.uuid).then(function (res1) {
                     var dzlx = res1.data.result;
-                    switch(dzlx){
+                    switch (dzlx) {
                         case '0100':
-                            this.yajb_data.push(res.data.result[0]); 
+                            this.yajb_data.push(res.data.result[0]);
                         case '0200':
-                            this.yajb_data.push(res.data.result[1]); 
+                            this.yajb_data.push(res.data.result[1]);
                         case '0300':
-                            this.yajb_data.push(res.data.result[2]); 
+                            this.yajb_data.push(res.data.result[2]);
                         default:
-                            this.yajb_data.push(res.data.result[3]); 
+                            this.yajb_data.push(res.data.result[3]);
                     }
-                    
+
                 }.bind(this), function (error) {
                     console.log(error);
                 })
@@ -298,7 +307,7 @@ new Vue({
             })
         },
         //审核状态初始化
-        SHZT:function(){
+        SHZT: function () {
             axios.get('/api/codelist/getCodetype/YASHZT').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
                     this.shzt_data.push(res.data.result[i]);
@@ -308,8 +317,8 @@ new Vue({
             })
         },
         //消防管辖初始化
-        XFGX:function(){
-            if(this.shiroData.organizationVO.uuid == 'eb09df352cda4902b24c54dd2b2ce656'){
+        XFGX: function () {
+            if (this.shiroData.organizationVO.uuid == 'eb09df352cda4902b24c54dd2b2ce656') {
                 axios.get('/dpapi/util/doSearchContingents').then(function (res) {
                     for (var i = 0; i < res.data.result.length; i++) {
                         this.xfgx_data.push(res.data.result[i]);
@@ -317,10 +326,10 @@ new Vue({
                 }.bind(this), function (error) {
                     console.log(error);
                 })
-            }else{
+            } else {
                 axios.get('/dpapi/util/doFindXfdzByZongdId/' + this.shiroData.organizationVO.uuid).then(function (res) {
                     this.xfgx_data = res.data.result;
-                    if(this.xfgx_data.length == 0){
+                    if (this.xfgx_data.length == 0) {
                         this.xfgxShow = false;
                     }
                 }.bind(this), function (error) {
@@ -329,7 +338,7 @@ new Vue({
             }
         },
         //单位性质初始化
-        DWXZ:function(){
+        DWXZ: function () {
             axios.get('/api/codelist/getCodetype/DWXZ').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
                     this.dwxz_data.push(res.data.result[i]);
@@ -339,7 +348,7 @@ new Vue({
             })
         },
         //行政区划初始化
-        XZQH:function(){
+        XZQH: function () {
             axios.get('/api/codelist/getXzqh/XZQH').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
                     this.xzqh_data.push(res.data.result[i]);
@@ -349,7 +358,7 @@ new Vue({
             })
         },
         //防火等级初始化
-        FHDJ:function(){
+        FHDJ: function () {
             axios.get('/api/codelist/getCodetype/FHDJ').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
                     this.fhdj_data.push(res.data.result[i]);
@@ -359,28 +368,28 @@ new Vue({
             })
         },
         //单位建筑情况初始化
-        DWJZQK:function(){
+        DWJZQK: function () {
             axios.get('/api/codelist/getCodetype/JZLX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
                     this.dwjzqk_data.push(res.data.result[i]);
                 }
             }.bind(this), function (error) {
                 console.log(error);
-            }) 
+            })
         },
         //建筑使用性质初始化
-        JZSYXZ:function(){
+        JZSYXZ: function () {
             axios.get('/api/codelist/getCodetype/JZSYXZ').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    if(res.data.result[i].codeValue.substr(1,3) == '000')
-                    this.jzsyxz_data.push(res.data.result[i]);
+                    if (res.data.result[i].codeValue.substr(1, 3) == '000')
+                        this.jzsyxz_data.push(res.data.result[i]);
                 }
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
         //建筑结构初始化
-        JZJG:function(){
+        JZJG: function () {
             axios.get('/api/codelist/getCodetype/JZJG').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
                     this.jzjg_data.push(res.data.result[i]);
@@ -389,23 +398,23 @@ new Vue({
                 console.log(error);
             })
         },
-       
+
 
         //预案对象信息中对象类型为重点单位时显示其他搜索条件
-        isZddwShow:function(){
-            if(this.YADXSearchForm.YADX == "1")
+        isZddwShow: function () {
+            if (this.YADXSearchForm.YADX == "1")
                 this.isZddw = true;
-            else{
+            else {
                 this.isZddw = false;
-                this.YADXSearchForm.DWXZ="";
-                this.YADXSearchForm.XZQH="";
-                this.YADXSearchForm.FHDJ="";
-                this.YADXSearchForm.DWJZQK="";
+                this.YADXSearchForm.DWXZ = "";
+                this.YADXSearchForm.XZQH = "";
+                this.YADXSearchForm.FHDJ = "";
+                this.YADXSearchForm.DWJZQK = "";
             }
         },
         //根据建筑类型展示不同的查询条件
-        selectJzlx:function(){
-            switch(this.DWJZSearchForm.JZLX){
+        selectJzlx: function () {
+            switch (this.DWJZSearchForm.JZLX) {
                 case '':
                     this.isZzl = false;
                     this.isJzl = false;
@@ -432,9 +441,9 @@ new Vue({
                     this.isDtjz = false;
                     break;
             }
-            this.DWJZSearchForm.JZSYXZ="";
-            this.DWJZSearchForm.JZJG="";
-            this.DWJZSearchForm.JZGD="";
+            this.DWJZSearchForm.JZSYXZ = "";
+            this.DWJZSearchForm.JZJG = "";
+            this.DWJZSearchForm.JZGD = "";
         },
         /* 
         //预案种类全选
@@ -508,7 +517,7 @@ new Vue({
         },*/
         //预案详情跳转
         planDetails(val) {
-            switch(val.yadxType){
+            switch (val.yadxType) {
                 case '重点单位':
                     var params = {
                         ID: val.uuid,
@@ -563,22 +572,22 @@ new Vue({
                 ID: val.uuid,
                 type: "GJSS"
             }
-            var loadDivUrl; 
-            switch(val.yadxType){
-            case '重点单位':
-                loadDivUrl = "planobject/importantunits_detail";
-                //window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
-                break;
-            case '消防保卫警卫':
-                loadDivUrl = "planobject/guardobjects_detail";
-                //window.location.href = "../planobject/guardobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
-                break;
-            case '其他对象':
-                loadDivUrl = "planobject/otherobjects_detail";
-                //window.location.href = "../planobject/otherobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
-                break;
+            var loadDivUrl;
+            switch (val.yadxType) {
+                case '重点单位':
+                    loadDivUrl = "planobject/importantunits_detail";
+                    //window.location.href = "../planobject/importantunits_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
+                    break;
+                case '消防保卫警卫':
+                    loadDivUrl = "planobject/guardobjects_detail";
+                    //window.location.href = "../planobject/guardobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
+                    break;
+                case '其他对象':
+                    loadDivUrl = "planobject/otherobjects_detail";
+                    //window.location.href = "../planobject/otherobjects_detail.html?id=" + val.uuid + "&index=" + this.activeIndex + "&type=GJSS";
+                    break;
             }
-            loadDivParam(loadDivUrl, params); 
+            loadDivParam(loadDivUrl, params);
         },
         //单位建筑详情跳转
         buildingDetails(val) {
@@ -587,11 +596,17 @@ new Vue({
                 jzlx: val.jzlx,
                 type: "GJSS"
             }
-            loadDivParam("buildingzoning/buildingzoning_detail", params); 
+            loadDivParam("buildingzoning/buildingzoning_detail", params);
             //window.location.href = "../buildingzoning/building_zoning_detail.html?id=" + val.jzid +"&jzlx=" +val.jzlx + "&index=" + this.activeIndex + "&type=GJSS";
         },
 
         clearClick: function () {
+            this.YADXSearchForm.DXMC = "";
+            this.YADXSearchForm.YADX = "";
+            this.YADXSearchForm.XFGX = "";
+            this.searchClick('reset');
+        },
+        clearYAXXClick: function () {
             this.yuAnSearchForm.YAMC = "";
             this.yuAnSearchForm.YADX = "";
             this.yuAnSearchForm.YALX = "";
@@ -600,23 +615,17 @@ new Vue({
             this.yuAnSearchForm.LRSJ = "";
             this.yuAnSearchForm.begintime_create = "";
             this.yuAnSearchForm.endtime_create = "";
-            this.searchClick('reset');
-        },
-        clearYADXClick:function(){
-            this.YADXSearchForm.DXMC = "";
-            this.YADXSearchForm.YADX = "";
-            this.YADXSearchForm.XFGX = "";
-            this.searchYADXClick('reset');
+            this.searchYAXXClick('reset');
         },
         //单位建筑
-        clearDWJZClick:function(){
-            this.DWJZSearchForm.JZMC="";
-            this.DWJZSearchForm.JZLX="";
+        clearDWJZClick: function () {
+            this.DWJZSearchForm.JZMC = "";
+            this.DWJZSearchForm.JZLX = "";
             this.searchDWJZClick('reset');
         },
         //获取制作时间范围
-        lrsjFormat:function(){
-            switch(this.yuAnSearchForm.LRSJ){
+        lrsjFormat: function () {
+            switch (this.yuAnSearchForm.LRSJ) {
                 case '':
                     this.isZdy = false;
                     this.yuAnSearchForm.begintime_create = "";
@@ -631,7 +640,7 @@ new Vue({
                     month = month < 10 ? "0" + month : month;
                     day = day < 10 ? "0" + day : day;
                     this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day;
-                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day; 
+                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day;
                     break;
                 case 'yesterday':
                     this.isZdy = false;
@@ -643,7 +652,7 @@ new Vue({
                     month = month < 10 ? "0" + month : month;
                     day = day < 10 ? "0" + day : day;
                     this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day;
-                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day; 
+                    this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day;
                     break;
                 case 'lastweek':
                     this.isZdy = false;
@@ -654,14 +663,14 @@ new Vue({
                     month = month < 10 ? "0" + month : month;
                     day = day < 10 ? "0" + day : day;
                     this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day;
-                    
+
                     date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
                     year = date.getFullYear();
                     month = date.getMonth() + 1;
                     day = date.getDate();
                     month = month < 10 ? "0" + month : month;
                     day = day < 10 ? "0" + day : day;
-                    this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day; 
+                    this.yuAnSearchForm.begintime_create = year + "/" + month + "/" + day;
                     break;
                 case 'lastmonth':
                     this.isZdy = false;
@@ -672,7 +681,7 @@ new Vue({
                     month = month < 10 ? "0" + month : month;
                     day = day < 10 ? "0" + day : day;
                     this.yuAnSearchForm.endtime_create = year + "/" + month + "/" + day;
-                    
+
                     date.setTime(date.getTime() - 3600 * 1000 * 24 * 30);
                     year = date.getFullYear();
                     month = date.getMonth() + 1;
@@ -687,54 +696,54 @@ new Vue({
                     this.yaxx_lrsj = "";
                     break;
             }
-            
+
         },
         //自定义时间
         timeChange(val) {
-            if(val == ""){
+            if (val == "") {
                 this.yuAnSearchForm.begintime_create = "";
                 this.yuAnSearchForm.endtime_create = "";
-            }else{
-                this.yuAnSearchForm.begintime_create = val.substring(0,val.indexOf("至"));
-                this.yuAnSearchForm.endtime_create = val.substring(val.indexOf("至")+1)
+            } else {
+                this.yuAnSearchForm.begintime_create = val.substring(0, val.indexOf("至"));
+                this.yuAnSearchForm.endtime_create = val.substring(val.indexOf("至") + 1)
             }
         },
         //点击tab页时，数据加载
         handleClick(tab, event) {
             this.tabIndex = tab.index;
-            if(tab.index == 0){
+            if (tab.index == 0) {
                 this.clearClick();
                 // this.searchClick('click');
-            }else if(tab.index == 1){
-                this.clearYADXClick();
+            } else if (tab.index == 1) {
+                this.clearYAXXClick();
                 // this.searchYADXClick('click');
-            }else if(tab.index == 2){
+            } else if (tab.index == 2) {
                 this.clearDWJZClick();
                 // this.searchDWJZClick('click');
             }
         },
         //展开 收起
-        spread:function(){
-            var a = document.getElementById("xfgxSpread").innerText;  
-            if(a=="展开"){
-                document.getElementById('xfgxDiv').style.height='auto';
-                document.getElementById("xfgxSpread").innerText="收起";
-            }else if(a=="收起"){
-                document.getElementById('xfgxDiv').style.height='34px';
-                document.getElementById("xfgxSpread").innerText="展开";
+        spread: function () {
+            var a = document.getElementById("xfgxSpread").innerText;
+            if (a == "展开") {
+                document.getElementById('xfgxDiv').style.height = 'auto';
+                document.getElementById("xfgxSpread").innerText = "收起";
+            } else if (a == "收起") {
+                document.getElementById('xfgxDiv').style.height = '34px';
+                document.getElementById("xfgxSpread").innerText = "展开";
             }
-            
+
         },
-        spread_dwxz:function(){
-            var a = document.getElementById("dwxzSpread").innerText;  
-            if(a=="展开"){
-                document.getElementById('dwxzDiv').style.height='auto';
-                document.getElementById("dwxzSpread").innerText="收起";
-            }else if(a=="收起"){
-                document.getElementById('dwxzDiv').style.height='34px';
-                document.getElementById("dwxzSpread").innerText="展开";
+        spread_dwxz: function () {
+            var a = document.getElementById("dwxzSpread").innerText;
+            if (a == "展开") {
+                document.getElementById('dwxzDiv').style.height = 'auto';
+                document.getElementById("dwxzSpread").innerText = "收起";
+            } else if (a == "收起") {
+                document.getElementById('dwxzDiv').style.height = '34px';
+                document.getElementById("dwxzSpread").innerText = "展开";
             }
-            
+
         },
         //表格重新加载数据
         loadingData: function () {
@@ -745,11 +754,11 @@ new Vue({
                 _self.loading = false;
             }, 300);
         },
-        
+
         closeDialog: function (val) {
             this.planDetailVisible = false;
         },
-        
+
     },
 
 })

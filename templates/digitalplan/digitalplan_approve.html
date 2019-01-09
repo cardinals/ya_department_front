@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplanlist.css">
     <title>预案审核</title>
@@ -18,16 +19,16 @@
                     <el-row>
                         <el-form label-width="75px" :inline="true" class="el-form demo-form-inline">
                             <el-row>
-                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">预案名称</label>
                                     <el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称"></el-input>
                                 </el-col>
-                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">预案类型</label>
                                     <el-cascader :options="YALX_dataTree" :props="defaultProps" size="small" v-model="searchForm.YALX" placeholder="全部" class="searchSelect"
                                         clearable change-on-select :show-all-levels="false"></el-cascader>
                                 </el-col>
-                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">预案级别</label>
                                     <el-select size="small" v-model="searchForm.YAJB" placeholder="全部" class="searchSelect" clearable>
                                         <el-option v-for="item in YAJB_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
@@ -35,23 +36,24 @@
                                 </el-col>
                             </el-row>
                             <el-row>
-                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">制作机构</label>
                                     <el-cascader :options="ZZJG_dataTree" :props="jgidprops" size="small" v-model="searchForm.ZZJG" placeholder="全部" class="searchSelect"
                                         clearable change-on-select :show-all-levels="false"></el-cascader>
                                 </el-col>
-                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
+                                <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">审核状态</label>
-                                    <el-select size="small" v-model="searchForm.SHZT" placeholder="全部" class="searchSelect" clearable>
+                                    <el-select size="small" v-model="searchForm.SHZT" placeholder="全部" class="searchSelect">
                                         <el-option v-for="item in SHZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
-                                <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
-									<label class="el-form-item__label searchLabel">审核时间</label>
-									<el-date-picker type="daterange" @change="timeChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.shsj"
-									 range-separator="至" placeholder="审核时间" start-placeholder="开始日期" end-placeholder="结束日期" class="searchDatePicker">
-									</el-date-picker>
-								</el-col>
+                                <el-col :span="8" class="searchInline">
+                                    <label class="el-form-item__label searchLabel">审核时间</label>
+                                    <el-date-picker type="daterange" @change="timeChange" format="yyyy/MM/dd" value-format="yyyy/MM/dd" size="small" v-model="searchForm.shsj"
+                                        range-separator="至" placeholder="审核时间" start-placeholder="开始日期" end-placeholder="结束日期"
+                                        class="searchDatePicker">
+                                    </el-date-picker>
+                                </el-col>
                             </el-row>
                             <div>
                                 <el-form>
@@ -73,8 +75,8 @@
                         </el-form>
                     </el-row>
                     <div class="table_container">
-                        <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-                        @row-click = "showRow" class="tableStyle" :height="tableheight">
+                        <el-table border id="table" :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" @row-click="showRow" class="tableStyle"
+                            :height="tableheight">
                             <el-table-column width="50px">
                                 <template scope="scope">
                                     <el-radio v-model="radio" :label="scope.$index">&nbsp;</el-radio>
@@ -88,7 +90,7 @@
                             </el-table-column>
                             <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="23%" align="center"></el-table-column>
                             <el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="17%" align="center"></el-table-column>
-                            <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="23%" align="center"></el-table-column>
+                            <el-table-column prop="zzjgmc" label="制作机构" show-overflow-tooltip min-width="23%" align="center"></el-table-column>
                             <el-table-column label="审核状态" show-overflow-tooltip min-width="12%" align="center">
                                 <template slot-scope="scope">
                                     <!-- <el-button :type="scope.row.yashztButtonType" size="small" v-text="scope.row.shztmc"></el-button> -->
@@ -96,7 +98,7 @@
                                     <span v-else-if="scope.row.shztmc == '未通过'" v-text="scope.row.shztmc" style="color:#F7BA2A"></span>
                                     <span v-else-if="scope.row.shztmc == '已通过'" v-text="scope.row.shztmc" style="color:#42D885"></span>
                                     <span v-else v-text="scope.row.shztmc"></span>
-                                </template> 
+                                </template>
                             </el-table-column>
                         </el-table>
 
@@ -115,38 +117,43 @@
                     </el-dialog>
                     <!--审批界面-->
                     <el-dialog title="预案审批" :visible.sync="approveFormVisible" @close="closeDialog(approveForm)" :close-on-click-modal="false">
-						<el-form :model="approveForm" label-width="80px" ref="approveForm">
+                        <el-form :model="approveForm" label-width="100px" ref="approveForm">
                             <el-row>
-								<el-col :span="20">
-									<el-form-item label="审核状态" prop="shzt">
-										<el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off" @change="radioChange">
-										<!--	<el-radio v-for="item in SHZT_data" :label="item.codeValue"></el-radio>-->
-                                            <el-radio :label="'01'" disabled><v-text>未审核</v-text></el-radio>
-                                            <el-radio :label="'02'"><v-text>未通过</v-text></el-radio>
-                                            <el-radio :label="'03'"><v-text>已通过</v-text></el-radio>
-                                            <el-radio :label="'99'"><v-text>其他</v-text></el-radio>
+                                <el-col :span="23">
+                                    <el-form-item label="审核状态" prop="shzt">
+                                        <el-radio-group class="yash_radio" v-model="approveForm.shzt" auto-complete="off" @change="radioChange">
+                                            <!--	<el-radio v-for="item in SHZT_data" :label="item.codeValue"></el-radio>-->
+                                            <el-radio :label="'01'" disabled>
+                                                <v-text>未审核</v-text>
+                                            </el-radio>
+                                            <el-radio :label="'02'">
+                                                <v-text>未通过</v-text>
+                                            </el-radio>
+                                            <el-radio :label="'03'">
+                                                <v-text>已通过</v-text>
+                                            </el-radio>
+                                            <!-- <el-radio :label="'99'">
+                                                <v-text>其他</v-text>
+                                            </el-radio> -->
                                         </el-radio-group>
                                     </el-form-item>
-								</el-col>
+                                </el-col>
                             </el-row>
                             <el-row>
-                                <el-col :span="20">
-                                    <el-form-item label="审核意见" prop="reserve1">
-                                        <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}"
-                                            placeholder="请输入内容" v-model="approveForm.reserve1">
+                                <el-col :span="23">
+                                    <el-form-item id="shyj" label="审核意见" prop="reserve1">
+                                        <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" maxlength="200" placeholder="请输入内容" v-model="approveForm.reserve1">
                                         </el-input>
+                                        <div class="el-form-item__error">最多能输入200汉字</div>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="4">
-                                    <v-text v-show="isReject" style="color: red">&nbsp;*</v-text>
-                                </el-col>
                             </el-row>
-						</el-form>
-						<div slot="footer" class="dialog-footer">
-							<el-button size="small" @click.native="closeDialog(approveForm)">取消</el-button>
-							<el-button size="small" type="primary" @click.native="approveSubmit(approveForm)">提交</el-button>
-						</div>
-					</el-dialog>
+                            <el-row class="mb10 mt20 tc">
+                                <el-button type="clear" icon="close" size="small" class="btn_submit" @click.native="closeDialog(approveForm)"> 取消</el-button>
+                                <el-button type="success" icon="check" size="small" class="btn_submit" @click.native="approveSubmit(approveForm)">审核</el-button>
+                            </el-row>
+                        </el-form>
+                    </el-dialog>
                 </div>
             </div>
             <!-- main-container -->
@@ -154,4 +161,5 @@
     </div>
 </body>
 <script src="../../static/js/digitalplan/digitalplan_approve.js"></script>
+
 </html>
