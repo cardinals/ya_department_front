@@ -38,6 +38,7 @@ var vue = new Vue({
     },
     created: function () {
         loadBreadcrumb("二维标绘", "-1");
+        debugger
         this.shiroData = shiroGlobal;
         this.searchClick('click');
     },
@@ -51,6 +52,8 @@ var vue = new Vue({
             } else {
                 this.currentPage = 1;
             }
+debugger
+
             var params = {
                 wjm: this.searchForm.wjm.replace(/%/g,"\\%"),
                 zddwmc: this.searchForm.zddwmc.replace(/%/g,"\\%"),
@@ -61,6 +64,7 @@ var vue = new Vue({
                 orgJgid: this.shiroData.organizationVO.jgid
             };
             axios.post('/dpapi/ewbh/page', params).then(function (res) {
+                debugger
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;

@@ -4,12 +4,26 @@ $(function () {
     var paramUrl = getQueryString("url");
     loadDiv(urlRewrite(paramUrl));
 });
-
 /**header-box by li.xue 20180628 */
+var shiroGlobal = "";
 var realname = "";
+var permissions = [];
 axios.get('/api/shiro').then(function (res) {
+    if(res.data.organizationVO == null || res.data.organizationVO == ""){
+        res.data.organizationVO = {
+            uuid: "",
+            jgjc: "",
+            jgid: ""
+        }
+    }
+    this.shiroGlobal = res.data;
+    localStorage.setItem("user", shiroGlobal);
+    //用户权限
+    for(var i in res.data.permissions){
+        permissions.push(res.data.permissions[i]);
+    }
     realname = res.data.realName;
-    document.querySelector("#realname").innerHTML = realname;
+    //document.querySelector("#realname").innerHTML = realname;
     if(res.data == null && realname == null && realname == ""){
         window.location.href = "login.html";
     }

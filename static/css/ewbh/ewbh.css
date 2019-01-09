@@ -1,0 +1,77 @@
+.ewbhbread{
+    height: 24px;
+    line-height: 24px;
+}
+.left-sidebar{
+    display: none;
+}
+.main-box{
+    padding-left: 0;
+}
+.el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
+    border-bottom-color: #f5f7f9;
+}
+.el-tabs__item {
+    padding: 0 6px;
+}
+.el-tabs__active-bar{
+    width: 66px;
+}
+.el-card__body {
+    padding: 2px 10px;
+}
+.card_style {
+    margin-bottom: 3px;
+}
+#menuView{
+    background-color: #f5f7f9;
+    padding: 5px;
+    width: 290px;
+    height: 100%;
+}
+iframe{
+    width:calc(100% - 290px);
+    height:100%;
+}
+#menuView .el-tabs{
+    height: calc(100% - 70px);
+}
+.el-tabs__header {
+    margin: 0 0 5px;
+}
+.el-tabs__content {
+    height: calc(100% - 35px);
+    overflow: auto;
+}
+#zddwlist{
+    height: calc(100% - 60px);
+}
+.zddw{
+    overflow: auto;
+    height: calc(100% - 30px);
+}
+.main-box{
+    position: absolute; 
+    left:0; 
+    right: 0; 
+    bottom: 0; 
+    top:0;
+    width:100%;
+}
+.el-pagination__editor {
+    padding: 3px 2px;
+    margin: 0;
+    line-height: 15px;
+}
+.el-pagination__jump {
+    margin-left: 0;
+}
+.el-pagination button, .el-pagination span {
+    min-width: 25px;
+    height: 22px;
+    line-height: 18px;
+}
+.el-tabs__item {
+    height: 35px;
+    line-height: 35px;
+}
