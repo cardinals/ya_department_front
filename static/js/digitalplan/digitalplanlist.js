@@ -12,11 +12,11 @@ var vue = new Vue({
                 DXMC: "",
                 YALX: [],
                 YAJB: "",
-                ZZJG: "",
+                ZZJG: [],
                 YAZT: ""
             },
             tableData: [],
-            role_data: {},//当前用户信息
+            shiroData: [],//当前用户信息
             YALX_dataTree: [],//预案类型级联选择
             ZZJG_dataTree: [],//制作机构级联选择
             YAJB_data: [],//预案级别下拉框
@@ -47,50 +47,39 @@ var vue = new Vue({
                 children: 'children'
             },
             jgidprops: {
-                value: 'uuid',
-                label: 'jgjc',
+                value: 'dzid',
+                label: 'dzjc',
                 children: 'children'
             },
-
         }
     },
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-        /**
-        var index = getQueryString("index");
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-         */
-        
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("重点单位预案", "-1");
-
+        // this.shiroData = shiroGlobal;
+        this.roleData();
         this.YALX_tree();//预案类型级联选择
-        this.ZZJG_tree();//制作机构级联选择
+        // this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
         this.YAZT();//预案状态下拉框
     },
     mounted: function () {
-        this.searchClick('click');//条件查询
-        this.roleData();//当前用户信息
+        // this.searchClick('click');//条件查询
     },
 
     methods: {
         //获取当前用户信息
         roleData: function () {
             axios.post('/api/shiro').then(function (res) {
-                this.role_data = res.data;
+                this.shiroData = res.data;
+                this.ZZJG_tree();
+                
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
         //预案类型级联选择
         YALX_tree: function () {
-            // axios.get('/api/codelist/getCarTypes/YALX').then(function (res) {
-            //     this.YALX_dataTree = res.data.result;
-            // }.bind(this), function (error) {
-            //     console.log(error);
-            // })
             var params = {
                 codetype: "YALX",
                 list: [1, 2, 4, 6, 8]
@@ -101,10 +90,20 @@ var vue = new Vue({
                 console.log(error);
             })
         },
-        //制作机构级联选择(暂无表)
+        //制作机构级联选择
         ZZJG_tree: function () {
-            axios.post('/api/organization/getOrganizationtree').then(function (res) {
+            var organization = this.shiroData.organizationVO;
+            var param = {
+                dzid: organization.uuid,
+                dzjc: organization.jgjc,
+                dzbm: organization.jgid
+            }
+            axios.post('/dpapi/xfdz/findSjdzByUserAll', param).then(function (res) {
                 this.ZZJG_dataTree = res.data.result;
+                if(this.ZZJG_dataTree[0].children == null || this.ZZJG_dataTree[0].children.length == 0){
+                    this.searchForm.ZZJG.push(this.ZZJG_dataTree[0].dzid);
+                }
+                this.searchClick('click');//条件查询
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -135,15 +134,27 @@ var vue = new Vue({
                 this.currentPage = 1;
             }
             this.loading = true;//表格重新加载
+            //制作机构
+            var jgid = "";
+            if(this.searchForm.ZZJG.length>1){
+                jgid = this.searchForm.ZZJG[this.searchForm.ZZJG.length-1];
+            }else{
+                if(this.shiroData.organizationVO.jgid.substr(2,6)!='000000'){
+                    jgid = this.shiroData.organizationVO.uuid;
+                }
+            }
             var params = {
-                yamc: this.searchForm.YAMC,
-                dxmc: this.searchForm.DXMC,
+                yamc: this.searchForm.YAMC.replace(/%/g,"\\%"),
+                dxmc: this.searchForm.DXMC.replace(/%/g,"\\%"),
                 yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1],
                 yajb: this.searchForm.YAJB,
-                jgid: this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
+                jgid: jgid,
                 yazt: this.searchForm.YAZT,
+                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
                 pageSize: this.pageSize,
-                pageNum: this.currentPage
+                pageNum: this.currentPage,
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             }
             axios.post('/dpapi/digitalplanlist/page', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
@@ -161,6 +172,7 @@ var vue = new Vue({
             this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = [];
+            this.searchForm.ZZJG.push(this.ZZJG_dataTree[0].dzid);
             this.searchForm.YAZT = "";
             this.searchClick('reset');
         },
@@ -202,7 +214,6 @@ var vue = new Vue({
                     type: "BJ"
                 }
                 loadDivParam("digitalplan/digitalplan_add", params);
-                //window.location.href = "digitalplan_add.html?ID=" + row.uuid + "&index=" + this.activeIndex + "&type=BJ";
             } else {
                 this.$message({
                     message: "仅编辑中和已驳回状态预案可编辑",
@@ -218,8 +229,8 @@ var vue = new Vue({
                 type: 'warning'
             }).then(() => {
                 var params = {
-                    xgrid: this.role_data.userid,
-                    xgrmc: this.role_data.realName
+                    xgrid: this.shiroData.userid,
+                    xgrmc: this.shiroData.realName
                 }
                 axios.post('/dpapi/digitalplanlist/doDeleteDigitalplan', this.multipleSelection).then(function (res) {
                     this.$message({
@@ -245,15 +256,6 @@ var vue = new Vue({
         //预案下载
         downloadPlan: function () {
             window.open("http://10.119.119.232/upload/123456/2018-03-21/70932ac7-da58-4419-91b6-ebe0b3f53838/web%E7%89%88%E4%B8%89%E7%BB%B4%E9%A2%84%E6%A1%88.ZIP");
-        },
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                console.info("加载数据成功");
-                _self.loading = false;
-            }, 300);
         }
     },
 

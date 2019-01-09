@@ -39,7 +39,7 @@ new Vue({
     created: function () {
         //设置菜单选中
         // $("#activeIndex").val(getQueryString("index"));
-        
+
         /**面包屑 by li.xue 20180628*/
         var type = getQueryString("type");
         if (type == "GJSS") {
@@ -60,24 +60,10 @@ new Vue({
         this.disasterSet(this.pkid);
         this.fjDetail();
         this.picDetail();
+
     },
 
     methods: {
-        //标签页
-        handleClick: function (e) {
-            console.log(e);
-        },
-        //面包屑
-        getBreadcrumb(){
-
-        },
-
-        //根据参数部分和参数名来获取参数值 
-        GetQueryString: function (name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]); return null;
-        },
         //预案详情基本信息
         planDetails: function (val) {
             this.loading = true;
@@ -200,8 +186,8 @@ new Vue({
             this.showPicVisible = true;
             // this.initialIndex = val;
         },
-        picTitleChange: function(index,index1){
-            this.picTitle=this.picList[index].name;
+        picTitleChange: function (index, index1) {
+            this.picTitle = this.picList[index].name;
         },
         //根据重点单位id获取建筑类重点部位详情
         getJzlListByZddwId: function () {
@@ -236,12 +222,14 @@ new Vue({
                 console.log(error)
             })
         },
+
+        //模板压缩包导出
+        downloadModule: function () {
+            location.href = baseUrl + "/planShare/exportData/" + this.pkid;
+        },
         //根据重点单位id获取建筑分区信息
         getJzfqDetailByVo: function () {
-            var params = {
-                uuid: this.basicDetailData.dxid,
-            };
-            axios.post('/dpapi/importantunits/doFindBuildingDetailsByVo/', params).then(function (res) {
+            axios.get('/dpapi/importantunits/doFindJzxxDetailByZddwId/' + this.basicDetailData.dxid).then(function (res) {
                 this.jzfqData = res.data.result;
                 if (this.jzfqData.length > 0) {
                     for (var i = 0; i < this.jzfqData.length; i++) {  //循环LIST
@@ -263,7 +251,7 @@ new Vue({
                 console.log(error)
             })
         },
-        
+
         //选择信息分享模板界面
         openShareVisible: function () {
             this.shareVisible = true;
@@ -309,7 +297,7 @@ new Vue({
         },
         //信息分享
         openShare: function (val) {
-            window.open(baseUrl+"/planShare/page/" + this.pkid + "/" + val + "/web");
+            window.open(baseUrl + "/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         downShare: function () {
 
@@ -330,26 +318,31 @@ new Vue({
             if (this.tpChecked) {
                 title += 'tp'
             }
-            window.open(baseUrl+"/planShare/downWord/" + this.pkid + "/" + title);
+            window.open(baseUrl + "/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
             if (this.fjDetailData > 0) {
-                axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
+                var params = {
+                    yaid: this.pkid,
+                    kzm: 'zip'
+                }
+                axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
                     var yllj = res.data.result[0].yllj;
                     if (yllj == null || yllj == '') {
                         this.$message({
-                            message: "该预案无可预览文件",
+                            message: "无可预览文件",
                             showClose: true
                         });
                     } else {
-                        window.open(baseUrl+"/upload/" + yllj);                    }
+                        window.open(baseUrl + "/upload/" + yllj);
+                    }
                 }.bind(this), function (error) {
                     console.log(error)
                 })
             } else {
                 this.$message({
-                    message: "该预案无可预览附件",
+                    message: "该预案无附件",
                     showClose: true
                 });
             }
@@ -357,21 +350,29 @@ new Vue({
         //预案下载
         downloadPlan: function () {
             if (this.fjDetailData > 0) {
-                axios.get('/dpapi/yafjxz/doFindByPlanId/' + this.pkid).then(function (res) {
+                var params = {
+                    yaid: this.pkid,
+                    kzm: 'zip'
+                }
+                axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
                     var xzlj = res.data.result[0].xzlj;
-                    window.open(baseUrl+"/upload/" + xzlj);
+                    window.open(baseUrl + "/upload/" + xzlj);
                 }.bind(this), function (error) {
                     console.log(error)
                 })
             } else {
+
+                //edit by huang-rui in 9.15
                 // if (this.pkid == 'dlwddzd' || this.pkid == 'dljy') {
                 //     this.openSelectDownVisible();
                 // } else {
                 //     this.openDownVisible();
                 // }
                 this.openSelectDownVisible();
+                //edit end
             }
         },
+        //add by huang-rui in 9.15
         //历史预案查询
         hisDetail: function (val) {
             var params = {
@@ -379,24 +380,26 @@ new Vue({
             };
             axios.post('/dpapi/yaxxzl/list/', params).then(function (res) {
                 this.hisDetailData = res.data.result;
-                if (this.basicDetailData.jdh.substr(0, 2) == '21') {
-                    var head = 'http://10.119.119.232:11010';
-                //江苏
-                } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
-                    var head = 'http://10.119.119.205:11010';
-                }
-                var body = '/attachment/filemanage/configFile!showFile.action';
-                if (this.hisDetailData.length > 0) {
-                    for (var i in this.hisDetailData) {
-                        if (this.hisDetailData[i].fjlxdm == '02') {
-                            this.picList.push({
-                                uuid: this.hisDetailData[i].id,
-                                name: this.hisDetailData[i].zlmc,
-                                url: head + body + this.hisDetailData[i].xgxx,
-                                type:'history'
-                            });
-                        }else if (this.hisDetailData[i].fjlxdm == '01') {
-                            this.hisPlanData.push(this.hisDetailData[i]);
+                if (this.hisDetailData != '') {
+                    if (this.basicDetailData.jdh.substr(0, 2) == '21') {
+                        var head = 'http://10.119.119.232:11010';
+                        //江苏
+                    } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
+                        var head = 'http://10.119.119.205:11010';
+                    }
+                    var body = '/attachment/filemanage/configFile!showFile.action';
+                    if (this.hisDetailData.length > 0) {
+                        for (var i in this.hisDetailData) {
+                            if (this.hisDetailData[i].fjlxdm == '02') {
+                                this.picList.push({
+                                    uuid: this.hisDetailData[i].id,
+                                    name: this.hisDetailData[i].zlmc,
+                                    url: head + body + this.hisDetailData[i].xgxx,
+                                    type: 'history'
+                                });
+                            } else if (this.hisDetailData[i].fjlxdm == '01') {
+                                this.hisPlanData.push(this.hisDetailData[i]);
+                            }
                         }
                     }
                 }
@@ -411,7 +414,7 @@ new Vue({
                     //辽宁
                     if (this.basicDetailData.jdh.substr(0, 2) == '21') {
                         var head = 'http://10.119.119.232:11010';
-                    //江苏
+                        //江苏
                     } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
                         var head = 'http://10.119.119.205:11010';
                     }
@@ -430,6 +433,12 @@ new Vue({
                     showClose: true
                 });
             }
+        },
+        toUnitDetail: function () {
+            var params = {
+                ID: this.basicDetailData.dxid
+            }
+            loadDivParam("planobject/importantunits_detail", params);
         }
         //add end 
     }

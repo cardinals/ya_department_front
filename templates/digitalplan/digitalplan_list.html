@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplan.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/digitalplan/digitalplanlist.css">
     <title>重点单位预案</title>
@@ -20,7 +21,7 @@
                             <el-row>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">预案名称</label>
-                                    <el-input size="small" v-model="searchForm.YAMC" placeholder="预案名称"></el-input>
+                                    <el-input size="small" v-model="searchForm.YAMC" maxlength="50" placeholder="预案名称"></el-input>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">预案类型</label>
@@ -37,7 +38,7 @@
                             <el-row>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">对象名称</label>
-                                    <el-input size="small" v-model="searchForm.DXMC" placeholder="对象名称"></el-input>
+                                    <el-input size="small" v-model="searchForm.DXMC" maxlength="100" placeholder="对象名称"></el-input>
                                 </el-col>
                                 <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">制作机构</label>
@@ -55,7 +56,9 @@
                                 <el-form>
                                     <el-col :span="12" class="btnEditDelete">
                                         <el-form-item align="left">
-                                            <el-button type="primary" icon="plus" size="small" @click="addClick">新增</el-button>
+                                            <!-- <el-button v-if="hasPermission('digitalplan/digitalplan:add')" type="success" icon="plus" size="small" @click="addClick">新增</el-button>
+                                            <el-button v-if="hasPermission('digitalplan/digitalplan:delete')" type="danger" icon="delete2" size="small" @click="deleteClick">删除</el-button> -->
+                                            <el-button type="success" icon="plus" size="small" @click="addClick">新增</el-button>
                                             <el-button type="danger" icon="delete2" size="small" @click="deleteClick">删除</el-button>
                                         </el-form-item>
                                     </el-col>
@@ -83,7 +86,7 @@
                             <el-table-column prop="dxmc" label="对象名称" show-overflow-tooltip min-width="19%" align="center"></el-table-column>
                             <el-table-column prop="yalxmc" label="预案类型" show-overflow-tooltip min-width="15%" align="center"></el-table-column>
                             <el-table-column prop="yajbmc" label="预案级别" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
-                            <el-table-column prop="jgmc" label="制作机构" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
+                            <el-table-column prop="zzjgmc" label="制作机构" show-overflow-tooltip min-width="10%" align="center"></el-table-column>
                             <el-table-column prop="yaztmc" label="预案状态" show-overflow-tooltip min-width="10%" align="center">
                                 <template slot-scope="scope">
                                     <el-popover placement="bottom" width="100" trigger="click" v-if="scope.row.reserve1!=null && scope.row.reserve1!=''">
@@ -95,7 +98,12 @@
                                     <v-text v-else v-text="scope.row.yaztmc"></v-text>
                                 </template>
                             </el-table-column>
-                            <el-table-column label="操作" min-width="8%" align="center">
+                            <!-- <el-table-column label="操作" width="65" align="center" v-if="hasPermission('digitalplan/digitalplan:edit')">
+                                <template slot-scope="scope">
+                                    <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+                                </template>
+                            </el-table-column> -->
+                            <el-table-column label="操作" width="65" align="center">
                                 <template slot-scope="scope">
                                     <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
                                 </template>
@@ -118,4 +126,5 @@
     </div>
 </body>
 <script src="../../static/js/digitalplan/digitalplanlist.js"></script>
+
 </html>

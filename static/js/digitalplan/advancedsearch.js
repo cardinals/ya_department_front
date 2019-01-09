@@ -6,7 +6,7 @@ new Vue({
         return {
             //菜单编码
             activeIndex: '',
-            activeName: "first",  
+            activeName: "second",  
             isZddw:false,
             isDtjz:false,
             isJzl:false,
@@ -116,7 +116,11 @@ new Vue({
             //序号
             indexData: 0,
             //tab页
-            tabIndex: 0
+            tabIndex: 0,
+            //登录用户
+            shiroData: [],
+            //预案对象消防管辖显示
+            xfgxShow: true,
         }
     },
     created: function () {
@@ -129,6 +133,8 @@ new Vue({
         
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("高级搜索", "-1");
+        /**当前登陆用户 by li.xue 20180807*/
+        this.shiroData = shiroGlobal;
         //this.YADX();
         this.YALX();
         this.YAJB();
@@ -171,22 +177,24 @@ new Vue({
                 this.currentPageYaxx = 1;
             }
             this.loading = true;
-            var _self = this;
             var params = {
-                yamc : this.yuAnSearchForm.YAMC,
-                yadxType : this.yuAnSearchForm.YADX,
-                yalx : this.yuAnSearchForm.YALX.substr(0,1),
-                yajb : this.yuAnSearchForm.YAJB,
-                shzt : this.yuAnSearchForm.SHZT,
-                begintime: this.yuAnSearchForm.begintime_create,
-                endtime: this.yuAnSearchForm.endtime_create,
-                pageSize: this.pageSizeYaxx,
-                pageNum: this.currentPageYaxx
+                dxmc : this.YADXSearchForm.DXMC.replace(/%/g,"\\%"),
+                yadxType : this.YADXSearchForm.YADX,
+                xfgx : this.YADXSearchForm.XFGX,
+                dwxz : this.YADXSearchForm.DWXZ,
+                xzqh : this.YADXSearchForm.XZQH,
+                fhdj : this.YADXSearchForm.FHDJ,
+                jzfl : this.YADXSearchForm.DWJZQK,
+                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
+                pageSize: this.pageSizeYadx,
+                pageNum: this.currentPageYadx,
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             };
-            axios.post('/dpapi/advancedsearch/gjssYaxxList', params).then(function (res) {
-                var tableTemp = new Array((this.currentPageYaxx-1)*this.pageSizeYaxx);
-                this.tableData = tableTemp.concat(res.data.result.list);
-                this.totalYaxx = res.data.result.total;
+            axios.post('/dpapi/advancedsearch/gjssYadxList', params).then(function (res) {
+                var tableTemp = new Array((this.currentPageYadx-1)*this.pageSizeYadx);
+                this.YADXtableData = tableTemp.concat(res.data.result.list);
+                this.totalYadx = res.data.result.total;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -194,35 +202,31 @@ new Vue({
         },
         //预案对象查询事件
         searchYADXClick: function(type){
-            // console.log(type);
             //按钮事件的选择
             if(type == 'page'){
                 this.YADXtableData = []; 
             }else{
                 this.currentPageYadx = 1;
             }
-            // console.log(this.currentPageYadx);
             this.loading = true;
             var params = {
-                dxmc : this.YADXSearchForm.DXMC,
+                dxmc : this.YADXSearchForm.DXMC.replace(/%/g,"\\%"),
                 yadxType : this.YADXSearchForm.YADX,
-                xfgx : this.YADXSearchForm.XFGX.substr(0,2),
+                xfgx : this.YADXSearchForm.XFGX,
                 dwxz : this.YADXSearchForm.DWXZ,
                 xzqh : this.YADXSearchForm.XZQH,
                 fhdj : this.YADXSearchForm.FHDJ,
                 jzfl : this.YADXSearchForm.DWJZQK,
+                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
                 pageSize: this.pageSizeYadx,
-                pageNum: this.currentPageYadx
+                pageNum: this.currentPageYadx,
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             };
-            // console.log(params);
             axios.post('/dpapi/advancedsearch/gjssYadxList', params).then(function (res) {
                 var tableTemp = new Array((this.currentPageYadx-1)*this.pageSizeYadx);
                 this.YADXtableData = tableTemp.concat(res.data.result.list);
                 this.totalYadx = res.data.result.total;
-                // console.log(this.YADXtableData);
-                // console.log(this.total);
-                // this.YADXtableData = res.data.result;
-                // this.total = res.data.result.length;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -238,20 +242,21 @@ new Vue({
             }
             this.loading = true;
             var params = {
-                jzmc:this.DWJZSearchForm.JZMC,
+                jzmc:this.DWJZSearchForm.JZMC.replace(/%/g,"\\%"),
                 jzlx:this.DWJZSearchForm.JZLX,
                 jzl_jzsyxz:this.DWJZSearchForm.JZSYXZ.substr(0,1),
                 jzl_jzjg:this.DWJZSearchForm.JZJG,
                 jzl_dsgd:this.DWJZSearchForm.JZGD,
+                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
                 pageSize: this.pageSizeJzxx,
-                pageNum: this.currentPageJzxx
+                pageNum: this.currentPageJzxx,
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             };
             axios.post('/dpapi/advancedsearch/gjssDwjzList', params).then(function (res) {
                 var tableTemp = new Array((this.currentPageJzxx-1)*this.pageSizeJzxx);
                 this.DWJZtableData = tableTemp.concat(res.data.result.list);
                 this.totalJzxx = res.data.result.total;
-                // this.DWJZtableData = res.data.result;
-                // this.total = res.data.result.length;
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -261,8 +266,9 @@ new Vue({
         YALX: function () {
             axios.get('/api/codelist/getCodetype/YALX').then(function (res) {
                 for (var i = 0; i < res.data.result.length; i++) {
-                    if(res.data.result[i].codeValue.substr(1,4) == '0000')
+                    if(res.data.result[i].codeValue.substr(1,4) == '0000'){
                         this.yalx_data.push(res.data.result[i]);
+                    }     
                 }
             }.bind(this), function (error) {
                 console.log(error);
@@ -271,9 +277,22 @@ new Vue({
         //预案级别初始化
         YAJB:function(){
             axios.get('/api/codelist/getCodetype/YAJB').then(function (res) {
-                for (var i = 0; i < res.data.result.length; i++) {
-                    this.yajb_data.push(res.data.result[i]);
-                }
+                axios.get('/dpapi/xfdz/doFindDzlxByOrgId/' + this.shiroData.organizationVO.uuid).then(function (res1) {
+                    var dzlx = res1.data.result;
+                    switch(dzlx){
+                        case '0100':
+                            this.yajb_data.push(res.data.result[0]); 
+                        case '0200':
+                            this.yajb_data.push(res.data.result[1]); 
+                        case '0300':
+                            this.yajb_data.push(res.data.result[2]); 
+                        default:
+                            this.yajb_data.push(res.data.result[3]); 
+                    }
+                    
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -290,13 +309,24 @@ new Vue({
         },
         //消防管辖初始化
         XFGX:function(){
-            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
-                for (var i = 0; i < res.data.result.length; i++) {
-                    this.xfgx_data.push(res.data.result[i]);
-                }
-            }.bind(this), function (error) {
-                console.log(error);
-            })
+            if(this.shiroData.organizationVO.uuid == 'eb09df352cda4902b24c54dd2b2ce656'){
+                axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+                    for (var i = 0; i < res.data.result.length; i++) {
+                        this.xfgx_data.push(res.data.result[i]);
+                    }
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }else{
+                axios.get('/dpapi/util/doFindXfdzByZongdId/' + this.shiroData.organizationVO.uuid).then(function (res) {
+                    this.xfgx_data = res.data.result;
+                    if(this.xfgx_data.length == 0){
+                        this.xfgxShow = false;
+                    }
+                }.bind(this), function (error) {
+                    console.log(error);
+                })
+            }
         },
         //单位性质初始化
         DWXZ:function(){
