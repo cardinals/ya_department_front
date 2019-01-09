@@ -12,11 +12,11 @@ var vue = new Vue({
                 YALX: "",
                 YAJB: "",
                 DXMC: "",
-                ZZJG: "",
+                ZZJG: [],
                 YAZT: "已审批"
             },
             //分发选中
-            ffzd: [],
+            ffdz: [],
             //创建人姓名
             cjrmc:"",
             //创建人id
@@ -25,11 +25,9 @@ var vue = new Vue({
             uuid:"",
 
             //机构复选框
-            jgList: [],
+            xfdzData: [],
             //机构选中
             jgSelect: [],
-            //机构选中字符串
-            jgSelectString: '',
 
             tableData: [],
             YALX_dataTree: [],//预案类型级联选择
@@ -39,8 +37,8 @@ var vue = new Vue({
             YAJB_data: [],//预案级别下拉框
             YAZT_data: [],//审核状态下拉框
             jgidprops: {
-                value: 'uuid',
-                label: 'jgjc',
+                value: 'dzid',
+                label: 'dzjc',
                 children: 'children'
             },
             //资源列表是否显示
@@ -67,7 +65,7 @@ var vue = new Vue({
             indexData: 0,
             //删除的弹出框
             deleteVisible: false,
-           
+            distributeForm: {},
             
             //选中的值显示
             sels: [],
@@ -78,28 +76,32 @@ var vue = new Vue({
                 label: 'codeName',
                 children: 'children'
             },
+            //分发树
+            treeProps: {
+                label: 'dzjc',
+                children: 'children'
+            },
             radio:"",
             data_index:"",
-
+            //登录用户
+            shiroData: [],
+            //树状结构默认展开
+            defaultKeys: [],
+            //树状结构默认选中
+            defaultCheckKeys: [],
         }
     },
     created: function () {
+        /**当前登陆用户 by li.xue 20180807*/
+        this.shiroData = shiroGlobal;
         this.YALX_tree();//预案类型级联选择
         this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
         this.YAZT();//审核状态下拉框
     },
     mounted:function(){
-        /**菜单选中 by li.xue 20180628*/
-        /**
-        var index = getQueryString("index");
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-         */
-
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("预案分发", "-1");
-
         this.searchClick('click');//条件查询
     },
 
@@ -135,9 +137,19 @@ var vue = new Vue({
         },
         //制作机构
         ZZJG_tree: function () {
-            axios.post('/api/organization/getOrganizationtree').then(function(res){
+            var organization = this.shiroData.organizationVO;
+            var param = {
+                dzid: organization.uuid,
+                dzjc: organization.jgjc,
+                dzbm: organization.jgid
+            }
+            axios.post('/dpapi/xfdz/findSjdzByUserAll', param).then(function (res) {
+                //查询条件
                 this.ZZJG_dataTree = res.data.result;
-            }.bind(this),function(error){
+                if(this.ZZJG_dataTree[0].children == null || this.ZZJG_dataTree[0].children.length == 0){
+                    this.searchForm.ZZJG.push(this.ZZJG_dataTree[0].dzid);
+                }
+            }.bind(this), function (error) {
                 console.log(error);
             })
         },
@@ -156,15 +168,26 @@ var vue = new Vue({
             }else{
                 yaztbm = this.searchForm.YAZT;
             }
+            //制作机构
+            var jgid = "";
+            if(this.searchForm.ZZJG.length>1){
+                jgid = this.searchForm.ZZJG[this.searchForm.ZZJG.length-1];
+            }else{
+                if(this.shiroData.organizationVO.jgid.substr(2,6)!='000000'){
+                    jgid = this.shiroData.organizationVO.uuid;
+                }
+            }
             var params = {
-                yamc: this.searchForm.YAMC,
-                yalx: this.searchForm.YALX[this.searchForm.YALX.length - 1], 
+                yamc: this.searchForm.YAMC.replace(/%/g,"\\%"),
+                yalx: this.searchForm.YALX[this.searchForm.YALX.length-1], 
                 yajb: this.searchForm.YAJB,
-                dxmc: this.searchForm.DXMC,
-                jgbm:this.searchForm.ZZJG[this.searchForm.ZZJG.length - 1],
+                dxmc: this.searchForm.DXMC.replace(/%/g,"\\%"),
+                jgid: jgid,
                 yazt: yaztbm,
                 pageSize: this.pageSize,
-                pageNum: this.currentPage
+                pageNum: this.currentPage,
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             }
             axios.post('/dpapi/digitalplanlist/page', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
@@ -181,6 +204,7 @@ var vue = new Vue({
             this.searchForm.YALX = [];
             this.searchForm.YAJB = "";
             this.searchForm.ZZJG = [];
+            this.searchForm.ZZJG.push(this.ZZJG_dataTree[0].dzid);
             this.searchForm.DXMC = "";
             // this.searchForm.shsj.splice(0,this.searchForm.shsj.length);
             this.searchClick('reset');
@@ -199,25 +223,7 @@ var vue = new Vue({
             loadDivParam("digitalplan/digitalplan_detail", params);
             //window.location.href = "digitalplan_detail.html?ID=" + val.uuid + "&index=" + this.activeIndex + "&type=YAFF";
         },
-        /** 
-        planDetails: function (val) {
-            var _self = this;
-            _self.planDetailVisible = true;
-            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?pkid=" + val.uuid;
-            history.pushState(null, null, shortURL)
-            //异步加载详情页
-            $(function () {
-                $.ajax({
-                    url: '../../../templates/digitalplan/digitalplan_detail.html',
-                    cache: true,
-                    async: true,
-                    success: function (html) {
-                        $("#detailDialog").html(html);
-                    }
-                });
-            })
-        },
-        */
+        
         //表格重新加载数据
         loadingData: function () {
             var _self = this;
@@ -237,10 +243,10 @@ var vue = new Vue({
             this.currentPage = val;
             this.searchClick('page');
         },
-        closeDialog: function (ffzd) {
+        closeDialog: function (ffdz) {
             this.planDetailVisible = false;
-            ffzd = [];
-            this.jgSelectString = "";
+            this.defaultKeys = [];
+            this.defaultCheckKeys = [];
             this.distributeFormVisible = false;
         },
         //获取选中的行号（从0开始）
@@ -249,6 +255,9 @@ var vue = new Vue({
             //赋值给radio
             this.radio = this.data_index - (this.currentPage - 1)*this.pageSize;
             //console.info(this.radio);
+        },
+        //分发树点击事件
+        handleNodeClick(data) {
         },
         //分发所选
         distribute: function () {
@@ -264,72 +273,77 @@ var vue = new Vue({
             //获取预案uuid
             var row = this.tableData[this.data_index];
             this.uuid = row.uuid;
-            //获取当前登录用户realname和userid
-            /*
-            axios.get('/api/shiro').then(function (res) {
-                this.cjrmc = res.data.realName;
-                this.cjrid = res.data.userid;
-            }.bind(this), function (error) {
-                console.log(error)
-            });
-            */
+            
             //组织机构选中状态置空
-            this.ffzd = [];
-            //获取组织机构列表
-            axios.get('/api/organization/getZongdui').then(function (res) {
-                this.jgList = res.data.result;
-                //获取当前预案所在总队名称
-                if(row.jgbm!=null && row.jgbm!=""){
-                    var jgidZD = row.jgbm.substring(0,2) + '000000';
-                    var params = {
-                        jgid: jgidZD
-                    }
-                    axios.post('/api/organization/list', params).then(function(res){
-                        this.jgSelectString = res.data.result[0].jgjc;
-                        this.ffzd.push(this.jgSelectString);
-                    }.bind(this),function(error){
-                        console.log(error)
-                    })
-                }
+            this.defaultCheckKeys = [];
+            
+            //本预案相应的队站
+            var params = {
+                dzid: row.jgid,
+                reserve1: this.shiroData.organizationVO.uuid,
+            };
+            axios.post('/dpapi/xfdz/doFindCorresJgid', params).then(function (res) {
                 //获取已经分发的总队名称
-                axios.get('/dpapi/distribute/doFindFfzd/' + this.uuid).then(function(res){
-                    var ffzdList = res.data.result;
-                    for(var i=0;i<ffzdList.length;i++){
-                        this.ffzd.push(ffzdList[i]);
+                this.defaultCheckKeys.push(res.data.result);
+                axios.get('/dpapi/distribute/doFindFfdz/' + this.uuid).then(function(res){
+                    //获取当前预案所在队站
+                    // this.defaultCheckKeys.push(row.jgid);
+                    var ffdzList = res.data.result;
+                    for(var i=0;i<ffdzList.length;i++){
+                        this.defaultCheckKeys.push(ffdzList[i].jgid);
                     }
+                    //获取组织机构列表
+                    axios.get('/dpapi/xfdz/doFindDzYjByOrgId/' + this.shiroData.organizationVO.uuid).then(function (res) {
+                        //预案分发树状
+                        this.xfdzData = res.data.result;
+                        this.defaultKeys.push(this.xfdzData[0].dzid);
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    }); 
                 }.bind(this),function(error){
                     console.log(error)
                 })
             }.bind(this), function (error) {
                 console.log(error)
-            });
+            }); 
+            
             this.distributeFormVisible = true;
         },
         //保存点击事件
-        distributeSubmit: function(ffzd) {
+        distributeSubmit: function(ffdz) {
             //审核状态改变才调用后台approveByVO方法
-            var index = ffzd.indexOf(this.jgSelectString);
-            if(index>-1){
-                ffzd.splice(index,1);
-            }
-            var params = {
-                ffzd: ffzd,
-                // cjrid: this.cjrid,
-                // cjrmc: this.cjrmc,
-                yaid: this.uuid
-            };
-            axios.post('/dpapi/distribute/distribute', params).then(function (res) {
-                this.distributeFormVisible = false;
+            var ffdz = this.$refs.tree.getCheckedNodes();
+            if(ffdz.length == 0 || (ffdz.length==this.defaultCheckKeys.length&&this.defaultCheckKeys[0]!="")){
                 this.$message({
-                    message: "分发成功!",
-                    type: "success",
+                    message: "请选择需要分发的队站",
+                    type: "warning",
                     showClose: true
                 });
-            }.bind(this), function (error) {
-                console.log(error)
-            })
-            this.Visible = false;
-            this.loadingData();
-            }
-        },
+            }else{
+                var params = [];
+                for(var i in ffdz){
+                    if(ffdz[i].dzid != this.defaultCheckKeys[0]){
+                        params.push({
+                            jgid: ffdz[i].dzid,
+                            yaid: this.uuid,
+                            jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
+                            datasource: this.shiroData.organizationVO.jgid
+                        });
+                    }
+                }
+                axios.post('/dpapi/distribute/distribute', params).then(function (res) {
+                    this.distributeFormVisible = false;
+                    this.$message({
+                        message: "分发成功!",
+                        type: "success",
+                        showClose: true
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+                this.Visible = false;
+                this.loadingData();
+            }  
+        }
+    },
 })
