@@ -39,7 +39,7 @@ var vue = new Vue({
     created: function () {
         loadBreadcrumb("二维标绘", "-1");
         this.shiroData = shiroGlobal;
-        
+        this.getShiroUser()
     },
     methods: {
         getShiroUser: function () {
