@@ -19,7 +19,7 @@ axios.get('/api/shiro').then(function (res) {
         permissions.push(res.data.permissions[i]);
     }
     realname = res.data.realName;
-    //document.querySelector("#realname").innerHTML = realname;
+    document.querySelector("#realname").innerHTML = realname;
     if(res.data == null && realname == null && realname == ""){
         window.location.href = "login.html";
     }
