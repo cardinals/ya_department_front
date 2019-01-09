@@ -21,7 +21,7 @@
                         <div class="dib ml20" id="basic-Inform-Title-button">
                             <div>
                                 <h3 class="dib inform-h3">
-                                    <a v-text="basicDetailData.yamc||'无'" class="poi" @click="toUnitDetail"></a>
+                                    <span v-text="basicDetailData.yamc||'无'" ></span>
                                     <span class="companyStatus dib" title="预案级别">
                                         <v-text v-text="basicDetailData.yajbmc||'无'"></v-text>
                                     </span>
@@ -30,7 +30,7 @@
                             <dl>
                                 <img src="../../static/images/detail_zddw.png">
                                 <dt class="dib inform-small-title detail_margin">预案对象：</dt>
-                                <dd class="dtdlStyle" v-text="basicDetailData.dxmc||'无'"></dd>
+                                <a class="dtdlStyle poi" v-text="basicDetailData.dxmc||'无'" @click="toUnitDetail"></a>
                                 <br>
                                 <img src="../../static/images/detail_yabm.png">
                                 <dt class="dib inform-small-title detail_margin">预案编码：</dt>

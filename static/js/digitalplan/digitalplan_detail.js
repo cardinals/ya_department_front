@@ -380,24 +380,26 @@ new Vue({
             };
             axios.post('/dpapi/yaxxzl/list/', params).then(function (res) {
                 this.hisDetailData = res.data.result;
-                if (this.basicDetailData.jdh.substr(0, 2) == '21') {
-                    var head = 'http://10.119.119.232:11010';
-                    //江苏
-                } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
-                    var head = 'http://10.119.119.205:11010';
-                }
-                var body = '/attachment/filemanage/configFile!showFile.action';
-                if (this.hisDetailData.length > 0) {
-                    for (var i in this.hisDetailData) {
-                        if (this.hisDetailData[i].fjlxdm == '02') {
-                            this.picList.push({
-                                uuid: this.hisDetailData[i].id,
-                                name: this.hisDetailData[i].zlmc,
-                                url: head + body + this.hisDetailData[i].xgxx,
-                                type: 'history'
-                            });
-                        } else if (this.hisDetailData[i].fjlxdm == '01') {
-                            this.hisPlanData.push(this.hisDetailData[i]);
+                if (this.hisDetailData != '') {
+                    if (this.basicDetailData.jdh.substr(0, 2) == '21') {
+                        var head = 'http://10.119.119.232:11010';
+                        //江苏
+                    } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
+                        var head = 'http://10.119.119.205:11010';
+                    }
+                    var body = '/attachment/filemanage/configFile!showFile.action';
+                    if (this.hisDetailData.length > 0) {
+                        for (var i in this.hisDetailData) {
+                            if (this.hisDetailData[i].fjlxdm == '02') {
+                                this.picList.push({
+                                    uuid: this.hisDetailData[i].id,
+                                    name: this.hisDetailData[i].zlmc,
+                                    url: head + body + this.hisDetailData[i].xgxx,
+                                    type: 'history'
+                                });
+                            } else if (this.hisDetailData[i].fjlxdm == '01') {
+                                this.hisPlanData.push(this.hisDetailData[i]);
+                            }
                         }
                     }
                 }
@@ -432,7 +434,7 @@ new Vue({
                 });
             }
         },
-        toUnitDetail:function(){
+        toUnitDetail: function () {
             var params = {
                 ID: this.basicDetailData.dxid
             }
