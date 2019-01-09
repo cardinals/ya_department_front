@@ -43,7 +43,7 @@
                                 </el-col>
                                 <el-col :span="8" class="searchInline">
                                     <label class="el-form-item__label searchLabel">审核状态</label>
-                                    <el-select size="small" v-model="searchForm.SHZT" placeholder="全部" class="searchSelect" clearable>
+                                    <el-select size="small" v-model="searchForm.SHZT" placeholder="全部" class="searchSelect">
                                         <el-option v-for="item in SHZT_data" :key="item.codeValue" :label="item.codeName" :value="item.codeValue"></el-option>
                                     </el-select>
                                 </el-col>
