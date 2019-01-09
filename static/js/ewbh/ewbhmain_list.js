@@ -38,11 +38,25 @@ var vue = new Vue({
     },
     created: function () {
         loadBreadcrumb("二维标绘", "-1");
-        debugger
         this.shiroData = shiroGlobal;
-        this.searchClick('click');
+        
     },
     methods: {
+        getShiroUser: function () {
+            axios.get('/api/shiro').then(function (res) {
+                if(res.data.organizationVO == null || res.data.organizationVO == ""){
+                    res.data.organizationVO = {
+                        uuid: "",
+                        jgjc: "",
+                        jgid: ""
+                    }
+                }
+                this.shiroData = res.data;
+                this.searchClick('click');
+            }.bind(this), function (error) {
+                console.log(error)
+            });
+        },
         //表格查询事件
         searchClick: function (type) {
             this.loading = true;
@@ -52,19 +66,22 @@ var vue = new Vue({
             } else {
                 this.currentPage = 1;
             }
-debugger
-
             var params = {
                 wjm: this.searchForm.wjm.replace(/%/g,"\\%"),
                 zddwmc: this.searchForm.zddwmc.replace(/%/g,"\\%"),
-                jdh: this.shiroData.organizationVO.jgid.substr(0, 2) + '000000',
                 pageSize: this.pageSize,
                 pageNum: this.currentPage,
+                jdh: this.shiroData.organizationVO.jgid.substr(0, 2) + '000000',
                 orgUuid: this.shiroData.organizationVO.uuid,
                 orgJgid: this.shiroData.organizationVO.jgid
             };
+            if(this.shiroData){
+                params.jdh=this.shiroData.organizationVO.jgid.substr(0, 2) + '000000';
+                params.orgUuid= this.shiroData.organizationVO.uuid;
+                params.orgJgid= this.shiroData.organizationVO.jgid
+            }
+            
             axios.post('/dpapi/ewbh/page', params).then(function (res) {
-                debugger
                 var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
@@ -84,7 +101,6 @@ debugger
         },
         //编辑
         editClick: function (val) {
-            // debugger
             window.open("../../templates/ewbh/ewbh_list.html?type=BJ&ID=" + val.uuid + "&zddwid=" + val.zddwid + "&bhmc=" + val.wjm);
             // window.open("../../templates/all.html?url=/ewbh/ewbh&type=BJ&ID=" + val.uuid + "&zddwid=" + val.zddwid + "&bhmc=" + val.wjm);
         },

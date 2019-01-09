@@ -31,9 +31,24 @@ var vue = new Vue({
         iframe.src = ewbhUrl;
         this.shiroData = shiroGlobal;
         this.type = getQueryString("type");
-        this.init();
+        this.getShiroUser()
     },
     methods: {
+        getShiroUser: function () {
+            axios.get('/api/shiro').then(function (res) {
+                if(res.data.organizationVO == null || res.data.organizationVO == ""){
+                    res.data.organizationVO = {
+                        uuid: "",
+                        jgjc: "",
+                        jgid: ""
+                    }
+                }
+                this.shiroData = res.data;
+                this.init();
+            }.bind(this), function (error) {
+                console.log(error)
+            });
+        },
         init: function () {
             if (this.type == 'XZ') {
                 this.type = 'addInit'

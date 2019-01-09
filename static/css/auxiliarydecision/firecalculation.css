@@ -1,39 +1,14 @@
-.el-select{
-    width: 100%;
-}
-.el-message{
-    z-index: 10001 !important;
-}
-.calculateForm{
-    margin-bottom: 0px !important;
-}
-.is-circle{
-    border-radius: 50%;
-    padding: 12px;
-}
-.el-dialog__footer{
-    text-align: center;
-}
-.el-tabs__header{
-    margin: 0 0 5px;
-}
-.el-dialog__body{
-    padding-bottom: 0px !important;
-    padding-top: 0px !important;
-}
-.el-form-item.dialog-form{
-    margin-bottom: 5px;
-}
-.el-dialog--small{
-    height: 65%;
-    display: table;
-}
-.el-table.dialog-table{
-    overflow-y:auto !important;
-    height: 202px;
-}
-.dialog-table .cell, .dialog-table th>div{
-    padding-left: 4px !important;
-    padding-right: 4px !important;
-}
+.inputstyle{
+    margin-left: -107px !important;
+ }
 
+ .cardstyle{
+
+    display: none; 
+    font-weight:bold;
+    float:right;
+    margin-top:-250px;
+    margin-right: -342px;
+    height: 280px;
+
+ }
