@@ -226,7 +226,7 @@ new Vue({
 
         //模板压缩包导出
         downloadModule: function () {
-            location.href = baseUrl + "/planShare/exportData/" + this.pkid;
+            location.href = baseUrl + "/dpapi/planShare/exportData/" + this.pkid;
         },
         //根据重点单位id获取建筑分区信息
         getJzfqDetailByVo: function () {
@@ -298,7 +298,7 @@ new Vue({
         },
         //信息分享
         openShare: function (val) {
-            window.open(baseUrl + "/planShare/page/" + this.pkid + "/" + val + "/web");
+            window.open(baseUrl + "/dpapi/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         downShare: function () {
 
