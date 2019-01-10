@@ -185,7 +185,7 @@ var vue = new Vue({
             this.searchForm.jzfl="";
             this.searchForm.fhdj="";
             this.searchForm.mhdzid=[];
-            this.searchForm.mhdzid.push(this.mhdzidData[0].dzid);
+            // this.searchForm.mhdzid.push(this.mhdzidData[0].dzid);
             this.searchForm.xfdwlxmc="";
             this.searchClick('reset');
         },
