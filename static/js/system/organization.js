@@ -41,7 +41,7 @@ new Vue({
             //当前页
             currentPage: 1,
             //分页大小
-            pageSize: 10,
+            pageSize: 5,
             //总记录数
             total: 0,
             //表高度变量
@@ -134,14 +134,10 @@ new Vue({
         //分页大小修改事件
         pageSizeChange: function (val) {
             this.pageSize = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
         },
         //当前页修改事件
         currentPageChange: function (val) {
             this.currentPage = val;
-            var _self = this;
-            _self.loadingData(); //重新加载数据
         },
         //表格查询事件
         searchClick: function () {
