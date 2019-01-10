@@ -890,7 +890,7 @@ new Vue({
                     });
                 }
             }
-            loadDiv("digitalplan/digitalplan_list");
+            // loadDiv("digitalplan/digitalplan_list");
         },
         //图片上传成功回调方法
         picSuccess: function (response, file, fileList) {
@@ -903,7 +903,7 @@ new Vue({
                     }
                 });
             }
-            loadDiv("digitalplan/digitalplan_list");
+            // loadDiv("digitalplan/digitalplan_list");
         },
         //附件移除
         fileRemove: function (file, fileList) {
