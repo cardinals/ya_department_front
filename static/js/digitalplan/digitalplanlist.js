@@ -56,6 +56,7 @@ var vue = new Vue({
     created: function () {
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("重点单位预案", "-1");
+        this.loading = true;//表格重新加载
         // this.shiroData = shiroGlobal;
         this.roleData();
         this.YALX_tree();//预案类型级联选择
