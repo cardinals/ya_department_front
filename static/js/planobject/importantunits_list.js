@@ -266,7 +266,7 @@ var vue = new Vue({
             }
             axios.post('/dpapi/xfdz/findSjdzByUserAll', param).then(function (res) {
                 this.mhdzidData = res.data.result;
-                this.searchForm.mhdzid.push(this.mhdzidData[0].dzid);
+                // this.searchForm.mhdzid.push(this.mhdzidData[0].dzid);
             }.bind(this), function (error) {
                 console.log(error);
             })
