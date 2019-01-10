@@ -284,7 +284,7 @@ new Vue({
                 //     window.open(baseUrl + "/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
                 // }
                 var title = 'fm-dwjbqk-dwjzxx-zdbw';
-                window.open(baseUrl + "/planShare/downWord/" + this.pkid + "/" + title);
+                window.open(baseUrl + "/dpapi/planShare/downWord/" + this.pkid + "/" + title);
                 //edit end
 
             }
@@ -318,7 +318,7 @@ new Vue({
             if (this.tpChecked) {
                 title += 'tp'
             }
-            window.open(baseUrl + "/planShare/downWord/" + this.pkid + "/" + title);
+            window.open(baseUrl + "/dpapi/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
