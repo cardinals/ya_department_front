@@ -10,6 +10,7 @@ var vue = new Vue({
             //搜索表单
             searchForm: {
                 codetype: "",
+                codetypeName: "",
                 createTime:new Array()
             },
             tableData: [],
@@ -25,52 +26,40 @@ var vue = new Vue({
             pageSize: 10,
             //总记录数
             total: 10,
-            //新建页面是否显示
-            addFormVisible: false,
-            addFormRules: {
-                codetype: [{ required: true, message: "请输入代码集类型", trigger: "blur" }],
-                codetypeName: [{ required: true, message: "请输入代码集类型名称", trigger: "blur" }]
-            },
-            //新建数据
-            addForm: {
-                permissionname: "",
-                permissioninfo: ""
-            },
-            //选中的序号
-            selectIndex: -1,
             //修改界面表单值是否发生改变
             editFormFlag: false,
             //修改界面是否显示
             editFormVisible: false,
             editFormRules: {
-                codetype: [{ required: true, message: "请输入代码集类型", trigger: "blur" }],
-                codetypeName: [{ required: true, message: "请输入代码集类型名称", trigger: "blur" }]
+                codetype: [
+                    { required: true, message: "请输入代码集类型", trigger: "blur" },
+                    { pattern: /^[a-zA-Z0-9_-]{2,30}$/, message: '长度为2-30个字母、数字、_-符号',trigger: 'blur'},
+                ],
+                codetypeName: [{ required: true, message: "请输入代码集类型名称", trigger: "blur" }],
+                language: [{ pattern: /^[a-zA-Z0-9_-]{1,8}$/, message: '长度为2-8个字母、数字、_-符号',trigger: 'blur'},]
             },
             //修改界面数据
             editForm: {
                 codetype: "",
                 codetypeName: "",
                 remark: "",
-                language: ""
-            }
+                language: "zh_CN"
+            },
+            //代码集名称-旧
+            codetypeOld: "",
+            //Dialog Title
+            dialogTitle: "代码集编辑",
+            //选中的序号
+            editIndex: -1,
+            //当前登陆用户
+            shiroData: "",
         }
     },
-    //表单值变化验证
-    watch: {
-        editForm: function (val) {
-            this.editFormFlag = true;
-        },
-        deep: true
-    },
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-		/**
-        var index = getQueryString("index");
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-        */
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("代码集管理", "-1");
+        //当前登陆用户
+        this.shiroData = shiroGlobal;
         this.searchClick('click');
     },
     methods: {
@@ -81,7 +70,7 @@ var vue = new Vue({
         dateChange(val) {
             this.searchForm.createTime.splice(0,this.searchForm.createTime.length);
             this.searchForm.createTime.push(val.substring(0,val.indexOf("至")));
-            this.searchForm.createTime.push(val.substring(val.indexOf("至")+1));
+            this.searchForm.createTime.push(val.substring(val.indexOf("至") + 1));
         },
 
         codetypeCilck: function (val) {
@@ -89,7 +78,6 @@ var vue = new Vue({
                 codeid: val.codeid
             }
             loadDivParam("system/codelist_detail", params);
-            //window.location.assign("/templates/system/codelist_detail.html?codeid=" + val.codeid+"&index="+this.activeIndex);
         },
 
         //查询，初始化
@@ -100,21 +88,19 @@ var vue = new Vue({
             }else{
                 this.currentPage = 1;
             }
-            var _self = this;
-            _self.loading = true;//表格重新加载
             var params = {
-                codetype: this.searchForm.codetype,
+                codetype: this.searchForm.codetype.replace(/%/g,"\\%"),
+                codetypeName: this.searchForm.codetypeName.replace(/%/g,"\\%"),
                 createTimeBegin: this.searchForm.createTime[0],
                 createTimeEnd: this.searchForm.createTime[1],
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             };
-
             axios.post('/api/codelist/findByVO', params).then(function (res) {
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
-                _self.loading = false;
+                this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -125,171 +111,145 @@ var vue = new Vue({
             this.multipleSelection = val;
         },
 
-        //表格重新加载数据
-        loadingData: function () {
-            var _self = this;
-            _self.loading = true;
-            setTimeout(function () {
-                _self.loading = false;
-            }, 300);
-        },
-
         //新建：弹出Dialog
         addClick: function () {
-            var _self = this;
-            _self.addFormVisible = true;
+            this.dialogTitle = "代码集新增";
+            //清空edit表单
+            if (this.$refs["editForm"] !== undefined) {
+                this.$refs["editForm"].resetFields();
+            }
+            this.editFormVisible = true;
         },
 
-        //新建：保存
-        addSubmit: function (val) {
-            var _self = this;
-            axios.get('/api/codelist/getNum/' + this.addForm.codetype).then(function (res) {
-                if (res.data.result != 0) {
-                    _self.$message({
-                        message: "代码集类型已存在!",
-                        type: "error"
-                    });
-                } else {
+        //修改：弹出Dialog
+        editClick: function(val, index) {
+            this.editIndex = index;
+            this.dialogTitle = "代码集编辑";
+            axios.get('/api/codelist/' + val.codeid).then(function (res) {
+                this.editForm = res.data.result;
+                //保存当前用户名codetype
+                this.codetypeOld = this.editForm.codetype;
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+            this.editFormVisible = true;
+        },
+
+        //修改：保存
+        editSubmit: function (val) {
+            this.$refs["editForm"].validate((valid) => {
+                if (valid) {
                     var params = {
-                        codetype: val.codetype.trim(),
-                        codetypeName: val.codetypeName.trim()
+                        codetype: val.codetype,
+                        codetypeName: val.codetypeName,
+                        remark: val.remark
                     }
-                    axios.post('/api/codelist/insertByVO', params).then(function (res) {
-                        var addData = res.data.result;
-                        addData.createTime = new Date();
-                        _self.tableData.unshift(addData);
-                        _self.total = _self.tableData.length;
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-                    this.addFormVisible = false;
-                    _self.loadingData();//重新加载数据
+                    if(this.dialogTitle == "代码集新增"){
+                        axios.get('/api/codelist/getNum/' + this.editForm.codetype).then(function(res){
+                            if(res.data.result != 0){
+                                this.$message({
+                                    message: "代码集类型已存在",
+                                    type: "error"
+                                });
+                            }else{
+                                axios.post('/api/codelist/insertByVO', params).then(function (res) {
+                                    res.data.result.createTime = new Date();
+                                    this.tableData.unshift(res.data.result);
+                                    this.total = this.tableData.length;
+                                }.bind(this), function (error) {
+                                    console.log(error)
+                                })
+                                this.editFormVisible = false;
+                            }
+                        }.bind(this),function(error){
+                            console.log(error)
+                        })
+                    }else if(this.dialogTitle == "代码集编辑"){
+                        params.codeid = val.codeid;
+                        params.alterId = this.shiroData.userid;
+                        params.alterName = this.shiroData.realName;
+                        if(this.editForm.codetype == this.codetypeOld){
+                            this.editSubmitUpdateDB(params);
+                        }else{
+                            axios.get('/api/codelist/getNum/' + this.editForm.codetype).then(function(res){
+                                if(res.data.result != 0){
+                                    this.$message({
+                                        message: "代码集类型已存在",
+                                        type: "error"
+                                    });
+                                }else{
+                                   this.editSubmitUpdateDB(params);
+                                }
+                            }.bind(this),function(error){
+                                console.log(error)
+                            })
+                        }
+                    }
+                } else {
+                    console.log('error save!!');
+                    return false;
                 }
+            });
+        },
+
+        //修改方法-update数据库  by li.xue 2018/11/23 9:39
+        editSubmitUpdateDB: function(params){
+            axios.post('/api/codelist/updateByVO', params).then(function (res) {
+                var result = res.data.result;
+                this.tableData[this.editIndex].codetype = result.codetype;
+                this.tableData[this.editIndex].codetypeName = result.codetypeName;
+                this.tableData[this.editIndex].remark = result.remark;
+                this.tableData[this.editIndex].language = result.language;
+                this.tableData[this.editIndex].alterName = result.alterName;
+                this.tableData[this.editIndex].alterTime = new Date();
+                this.editFormVisible = false;
             }.bind(this), function (error) {
                 console.log(error)
             })
         },
 
-        //修改：弹出Dialog
-        editClick: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
+        //删除:批量删除
+        removeSelection: function(){
+            if (this.multipleSelection.length < 1) {
+                this.$message({
                     message: "请至少选中一条记录",
-                    type: "error"
+                    type: "warning"
                 });
                 return;
             }
-            else if (multipleSelection.length > 1) {
-                _self.$message({
-                    message: "只能选一条记录进行编辑",
-                    type: "error"
-                });
-                return;
-            }
-
-            var codeid = multipleSelection[0].codeid;
-
-            //获取选择的行号
-            for (var k = 0; k < _self.tableData.length; k++) {
-                if (_self.tableData[k].codeid == codeid) {
-                    _self.selectIndex = k;
-                }
-            }
-
-            //直接从table中取值放在form表单中
-            this.editForm = Object.assign({}, _self.tableData[_self.selectIndex]);
-            this.editFormVisible = true;
-            this.editFormFlag = false;
-        },
-
-        //修改：保存
-        editSubmit: function (val) {
-            if (this.editFormFlag) {
-                var params = {
-                    codeid: val.codeid,
-                    codetype: val.codetype.trim(),
-                    codetypeName: val.codetypeName.trim(),
-                    remark: val.remark,
-                    language: val.language
-                };
-                axios.post('/api/codelist/updateByVO', params).then(function (res) {
-                    console.log(this.tableData);
-                    console.log(val);
-                    this.tableData[this.selectIndex].codetype = val.codetype;
-                    this.tableData[this.selectIndex].codetypeName = val.codetypeName;
-                    this.tableData[this.selectIndex].remark = val.remark;
-                    this.tableData[this.selectIndex].language = val.language;
-                    this.tableData[this.selectIndex].alterName = res.data.result.alterName;
-                    this.tableData[this.selectIndex].alterTime = new Date();
+            this.$confirm('确认删除选中信息?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.post('/api/codelist/deleteByList', this.multipleSelection).then(function (res) {
+                    this.$message({
+                        message: "成功删除" + res.data.result + "条代码集信息",
+                        showClose: true,
+                        onClose: this.searchClick('delete')
+                    });
                 }.bind(this), function (error) {
                     console.log(error)
                 })
-                this.editFormVisible = false;
-                this.editFormFlag = false;
-            }
-            else {
+            }).catch(() => {
                 this.$message({
-                    message: "数据未发生改动",
-                    type: "error"
+                    type: 'info',
+                    message: '已取消删除'
                 });
-                return;
-            }
-        },
-
-        //删除:批量删除
-        removeSelection: function () {
-            var _self = this;
-            var multipleSelection = this.multipleSelection;
-            if (multipleSelection.length < 1) {
-                _self.$message({
-                    message: "请至少选中一条记录",
-                    type: "error"
-                });
-                return;
-            }
-            var ids = [];
-            for (var i = 0; i < multipleSelection.length; i++) {
-                var row = multipleSelection[i];
-                ids.push(row.codeid);
-            }
-            this.$confirm("确认删除吗？", "提示", { type: "warning" })
-                .then(function () {
-                    var params = {
-                        ids: ids
-                    }
-                    axios.post('/api/codelist/deleteByIds', params).then(function (res) {
-                        for (var d = 0; d < ids.length; d++) {
-                            for (var k = 0; k < _self.tableData.length; k++) {
-                                if (_self.tableData[k].codeid == ids[d]) {
-                                    _self.tableData.splice(k, 1);
-                                }
-                            }
-                        }
-                        _self.$message({
-                            message: "删除成功",
-                            type: "success"
-                        });
-                        _self.total = _self.tableData.length;
-                        _self.loadingData(); //重新加载数据
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
-
-                })
-                .catch(function (e) {
-                    if (e != "cancel") console.log("出现错误：" + e);
-                });
+            });
         },
 
         closeDialog: function (val) {
-            this.addFormVisible = false;
             this.editFormVisible = false;
-            val.permissionname = "";
-            val.permissioninfo = "";
-            this.$refs[val].resetFields();
-            this.editFormFlag = false;
-        }
+            this.$refs["editForm"].resetFields();
+        },
+
+        //清空查询条件
+        clearClick: function () {
+            this.searchForm.codetype = "",
+            this.searchForm.codetypeName = "",
+            this.searchForm.createTime = new Array(),
+            this.searchClick('reset');
+        },
     },
 })
