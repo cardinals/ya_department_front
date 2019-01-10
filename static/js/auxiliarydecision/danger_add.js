@@ -11,7 +11,13 @@ new Vue({
             //显示加载中样
             loading: false,
             typeData: [],
-            role_data: [],
+            shiroData: [],
+            //校验
+            addFormRules:{
+                name:[
+                    { required: true, message: '请输入中文名', trigger: 'blur' }
+                ]
+            },
             //搜索表单
             addForm: {
                 name: "",
@@ -46,19 +52,13 @@ new Vue({
                 cjrid: "",
                 cjrmc: "",
                 xgrid: "",
-                xgrmc: ""
+                xgrmc: "",
+                jdh: ""
             },
 
         }
     },
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-        /**
-        var index = getQueryString("index");
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-         */
-        
         /**面包屑 by li.xue 20180628*/
         var type = getQueryString("type");
         if (type == "XZ") {
@@ -66,9 +66,9 @@ new Vue({
         } else if (type == "BJ") {
             loadBreadcrumb("化学危险品", "化学危险品编辑");
         }
-
+        /**当前登陆用户 by li.xue 20180808 */
+        this.shiroData = shiroGlobal;
         this.getTypeData();
-        this.roleData();
     },
     mounted: function () {
         this.status = getQueryString("ID");
@@ -76,14 +76,6 @@ new Vue({
     },
     methods: {
         handleNodeClick(data) {
-        },
-        //当前登录用户信息
-        roleData: function () {
-            axios.post('/api/shiro').then(function (res) {
-                this.role_data = res.data;
-            }.bind(this), function (error) {
-                console.log(error);
-            })
         },
         //表格查询事件
         searchClick: function () {
@@ -109,81 +101,89 @@ new Vue({
         },
         //保存
         save: function (formName) {
-            if (this.addForm.name == "" || this.addForm == null) {
-                this.$message.warning({
-                    message: '请输入中文名',
-                    showClose: true
-                });
-            } else {
-                axios.post('/dpapi/danger/doCheckName', this.addForm).then(function (res) {
-                    if (res.data.result > 0) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+
+                    if (this.addForm.name == "" || this.addForm == null) {
                         this.$message.warning({
-                            message: '中文名已存在，请重新命名',
+                            message: '请输入中文名',
                             showClose: true
                         });
                     } else {
-                        this.$refs[formName].validate((valid) => {
-                            if (valid) {
-                                if (this.status == 0) {//新增
-                                    this.addForm.cjrid = this.role_data.userid;
-                                    this.addForm.cjrmc = this.role_data.realName;
-                                    axios.post('/dpapi/danger/insertByVO', this.addForm).then(function (res) {
-                                        if (res.data.result >= 1) {
-                                            this.$alert('成功保存' + res.data.result + '条化危品信息', '提示', {
-                                                type: 'success',
-                                                confirmButtonText: '确定',
-                                                callback: action => {
-                                                    loadDiv("auxiliarydecision/danger_list");
-                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
+                        axios.post('/dpapi/danger/doCheckName', this.addForm).then(function (res) {
+                            if (res.data.result > 0) {
+                                this.$message.warning({
+                                    message: '中文名已存在，请重新命名',
+                                    showClose: true
+                                });
+                            } else {
+                                this.$refs[formName].validate((valid) => {
+                                    if (valid) {
+                                        if (this.status == 0) {//新增
+                                            this.addForm.cjrid = this.shiroData.userid;
+                                            this.addForm.cjrmc = this.shiroData.realName;
+                                            this.addForm.jdh = this.shiroData.organizationVO.jgid.substr(0, 2) + '000000';
+                                            this.addForm.datasource = this.shiroData.organizationVO.jgid;
+                                            axios.post('/dpapi/danger/insertByVO', this.addForm).then(function (res) {
+                                                if (res.data.result >= 1) {
+                                                    this.$alert('成功保存' + res.data.result + '条化危品信息', '提示', {
+                                                        type: 'success',
+                                                        confirmButtonText: '确定',
+                                                        callback: action => {
+                                                            loadDiv("auxiliarydecision/danger_list");
+                                                            //window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                        }
+                                                    });
+                                                } else {
+                                                    this.$alert('保存失败', '提示', {
+                                                        type: 'error',
+                                                        confirmButtonText: '确定',
+                                                        callback: action => {
+                                                            loadDiv("auxiliarydecision/danger_list");
+                                                            //window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                        }
+                                                    });
                                                 }
-                                            });
-                                        } else {
-                                            this.$alert('保存失败', '提示', {
-                                                type: 'error',
-                                                confirmButtonText: '确定',
-                                                callback: action => {
-                                                    loadDiv("auxiliarydecision/danger_list");
-                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
+                                            }.bind(this), function (error) {
+                                                console.log(error);
+                                            })
+                                        } else {//修改
+                                            this.addForm.xgrid = this.shiroData.userid;
+                                            this.addForm.xgrmc = this.shiroData.realName;
+                                            axios.post('/dpapi/danger/doUpdateDanger', this.addForm).then(function (res) {
+                                                if (res.data.result >= 1) {
+                                                    this.$alert('成功修改' + res.data.result + '条化危品信息', '提示', {
+                                                        type: 'success',
+                                                        confirmButtonText: '确定',
+                                                        callback: action => {
+                                                            loadDiv("auxiliarydecision/danger_list");
+                                                            //window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                        }
+                                                    });
+                                                } else {
+                                                    this.$alert('修改失败', '提示', {
+                                                        type: 'error',
+                                                        confirmButtonText: '确定',
+                                                        callback: action => {
+                                                            loadDiv("auxiliarydecision/danger_list");
+                                                            //window.location.href = "danger_list.html?index=" + this.activeIndex
+                                                        }
+                                                    });
                                                 }
-                                            });
+                                            }.bind(this), function (error) {
+                                                console.log(error);
+                                            })
                                         }
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                } else {//修改
-                                    this.addForm.xgrid = this.role_data.userid;
-                                    this.addForm.xgrmc = this.role_data.realName;
-                                    axios.post('/dpapi/danger/doUpdateDanger', this.addForm).then(function (res) {
-                                        if (res.data.result >= 1) {
-                                            this.$alert('成功修改' + res.data.result + '条化危品信息', '提示', {
-                                                type: 'success',
-                                                confirmButtonText: '确定',
-                                                callback: action => {
-                                                    loadDiv("auxiliarydecision/danger_list");
-                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
-                                                }
-                                            });
-                                        } else {
-                                            this.$alert('修改失败', '提示', {
-                                                type: 'error',
-                                                confirmButtonText: '确定',
-                                                callback: action => {
-                                                    loadDiv("auxiliarydecision/danger_list");
-                                                    //window.location.href = "danger_list.html?index=" + this.activeIndex
-                                                }
-                                            });
-                                        }
-                                    }.bind(this), function (error) {
-                                        console.log(error);
-                                    })
-                                }
+                                    }
+                                });
                             }
-                        });
+                        }.bind(this), function (error) {
+                            console.log(error);
+                        })
                     }
-                }.bind(this), function (error) {
-                    console.log(error);
-                })
-            }
+                }
+            });
+
         },
         cancel: function () {
             loadDiv("auxiliarydecision/danger_list");
