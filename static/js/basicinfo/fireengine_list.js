@@ -94,10 +94,10 @@ var vue = new Vue({
                 uuid: this.searchForm.uuid,
                 ssdz :this.searchForm.ssdz,
                 cllx :this.searchForm.cllx[this.searchForm.cllx.length-1],
-                cphm :this.searchForm.cphm,
+                cphm :this.searchForm.cphm.replace(/%/g,"\\%"),
                 clzt :this.searchForm.clzt,
-                clbm :this.searchForm.clbm,
-                gpsbh :this.searchForm.gpsbh,
+                clbm :this.searchForm.clbm.replace(/%/g,"\\%"),
+                gpsbh :this.searchForm.gpsbh.replace(/%/g,"\\%"),
                 pageSize: this.pageSize,
                 pageNum: this.currentPage
             };

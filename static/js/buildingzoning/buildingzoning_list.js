@@ -65,7 +65,7 @@ var vue = new Vue({
             var _self = this;
             _self.loading = true;//表格重新加载
             var params={
-                jzmc:this.searchForm.jzmc,
+                jzmc:this.searchForm.jzmc.replace(/%/g,"\\%"),
                 jzlx:this.searchForm.option_JZLX,
                 jzwz:this.searchForm.jzwz,
                 pageSize: this.pageSize,

@@ -84,8 +84,8 @@ var vue = new Vue({
             //     kysl_max = "";
             // }
             var params = {
-                zbmc: this.searchForm.zbmc,
-                zbbm: this.searchForm.zbbm,
+                zbmc: this.searchForm.zbmc.replace(/%/g,"\\%"),
+                zbbm: this.searchForm.zbbm.replace(/%/g,"\\%"),
                 ssdz: this.searchForm.ssdz,
                 zblx: zblx,
                 pageSize: this.pageSize,

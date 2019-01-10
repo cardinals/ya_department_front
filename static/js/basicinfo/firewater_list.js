@@ -113,8 +113,8 @@ var vue = new Vue({
              //end add
             var params = {
                 uuid: this.searchForm.uuid,
-                symc: this.searchForm.symc,
-                sydz: this.searchForm.sydz,
+                symc: this.searchForm.symc.replace(/%/g,"\\%"),
+                sydz: this.searchForm.sydz.replace(/%/g,"\\%"),
                 sylx: this.searchForm.sylx,
                 dzbm: this.searchForm.gxdz.substr(0,2),
                 sygs: this.searchForm.sygs,
