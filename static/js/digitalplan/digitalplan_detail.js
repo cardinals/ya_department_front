@@ -4,21 +4,21 @@ new Vue({
         return {
             activeName: "first",
 
-            pkid: "",//页面获取的预案id
+            pkid: "", //页面获取的预案id
             shareVisible: false,
             showPicVisible: false,
             initialIndex: 0,
             picTitle: '',
-            basicDetailData: {},//基础信息Data
-            disasterSetData: {},//灾情设定Data
-            unitDetailData: {},//重点单位Data
-            jzl_zdbwData: [],//建筑类重点部位数据
-            zzl_zdbwData: [],//装置类重点部位数据
-            cgl_zdbwData: [],//储罐类重点部位数据
-            jzfqData: [],//建筑分区原始数据
-            jzl_jzfqData: [],//建筑群-建筑类数据
-            zzl_jzfqData: [],//建筑群-装置类数据
-            cgl_jzfqData: [],//建筑类建筑分区数据
+            basicDetailData: {}, //基础信息Data
+            disasterSetData: {}, //灾情设定Data
+            unitDetailData: {}, //重点单位Data
+            jzl_zdbwData: [], //建筑类重点部位数据
+            zzl_zdbwData: [], //装置类重点部位数据
+            cgl_zdbwData: [], //储罐类重点部位数据
+            jzfqData: [], //建筑分区原始数据
+            jzl_jzfqData: [], //建筑群-建筑类数据
+            zzl_jzfqData: [], //建筑群-装置类数据
+            cgl_jzfqData: [], //建筑类建筑分区数据
             loading: false,
             picList: [],
             fjDetailData: '',
@@ -33,7 +33,8 @@ new Vue({
             zqsdChecked: true,
             tpChecked: true
 
-            , SelectDownVisible: false
+                ,
+            SelectDownVisible: false
         }
     },
     created: function () {
@@ -83,6 +84,7 @@ new Vue({
                 }
                 doFindPhoto("YAJB", this.basicDetailData.yajb);
                 this.unitDetail(this.basicDetailData.dxid);
+                this.hisDetail(this.pkid);
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -150,7 +152,6 @@ new Vue({
                         });
                     }
                 }
-                this.hisDetail(this.pkid);
             }.bind(this), function (error) {
                 console.log(error)
             })
@@ -232,8 +233,8 @@ new Vue({
             axios.get('/dpapi/importantunits/doFindJzxxDetailByZddwId/' + this.basicDetailData.dxid).then(function (res) {
                 this.jzfqData = res.data.result;
                 if (this.jzfqData.length > 0) {
-                    for (var i = 0; i < this.jzfqData.length; i++) {  //循环LIST
-                        var jzlx = this.jzfqData[i].jzlx;//获取LIST里面的对象
+                    for (var i = 0; i < this.jzfqData.length; i++) { //循环LIST
+                        var jzlx = this.jzfqData[i].jzlx; //获取LIST里面的对象
                         switch (jzlx) {
                             case "30":
                                 this.zzl_jzfqData.push(this.jzfqData[i]);
@@ -305,16 +306,16 @@ new Vue({
             //单位基本情况
             if (this.dwjbqkChecked) {
                 title += 'dwjbqk' + '-'
-            }//单位建筑信息和消防设施
+            } //单位建筑信息和消防设施
             if (this.dwjzxxChecked) {
                 title += 'dwjzxx' + '-'
-            }//重点部位
+            } //重点部位
             if (this.zdbwChecked) {
                 title += 'zdbw' + '-'
-            }//灾情设定
+            } //灾情设定
             if (this.zqsdChecked) {
                 title += 'zqsd' + '-'
-            }//附件
+            } //附件
             if (this.tpChecked) {
                 title += 'tp'
             }
@@ -380,26 +381,27 @@ new Vue({
             };
             axios.post('/dpapi/yaxxzl/list/', params).then(function (res) {
                 this.hisDetailData = res.data.result;
-                if (this.hisDetailData != '') {
+                if (this.basicDetailData.jdh !== null && this.basicDetailData.jdh !== '') {
+                    // console.log(this.basicDetailData.jdh)
                     if (this.basicDetailData.jdh.substr(0, 2) == '21') {
                         var head = 'http://10.119.119.232:11010';
                         //江苏
                     } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
                         var head = 'http://10.119.119.205:11010';
                     }
-                    var body = '/attachment/filemanage/configFile!showFile.action';
-                    if (this.hisDetailData.length > 0) {
-                        for (var i in this.hisDetailData) {
-                            if (this.hisDetailData[i].fjlxdm == '02') {
-                                this.picList.push({
-                                    uuid: this.hisDetailData[i].id,
-                                    name: this.hisDetailData[i].zlmc,
-                                    url: head + body + this.hisDetailData[i].xgxx,
-                                    type: 'history'
-                                });
-                            } else if (this.hisDetailData[i].fjlxdm == '01') {
-                                this.hisPlanData.push(this.hisDetailData[i]);
-                            }
+                }
+                var body = '/attachment/filemanage/configFile!showFile.action';
+                if (this.hisDetailData.length > 0) {
+                    for (var i in this.hisDetailData) {
+                        if (this.hisDetailData[i].fjlxdm == '02') {
+                            this.picList.push({
+                                uuid: this.hisDetailData[i].id,
+                                name: this.hisDetailData[i].zlmc,
+                                url: head + body + this.hisDetailData[i].xgxx,
+                                type: 'history'
+                            });
+                        } else if (this.hisDetailData[i].fjlxdm == '01') {
+                            this.hisPlanData.push(this.hisDetailData[i]);
                         }
                     }
                 }

@@ -11,19 +11,16 @@ var vue = new Vue({
             searchForm: {
                 hdzt: "",
                 zcbdw: "",
-                xfgx: "",
-                cxsj:"",
-                // bhxj: "",
-                // lrsj:new Array()
-                
+                xfgx: [],
+                cxsj: "",
                 //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
-                uuid:""
+                uuid: ""
             },
             tableData: [],
-            xfgxData:[],
-            allSsdzData:[],
+            xfgxData: [],
+            allSsdzData: [],
             XFGX_data: [],
-           
+
             props: {
                 value: 'codeValue',
                 label: 'codeName',
@@ -49,9 +46,7 @@ var vue = new Vue({
             //总记录数
             total: 0,
             //行数据保存
-            rowdata: {
-
-            },
+            rowdata: {},
             //序号
             indexData: 0,
             //删除的弹出框
@@ -67,7 +62,7 @@ var vue = new Vue({
                 HDZT: "",
                 ZCBDW: "",
                 XFGX: "",
-                CXSJ:"",
+                CXSJ: "",
                 XFGXJGID: ""
             },
             //选中的值显示
@@ -85,7 +80,7 @@ var vue = new Vue({
                 HDZT: "",
                 ZCBDW: "",
                 XFGX: "",
-                CXSJ:"",
+                CXSJ: "",
                 XFGXJGID: ""
             },
             //树结构配置
@@ -94,20 +89,20 @@ var vue = new Vue({
                 label: 'codeName',
                 value: 'codeValue'
             },
-
+            //管辖队站Props
+            ssdzProps: {
+                children: 'children',
+                label: 'dzjc',
+                value: 'dzid'
+            },
+            //当前用户
+            shiroData: [],
         }
     },
     created: function () {
-        /**菜单选中 by li.xue 20180628*/
-        /**
-        var index = getQueryString("index");
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-         */
-        
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("消防保卫警卫对象", "-1");
-
+        this.shiroData = shiroGlobal;
         this.getAllSszdData();
         this.searchXFGX_data();
         //this.searchXZQY_data();
@@ -121,27 +116,33 @@ var vue = new Vue({
         handleChange(value) {
             console.log(value);
         },
-         //所属队站下拉框数据
-         getAllSszdData: function () {
-            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+        //所属队站下拉框数据
+        getAllSszdData: function () {
+            var organization = this.shiroData.organizationVO;
+            var param = {
+                dzid: organization.uuid,
+                dzjc: organization.jgjc,
+                dzbm: organization.jgid
+            }
+            axios.post('/dpapi/xfdz/findSjdzByUserAll', param).then(function (res) {
                 this.allSsdzData = res.data.result;
-
+                // this.searchForm.xfgx.push(this.allSsdzData[0].dzid);
             }.bind(this), function (error) {
                 console.log(error);
             })
         },
         //表格查询事件
-        searchClick: function(type) {
+        searchClick: function (type) {
             //按钮事件的选择
-            if(type == 'page'){
+            if (type == 'page') {
                 this.tableData = [];
-            }else{
+            } else {
                 this.currentPage = 1;
             }
             var _self = this;
             if (this.searchForm.begintime != "" && this.searchForm.endtime != "" && this.searchForm.begintime > this.searchForm.endtime) {
                 _self.$message({
-                    message: "时间选择错误！",
+                    message: "时间选择错误",
                     type: "error"
                 });
                 return;
@@ -149,19 +150,32 @@ var vue = new Vue({
             this.loading = true;
             //高级搜索-预案对象-保卫警卫 点击后跳转到查询页面，通过UUID直接查询其对象
             this.searchForm.uuid = getQueryString("id");
+
+            //消防管辖
+            var xfgx = "";
+            if (this.searchForm.xfgx.length > 1) {
+                xfgx = this.searchForm.xfgx[this.searchForm.xfgx.length - 1];
+            } else {
+                if (this.shiroData.organizationVO.jgid.substr(2, 6) != '000000') {
+                    xfgx = this.shiroData.organizationVO.uuid;
+                }
+            }
             var params = {
                 //add by yushch
-                uuid : this.searchForm.uuid,
+                uuid: this.searchForm.uuid,
                 //end add
-                hdzt: this.searchForm.hdzt,
+                hdzt: this.searchForm.hdzt.replace(/%/g,"\\%"),
                 cxsj: this.searchForm.cxsj,
-                zcbdw: this.searchForm.zcbdw,
-                xfgx: this.searchForm.xfgx,
+                zcbdw: this.searchForm.zcbdw.replace(/%/g,"\\%"),
+                xfgx: xfgx,
+                jdh: this.shiroData.organizationVO.jgid.substr(0, 2) + '000000',
                 pageSize: this.pageSize,
-                pageNum: this.currentPage
+                pageNum: this.currentPage,
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             };
             axios.post('/dpapi/bwjwplan/findBwjwList', params).then(function (res) {
-                var tableTemp = new Array((this.currentPage-1)*this.pageSize);
+                var tableTemp = new Array((this.currentPage - 1) * this.pageSize);
                 this.tableData = tableTemp.concat(res.data.result.list);
                 this.total = res.data.result.total;
                 this.loading = false;
@@ -171,10 +185,11 @@ var vue = new Vue({
         },
 
         clearClick: function () {
-            this.searchForm.hdzt="";
-            this.searchForm.zcbdw="";
-            this.searchForm.cxsj="";
-            this.searchForm.xfgx="";
+            this.searchForm.hdzt = "";
+            this.searchForm.zcbdw = "";
+            this.searchForm.cxsj = "";
+            this.searchForm.xfgx = [];
+            // this.searchForm.xfgx.push(this.allSsdzData[0].dzid);
             this.searchClick('reset');
         },
         searchXFGX_data: function () {
@@ -184,13 +199,6 @@ var vue = new Vue({
                 console.log(error);
             })
         },
-        // searchxfgxdata: function () {
-        //     axios.get('/api/codelist/getCodetype/CA01').then(function (res) {
-        //         this.xfgxdata = res.data.result;
-        //     }.bind(this), function (error) {
-        //         console.log(error);
-        //     })
-        // },
         searchXZQY_data: function () {
             axios.get('/api/codelist/getCodetype/CA01').then(function (res) {
                 this.XZQY_data = res.data.result;
@@ -198,14 +206,13 @@ var vue = new Vue({
                 console.log(error);
             })
         },
-        
+
         lrsjChange(val) {
-            this.searchForm.lrsj.splice(0,this.searchForm.lrsj.length);
-            this.searchForm.lrsj.push(val.substring(0,val.indexOf("至")));
-            this.searchForm.lrsj.push(val.substring(val.indexOf("至")+1));
-            console.log(this.searchForm.lrsj);
+            this.searchForm.lrsj.splice(0, this.searchForm.lrsj.length);
+            this.searchForm.lrsj.push(val.substring(0, val.indexOf("至")));
+            this.searchForm.lrsj.push(val.substring(val.indexOf("至") + 1));
         },
-        
+
         //表格勾选事件
         selectionChange: function (val) {
             for (var i = 0; i < val.length; i++) {

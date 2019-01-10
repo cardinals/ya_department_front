@@ -13,7 +13,7 @@ var vue = new Vue({
                 dwxz: "",
                 jzfl: "",
                 fhdj: "",
-                mhdzbm: "",
+                mhdzid: [],
                 xfdwlxmc: ""
             },
             tableData: [],
@@ -101,20 +101,21 @@ var vue = new Vue({
                 label: 'codeName',
                 value: 'codeValue'
             },
-
+            //管辖队站Props
+            ssdzProps: {
+                children: 'children',
+                label: 'dzjc',
+                value: 'dzid'
+            },
+            //当前登陆用户
+            shiroData: [],
         }
     },
-    created: function () {
-        /**菜单选中 by li.xue 20180628*/
-        /**
-        var index = getQueryString("index");
-        $("#activeIndex").val(index);
-        this.activeIndex = index;
-         */
-        
+    created: function () {      
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("重点单位", "-1");
-
+        /**当前登陆用户 by li.xue 20180808 */
+        this.shiroData = shiroGlobal;
         this.searchClick('click');
         this.getdwxzData();
         this.getfhdjData();
@@ -142,16 +143,28 @@ var vue = new Vue({
             this.searchForm.uuid = getQueryString("uuid");
             var isZddwdj = getQueryString("zddwdj");
 
+            //灭火队站ID
+            var mhdzid = "";
+            if(this.searchForm.mhdzid.length>1){
+                mhdzid = this.searchForm.mhdzid[this.searchForm.mhdzid.length-1];
+            }else{
+                if(this.shiroData.organizationVO.jgid.substr(2,6)!='000000'){
+                    mhdzid = this.shiroData.organizationVO.uuid;
+                }
+            }
             var params = {
                 uuid:this.searchForm.uuid,
-                dwmc: this.searchForm.dwmc,
+                dwmc: this.searchForm.dwmc.replace(/%/g,"\\%"),
                 dwxz: this.searchForm.dwxz,
                 jzfl: this.searchForm.jzfl,
                 fhdj: this.searchForm.fhdj,
-                mhdzbm: this.searchForm.mhdzbm,
+                mhdzid: mhdzid,
                 xfdwlxmc: this.searchForm.xfdwlxmc,
+                jdh: this.shiroData.organizationVO.jgid.substr(0,2)+'000000',
                 pageSize: this.pageSize,
-                pageNum: this.currentPage
+                pageNum: this.currentPage,
+                orgUuid: this.shiroData.organizationVO.uuid,
+                orgJgid: this.shiroData.organizationVO.jgid
             };
             axios.post('/dpapi/importantunits/page', params).then(function(res){
                 var tableTemp = new Array((this.currentPage-1)*this.pageSize);
@@ -171,15 +184,61 @@ var vue = new Vue({
             this.searchForm.dwxz="";
             this.searchForm.jzfl="";
             this.searchForm.fhdj="";
-            this.searchForm.mhdzbm="";
+            this.searchForm.mhdzid=[];
+            // this.searchForm.mhdzid.push(this.mhdzidData[0].dzid);
             this.searchForm.xfdwlxmc="";
             this.searchClick('reset');
+        },
+        //新增
+        addClick: function(){
+            var params = {
+                ID: 0,
+                type: "XZ"
+            }
+            loadDivParam("planobject/importantunits_edit", params);
+        },
+        //编辑
+        editClick: function(val){
+            var params = {
+                ID: val.uuid,
+                type: "BJ"
+            }
+            loadDivParam("planobject/importantunits_edit", params);
+        },
+        //删除
+        deleteClick: function(){
+            this.$confirm('确认删除选中信息?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                for(var i=0;i<this.multipleSelection.length;i++){
+                    this.multipleSelection[i].xgrid = this.shiroData.userid;
+                    this.multipleSelection[i].xgrmc = this.shiroData.realName;
+                }
+                axios.post('/dpapi/importantunits/doDeleteBatch', this.multipleSelection).then(function (res) {
+                    this.$message({
+                        message: "成功删除" + this.multipleSelection.length + "条重点单位信息",
+                        showClose: true,
+                        onClose: this.searchClick('delete')
+                    });
+                }.bind(this), function (error) {
+                    console.log(error)
+                })
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
+        },
+        //删除复选框
+        selectionChange: function(val) {
+            this.multipleSelection = val;
         },
         getdwxzData: function () {
             axios.get('/api/codelist/getCodeTypeOrderByNum/DWXZ').then(function (res) {
                 this.dwxzData = res.data.result;
-                // this.dwxzData.sort(this.compare('value'));
-                // console.log(this.dwxzData);
             }.bind(this), function (error) {
                 console.log(error);
             })
@@ -199,8 +258,15 @@ var vue = new Vue({
             })
         },
         getmhdziddata:function () {
-            axios.get('/dpapi/util/doSearchContingents').then(function (res) {
+            var organization = this.shiroData.organizationVO;
+            var param = {
+                dzid: organization.uuid,
+                dzjc: organization.jgjc,
+                dzbm: organization.jgid
+            }
+            axios.post('/dpapi/xfdz/findSjdzByUserAll', param).then(function (res) {
                 this.mhdzidData = res.data.result;
+                // this.searchForm.mhdzid.push(this.mhdzidData[0].dzid);
             }.bind(this), function (error) {
                 console.log(error);
             })
