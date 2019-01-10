@@ -226,7 +226,7 @@ new Vue({
 
         //模板压缩包导出
         downloadModule: function () {
-            location.href = baseUrl + "/planShare/exportData/" + this.pkid;
+            location.href = baseUrl + "/dpapi/planShare/exportData/" + this.pkid;
         },
         //根据重点单位id获取建筑分区信息
         getJzfqDetailByVo: function () {
@@ -285,7 +285,7 @@ new Vue({
                 //     window.open(baseUrl + "/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
                 // }
                 var title = 'fm-dwjbqk-dwjzxx-zdbw';
-                window.open(baseUrl + "/planShare/downWord/" + this.pkid + "/" + title);
+                window.open(baseUrl + "/dpapi/planShare/downWord/" + this.pkid + "/" + title);
                 //edit end
 
             }
@@ -298,7 +298,7 @@ new Vue({
         },
         //信息分享
         openShare: function (val) {
-            window.open(baseUrl + "/planShare/page/" + this.pkid + "/" + val + "/web");
+            window.open(baseUrl + "/dpapi/planShare/page/" + this.pkid + "/" + val + "/web");
         },
         downShare: function () {
 
@@ -319,7 +319,7 @@ new Vue({
             if (this.tpChecked) {
                 title += 'tp'
             }
-            window.open(baseUrl + "/planShare/downWord/" + this.pkid + "/" + title);
+            window.open(baseUrl + "/dpapi/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
         openPlan: function () {
