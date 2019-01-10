@@ -15,7 +15,7 @@
 
 #scroll li a {
     float:left;
-    width:200px;
+    width:180px;
     height:40px;
     text-align:left;
     color:#29bb9d;
@@ -25,5 +25,5 @@
     color:#556ca6;
 }
 #scroll li div {
-    float:left;
+    float:right;
 }
