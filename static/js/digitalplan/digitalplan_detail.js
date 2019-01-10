@@ -393,6 +393,12 @@ new Vue({
                 var body = '/attachment/filemanage/configFile!showFile.action';
                 if (this.hisDetailData.length > 0) {
                     for (var i in this.hisDetailData) {
+                        //fjlxdm:
+                        //01    文档
+                        //02    图片
+                        //03    视频
+                        //04    音频
+                        //05    其他
                         if (this.hisDetailData[i].fjlxdm == '02') {
                             this.picList.push({
                                 uuid: this.hisDetailData[i].id,
@@ -400,7 +406,10 @@ new Vue({
                                 url: head + body + this.hisDetailData[i].xgxx,
                                 type: 'history'
                             });
-                        } else if (this.hisDetailData[i].fjlxdm == '01') {
+                        // } else if (this.hisDetailData[i].fjlxdm == '01') {
+                        //     this.hisPlanData.push(this.hisDetailData[i]);
+                        // }
+                        } else {
                             this.hisPlanData.push(this.hisDetailData[i]);
                         }
                     }
