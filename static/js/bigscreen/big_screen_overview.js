@@ -155,8 +155,8 @@ var vm = new Vue({
             { uuid: '9', zddwmc: '河北省国土资源厅' },
             { uuid: '10', zddwmc: '秦皇岛市林业局' }
         ],
-        isDSH: true,
-        isDGX: false
+        isDSH: false,
+        isDGX: true
     },
     mounted: function () {
         this.total();
