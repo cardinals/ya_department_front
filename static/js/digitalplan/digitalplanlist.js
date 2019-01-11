@@ -57,28 +57,17 @@ var vue = new Vue({
         /**面包屑 by li.xue 20180628*/
         loadBreadcrumb("重点单位预案", "-1");
         this.loading = true;//表格重新加载
-        // this.shiroData = shiroGlobal;
-        this.roleData();
+        this.shiroData = shiroGlobal;
         this.YALX_tree();//预案类型级联选择
-        // this.ZZJG_tree();//制作机构级联选择
+        this.ZZJG_tree();//制作机构级联选择
         this.YAJB();//预案级别下拉框
         this.YAZT();//预案状态下拉框
     },
     mounted: function () {
-        // this.searchClick('click');//条件查询
+        this.searchClick('click');//条件查询
     },
 
     methods: {
-        //获取当前用户信息
-        roleData: function () {
-            axios.post('/api/shiro').then(function (res) {
-                this.shiroData = res.data;
-                this.ZZJG_tree();
-                
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         //预案类型级联选择
         YALX_tree: function () {
             var params = {
@@ -104,7 +93,6 @@ var vue = new Vue({
                 if(this.ZZJG_dataTree[0].children == null || this.ZZJG_dataTree[0].children.length == 0){
                     this.searchForm.ZZJG.push(this.ZZJG_dataTree[0].dzid);
                 }
-                this.searchClick('click');//条件查询
             }.bind(this), function (error) {
                 console.log(error);
             })

@@ -163,8 +163,7 @@ new Vue({
         } else if (type == "BJ") {
             loadBreadcrumb("重点单位预案", "重点单位预案编辑");
         }
-        // this.shiroData = shiroGlobal;
-        this.roleData();
+        this.shiroData = shiroGlobal;
         this.YALX_tree();
         this.RSWZ_tree();
         this.ZQDJ_tree();
@@ -180,15 +179,6 @@ new Vue({
         this.searchClick();
     },
     methods: {
-        //获取当前用户信息
-        roleData: function () {
-            axios.post('/api/shiro').then(function (res) {
-                this.shiroData = res.data;
-                
-            }.bind(this), function (error) {
-                console.log(error);
-            })
-        },
         //灾情删除
         removeDisaster: function (item) {
             var index = this.addForm.disasterList.indexOf(item)
