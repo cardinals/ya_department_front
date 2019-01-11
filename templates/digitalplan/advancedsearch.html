@@ -18,12 +18,12 @@
                         <el-tab-pane label="预案对象信息" name="second">
                             <el-form :model="YADXSearchForm" class="el-form demo-form-inline">
                                 <el-row class="mb10">
-                                    <el-col :span="20">
+                                    <el-col :span="18">
                                         <el-form-item label="对象名称">
                                             <el-input size="medium " v-model="YADXSearchForm.DXMC" placeholder="对象名称"></el-input>
                                         </el-form-item>
                                     </el-col>
-                                    <el-col :span="3" class="ml20">
+                                    <el-col :span="5" class="ml20">
                                         <el-button type="primary" icon="search" size="small" @click="searchClick">查询</el-button>
                                         <el-button type="clear" icon="delete" size="small" @click="clearClick">重置</el-button>
                                     </el-col>
@@ -110,12 +110,12 @@
                         <el-tab-pane label="预案信息" name="first">
                             <el-form :model="yuAnSearchForm" class="el-form demo-form-inline">
                                 <el-row class="mb10">
-                                    <el-col :span="20">
+                                    <el-col :span="18">
                                         <el-form-item label="预案名称">
                                             <el-input size="medium " v-model="yuAnSearchForm.YAMC" placeholder="预案名称/预案对象名称"></el-input>
                                         </el-form-item>
                                     </el-col>
-                                    <el-col :span="3" class="ml20">
+                                    <el-col :span="5" class="ml20">
                                         <el-button type="primary" icon="search" size="small" @click="searchYAXXClick">查询</el-button>
                                         <el-button type="clear" icon="delete" size="small" @click="clearYAXXClick">重置</el-button>
                                     </el-col>
@@ -195,12 +195,12 @@
                         <el-tab-pane label="单位建筑信息" name="third">
                             <el-form :model="DWJZSearchForm" class="el-form demo-form-inline">
                                 <el-row class="mb10">
-                                    <el-col :span="20">
+                                    <el-col :span="18">
                                         <el-form-item label="名称/位置">
                                             <el-input size="medium" v-model="DWJZSearchForm.JZMC" placeholder="建筑名称/建筑位置"></el-input>
                                         </el-form-item>
                                     </el-col>
-                                    <el-col :span="3" class="ml20">
+                                    <el-col :span="5" class="ml20">
                                         <el-button type="primary" icon="search" size="small" @click="searchDWJZClick">查询</el-button>
                                         <el-button type="clear" icon="delete" size="small" @click="clearDWJZClick">重置</el-button>
                                     </el-col>
