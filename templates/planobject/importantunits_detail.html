@@ -1367,6 +1367,42 @@
                         </div>
                     </el-dialog> -->
                 </div>
+                
+                <!--选择下载模板界面-->
+                <el-dialog title="选择下载模板" :visible.sync="SelectDownVisible" @close="closeSelectDownDialog()" :close-on-click-modal="false">
+                    <div id="tableView" style="text-align: center;">
+                        <el-button type="primary" icon="document" style="width:140px" @click="openDown('detail')">预案详情下载</el-button>
+                        <br>
+                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('summary')">预案简版下载</el-button>
+                        <br>
+                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('history')">历史预案下载</el-button>
+                    </div>
+                </el-dialog>
+                <!--选择导出word界面-->
+                <el-dialog width="10%" title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="fmChecked" disabled label="封面" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="dwjbqkChecked" label="单位基本情况" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="dwjzxxChecked" label="单位建筑信息和消防设施" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="zdbwChecked" label="重点部位" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="zqsdChecked" label="灾情设定与作战部署" border size="medium"></el-checkbox>
+                    </div>
+                    <div style="margin-top: 20px">
+                        <el-checkbox v-model="tpChecked" label="预案附件" border size="medium"></el-checkbox>
+                    </div>
+
+                    <div id="tableView" style="padding: 0 35px;text-align:center">
+                        <el-button type="primary" style="width:140px" @click="downShare()">确定</el- button>
+                    </div>
+                </el-dialog>
             </div>
             <!-- main-container -->
         </div>
