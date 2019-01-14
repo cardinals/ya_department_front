@@ -383,11 +383,17 @@ new Vue({
                 this.hisDetailData = res.data.result;
                 if (this.basicDetailData.jdh !== null && this.basicDetailData.jdh !== '') {
                     // console.log(this.basicDetailData.jdh)
-                    if (this.basicDetailData.jdh.substr(0, 2) == '21') {
-                        var head = 'http://10.119.119.232:11010';
-                        //江苏
-                    } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
-                        var head = 'http://10.119.119.205:11010';
+                    // //辽宁
+                    // if (this.basicDetailData.jdh.substr(0, 2) == '21') {
+                    //     var head = 'http://10.119.119.232:11010';
+                    // //江苏
+                    // } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
+                    //     var head = 'http://10.119.119.205:11010';
+                    // }
+                    for(var i in ipList){
+                        if(this.basicDetailData.jdh.substr(0, 2) == ipList[i].jdh){
+                            var head = ipList[i].ip
+                        }
                     }
                 }
                 var body = '/attachment/filemanage/configFile!showFile.action';
@@ -420,33 +426,41 @@ new Vue({
         },
         //历史预案下载
         hisdownload: function () {
-            if (this.basicDetailData.jdh.substr(0, 2) == '21' || this.basicDetailData.jdh.substr(0, 2) == '32') {
-                if (this.hisPlanData.length > 0) {
-                    //辽宁
-                    if (this.basicDetailData.jdh.substr(0, 2) == '21') {
-                        var head = 'http://10.119.119.232:11010';
-                        //江苏
-                    } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
-                        var head = 'http://10.119.119.205:11010';
-                    }
-                    var body = '/attachment/filemanage/configFile!showFile.action';
-                    for(var i in this.hisPlanData){
-                        var url = head + body + this.hisPlanData[i].xgxx;
-                        window.open(url);
-                    }
-                } else {
-                    this.$message({
-                        message: "该预案无历史附件",
-                        showClose: true
-                    });
+            var isAccess = false;
+            var isHavePlan = false;
+            for(var i in ipList){
+                if (this.basicDetailData.jdh.substr(0, 2) == ipList[i].jdh) {
+                    if (this.hisPlanData.length > 0) {  
+                        // //辽宁
+                        // if (this.basicDetailData.jdh.substr(0, 2) == '21') {
+                        //     var head = 'http://10.119.119.232:11010';
+                        // //江苏
+                        // } else if (this.basicDetailData.jdh.substr(0, 2) == '32') {
+                        //     var head = 'http://10.119.119.205:11010';
+                        // }
+                        var head = ipList[i].ip
+                        var body = '/attachment/filemanage/configFile!showFile.action';
+                        for(var i in this.hisPlanData){
+                            var url = head + body + this.hisPlanData[i].xgxx;
+                            window.open(url);
+                        }
+                        isHavePlan = true;
+                    } 
+                    isAccess = true;
                 }
-            } else {
+            }
+            if(isAccess == true && isHavePlan == false) {
+                this.$message({
+                    message: "该预案无历史附件",
+                    showClose: true
+                });
+            } 
+            if(isAccess == false) {
                 this.$message({
                     message: "该总队历史预案未接入本平台",
                     showClose: true
                 });
             }
-            this.hisPlanData = []
         },
         toUnitDetail: function () {
             var params = {
