@@ -2177,6 +2177,7 @@ var vm = new Vue({
             }
         },
         setPlace: function (data) {
+            
             vm.ShowBtn();
             vm.map.clearOverlays();    //清除地图上所有覆盖物
             var zddws = data;
@@ -2189,9 +2190,12 @@ var vm = new Vue({
             var inCityPoint = [];
             var centerPoint = new BMap.Point(map.getCenter().lng, map.getCenter().lat)
             var centerCity = '';
-            for (var i = 0; i < zddws.length; i++) {
+            
+            for (var i = 0; i < zddws.list.length; i++) {
+             
                 var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
-                var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
+                var point = new BMap.Point(zddws.list[i].gisX, zddws.list[i].gisY);
+                
                 var bound = map.getBounds();//地图可视区域
                 if (bound.containsPoint(point)) {
                     visibleNum++;
@@ -2202,8 +2206,9 @@ var vm = new Vue({
                     inCityPoint.push(point);
                     console.log(map.getDistance(point, centerPoint));
                 }
+             
                 var marker = new BMap.Marker(point, { icon: myIcon1 });
-                marker.uuid = zddws[i].uuid;
+                marker.uuid = zddws.list[i].uuid;
                 marker.addEventListener("click", function (e) {
                     vm.removeAllMarkers(vm.circlez);
                     var circlez = [];//清除圆
@@ -2211,14 +2216,14 @@ var vm = new Vue({
                     var pt = e.target.getPosition();
                     var map = vm.map;
                     map.centerAndZoom(pt, 18);//防止跳回聚合
-                    for (var i = 0; i < zddws.length; i++) {
-                        if (e.target.uuid == zddws[i].uuid) {
-                            this.infoData = (zddws[i].dxmc != null ? zddws[i].dxmc : '无');
-                            this.dwdzData = (zddws[i].dxdz != null ? zddws[i].dxdz : '重点单位地址:无');
-                            this.xfzrrData = (zddws[i].xfzrr != null ? zddws[i].xfzrr : '无');
-                            this.zbdhData = (zddws[i].zbdh != null ? zddws[i].zbdh : '无');
-                            this.fhdjData = (zddws[i].fhdj != null ? zddws[i].fhdj : '无');
-                            this.yajbData = (zddws[i].yajb != null ? zddws[i].yajb : '无');
+                    for (var i = 0; i < zddws.list.length; i++) {
+                        if (e.target.uuid == zddws.list[i].uuid) {
+                            this.infoData = (zddws.list[i].dxmc != null ? zddws.list[i].dxmc : '无');
+                            this.dwdzData = (zddws.list[i].dxdz != null ? zddws.list[i].dxdz : '重点单位地址:无');
+                            this.xfzrrData = (zddws.list[i].xfzrr != null ? zddws.list[i].xfzrr : '无');
+                            this.zbdhData = (zddws.list[i].zbdh != null ? zddws.list[i].zbdh : '无');
+                            this.fhdjData = (zddws.list[i].fhdj != null ? zddws.list[i].fhdj : '无');
+                            this.yajbData = (zddws.list[i].yajb != null ? zddws.list[i].yajb : '无');
                         }
                     }
                     var uuid = e.target.uuid;
@@ -2272,7 +2277,7 @@ var vm = new Vue({
                     vm.chAllMarkers(vm.zdd);
                     vm.zdd = marker;
                 });
-                var label = new BMap.Label(this.formatLabel(zddws[i].dxmc), { offset: new BMap.Size(-15, 35) });
+                var label = new BMap.Label(this.formatLabel(zddws.list[i].dxmc), { offset: new BMap.Size(-15, 35) });
                 label.setStyle({
                     opacity: '0.7',
                     fontSize: '12px',
