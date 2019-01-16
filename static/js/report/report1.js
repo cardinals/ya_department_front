@@ -11,7 +11,7 @@ var vue = new Vue({
 			},
 			//tabledata
 			tabledata: [
-				{ name: '公安部消防局', count: '999',  zongdui: null, zhidui: null, dazhongdui: null },
+				{ name: '应急管理部消防救援局', count: '999',  zongdui: null, zhidui: null, dazhongdui: null },
 				{ name: '北京总队', count: '2999',  zongdui: '1335', zhidui: '1335', dazhongdui: '3335' },
 				{ name: '天津总队', count: '1142',  zongdui: '335', zhidui: '335', dazhongdui: '1335' },
 				{ name: '河北总队', count: '1218',  zongdui: '1035', zhidui: '670', dazhongdui: '6035' },
@@ -183,7 +183,7 @@ var vue = new Vue({
 				}
 			} else if ('buju' == column) {
 				for (var i in this.tabledata) {
-					if ('公安部消防局' == this.tabledata[i].name) {
+					if ('应急管理部消防救援局' == this.tabledata[i].name) {
 						list.push(this.tabledata[i].count)
 					}
 				}
