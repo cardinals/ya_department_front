@@ -976,6 +976,28 @@
                                         <el-button type="primary" icon="search" size="small" @click="download()">附件下载</el-button>
                                     </div> -->
                                 </el-tab-pane>
+                                <el-tab-pane label="历史预案附件" name="sixth">
+                                    <div v-if="this.LSYAFJ === false">
+                                        无历史预案附件
+                                    </div>
+                                    <div v-if="this.LSYAFJ">
+                                        <el-table :data="hisPlanList" border style="width: 100%">
+                                            <el-table-column type="index" label="序号" width="65" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="zlmc" label="附件名称" min-width="35%" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="fjlxmc" label="资料类型" min-width="22%" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="cjsj" label="上传时间" min-width="28%" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="cz" label="操作" min-width="15%" align="center">
+                                                <template slot-scope="scope">
+                                                    <el-button type="primary" icon="share" size="small" style="width:100px" @click="downloadHisPlan(scope.row)">下载</el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </div>
+                                </el-tab-pane>
                             </el-tabs>
                         </template>
 

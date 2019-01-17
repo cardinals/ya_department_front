@@ -24,6 +24,10 @@ new Vue({
             fjDetailData: '',
             hisDetailData: '',
             hisPlanData: [],
+            //历史预案列表是否显示：
+            LSYAFJ: false,
+            //历史预案附件列表
+            hisPlanList: [],
             //word模板选择
             downVisible: false,
             fmChecked: true,
@@ -61,7 +65,6 @@ new Vue({
         this.disasterSet(this.pkid);
         this.fjDetail();
         this.picDetail();
-
     },
 
     methods: {
@@ -85,6 +88,7 @@ new Vue({
                 doFindPhoto("YAJB", this.basicDetailData.yajb);
                 this.unitDetail(this.basicDetailData.dxid);
                 this.hisDetail(this.pkid);
+                this.getHisPlanListByYaId(this.pkid,this.basicDetailData.jdh);
                 this.loading = false;
             }.bind(this), function (error) {
                 console.log(error)
@@ -467,7 +471,42 @@ new Vue({
                 ID: this.basicDetailData.dxid
             }
             loadDivParam("planobject/importantunits_detail", params);
-        }
+        },
         //add end 
+        //根据预案id获取所有预案的历史预案附件列表
+        getHisPlanListByYaId: function (pkid,jdh) {
+            var params = {
+                uuid: pkid,
+                jdh: jdh
+            }
+            this.LSYAFJ = true;
+            axios.post('/dpapi/digitalplanlist/doFindHisPlanListByVo', params).then(function (res) {
+                this.hisPlanList = res.data.result;
+                if (this.hisPlanList.length !== 0) {
+                    this.LSYAFJ = true;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            })
+        },
+        //下载表格中所选的历史预案
+        downloadHisPlan: function (val){
+            var isAccess = false;
+            for(var i in ipList){
+                if (val.yajdh.substr(0, 2) == ipList[i].jdh) {
+                    var head = ipList[i].ip
+                    var body = '/attachment/filemanage/configFile!showFile.action';
+                    var url = head + body + val.xgxx;
+                    window.open(url);
+                }
+            }
+            if(isAccess == true && isHavePlan == false) {
+                this.$message({
+                    message: "该预案无历史附件",
+                    showClose: true
+                });
+            } 
+            isAccess = false;
+        }
     }
 })
