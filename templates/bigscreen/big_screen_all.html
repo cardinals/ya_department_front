@@ -23,7 +23,9 @@
 
 <body class="fw map-bg m0">
     <div id="app" style="height: 100%;margin-top: 25px;">
-        <el-carousel :height="height" style="padding-bottom: 26px;">
+        <!-- :autoplay为是否自动切换，默认为是 -->
+        <!-- :interval为自动切换的时间间隔，单位为毫秒，默认为3000，注意：鼠标停留在页面之内时，不会自动切换 -->
+        <el-carousel :height="height" style="padding-bottom: 26px;" :autoplay=true :interval='10000'>
             <el-carousel-item :key="1">
                 <iframe src="big_screen_overview.html" height="100%" width="100%" frameborder=0></iframe>
             </el-carousel-item>
