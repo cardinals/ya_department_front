@@ -479,7 +479,6 @@ new Vue({
                 uuid: pkid,
                 jdh: jdh
             }
-            this.LSYAFJ = true;
             axios.post('/dpapi/digitalplanlist/doFindHisPlanListByVo', params).then(function (res) {
                 this.hisPlanList = res.data.result;
                 if (this.hisPlanList.length !== 0) {
