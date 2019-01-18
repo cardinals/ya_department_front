@@ -179,14 +179,16 @@ new Vue({
             shareDialogVisible: false,
             //信息打印是否显示
             printDialogVisible: false,
+            //选择导出word界面（详情、简版）
+            SelectExportVisible: false,
+            //选择导出word界面（详情-各字段项）
+            downVisible: false,
             //删除的弹出框
             deleteVisible: false,
             //新建页面是否显示
             addFormVisible: false,
             addLoading: false,
-            addFormRules: {
-
-            },
+            addFormRules: {},
             //新建数据
             addForm: {
                 DWMC: "",
@@ -216,15 +218,12 @@ new Vue({
             LSYAFJ: false,
             //历史预案附件列表
             hisPlanList: [],
-            //word模板选择
-            downVisible: false,
             fmChecked: true,
             dwjbqkChecked: true,
             dwjzxxChecked: true,
             zdbwChecked: true,
             zqsdChecked: true,
             tpChecked: true,
-            SelectDownVisible: false
         }
     },
     mounted: function () {
@@ -560,6 +559,8 @@ new Vue({
                 if (this.yaData.length !== 0) {
                     this.YA = true;
                 }
+                //获取预案附件信息
+                this.fjDetail();
                 // console.log(this.yaData);
             }.bind(this), function (error) {
                 console.log(error)
@@ -601,49 +602,41 @@ new Vue({
                 })
             }
         },
-        //预案下载
-        downloadPlan: function (val) {
-            var params = {
-                yaid: val.uuid,
-                kzm: 'zip'
-            }
-            axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
-                this.fjDetailData = res.data.result.length;
-                // if (res.data.result.length > 0) {
-
-                // this.fileList = [{
-                //     name: res.data.result[0].wjm,
-                //     url: "http://localhost:80/upload/" + res.data.result[0].xzlj
-                // }]
-                // }
-
-                if (this.fjDetailData > 0) {
+        //附件查询
+        fjDetail: function () {
+            if(this.yaData.length > 0){
+                for(var i in this.yaData){
+                    var uuid = this.yaData[i].uuid;
                     var params = {
-                        yaid: val.uuid,
+                        yaid: uuid,
                         kzm: 'zip'
                     }
                     axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
-                        var xzlj = res.data.result[0].xzlj;
-                        window.open(baseUrl + "/upload/" + xzlj);
+                        var YAFJ = false;
+                        var fjDetailData = res.data.result;
+                        if (fjDetailData.length > 0){
+                            YAFJ = true;
+                        }
+                        //Vue 不能检测数组的变动,使用Vue.set主动通知vue进行响应
+                        // this.yaData[i].YAFJ = YAFJ;
+                        // this.yaData[i].fjDetailData = fjDetailData;
+                        Vue.set(this.yaData[i], 'YAFJ', YAFJ);
+                        Vue.set(this.yaData[i], 'fjDetailData', fjDetailData);
                     }.bind(this), function (error) {
                         console.log(error)
                     })
-                } else {
-
-                    //edit by huang-rui in 9.15
-                    // if (this.uuid == 'dlwddzd' || this.uuid == 'dljy') {
-                    //     this.openSelectDownVisible();
-                    // } else {
-                    //     this.openDownVisible();
-                    // }
-                    this.downloadPlanUuid = val.uuid;
-                    this.downloadPlanJdh = val .jdh;
-                    this.openSelectDownVisible();
-                    //edit end
                 }
-            }.bind(this), function (error) {
-                console.log(error)
-            })
+            }
+            // console.log(this.yaData);
+        },
+        //信息导出
+        openExport: function(){
+            this.openSelectExportVisible();
+        },
+        //预案下载
+        downloadPlan: function (val) {
+            var xzlj = val.xzlj;
+            window.open(baseUrl + "/upload/" + xzlj);
         },
         //历史预案下载
         hisdownload: function () {
@@ -759,11 +752,11 @@ new Vue({
         openDownVisible: function () {
             this.downVisible = true;
         },
-        openSelectDownVisible: function () {
-            this.SelectDownVisible = true;
+        openSelectExportVisible: function () {
+            this.SelectExportVisible = true;
         },
-        closeSelectDownDialog: function () {
-            this.SelectDownVisible = false;
+        closeSelectExportDialog: function () {
+            this.SelectExportVisible = false;
         },
         closeDownDialog: function () {
             this.downVisible = false;
