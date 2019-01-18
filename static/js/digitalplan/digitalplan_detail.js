@@ -3,9 +3,13 @@ new Vue({
     data: function () {
         return {
             activeName: "first",
-
             pkid: "", //页面获取的预案id
+            //选择分享模板界面
             shareVisible: false,
+            //选择导出word界面（详情、简版）
+            SelectExportVisible: false,
+            //选择导出word界面（详情-各字段项）
+            downVisible: false,
             showPicVisible: false,
             initialIndex: 0,
             picTitle: '',
@@ -21,24 +25,21 @@ new Vue({
             cgl_jzfqData: [], //建筑类建筑分区数据
             loading: false,
             picList: [],
-            fjDetailData: '',
-            hisDetailData: '',
+            //预案列表是否显示：
+            YAFJ: false,
+            fjDetailData: [],
+            hisDetailData: [],
             hisPlanData: [],
             //历史预案列表是否显示：
             LSYAFJ: false,
             //历史预案附件列表
             hisPlanList: [],
-            //word模板选择
-            downVisible: false,
             fmChecked: true,
             dwjbqkChecked: true,
             dwjzxxChecked: true,
             zdbwChecked: true,
             zqsdChecked: true,
-            tpChecked: true
-
-                ,
-            SelectDownVisible: false
+            tpChecked: true,
         }
     },
     created: function () {
@@ -125,9 +126,11 @@ new Vue({
                 kzm: 'zip'
             }
             axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
-                this.fjDetailData = res.data.result.length;
+                this.fjDetailData = res.data.result;
+                if (this.fjDetailData.length !== 0) {
+                    this.YAFJ = true;
+                }
                 // if (res.data.result.length > 0) {
-
                 // this.fileList = [{
                 //     name: res.data.result[0].wjm,
                 //     url: "http://localhost:80/upload/" + res.data.result[0].xzlj
@@ -264,14 +267,17 @@ new Vue({
         openDownVisible: function () {
             this.downVisible = true;
         },
-        openSelectDownVisible: function () {
-            this.SelectDownVisible = true;
+        openSelectExportVisible: function () {
+            this.SelectExportVisible = true;
         },
         closeShareDialog: function () {
             this.shareVisible = false;
         },
         closeDownDialog: function () {
             this.downVisible = false;
+        },
+        closeSelectExportDialog: function () {
+            this.SelectExportVisible = false;
         },
         //信息分享
         openDown: function (val) {
@@ -296,9 +302,6 @@ new Vue({
             if (val == 'history') {
                 this.hisdownload();
             }
-        },
-        closeSelectDownDialog: function () {
-            this.SelectDownVisible = false;
         },
         //信息分享
         openShare: function (val) {
@@ -327,7 +330,7 @@ new Vue({
         },
         //预案预览
         openPlan: function () {
-            if (this.fjDetailData > 0) {
+            if (this.fjDetailData.length > 0) {
                 var params = {
                     yaid: this.pkid,
                     kzm: 'zip'
@@ -352,30 +355,14 @@ new Vue({
                 });
             }
         },
+        //信息导出
+        openExport: function(){
+            this.openSelectExportVisible();
+        },
         //预案下载
-        downloadPlan: function () {
-            if (this.fjDetailData > 0) {
-                var params = {
-                    yaid: this.pkid,
-                    kzm: 'zip'
-                }
-                axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
-                    var xzlj = res.data.result[0].xzlj;
-                    window.open(baseUrl + "/upload/" + xzlj);
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-            } else {
-
-                //edit by huang-rui in 9.15
-                // if (this.pkid == 'dlwddzd' || this.pkid == 'dljy') {
-                //     this.openSelectDownVisible();
-                // } else {
-                //     this.openDownVisible();
-                // }
-                this.openSelectDownVisible();
-                //edit end
-            }
+        downloadPlan: function (val) {
+            var xzlj = val.xzlj;
+            window.open(baseUrl + "/upload/" + xzlj);
         },
         //add by huang-rui in 9.15
         //历史预案查询
