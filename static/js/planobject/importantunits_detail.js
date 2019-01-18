@@ -738,7 +738,6 @@ new Vue({
                 this.openDownVisible();
             }
             if (val == 'summary') {
-
                 //edit by huang-rui in 9.15
 
                 // if (this.uuid == 'dlwddzd') {
@@ -816,14 +815,20 @@ new Vue({
         },
         //信息打印
         openPrinter: function () {
+            var uuid = this.uuid;
+            var bdhtml=window.document.body.innerHTML; 
             // 1.设置要打印的区域 div的className
             var newstr = document.getElementsByClassName('main-box')[0].innerHTML;
             // 2. 复制给body，并执行window.print打印功能
             document.body.innerHTML = newstr
             window.print()
             // 重新加载页面，以刷新数据
-            window.location.reload();
-
+            // window.location.reload();//此方法只能返回列表页
+            document.body.innerHTML = bdhtml;//单独使用会导致切页点击失效
+            var params = {
+                ID: uuid
+            }
+            loadDivParam("planobject/importantunits_detail", params);
         },
         //表格重新加载数据
         loadingData: function () {

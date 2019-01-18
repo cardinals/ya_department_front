@@ -46,15 +46,16 @@
                                 <br>
                             </dl>
                         </div>
-                        <div class="btngroup r" style="margin-top: 8px;">
-                            <img src="../../static/images/detail_share.png" @click="openShareVisible">
-                            <!-- <el-button type="primary" icon="share" style="width:120px" @click="openShareVisible">信息分享</el-button> -->
+                        <!-- <div class="btngroup r" style="margin-top: 8px;"> -->
+                        <div style="float: right">
+                            <!-- <img src="../../static/images/detail_share.png" @click="openShareVisible"> -->
+                            <el-button type="primary" icon="share" style="width:120px" @click="openShareVisible">信息分享</el-button>
                             <br>
-                            <img src="../../static/images/detail_onlineShow.png" @click="openPlan">
+                            <!-- <img src="../../static/images/detail_onlineShow.png" @click="openPlan"> -->
                             <!-- <el-button type="primary" icon="picture" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button> -->
-                            <br>
-                            <img src="../../static/images/detail_download.png" @click="downloadPlan">
-                            <!-- <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="downloadPlan">预案下载</el-button> -->
+                            <!-- <br> -->
+                            <!-- <img src="../../static/images/detail_download.png" @click="downloadPlan"> -->
+                            <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="downloadPlan">信息导出</el-button>
                             <br>
                             <!-- <img src="../../static/images/detail_downloadmb.png" @click="downloadModule"> -->
                             <!-- <el-button type="primary" icon="document" style="width:120px" @click="downloadModule">导出模板</el-button>
@@ -1000,7 +1001,6 @@
                                 </el-tab-pane>
                             </el-tabs>
                         </template>
-
                     </div>
                 </div>
                 <!--图片轮播界面-->
@@ -1020,20 +1020,21 @@
                         <el-button type="primary" icon="share" style="width:140px" @click="openShare('detail')">预案详情分享</el-button>
                         <br>
                         <el-button type="primary" icon="share" style="margin-top:10px;width:140px" @click="openShare('summary')">预案简版分享</el-button>
+                        <br>
                     </div>
                 </el-dialog>
-                <!--选择下载模板界面-->
-                <el-dialog title="选择下载模板" :visible.sync="SelectDownVisible" @close="closeSelectDownDialog()" :close-on-click-modal="false">
+                <!--选择导出模板界面-->
+                <el-dialog title="选择导出模板" :visible.sync="SelectDownVisible" @close="closeSelectDownDialog()" :close-on-click-modal="false">
                     <div id="tableView" style="text-align: center;">
-                        <el-button type="primary" icon="document" style="width:140px" @click="openDown('detail')">预案详情下载</el-button>
+                        <el-button type="primary" icon="document" style="width:140px" @click="openDown('detail')">预案详情导出</el-button>
                         <br>
-                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('summary')">预案简版下载</el-button>
+                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('summary')">预案简版导出</el-button>
                         <br>
-                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('history')">历史预案下载</el-button>
+                        <!-- <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('history')">历史预案下载</el-button> -->
                     </div>
                 </el-dialog>
                 <!--选择导出word界面-->
-                <el-dialog width="10%" title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
+                <el-dialog width="10%" title="选择导出项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
                     <div style="margin-top: 20px">
                         <el-checkbox v-model="fmChecked" disabled label="封面" border size="medium"></el-checkbox>
                     </div>
