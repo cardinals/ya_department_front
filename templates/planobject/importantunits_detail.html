@@ -117,18 +117,19 @@
                                             <el-row class="inform-margin-card">
                                                 <el-col :span="24">
                                                     <div v-if="data.YAFJ">
-                                                        <el-table :data="data.fjDetailData" border style="width: 100%">
+                                                        <el-table :data="data.yafjxzList" border style="width: 100%">
                                                             <el-table-column type="index" label="序号" width="65" align="center">
                                                             </el-table-column>
                                                             <el-table-column prop="wjm" label="附件名称" min-width="35%" align="center">
                                                             </el-table-column>
-                                                            <el-table-column prop="kzm" label="文件扩展名" min-width="22%" align="center">
+                                                            <el-table-column prop="kzm" label="文件扩展名" min-width="13%" align="center">
                                                             </el-table-column>
-                                                            <el-table-column prop="cjsj" label="上传时间" min-width="28%" align="center">
+                                                            <el-table-column prop="cjsj" label="上传时间" min-width="25%" align="center">
                                                             </el-table-column>
-                                                            <el-table-column prop="cz" label="操作" min-width="15%" align="center">
+                                                            <el-table-column prop="cz" label="操作" min-width="27%" align="center">
                                                                 <template slot-scope="scope">
-                                                                    <el-button type="primary" icon="share" size="small" style="width:100%" @click="downloadPlan(scope.row)">下载</el-button>
+                                                                    <el-button type="primary" icon="search" size="small" style="width:45%" :disabled="data.FJYL" @click="openPlan(scope.row)">预览</el-button>
+                                                                    <el-button type="primary" icon="share" size="small" style="width:45%" @click="downloadPlan(scope.row)">下载</el-button>
                                                                 </template>
                                                             </el-table-column>
                                                         </el-table>

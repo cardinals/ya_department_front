@@ -29,7 +29,7 @@ new Vue({
             FJYL: false,
             //预案列表是否显示：
             YAFJ: false,
-            fjDetailData: [],
+            yafjxzList: [],
             hisDetailData: [],
             hisPlanData: [],
             //历史预案列表是否显示：
@@ -91,6 +91,8 @@ new Vue({
                 //大中队预案附件不可预览
                 if(this.basicDetailData.yajb == '03'){
                     this.FJYL = true;
+                } else{
+                    this.FJYL = false;
                 }
                 doFindPhoto("YAJB", this.basicDetailData.yajb);
                 this.unitDetail(this.basicDetailData.dxid);
@@ -132,9 +134,11 @@ new Vue({
                 kzm: 'zip'
             }
             axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
-                this.fjDetailData = res.data.result;
-                if (this.fjDetailData.length !== 0) {
+                this.yafjxzList = res.data.result;
+                if (this.yafjxzList.length !== 0) {
                     this.YAFJ = true;
+                } else{
+                    this.YAFJ = false;
                 }
                 // if (res.data.result.length > 0) {
                 // this.fileList = [{

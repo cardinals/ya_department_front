@@ -207,8 +207,6 @@ new Vue({
             editFormVisible: false,
             //菜单选中
             activeIndex: '',
-            //预案数据
-            fjDetailData: '',
             downloadPlanUuid: '',
             downloadPlanJdh: '',
             //历史预案数据
@@ -550,7 +548,7 @@ new Vue({
             var params = {
                 dxid: this.uuid,
             }
-            axios.post('/dpapi/digitalplanlist/list', params).then(function (res) {
+            axios.post('/dpapi/digitalplanlist/doFindListWithFJListByVo', params).then(function (res) {
                 var tempData = res.data.result;
                 for (var i = 0; i < tempData.length; i++) {
                     tempData[i].zzsj = tempData[i].zzsj.substring(0, 10);
@@ -568,66 +566,58 @@ new Vue({
         },
         //预案预览
         openPlan: function (val) {
-            if (val.yajb == '03') {
-                window.open(baseUrl + "/planShare/page/" + val.uuid + "/" + 'detail' + "/web");
-            } else if (val.yajb == '01' || val.yajb == '02') {
-                var fjDate = [];
-                var fjCount = 0;
-                var params = {
-                    yaid: val.uuid,
-                    kzm: 'zip'
-                }
-                axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
-                    // axios.get('/dpapi/yafjxz/doFindByPlanId/' + val.uuid).then(function (res) {
-                    fjDate = res.data.result;
-                    fjCount = fjDate.length;
-                    if (fjCount > 0) {
-                        var yllj = fjDate[0].yllj;
-                        if (yllj == null || yllj == '') {
-                            this.$message({
-                                message: "无可预览文件",
-                                showClose: true
-                            });
-                        } else {
-                            window.open(baseUrl + "/upload/" + yllj);
-                        }
-                    } else {
-                        this.$message({
-                            message: "该预案无附件",
-                            showClose: true
-                        });
-                    }
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-            }
+            var yllj = val.yllj;
+            window.open(baseUrl + "/upload/" + yllj);
         },
         //附件查询
         fjDetail: function () {
+            // if(this.yaData.length > 0){
+            //     var yaDataNew = [];
+            //     for(let i = 0; i < this.yaData.length; i++){
+            //         var uuid = this.yaData[i].uuid;
+            //         var params = {
+            //             yaid: uuid,
+            //             kzm: 'zip'
+            //         }
+            //         var yaDataItem = this.yaData[i];
+            //         axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
+            //             var YAFJ = false;
+            //             var fjDetailData = res.data.result;
+            //             if (fjDetailData.length > 0){
+            //                 YAFJ = true;
+            //             }
+            //             yaDataItem.YAFJ = YAFJ;
+            //             yaDataItem.fjDetailData = fjDetailData;
+            //             yaDataNew.push(yaDataItem);
+            //             //Vue 不能检测数组的变动,使用Vue.set主动通知vue进行响应
+            //             // Vue.set(this.yaData[i], 'YAFJ', YAFJ);
+            //             // Vue.set(this.yaData[i], 'fjDetailData', fjDetailData);
+            //         }.bind(this), function (error) {
+            //             console.log(error)
+            //         })
+            //     }
+            //     this.yaData = yaDataNew;
+            // }
+            
+            
             if(this.yaData.length > 0){
-                for(var i in this.yaData){
-                    var uuid = this.yaData[i].uuid;
-                    var params = {
-                        yaid: uuid,
-                        kzm: 'zip'
-                    }
-                    axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
+                for(let i = 0; i < this.yaData.length; i++){
+                    //是否显示预案附件列表
+                    if (this.yaData[i].yafjxzList.length > 0){
+                        var YAFJ = true;
+                    } else{
                         var YAFJ = false;
-                        var fjDetailData = res.data.result;
-                        if (fjDetailData.length > 0){
-                            YAFJ = true;
-                        }
-                        //Vue 不能检测数组的变动,使用Vue.set主动通知vue进行响应
-                        // this.yaData[i].YAFJ = YAFJ;
-                        // this.yaData[i].fjDetailData = fjDetailData;
-                        Vue.set(this.yaData[i], 'YAFJ', YAFJ);
-                        Vue.set(this.yaData[i], 'fjDetailData', fjDetailData);
-                    }.bind(this), function (error) {
-                        console.log(error)
-                    })
+                    }
+                    this.yaData[i].YAFJ = YAFJ;
+                    //预案列表中的附件是否可预览
+                    if(this.yaData[i].yajb === '03'){
+                        var FJYL = true;
+                    }else{
+                        var FJYL = false;
+                    }
+                    this.yaData[i].FJYL = FJYL;
                 }
             }
-            // console.log(this.yaData);
         },
         //信息导出
         openExport: function(){
