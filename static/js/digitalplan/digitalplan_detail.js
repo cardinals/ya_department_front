@@ -25,6 +25,8 @@ new Vue({
             cgl_jzfqData: [], //建筑类建筑分区数据
             loading: false,
             picList: [],
+            //预案预览按钮是否可用：
+            FJYL: false,
             //预案列表是否显示：
             YAFJ: false,
             fjDetailData: [],
@@ -85,6 +87,10 @@ new Vue({
                     this.basicDetailData.shsj = '';
                 } else {
                     this.basicDetailData.shsj = dateFormat(this.basicDetailData.shsj);
+                }
+                //大中队预案附件不可预览
+                if(this.basicDetailData.yajb == '03'){
+                    this.FJYL = true;
                 }
                 doFindPhoto("YAJB", this.basicDetailData.yajb);
                 this.unitDetail(this.basicDetailData.dxid);
@@ -329,31 +335,9 @@ new Vue({
             window.open(baseUrl + "/dpapi/planShare/downWord/" + this.pkid + "/" + title);
         },
         //预案预览
-        openPlan: function () {
-            if (this.fjDetailData.length > 0) {
-                var params = {
-                    yaid: this.pkid,
-                    kzm: 'zip'
-                }
-                axios.post('/dpapi/yafjxz/doFindByPlanId', params).then(function (res) {
-                    var yllj = res.data.result[0].yllj;
-                    if (yllj == null || yllj == '') {
-                        this.$message({
-                            message: "无可预览文件",
-                            showClose: true
-                        });
-                    } else {
-                        window.open(baseUrl + "/upload/" + yllj);
-                    }
-                }.bind(this), function (error) {
-                    console.log(error)
-                })
-            } else {
-                this.$message({
-                    message: "该预案无附件",
-                    showClose: true
-                });
-            }
+        openPlan: function (val) {
+            var yllj = val.yllj;
+            window.open(baseUrl + "/upload/" + yllj);
         },
         //信息导出
         openExport: function(){
