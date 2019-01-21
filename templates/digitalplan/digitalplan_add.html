@@ -265,9 +265,9 @@
 					</el-row>
 				</div>
 				<el-row class="mt35 mb20 tc">
-					<el-button type="clear" icon="close" size="small" class="btn_submit" @click="cancel"> 取消</el-button>
-					<el-button type="primary" icon="document" size="small" class="btn_save" @click="save('addForm')"> 暂存</el-button>
-					<el-button type="success" icon="check" size="small" class="btn_submit" @click="submit('addForm')">提交</el-button>
+					<el-button type="clear" icon="close" size="small" class="btn_submit" @click="cancel" :loading="btnDisabled"> 取消</el-button>
+					<el-button type="primary" icon="document" size="small" class="btn_save" @click="save('addForm')" :loading="btnDisabled"> 暂存</el-button>
+					<el-button type="success" icon="check" size="small" class="btn_submit" @click="submit('addForm')" :loading="btnDisabled">提交</el-button>
 				</el-row>
 				<!--选择重点单位界面-->
 				<el-dialog title="选择重点单位" :visible.sync="unitsListVisible" :close-on-click-modal="false">
