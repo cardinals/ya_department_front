@@ -288,8 +288,8 @@ var vm = new Vue({
         // 中央中部地图
         echarts2: function () {
             var myMapChart = echarts2.init(document.getElementById('map'));
-            var maxLine = 80000;
-            // var maxLine;
+            // var maxLine = 80000;
+            var maxLine;
             var params = {
                 btype: 'map'
             }
@@ -302,8 +302,8 @@ var vm = new Vue({
                     }
                     this.mapData.push(item);
                 }
-                // var maxValue = Math.max.apply(Math, res.data.result.map(function (o) { return o.bvalue }));
-                // maxLine = (parseInt(maxValue.toString().substr(0, 1)) + 1) * Math.pow(10, maxValue.toString().length - 1);
+                var maxValue = Math.max.apply(Math, res.data.result.map(function (o) { return o.bvalue }));
+                maxLine = (parseInt(maxValue.toString().substr(0, 1)) + 1) * Math.pow(10, maxValue.toString().length - 1);
                 MapOption = {
                     tooltip: {
                         trigger: 'item',
