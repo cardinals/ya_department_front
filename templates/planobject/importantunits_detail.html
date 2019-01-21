@@ -72,9 +72,9 @@
                                                         </a>
                                                         <span class="companyStatus dib" title="预案级别" v-text="data.yajbmc||'无'"></span>
                                                         <el-button type="primary" icon="share"  size="mini" style="margin-top:-8px;width:100px"
-                                                            @click="openPlan(data)">信息分享</el-button>
+                                                            @click="openShareVisible(data.uuid)">信息分享</el-button>
                                                         <el-button type="primary" icon="document"  size="mini" style="margin-top:-8px;width:100px"
-                                                            @click="openExport(data)">信息导出</el-button>
+                                                            @click="openSelectExportVisible(data.uuid)">信息导出</el-button>
                                                     </div>
                                                 </el-col>
                                             </el-row>
@@ -1504,7 +1504,16 @@
                     </el-dialog> -->
                 </div>
 
-                <!--选择导出模板界面-->
+                <!--选择预案信息分享模板界面-->
+                <el-dialog title="选择分享模板" :visible.sync="shareVisible" @close="closeShareDialog()" :close-on-click-modal="false">
+                    <div id="tableView" style="text-align:center;">
+                        <el-button type="primary" icon="share" style="width:140px" @click="openPlanShare('detail')">预案详情分享</el-button>
+                        <br>
+                        <el-button type="primary" icon="share" style="margin-top:10px;width:140px" @click="openPlanShare('summary')">预案简版分享</el-button>
+                        <br>
+                    </div>
+                </el-dialog>
+                <!--选择导出word界面（详情、简版）-->
                 <el-dialog title="选择导出模板" :visible.sync="SelectExportVisible" @close="closeSelectExportDialog()"
                     :close-on-click-modal="false">
                     <div id="tableView" style="text-align: center;">
@@ -1514,7 +1523,7 @@
                         <br>
                     </div>
                 </el-dialog>
-                <!--选择导出word界面-->
+                <!--选择导出word界面（详情-各字段项）-->
                 <el-dialog width="10%" title="选择导出项" :visible.sync="downVisible" @close="closeDownDialog()"
                     :close-on-click-modal="false">
                     <div style="margin-top: 20px">
