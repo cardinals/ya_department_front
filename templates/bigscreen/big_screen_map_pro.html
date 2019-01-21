@@ -234,6 +234,12 @@
                 </div>
             </div>
         </div>
+        <!--重点单位、水源的详情界面的跳转-->
+		<el-dialog title="基本信息详情页"  :visible.sync="detailVisible"  @close="closeDialog()" :close-on-click-modal="false">
+            
+            <div id="detailDialog"></div>
+       
+        </el-dialog>
     </div>
 </body>
 <!-- 引入js -->
@@ -264,15 +270,15 @@
 <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
 <script type="text/javascript" src="../../static/js/bigscreen/mapmain.js"></script>
 <script>
-    $(function () {
-            //判断是否宽屏
-            var winWide = window.screen.availWidth;
-            // alert(winWide);
-            var wideScreen = false;
-            var zm = winWide / 1920;
-            document.body.style.zoom = zm * 1.3;
-            // body{zoom:1.25;}
-        })
+    // $(function () {
+    //         //判断是否宽屏
+    //         var winWide = window.screen.availWidth;
+    //         // alert(winWide);
+    //         var wideScreen = false;
+    //         var zm = winWide / 1920;
+    //         document.body.style.zoom = zm * 1.3;
+    //         // body{zoom:1.25;}
+    //     })
 </script> 
 <!-- tooljs的引入 -->
 <script type="text/javascript"></script>
