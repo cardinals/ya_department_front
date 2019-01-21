@@ -47,14 +47,15 @@
                             </dl>
                         </div>
                         <div class="btngroup r" style="margin-top: 8px;">
+                        <!-- <div style="float: right"> -->
                             <img src="../../static/images/detail_share.png" @click="openShareVisible">
                             <!-- <el-button type="primary" icon="share" style="width:120px" @click="openShareVisible">信息分享</el-button> -->
                             <br>
-                            <img src="../../static/images/detail_onlineShow.png" @click="openPlan">
+                            <!-- <img src="../../static/images/detail_onlineShow.png" @click="openPlan"> -->
                             <!-- <el-button type="primary" icon="picture" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button> -->
-                            <br>
-                            <img src="../../static/images/detail_download.png" @click="downloadPlan">
-                            <!-- <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="downloadPlan">预案下载</el-button> -->
+                            <!-- <br> -->
+                            <img src="../../static/images/detail_Export.jpg" @click="openExport">
+                            <!-- <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openExport">信息导出</el-button> -->
                             <br>
                             <!-- <img src="../../static/images/detail_downloadmb.png" @click="downloadModule"> -->
                             <!-- <el-button type="primary" icon="document" style="width:120px" @click="downloadModule">导出模板</el-button>
@@ -182,11 +183,50 @@
                                         <div slot="header" class="clearfix">
                                             <strong class="card_title_font">附件信息</strong>
                                         </div>
-                                        <el-row class="mb5">
-                                            该预案有
-                                            <span v-text="fjDetailData"></span>个附件
-                                        </el-row>
+                                        <div v-if="this.YAFJ === false">
+                                            无预案附件
+                                        </div>
+                                        <div v-if="this.YAFJ">
+                                            <el-table :data="yafjxzList" border style="width: 100%">
+                                                <el-table-column type="index" label="序号" width="65" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="wjm" label="附件名称" min-width="35%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="kzm" label="文件扩展名" min-width="13%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="cjsj" label="上传时间" min-width="25%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="cz" label="操作" min-width="27%" align="center">
+                                                    <template slot-scope="scope">
+                                                        <el-button type="primary" icon="search" size="small" style="width:45%" :disabled="FJYL" @click="openPlan(scope.row)">预览</el-button>
+                                                        <el-button type="primary" icon="caret-bottom" size="small" style="width:45%" @click="downloadPlan(scope.row)">下载</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                            </el-table>
+                                        </div>
                                     </el-card>
+                                </el-tab-pane>
+                                <el-tab-pane label="历史预案附件" name="sixth">
+                                    <div v-if="this.LSYAFJ === false">
+                                        无历史预案附件
+                                    </div>
+                                    <div v-if="this.LSYAFJ">
+                                        <el-table :data="hisPlanList" border style="width: 100%">
+                                            <el-table-column type="index" label="序号" width="65" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="zlmc" label="附件名称" min-width="35%" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="fjlxmc" label="资料类型" min-width="22%" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="cjsj" label="上传时间" min-width="28%" align="center">
+                                            </el-table-column>
+                                            <el-table-column prop="cz" label="操作" min-width="15%" align="center">
+                                                <template slot-scope="scope">
+                                                    <el-button type="primary" icon="share" size="small" style="width:100%" @click="downloadHisPlan(scope.row)">下载</el-button>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </div>
                                 </el-tab-pane>
                                 <el-tab-pane label="灾情设定与力量部署" name="second">
                                     <div v-if="disasterSetData ==null ||disasterSetData ==''">
@@ -978,7 +1018,6 @@
                                 </el-tab-pane>
                             </el-tabs>
                         </template>
-
                     </div>
                 </div>
                 <!--图片轮播界面-->
@@ -998,20 +1037,21 @@
                         <el-button type="primary" icon="share" style="width:140px" @click="openShare('detail')">预案详情分享</el-button>
                         <br>
                         <el-button type="primary" icon="share" style="margin-top:10px;width:140px" @click="openShare('summary')">预案简版分享</el-button>
+                        <br>
                     </div>
                 </el-dialog>
-                <!--选择下载模板界面-->
-                <el-dialog title="选择下载模板" :visible.sync="SelectDownVisible" @close="closeSelectDownDialog()" :close-on-click-modal="false">
+                <!--选择导出word界面（详情、简版）-->
+                <el-dialog title="选择导出模板" :visible.sync="SelectExportVisible" @close="closeSelectExportDialog()" :close-on-click-modal="false">
                     <div id="tableView" style="text-align: center;">
-                        <el-button type="primary" icon="document" style="width:140px" @click="openDown('detail')">预案详情下载</el-button>
+                        <el-button type="primary" icon="document" style="width:140px" @click="openDown('detail')">预案详情导出</el-button>
                         <br>
-                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('summary')">预案简版下载</el-button>
+                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('summary')">预案简版导出</el-button>
                         <br>
-                        <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('history')">历史预案下载</el-button>
+                        <!-- <el-button type="primary" icon="document" style="margin-top:10px;width:140px" @click="openDown('history')">历史预案下载</el-button> -->
                     </div>
                 </el-dialog>
-                <!--选择导出word界面-->
-                <el-dialog width="10%" title="选择下载项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
+                <!--选择导出word界面（详情-各字段项）-->
+                <el-dialog width="10%" title="选择导出项" :visible.sync="downVisible" @close="closeDownDialog()" :close-on-click-modal="false">
                     <div style="margin-top: 20px">
                         <el-checkbox v-model="fmChecked" disabled label="封面" border size="medium"></el-checkbox>
                     </div>
