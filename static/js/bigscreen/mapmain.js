@@ -712,23 +712,23 @@ var vm = new Vue({
                 }
 
                 if (sllen == 4) {
-                    labelstr += '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">' + provinces[i].zddwsl + '</span>';
+                    labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
                 } else {
-                    labelstr += '&nbsp&nbsp&nbsp&nbsp&nbsp<span style="font-size:1.3em;color:red;">' + provinces[i].zddwsl + '</span>';
+                    labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
                 }
                 if (mclen == 5 && sllen == 5) {
                     labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
-                    labelstr += '&nbsp&nbsp<span style="font-size:1.3em;color:red;">' + provinces[i].zddwsl + '</span>';
+                    labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
                 }
                 var label = new BMap.Label(labelstr);
                 marker.province = provinces[i];
                 label.setStyle({
-                    fontSize: '0.6em',
+                    fontSize: '0.2em',
                     fontWeight: 'bold',
                     border: '0',
-                    padding: '14px 4px',
+                    padding: '14px 0px',
                     textAlign: 'center',
-                    marginLeft: '1.5px',
+                    marginLeft: '0.5px',
                     marginTop: '24px',
                     color: '#ED0C0A',
                     borderRadius: '2px',
