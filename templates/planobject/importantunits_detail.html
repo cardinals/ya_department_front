@@ -126,10 +126,10 @@
                                                             </el-table-column>
                                                             <el-table-column prop="cjsj" label="上传时间" min-width="25%" align="center">
                                                             </el-table-column>
-                                                            <el-table-column prop="cz" label="操作" min-width="27%" align="center">
+                                                            <el-table-column prop="cz" label="操作" width="170px" align="center">
                                                                 <template slot-scope="scope">
-                                                                    <el-button type="primary" icon="search" size="small" style="width:45%" :disabled="data.FJYL" @click="openPlan(scope.row)">预览</el-button>
-                                                                    <el-button type="primary" icon="share" size="small" style="width:45%" @click="downloadPlan(scope.row)">下载</el-button>
+                                                                    <el-button type="warning" icon="search" size="small" style="width:60px" :disabled="data.FJYL" @click="openPlan(scope.row)">预览</el-button>
+                                                                    <el-button type="success" icon="share" size="small" style="width:60px" @click="downloadPlan(scope.row)">下载</el-button>
                                                                 </template>
                                                             </el-table-column>
                                                         </el-table>
@@ -181,9 +181,9 @@
                                             </el-table-column>
                                             <el-table-column prop="cjsj" label="上传时间" min-width="23%" align="center">
                                             </el-table-column>
-                                            <el-table-column prop="cz" label="操作" min-width="15%" align="center">
+                                            <el-table-column prop="cz" label="操作" width="100px" align="center">
                                                 <template slot-scope="scope">
-                                                    <el-button type="primary" icon="share" size="small" style="width:100%" @click="downloadHisPlan(scope.row)">下载</el-button>
+                                                    <el-button type="success" icon="share" size="small" style="width:60px" @click="downloadHisPlan(scope.row)">下载</el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>
