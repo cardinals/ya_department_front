@@ -924,7 +924,7 @@ var vm = new Vue({
                             this.dwdzData = (zddws[i].dwdz != null ? zddws[i].dwdz : '重点单位地址:无');
                             this.xfzrrData = (zddws[i].xfzrr != null ? zddws[i].xfzrr : '无');
                             this.zbdhData = (zddws[i].zbdh != null ? zddws[i].zbdh : '无');
-                            this.fhdjData = (zddws[i].fhdj != null ? zddws[i].fhdj : '无');
+                            this.fhdjData = (zddws[i].fhdjmc != null ? zddws[i].fhdjmc : '无');
                             this.yajbData = (zddws[i].yajb != null ? zddws[i].yajb : '无');
                         }
                     }
@@ -1026,7 +1026,7 @@ var vm = new Vue({
             this.dwdzData = (zddw.dwdz != null ? zddw.dwdz : '重点单位:无');
             this.xfzrrData = (zddw.xfzrr != null ? zddw.xfzrr : '无');
             this.zbdhData = (zddw.zbdh != null ? zddw.zbdh : '无');
-            this.fhdjData = (zddw.fhdj != null ? zddw.fhdj : '无');
+            this.fhdjData = (zddw.fhdjmc != null ? zddw.fhdjmc : '无');
             this.yajbData = (zddw.yajb != null ? zddw.yajb : '无');
             var uuid = zddw.uuid;
             var contents =
@@ -1815,7 +1815,7 @@ var vm = new Vue({
                             this.dwdzData = (vm.markerData[i].dwdz != null ? vm.markerData[i].dwdz : '重点单位地址:无');
                             this.xfzrrData = (vm.markerData[i].xfzrr != null ? vm.markerData[i].xfzrr : '无');
                             this.zbdhData = (vm.markerData[i].zbdh != null ? vm.markerData[i].zbdh : '无');
-                            this.fhdjData = (vm.markerData[i].fhdj != null ? vm.markerData[i].fhdj : '无');
+                            this.fhdjData = (vm.markerData[i].fhdjmc != null ? vm.markerData[i].fhdjmc : '无');
                             this.yajbData = (vm.markerData[i].yajb != null ? vm.markerData[i].yajb : '无');
                         }
                     }
@@ -2265,7 +2265,7 @@ var vm = new Vue({
                             this.dwdzData = (zddws.list[i].dxdz != null ? zddws.list[i].dxdz : '重点单位地址:无');
                             this.xfzrrData = (zddws.list[i].xfzrr != null ? zddws.list[i].xfzrr : '无');
                             this.zbdhData = (zddws.list[i].zbdh != null ? zddws.list[i].zbdh : '无');
-                            this.fhdjData = (zddws.list[i].fhdj != null ? zddws.list[i].fhdj : '无');
+                            this.fhdjData = (zddws.list[i].fhdjmc != null ? zddws.list[i].fhdjmc : '无');
                             this.yajbData = (zddws.list[i].yajb != null ? zddws.list[i].yajb : '无');
                         }
                     }
