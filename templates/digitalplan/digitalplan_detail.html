@@ -54,7 +54,7 @@
                             <!-- <img src="../../static/images/detail_onlineShow.png" @click="openPlan"> -->
                             <!-- <el-button type="primary" icon="picture" style="margin-top:5%;width:120px" @click="openPlan">在线预览</el-button> -->
                             <!-- <br> -->
-                            <img src="../../static/images/detail_Export.jpg" @click="openExport">
+                            <img src="../../static/images/detail_Export.jpg" @click="openSelectExportVisible">
                             <!-- <el-button type="primary" icon="document" style="margin-top:5%;width:120px" @click="openExport">信息导出</el-button> -->
                             <br>
                             <!-- <img src="../../static/images/detail_downloadmb.png" @click="downloadModule"> -->
@@ -132,6 +132,32 @@
                                             </el-col>
                                         </el-row>
                                     </el-card>
+                                    <el-card class="mb10 card_style">
+                                        <div slot="header" class="clearfix">
+                                            <strong class="card_title_font">附件信息</strong>
+                                        </div>
+                                        <div v-if="this.YAFJ === false">
+                                            无预案附件
+                                        </div>
+                                        <div v-if="this.YAFJ">
+                                            <el-table :data="yafjxzList" border style="width: 100%">
+                                                <el-table-column type="index" label="序号" width="65" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="wjm" label="附件名称" min-width="35%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="kzm" label="文件扩展名" min-width="13%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="cjsj" label="上传时间" min-width="25%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="cz" label="操作" width="170px" align="center">
+                                                    <template slot-scope="scope">
+                                                        <el-button type="warning" icon="search" size="small" style="width:60px" :disabled="FJYL" @click="openPlan(scope.row)">预览</el-button>
+                                                        <el-button type="success" icon="caret-bottom" size="small" style="width:60px" @click="downloadPlan(scope.row)">下载</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-card>
                                     <el-card class="mb10 card_style ">
                                         <div slot="header" class="clearfix">
                                             <strong class="card_title_font">预案信息</strong>
@@ -179,32 +205,6 @@
                                             </el-col>
                                         </el-row>
                                     </el-card>
-                                    <el-card class="mb10 card_style">
-                                        <div slot="header" class="clearfix">
-                                            <strong class="card_title_font">附件信息</strong>
-                                        </div>
-                                        <div v-if="this.YAFJ === false">
-                                            无预案附件
-                                        </div>
-                                        <div v-if="this.YAFJ">
-                                            <el-table :data="yafjxzList" border style="width: 100%">
-                                                <el-table-column type="index" label="序号" width="65" align="center">
-                                                </el-table-column>
-                                                <el-table-column prop="wjm" label="附件名称" min-width="35%" align="center">
-                                                </el-table-column>
-                                                <el-table-column prop="kzm" label="文件扩展名" min-width="13%" align="center">
-                                                </el-table-column>
-                                                <el-table-column prop="cjsj" label="上传时间" min-width="25%" align="center">
-                                                </el-table-column>
-                                                <el-table-column prop="cz" label="操作" min-width="27%" align="center">
-                                                    <template slot-scope="scope">
-                                                        <el-button type="primary" icon="search" size="small" style="width:45%" :disabled="FJYL" @click="openPlan(scope.row)">预览</el-button>
-                                                        <el-button type="primary" icon="caret-bottom" size="small" style="width:45%" @click="downloadPlan(scope.row)">下载</el-button>
-                                                    </template>
-                                                </el-table-column>
-                                            </el-table>
-                                        </div>
-                                    </el-card>
                                 </el-tab-pane>
                                 <el-tab-pane label="历史预案附件" name="sixth">
                                     <div v-if="this.LSYAFJ === false">
@@ -220,9 +220,9 @@
                                             </el-table-column>
                                             <el-table-column prop="cjsj" label="上传时间" min-width="28%" align="center">
                                             </el-table-column>
-                                            <el-table-column prop="cz" label="操作" min-width="15%" align="center">
+                                            <el-table-column prop="cz" label="操作" width="100px" align="center">
                                                 <template slot-scope="scope">
-                                                    <el-button type="primary" icon="share" size="small" style="width:100%" @click="downloadHisPlan(scope.row)">下载</el-button>
+                                                    <el-button type="success" icon="share" size="small" style="width:60px" @click="downloadHisPlan(scope.row)">下载</el-button>
                                                 </template>
                                             </el-table-column>
                                         </el-table>

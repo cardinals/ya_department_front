@@ -179,6 +179,10 @@ new Vue({
             shareDialogVisible: false,
             //信息打印是否显示
             printDialogVisible: false,
+            //选择分享模板界面
+            shareVisible: false,
+            //准备信息分享的预案id
+            yaid: "",
             //选择导出word界面（详情、简版）
             SelectExportVisible: false,
             //选择导出word界面（详情-各字段项）
@@ -619,10 +623,6 @@ new Vue({
                 }
             }
         },
-        //信息导出
-        openExport: function(){
-            this.openSelectExportVisible();
-        },
         //预案下载
         downloadPlan: function (val) {
             var xzlj = val.xzlj;
@@ -730,7 +730,7 @@ new Vue({
                 //     window.open(baseUrl + "/dpapi/yafjxz/downTempYa?yawjmc=大连锦源_简版.docx");
                 // }
                 var title = 'fm-dwjbqk-dwjzxx-zdbw';
-                window.open(baseUrl + "/dpapi/planShare/downWord/" + this.downloadPlanUuid + "/" + title);
+                window.open(baseUrl + "/dpapi/planShare/downWord/" + this.yaid + "/" + title);
                 //edit end
 
             }
@@ -738,19 +738,34 @@ new Vue({
                 this.hisdownload();
             }
         },
+        //选择信息分享模板界面
+        openShareVisible: function (uuid) {
+            this.yaid = uuid;
+            this.shareVisible = true;
+        },
+        //信息导出
+        openSelectExportVisible: function (uuid) {
+            this.yaid = uuid;
+            this.SelectExportVisible = true;
+        },
         //选择预案下载模板界面
         openDownVisible: function () {
             this.downVisible = true;
         },
-        openSelectExportVisible: function () {
-            this.SelectExportVisible = true;
-        },
         closeSelectExportDialog: function () {
             this.SelectExportVisible = false;
+        },
+        closeShareDialog: function () {
+            this.shareVisible = false;
         },
         closeDownDialog: function () {
             this.downVisible = false;
         },
+        //预案信息分享
+        openPlanShare: function (val) {
+            window.open(baseUrl + "/dpapi/planShare/page/" + this.yaid + "/" + val + "/web");
+        },
+        //预案信息导出
         downShare: function () {
             var title = 'fm-';
             //单位基本情况
@@ -769,7 +784,7 @@ new Vue({
             if (this.tpChecked) {
                 title += 'tp'
             }
-            window.open(baseUrl + "/dpapi/planShare/downWord/" + this.downloadPlanUuid + "/" + title);
+            window.open(baseUrl + "/dpapi/planShare/downWord/" + this.yaid + "/" + title);
         },
         //预案详情跳转
         planDetails(val) {
@@ -788,7 +803,7 @@ new Vue({
             this.emailDialogVisible = false;
             this.email = "";
         },
-        //信息分享
+        //单位信息分享
         openShare: function () {
             var ID = getQueryString("ID");
             window.open(baseUrl + "/planShare/pageZddw/" + ID + "/web");

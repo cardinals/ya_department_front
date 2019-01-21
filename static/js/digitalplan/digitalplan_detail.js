@@ -277,6 +277,7 @@ new Vue({
         openDownVisible: function () {
             this.downVisible = true;
         },
+        //信息导出
         openSelectExportVisible: function () {
             this.SelectExportVisible = true;
         },
@@ -342,10 +343,6 @@ new Vue({
         openPlan: function (val) {
             var yllj = val.yllj;
             window.open(baseUrl + "/upload/" + yllj);
-        },
-        //信息导出
-        openExport: function(){
-            this.openSelectExportVisible();
         },
         //预案下载
         downloadPlan: function (val) {
