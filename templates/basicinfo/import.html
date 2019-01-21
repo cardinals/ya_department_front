@@ -19,8 +19,8 @@
             <el-row>
                 <el-col :span="24">
                     <div>
-                        <strong class="dtdlStyle">重点单位名称：</strong>
-                        <v-text v-text="tableData.dwmc||'无'"></v-text>
+                        <h3 class="dib inform-h3" v-text="tableData.dwmc||'无'"></h3>
+                                <span class="companyStatus dib" title="单位性质" v-if="tableData.dwxzmc!==null" v-text="tableData.dwxzmc||'无'"></span>
                     </div>
                 </el-col>
             </el-row>
@@ -67,10 +67,16 @@
                             <el-card v-for="data in yaData" class="card_style">
                                 <el-row class="inform-margin-card">
                                     <el-col :span="24">
-                                        <div >
+                                        <div>
                                             <strong class="dtdlStyle">预案名称：</strong>
-                                            <a href="#" @click="planDetails(data)"><v-text v-text="data.yamc||'无'"></v-text></a>
+                                            <a href="#" @click="planDetails(data)">
+                                                <v-text v-text="data.yamc||'无'"></v-text>
+                                            </a>
                                             <span class="companyStatus dib" title="预案级别" v-text="data.yajbmc||'无'"></span>
+                                            <!-- <el-button type="primary" icon="share"  size="mini" style="margin-top:-8px;width:100px"
+                                                @click="openPlan(data)">信息分享</el-button>
+                                            <el-button type="primary" icon="document"  size="mini" style="margin-top:-8px;width:100px"
+                                                @click="openExport(data)">信息导出</el-button> -->
                                         </div>
                                     </el-col>
                                 </el-row>
@@ -102,8 +108,36 @@
                                         </div>
                                     </el-col>
                                 </el-row>
-                                <el-button type="primary" icon="message" style="margin-top:20px;width:120px" @click="openPlan(data)">在线预览</el-button>
-                                <el-button type="primary" icon="share" style="margin-top:20px;width:120px" @click="downloadPlan(data)">预案下载</el-button>
+                                <el-row class="inform-margin-card">
+                                    <el-col :span="24">
+                                        <div>
+                                            <strong class="dtdlStyle">预案附件：</strong>
+                                            <v-text v-text="'无预案附件'" v-if="data.YAFJ === false"></v-text>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="inform-margin-card">
+                                    <el-col :span="24">
+                                        <div v-if="data.YAFJ">
+                                            <el-table :data="data.yafjxzList" border style="width: 100%">
+                                                <el-table-column type="index" label="序号" width="65" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="wjm" label="附件名称" min-width="35%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="kzm" label="文件扩展名" min-width="13%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="cjsj" label="上传时间" min-width="25%" align="center">
+                                                </el-table-column>
+                                                <el-table-column prop="cz" label="操作" min-width="27%" align="center">
+                                                    <template slot-scope="scope">
+                                                        <el-button type="primary" icon="search" size="small" style="width:45%" :disabled="data.FJYL" @click="openPlan(scope.row)">预览</el-button>
+                                                        <el-button type="primary" icon="share" size="small" style="width:45%" @click="downloadPlan(scope.row)">下载</el-button>
+                                                    </template>
+                                                </el-table-column>
+                                            </el-table>
+                                        </div>
+                                    </el-col>
+                                </el-row>
                             </el-card>
                         </div>
                         <!-- <div class="inform-margin">
@@ -132,6 +166,30 @@
                                 <dt class="dtdlStyle inform-download-cursor" @click="DownLoadFile()">文档预案</dt>
                             </dl>
                         </div> -->
+                    </el-tab-pane>
+                    <el-tab-pane label="历史预案附件" name="sixth">
+                        <div v-if="this.LSYAFJ === false">
+                            无历史预案附件
+                        </div>
+                        <div v-if="this.LSYAFJ">
+                            <el-table :data="hisPlanList" border style="width: 100%">
+                                <el-table-column type="index" label="序号" width="65" align="center">
+                                </el-table-column>
+                                <el-table-column prop="yamc" label="预案名称" min-width="25%" align="center">
+                                </el-table-column>
+                                <el-table-column prop="zlmc" label="附件名称" min-width="25%" align="center">
+                                </el-table-column>
+                                <el-table-column prop="fjlxmc" label="资料类型" min-width="12%" align="center">
+                                </el-table-column>
+                                <el-table-column prop="cjsj" label="上传时间" min-width="23%" align="center">
+                                </el-table-column>
+                                <el-table-column prop="cz" label="操作" min-width="15%" align="center">
+                                    <template slot-scope="scope">
+                                        <el-button type="primary" icon="share" size="small" style="width:100%" @click="downloadHisPlan(scope.row)">下载</el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </div>
                     </el-tab-pane>
                     <el-tab-pane label="单位信息" name="first">
                         <el-card class="card_style">
@@ -264,11 +322,12 @@
                                     <el-table-column prop="xfdwcls" label="车辆数" width="80" align="center"></el-table-column>
                                     <el-table-column prop="xfdwlxr" label="联系人" width="130" align="center"></el-table-column>
                                     <el-table-column prop="xfdwdh" label="联系电话" width="130" align="center"></el-table-column>
-                                    <el-table-column prop="bz" label="备注" align="center" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="bz" label="备注" align="center"
+                                        show-overflow-tooltip></el-table-column>
                                 </el-table>
                             </div>
                         </el-card>
-                        <el-card  class="card_style">
+                        <el-card class="card_style">
                             <div slot="header" class="clearfix">
                                 <strong class="card_title_font">单位消防设施</strong>
                             </div>
@@ -283,7 +342,8 @@
                                     <strong>安全出口</strong>
                                     <el-table :data="aqckData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" width="130" align="center"></el-table-column>
                                     </el-table>
                                 </div>
@@ -291,7 +351,8 @@
                                     <strong>疏散楼梯</strong>
                                     <el-table :data="ssltData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" width="130" align="center"></el-table-column>
                                     </el-table>
                                 </div>
@@ -299,7 +360,8 @@
                                     <strong>消防电梯</strong>
                                     <el-table :data="xfdtData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" width="130" align="center"></el-table-column>
                                     </el-table>
                                 </div>
@@ -307,14 +369,16 @@
                                     <strong>避难层（间）</strong>
                                     <el-table :data="bncData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isYjgbShow">
                                     <strong>应急广播</strong>
                                     <el-table :data="yjgbData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="ywyjgb" label="有无应急广播" align="center" width="130"></el-table-column>
                                     </el-table>
                                 </div>
@@ -330,18 +394,22 @@
                                     <strong>消防泵房</strong>
                                     <el-table :data="xfbfData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="xhssl" label="消火栓泵数量" align="center" width="130"></el-table-column>
-                                        <el-table-column prop="xhszdll" label="消火栓最大流量(L/s)" align="center" width="130"></el-table-column>
+                                        <el-table-column prop="xhszdll" label="消火栓最大流量(L/s)" align="center"
+                                            width="130"></el-table-column>
                                         <el-table-column prop="blbsl" label="喷淋泵数量" align="center" width="130"></el-table-column>
-                                        <el-table-column prop="plbzdll" label="喷淋泵最大流量(L/s)" align="center" width="130"></el-table-column>
+                                        <el-table-column prop="plbzdll" label="喷淋泵最大流量(L/s)" align="center"
+                                            width="130"></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isXfsxShow">
                                     <strong>消防水箱</strong>
                                     <el-table :data="xfsxData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sxrl" label="水箱容量(m³)" align="center" width="130"></el-table-column>
                                         <el-table-column prop="bjsd" label="补给速度(L/s)" align="center" width="130"></el-table-column>
                                     </el-table>
@@ -350,18 +418,22 @@
                                     <strong>消防水池</strong>
                                     <el-table :data="xfscData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sxrl" label="水箱容量(m³)" align="center" width="130"></el-table-column>
                                         <el-table-column prop="bjsd" label="补给速度(L/s)" align="center" width="150"></el-table-column>
-                                        <el-table-column prop="ywqsj" label="是否有取水口（井）" align="center" width="180"></el-table-column>
-                                        <el-table-column prop="qsjwz" label="取水口（井）位置" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="ywqsj" label="是否有取水口（井）" align="center"
+                                            width="180"></el-table-column>
+                                        <el-table-column prop="qsjwz" label="取水口（井）位置" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isSnxhsShow">
                                     <strong>室内消火栓</strong>
                                     <el-table :data="snxhsData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                         <el-table-column prop="sfky" label="是否可用" align="center" width="130"></el-table-column>
                                     </el-table>
@@ -370,7 +442,8 @@
                                     <strong>室外消火栓</strong>
                                     <el-table :data="swxhsData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                         <el-table-column prop="sfky" label="是否可用" align="center" width="130"></el-table-column>
                                     </el-table>
@@ -379,17 +452,22 @@
                                     <strong>水泵接合器</strong>
                                     <el-table :data="sbjhqData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="xh" label="型号" align="center" width="200" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="azxsmc" label="安装形式" align="center" width="130" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="jskcc" label="进水口尺寸" align="center" width="130" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="xh" label="型号" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="azxsmc" label="安装形式" align="center" width="130"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="jskcc" label="进水口尺寸" align="center" width="130"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isPlxtShow">
                                     <strong>喷淋系统</strong>
                                     <el-table :data="plxtData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="ywplxt" label="有无喷淋系统" align="center" width="130"></el-table-column>
                                     </el-table>
                                 </div>
@@ -397,16 +475,20 @@
                                     <strong>冷却水系统</strong>
                                     <el-table :data="lqsxtData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="ywlqsxt" label="有无冷却水系统" align="center" width="130"></el-table-column>
-                                        <el-table-column prop="gsqd" label="供水强度(L/min.m2)" align="center" width="200"></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="ywlqsxt" label="有无冷却水系统" align="center"
+                                            width="130"></el-table-column>
+                                        <el-table-column prop="gsqd" label="供水强度(L/min.m2)" align="center"
+                                            width="200"></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isGdspShow">
                                     <strong>固定水炮</strong>
                                     <el-table :data="gdspData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                         <el-table-column prop="isky" label="是否可用" align="center" width="130"></el-table-column>
                                     </el-table>
@@ -415,7 +497,8 @@
                                     <strong>半固定设施</strong>
                                     <el-table :data="bgdssData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                     </el-table>
                                 </div>
@@ -431,17 +514,22 @@
                                     <strong>泡沫泵房</strong>
                                     <el-table :data="pmbfData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="pmylxmc" label="泡沫液类型" align="center" width="200" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="pmycl" label="泡沫液储量(t)(t)" align="center" width="130" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="pmbzdll" label="泡沫泵最大流量(L/s)" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="pmylxmc" label="泡沫液类型" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="pmycl" label="泡沫液储量(t)(t)" align="center"
+                                            width="130" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="pmbzdll" label="泡沫泵最大流量(L/s)" align="center"
+                                            width="200" show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isPmxhsShow">
                                     <strong>泡沫消火栓</strong>
                                     <el-table :data="pmxhsData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="isky" label="是否可用" align="center" width="130"></el-table-column>
                                     </el-table>
                                 </div>
@@ -449,7 +537,8 @@
                                     <strong>固定泡沫炮</strong>
                                     <el-table :data="gdpmpData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                         <el-table-column prop="sfky" label="是否可用" align="center" width="130"></el-table-column>
                                     </el-table>
@@ -458,8 +547,10 @@
                                     <strong>泡沫发生器</strong>
                                     <el-table :data="pmfsqData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="xh" label="型号" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="xh" label="型号" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                         <el-table-column prop="ll" label="流量(L/s)" align="center" width="130"></el-table-column>
                                     </el-table>
@@ -468,7 +559,8 @@
                                     <strong>半固定设施</strong>
                                     <el-table :data="pmBgdssData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                     </el-table>
                                 </div>
@@ -484,7 +576,8 @@
                                     <strong>固定式</strong>
                                     <el-table :data="gdsData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                         <el-table-column prop="edyl" label="额定压力(Mpa)" align="center" width="200"></el-table-column>
                                     </el-table>
@@ -493,7 +586,8 @@
                                     <strong>半固定式</strong>
                                     <el-table :data="bgdsData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="sl" label="数量" align="center" width="130"></el-table-column>
                                         <el-table-column prop="edyl" label="额定压力(Mpa)" align="center" width="200"></el-table-column>
                                     </el-table>
@@ -509,9 +603,12 @@
                                 <div v-if="this.XFKZS">
                                     <el-table :data="xfkzsData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="iszdbj" label="自动报警是否可用" align="center" width="200"></el-table-column>
-                                        <el-table-column prop="isldkz" label="联动控制是否可用" align="center" width="200"></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="iszdbj" label="自动报警是否可用" align="center"
+                                            width="200"></el-table-column>
+                                        <el-table-column prop="isldkz" label="联动控制是否可用" align="center"
+                                            width="200"></el-table-column>
                                     </el-table>
                                 </div>
                             </el-card>
@@ -526,14 +623,16 @@
                                     <strong>排烟口/出烟口</strong>
                                     <el-table :data="pycykData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isFpyxtShow">
                                     <strong>防排烟系统</strong>
                                     <el-table :data="fpyxtData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="qbwz" label="系统启闭位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="qbwz" label="系统启闭位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                         <el-table-column prop="isky" label="是否可用" align="center" width="130"></el-table-column>
                                     </el-table>
                                 </div>
@@ -548,10 +647,14 @@
                                 <div v-if="this.FHFQ">
                                     <el-table :data="fhfqData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="qywz" label="区域位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="qymj" label="区域面积(㎡)" align="center" width="160" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="fgss" label="分隔设施" align="center" width="160" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="fgwz" label="分隔位置" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="qywz" label="区域位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="qymj" label="区域面积(㎡)" align="center" width="160"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="fgss" label="分隔设施" align="center" width="160"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="fgwz" label="分隔位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                             </el-card>
@@ -566,16 +669,20 @@
                                     <strong>气体灭火系统</strong>
                                     <el-table :data="qtmhxtData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="qbwz" label="起闭位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="zyfw" label="作用范围" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="qbwz" label="起闭位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="zyfw" label="作用范围" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <div v-if="this.isGfmhxtShow">
                                     <strong>干粉灭火系统</strong>
                                     <el-table :data="gfmhxtData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="qbwz" label="起闭位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="zyfw" label="作用范围" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="qbwz" label="起闭位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="zyfw" label="作用范围" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                             </el-card>
@@ -589,13 +696,15 @@
                                 <div v-if="this.QTXFSS">
                                     <el-table :data="qtxfssData" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="wz" label="位置" align="center" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="ms" label="描述" align="center" width="200" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="wz" label="位置" align="center"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="ms" label="描述" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                             </el-card>
                         </el-card>
-                        
+
                     </el-tab-pane>
                     <el-tab-pane label="单位建筑信息" name="third">
                         <div>
@@ -628,7 +737,7 @@
                                 </el-col>
                             </el-row>
                         </div>
-                        </br/>
+                        </br />
                         <!-- 建筑类建筑分区详情 -->
                         <el-card v-for="data in jzl_jzfqData" class="card_style">
                             <div slot="header" class="clearfix">
@@ -950,13 +1059,20 @@
                             <div id="cg">
                                 <el-table :data="data.chuguanList" border class="detailTable">
                                     <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                    <el-table-column prop="cgmc" label="储罐名称" align="center" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="cglxmc" label="储罐类型" width="160" align="center" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="cgzj" label="储罐直径" width="95" align="center" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="cggd" label="储罐高度" width="95" align="center" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="cgzc" label="储罐周长" width="95" align="center" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="gzyl" label="罐顶压力" width="95" align="center" show-overflow-tooltip></el-table-column>
-                                    <el-table-column prop="ccwd" label="存储温度" width="95" align="center" show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="cgmc" label="储罐名称" align="center"
+                                        show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="cglxmc" label="储罐类型" width="160" align="center"
+                                        show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="cgzj" label="储罐直径" width="95" align="center"
+                                        show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="cggd" label="储罐高度" width="95" align="center"
+                                        show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="cgzc" label="储罐周长" width="95" align="center"
+                                        show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="gzyl" label="罐顶压力" width="95" align="center"
+                                        show-overflow-tooltip></el-table-column>
+                                    <el-table-column prop="ccwd" label="存储温度" width="95" align="center"
+                                        show-overflow-tooltip></el-table-column>
                                 </el-table>
                             </div>
                         </el-card>
@@ -1012,10 +1128,14 @@
                                     <strong class="dtdlStyle">危险介质：</strong>
                                     <el-table :data="data.jzl.wxjzList" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="jzmc" label="名称" align="center" width="200" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="jzsjcl" label="实际储量(t)" align="center" width="120" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="jzlhtx" label="理化特性" align="center" width="200" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="jzbz" label="备注" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="jzmc" label="名称" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="jzsjcl" label="实际储量(t)" align="center" width="120"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="jzlhtx" label="理化特性" align="center" width="200"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="jzbz" label="备注" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <el-row class="inform-margin-card">
@@ -1180,110 +1300,120 @@
                                 </el-row>
                                 <!-- 储罐信息 -->
                                 <!-- <el-collapse accordion v-if="data.chuguanList && data.chuguanList.length > 0">
-                                                                                                            <strong>储罐信息</strong>
-                                                                                                            <span v-for="cgdata in data.chuguanList">
-                                                                                                                <el-collapse-item :title="cgdata.cgmc">
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">储罐类型：</strong>{{cgdata.cglxmc||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">实际储量(t)：</strong>{{cgdata.cgrl||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">储罐直径(m)：</strong>{{cgdata.cgzj||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">储罐高度(m)：</strong>{{cgdata.cggd||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">储罐周长(m)：</strong>{{cgdata.cgzc||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">罐顶面积(㎡)：</strong>{{cgdata.gdmj||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">工作压力(MPa)：</strong>{{cgdata.gzyl||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">存储温度(℃)：</strong>{{cgdata.ccwd||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">存储介质名称：</strong>{{cgdata.ccjzmc||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">存储介质理化性质：</strong>{{cgdata.ccjzlhxz||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">存储介质实际储量(t)：</strong>{{cgdata.ccjzsjcl||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                    <el-row class="inform-margin-card">
-                                                                                                                        <el-col :span="24">
-                                                                                                                            <div>
-                                                                                                                                <strong class="dtdlStyle">存储介质液位高度(m)：</strong>{{cgdata.ccjzywgd||"无"}}
-                                                                                                                            </div>
-                                                                                                                        </el-col>
-                                                                                                                    </el-row>
-                                                                                                                </el-collapse-item>
-                                                                                                            </span>
-                                                                                                        </el-collapse> -->
+                                        <strong>储罐信息</strong>
+                                        <span v-for="cgdata in data.chuguanList">
+                                            <el-collapse-item :title="cgdata.cgmc">
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">储罐类型：</strong>{{cgdata.cglxmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">实际储量(t)：</strong>{{cgdata.cgrl||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">储罐直径(m)：</strong>{{cgdata.cgzj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">储罐高度(m)：</strong>{{cgdata.cggd||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">储罐周长(m)：</strong>{{cgdata.cgzc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">罐顶面积(㎡)：</strong>{{cgdata.gdmj||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">工作压力(MPa)：</strong>{{cgdata.gzyl||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">存储温度(℃)：</strong>{{cgdata.ccwd||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">存储介质名称：</strong>{{cgdata.ccjzmc||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">存储介质理化性质：</strong>{{cgdata.ccjzlhxz||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">存储介质实际储量(t)：</strong>{{cgdata.ccjzsjcl||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                                <el-row class="inform-margin-card">
+                                                    <el-col :span="24">
+                                                        <div>
+                                                            <strong class="dtdlStyle">存储介质液位高度(m)：</strong>{{cgdata.ccjzywgd||"无"}}
+                                                        </div>
+                                                    </el-col>
+                                                </el-row>
+                                            </el-collapse-item>
+                                        </span>
+                                    </el-collapse> -->
                                 <div v-if="data.cgl.cgList && data.cgl.cgList.length > 0">
                                     <strong class="dtdlStyle">储罐信息：</strong>
                                     <el-table :data="data.cgl.cgList" border class="detailTable">
                                         <el-table-column type="index" label="序号" width="65" align="center"></el-table-column>
-                                        <el-table-column prop="cgmc" label="名称" align="center" width="100" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="cglxmc" label="类型" align="center" width="100" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="cgrl" label="实际储量(t)" align="center" width="80" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="cgzj" label="直径(m)" align="center" width="80" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="cggd" label="高度(m)" align="center" width="80" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="cgzc" label="周长(m)" align="center" width="80" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="gdmj" label="灌顶面积(㎡)" align="center" width="80" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="gzyl" label="工作压力(MPa)" align="center" width="80" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="ccwd" label="存储温度(℃)" align="center" width="80" show-overflow-tooltip></el-table-column>
-                                        <el-table-column prop="ccjzmc" label="存储介质" align="center" show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="cgmc" label="名称" align="center" width="100"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="cglxmc" label="类型" align="center" width="100"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="cgrl" label="实际储量(t)" align="center" width="80"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="cgzj" label="直径(m)" align="center" width="80"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="cggd" label="高度(m)" align="center" width="80"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="cgzc" label="周长(m)" align="center" width="80"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="gdmj" label="灌顶面积(㎡)" align="center" width="80"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="gzyl" label="工作压力(MPa)" align="center" width="80"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="ccwd" label="存储温度(℃)" align="center" width="80"
+                                            show-overflow-tooltip></el-table-column>
+                                        <el-table-column prop="ccjzmc" label="存储介质" align="center"
+                                            show-overflow-tooltip></el-table-column>
                                     </el-table>
                                 </div>
                                 <el-row class="inform-margin-card">
