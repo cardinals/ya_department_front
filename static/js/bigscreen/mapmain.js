@@ -2020,7 +2020,7 @@ var vm = new Vue({
             //点击进入详情页
            
                 this.detailVisible = true;
-                var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + zddwparams + "&sylx=" ;
+                var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + zddwparams ;
                 history.pushState(null, null, shortURL)
                 
                 //异步加载详情页

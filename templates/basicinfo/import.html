@@ -11,7 +11,7 @@
             <el-row style="margin-bottom:10px;">
                 <el-col :span="24">
                     <div>
-                        <el-button  type="primary" size="mini" @click="this.tz">进入系统查看基本信息</el-button>
+                        <el-button  type="success" size="mini" @click="this.tz">进入系统查看基本信息</el-button>
                     </div>
                 </el-col>
             </el-row>
@@ -69,9 +69,9 @@
                                     <el-col :span="24">
                                         <div>
                                             <strong class="dtdlStyle">预案名称：</strong>
-                                            <a href="#" @click="planDetails(data)">
+                                            <!-- <a href="#" @click="planDetails(data)"> -->
                                                 <v-text v-text="data.yamc||'无'"></v-text>
-                                            </a>
+                                            <!-- </a> -->
                                             <span class="companyStatus dib" title="预案级别" v-text="data.yajbmc||'无'"></span>
                                             <!-- <el-button type="primary" icon="share"  size="mini" style="margin-top:-8px;width:100px"
                                                 @click="openPlan(data)">信息分享</el-button>
