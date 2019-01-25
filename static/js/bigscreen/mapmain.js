@@ -157,8 +157,9 @@ var vm = new Vue({
         // db end
         //详情页显示flag
         detailVisible: false,
+
     },
-    mounted: function() {
+    mounted: function () {
         // var gis_X = this.GetQueryString("gis_X");
         // var gis_Y = this.GetQueryString("gis_Y");
         // var isSydj = this.GetQueryString("sydj");
@@ -174,12 +175,13 @@ var vm = new Vue({
         this.getCity();
         document.title = this.city + '预案情况';
         this.getShengZddwDate();//省
+
     },
     methods:
     //获取重点单位信息
     {
         //当前页修改事件
-        handleCurrentChange: function(val) {
+        handleCurrentChange: function (val) {
             this.currentPage = val;
             var _self = this;
             // _self.loadingData(); //重新加载数据
@@ -327,7 +329,7 @@ var vm = new Vue({
                 //省市与重点单位详细切换
                 $("#shengshizs").show();
                 $("#zddwxx").hide();
-                
+
                 this.initMap();
             }.bind(this), function (error) {
                 console.log(error);
@@ -695,6 +697,7 @@ var vm = new Vue({
         },
         //图层一
         drawMap: function () {
+
             var map = this.map;
             var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //创建图标
             var province = [];
@@ -888,12 +891,14 @@ var vm = new Vue({
             }
             this.cityp = cityp;
             //弹出框
+
         },//图层三
         drawMapb: function (data) {
             var zddws = data;
             var map = vm.map;
             var zddwp = [];//将点放到数组当中
             vm.zddwp = zddwp;
+
             for (var i = 0; i < zddws.length; i++) {
                 var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
                 // var point = new BMap.Point(zddws[i].gisX, zddws[i].gisY);
@@ -910,10 +915,9 @@ var vm = new Vue({
                 // var point = new BMap.Point(middle.lng,middle.lat);
                 var marker = new BMap.Marker(point, { icon: myIcon1 });
                 marker.uuid = zddws[i].uuid;
+
                 marker.addEventListener("click", function (e) {
-                    
-                    vm.buttonOff();
-                  
+
                     //显示底部按钮
                     vm.ShowBtn();
                     vm.getZddwxx('', e.target.uuid);
@@ -934,7 +938,480 @@ var vm = new Vue({
                         }
                     }
                     var uuid = e.target.uuid;
-                    // onclick="vm.openPlan_1(\'' + uuid + '\')"
+                    //onclick="vm.openPlan_1(\'' + uuid + '\')"
+                    //按钮置灰色
+                    //动态判断预案的存在与否，来控制按钮
+                    //地图按钮动态识别
+                    axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + uuid).then(function (res) {
+
+                        var plan = res.data.result;
+                        var kim = 0;
+                        var num = 0;
+                        var tim = 0;
+                        if (plan.length > 0) {
+                            for (var k = 0; k < plan.length; k++) {
+                                if (plan[k].yajb == '01') {
+                                    kim++;
+                                    // break;
+                                }
+                                else if (plan[k].yajb == '02') {
+                                    num++;
+                                    // break;s
+                                }
+                                else if (plan[k].yajb == '03') {
+                                    tim++;
+                                    // break;s
+                                }
+                            };
+                            if (kim > 0 && num > 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+
+                            } else if (kim == 0 && num > 0 && tim == 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim == 0 && num == 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num == 0 && tim == 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num > 0 && tim == 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num == 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim == 0 && num > 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            }
+
+                        } else {
+                            var contents =
+                                '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                this.infoData +
+                                '</h3>' +
+                                '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                this.dwdzData +
+                                '</div>' +
+                                '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                '</tr>' +
+                                '</table>' +
+                                '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                '</div>'
+                                +
+                                '<div class="x-clear"></div>' +
+                                '</div>'
+                                ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                            this.openInfoWindow(infoWindow);//打开新窗口
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = e.currentTarget;
+                            marker.setIcon(myIcon2);
+                            marker.setTop(true, 27000000);//标注遮挡问题
+                            var pt = marker.point;
+                            //隐藏旧圆
+                            var oc = vm.circle;
+                            oc.hide();
+                            //调整缩放级别和圆圈的半径范围
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            circlez.push(circle);//清除圆
+                            // vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    });
+
+                    //初始界面
                     var contents =
                         '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
@@ -958,12 +1435,12 @@ var vm = new Vue({
                         '</tr>' +
                         '</table>' +
                         '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
-                        '<b class="btn btnoffzh" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
-                        '<b class="btn btnoffz" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
-                        '<b class="btn btnoffd" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                        '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                        '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                        '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
                         '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
                         '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
-                        '</div>' 
+                        '</div>'
                         +
                         '<div class="x-clear"></div>' +
                         '</div>'
@@ -989,6 +1466,7 @@ var vm = new Vue({
                     circlez.push(circle);//清除圆
                     vm.chAllMarkers(vm.zdd);
                     vm.zdd = marker;
+
                 });
                 var label = new BMap.Label(this.formatLabel(zddws[i].dwmc), { offset: new BMap.Size(-15, 35) });
                 label.setStyle({
@@ -1035,6 +1513,565 @@ var vm = new Vue({
             this.fhdjData = (zddw.fhdjmc != null ? zddw.fhdjmc : '无');
             this.yajbData = (zddw.yajb != null ? zddw.yajb : '无');
             var uuid = zddw.uuid;
+            //地图按钮动态识别
+            axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + uuid).then(function (res) {
+debugger
+                var plan = res.data.result;
+                var kim = 0;
+                var num = 0;
+                var tim = 0;
+                if (plan.length > 0) {
+                    for (var k = 0; k < plan.length; k++) {
+                        if (plan[k].yajb == '01') {
+                            kim++;
+                            // break;
+                        }
+                        else if (plan[k].yajb == '02') {
+                            num++;
+                            // break;s
+                        }
+                        else if (plan[k].yajb == '03') {
+                            tim++;
+                            // break;s
+                        }
+                    };
+                    if (kim > 0 && num > 0 && tim > 0) {
+                        var contents =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                            this.infoData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dwdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                            '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                            '</div>'
+                            +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//不受聚合影响
+                            vm.map.openInfoWindow(infoWindow, pt);//
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                            label.setStyle({
+                                opacity: '0.7',
+                                fontSize: '12px',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#fff',
+                                borderRadius: '2px',
+                                paddingRight: '60px',
+                                paddingTop: '1px',
+                                paddingLeft: '3px',
+                                Width: '5px',
+                                background: '#356FAE',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-10px',
+                            });
+                            marker.setLabel(label);
+                            vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                            vm.circle = circle;
+
+                    } else if (kim == 0 && num > 0 && tim == 0) {
+                        var contents =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                            this.infoData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dwdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                            '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                            '</div>'
+                            +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//不受聚合影响
+                            vm.map.openInfoWindow(infoWindow, pt);//
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                            label.setStyle({
+                                opacity: '0.7',
+                                fontSize: '12px',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#fff',
+                                borderRadius: '2px',
+                                paddingRight: '60px',
+                                paddingTop: '1px',
+                                paddingLeft: '3px',
+                                Width: '5px',
+                                background: '#356FAE',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-10px',
+                            });
+                            marker.setLabel(label);
+                            vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                            vm.circle = circle;
+                    } else if (kim == 0 && num == 0 && tim > 0) {
+                        var contents =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                            this.infoData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dwdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                            '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                            '</div>'
+                            +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//不受聚合影响
+                            vm.map.openInfoWindow(infoWindow, pt);//
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                            label.setStyle({
+                                opacity: '0.7',
+                                fontSize: '12px',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#fff',
+                                borderRadius: '2px',
+                                paddingRight: '60px',
+                                paddingTop: '1px',
+                                paddingLeft: '3px',
+                                Width: '5px',
+                                background: '#356FAE',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-10px',
+                            });
+                            marker.setLabel(label);
+                            vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                            vm.circle = circle;
+                    } else if (kim > 0 && num == 0 && tim == 0) {
+                        var contents =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                            this.infoData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dwdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                            '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                            '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                            '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                            '</div>'
+                            +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//不受聚合影响
+                            vm.map.openInfoWindow(infoWindow, pt);//
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                            label.setStyle({
+                                opacity: '0.7',
+                                fontSize: '12px',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#fff',
+                                borderRadius: '2px',
+                                paddingRight: '60px',
+                                paddingTop: '1px',
+                                paddingLeft: '3px',
+                                Width: '5px',
+                                background: '#356FAE',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-10px',
+                            });
+                            marker.setLabel(label);
+                            vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                            vm.circle = circle;
+                    } else if (kim > 0 && num > 0 && tim == 0) {
+                        var contents =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                            this.infoData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dwdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                            '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                            '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                            '</div>'
+                            +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//不受聚合影响
+                            vm.map.openInfoWindow(infoWindow, pt);//
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                            label.setStyle({
+                                opacity: '0.7',
+                                fontSize: '12px',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#fff',
+                                borderRadius: '2px',
+                                paddingRight: '60px',
+                                paddingTop: '1px',
+                                paddingLeft: '3px',
+                                Width: '5px',
+                                background: '#356FAE',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-10px',
+                            });
+                            marker.setLabel(label);
+                            vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                            vm.circle = circle;
+                    } else if (kim > 0 && num == 0 && tim > 0) {
+                        var contents =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                            this.infoData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dwdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                            '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                            '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                            '</div>'
+                            +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//不受聚合影响
+                            vm.map.openInfoWindow(infoWindow, pt);//
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                            label.setStyle({
+                                opacity: '0.7',
+                                fontSize: '12px',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#fff',
+                                borderRadius: '2px',
+                                paddingRight: '60px',
+                                paddingTop: '1px',
+                                paddingLeft: '3px',
+                                Width: '5px',
+                                background: '#356FAE',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-10px',
+                            });
+                            marker.setLabel(label);
+                            vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                            vm.circle = circle;
+                    } else if (kim == 0 && num > 0 && tim > 0) {
+                        var contents =
+                            '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                            '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                            this.infoData +
+                            '</h3>' +
+                            '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                            this.dwdzData +
+                            '</div>' +
+                            '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                            '</tr>' +
+                            '<tr>' +
+                            '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                            '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                            '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                            '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                            '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                            '</div>'
+                            +
+                            '<div class="x-clear"></div>' +
+                            '</div>'
+                            ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//不受聚合影响
+                            vm.map.openInfoWindow(infoWindow, pt);//
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                            label.setStyle({
+                                opacity: '0.7',
+                                fontSize: '12px',
+                                border: '0',
+                                textAlign: 'center',
+                                color: '#fff',
+                                borderRadius: '2px',
+                                paddingRight: '60px',
+                                paddingTop: '1px',
+                                paddingLeft: '3px',
+                                Width: '5px',
+                                background: '#356FAE',
+                                display: 'inline-block',
+                                paddingRight: '80px',
+                                marginLeft: '-10px',
+                            });
+                            marker.setLabel(label);
+                            vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                            vm.circle = circle;
+                    }
+
+                } else {
+                    var contents =
+                        '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                        '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                        this.infoData +
+                        '</h3>' +
+                        '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                        this.dwdzData +
+                        '</div>' +
+                        '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                        '<tr>' +
+                        '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                        '</tr>' +
+                        '</table>' +
+                        '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                        '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                        '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                        '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                        '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                        '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                        '</div>'
+                        +
+                        '<div class="x-clear"></div>' +
+                        '</div>'
+                        ;
+                        var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                        infoWindow.disableAutoPan();//不受聚合影响
+                        vm.map.openInfoWindow(infoWindow, pt);//
+                        //设置新图标
+                        var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                        var marker = new BMap.Marker(pt, { icon: myIcon2 });
+                        var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                        var radius = 240;
+                        var r = 6371004;
+                        map.addOverlay(circle);
+                        map.addOverlay(marker);
+                        var label = new BMap.Label(this.formatLabel(zddw.dwmc), { offset: new BMap.Size(-15, 35) });
+                        label.setStyle({
+                            opacity: '0.7',
+                            fontSize: '12px',
+                            border: '0',
+                            textAlign: 'center',
+                            color: '#fff',
+                            borderRadius: '2px',
+                            paddingRight: '60px',
+                            paddingTop: '1px',
+                            paddingLeft: '3px',
+                            Width: '5px',
+                            background: '#356FAE',
+                            display: 'inline-block',
+                            paddingRight: '80px',
+                            marginLeft: '-10px',
+                        });
+                        marker.setLabel(label);
+                        vm.chAllMarkers(vm.zdd);
+                        vm.zdd = marker;
+                        vm.circle = circle;
+                }
+            }.bind(this), function (error) {
+                console.log(error)
+            });
+            //初始界面02
+            debugger
             var contents =
                 '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                 '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
@@ -1563,8 +2600,8 @@ var vm = new Vue({
 
                 marker.uuid = uuid;//影响水源这块
                 marker.addEventListener("click", function (e) {
-                    uuidz= e.target.uuid;
-                   
+                    uuidz = e.target.uuid;
+
                     var pt = marker.getPosition();
                     //标注                        
                     map.centerAndZoom(pt);//不进行放大
@@ -1574,7 +2611,7 @@ var vm = new Vue({
                             this.qsxsData = (vm.syData[i].qsxs != null ? vm.syData[i].qsxs : '无');
                             this.symcData = (vm.syData[i].symc != null ? vm.syData[i].symc : '无');
                             this.kyztmcData = (vm.syData[i].kyztmc != null ? vm.syData[i].kyztmc : '无');
-                          
+
 
                         }
                     }
@@ -1831,6 +2868,477 @@ var vm = new Vue({
                         }
                     }
                     var uuid = e.target.uuid;
+                    //地图按钮动态识别
+                    axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + uuid).then(function (res) {
+
+                        var plan = res.data.result;
+                        var kim = 0;
+                        var num = 0;
+                        var tim = 0;
+                        if (plan.length > 0) {
+                            for (var k = 0; k < plan.length; k++) {
+                                if (plan[k].yajb == '01') {
+                                    kim++;
+                                    // break;
+                                }
+                                else if (plan[k].yajb == '02') {
+                                    num++;
+                                    // break;s
+                                }
+                                else if (plan[k].yajb == '03') {
+                                    tim++;
+                                    // break;s
+                                }
+                            };
+                            if (kim > 0 && num > 0 && tim > 0) {
+                                var contentz =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+
+                            } else if (kim == 0 && num > 0 && tim == 0) {
+                                var contentz =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim == 0 && num == 0 && tim > 0) {
+                                var contentz =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num == 0 && tim == 0) {
+                                var contentz =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num > 0 && tim == 0) {
+                                var contentz =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num == 0 && tim > 0) {
+                                var contentz =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim == 0 && num > 0 && tim > 0) {
+                                var contentz =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            }
+
+                        } else {
+                            var contentz =
+                                '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                this.infoData +
+                                '</h3>' +
+                                '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                this.dwdzData +
+                                '</div>' +
+                                '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                '</tr>' +
+                                '</table>' +
+                                '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                '</div>'
+                                +
+                                '<div class="x-clear"></div>' +
+                                '</div>'
+                                ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                            this.openInfoWindow(infoWindow);//打开新窗口
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = e.currentTarget;
+                            marker.setIcon(myIcon2);
+                            marker.setTop(true, 27000000);//标注遮挡问题
+                            var pt = marker.point;
+                            //隐藏旧圆
+                            var oc = vm.circle;
+                            oc.hide();
+                            //调整缩放级别和圆圈的半径范围
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            circlez.push(circle);//清除圆
+                            // vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    });
+                    //初始界面03
+                    debugger
                     var contentz =
                         '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
@@ -1926,25 +3434,22 @@ var vm = new Vue({
             var map = this.map;
             // var mapType = this.mapType;
             // if (mapType == 'satellite') {
-                map.setMapType(BMAP_NORMAL_MAP);
+            map.setMapType(BMAP_NORMAL_MAP);
             //     this.mapType = '2D';
             // }
         },
-        //按钮禁用
-        buttonOff:function(){
-            //按钮禁用
-            $(".btnoff").attr("disabled","disabled");
-        },
+
         //调取预案
         openPlan_1: function (zddwid, yajb) {
-            
+
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + zddwid).then(function (res) {
-              
+
                 var plan = res.data.result;
-                
+
                 this.planData.yaid_1 = '';
                 this.planData.yaid_2 = '';
                 this.planData.yaid_3 = '';
+
                 for (var k = 0; k < plan.length; k++) {
                     if (yajb == '01') {
                         if (plan[k].yajb == '01') {
@@ -1957,11 +3462,11 @@ var vm = new Vue({
                             // break;s
                         }
                     } else if (yajb == '03') {
-                        
+
                         if (plan[k].yajb == '03') {
-                            
+
                             this.planData.yaid_3 = plan[k].uuid;
-                            
+
                             // break;s
                         }
 
@@ -1969,28 +3474,28 @@ var vm = new Vue({
                 }
                 if (yajb == '01') {
                     if (this.planData.yaid_1 == null || this.planData.yaid_1 == '') {
-                        this.$message({
-                            message: "总队级预案不存在",
-                            showClose: true,
-                        });
+                        // this.$message({
+                        //     message: "总队级预案不存在",
+                        //     showClose: true,
+                        // });
                     } else {
                         this.showPlan(this.planData.yaid_1);
                     }
                 } else if (yajb == '02') {
                     if (this.planData.yaid_2 == null || this.planData.yaid_2 == '') {
-                        this.$message({
-                            message: "支队级预案不存在",
-                            showClose: true,
-                        });
+                        // this.$message({
+                        //     message: "支队级预案不存在",
+                        //     showClose: true,
+                        // });
                     } else {
                         this.showPlan(this.planData.yaid_2);
                     }
                 } else if (yajb == '03') {
                     if (this.planData.yaid_3 == null || this.planData.yaid_3 == '') {
-                        this.$message({
-                            message: "大中队级预案不存在",
-                            showClose: true,
-                        });
+                        // this.$message({
+                        //     message: "大中队级预案不存在",
+                        //     showClose: true,
+                        // });
                     } else {
 
                         this.dzdjPlan(zddwid);
@@ -2004,13 +3509,13 @@ var vm = new Vue({
 
         },
         //预案信息列表
-        dzdjPlan: function (yaidd){
+        dzdjPlan: function (yaidd) {
 
             //点击进入详情页
             this.detailVisible = true;
             var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + yaidd;
             history.pushState(null, null, shortURL)
-            
+
             //异步加载详情页
             $(function () {
                 $.ajax({
@@ -2028,7 +3533,7 @@ var vm = new Vue({
             axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
                 if (res.data.result) {
                     var yllj = res.data.result[0].yllj;
-                    window.open(baseUrl+"/upload/" + yllj);
+                    window.open(baseUrl + "/upload/" + yllj);
                 }
             }.bind(this), function (error) {
                 console.log(error)
@@ -2037,64 +3542,64 @@ var vm = new Vue({
 
         //分享
         openShare: function (val) {
-            window.open(baseUrl+"/planShare/pageZddw/" + val + "/web");
+            window.open(baseUrl + "/planShare/pageZddw/" + val + "/web");
         },
         //水源详情跳转
-        syxq: function (params,lx) {
+        syxq: function (params, lx) {
             //window.location.href = "../basicinfo/firewater_list.html?uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
             // window.location.href = "../all.html?url=/basicinfo/firewater&uuid=" + params + "&sydj=1" + "&index=71" + "&type=DT";
-            this.syxqbtn(params,lx)
+            this.syxqbtn(params, lx)
         },
         //队站详情跳转
         dzxq: function (dzparams) {
             //window.location.href = "../basicinfo/firestation_list.html?dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
             window.location.href = "../all.html?url=/basicinfo/firestation&dzid=" + dzparams + "&dzdj=1" + "&index=75" + "&type=DT";
         },
-         //重点单位详情跳转
-         zddwxq: function (zddwparams) {
+        //重点单位详情跳转
+        zddwxq: function (zddwparams) {
             //window.location.href = "../planobject/importantunits_detail.html?ID=" + zddwparams + "&index=41" + "&type=DT";
             // window.location.href = "../planobject/importantunits_detail.html?uuid=" + zddwparams;
             this.zddwxqbtn(zddwparams)
             // window.location.href = "../all.html?url=/planobject/importantunits_detail&ID=" + zddwparams + "&index=41" + "&type=DT";
         },
         //重点单位详细信息页
-        zddwxqbtn:function(zddwparams){
+        zddwxqbtn: function (zddwparams) {
             //点击进入详情页
-           
-                this.detailVisible = true;
-                var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + zddwparams ;
-                history.pushState(null, null, shortURL)
-                
-                //异步加载详情页
-                $(function () {
-                    $.ajax({
-                        url: '../../templates/basicinfo/import.html',
-                        cache: true,
-                        async: true,
-                        success: function (html) {
-                            $("#detailDialog").html(html);
-                        }
-                    });
-                })
+
+            this.detailVisible = true;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + zddwparams;
+            history.pushState(null, null, shortURL)
+
+            //异步加载详情页
+            $(function () {
+                $.ajax({
+                    url: '../../templates/basicinfo/import.html',
+                    cache: true,
+                    async: true,
+                    success: function (html) {
+                        $("#detailDialog").html(html);
+                    }
+                });
+            })
         },
         //水源详情信息页
-        syxqbtn:function(params,lx){
-           
+        syxqbtn: function (params, lx) {
+
             //点击进入详情页
-                this.detailVisible = true;
-                var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + params + "&sylx=" + lx;
-                history.pushState(null, null, shortURL)
-                //异步加载详情页
-                $(function () {
-                    $.ajax({
-                        url: '../../../templates/basicinfo/water.html',
-                        cache: true,
-                        async: true,
-                        success: function (html) {
-                            $("#detailDialog").html(html);
-                        }
-                    });
-                })
+            this.detailVisible = true;
+            var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + params + "&sylx=" + lx;
+            history.pushState(null, null, shortURL)
+            //异步加载详情页
+            $(function () {
+                $.ajax({
+                    url: '../../../templates/basicinfo/water.html',
+                    cache: true,
+                    async: true,
+                    success: function (html) {
+                        $("#detailDialog").html(html);
+                    }
+                });
+            })
         },
         //车辆单位详情跳转
         clxq: function (clparams) {
@@ -2111,7 +3616,7 @@ var vm = new Vue({
             // }
         },
         //三维地图
-        SwOver:function (){
+        SwOver: function () {
             var map = this.map;
             map.setMapType(BMAP_PERSPECTIVE_MAP);
         },
@@ -2266,8 +3771,9 @@ var vm = new Vue({
                 })
             }
         },
+        //重点单位详细信息弹框
         setPlace: function (data) {
-            
+
             vm.ShowBtn();
             vm.map.clearOverlays();    //清除地图上所有覆盖物
             var zddws = data;
@@ -2280,12 +3786,12 @@ var vm = new Vue({
             var inCityPoint = [];
             var centerPoint = new BMap.Point(map.getCenter().lng, map.getCenter().lat)
             var centerCity = '';
-            
+
             for (var i = 0; i < zddws.list.length; i++) {
-             
+
                 var myIcon1 = new BMap.Icon("../../static/images/new/w1_03.png", new BMap.Size(26, 26)); //创建图标
                 var point = new BMap.Point(zddws.list[i].gisX, zddws.list[i].gisY);
-                
+
                 var bound = map.getBounds();//地图可视区域
                 if (bound.containsPoint(point)) {
                     visibleNum++;
@@ -2296,11 +3802,11 @@ var vm = new Vue({
                     inCityPoint.push(point);
                     console.log(map.getDistance(point, centerPoint));
                 }
-             
+
                 var marker = new BMap.Marker(point, { icon: myIcon1 });
                 marker.uuid = zddws.list[i].uuid;
                 marker.addEventListener("click", function (e) {
-                    
+
                     vm.removeAllMarkers(vm.circlez);
                     var circlez = [];//清除圆
                     vm.circlez = circlez;//清除圆
@@ -2318,6 +3824,477 @@ var vm = new Vue({
                         }
                     }
                     var uuid = e.target.uuid;
+                    //地图按钮动态识别
+                    axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + uuid).then(function (res) {
+
+                        var plan = res.data.result;
+                        var kim = 0;
+                        var num = 0;
+                        var tim = 0;
+                        if (plan.length > 0) {
+                            for (var k = 0; k < plan.length; k++) {
+                                if (plan[k].yajb == '01') {
+                                    kim++;
+                                    // break;
+                                }
+                                else if (plan[k].yajb == '02') {
+                                    num++;
+                                    // break;s
+                                }
+                                else if (plan[k].yajb == '03') {
+                                    tim++;
+                                    // break;s
+                                }
+                            };
+                            if (kim > 0 && num > 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+
+                            } else if (kim == 0 && num > 0 && tim == 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim == 0 && num == 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num == 0 && tim == 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num > 0 && tim == 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim > 0 && num == 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            } else if (kim == 0 && num > 0 && tim > 0) {
+                                var contents =
+                                    '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                    '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                    this.infoData +
+                                    '</h3>' +
+                                    '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                    this.dwdzData +
+                                    '</div>' +
+                                    '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                    '</tr>' +
+                                    '</table>' +
+                                    '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                    '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                    '<b class="btn" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                    '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                    '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                    '</div>'
+                                    +
+                                    '<div class="x-clear"></div>' +
+                                    '</div>'
+                                    ;
+                                var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                                infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                                this.openInfoWindow(infoWindow);//打开新窗口
+                                //设置新图标
+                                var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                                var marker = e.currentTarget;
+                                marker.setIcon(myIcon2);
+                                marker.setTop(true, 27000000);//标注遮挡问题
+                                var pt = marker.point;
+                                //隐藏旧圆
+                                var oc = vm.circle;
+                                oc.hide();
+                                //调整缩放级别和圆圈的半径范围
+                                var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                                var radius = 240;
+                                var r = 6371004;
+                                map.addOverlay(circle);
+                                map.addOverlay(marker);
+                                circlez.push(circle);//清除圆
+                                // vm.chAllMarkers(vm.zdd);
+                                vm.zdd = marker;
+                            }
+
+                        } else {
+                            var contents =
+                                '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
+                                '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
+                                this.infoData +
+                                '</h3>' +
+                                '<div class="summary" style="height: 32px;line-height: 32px;color: #999;">' +
+                                this.dwdzData +
+                                '</div>' +
+                                '<table cellpadding="0" cellspacing="0" class="content" style="height:100px; width:440px;white-space: normal;">' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>消防管理人：</strong>' + this.xfzrrData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>单位值班电话：</strong>' + this.zbdhData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>预案级别：</strong>' + this.yajbData + '</td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td style="padding: 1px;font-size: 14px;" colspan="2">' + '<strong>防火级别：</strong>' + this.fhdjData + '</td>' +
+                                '</tr>' +
+                                '</table>' +
+                                '<div  class="bbar" style=" text-align: center; position: absolute; bottom:0;width: 120%;height: 25px;text-align: left;">' +
+                                '<b class="btn" disabled="true" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_generalteam.png">总队预案</b>' +
+                                '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',02)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" target="_blank"><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_detachment.png">支队预案</b>' +
+                                '<b class="btn" disabled="true" onclick="vm.openPlan_1(\'' + uuid + '\',03)" style="padding:0 7px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width:12px;height:12px;vertical-align: sub;"  src="../../static/images/btn/icon_brigade.png">大（中队）预案</b>' +
+                                '<b class="btn" onclick="vm.zddwxq(\'' + uuid + '\')" style="padding:0 9px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;" ><img style="margin-right:5px;margin-bottom:1px;width: 12px;height: 12px;vertical-align: sub;" src="../../static/images/btn/icon_details.png">基本信息</b>' +
+                                '<b class="btn" onclick="vm.openShare(\'' + uuid + '\')" style="padding:0 11.5px;background:#5963A0;font-size:11px;color: #fff;display: inline-block;margin: 0 2px;height: 24px;line-height: 24px;border-radius: 2px;cursor: pointer;text-align: center;text-decoration: none;width:55px;" ><img style="margin-right:1px;margin-bottom:1px;width:0px;height:12px;vertical-align: sub;" src="../../static/images/btn/icon_share.png"> 分享</b>' +
+                                '</div>'
+                                +
+                                '<div class="x-clear"></div>' +
+                                '</div>'
+                                ;
+                            var infoWindow = new BMap.InfoWindow(contents); //创建信息窗口对象
+                            infoWindow.disableAutoPan();//弹出框持续显示不受聚合影响
+                            this.openInfoWindow(infoWindow);//打开新窗口
+                            //设置新图标
+                            var myIcon2 = new BMap.Icon("../../static/images/new/w1_05.png", new BMap.Size(26, 26)); //点击后的新图标
+                            var marker = e.currentTarget;
+                            marker.setIcon(myIcon2);
+                            marker.setTop(true, 27000000);//标注遮挡问题
+                            var pt = marker.point;
+                            //隐藏旧圆
+                            var oc = vm.circle;
+                            oc.hide();
+                            //调整缩放级别和圆圈的半径范围
+                            var circle = new BMap.Circle(pt, 240, { strokeColor: "blue", fillColor: "lightblue", strokeWeight: 1, fillOpacity: 0.3, strokeOpacity: 0.3 });
+                            var radius = 240;
+                            var r = 6371004;
+                            map.addOverlay(circle);
+                            map.addOverlay(marker);
+                            circlez.push(circle);//清除圆
+                            // vm.chAllMarkers(vm.zdd);
+                            vm.zdd = marker;
+                        }
+                    }.bind(this), function (error) {
+                        console.log(error)
+                    });
+                    //初始界面04
+                    debugger
                     var contents =
                         '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
@@ -2402,7 +4379,7 @@ var vm = new Vue({
         },
         // db end
         //根据参数部分和参数名来获取参数值 
-        GetQueryString: function(name) {
+        GetQueryString: function (name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
             if (r != null) return unescape(r[2]); return null;
