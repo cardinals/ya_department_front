@@ -34,6 +34,10 @@ new Vue({
     },
 
     methods: {
+        //控制弹框关闭按钮的方法
+        closeDialog: function (val) {
+            
+        },
         //根据参数部分和参数名来获取参数值 
         GetQueryString(name) {
             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -57,14 +61,6 @@ new Vue({
             
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + this.yauuid).then(function (res) {
                
-                // this.detailData = res.data.result;
-               
-                // for(var k = 0; k < this.detailData.length; k++){
-                //         if(this.detailData[k].yajb == '03'){
-                //             this.idData[k]=this.detailData[k].uuid;
-                           
-                //         }
-                //     };
                 this.minData = res.data.result;
                 
                 for(var k = 0; k < this.minData.length; k++){

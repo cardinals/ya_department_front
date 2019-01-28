@@ -247,6 +247,10 @@ new Vue({
     },
 
     methods: {
+        //控制弹框关闭按钮的方法
+        closeDialog: function (val) {
+            
+        },
         handleNodeClick(data) {
             // console.log(data);
         },

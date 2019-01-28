@@ -26,6 +26,10 @@ new Vue({
     },
 
     methods: {
+        //控制弹框关闭按钮的方法
+        closeDialog: function (val) {
+            
+        },
         //根据参数部分和参数名来获取参数值 
         GetQueryString(name) {
             var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
