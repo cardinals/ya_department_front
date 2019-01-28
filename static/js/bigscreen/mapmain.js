@@ -1515,7 +1515,7 @@ var vm = new Vue({
             var uuid = zddw.uuid;
             //地图按钮动态识别
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + uuid).then(function (res) {
-debugger
+
                 var plan = res.data.result;
                 var kim = 0;
                 var num = 0;
@@ -2071,7 +2071,7 @@ debugger
                 console.log(error)
             });
             //初始界面02
-            debugger
+            
             var contents =
                 '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                 '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
@@ -3338,7 +3338,7 @@ debugger
                         console.log(error)
                     });
                     //初始界面03
-                    debugger
+                   
                     var contentz =
                         '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +
@@ -3441,7 +3441,7 @@ debugger
 
         //调取预案
         openPlan_1: function (zddwid, yajb) {
-
+            
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + zddwid).then(function (res) {
 
                 var plan = res.data.result;
@@ -3470,13 +3470,14 @@ debugger
                 }
                 if (yajb == '01') {
                     if (this.planData.yaid_1 == null || this.planData.yaid_1 == '') {
+                      
                         // this.$message({
                         //     message: "总队级预案不存在",
                         //     showClose: true,
                         // });
                     } else {
-                        this.showPlan(this.planData.yaid_1);
-                        // this.zdjPlan(zddwid);
+                        // this.showPlan(this.planData.yaid_1);
+                        this.zdjPlan(zddwid);
                     }
                 } else if (yajb == '02') {
                     if (this.planData.yaid_2 == null || this.planData.yaid_2 == '') {
@@ -3485,8 +3486,8 @@ debugger
                         //     showClose: true,
                         // });
                     } else {
-                        this.showPlan(this.planData.yaid_2);
-                        // this.zhdjPlan(zddwid);
+                        // this.showPlan(this.planData.yaid_2);
+                        this.zhdjPlan(zddwid);
                     }
                 } else if (yajb == '03') {
                     if (this.planData.yaid_3 == null || this.planData.yaid_3 == '') {
@@ -3571,7 +3572,8 @@ debugger
             })
 
         },
-
+        
+        //原始预案跳转方法
         showPlan: function (val) {
             axios.get('/dpapi/yafjxz/doFindByPlanId/' + val).then(function (res) {
                 if (res.data.result) {
@@ -4337,7 +4339,7 @@ debugger
                         console.log(error)
                     });
                     //初始界面04
-                    debugger
+                    
                     var contents =
                         '<div class="app-map-infowindow zddw-infowindow" style="height:210px;background-image: url(../../static/images/new/back15.png);min-height: 164px;background-position: right;background-repeat: no-repeat;">' +
                         '<h3 class="title" style=" margin: 0;padding: 0 12px;height: 32px;line-height: 32px;font-size: 16px;color: #666;border-bottom: 1px solid #ccc; white-space:nowrap; overflow:hidden;text-overflow:ellipsis;" v-text = "zddws[i].gisX">' +

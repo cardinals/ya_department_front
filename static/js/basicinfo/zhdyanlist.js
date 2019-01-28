@@ -9,6 +9,8 @@ new Vue({
             sylx: "",
             //详情Data
             detailData: [],
+            //详情Data
+            minData: [],
             //预案名称id
             yamcData: [],
             //多条预案的id
@@ -56,14 +58,21 @@ new Vue({
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + this.yauuid).then(function (res) {
                 debugger
                
-                this.detailData = res.data.result;
-               
                 // for(var k = 0; k < this.detailData.length; k++){
                 //         if(this.detailData[k].yajb == '03'){
                 //             this.idData[k]=this.detailData[k].uuid;
                            
                 //         }
                 //     };
+
+                this.minData = res.data.result;
+                var n=0;
+                for(var k = 0; k < this.minData.length; k++){
+                        if(this.minData[k].yajb == '02'){
+                            this.detailData[n] = this.minData[k]; 
+                            n++;
+                        }
+                    };
                 this.loading=false;
 
 
@@ -73,7 +82,7 @@ new Vue({
         },
         //选择预案名称进行跳转
         informClick(val) {
-            if(val.yajb == '03'){
+            if(val.yajb == '02'){
                 //取得选中行id
                 var uuid = val.uuid;
                 window.open(baseUrl+"/planShare/page/" + uuid + "/detail/web");
