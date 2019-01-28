@@ -9,8 +9,6 @@ new Vue({
             sylx: "",
             //详情Data
             detailData: [],
-            //详情Data
-            minData: [],
             //预案名称id
             yamcData: [],
             //多条预案的id
@@ -57,16 +55,17 @@ new Vue({
             
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + this.yauuid).then(function (res) {
                 debugger
-                this.minData = res.data.result;
-                var n=0;
-                for(var k = 0; k < this.minData.length; k++){
-                        if(this.minData[k].yajb == '03'){
-                            this.detailData[n] = this.minData[k]; 
-                            n++;
-                        }
-                    };
-
+               
+                this.detailData = res.data.result;
+               
+                // for(var k = 0; k < this.detailData.length; k++){
+                //         if(this.detailData[k].yajb == '03'){
+                //             this.idData[k]=this.detailData[k].uuid;
+                           
+                //         }
+                //     };
                 this.loading=false;
+
 
             }.bind(this), function (error) {
                 console.log(error);
