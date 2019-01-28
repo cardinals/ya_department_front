@@ -56,7 +56,6 @@ new Vue({
             this.yauuid = this.id;
             
             axios.get('/dpapi/digitalplanlist/doFindListByZddwId/' + this.yauuid).then(function (res) {
-                debugger
                
                 // this.detailData = res.data.result;
                
@@ -67,11 +66,10 @@ new Vue({
                 //         }
                 //     };
                 this.minData = res.data.result;
-                var n=0;
+                
                 for(var k = 0; k < this.minData.length; k++){
                         if(this.minData[k].yajb == '01'){
-                            this.detailData[n] = this.minData[k]; 
-                            n++;
+                            this.detailData.push(this.minData[k]); 
                         }
                     };
                 this.loading=false;
