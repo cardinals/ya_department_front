@@ -3635,7 +3635,7 @@ var vm = new Vue({
             var shortURL = top.location.href.substr(0, top.location.href.indexOf("?")) + "?id=" + params + "&sylx=" + lx;
             history.pushState(null, null, shortURL)
             //异步加载详情页
-            $(function () {
+            $(function () {;
                 $.ajax({
                     url: '../../../templates/basicinfo/water.html',
                     cache: true,
