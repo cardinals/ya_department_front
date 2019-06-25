@@ -125,7 +125,8 @@ font-family:"微软雅黑";
 }
 
 .map-bglf {
-  background: url('../images/dock-bg.png');
+  /* background: url('../images/dock-bg.png'); */
+  background:#3E3F43;
   height:100%;
   width:100%;
   background-size:cover; 

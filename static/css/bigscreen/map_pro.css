@@ -10,13 +10,18 @@
     position:relative; z-index:66;
   }
   .pagenum{
-    position:fixed;bottom:10px;margin-left:22px;color:black;
-    border:2px solid #3CBFA5;
-    background: #3A254F;
-    border-radius: 5px;
+    position:fixed;
+    bottom:10px;
+    margin-left:22px;
+    color:black;
+    /* border:2px solid #3CBFA5; */
+    /* background: #3A254F; */
+    /* border-radius: 5px; */
   }
   .pagenum_btn{
-    font-weight:bold;text-decoration: none;color:black;
+    font-weight:bold;
+    text-decoration: none;
+    color:black;
   
   }
   .el-pagination__total{
@@ -25,10 +30,28 @@
   .el-pagination__jump{
     color:#fff;
   } 
+  
   .el-pagination__editor{
-    color:#000;
+    color:#fff;
     border-radius: 0px;
+    background: #3E3F43;
+    border:0px;
   }
+
+
+  /* 左侧底部分页的样式 */
+  .btn-prev{
+    background: #3E3F43 !important;
+    border:0px !important;
+    color:#fff !important;
+  }
+  .btn-next{
+    background: #3E3F43 !important;
+    border:0px !important;
+    color:#fff !important;
+  }
+
+
   .an{
     text-decoration: none;
   }
@@ -82,13 +105,16 @@
     height: 15px;
   }
   .el-input__inner{
-    height: 25px;
+    height: 35px;
     font-size: 12px;
+    border-radius: 0px;
   }
   .el-button{
     padding: 6px 13px;
     font-size: 12px;
+    height: 35px;
   }
+  
   .input-with-select{
     width: 163px;
   }
@@ -97,8 +123,23 @@
     height: 25px;
   }
   .el-card{
-    margin-bottom: 3px;
+    margin-bottom: 0px;
     text-align: left;
+    border-radius: 0px;
+    border:1px solid #333;
+    height: 48px;
+    background: #3E3F43;
+    padding: 8px;
+    cursor: pointer;
+  }
+  .el-card:hover{
+    margin-bottom: 0px;
+    text-align: left;
+    border-radius: 0px;
+    border:1px solid #333;
+    height: 48px;
+    background: #20A0FF !important;
+    padding: 8px;
   }
   .menu-toggle-btn{
     bottom: 80px;

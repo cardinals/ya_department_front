@@ -23,7 +23,7 @@
     <script src="../../static/js/common/config.js"></script>
     <style>
        .jwcolor{ color:#fff;background: #3A254F;padding: 5px;border: 2px solid #F9C520;border-radius:25px;}
-       .h25{height:25px;}.h515{height: 1015px;}
+       .h25{height:35px;}.h515{height: 1015px;}
        .h65{height: 65%;} .wh240{width: 240;}
        .icont:hover{background: rgba(0,0,0,0.3);}
     </style>
@@ -39,22 +39,22 @@
     <div id="app">
         <div class="application-boxs tc abs" style="top:0px;">
             <!-- 左侧 -->
-            <div class="map-menu-left p10 map-bglf">
+            <div class="map-menu-left map-bglf">
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
                 <div id="menu-box" class="f12">
-                    <el-form ref="form" :model="form" label-width="80px">
+                    <el-form ref="form" :model="form">
                         <!-- lxy start -->
                         <div class="h65">
-                            <div class="search_top h25" style="margin-top:20px;">
-                                <el-select style="border: 2px solid #647AAE;border-radius:5px;" placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r" >
+                            <div class="search_top h25" style="margin-top:10px;padding-left:14px;">
+                                <el-select style="border-radius:0px;" placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r" >
                                     <el-option v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option>
                                 </el-select>
-                                <el-button class="l ml5" style="background:#1E2B3F;border: 2px solid #647AAE;border-radius:5px;margin-left: 1px;" type="primary" @click="searchClick">搜索</el-button>
+                                <el-button class="l" style="border-radius:0px;" size="small" type="primary" @click="searchClick">搜索</el-button>
                             </div>
                             <div class="h515"  style="margin-top: 10px; overflow-y:auto !important;height:515px;">
                                 <div id="shengshizs">
                                     <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
-                                        style="background-color:#3A254F;color:#fff;border: 2px solid #F9C520;border-radius:5px;">
+                                        style="background-color:#3E3F43;color:#fff;">
                                         <div @click="shengshiClick(data)">
                                             <div class="l cell_bk">队站名称：{{data.xzqhmc }}</div>
                                             <div class="l cell_bk">重点单位数量：{{data.zddwsl }}</div>
@@ -62,7 +62,7 @@
                                     </el-card>
                                 </div>
                                 <div id="zddwxx">
-                                    <el-card v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" style="border-radius:5px;background-color:#3A254F;color:#fff;border: 2px solid #E05E63;">
+                                    <el-card style="background-color:#3E3F43;color:#fff;height:105px !important;" v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" >
                                         <div @click="zddwxxClick(data)">
                                             <div slot="header">
                                                 <strong>{{data.dwmc }}</strong>&nbsp&nbsp
@@ -214,21 +214,21 @@
                             </span>
                         </li>
                         <li role="presentation">
-                            <div @click="EwOver()" style="width:60px;height:68px;margin:8px;margin-left:25px;" class="icont mapz" type="button" class="btn btn-success"
+                            <div @click="EwOver()" style="width:80px;height:68px;margin:8px;margin-left:45px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
-                                <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_2d_btn.png" />
+                                <img style="width:80px;height: 45px;" src="../../static/images/maptool/icon_2d_btn.png" />
                                 <p style="color:#d1d1d1">平面图</p>
                             </div>
-                            <div @click="WxOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
+                            <div @click="WxOver()" style="width:80px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body" data-placement="left">
-                                <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_satellite_btn.png" />
+                                <img style="width:80px;height: 45px;" src="../../static/images/maptool/icon_satellite_btn.png" />
                                 <p style="color:#d1d1d1">卫星图</p>
                             </div>
-                            <div @click="SwOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
+                            <!-- <div @click="SwOver()" style="width:60px;height:68px;margin:8px;margin-left:20px;" class="icont mapz" type="button" class="btn btn-success"
                                 data-container="body"  class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="目前仅北京有三维地图">
                                 <img style="width:70px;height: 40px;" src="../../static/images/maptool/icon_3d_btn.png" />
                                 <p style="color:#d1d1d1">三维图</p>
-                            </div>
+                            </div> -->
                         </li>
                     </ul>
                 </div>
