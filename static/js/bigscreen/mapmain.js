@@ -558,13 +558,17 @@ var vm = new Vue({
                 alert(e.message);
             });
             map.addControl(geolocationControl);
-            map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 5);
+            //一级图层-全国地图渲染
+            map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 6);
+            // map.centerAndZoom(this.city,8);
             var top_left_control = new BMap.ScaleControl({
                 anchor: BMAP_ANCHOR_TOP_LEFT
             });
             map.addControl(top_left_control);
             map.enableScrollWheelZoom(true);//开启鼠标滚轮缩放
             vm.createCluster();
+            // 一级全国地图的进入
+            
             vm.drawMap();
             //经纬度的获取
             map.addEventListener("click", function (e) {
@@ -697,84 +701,91 @@ var vm = new Vue({
         },
         //图层一
         drawMap: function () {
-
+          
             var map = this.map;
             var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //创建图标
+            
             var province = [];
             this.province = province;
             var provinces = this.ShengZddwDate;
             //数据库表
             for (var i = 0; i < provinces.length; i++) {
-                var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
-                var marker = new BMap.Marker(pt, { icon: myIcon1 });
-                //判断字段长度改变样式
-                var labelstr = "";
-                var mclen = provinces[i].xzqhmc.length;
-                var sllen = provinces[i].zddwsl.length;
-
-                if (mclen == 4) {
-                    labelstr = '&nbsp<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
-                } else {
-                    labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                var cityname =this.city+"总队"
+                if(provinces[i].xzqhmc==cityname){
+                    var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
+                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                    //判断字段长度改变样式
+                    var labelstr = "";
+                    var mclen = provinces[i].xzqhmc.length;
+                    var sllen = provinces[i].zddwsl.length;
+    
+                    if (mclen == 4) {
+                        labelstr = '&nbsp<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                    } else {
+                        labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                    }
+    
+                    if (sllen == 4) {
+                        labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
+                    } else {
+                        labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
+                    }
+                    if (mclen == 5 && sllen == 5) {
+                        labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                        labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
+                    }
+                    var label = new BMap.Label(labelstr);
+                    marker.province = provinces[i];
+                    label.setStyle({
+                        fontSize: '0.2em',
+                        fontWeight: 'bold',
+                        border: '0',
+                        padding: '14px 0px',
+                        textAlign: 'center',
+                        marginLeft: '0.5px',
+                        marginTop: '24px',
+                        color: '#ED0C0A',
+                        borderRadius: '2px',
+                        paddingRight: '58px',
+                        background: '',
+                    });
+                    //zjczzz
+                    marker.addEventListener("onmouseover", function (e) {
+                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var marker = e.currentTarget;
+                        marker.setIcon(myIcon3);
+                        marker.setTop(true, 27000000);
+                    });
+                    marker.addEventListener("onmouseout", function (e) {
+                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
+                        var marker = e.currentTarget;
+                        marker.setIcon(myIcon1);
+                        marker.setTop(false);
+                    });
+    
+                    //点击进入各个城市
+                    marker.addEventListener("click", function (e) {
+                        //获取行政区划
+                        var xzqh = e.target.province.xzqh;
+                        vm.selqhmc = vm.shengshizs;
+                        //获取省行政区划代码
+                        vm.getShiZddwDate(xzqh);
+                        var pmarker = e.target;
+                        var pt = pmarker.getPosition();
+                        vm.prvinceName = pmarker.entity[3];
+                        var citys = vm.cityp;
+                        var map = vm.map;
+                        vm.hideMarker(vm.province);
+                        map.centerAndZoom(pt, 8);
+                    });
+                   
+                    marker.entity = provinces[i];
+                    province.push(marker);
+                    map.addOverlay(marker);
+                    marker.setLabel(label);
                 }
-
-                if (sllen == 4) {
-                    labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
-                } else {
-                    labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
-                }
-                if (mclen == 5 && sllen == 5) {
-                    labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
-                    labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
-                }
-                var label = new BMap.Label(labelstr);
-                marker.province = provinces[i];
-                label.setStyle({
-                    fontSize: '0.2em',
-                    fontWeight: 'bold',
-                    border: '0',
-                    padding: '14px 0px',
-                    textAlign: 'center',
-                    marginLeft: '0.5px',
-                    marginTop: '24px',
-                    color: '#ED0C0A',
-                    borderRadius: '2px',
-                    paddingRight: '58px',
-                    background: '',
-                });
-                //zjczzz
-                marker.addEventListener("onmouseover", function (e) {
-                    var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
-                    var marker = e.currentTarget;
-                    marker.setIcon(myIcon3);
-                    marker.setTop(true, 27000000);
-                });
-                marker.addEventListener("onmouseout", function (e) {
-                    var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
-                    var marker = e.currentTarget;
-                    marker.setIcon(myIcon1);
-                    marker.setTop(false);
-                });
-                //
-                marker.addEventListener("click", function (e) {
-                    //获取行政区划
-                    var xzqh = e.target.province.xzqh;
-                    vm.selqhmc = vm.shengshizs;
-                    //获取省行政区划代码
-                    vm.getShiZddwDate(xzqh);
-                    var pmarker = e.target;
-                    var pt = pmarker.getPosition();
-                    vm.prvinceName = pmarker.entity[3];
-                    var citys = vm.cityp;
-                    var map = vm.map;
-                    vm.hideMarker(vm.province);
-                    map.centerAndZoom(pt, 8);
-                });
-                marker.entity = provinces[i];
-                province.push(marker);
-                map.addOverlay(marker);
-                marker.setLabel(label);
             }
+            
         },
         //图层二
         drawMapa: function (result) {
