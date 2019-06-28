@@ -713,6 +713,8 @@ var vm = new Vue({
                 var cityname =this.city+"总队"
                 if(provinces[i].xzqhmc==cityname){
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
+                    // 使页面定位到当前省份
+                    map.centerAndZoom(pt, 9);
                     var marker = new BMap.Marker(pt, { icon: myIcon1 });
                     //判断字段长度改变样式
                     var labelstr = "";
@@ -2423,7 +2425,8 @@ var vm = new Vue({
         Reset: function () {
             location.reload();//重新加载
             var map = this.map;
-            map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 5);//重定位到原来坐标点
+            // map.centerAndZoom(new BMap.Point(107.164226, 31.859637), 6);//重定位到原来坐标点
+            map.centerAndZoom(this.city,8);
             var cityps = this.cityp;
             var proviences = this.province;
             var zddws = this.zddwp;
