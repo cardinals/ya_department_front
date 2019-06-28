@@ -722,7 +722,7 @@ var vm = new Vue({
                     var sllen = provinces[i].zddwsl.length;
     
                     if (mclen == 4) {
-                        labelstr = '&nbsp<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                        labelstr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
                     } else {
                         labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
                     }
@@ -733,7 +733,7 @@ var vm = new Vue({
                         labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
                     }
                     if (mclen == 5 && sllen == 5) {
-                        labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                        labelstr = '<span style="color:#fff;font-size:3px;">' + provinces[i].xzqhmc + '</span>';
                         labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
                     }
                     var label = new BMap.Label(labelstr);
