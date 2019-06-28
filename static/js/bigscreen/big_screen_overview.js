@@ -307,7 +307,11 @@ var vm = new Vue({
                 MapOption = {
                     tooltip: {
                         trigger: 'item',
-                        formatter: '{b}<br/>重点单位数量:{c}'
+                        formatter: '{b}<br/>重点单位数量:{c}',
+                        // 修改hover弹框的位置，已经字体大小等信息
+                        textStyle:{
+                            fontSize:8
+                        }
                     },
                     // backgroundColor: 'rgba(255, 255, 255, 0.1)', //rgba设置透明度0.1
                     dataRange: {
@@ -336,6 +340,7 @@ var vm = new Vue({
                             //图形样式
                             itemStyle: {
                                 //默认样式
+                                //地图上文字的颜色的控制区域
                                 normal: {
                                     areaStyle: {
                                         color: 'rgba(255, 255, 255, 0.2)'
@@ -350,6 +355,7 @@ var vm = new Vue({
                                     }
                                 },
                                 //强调样式（悬浮时样式）
+                                //地图的各个省的色块的控制区域
                                 emphasis: {
                                     areaStyle: {
                                         color: 'rgba(255, 255, 255, 0.4)'
