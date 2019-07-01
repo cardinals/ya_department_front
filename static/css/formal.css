@@ -178,18 +178,22 @@ body{height:100%;overflow:hidden;}
     width: 120px;
     height: 120px;
 }
+
 .card_style{
     margin-bottom:12px;
     background-color:#F5FAFC;
     width: 100%;
     padding-bottom: 25%;
 }
+
 .card_title_font{
     font-size:14px;
 }
+
 .card_sytitle_font{
     font-size:12px;
 }
+
 .detailTable td,.detailTable th{
     height: 25px;
 }
