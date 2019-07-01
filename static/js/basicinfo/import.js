@@ -637,22 +637,14 @@ new Vue({
             };
             axios.post('/dpapi/yaxxzl/list/', params).then(function (res) {
                 this.hisDetailData = res.data.result;
-                if (this.downloadPlanJdh !== null && this.downloadPlanJdh !== '') {
-                    // console.log(this.downloadPlanJdh)
-                    // //辽宁
-                    // if (this.downloadPlanJdh.substr(0, 2) == '21') {
-                    //     var head = 'http://10.119.119.232:11010';
-                    // //江苏
-                    // } else if (this.downloadPlanJdh.substr(0, 2) == '32') {
-                    //     var head = 'http://10.119.119.205:11010';
-                    // }
-                    for(var i in ipList){
-                        if(this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh){
-                            var head = ipList[i].ip
-                        }
-                    }
-                }
-                var body = '/attachment/filemanage/configFile!showFile.action';
+                // if (this.downloadPlanJdh !== null && this.downloadPlanJdh !== '') {
+                //     for(var i in ipList){
+                //         if(this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh){
+                //             var head = ipList[i].ip
+                //         }
+                //     }
+                // }
+               // var body = '/attachment/filemanage/configFile!showFile.action';
                 if (this.hisDetailData.length > 0) {
                     for (var i in this.hisDetailData) {
                         //fjlxdm:

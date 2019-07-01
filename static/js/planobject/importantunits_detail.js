@@ -862,14 +862,16 @@ new Vue({
         //下载表格中所选的历史预案
         downloadHisPlan: function (val){
             var isAccess = false;
-            for(var i in ipList){
-                if (val.yajdh.substr(0, 2) == ipList[i].jdh) {
-                    var head = ipList[i].ip
-                    var body = '/attachment/filemanage/configFile!showFile.action';
-                    var url = head + body + val.xgxx;
-                    window.open(url);
-                }
-            }
+            // for(var i in ipList){
+            //     if (val.yajdh.substr(0, 2) == ipList[i].jdh) {
+            //         var head = ipList[i].ip
+            //         var body = '/attachment/filemanage/configFile!showFile.action';
+            //         var url = head + body + val.xgxx;
+            //         window.open(url);
+            //     }
+            // }
+            var url = head + body + val.xgxx;
+            window.open(url);
             if(isAccess == true && isHavePlan == false) {
                 this.$message({
                     message: "该预案无历史附件",
