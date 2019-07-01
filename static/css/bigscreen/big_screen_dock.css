@@ -23,8 +23,10 @@
     position: fixed;
     bottom: 0;
     text-align: center;
-    right: 20%;
-    width: 60%;
+    /* right: 20%;
+    width: 60%; */
+    right: 35%;
+    width: 30%;
     /* background: rgba(255, 255, 255, 0.2); */
     background: url(../../images/dock-bg.png) no-repeat center center;
     border-radius: 10px 10px 0 0;

@@ -111,9 +111,9 @@
     height: 15px;
   }
   .el-input__inner{
-    height: 35px;
+    height: 35px !important;
     font-size: 12px;
-    border-radius: 0px;
+    border-radius: 0px !important;
   }
   .el-button{
     padding: 6px 13px;

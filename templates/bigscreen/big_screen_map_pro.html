@@ -49,6 +49,11 @@
             cursor: pointer;
             color: #bfcbd9 !important;
         }
+        
+        [v-cloak]{
+            display: none;
+        }
+    
     </style>
 </head>
 
@@ -62,7 +67,7 @@
     <div id="app">
         <div class="application-boxs tc abs" style="top:0px;">
             <!-- 左侧 -->
-            <div class="map-menu-left map-bglf">
+            <div class="map-menu-left map-bglf" v-cloak>
                 <a id="menu-toggle-btn" class="abs db el-icon-arrow-left menu-toggle-btn f12 tc" href="javascript:;"></a>
                 <div id="menu-box" class="f12">
                     <el-form ref="form" :model="form">
@@ -224,19 +229,19 @@
                                     <img src="../../static/images/dock-1.png">
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <span>微型消防站</span>
                                 <a href="#" @click="showOverwx()">
                                     <img src="../../static/images/dock-2.png">
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <span>消防水源</span>
                                 <a href="#" @click="showOvera()">
                                     <img src="../../static/images/dock-3.png">
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <span>消防车辆</span>
                                 <a href="#" @click="showOvercl()">
                                     <img src="../../static/images/dock-4.png">
@@ -247,19 +252,19 @@
                                 <a href="#">
                                     <img src="../../static/images/dock-5.png">
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <span>周围路况</span>
                                 <a href="#" @click="lukuang()">
                                     <img src="../../static/images/dock-6.png">
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <span>装备器材</span>
                                 <a href="#">
                                     <img src="../../static/images/dock-7.png">
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
