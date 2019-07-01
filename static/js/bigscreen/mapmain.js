@@ -715,27 +715,29 @@ var vm = new Vue({
                     var pt = new BMap.Point(provinces[i].gisX, provinces[i].gisY);
                     // 使页面定位到当前省份
                     map.centerAndZoom(pt, 9);
-                    var marker = new BMap.Marker(pt, { icon: myIcon1 });
+                    var marker = new BMap.Marker(pt);
                     //判断字段长度改变样式
                     var labelstr = "";
                     var mclen = provinces[i].xzqhmc.length;
                     var sllen = provinces[i].zddwsl.length;
     
                     if (mclen == 4) {
-                        labelstr = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                        labelstr = '<span style="font-size:2em;color:#fff;background:#20A0FF;padding:8px;border-radius:5px 0px 0px 5px;">' + provinces[i].xzqhmc + '</span>';
                     } else {
-                        labelstr = '<span style="color:#fff;">' + provinces[i].xzqhmc + '</span>';
+                        labelstr = '<span style="font-size:2em;color:#fff;background:#20A0FF;padding:8px;border-radius:5px 0px 0px 5px;">' + provinces[i].xzqhmc + '</span>';
                     }
     
                     if (sllen == 4) {
-                        labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
+                        labelstr += '<span style="font-size:2em;color:yellow;background:#20A0FF;padding:8px;border-radius:0px 5px 5px 0px;">' + provinces[i].zddwsl + '</span>';
                     } else {
-                        labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
+                        labelstr += '<span style="font-size:2em;color:yellow;background:#20A0FF;padding:8px;border-radius:0px 5px 5px 0px;">' + provinces[i].zddwsl + '</span>';
                     }
+
                     if (mclen == 5 && sllen == 5) {
-                        labelstr = '<span style="color:#fff;font-size:3px;">' + provinces[i].xzqhmc + '</span>';
-                        labelstr += '&nbsp<span style="font-size:1.3em;color:yellow;">' + provinces[i].zddwsl + '</span>';
+                        labelstr = '<span style="color:#fff;font-size:2em;padding:8px;background:#20A0FF;border-radius:5px 0px 0px 5px;">' + provinces[i].xzqhmc + '</span>';
+                        labelstr += '<span style="font-size:2em;color:yellow;padding:8px;background:#20A0FF;border-radius:0px 5px 5px 0px;">' + provinces[i].zddwsl + '</span>';
                     }
+                    
                     var label = new BMap.Label(labelstr);
                     marker.province = provinces[i];
                     label.setStyle({
@@ -744,26 +746,26 @@ var vm = new Vue({
                         border: '0',
                         padding: '14px 0px',
                         textAlign: 'center',
-                        marginLeft: '0.5px',
+                        marginLeft: '-35px',
                         marginTop: '24px',
                         color: '#ED0C0A',
                         borderRadius: '2px',
-                        paddingRight: '58px',
+                        paddingRight: '0px',
                         background: '',
                     });
                     //zjczzz
-                    marker.addEventListener("onmouseover", function (e) {
-                        var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
-                        var marker = e.currentTarget;
-                        marker.setIcon(myIcon3);
-                        marker.setTop(true, 27000000);
-                    });
-                    marker.addEventListener("onmouseout", function (e) {
-                        var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
-                        var marker = e.currentTarget;
-                        marker.setIcon(myIcon1);
-                        marker.setTop(false);
-                    });
+                    // marker.addEventListener("onmouseover", function (e) {
+                    //     var myIcon3 = new BMap.Icon("../../static/images/new/w1_pp.png", new BMap.Size(100, 70)); //点击后的新图标
+                    //     var marker = e.currentTarget;
+                    //     marker.setIcon(myIcon3);
+                    //     marker.setTop(true, 27000000);
+                    // });
+                    // marker.addEventListener("onmouseout", function (e) {
+                    //     var myIcon1 = new BMap.Icon("../../static/images/new/w1_p.png", new BMap.Size(100, 70)); //点击后的新图标
+                    //     var marker = e.currentTarget;
+                    //     marker.setIcon(myIcon1);
+                    //     marker.setTop(false);
+                    // });
     
                     //点击进入各个城市
                     marker.addEventListener("click", function (e) {

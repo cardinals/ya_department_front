@@ -26,6 +26,16 @@
        .h25{height:35px;}.h515{height: 1015px;}
        .h65{height: 65%;} .wh240{width: 240;}
        .icont:hover{background: rgba(0,0,0,0.3);}
+       .el-card{
+            margin-bottom: 0px;
+            text-align: left;
+            border-radius: 0px;
+            border:1px solid #333 !important;
+            height: 48px;
+            background: #3E3F43;
+            padding: 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -244,7 +254,7 @@
             
         </div>
         <!--重点单位、水源的详情界面的跳转-->
-		<el-dialog :visible.sync="detailVisible"  @close="closeDialog()" :close-on-click-modal="false">
+		<el-dialog :visible.sync="detailVisible"  @close="closeDialog()" :close-on-click-modal="false" style="border:1px solid #333;">
             <div id="detailDialog"></div>
         </el-dialog>
     </div>

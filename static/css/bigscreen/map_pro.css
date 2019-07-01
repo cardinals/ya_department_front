@@ -22,11 +22,12 @@
     font-weight:bold;
     text-decoration: none;
     color:black;
-  
   }
+
   .el-pagination__total{
     color:#fff;
   } 
+
   .el-pagination__jump{
     color:#fff;
   } 
@@ -38,19 +39,18 @@
     border:0px;
   }
 
-
   /* 左侧底部分页的样式 */
   .btn-prev{
     background: #3E3F43 !important;
     border:0px !important;
     color:#fff !important;
   }
+
   .btn-next{
     background: #3E3F43 !important;
     border:0px !important;
     color:#fff !important;
   }
-
 
   .an{
     text-decoration: none;
@@ -59,16 +59,20 @@
   .map_btn_f{
     background:#000;margin-top:100px;
   }
+
   .map_btn{
     background:#000;margin-top:10px;margin-left:0px;
   }
+
   .menu-box-main{
     overflow:auto;
     max-height:410px;
   }
+
   .menu-box-main::-webkit-scrollbar {
     display:none;
   }
+
   .el-collapse-item__header {
     height: 25px;
     line-height: 25px;
@@ -76,9 +80,11 @@
     text-align: center;
     font-size: 12px;
   }
+
   .bx {
     height: 60px;
   }
+  
   .el-card__header {
     padding: 5px 10px;
     border-bottom: none;
