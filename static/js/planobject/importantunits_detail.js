@@ -635,22 +635,14 @@ new Vue({
             };
             axios.post('/dpapi/yaxxzl/list/', params).then(function (res) {
                 this.hisDetailData = res.data.result;
-                if (this.downloadPlanJdh !== null && this.downloadPlanJdh !== '') {
-                    // console.log(this.downloadPlanJdh)
-                    // //辽宁
-                    // if (this.downloadPlanJdh.substr(0, 2) == '21') {
-                    //     var head = 'http://10.119.119.232:11010';
-                    // //江苏
-                    // } else if (this.downloadPlanJdh.substr(0, 2) == '32') {
-                    //     var head = 'http://10.119.119.205:11010';
-                    // }
-                    for(var i in ipList){
-                        if(this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh){
-                            var head = ipList[i].ip
-                        }
-                    }
-                }
-                var body = '/attachment/filemanage/configFile!showFile.action';
+                // if (this.downloadPlanJdh !== null && this.downloadPlanJdh !== '') {
+                //     for(var i in ipList){
+                //         if(this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh){
+                //             var head = ipList[i].ip
+                //         }
+                //     }
+                // }
+                // var body = '/attachment/filemanage/configFile!showFile.action';
                 if (this.hisDetailData.length > 0) {
                     for (var i in this.hisDetailData) {
                         //fjlxdm:
@@ -677,27 +669,28 @@ new Vue({
 
                 var isAccess = false;
                 var isHavePlan = false;
-                for(var i in ipList){
-                    if (this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh) {
-                        if (this.hisPlanData.length > 0) {
-                            // //辽宁
-                            // if (this.downloadPlanJdh.substr(0, 2) == '21') {
-                            //     var head = 'http://10.119.119.232:11010';
-                            // //江苏
-                            // } else if (this.downloadPlanJdh.substr(0, 2) == '32') {
-                            //     var head = 'http://10.119.119.205:11010';
-                            // }
-                            var head = ipList[i].ip
-                            var body = '/attachment/filemanage/configFile!showFile.action';
-                            for(var i in this.hisPlanData){
-                                var url = head + body + this.hisPlanData[i].xgxx;
-                                window.open(url);
-                            }
-                            isHavePlan = true;
-                        }
-                        isAccess = true;
-                    }
+                // for(var i in ipList){
+                //     if (this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh) {
+                //         if (this.hisPlanData.length > 0) {
+                //             var head = ipList[i].ip
+                //             var body = '/attachment/filemanage/configFile!showFile.action';
+                //             for(var i in this.hisPlanData){
+                //                 var url = head + body + this.hisPlanData[i].xgxx;
+                //                 window.open(url);
+                //             }
+                //             isHavePlan = true;
+                //         }
+                //         isAccess = true;
+                //     }
+                // }
+
+                for(var i in this.hisPlanData){
+                    var url = head + body + this.hisPlanData[i].xgxx;
+                    window.open(url);
                 }
+                
+                isHavePlan = true;
+                isAccess = true;
                 if(isAccess == true && isHavePlan == false) {
                     this.$message({
                         message: "该预案无历史附件",

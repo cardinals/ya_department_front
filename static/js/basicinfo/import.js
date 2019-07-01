@@ -671,27 +671,28 @@ new Vue({
 
                 var isAccess = false;
                 var isHavePlan = false;
-                for(var i in ipList){
-                    if (this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh) {
-                        if (this.hisPlanData.length > 0) {
-                            // //辽宁
-                            // if (this.downloadPlanJdh.substr(0, 2) == '21') {
-                            //     var head = 'http://10.119.119.232:11010';
-                            // //江苏
-                            // } else if (this.downloadPlanJdh.substr(0, 2) == '32') {
-                            //     var head = 'http://10.119.119.205:11010';
-                            // }
-                            var head = ipList[i].ip
-                            var body = '/attachment/filemanage/configFile!showFile.action';
-                            for(var i in this.hisPlanData){
-                                var url = head + body + this.hisPlanData[i].xgxx;
-                                window.open(url);
-                            }
-                            isHavePlan = true;
-                        }
-                        isAccess = true;
-                    }
+                // for(var i in ipList){
+                //     if (this.downloadPlanJdh.substr(0, 2) == ipList[i].jdh) {
+                //         if (this.hisPlanData.length > 0) {
+                //             var head = ipList[i].ip
+                //             var body = '/attachment/filemanage/configFile!showFile.action';
+                //             for(var i in this.hisPlanData){
+                //                 var url = head + body + this.hisPlanData[i].xgxx;
+                //                 window.open(url);
+                //             }
+                //             isHavePlan = true;
+                //         }
+                //         isAccess = true;
+                //     }
+                // }
+                for(var i in this.hisPlanData){
+                    var url = head + body + this.hisPlanData[i].xgxx;
+                    window.open(url);
                 }
+
+                isHavePlan = true;
+                isAccess = true;
+
                 if(isAccess == true && isHavePlan == false) {
                     this.$message({
                         message: "该预案无历史附件",
@@ -841,14 +842,17 @@ new Vue({
         //下载表格中所选的历史预案
         downloadHisPlan: function (val){
             var isAccess = false;
-            for(var i in ipList){
-                if (val.yajdh.substr(0, 2) == ipList[i].jdh) {
-                    var head = ipList[i].ip
-                    var body = '/attachment/filemanage/configFile!showFile.action';
-                    var url = head + body + val.xgxx;
-                    window.open(url);
-                }
-            }
+            // for(var i in ipList){
+            //     if (val.yajdh.substr(0, 2) == ipList[i].jdh) {
+            //         var head = ipList[i].ip
+            //         var body = '/attachment/filemanage/configFile!showFile.action';
+            //         var url = head + body + val.xgxx;
+            //         window.open(url);
+            //     }
+            // }
+
+            var url = head + body + val.xgxx;
+            window.open(url);
             if(isAccess == true && isHavePlan == false) {
                 this.$message({
                     message: "该预案无历史附件",
