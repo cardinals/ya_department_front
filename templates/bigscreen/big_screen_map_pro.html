@@ -26,7 +26,7 @@
        .h25{height:35px;}.h515{height: 1015px;}
        .h65{height: 65%;} .wh240{width: 240;}
        .icont:hover{background: rgba(0,0,0,0.3);}
-       .el-card{
+       .card-border{
             margin-bottom: 0px;
             text-align: left;
             border-radius: 0px;
@@ -35,6 +35,19 @@
             background: #3E3F43;
             padding: 8px;
             cursor: pointer;
+        }
+        .card-border:hover{
+            margin-bottom: 0px;
+            text-align: left;
+            border-radius: 0px;
+            border:1px solid #333;
+            height: 48px;
+            background: #20A0FF !important;
+            padding: 8px;
+        }
+        .el-dialog__close {
+            cursor: pointer;
+            color: #bfcbd9 !important;
         }
     </style>
 </head>
@@ -56,14 +69,14 @@
                         <!-- lxy start -->
                         <div class="h65">
                             <div class="search_top h25" style="margin-top:10px;padding-left:14px;">
-                                <el-select style="border-radius:0px;" placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r" >
+                                <el-select style="border-radius:0px !important;" placeholder="请输入地址" v-model="searchForm.xzqhmc" class="input-with-select map_slt l b_r" >
                                     <el-option v-for="data in selqhmc" :key="data.xzqh" :label="data.xzqhmc" :value="data"></el-option>
                                 </el-select>
                                 <el-button class="l" style="border-radius:0px;" size="small" type="primary" @click="searchClick">搜索</el-button>
                             </div>
                             <div class="h515"  style="margin-top: 10px; overflow-y:auto !important;height:515px;">
                                 <div id="shengshizs">
-                                    <el-card v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
+                                    <el-card class="card-border" v-for="data in shengshizs.slice((currentPage-1)*pageSize,currentPage*pageSize) " :body-style="{ padding: '0px' }"
                                         style="background-color:#3E3F43;color:#fff;">
                                         <div @click="shengshiClick(data)">
                                             <div class="l cell_bk">队站名称：{{data.xzqhmc }}</div>
@@ -72,7 +85,7 @@
                                     </el-card>
                                 </div>
                                 <div id="zddwxx">
-                                    <el-card style="background-color:#3E3F43;color:#fff;height:105px !important;" v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" >
+                                    <el-card class="card-border" style="background-color:#3E3F43;color:#fff;height:105px !important;" v-for="data in zddwxx.slice((currentPage-1)*pageSize,currentPage*pageSize)" :body-style="{ padding: '0px' }" >
                                         <div @click="zddwxxClick(data)">
                                             <div slot="header">
                                                 <strong>{{data.dwmc }}</strong>&nbsp&nbsp
